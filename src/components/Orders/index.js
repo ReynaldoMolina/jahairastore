@@ -8,6 +8,7 @@ import { ActionTools } from "../ActionTools";
 import { OrderForm } from "../Orders/OrderForm";
 import { useFilterData } from "../Hooks/useFilterData";
 import { EmptyList } from "../EmptyList";
+import { OrderTotal } from "./OrderTotal/OrderTotal";
 import "../styles/Registers.css";
 import "./Orders.css";
 
@@ -19,13 +20,31 @@ function Orders() {
   } = React.useContext(DataContext);
   const { data, isLoading } = useGetData(menuOption.url);
   const filteredData = useFilterData(data, menuOption.name);
-  
+
+  let totalSell, abonos, saldo, profit;
+
+  if (filteredData) {
+    totalSell = filteredData.reduce((sum, item) => sum + item.totalSell, 0);
+    abonos = filteredData.reduce((sum, item) => sum + item.abonos, 0);
+    saldo = filteredData.reduce((sum, item) => sum + item.saldo, 0);
+    profit = filteredData.reduce((sum, item) => sum + item.profit, 0);
+  }
+
+  const ordersGeneralTotal = {
+    totalCount: filteredData.length,
+    totalSell,
+    abonos,
+    saldo,
+    profit
+  }
+
   return (
     <>
       <h1 className="register-title">Pedidos</h1>
       {openModal || (
         <>
           <ActionTools/>
+          {filteredData.length > 0 && ( <OrderTotal ordersGeneralTotal={ordersGeneralTotal}/> )}
           {isLoading && <Loading/>}
           {isLoading || (
             <div className="flx flx-col register-list">
