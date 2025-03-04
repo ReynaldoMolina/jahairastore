@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/jahairastore/static/css/main.24e90566.css",
-    "main.js": "/jahairastore/static/js/main.02715639.js",
+    "main.css": "/jahairastore/static/css/main.b08771f7.css",
+    "main.js": "/jahairastore/static/js/main.7eca81ad.js",
     "static/js/488.9d784508.chunk.js": "/jahairastore/static/js/488.9d784508.chunk.js",
     "static/media/logo-sm.png": "/jahairastore/static/media/logo-sm.5fbde61a2553dd8ff70f.png",
     "static/media/logo.png": "/jahairastore/static/media/logo.9d728403c320515cb86f.png",
@@ -30,12 +30,12 @@
     "static/media/search.svg": "/jahairastore/static/media/search.01da7b90b09620b3b6c6.svg",
     "static/media/logout.svg": "/jahairastore/static/media/logout.ba3421b06304784b8a7996a47e346b70.svg",
     "static/media/add.svg": "/jahairastore/static/media/add.db6a1b393f18fab9302cffaee47df564.svg",
-    "main.24e90566.css.map": "/jahairastore/static/css/main.24e90566.css.map",
-    "main.02715639.js.map": "/jahairastore/static/js/main.02715639.js.map",
+    "main.b08771f7.css.map": "/jahairastore/static/css/main.b08771f7.css.map",
+    "main.7eca81ad.js.map": "/jahairastore/static/js/main.7eca81ad.js.map",
     "488.9d784508.chunk.js.map": "/jahairastore/static/js/488.9d784508.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.24e90566.css",
-    "static/js/main.02715639.js"
+    "static/css/main.b08771f7.css",
+    "static/js/main.7eca81ad.js"
   ]
 }
