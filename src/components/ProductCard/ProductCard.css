@@ -79,8 +79,8 @@
 }
 .product-delete {
   border-radius: 5px;
-  padding: 4px;
-  stroke: red;
+  padding: 5px;
+  stroke: rgb(255, 46, 46);
   margin-left: 10px;
   height: 27px;
   max-width: 27px;

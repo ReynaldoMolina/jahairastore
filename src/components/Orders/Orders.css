@@ -13,6 +13,10 @@
 .profit {
   background-color: var(--info-blue);
 }
+.total-separator {
+  width: 100%;
+  flex-grow: 1;
+}
 
 @media (max-width: 500px) {
   .total,

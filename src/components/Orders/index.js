@@ -44,7 +44,6 @@ function Orders() {
       {openModal || (
         <>
           <ActionTools/>
-          {filteredData.length > 0 && ( <OrderTotal ordersGeneralTotal={ordersGeneralTotal}/> )}
           {isLoading && <Loading/>}
           {isLoading || (
             <div className="flx flx-col register-list">
@@ -74,6 +73,8 @@ function Orders() {
               ))}
             </div>
           )}
+          <div className="total-separator"></div>
+          {filteredData.length > 0 && ( <OrderTotal ordersGeneralTotal={ordersGeneralTotal}/> )}
         </>
       )}
       {openModal && (
