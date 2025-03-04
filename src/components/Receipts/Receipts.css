@@ -10,8 +10,10 @@
 
 @media (max-width: 500px) {
   .total,
-  .abono,
   .saldo {
     margin: 4px 5px 0 0;
+  }
+  .abono-receipt {
+    margin: 4px 0 0 0;
   }
 }
