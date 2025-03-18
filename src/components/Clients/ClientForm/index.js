@@ -48,6 +48,7 @@ function ClientForm() {
         (
           <form
             action={handleRegister}
+            autoComplete="off"
             className="flx flx-col frm-container">
             {isNew || (
               <div className="flx obj-info">
