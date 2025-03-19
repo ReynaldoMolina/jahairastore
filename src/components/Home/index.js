@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "./logo-sm.png";
+import logo from "./store-logo.png";
 import "./Home.css";
 
 function Home() {

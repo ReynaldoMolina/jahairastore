@@ -1,6 +1,6 @@
 import React from "react";
 import { ToggleMenuButton } from './ToggleMenuButton';
-import profilePic from "./store-logo-icon-sm.png";
+import profilePic from "./store-logo-minimal.png";
 import "./Header.css";
 
 function Header() {
