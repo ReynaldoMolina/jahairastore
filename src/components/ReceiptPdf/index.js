@@ -1,6 +1,6 @@
 import React from "react";
 import { Page, Text, View, Document, Image } from '@react-pdf/renderer';
-import Logo from "./logo.png";
+import Logo from "./store-logo.png";
 import { styles } from "./style";
 
 function ReceiptPdf({ receipt }) {
