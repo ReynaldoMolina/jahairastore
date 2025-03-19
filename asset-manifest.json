@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/jahairastore/static/css/main.31a72800.css",
-    "main.js": "/jahairastore/static/js/main.95cd294b.js",
+    "main.css": "/jahairastore/static/css/main.d29c8414.css",
+    "main.js": "/jahairastore/static/js/main.e2bc69a6.js",
     "static/js/488.9d784508.chunk.js": "/jahairastore/static/js/488.9d784508.chunk.js",
     "static/media/downloadpdf.svg": "/jahairastore/static/media/downloadpdf.337ac25f7f351b5fd2d9db3d821ed118.svg",
     "static/media/providers.svg": "/jahairastore/static/media/providers.3236f5c663888bde6785857fa7b896d4.svg",
@@ -28,12 +28,12 @@
     "static/media/search.svg": "/jahairastore/static/media/search.01da7b90b09620b3b6c6.svg",
     "static/media/logout.svg": "/jahairastore/static/media/logout.ba3421b06304784b8a7996a47e346b70.svg",
     "static/media/add.svg": "/jahairastore/static/media/add.db6a1b393f18fab9302cffaee47df564.svg",
-    "main.31a72800.css.map": "/jahairastore/static/css/main.31a72800.css.map",
-    "main.95cd294b.js.map": "/jahairastore/static/js/main.95cd294b.js.map",
+    "main.d29c8414.css.map": "/jahairastore/static/css/main.d29c8414.css.map",
+    "main.e2bc69a6.js.map": "/jahairastore/static/js/main.e2bc69a6.js.map",
     "488.9d784508.chunk.js.map": "/jahairastore/static/js/488.9d784508.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.31a72800.css",
-    "static/js/main.95cd294b.js"
+    "static/css/main.d29c8414.css",
+    "static/js/main.e2bc69a6.js"
   ]
 }
