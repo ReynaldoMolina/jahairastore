@@ -21,7 +21,6 @@ function Products() {
   
   return (
     <>
-      <h1 className="register-title">Productos</h1>
       {openModal || (
         <>
           <ActionTools/>

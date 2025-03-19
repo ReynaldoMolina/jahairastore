@@ -21,7 +21,6 @@ function Categories() {
 
   return (
     <>
-      <h1 className="register-title">Categorías</h1>
       {openModal || (
         <>
           <ActionTools/>

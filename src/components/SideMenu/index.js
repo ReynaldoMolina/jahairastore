@@ -20,7 +20,7 @@ function SideMenu() {
       <menu
         className={`flx flx-col side-menu ${isMenuOpen || "hidden"}`}
       >
-        <h1 className="flx flx-center sidebar-logo">Menu</h1>
+        <h2 className="flx flx-center sidebar-logo">Jahaira Store</h2>
         <nav className="flx flx-col flx-center side-menu-options">
           {menuOptions.map(option => (
             <div

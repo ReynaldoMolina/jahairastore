@@ -35,7 +35,6 @@ function Receipts() {
   
   return (
     <>
-      <h1 className="register-title">Ventas</h1>
       {openModal || (
         <>
           <ActionTools allowNew={false}/>

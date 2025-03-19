@@ -21,7 +21,6 @@ function Providers() {
   
   return (
     <>
-      <h1 className="register-title">Proveedores</h1>
       {openModal || (
         <>
           <ActionTools/>

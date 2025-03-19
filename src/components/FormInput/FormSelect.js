@@ -33,7 +33,7 @@ function FormSelect({ name, holder, value, setValue, option, field}) {
               setValue(newValue)
             }}
           >
-            <option value="" disabled>Select an option</option>
+            <option value="" disabled>Selecciona una opción</option>
             {data.map((option) => {
               return (
                 <option

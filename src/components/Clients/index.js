@@ -22,7 +22,6 @@ function Clients() {
 
   return (
     <>
-      <h1 className="register-title">Clientes</h1>
       {openModal || (
         <>
           <ActionTools/>
