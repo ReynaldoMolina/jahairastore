@@ -31,18 +31,18 @@ const menuOptionsList = [
     url: baseUrl + 'providers/',
     divider: false
   },
-  {
-    id: 5,
-    name: "Compras",
-    url: baseUrl + 'purchases/',
-    divider: false
-  },
-  {
-    id: 6,
-    name: "Gastos",
-    url: baseUrl + 'expenses/',
-    divider: true
-  },
+  // {
+  //   id: 5,
+  //   name: "Compras",
+  //   url: baseUrl + 'purchases/',
+  //   divider: false
+  // },
+  // {
+  //   id: 6,
+  //   name: "Gastos",
+  //   url: baseUrl + 'expenses/',
+  //   divider: true
+  // },
   {
     id: 7,
     name: "Productos",

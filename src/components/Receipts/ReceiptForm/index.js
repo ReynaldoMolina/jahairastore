@@ -126,7 +126,7 @@ function ReceiptForm() {
               </input>
             </div>
 
-            <FormSpan name="saldo" holder="Saldo" value={receipt.saldo ? receipt.saldo : 0} type="number"/>
+            <FormInput name="saldo" holder="Saldo" value={receipt} setValue={setReceipt} type="number"/>
           </div>
           <div className="flx obj-info">
             <FormInput name="concepto" holder="Concepto" value={receipt} setValue={setReceipt}/>

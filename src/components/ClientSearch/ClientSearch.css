@@ -56,7 +56,7 @@
   align-items: center;
 }
 .clients:nth-child(2n) {
-  background-color: rgb(250, 250, 250);
+  background-color: rgb(245, 245, 245);
 }
 .client-search-id {
   background-color: var(--action-button);

@@ -4,13 +4,14 @@
 .home img {
   height: 200px;
   width: 200px;
-  margin-bottom: 20px;
 }
-.home h1 {
+.home h1,
+.home p {
   font-family: 'Times New Roman', Times, serif;
   font-size: 1.6rem;
   text-align: center;
   width: 80%;
+  margin-bottom: 5px;
 }
 .home h3 {
   display: inline;

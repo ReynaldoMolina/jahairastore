@@ -21,6 +21,7 @@ function ActionTools({ allowNew = true }) {
             id="search-bar"
             className="action-search action-icon"
             placeholder="Buscar"
+            autoComplete="off"
             value={searchValue}
             onChange={(event) => setSearchValue(event.target.value)}
           ></input>

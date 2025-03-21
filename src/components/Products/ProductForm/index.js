@@ -17,7 +17,7 @@ function ProductForm() {
 
   const currenDate = new Date().toISOString().split("T")[0];
   const selectProvider = 4;
-  const selectCategory = 8;
+  const selectCategory = 6;
   
   const [product, setProduct] = React.useState({
     providerId: '',

@@ -15,7 +15,16 @@ function ProductSearch({ isSearchProductOpen, setIsSearchProductOpen }) {
   const { productList, setProductList, setOrderTotals } = React.useContext(OrderContext);
   const [searchProduct, setSearchProduct] = React.useState('');
 
-  const url = baseUrl + 'products/';
+  const currenDate = new Date().toISOString().split("T")[0];
+  const [productDate, setProductDate] = React.useState(currenDate);
+
+  let url;
+  if (productDate !== '') {
+    url = `${baseUrl}products?addedDate=${productDate}`;
+  } else {
+    url = `${baseUrl}products`;
+  }
+
   const { data } = useGetData(url);
   
   const filteredData = data.filter((register) => {
@@ -57,6 +66,7 @@ function ProductSearch({ isSearchProductOpen, setIsSearchProductOpen }) {
             id="search-products"
             className="frm-input frm-input-search"
             placeholder="Buscar producto"
+            autoComplete="off"
             value={searchProduct}
             onChange={(event) => {
               if (!isSearchProductOpen) {
@@ -67,7 +77,10 @@ function ProductSearch({ isSearchProductOpen, setIsSearchProductOpen }) {
           ></input>
         </search>
 
-        <button type="button" className="flx flx-center product-btn">
+        <button
+          type="button"
+          className="flx flx-center product-btn"
+          onClick={() => setProductDate('')}>
           <img src={filter} alt="Filter"></img>
         </button>
         <OpenProductSearch isSearchProductOpen={isSearchProductOpen} setIsSearchProductOpen={setIsSearchProductOpen}/>

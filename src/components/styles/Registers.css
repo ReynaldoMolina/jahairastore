@@ -4,12 +4,13 @@
 .register-list {
   width: 100%;
   border-radius: 5px;
-  background-color: white;
   overflow-y: scroll;
+  background-color: white;
 }
 .register-card {
   padding: 7px;
   align-items: center;
+  background-color: white;
 }
 .register-card:nth-child(2n) {
   background-color: rgb(247, 247, 247);

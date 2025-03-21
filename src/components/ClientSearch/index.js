@@ -1,11 +1,8 @@
 import React from "react";
 import { baseUrl } from "../urls/menuOptionsList";
-import { OrderContext } from "../Context/OrderContext";
 import { useGetData } from "../Hooks/useGetData";
 import { ReactComponent as SvgAdd } from "./add.svg";
 import { EmptyList } from "../EmptyList";
-import { useFilterData } from "../Hooks/useFilterData";
-import filter from "./filter.svg";
 import "./ClientSearch.css"
 
 function ClientSearch({ register, setRegister, isSearchClientOpen, setIsSearchClientOpen }) {
@@ -30,14 +27,15 @@ function ClientSearch({ register, setRegister, isSearchClientOpen, setIsSearchCl
             id="search-clients"
             className="frm-input frm-input-search"
             placeholder="Buscar cliente"
+            autoComplete="off"
             value={searchClient}
             onChange={(event) => setSearchClient(event.target.value)}
           ></input>
         </search>
 
-        <button type="button" className="flx flx-center client-btn">
+        {/* <button type="button" className="flx flx-center client-btn">
           <img src={filter} alt="Filter"></img>
-        </button>
+        </button> */}
       </div>
 
       <div className="flx flx-col clients-list">
