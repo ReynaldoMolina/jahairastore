@@ -6,6 +6,7 @@
   width: 20px;
   margin: 5px;
   animation: rotate 1s linear infinite;
+  fill: var(--text-color);
 }
 @keyframes rotate {
   0% {transform: rotate(0deg);}

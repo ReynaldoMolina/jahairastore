@@ -13,21 +13,22 @@ import { ReactComponent as SvgPurchases } from "./purchases.svg";
 import { ReactComponent as SvgReceipts } from "./receipts.svg";
 import { ReactComponent as SvgSettings } from "./settings.svg";
 
-const className = "side-menu-opt-icon";
+const styleFill = "side-menu-opt-icon icon-fill";
+const styleStroke = "side-menu-opt-icon icon-stroke";
 
 const icons = {
-  "Categorías": () => <SvgCategories className={className}/>,
-  "Clientes": () => <SvgClients className={className}/>,
-  "Gastos": () => <SvgExpenses className={className}/>,
-  "Finanzas": () => <SvgFinances className={className}/>,
-  "Home": () => <SvgHome className={className}/>,
-  "Cerrar sesión": () => <SvgLogout className={className}/>,
-  "Pedidos": () => <SvgOrders className={className}/>,
-  "Productos": () => <SvgProducts className={className}/>,
-  "Proveedores": () => <SvgProviders className={className}/>,
-  "Compras": () => <SvgPurchases className={className}/>,
-  "Ventas": () => <SvgReceipts className={className}/>,
-  "Configuración": () => <SvgSettings className={className}/>,
+  "Categorías": () => <SvgCategories className={styleFill}/>,
+  "Clientes": () => <SvgClients className={styleStroke}/>,
+  "Gastos": () => <SvgExpenses className={styleFill}/>,
+  "Finanzas": () => <SvgFinances className={styleFill}/>,
+  "Home": () => <SvgHome className={styleStroke}/>,
+  "Cerrar sesión": () => <SvgLogout className={styleStroke}/>,
+  "Pedidos": () => <SvgOrders className={styleStroke}/>,
+  "Productos": () => <SvgProducts className={styleStroke}/>,
+  "Proveedores": () => <SvgProviders className={styleFill}/>,
+  "Compras": () => <SvgPurchases className={styleFill}/>,
+  "Ventas": () => <SvgReceipts className={styleStroke}/>,
+  "Configuración": () => <SvgSettings className={styleStroke}/>,
 };
 
 function SideMenuIcon({ name }) {

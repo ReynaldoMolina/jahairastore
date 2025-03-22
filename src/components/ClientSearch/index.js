@@ -3,6 +3,7 @@ import { baseUrl } from "../urls/menuOptionsList";
 import { useGetData } from "../Hooks/useGetData";
 import { ReactComponent as SvgAdd } from "./add.svg";
 import { EmptyList } from "../EmptyList";
+import { ReactComponent as SvgSearch } from './search.svg';
 import "./ClientSearch.css"
 
 function ClientSearch({ register, setRegister, isSearchClientOpen, setIsSearchClientOpen }) {
@@ -22,6 +23,7 @@ function ClientSearch({ register, setRegister, isSearchClientOpen, setIsSearchCl
     <div className={`flx flx-col client-search-container ${isSearchClientOpen || "hidden"}`}>
       <div className="flx flx-center client-search">
         <search className="flx flx-center search">
+          <SvgSearch className="flx search-icon" />
           <input
             type="search"
             id="search-clients"

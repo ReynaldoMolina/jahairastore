@@ -4,3 +4,9 @@
   margin-right: 10px;
   filter: opacity(90%);
 }
+.icon-fill {
+  fill: var(--text-color2);
+}
+.icon-stroke {
+  stroke: var(--text-color2);
+}

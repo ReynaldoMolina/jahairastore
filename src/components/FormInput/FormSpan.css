@@ -2,15 +2,15 @@
   align-items: center;
 }
 .frm-span-label {
-  color: gray;
+  color: var(--text-color2);
   width: 100%;
   font-size: 1.2rem;
   margin-bottom: 3px;
 }
 .frm-span {
   align-items: center;
-  background-color: white;
-  border-bottom: 1px solid rgb(200, 200, 200);
+  background-color: var(--background);
+  border-bottom: 1px solid var(--shadow);
   border-radius: 5px 5px 0 0;
   font-size: 1.2rem;
   height: 25px;

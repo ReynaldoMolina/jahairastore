@@ -1,5 +1,5 @@
 .product-card-empty-title {
-  color: gray;
+  color: var(--text-color2);
   height: 30px;
   font-size: 1.1rem;
 }

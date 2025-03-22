@@ -9,7 +9,6 @@
   border-radius: 5px;
   cursor: pointer;
   border: 0;
-  box-shadow: 1px 1px 1px gray;
   width: 100%;
 }
 .action-btn:hover {
@@ -18,28 +17,29 @@
 .action-btn img {
   height: 20px;
 }
-.action-search {
-  background-color: white;
-  border-radius: 4px;
-  border: none;
-  box-shadow: 0px 0px 5px gainsboro;
-  height: 30px;
-  padding: 0 10px;
-  width: 100%;
-}
-.action-search:hover {
-  outline: 1px solid gray;
-}
-.action-search:focus-visible {
-  outline: 1px solid gray;
-}
-.action-icon {
-  background-image: url('./search.svg');
-  background-repeat: no-repeat;
-  padding: 0 5px 0 35px;
-  background-size: 15px;
-  background-position: 11px center;
-}
 .search {
   width: 100%;
+  position: relative;
+}
+.action-search {
+  color: var(--text-color);
+  background-color: var(--action-bg);
+  border-radius: 4px;
+  border: none;
+  height: 30px;
+  padding: 0 10px 0 30px;
+  width: 100%;
+  border: 1px solid var(--shadow);
+}
+.search-icon {
+  height: 15px;
+  width: 15px;
+  stroke: var(--text-color2);
+  position: absolute;
+  z-index: 1;
+  left: 8px;
+}
+.action-search:hover,
+.action-search:focus-visible {
+  outline: 1px solid var(--text-color2);
 }

@@ -10,13 +10,13 @@
   font-size: 1rem;
 }
 .cost-price {
-  background-color: rgb(255, 208, 208);
+  background-color: var(--info-red);
 }
 .sell-price {
-  background-color: rgb(187, 243, 187);
+  background-color: var(--info-green);
 }
 .profit {
-  background-color: rgb(209, 216, 255);
+  background-color: var(--info-blue);
 }
 
 @media (max-width: 500px) {

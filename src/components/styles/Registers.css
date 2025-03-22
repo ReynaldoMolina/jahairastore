@@ -5,15 +5,11 @@
   width: 100%;
   border-radius: 5px;
   overflow-y: scroll;
-  background-color: white;
+  background-color: var(--foreground);
 }
 .register-card {
   padding: 7px;
   align-items: center;
-  background-color: white;
-}
-.register-card:nth-child(2n) {
-  background-color: rgb(247, 247, 247);
 }
 .register-card:hover {
   background-color: var(--hover);
@@ -25,6 +21,7 @@
   border-radius: 5px;
   margin-right: 10px;
   font-size: 1rem;
+  color: var(--register-id);
 }
 .name {
   font-size: 1.3rem;

@@ -1,9 +1,10 @@
 import React from "react";
 import add from "./add.svg";
+import { DataContext } from "../Context/DataContext";
+import { ReactComponent as SvgSearch } from './search.svg';
 import filter from "./filter.svg";
 import deleteinput from "./deleteinput.svg";
 import "./ActionTools.css"
-import { DataContext } from "../Context/DataContext";
 
 function ActionTools({ allowNew = true }) {
   const {
@@ -16,6 +17,7 @@ function ActionTools({ allowNew = true }) {
     <>
       <div className="flx flx-center action-buttons">
         <search className="flx flx-center search">
+          <SvgSearch className="flx search-icon" />
           <input
             type="search"
             id="search-bar"
@@ -24,7 +26,8 @@ function ActionTools({ allowNew = true }) {
             autoComplete="off"
             value={searchValue}
             onChange={(event) => setSearchValue(event.target.value)}
-          ></input>
+          >
+          </input>
         </search>
         <button
           className="flx flx-center action-btn"

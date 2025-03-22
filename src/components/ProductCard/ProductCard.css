@@ -7,9 +7,10 @@
   margin: 0;
 }
 .product-card {
-  border-bottom: 1px solid gainsboro;
+  border-bottom: 1px solid var(--shadow);
   width: 100%;
   padding: 5px;
+  background-color: var(--foreground);
 }
 .product-card:last-child {
   border-bottom: none;
@@ -30,6 +31,7 @@
   height: 20px;
   min-width: 35px;
   font-size: 1rem;
+  color: var(--register-id);
 }
 .product-name {
   align-items: center;
@@ -39,14 +41,14 @@
   font-size: 1.2rem;
 }
 .product-price {
-  color: gray;
+  color: var(--text-color2);
   width: 50px;
   min-width: 30px;
   text-align: right;
 }
 .quantity-container {
   margin-left: 10px;
-  border: 1px solid gainsboro;
+  border: 1px solid var(--shadow);
   border-radius: 5px;
   overflow: hidden;
 }
@@ -65,9 +67,11 @@
   height: 20px;
   width: 20px;
   cursor: pointer;
+  background-color: var(--shadow);
+  color: var(--text-color2);
 }
 .quantity-button:hover {
-  background-color: gainsboro;
+  background-color: var(--menu-active);
 }
 .subtotal {
   margin-left: 5px;
@@ -80,7 +84,7 @@
 .product-delete {
   border-radius: 5px;
   padding: 5px;
-  stroke: rgb(255, 46, 46);
+  stroke: rgb(197, 28, 28);
   margin-left: 10px;
   height: 27px;
   max-width: 27px;

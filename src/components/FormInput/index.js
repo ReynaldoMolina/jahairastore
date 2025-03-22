@@ -15,7 +15,7 @@ function FormInput({ name, holder, type = "text", value, setValue, readonly = fa
         name={name}
         id={name}
         className="frm-input"
-        placeholder={holder}
+        // placeholder={holder}
         value={value[name]}
         onChange={(event) => {
           const {id, ...valueNoId} = value;

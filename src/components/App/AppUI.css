@@ -1,13 +1,42 @@
 :root {
-  --background: rgb(234, 233, 241);
-  --hover: rgb(214, 246, 255);
-  --action-button: rgb(172, 219, 241);
+  --action-bg: #282828;
+  --action-button-hover: #82bbd4;
+  --action-button: #91d4f0;
+  --background: #121212;
+  --divider: #575757;
+  --foreground: #282828;
+  --hover: #38525b;
+  --info-blue: rgb(67, 79, 146);
+  --info-gray: rgb(96, 96, 96);
+  --info-green: rgb(31, 106, 31);
+  --info-red: rgb(139, 56, 56);
+  --menu-active-border: #91d4f0;
+  --menu-active: #38525b;
+  --register-id: black;
+  --shadow: #494c4e;
+  --text-color: white;
+  --text-color2: #e6e6e6;
+}
+/* light theme */
+/* :root {
+  --action-bg: #ffffff;
   --action-button-hover: rgb(172, 202, 241);
+  --action-button: rgb(172, 219, 241);
+  --background: rgb(243, 247, 249);
+  --divider: rgb(230, 230, 230);
+  --foreground: white;
+  --hover: rgb(214, 246, 255);
+  --info-blue: rgb(209, 216, 255);
   --info-gray: rgb(221, 221, 221);
   --info-green: rgb(187, 243, 187);
   --info-red: rgb(255, 208, 208);
-  --info-blue: rgb(209, 216, 255);
-}
+  --menu-active-border: rgb(104, 194, 255);
+  --menu-active: rgb(214, 246, 255);
+  --register-id: black;
+  --shadow: gainsboro;
+  --text-color: black;
+  --text-color2: #5a5a5a;
+} */
 * {
   margin: 0;
   padding: 0;
@@ -18,9 +47,12 @@ html {
   font-size: 62.5%;
 }
 a, p, span, label {
-  color: black;
+  color: var(--text-color);
   font-size: 1.4rem;
   text-decoration: none;
+}
+h1, h2 {
+  color: var(--text-color);
 }
 span {
   cursor: default;

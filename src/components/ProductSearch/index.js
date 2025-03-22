@@ -8,6 +8,7 @@ import { useGetData } from "../Hooks/useGetData";
 import { ReactComponent as SvgAdd } from "./add.svg";
 import { getOrderTotals } from "../Hooks/getOrderTotals";
 import filter from "./filter.svg";
+import { ReactComponent as SvgSearch } from './search.svg';
 import "./ProductSearch.css"
 
 function ProductSearch({ isSearchProductOpen, setIsSearchProductOpen }) {
@@ -61,6 +62,7 @@ function ProductSearch({ isSearchProductOpen, setIsSearchProductOpen }) {
     <div className="flx flx-col product-search-container">
       <div className="flx flx-center product-search">
         <search className="flx flx-center search">
+          <SvgSearch className="flx search-icon" />
           <input
             type="search"
             id="search-products"

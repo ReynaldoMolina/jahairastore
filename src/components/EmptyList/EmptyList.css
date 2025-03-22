@@ -1,6 +1,7 @@
 .empty-list {
   height: 40px;
   border-radius: 5px;
-  color: gray;
+  color: var(--text-color2);
   font-size: 1.2rem;
+  background-color: var(--foreground);
 }
