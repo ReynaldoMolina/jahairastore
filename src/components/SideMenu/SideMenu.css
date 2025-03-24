@@ -1,8 +1,9 @@
 .side-menu {
+  flex-direction: column;
   min-height: 100vh;
   background-color: var(--foreground);
   box-shadow: 1px 0 5px var(--shadow);
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 var(--rounded) var(--rounded) 0;
   z-index: 3;
   overflow: hidden;
   min-width: 189px;
@@ -15,8 +16,10 @@
 /*Options*/
 .side-menu-div {
   width: 100%;
+  flex-direction: column;
 }
 .side-menu-options {
+  flex-direction: column;
   justify-content: start;
   overflow: scroll;
 }
@@ -41,16 +44,6 @@
   border-bottom: 1px solid var(--divider);
   width: 80%;
 }
-.close-menu {
-  height: 100vh;
-  width: 100vw;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  display: flex;
-  justify-content: left;
-  top: 0;
-  z-index: 1;
-}
 .hidden {
   display: none;
 }
@@ -59,9 +52,34 @@
 }
 @media (max-width: 650px) {
   .side-menu {
-    max-height: 100vh;
-    position: absolute;
-    z-index: 2;
-    box-shadow: none;
+    flex-direction: row;
+    min-height: 65px;
+    height: 65px;
+    width: 100%;
+    border-radius: var(--rounded) var(--rounded) 0 0;
+    justify-content: center;
+    order: 3;
+  }
+  .sidebar-logo {
+    display: none;
+  }
+  /*Options*/
+  .side-menu-options {
+    flex-direction: row;
+    gap: 10px;
+    padding: 0 10px;
+  }
+  .side-menu-div {
+    flex-direction: row;
+  }
+  .side-menu-opt {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    width: 100%;
+    min-width: 50px;
+    padding: 0 7px;
+    height: 50px;
   }
 }

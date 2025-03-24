@@ -2,3 +2,9 @@
   padding: 0 12px;
   flex-grow: 1;
 }
+
+@media (max-width: 650px) {
+  .main-window {
+    max-height: calc(100vh - 65px);
+  }
+}

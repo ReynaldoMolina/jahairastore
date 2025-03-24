@@ -10,3 +10,10 @@
 .icon-stroke {
   stroke: var(--text-color);
 }
+
+@media (max-width: 650px) {
+  .side-menu-opt-icon {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+}

@@ -8,9 +8,9 @@ const OrderContext = React.createContext();
 function OrderProvider({ children }) {
   console.log("Order context");
   
-  const { menuOption, menuOptions } = React.useContext(MenuContext);
+  const { menuOption } = React.useContext(MenuContext);
   const { registerId, isNew } = React.useContext(DataContext);
-  const { data, isLoading } = useGetData(menuOption.url + registerId);
+  const { data, isLoading } = useGetData(`${menuOption.url}/${registerId}`);
   const currentDate = new Date().toISOString().split("T")[0];
 
   const [order, setOrder] = React.useState({
