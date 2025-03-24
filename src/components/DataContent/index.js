@@ -7,18 +7,14 @@ import { Orders } from "../Orders";
 import { Receipts } from "../Receipts";
 import { Providers } from "../Providers";
 import { Products } from "../Products";
-import { ReceiptPdf } from "../ReceiptPdf";
 
 const components = {
   "Categorías": () => <Categories />,
   "Clientes": () => <Clients />,
-  // "Expenses": () => <DataContent />,
   "Pedidos": () => <Orders />,
   "Productos": () => <Products />,
   "Proveedores": () => <Providers />,
-  // "Purchases": () => <DataContent />,
   "Ventas": () => <Receipts />,
-  "Finanzas": () => <ReceiptPdf/>
 };
 
 function DataContent() {

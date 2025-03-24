@@ -91,7 +91,7 @@ function ReceiptForm() {
               className="flx flx-center client-btn client-add"
               onClick={() => setIsSearchClientOpen(state => !state)}
             >
-              <img src={addIcon} alt="Add"></img>
+              {isSearchClientOpen ? 'Cerrar' : 'Buscar'}
             </button>
           </div>
 

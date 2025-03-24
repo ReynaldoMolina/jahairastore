@@ -3,13 +3,17 @@
 }
 .register-list {
   width: 100%;
-  border-radius: 5px;
   overflow-y: scroll;
-  background-color: var(--foreground);
+  gap: 3px;
+  padding-bottom: 2px;
 }
 .register-card {
-  padding: 7px;
+  border-radius: var(--rounded);
+  background-color: var(--foreground);
+  padding: 10px;
   align-items: center;
+  box-shadow: 1px 1px 1px var(--shadow);
+  margin-right: 2px;
 }
 .register-card:hover {
   background-color: var(--hover);
@@ -17,8 +21,8 @@
 .id {
   background-color: var(--action-button);
   min-width: 40px;
-  height: 25px;
-  border-radius: 5px;
+  height: 20px;
+  border-radius: var(--rounded);
   margin-right: 10px;
   font-size: 1rem;
   color: var(--register-id);
@@ -27,7 +31,6 @@
   font-size: 1.3rem;
 }
 .info {
-  flex-wrap: wrap;
   align-items: center;
   flex-grow: 1;
 }
@@ -37,7 +40,7 @@
 .date,
 .profit {
   font-size: 1.3rem;
-  border-radius: 2px;
+  border-radius: var(--rounded);
   padding: 3px 5px;
   text-align: right;
   margin-left: 5px;

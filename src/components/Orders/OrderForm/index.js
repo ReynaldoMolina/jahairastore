@@ -12,7 +12,7 @@ import { OrderOptions } from "./OrderOptions";
 import { FormButtons } from "../../FormInput/FormButtons";
 import { sendData } from "../../Hooks/sendData";
 import { sendDetails } from "../../Hooks/sendDetails";
-import addIcon from "./add.svg";
+// import addIcon from "./add.svg";
 import "./OrderForm.css";
 
 function OrderForm() {
@@ -76,6 +76,7 @@ function OrderForm() {
           action={handleRegister}
           className="flx flx-col order-container"
         >
+          <h2 className="order-title">Información del pedido</h2>
           <div className="flx flx-col order-info-container">
             <div className="flx order-info">
               <FormSpan name="order-id" holder="Pedido" value={order.id}/>
@@ -109,7 +110,8 @@ function OrderForm() {
                 className="flx flx-center client-btn client-add"
                 onClick={() => setIsSearchClientOpen(state => !state)}
               >
-                <img src={addIcon} alt="Add"></img>
+                {/* <img src={addIcon} alt="Add"></img> */}
+                {isSearchClientOpen ? 'Cerrar' : 'Buscar'}
               </button>
             </div>
 

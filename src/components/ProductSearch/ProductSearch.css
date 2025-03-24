@@ -1,6 +1,7 @@
 .product-search-container {
-  border: 1px solid var(--shadow);
-  border-radius: 5px;
+  /* border: 1px solid var(--shadow); */
+  box-shadow: 1px 1px 2px var(--shadow);
+  border-radius: var(--rounded);
   padding: 5px;
   margin-bottom: 12px;
   background-color: var(--background);
@@ -10,9 +11,11 @@
   height: 30px;
   min-width: 35px;
   background-color: var(--action-button);
-  border-radius: 5px;
+  border-radius: var(--rounded);
   cursor: pointer;
   border: 0;
+  box-shadow: 1px 1px 1px var(--shadow);
+  transition: 0.1s linear;
 }
 .product-btn:hover {
   background-color: var(--action-button-hover);
@@ -27,12 +30,13 @@
 .frm-input-search {
   color: var(--text-color);
   background-color: var(--action-bg);
-  border-radius: 4px;
+  border-radius: var(--rounded);
   border: none;
-  height: 30px;
+  height: var(--input-h);
   padding: 0 10px 0 30px;
   width: 100%;
-  border: 1px solid var(--shadow);
+  box-shadow: 1px 1px 1px var(--shadow);
+  transition: 0.1s linear;
 }
 .search-icon {
   height: 15px;
@@ -51,21 +55,27 @@
 .products-list {
   margin-top: 5px;
   width: 100%;
-  border-radius: 5px;
-  max-height: 30vh;
-  min-height: 30vh;
+  max-height: 40vh;
+  min-height: 40vh;
   overflow-y: scroll;
+  gap: 3px;
 }
 .products {
+  border-radius: var(--rounded);
   padding: 5px;
   align-items: center;
   background-color: var(--foreground);
+  box-shadow: 1px 1px 1px var(--shadow);
+  margin-right: 1px;
+}
+.products:hover {
+  background-color: var(--hover);
 }
 .product-search-id {
   background-color: var(--action-button);
   min-width: 35px;
   height: 20px;
-  border-radius: 5px;
+  border-radius: var(--rounded);
   margin-right: 5px;
   font-size: 1rem;
   cursor: pointer;
@@ -89,7 +99,8 @@
   text-align: right;
   margin-left: 5px;
   padding: 3px 5px;
-  border-radius: 2px;
+  border-radius: var(--rounded);
+  color: var(--text-color2);
 }
 .product-sell-price {
   background-color: var(--info-green);
@@ -99,11 +110,11 @@
 }
 .product-search-add {
   height: 27px;
-  min-width: 27px;
+  min-width: 30px;
   max-width: 27px;
   padding: 6px;
   margin-left: 12px;
-  border-radius: 5px;
+  border-radius: var(--rounded);
   cursor: pointer;
   border: none;
   background-color: rgb(220, 255, 220);

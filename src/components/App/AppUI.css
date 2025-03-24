@@ -1,4 +1,4 @@
-:root {
+/* :root {
   --action-bg: #282828;
   --action-button-hover: #82bbd4;
   --action-button: #91d4f0;
@@ -16,11 +16,12 @@
   --shadow: #494c4e;
   --text-color: white;
   --text-color2: #e6e6e6;
-}
+  --rounded: 10px;
+} */
 /* light theme */
-/* :root {
-  --action-bg: #ffffff;
-  --action-button-hover: rgb(172, 202, 241);
+:root {
+  --action-bg: white;
+  --action-button-hover: rgb(150, 194, 255);
   --action-button: rgb(172, 219, 241);
   --background: rgb(243, 247, 249);
   --divider: rgb(230, 230, 230);
@@ -36,7 +37,9 @@
   --shadow: gainsboro;
   --text-color: black;
   --text-color2: #5a5a5a;
-} */
+  --rounded: 10px;
+  --input-h: 30px;
+}
 * {
   margin: 0;
   padding: 0;

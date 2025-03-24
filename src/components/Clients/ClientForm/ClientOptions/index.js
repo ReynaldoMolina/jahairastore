@@ -13,7 +13,6 @@ function ClientOptions({ fullname }) {
   const { setSearchValue, setOpenModal } = React.useContext(DataContext);
   const clientOrders = menuOptions[2];
   const clientReceipts = menuOptions[3];
-  const clientProfits = menuOptions[9];
 
   function goToOrders() {
     setSearchValue(fullname);
@@ -27,24 +26,21 @@ function ClientOptions({ fullname }) {
     setMenuOption(clientReceipts);
   }
 
-  function goToProfits() {
-    setSearchValue(fullname);
-    setOpenModal(false);
-    setMenuOption(clientProfits);
-  }
-
   return (
     <div className="flx flx-center register-options">
-      <FormOption label="Pedidos">
+      <FormOption
+        label="Pedidos"
+        action={goToOrders}>
         <SvgOrders
           className={svgClass}
-          onClick={goToOrders}
         />
       </FormOption>
-      <FormOption label="Ventas">
+      <FormOption
+        label="Ventas"
+        action={goToReceipts}
+      >
         <SvgReceipts
           className={svgClass}
-          onClick={goToReceipts}
         />
       </FormOption>
     </div>

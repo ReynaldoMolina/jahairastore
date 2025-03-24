@@ -13,7 +13,7 @@ function SideMenu() {
     menuOption, setMenuOption,
     isMenuOpen, setIsMenuOpen,
   } = React.useContext(MenuContext);
-  const { setOpenModal } = React.useContext(DataContext);
+  const { setOpenModal, setDebe } = React.useContext(DataContext);
 
   return (
     <>
@@ -34,6 +34,7 @@ function SideMenu() {
                     setIsMenuOpen(false);
                   }
                   setOpenModal(false);
+                  setDebe(true);
                   setMenuOption(option);
                 }}
               >

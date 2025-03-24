@@ -5,32 +5,27 @@
 }
 .frm-btn-cancel,
 .frm-btn-submit {
-  border-radius: 5px;
+  border-radius: var(--rounded);
   border: 0;
   color: white;
   font-weight: bold;
   cursor: pointer;
   height: 35px;
   width: 25%;
+  transition: 0.1s linear;
 }
 .frm-btn-submit {
   background-color: rgb(67, 160, 87);
   margin-left: 12px;
 }
 .frm-btn-submit:hover {
-  background-color: rgb(62, 150, 81);
-}
-.frm-btn-submit:active {
-  background-color: rgb(57, 114, 70);
+  background-color: rgb(23, 121, 45);
 }
 .frm-btn-cancel {
   background-color: rgb(187, 84, 84);
 }
 .frm-btn-cancel:hover {
-  background-color: rgb(173, 79, 79);
-}
-.frm-btn-cancel:active {
-  background-color: rgb(150, 68, 68);
+  background-color: rgb(161, 45, 45);
 }
 
 @media (max-width: 500px) {

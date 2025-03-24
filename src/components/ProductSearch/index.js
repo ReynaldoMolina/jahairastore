@@ -82,7 +82,13 @@ function ProductSearch({ isSearchProductOpen, setIsSearchProductOpen }) {
         <button
           type="button"
           className="flx flx-center product-btn"
-          onClick={() => setProductDate('')}>
+          onClick={() => {
+            if (productDate === '') {
+              setProductDate(currenDate);
+            } else {
+              setProductDate('');
+            }
+          }}>
           <img src={filter} alt="Filter"></img>
         </button>
         <OpenProductSearch isSearchProductOpen={isSearchProductOpen} setIsSearchProductOpen={setIsSearchProductOpen}/>

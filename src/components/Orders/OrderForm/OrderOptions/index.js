@@ -55,43 +55,46 @@ function OrderOptions({ order, orderTotals }) {
     setMenuOption(clientReceipts);
   }
 
+  function openPaymentMenu() {
+    if (saldoInicial > 0) {
+      setPaymentMenu(state => !state)
+    } else {
+      alert("Pedido pagado")
+    }
+  }
+
   return (
     <div className="flx flx-center register-options">
       <div className="flx">
-        <FormOption label="Pagar">
-          <SvgReceipts
-          className={svgClass}
-          onClick={() => {
-            if (saldoInicial > 0) {
-              setPaymentMenu(state => !state)
-            } else {
-              alert("Pedido pagado")
-            }
-          }}/>
+        <FormOption
+          label="Pagar"
+          action={openPaymentMenu}
+        >
+          <SvgReceipts className={svgClass} />
         </FormOption>
 
         <div className={`flx flx-center register-options-payment ${paymentMenu || "hidden"}`}>
           <SvgOther
-            className={`payment-opt ${svgClass}`}
+            className="payment-opt"
             onClick={() => payReceipt("zero")}
           />
 
           <SvgFifty
-            className={`payment-opt ${svgClass}`}
+            className="payment-opt"
             onClick={() => payReceipt("half")}
           />
           <SvgHundred
-            className={`payment-opt ${svgClass}`}
+            className="payment-opt"
             onClick={() => payReceipt("full")}
           />
         </div>
       </div>
 
-      <FormOption label="Ventas">
-        <SvgReceipts
-          className={svgClass}
-          onClick={() => goToReceipts()}
-        />
+      <FormOption
+        label="Ventas"
+        action={goToReceipts}
+        >
+        <SvgReceipts className={svgClass} />
       </FormOption>
     </div>
   )

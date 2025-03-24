@@ -16,12 +16,20 @@ function Orders() {
   console.log('Render Orders');
   const { menuOption } = React.useContext(MenuContext);
   const {
-    openModal, setOpenModal, setRegisterId, setIsNew
+    openModal, setOpenModal, setRegisterId, setIsNew, debe
   } = React.useContext(DataContext);
-  const { data, isLoading } = useGetData(menuOption.url);
+
+  let totalSell, abonos, saldo, profit, url;
+
+  if (debe) {
+    url = `${menuOption.url}?debe=true`;
+  } else {
+    url = menuOption.url;
+  }
+
+  const { data, isLoading } = useGetData(url);
   const filteredData = useFilterData(data, menuOption.name);
 
-  let totalSell, abonos, saldo, profit;
 
   if (filteredData) {
     totalSell = filteredData.reduce((sum, item) => sum + item.totalSell, 0);

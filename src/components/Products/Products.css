@@ -2,7 +2,7 @@
 .sell-price,
 .profit {
   font-size: 1.3rem;
-  border-radius: 2px;
+  border-radius: var(--rounded);
   padding: 3px 5px;
   width: 50px;
   text-align: right;

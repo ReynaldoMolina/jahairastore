@@ -1,7 +1,7 @@
 import React from "react";
 import { baseUrl } from "../urls/menuOptionsList";
 import { useGetData } from "../Hooks/useGetData";
-import { ReactComponent as SvgAdd } from "./add.svg";
+// import { ReactComponent as SvgAdd } from "./add.svg";
 import { EmptyList } from "../EmptyList";
 import { ReactComponent as SvgSearch } from './search.svg';
 import "./ClientSearch.css"
@@ -28,7 +28,7 @@ function ClientSearch({ register, setRegister, isSearchClientOpen, setIsSearchCl
             type="search"
             id="search-clients"
             className="frm-input frm-input-search"
-            placeholder="Buscar cliente"
+            placeholder="Buscar cliente (click para seleccionar)"
             autoComplete="off"
             value={searchClient}
             onChange={(event) => setSearchClient(event.target.value)}
@@ -46,23 +46,20 @@ function ClientSearch({ register, setRegister, isSearchClientOpen, setIsSearchCl
             <div
               key={element.id}
               className="flx clients"
+              onClick={() => {
+                const newRegister = {
+                  ...register,
+                  ['clientId']: element.id,
+                  ['fullname']: element.fullname
+                }
+                setRegister(newRegister);
+                setIsSearchClientOpen(false);
+              }}
             >
               <span className="flx flx-center client-search-id">{element.id}</span>
               <div className="flx client-search-info">
                 <span className="flx client-search-name">{element.fullname}</span>
               </div>
-              <SvgAdd
-                className="flx client-search-add"
-                onClick={() => {
-                  const newRegister = {
-                    ...register,
-                    ['clientId']: element.id,
-                    ['fullname']: element.fullname
-                  }
-                  setRegister(newRegister);
-                  setIsSearchClientOpen(false);
-                }}
-              />
             </div>
           ))}
       </div>

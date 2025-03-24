@@ -36,8 +36,10 @@ function OrdersDetails() {
 
   return (
     <>
+      <h2 className="detail-title">Añadir productos</h2>
       <ProductSearch isSearchProductOpen={isSearchProductOpen} setIsSearchProductOpen={setIsSearchProductOpen}/>
 
+      <h2 className="detail-title">Detalle del pedido</h2>
       <div className="flx flx-col details-list">
         {productList.length === 0 ? <ProductCardEmpty/> :
           productList.map(product => (

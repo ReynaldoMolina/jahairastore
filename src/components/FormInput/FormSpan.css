@@ -6,14 +6,17 @@
   width: 100%;
   font-size: 1.2rem;
   margin-bottom: 3px;
+  margin-left: 5px;
+  font-weight: bold;
 }
 .frm-span {
   align-items: center;
   background-color: var(--background);
-  border-bottom: 1px solid var(--shadow);
-  border-radius: 5px 5px 0 0;
+  border: none;
+  box-shadow: 0 0 2px var(--shadow);
+  border-radius: var(--rounded);
   font-size: 1.2rem;
-  height: 25px;
+  height: var(--input-h);
   padding: 0 10px;
   width: 100%;
 }

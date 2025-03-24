@@ -21,16 +21,17 @@
   overflow: scroll;
 }
 .side-menu-opt {
-  color: var(--text-color2);
-  width: 100%;
+  color: var(--text-color);
+  width: 80%;
   height: 40px;
   justify-content: left;
   border: none;
-  border-right: 5px solid transparent;
   background-color: transparent;
-  font-size: 1.4rem;
-  padding: 0 50px 0 30px;
+  font-size: 1.3rem;
+  padding-left: 10px;
   cursor: pointer;
+  border-radius: var(--rounded);
+  transition: 0.1s linear;
 }
 .side-menu-opt:hover {
   background-color: var(--hover);
@@ -54,8 +55,7 @@
   display: none;
 }
 .menu-option-active {
-  background-color: var(--menu-active);
-  border-right: 5px solid var(--menu-active-border);
+  background-color: var(--action-button-hover);
 }
 @media (max-width: 650px) {
   .side-menu {
@@ -63,6 +63,5 @@
     position: absolute;
     z-index: 2;
     box-shadow: none;
-    width: 60%;
   }
 }

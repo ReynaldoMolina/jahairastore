@@ -5,8 +5,8 @@
   filter: opacity(90%);
 }
 .icon-fill {
-  fill: var(--text-color2);
+  fill: var(--text-color);
 }
 .icon-stroke {
-  stroke: var(--text-color2);
+  stroke: var(--text-color);
 }

@@ -3,31 +3,43 @@
   width: 100%;
   justify-content: space-around;
 }
-.register-option {
-  border-radius: 5px;
-  padding: 8px;
+.option-button {
   background-color: var(--action-button);
-  height: 35px;
-  width: 35px;
+  border-radius: var(--rounded);
+  padding: 10px;
   cursor: pointer;
-  margin-left: 5px;
+  border: none;
+  box-shadow: 1px 1px 2px var(--shadow);
+  transition: 0.1s linear;
 }
-.register-option:first-child {
-  margin-left: 0;
-}
-.register-option:hover {
+.option-button:hover,
+.payment-opt:hover {
   background-color: var(--action-button-hover);
 }
+.register-option {
+  height: 15px;
+  width: 15px;
+  margin-right: 5px;
+}
 .option-button-label {
-  color: var(--text-color2);
+  color: var(--text-color);
   font-size: 1.1rem;
-  margin-top: 5px;
+  cursor: pointer;
+  font-weight: bold;
 }
 .register-options-payment {
   margin-left: 5px;
   height: 100%;
+  gap: 5px;
 }
 .payment-opt {
+  height: 35px;
+  width: 35px;
+  background-color: var(--action-button);
+  border-radius: var(--rounded);
   padding: 5px;
-  margin-left: 5px;
+  cursor: pointer;
+  border: none;
+  transition: 0.1s linear;
+  box-shadow: 1px 1px 2px var(--shadow);
 }

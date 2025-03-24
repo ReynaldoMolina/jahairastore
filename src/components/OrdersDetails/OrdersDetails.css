@@ -1,6 +1,10 @@
 .details-list {
-  border: 1px solid var(--shadow);
   width: 100%;
-  border-radius: 5px;
+  border-radius: var(--rounded);
   margin-bottom: 12px;
+  gap: 3px;
+}
+.detail-title {
+  color: var(--text-color2);
+  margin: 12px 0 7px 5px;
 }

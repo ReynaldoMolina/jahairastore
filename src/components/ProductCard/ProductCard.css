@@ -7,18 +7,13 @@
   margin: 0;
 }
 .product-card {
-  border-bottom: 1px solid var(--shadow);
   width: 100%;
   padding: 5px;
-  background-color: var(--foreground);
-}
-.product-card:last-child {
-  border-bottom: none;
+  box-shadow: 1px 1px 2px var(--shadow);
+  border-radius: var(--rounded);
 }
 .product-info-container {
   flex-grow: 1;
-}
-.product-info-container {
   justify-content: space-between;
 }
 .product-info:nth-child(2) {
@@ -26,8 +21,8 @@
 }
 .product-id {
   background-color: var(--action-button);
-  margin-right: 10px;
-  border-radius: 5px;
+  margin-right: 8px;
+  border-radius: var(--rounded);
   height: 20px;
   min-width: 35px;
   font-size: 1rem;
@@ -49,7 +44,7 @@
 .quantity-container {
   margin-left: 10px;
   border: 1px solid var(--shadow);
-  border-radius: 5px;
+  border-radius: var(--rounded);
   overflow: hidden;
 }
 .quantity {
@@ -58,6 +53,7 @@
   text-align: center;
   border: none;
   font-size: 1.1rem;
+  color: var(--text-color2);
 }
 .quantity:focus-visible {
   outline: none;
@@ -67,11 +63,12 @@
   height: 20px;
   width: 20px;
   cursor: pointer;
-  background-color: var(--shadow);
-  color: var(--text-color2);
+  background-color: var(--action-button);
+  color: var(--text-color);
+  transition: 0.1s linear;
 }
 .quantity-button:hover {
-  background-color: var(--menu-active);
+  background-color: var(--action-button-hover);
 }
 .subtotal {
   margin-left: 5px;
@@ -79,10 +76,9 @@
   min-width: 60px;
   justify-content: right;
   font-size: 1.2rem;
-  border-radius: 5px;
 }
 .product-delete {
-  border-radius: 5px;
+  border-radius: var(--rounded);
   padding: 5px;
   stroke: rgb(197, 28, 28);
   margin-left: 10px;
@@ -91,6 +87,7 @@
   min-width: 27px;
   cursor: pointer;
   background-color: rgb(255, 220, 220);
+  transition: 0.1s linear;
 }
 .product-delete:hover {
   background-color: rgb(255, 188, 188);

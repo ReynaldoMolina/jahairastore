@@ -4,4 +4,6 @@
   color: var(--text-color2);
   font-size: 1.2rem;
   background-color: var(--foreground);
+  box-shadow: 1px 1px 1px var(--shadow);
+  margin-right: 1px;
 }

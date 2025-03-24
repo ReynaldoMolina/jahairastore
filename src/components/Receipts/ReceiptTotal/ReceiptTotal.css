@@ -3,21 +3,22 @@
   padding: 5px 7px;
   align-items: center;
   background-color: var(--foreground);
-  border-radius: 5px;
+  border-radius: var(--rounded);
   margin-top: 6px;
+  box-shadow: 1px 1px 2px var(--shadow);
 }
 .count {
   background-color: var(--info-gray);
   min-width: 40px;
   padding: 3px 0;
-  border-radius: 2px;
+  border-radius: var(--rounded);
   margin-right: 10px;
   font-size: 1rem;
   font-weight: bold;
 }
 .total-abono-receipt,
 .total-spacer {
-  border-radius: 2px;
+  border-radius: var(--rounded);
   padding: 3px 5px;
   text-align: right;
   margin-left: 5px;

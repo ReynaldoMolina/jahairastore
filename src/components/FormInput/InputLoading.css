@@ -1,8 +1,8 @@
 .frm-input-loading {
     background-color: var(--background);
-    border-radius: 4px;
+    border-radius: var(--rounded);
     border: 1px solid var(--shadow);
-    height: 25px;
+    height: var(--input-h);
     width: 100%;
     padding: 0 10px;
     animation: fade infinite 1s linear;
