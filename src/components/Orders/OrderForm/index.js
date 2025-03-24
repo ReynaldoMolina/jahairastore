@@ -12,7 +12,6 @@ import { OrderOptions } from "./OrderOptions";
 import { FormButtons } from "../../FormInput/FormButtons";
 import { sendData } from "../../Hooks/sendData";
 import { sendDetails } from "../../Hooks/sendDetails";
-// import addIcon from "./add.svg";
 import "./OrderForm.css";
 
 function OrderForm() {
