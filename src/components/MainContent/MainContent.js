@@ -15,7 +15,6 @@ const components = {
 };
 
 function MainContent() {
-  console.log('Render MainContent')
   const { menuOption } = React.useContext(MenuContext);
 
   return (

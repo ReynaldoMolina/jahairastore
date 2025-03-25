@@ -21,15 +21,13 @@ function ReceiptOptions() {
   return (
     <>
       <div className="flx flx-center register-options">
-        <FormOption label="Descargar PDF">
           <PDFDownloadLink
             document={<ReceiptPdf receipt={receipt}/>}
             fileName={`Recibo ${receipt.id} Pedido ${receipt.orderId} ${receipt.clientName} ${receipt.clientLastname}`}>
-            <SvgDownloadPdf
-              className={svgClass}
-            />
+            <FormOption label="Descargar">
+              <SvgDownloadPdf className={svgClass}/>
+            </FormOption>
           </PDFDownloadLink>
-        </FormOption>
       </div>
     </>
   )

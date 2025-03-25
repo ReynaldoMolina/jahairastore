@@ -6,8 +6,6 @@ import { useGetData } from "../Hooks/useGetData";
 const OrderContext = React.createContext();
 
 function OrderProvider({ children }) {
-  console.log("Order context");
-  
   const { menuOption } = React.useContext(MenuContext);
   const { registerId, isNew } = React.useContext(DataContext);
   const { data, isLoading } = useGetData(`${menuOption.url}/${registerId}`);

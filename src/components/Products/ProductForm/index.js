@@ -33,7 +33,8 @@ function ProductForm() {
   React.useEffect(() => {
     if (!isNew) {
       if (data) {
-        setProduct(data);
+        const { id, ...newData } = data;
+        setProduct(newData);
       }
     }
   }, [data]);
@@ -57,7 +58,6 @@ function ProductForm() {
       (
         <form
           action={handleRegister}
-          autoComplete="off"
           className="flx flx-col frm-container">
           {isNew || (
             <div className="flx obj-info">
@@ -65,23 +65,23 @@ function ProductForm() {
             </div>
           )}
           <div className="flx obj-info">
-            <FormInput name="name" holder="Name" value={product} setValue={setProduct}/>
+            <FormInput name="name" holder="Nombre" value={product} setValue={setProduct}/>
           </div>
           <div className="flx obj-info">
-            <FormSelect name="providerId" holder="Provider" value={product} setValue={setProduct} option={selectProvider} field={"company"}/>
-            <FormInput name="addedDate" holder="Added date" type="date" value={product} setValue={setProduct}/>
+            <FormSelect name="providerId" holder="Proveedor" value={product} setValue={setProduct} option={selectProvider} field={"company"}/>
+            <FormInput name="addedDate" holder="Fecha agregado" type="date" value={product} setValue={setProduct}/>
           </div>
           <div className="flx obj-info">
-            <FormSelect name="categoryId" holder="Category" value={product} setValue={setProduct} option={selectCategory} field={"name"}/>
+            <FormSelect name="categoryId" holder="Categoría" value={product} setValue={setProduct} option={selectCategory} field={"name"}/>
             <FormInput name="sheinId" holder="Shein Id" value={product} setValue={setProduct}/>
           </div>
           <div className="flx obj-info">
-            <FormInput name="costPrice" holder="Cost price" type="number" value={product} setValue={setProduct}/>
-            <FormInput name="sellPrice" holder="Sell Price" type="number" value={product} setValue={setProduct}/>
-            <FormSpan name="form-profit" holder="Profit" value={(product.sellPrice - product.costPrice).toFixed(2)}/>
+            <FormInput name="costPrice" holder="Precio compra" type="number" value={product} setValue={setProduct}/>
+            <FormInput name="sellPrice" holder="Precio venta" type="number" value={product} setValue={setProduct}/>
+            <FormSpan name="form-profit" holder="Ganancia" value={(product.sellPrice - product.costPrice).toFixed(2)}/>
           </div>
           <div className="flx obj-info">
-            <FormInput name="description" holder="Description" value={product} setValue={setProduct}/>
+            <FormInput name="description" holder="Descripción" value={product} setValue={setProduct}/>
           </div>
 
           <FormButtons />

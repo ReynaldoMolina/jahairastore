@@ -11,6 +11,8 @@
   padding: 5px;
   box-shadow: 1px 1px 2px var(--shadow);
   border-radius: var(--rounded);
+  border-top: 1px solid gainsboro;
+  border-left: 1px solid gainsboro;
 }
 .product-info-container {
   flex-grow: 1;

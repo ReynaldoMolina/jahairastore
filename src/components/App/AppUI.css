@@ -31,8 +31,6 @@
   --info-gray: rgb(221, 221, 221);
   --info-green: rgb(187, 243, 187);
   --info-red: rgb(255, 208, 208);
-  --menu-active-border: rgb(104, 194, 255);
-  --menu-active: rgb(214, 246, 255);
   --register-id: black;
   --shadow: gainsboro;
   --text-color: black;
@@ -67,6 +65,12 @@ h1 {
 .app-container {
   height: 100vh;
   background-color: var(--background);
+  /* overflow: hidden; */
+}
+.main-window {
+  padding: 0 12px;
+  flex-grow: 1;
+  height: 100vh;
 }
   /*Flex and directions*/
 .flx {
@@ -83,5 +87,8 @@ h1 {
 @media (max-width: 650px) {
   .app-container {
     flex-direction: column;
+  }
+  .main-window {
+    height: calc(100vh - 65px);
   }
 }

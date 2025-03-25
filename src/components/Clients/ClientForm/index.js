@@ -12,7 +12,7 @@ import "../../styles/RegisterForm.css";
 function ClientForm() {
   const { menuOption } = React.useContext(MenuContext);
   const { setOpenModal, registerId, isNew, setIsUpdating } = React.useContext(DataContext);
-  const { data, isLoading } = useGetData(menuOption.url + registerId, isNew);
+  const { data, isLoading } = useGetData(menuOption.url + registerId);
 
   const [client, setClient] = React.useState({
     name: "",
@@ -27,16 +27,18 @@ function ClientForm() {
   React.useEffect(() => {
     if (!isNew) {
       if (data) {
-        setClient(data);
+        const { id, ...newData } = data;
+        setClient(newData);
       }
     } 
   }, [data]);
   
   function handleRegister() {
     if (client.name === "" || client.lastname === "") {
-      alert("Name and lastname are needed.")
+      alert("Name and last name are needed.")
       return;
     }
+    console.log(client, menuOption.url, registerId)
     sendData(client, menuOption.url, registerId);
     setOpenModal(false);
     setIsUpdating(true);
@@ -48,7 +50,6 @@ function ClientForm() {
         (
           <form
             action={handleRegister}
-            autoComplete="off"
             className="flx flx-col frm-container">
             {isNew || (
               <div className="flx obj-info">
@@ -63,11 +64,11 @@ function ClientForm() {
             </div>
             <div className="flx obj-info">
               <FormInput name="phone" holder="Teléfono" value={client} setValue={setClient}/>
-              <FormInput name="municipio" holder="Municipio" value={client} setValue={setClient}/>
+              <FormInput name="municipio" holder="Municipio" value={client} setValue={setClient} autocomplete="on"/>
             </div>
             <div className="flx obj-info">
-              <FormInput name="city" holder="Ciudad" value={client} setValue={setClient}/>
-              <FormInput name="country" holder="País" value={client} setValue={setClient}/>
+              <FormInput name="city" holder="Ciudad" value={client} setValue={setClient} autocomplete="on"/>
+              <FormInput name="country" holder="País" value={client} setValue={setClient} autocomplete="on"/>
             </div>
             <div className="flx obj-info">
               <FormInput name="address" holder="Dirección" value={client} setValue={setClient}/>

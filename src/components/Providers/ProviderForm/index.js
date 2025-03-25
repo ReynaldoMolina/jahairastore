@@ -27,7 +27,8 @@ function ProviderForm() {
   React.useEffect(() => {
     if (!isNew) {
       if (data) {
-        setProvider(data);
+        const { id, ...newData } = data;
+        setProvider(newData);
       }
     }
   }, [data]);
@@ -62,17 +63,17 @@ function ProviderForm() {
           </div>
           <div className="flx obj-info">
             <FormInput name="phone" holder="Teléfono" value={provider} setValue={setProvider}/>
-            <FormInput name="municipio" holder="Municipio" value={provider} setValue={setProvider}/>
+            <FormInput name="municipio" holder="Municipio" value={provider} setValue={setProvider} autocomplete="on"/>
           </div>
           <div className="flx obj-info">
-            <FormInput name="city" holder="Ciudad" value={provider} setValue={setProvider}/>
-            <FormInput name="country" holder="País" value={provider} setValue={setProvider}/>
+            <FormInput name="city" holder="Ciudad" value={provider} setValue={setProvider} autocomplete="on"/>
+            <FormInput name="country" holder="País" value={provider} setValue={setProvider} autocomplete="on"/>
           </div>
           <div className="flx obj-info">
             <FormInput name="address" holder="Dirección" value={provider} setValue={setProvider}/>
           </div>
           
-          {isNew || <ProviderOptions />}
+          {/* {isNew || <ProviderOptions />} */}
           <FormButtons/>
         </form>
       )}

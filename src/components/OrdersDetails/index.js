@@ -10,7 +10,6 @@ import { getOrderTotals } from "../Hooks/getOrderTotals";
 import "./OrdersDetails.css";
 
 function OrdersDetails() {
-  console.log('Render OrdersDetails');
   const { isNew } = React.useContext(DataContext);
   const {
     order,
@@ -21,10 +20,7 @@ function OrdersDetails() {
 
   const [isSearchProductOpen, setIsSearchProductOpen] = React.useState(false);
 
-  console.log('productList', productList);
-
   React.useEffect(() => {
-    console.log('useEffect detail');
     if (!isNew) {
       if (order) {
         setProductList(order.orderdetail ? order.orderdetail : []);

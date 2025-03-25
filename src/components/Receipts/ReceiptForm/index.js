@@ -34,7 +34,7 @@ function ReceiptForm() {
   React.useEffect(() => {
     if (!isNew) {
       if (data) {
-        const { id, ...newData } = data
+        const { id, ...newData } = data;
         setReceipt(newData);
       }
     }
@@ -43,13 +43,9 @@ function ReceiptForm() {
   let saldoInicialActual = 0;
   if (isNew) {
     saldoInicialActual = orderReceipt.saldoInicial;
-    console.log(saldoInicialActual);
   } else {
     saldoInicialActual = data.saldo;
-    console.log(saldoInicialActual);
   }
-
-  console.log(receipt);
 
   function handleRegister() {
     if (receipt.abono <= 0) {

@@ -11,7 +11,6 @@ import "../styles/Registers.css";
 import "./Categories.css";
 
 function Categories() {
-  console.log('Render Categories');
   const { menuOption } = React.useContext(MenuContext);
   const {
     openModal, setOpenModal, setRegisterId, setIsNew

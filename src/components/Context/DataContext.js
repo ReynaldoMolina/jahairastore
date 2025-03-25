@@ -3,8 +3,6 @@ import React from "react";
 const DataContext = React.createContext();
 
 function DataProvider({ children }) {
-  console.log('useContext DataContext')
-
   const [openModal, setOpenModal] = React.useState(false);
   const [registerId, setRegisterId] = React.useState('');
   const [orderReceipt, setOrderReceipt] = React.useState({});

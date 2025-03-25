@@ -1,13 +1,12 @@
 async function sendData(fetchRegister, url, registerId) {
-  console.log('sendData')
   let method, fetchUrl;
-    
-  if (!registerId) {
-    fetchUrl = url;
-    method = "POST";
-  } else {
+ 
+  if (registerId !== '') {
     fetchUrl = url + registerId;
     method = "PATCH";
+  } else {
+    fetchUrl = url;
+    method = "POST";
   }
 
   const response = await fetch(fetchUrl, {
@@ -19,7 +18,6 @@ async function sendData(fetchRegister, url, registerId) {
   })
   const data = await response.json();
   
-  console.log('sendata', data);
   return data;
 }
 

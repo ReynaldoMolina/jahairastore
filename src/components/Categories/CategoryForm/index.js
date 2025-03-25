@@ -18,10 +18,11 @@ function CategoryForm() {
   React.useEffect(() => {
     if (!isNew) {
       if (data) {
-        setCategory(data);
+        const { id, ...newData } = data;
+        setCategory(newData);
       }
     }
-  }, [data]);
+  }, [data, isNew]);
 
   function handleRegister() {
     if (category.name === "") {

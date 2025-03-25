@@ -11,7 +11,6 @@ import "../styles/Registers.css";
 import "./Clients.css";
 
 function Clients() {
-  console.log('Render Clients');
   const { menuOption } = React.useContext(MenuContext);
   const {
     openModal, setOpenModal, setRegisterId, setIsNew

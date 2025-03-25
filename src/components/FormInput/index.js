@@ -1,7 +1,7 @@
 import React from "react";
 import "./FormInput.css";
 
-function FormInput({ name, holder, type = "text", value, setValue, readonly = false }) {
+function FormInput({ name, holder, type = "text", value, setValue, readonly = false, autocomplete = "off" }) {
   return (
     <div className="flx flx-col">
       <label
@@ -15,17 +15,17 @@ function FormInput({ name, holder, type = "text", value, setValue, readonly = fa
         name={name}
         id={name}
         className="frm-input"
-        // placeholder={holder}
+        placeholder={holder}
         value={value[name]}
         onChange={(event) => {
-          const {id, ...valueNoId} = value;
           const newValue = {
-            ...valueNoId,
+            ...value,
             [name]: event.target.value
           }
-          setValue(newValue)
+          setValue(newValue);
         }}
         readOnly={readonly}
+        autoComplete={autocomplete}
       >
       </input>
     </div>

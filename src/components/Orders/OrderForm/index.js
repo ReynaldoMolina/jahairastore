@@ -45,7 +45,7 @@ function OrderForm() {
     
     const sendOrder = async () => {
       try {
-        const newOrder = await sendData(fetchRegister, menuOption.url, registerId);
+        const newOrder = await sendData(fetchRegister, menuOption.url + '/', registerId);
         
         if (!isNew) {
           sendDetails(originalProductList, productList, url);
@@ -70,7 +70,6 @@ function OrderForm() {
     <>
       {isLoading ? <Loading/> :
       (
-
         <form
           action={handleRegister}
           className="flx flx-col order-container"
@@ -92,7 +91,13 @@ function OrderForm() {
                   name="state"
                   className="frm-select"
                   value={order.state}
-                  onChange={(event) => setOrder(event.target.value)}
+                  onChange={(event) => {
+                    const newValue = {
+                      ...order,
+                      "state": event.target.value
+                    }
+                    setOrder(newValue);
+                  }}
                 >
                   <option key="1" value="Pendiente">Pendiente</option>
                   <option key="2" value="Cancelado">Cancelado</option>
@@ -109,7 +114,6 @@ function OrderForm() {
                 className="flx flx-center client-btn client-add"
                 onClick={() => setIsSearchClientOpen(state => !state)}
               >
-                {/* <img src={addIcon} alt="Add"></img> */}
                 {isSearchClientOpen ? 'Cerrar' : 'Buscar'}
               </button>
             </div>

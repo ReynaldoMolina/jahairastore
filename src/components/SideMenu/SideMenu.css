@@ -48,17 +48,16 @@
   display: none;
 }
 .menu-option-active {
-  background-color: var(--action-button-hover);
+  background-color: var(--hover);
 }
 @media (max-width: 650px) {
   .side-menu {
     flex-direction: row;
     min-height: 65px;
     height: 65px;
-    width: 100%;
     border-radius: var(--rounded) var(--rounded) 0 0;
     justify-content: center;
-    order: 3;
+    order: 1;
   }
   .sidebar-logo {
     display: none;
@@ -66,7 +65,7 @@
   /*Options*/
   .side-menu-options {
     flex-direction: row;
-    gap: 10px;
+    gap: 5px;
     padding: 0 10px;
   }
   .side-menu-div {
