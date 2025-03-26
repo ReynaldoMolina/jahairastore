@@ -30,7 +30,6 @@ function Orders() {
   const { data, isLoading } = useGetData(url);
   const filteredData = useFilterData(data, menuOption.name);
 
-
   if (filteredData) {
     totalSell = filteredData.reduce((sum, item) => sum + item.totalSell, 0);
     abonos = filteredData.reduce((sum, item) => sum + item.abonos, 0);

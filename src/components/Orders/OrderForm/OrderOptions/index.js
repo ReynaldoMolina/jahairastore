@@ -29,7 +29,7 @@ function OrderOptions({ order, orderTotals }) {
     let concepto = `Abono pedido ${order.id}`;
     switch (payment) {
       case 'half':
-        abono = saldoInicial / 2;
+        abono = Math.round((saldoInicial / 2) * 100) / 100;
         concepto = `Abono 50% pedido ${order.id}`;
         break;
       case 'full':

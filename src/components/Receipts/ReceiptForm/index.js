@@ -9,7 +9,6 @@ import { ReceiptOptions } from "./ReceiptOptions";
 import { FormButtons } from "../../FormInput/FormButtons";
 import { useGetData } from "../../Hooks/useGetData";
 import { sendData } from "../../Hooks/sendData";
-import addIcon from "./add.svg";
 import "../../styles/RegisterForm.css";
 
 function ReceiptForm() {
@@ -26,7 +25,7 @@ function ReceiptForm() {
     orderId: orderReceipt.id || '',
     saleDate: currenDate,
     abono: orderReceipt.abono || 0,
-    saldo: orderReceipt.saldoInicial - orderReceipt.abono || 0,
+    saldo: Math.round((orderReceipt.saldoInicial - orderReceipt.abono) * 100) / 100 || 0,
     concepto: orderReceipt.concepto || "",
     fullname: orderReceipt.fullname || '',
   });
@@ -57,7 +56,6 @@ function ReceiptForm() {
       return;
     }
     const { fullname, ...newData } = receipt;
-    console.log(newData, menuOption.url, registerId);
     sendData(newData, menuOption.url, registerId);
     setOpenModal(false);
     setIsUpdating(true);
@@ -110,11 +108,10 @@ function ReceiptForm() {
                 placeholder="Abono"
                 value={receipt['abono']}
                 onChange={(event) => {
-                  const {id, ...valueNoId} = receipt;
                   const newValue = {
-                    ...valueNoId,
+                    ...receipt,
                     'abono': event.target.valueAsNumber,
-                    'saldo': saldoInicialActual - event.target.value
+                    'saldo': Math.round((saldoInicialActual - event.target.value) * 100) / 100
                   }
                   setReceipt(newValue)
                 }}
