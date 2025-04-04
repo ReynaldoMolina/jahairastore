@@ -12,6 +12,7 @@ const components = {
   "Productos": () => <DataContent />,
   "Proveedores": () => <DataContent />,
   "Ventas": () => <DataContent />,
+  "Productos página": () => <DataContent />,
 };
 
 function MainContent() {

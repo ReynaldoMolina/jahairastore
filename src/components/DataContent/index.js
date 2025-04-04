@@ -7,6 +7,7 @@ import { Orders } from "../Orders";
 import { Receipts } from "../Receipts";
 import { Providers } from "../Providers";
 import { Products } from "../Products";
+import { ProductsPage } from "../ProductsPage";
 
 const components = {
   "Categorías": () => <Categories />,
@@ -15,6 +16,7 @@ const components = {
   "Productos": () => <Products />,
   "Proveedores": () => <Providers />,
   "Ventas": () => <Receipts />,
+  "Productos página": () => <ProductsPage />,
 };
 
 function DataContent() {

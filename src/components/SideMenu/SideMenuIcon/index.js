@@ -25,6 +25,7 @@ const icons = {
   "Cerrar sesión": () => <SvgLogout className={styleStroke}/>,
   "Pedidos": () => <SvgOrders className={styleStroke}/>,
   "Productos": () => <SvgProducts className={styleStroke}/>,
+  "Productos página": () => <SvgProducts className={styleStroke}/>,
   "Proveedores": () => <SvgProviders className={styleFill}/>,
   "Compras": () => <SvgPurchases className={styleFill}/>,
   "Ventas": () => <SvgReceipts className={styleStroke}/>,

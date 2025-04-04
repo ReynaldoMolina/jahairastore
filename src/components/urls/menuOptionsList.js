@@ -53,14 +53,20 @@ const menuOptionsList = [
     id: 8,
     name: "Categorías",
     url: baseUrl + 'categories/',
-    divider: false
+    divider: true
   },
   // {
   //   id: 9,
   //   name: "Finanzas",
   //   url: baseUrl + 'finances/',
   //   divider: true
-  // }
+  // },
+  {
+    id: 10,
+    name: "Productos página",
+    url: baseUrl + 'productspage/',
+    divider: false
+  },
 ];
 
 export { menuOptionsList, baseUrl };

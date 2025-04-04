@@ -25,3 +25,13 @@
 .obj-info div {
   width: 100%;
 }
+.product-image {
+  background: white;
+  height: 200px;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+  border: 1px solid gray;
+  padding: 10px;
+  border-radius: var(--rounded);
+  overflow: hidden;
+}
