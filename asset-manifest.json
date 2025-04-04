@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/jahairastore/static/css/main.e4716ec9.css",
+    "main.css": "/jahairastore/static/css/main.6ae7e095.css",
     "main.js": "/jahairastore/static/js/main.8249668a.js",
     "static/js/488.9d784508.chunk.js": "/jahairastore/static/js/488.9d784508.chunk.js",
     "static/media/downloadpdf.svg": "/jahairastore/static/media/downloadpdf.337ac25f7f351b5fd2d9db3d821ed118.svg",
@@ -28,12 +28,12 @@
     "static/media/search.svg": "/jahairastore/static/media/search.58b9126530d3ce11d4373ec32774d6d1.svg",
     "static/media/logout.svg": "/jahairastore/static/media/logout.f9a7341af0884f62eda6c2a93a6e9ed3.svg",
     "static/media/add.svg": "/jahairastore/static/media/add.db6a1b393f18fab9302cffaee47df564.svg",
-    "main.e4716ec9.css.map": "/jahairastore/static/css/main.e4716ec9.css.map",
+    "main.6ae7e095.css.map": "/jahairastore/static/css/main.6ae7e095.css.map",
     "main.8249668a.js.map": "/jahairastore/static/js/main.8249668a.js.map",
     "488.9d784508.chunk.js.map": "/jahairastore/static/js/488.9d784508.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e4716ec9.css",
+    "static/css/main.6ae7e095.css",
     "static/js/main.8249668a.js"
   ]
 }
