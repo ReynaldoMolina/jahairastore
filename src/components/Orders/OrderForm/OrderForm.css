@@ -58,7 +58,7 @@
   justify-content: space-evenly;
   border-radius: var(--rounded);
   padding: 5px;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
   box-shadow: 1px 1px 2px var(--shadow);
   background-color: var(--background);
 }
@@ -73,4 +73,23 @@
 .order-totals-item {
   color: var(--text-color);
   font-weight: bold;
+}
+.order-restante {
+  margin-bottom: 12px;
+}
+.order-restante-input-div {
+  gap: 12px;
+  justify-content: center;
+}
+.order-restante-mensaje {
+  background-color: #d9fdd3;
+  padding: 10px;
+  border-radius: var(--rounded);
+  box-shadow: 1px 1px 2px var(--shadow);
+  margin-top: 12px;
+}
+.order-restante-mensaje p {
+  font-size: 1.2rem;
+  line-height: 1.7rem;
+  text-align: center;
 }

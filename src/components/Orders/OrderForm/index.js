@@ -9,6 +9,7 @@ import { FormInput } from "../../FormInput";
 import { FormSpan } from "../../FormInput/FormSpan";
 import { OrdersDetails } from "../../OrdersDetails";
 import { OrderOptions } from "./OrderOptions";
+import { OrderRestante } from "./OrderRestante";
 import { FormButtons } from "../../FormInput/FormButtons";
 import { sendData } from "../../Hooks/sendData";
 import { sendDetails } from "../../Hooks/sendDetails";
@@ -148,6 +149,8 @@ function OrderForm() {
               $ {orderTotals.totalCost.toFixed(2)}
             </span>
           </div>
+
+          <OrderRestante orderTotals={orderTotals} order={order} />
 
           {isNew ||
           <OrderOptions
