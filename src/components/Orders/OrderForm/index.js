@@ -150,7 +150,7 @@ function OrderForm() {
             </span>
           </div>
 
-          <OrderRestante orderTotals={orderTotals} order={order} />
+          <OrderRestante orderTotals={orderTotals} order={order} isNew={isNew}/>
 
           {isNew ||
           <OrderOptions

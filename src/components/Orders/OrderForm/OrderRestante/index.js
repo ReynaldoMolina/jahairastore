@@ -1,7 +1,7 @@
 import React from "react";
 import { FormInput } from "../../../FormInput";
 
-function OrderRestante({ orderTotals, order }) {
+function OrderRestante({ orderTotals, order, isNew }) {
   const [orderRestante, setOrderRestante] = React.useState({
     peso: 0,
     cambioDolar: 37,
@@ -20,6 +20,8 @@ function OrderRestante({ orderTotals, order }) {
   //   El restante era de $${saldo.toFixed(2)}
   //   En total $${ordereRestanteTotal.toFixed(2)} en córdobas C$${ordereRestanteTotalCordobas.toFixed(2)} 🥰
   // `;
+
+  if (isNew) return null;
 
   return (
     <>
