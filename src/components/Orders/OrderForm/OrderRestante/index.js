@@ -34,7 +34,7 @@ function OrderRestante({ orderTotals, order, isNew }) {
         </div>
         <div className="flx flx-col order-restante-mensaje">
           {/* <p>{message}</p> */}
-          <p>Hola bella, ya está su pedido listo para entregar. 🥰</p>
+          <p>{`Hola ${order.name}, ya está tu pedido listo para entregar. 🥰`}</p>
           <p>{`El paquete pesó ${orderPeso.toFixed(2)} libras en dólares $${orderEnvio.toFixed(2)}`}</p>
           <p>{`El restante era de $${saldo.toFixed(2)}`}</p>
           <p>{`En total $${ordereRestanteTotal.toFixed(2)} en córdobas C$${ordereRestanteTotalCordobas.toFixed(2)} 🥰`}</p>
