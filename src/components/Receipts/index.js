@@ -7,6 +7,7 @@ import { ActionTools } from "../ActionTools";
 import { ReceiptForm } from "../Receipts/ReceiptForm";
 import { Loading } from "../Loading";
 import { EmptyList } from "../EmptyList";
+import { EmptyListSome } from "../EmptyListSome";
 import { ReceiptTotal } from "./ReceiptTotal/ReceiptTotal";
 import { useFilterData } from "../Hooks/useFilterData";
 import "../styles/Registers.css";
@@ -47,7 +48,8 @@ function Receipts() {
         <>
           <ActionTools allowNew={false}/>
             <div className="flx flx-col register-list">
-              {filteredData.length === 0 && ( <EmptyList/> )}
+              {loadAll || <EmptyListSome />}
+              {(filteredData.length === 0) && ( <EmptyList/> )}
               {filteredData.map(register => (
                 <div
                   key={register.id}

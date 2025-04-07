@@ -5,6 +5,7 @@ import { useGetData } from "../Hooks/useGetData";
 import { ActionTools } from "../ActionTools";
 import { Loading } from "../Loading";
 import { EmptyList } from "../EmptyList";
+import { EmptyListSome } from "../EmptyListSome";
 import { ProductForm } from "../Products/ProductForm";
 import { useFilterData } from "../Hooks/useFilterData";
 import "../styles/Registers.css";
@@ -37,6 +38,7 @@ function Products() {
           <ActionTools/>
           {isLoading || (
             <div className="flx flx-col register-list">
+              {loadAll || <EmptyListSome />}
               {filteredData.length === 0 && <EmptyList/>}
               {filteredData.map(register => (
                 <div
