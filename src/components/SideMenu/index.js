@@ -5,13 +5,12 @@ import { SideMenuIcon } from "./SideMenuIcon";
 import "./SideMenu.css";
 
 function SideMenu() {
-  console.log('Render SideMenu');
   const {
     menuOptions,
     menuOption, setMenuOption,
     isMenuOpen
   } = React.useContext(MenuContext);
-  const { setOpenModal, setDebe } = React.useContext(DataContext);
+  const { setOpenModal, setLoadAll } = React.useContext(DataContext);
 
   return (
     <>
@@ -29,7 +28,7 @@ function SideMenu() {
                 className={`flx flx-center side-menu-opt ${(menuOption.name === option.name) && "menu-option-active"}`}
                 onClick={() => {
                   setOpenModal(false);
-                  setDebe(true);
+                  setLoadAll(false);
                   setMenuOption(option);
                 }}
               >

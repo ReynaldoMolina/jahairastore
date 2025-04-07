@@ -28,7 +28,7 @@ const icons = {
   "Productos página": () => <SvgProducts className={styleStroke}/>,
   "Proveedores": () => <SvgProviders className={styleFill}/>,
   "Compras": () => <SvgPurchases className={styleFill}/>,
-  "Ventas": () => <SvgReceipts className={styleStroke}/>,
+  "Recibos": () => <SvgReceipts className={styleStroke}/>,
   "Configuración": () => <SvgSettings className={styleStroke}/>,
 };
 

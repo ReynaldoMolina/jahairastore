@@ -14,17 +14,27 @@ function Products() {
   console.log('Render Products');
   const { menuOption } = React.useContext(MenuContext);
   const {
-    openModal, setOpenModal, setRegisterId, setIsNew
+    openModal, setOpenModal, setRegisterId, setIsNew, loadAll
   } = React.useContext(DataContext);
-  const { data, isLoading } = useGetData(menuOption.url);
+
+  let url = '';
+  if (!loadAll) {
+    const currenDate = new Date().toISOString().split("T")[0];
+    url = `${menuOption.url}?addedDate=${currenDate}`;
+  } else {
+    url = menuOption.url;
+  };
+
+  const { data, isLoading } = useGetData(url);
   const filteredData = useFilterData(data, menuOption.name);
+
+  if (isLoading) return <Loading />;
   
   return (
     <>
       {openModal || (
         <>
           <ActionTools/>
-          {isLoading && <Loading/>}
           {isLoading || (
             <div className="flx flx-col register-list">
               {filteredData.length === 0 && <EmptyList/>}

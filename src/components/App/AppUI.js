@@ -6,7 +6,6 @@ import { MainContent } from '../MainContent/MainContent';
 import { DataProvider } from '../Context/DataContext';
 
 function AppUI() {
-  console.log('Render AppUI')
   return (
     <div className='flx app-container'>
       <DataProvider>

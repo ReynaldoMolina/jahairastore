@@ -4,7 +4,6 @@ import logo from "./store-logo.png";
 import "./Home.css";
 
 function Home() {
-  console.log('Render Home');
   // const { data, isLoading } = useGetData('https://frasedeldia.azurewebsites.net/api/phrase');
 
   return (

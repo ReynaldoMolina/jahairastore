@@ -7,23 +7,29 @@ import { ActionTools } from "../ActionTools";
 import { ReceiptForm } from "../Receipts/ReceiptForm";
 import { Loading } from "../Loading";
 import { EmptyList } from "../EmptyList";
+import { ReceiptTotal } from "./ReceiptTotal/ReceiptTotal";
 import { useFilterData } from "../Hooks/useFilterData";
 import "../styles/Registers.css";
 import "./Receipts.css";
-import { ReceiptTotal } from "./ReceiptTotal/ReceiptTotal";
 
 function Receipts() {
-  console.log('Render Receipts');
   const { menuOption } = React.useContext(MenuContext);
   const {
-    openModal, setOpenModal, setRegisterId, setIsNew
+    openModal, setOpenModal, setRegisterId, setIsNew, loadAll
   } = React.useContext(DataContext);
+
+  let url = '';
+  if (!loadAll) {
+    const currenDate = new Date().toISOString().split("T")[0];
+    url = `${menuOption.url}?saleDate=${currenDate}`;
+  } else {
+    url = menuOption.url;
+  };
   
-  const { data, isLoading } = useGetData(menuOption.url);
+  const { data, isLoading } = useGetData(url);
   const filteredData = useFilterData(data, menuOption.name);
 
   let abono;
-
   if (filteredData) {
     abono = filteredData.reduce((sum, item) => sum + item.abono, 0);
   }
@@ -32,14 +38,14 @@ function Receipts() {
     totalCount: filteredData.length,
     abono
   }
+
+  if (isLoading) return <Loading />;
   
   return (
     <>
       {openModal || (
         <>
           <ActionTools allowNew={false}/>
-          {isLoading && <Loading/>}
-          {isLoading || (
             <div className="flx flx-col register-list">
               {filteredData.length === 0 && ( <EmptyList/> )}
               {filteredData.map(register => (
@@ -64,9 +70,8 @@ function Receipts() {
                 </div>
               ))}
             </div>
-          )}
           <div className="total-separator"></div>
-          <ReceiptTotal receiptsGeneralTotal={receiptsGeneralTotal}/>
+          {filteredData.length > 0 && (<ReceiptTotal receiptsGeneralTotal={receiptsGeneralTotal}/>)}
         </>
       )}
       {openModal && (

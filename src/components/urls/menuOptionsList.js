@@ -22,8 +22,8 @@ const menuOptionsList = [
   },
   {
     id: 3,
-    name: "Ventas",
-    url: baseUrl + 'sales/',
+    name: "Recibos",
+    url: baseUrl + 'sales',
     divider: true
   },
   {

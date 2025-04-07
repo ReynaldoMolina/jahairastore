@@ -11,7 +11,7 @@ function DataProvider({ children }) {
   const [isLoading, setIsLoading] = React.useState(false);
   const [isUpdating, setIsUpdating] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [debe, setDebe] = React.useState(true);
+  const [loadAll, setLoadAll] = React.useState(false);
 
   return (
     <DataContext.Provider value={{
@@ -23,7 +23,7 @@ function DataProvider({ children }) {
       isLoading, setIsLoading,
       isUpdating, setIsUpdating,
       error, setError,
-      debe, setDebe
+      loadAll, setLoadAll
     }}>
       {children}
     </DataContext.Provider>

@@ -13,19 +13,18 @@ import "../styles/Registers.css";
 import "./Orders.css";
 
 function Orders() {
-  console.log('Render Orders');
   const { menuOption } = React.useContext(MenuContext);
   const {
-    openModal, setOpenModal, setRegisterId, setIsNew, debe
+    openModal, setOpenModal, setRegisterId, setIsNew, loadAll
   } = React.useContext(DataContext);
 
   let totalSell, abonos, saldo, profit, url;
 
-  if (debe) {
+  if (!loadAll) {
     url = `${menuOption.url}?debe=true`;
   } else {
     url = menuOption.url;
-  }
+  };
 
   const { data, isLoading } = useGetData(url);
   const filteredData = useFilterData(data, menuOption.name);

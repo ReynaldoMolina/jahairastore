@@ -10,7 +10,7 @@ function ActionTools({ allowNew = true }) {
   const {
     searchValue, setSearchValue,
     setOpenModal,
-    setRegisterId, setIsNew, setDebe
+    setRegisterId, setIsNew, setLoadAll
   } = React.useContext(DataContext);
   
   return (
@@ -50,7 +50,7 @@ function ActionTools({ allowNew = true }) {
         </button>
         <button
           className="flx flx-center action-btn"
-          onClick={() => setDebe(state => !state)}>
+          onClick={() => setLoadAll(state => !state)}>
           <img src={filter} alt="Filter"></img>
         </button>
       </div>

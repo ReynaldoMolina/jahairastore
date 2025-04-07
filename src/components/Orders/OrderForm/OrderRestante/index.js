@@ -14,13 +14,6 @@ function OrderRestante({ orderTotals, order, isNew }) {
   const ordereRestanteTotal = orderEnvio + saldo;
   const ordereRestanteTotalCordobas = ordereRestanteTotal * orderRestante.cambioDolar;
 
-  // const message = `
-  //   Hola bella, ya está su pedido listo para entregar. 🥰
-  //   El paquete pesó ${orderPeso.toFixed(2)} libras en dólares $${orderEnvio.toFixed(2)}
-  //   El restante era de $${saldo.toFixed(2)}
-  //   En total $${ordereRestanteTotal.toFixed(2)} en córdobas C$${ordereRestanteTotalCordobas.toFixed(2)} 🥰
-  // `;
-
   if (isNew) return null;
 
   return (

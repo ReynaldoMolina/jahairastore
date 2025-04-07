@@ -15,12 +15,11 @@ const components = {
   "Pedidos": () => <Orders />,
   "Productos": () => <Products />,
   "Proveedores": () => <Providers />,
-  "Ventas": () => <Receipts />,
+  "Recibos": () => <Receipts />,
   "Productos página": () => <ProductsPage />,
 };
 
 function DataContent() {
-  console.log('Render DataContent')
   const { menuOption } = React.useContext(MenuContext);
 
   return (

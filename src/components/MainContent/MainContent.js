@@ -11,7 +11,7 @@ const components = {
   "Pedidos": () => <DataContent />,
   "Productos": () => <DataContent />,
   "Proveedores": () => <DataContent />,
-  "Ventas": () => <DataContent />,
+  "Recibos": () => <DataContent />,
   "Productos página": () => <DataContent />,
 };
 
