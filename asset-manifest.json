@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/jahairastore/static/css/main.db524e8b.css",
-    "main.js": "/jahairastore/static/js/main.4137c6e2.js",
+    "main.css": "/jahairastore/static/css/main.7717274d.css",
+    "main.js": "/jahairastore/static/js/main.a9d043bd.js",
     "static/js/488.9d784508.chunk.js": "/jahairastore/static/js/488.9d784508.chunk.js",
     "static/media/downloadpdf.svg": "/jahairastore/static/media/downloadpdf.337ac25f7f351b5fd2d9db3d821ed118.svg",
     "static/media/providers.svg": "/jahairastore/static/media/providers.1c3b899c6016c15bf2f2a22dc0c25f13.svg",
@@ -28,12 +28,12 @@
     "static/media/search.svg": "/jahairastore/static/media/search.58b9126530d3ce11d4373ec32774d6d1.svg",
     "static/media/logout.svg": "/jahairastore/static/media/logout.f9a7341af0884f62eda6c2a93a6e9ed3.svg",
     "static/media/add.svg": "/jahairastore/static/media/add.db6a1b393f18fab9302cffaee47df564.svg",
-    "main.db524e8b.css.map": "/jahairastore/static/css/main.db524e8b.css.map",
-    "main.4137c6e2.js.map": "/jahairastore/static/js/main.4137c6e2.js.map",
+    "main.7717274d.css.map": "/jahairastore/static/css/main.7717274d.css.map",
+    "main.a9d043bd.js.map": "/jahairastore/static/js/main.a9d043bd.js.map",
     "488.9d784508.chunk.js.map": "/jahairastore/static/js/488.9d784508.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.db524e8b.css",
-    "static/js/main.4137c6e2.js"
+    "static/css/main.7717274d.css",
+    "static/js/main.a9d043bd.js"
   ]
 }
