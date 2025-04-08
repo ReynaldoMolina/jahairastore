@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/jahairastore/static/css/main.7717274d.css",
-    "main.js": "/jahairastore/static/js/main.a9d043bd.js",
+    "main.css": "/jahairastore/static/css/main.1a38f276.css",
+    "main.js": "/jahairastore/static/js/main.ff07ecc3.js",
     "static/js/488.9d784508.chunk.js": "/jahairastore/static/js/488.9d784508.chunk.js",
     "static/media/downloadpdf.svg": "/jahairastore/static/media/downloadpdf.337ac25f7f351b5fd2d9db3d821ed118.svg",
     "static/media/providers.svg": "/jahairastore/static/media/providers.1c3b899c6016c15bf2f2a22dc0c25f13.svg",
@@ -18,7 +18,6 @@
     "static/media/one-hundred.svg": "/jahairastore/static/media/one-hundred.684a67f80d0fd83519c1834a7c40bb15.svg",
     "static/media/fifty.svg": "/jahairastore/static/media/fifty.941465b253878fe0d25b9e9aa10da43a.svg",
     "index.html": "/jahairastore/index.html",
-    "static/media/finances.svg": "/jahairastore/static/media/finances.b7737ab0b4b4598e906be8f554a50774.svg",
     "static/media/filter.svg": "/jahairastore/static/media/filter.96c72a4f1decc6277a1f759df3383cbd.svg",
     "static/media/categories.svg": "/jahairastore/static/media/categories.51e47428f766f58cf25058004d0abca9.svg",
     "static/media/loading.svg": "/jahairastore/static/media/loading.4f6266cf5346b64027e993ab5da5d085.svg",
@@ -26,14 +25,13 @@
     "static/media/menu.svg": "/jahairastore/static/media/menu.09cad7c459ab5decf1ae45ab4c21f369.svg",
     "static/media/home.svg": "/jahairastore/static/media/home.c8f2d7ac335cd6ac99260e7badfa6446.svg",
     "static/media/search.svg": "/jahairastore/static/media/search.58b9126530d3ce11d4373ec32774d6d1.svg",
-    "static/media/logout.svg": "/jahairastore/static/media/logout.f9a7341af0884f62eda6c2a93a6e9ed3.svg",
     "static/media/add.svg": "/jahairastore/static/media/add.db6a1b393f18fab9302cffaee47df564.svg",
-    "main.7717274d.css.map": "/jahairastore/static/css/main.7717274d.css.map",
-    "main.a9d043bd.js.map": "/jahairastore/static/js/main.a9d043bd.js.map",
+    "main.1a38f276.css.map": "/jahairastore/static/css/main.1a38f276.css.map",
+    "main.ff07ecc3.js.map": "/jahairastore/static/js/main.ff07ecc3.js.map",
     "488.9d784508.chunk.js.map": "/jahairastore/static/js/488.9d784508.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7717274d.css",
-    "static/js/main.a9d043bd.js"
+    "static/css/main.1a38f276.css",
+    "static/js/main.ff07ecc3.js"
   ]
 }
