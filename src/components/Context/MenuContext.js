@@ -1,21 +1,20 @@
 import React from "react";
-import { menuOptionsList } from "../urls/menuOptionsList";
-import { MobileContext } from "./MobileContext";
+import { menuOptionsList, apiUrl } from "../urls/menuOptionsList";
 
 const MenuContext = React.createContext();
 
 function MenuProvider({ children }) {  
   const [isMenuOpen, setIsMenuOpen] = React.useState(true);
   const [menuOptions] = React.useState(menuOptionsList);
+  const [apiBaseUrl] = React.useState(apiUrl);
   const [menuOption, setMenuOption] = React.useState({ name: "Home" });
 
   return (
     <MenuContext.Provider value={{
-      isMenuOpen,
-      setIsMenuOpen,
+      isMenuOpen, setIsMenuOpen,
+      menuOption, setMenuOption,
+      apiBaseUrl,
       menuOptions,
-      menuOption,
-      setMenuOption,
     }}>
       {children}
     </MenuContext.Provider>

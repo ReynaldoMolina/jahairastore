@@ -10,9 +10,11 @@ import { sendData } from "../../Hooks/sendData";
 import "../../styles/RegisterForm.css";
 
 function ProviderForm() {
-  const { menuOption } = React.useContext(MenuContext);
+  const { menuOption, apiBaseUrl } = React.useContext(MenuContext);
   const { setOpenModal, registerId, isNew, setIsUpdating } = React.useContext(DataContext);
-  const { data, isLoading } = useGetData(menuOption.url + registerId);
+
+  let url = isNew ? apiBaseUrl : menuOption.url + registerId;
+  const { data, isLoading } = useGetData(url);
 
   const [provider, setProvider] = React.useState({
     company: '',

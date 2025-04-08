@@ -1,15 +1,15 @@
 import React from 'react';
 import { AppUI } from './AppUI';
 import { MenuProvider } from '../Context/MenuContext';
-import { MobileProvider } from '../Context/MobileContext';
+import { DataProvider } from '../Context/DataContext';
 
 function App() {
   return (
-    <MobileProvider>
-      <MenuProvider>
+    <MenuProvider>
+      <DataProvider>
         <AppUI/>
-      </MenuProvider>
-    </MobileProvider>
+      </DataProvider>
+    </MenuProvider>
   );
 }
 

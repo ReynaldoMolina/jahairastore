@@ -9,9 +9,11 @@ import { sendData } from "../../Hooks/sendData";
 import "../../styles/RegisterForm.css";
 
 function CategoryForm() {
-  const { menuOption } = React.useContext(MenuContext);
+  const { menuOption, apiBaseUrl } = React.useContext(MenuContext);
   const { setOpenModal, registerId, isNew, setIsUpdating } = React.useContext(DataContext);
-  const { data, isLoading } = useGetData(menuOption.url + registerId);
+
+  const url = isNew ? apiBaseUrl : menuOption.url;
+  const { data, isLoading } = useGetData(url + registerId);
 
   const [category, setCategory] = React.useState({name: ''})
 

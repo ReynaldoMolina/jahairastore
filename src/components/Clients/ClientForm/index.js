@@ -10,9 +10,11 @@ import { sendData } from "../../Hooks/sendData";
 import "../../styles/RegisterForm.css";
 
 function ClientForm() {
-  const { menuOption } = React.useContext(MenuContext);
+  const { menuOption, apiBaseUrl } = React.useContext(MenuContext);
   const { setOpenModal, registerId, isNew, setIsUpdating } = React.useContext(DataContext);
-  const { data, isLoading } = useGetData(menuOption.url + registerId);
+
+  let url = isNew ? apiBaseUrl : menuOption.url;
+  const { data, isLoading } = useGetData(url + registerId);
 
   const [client, setClient] = React.useState({
     name: "",

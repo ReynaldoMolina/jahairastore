@@ -8,13 +8,13 @@ import { ClientSearch } from "../../ClientSearch";
 import { FormInput } from "../../FormInput";
 import { FormSpan } from "../../FormInput/FormSpan";
 import { OrdersDetails } from "../../OrdersDetails";
+import { OrderTotals } from "./OrderTotals";
 import { OrderOptions } from "./OrderOptions";
 import { OrderRestante } from "./OrderRestante";
 import { FormButtons } from "../../FormInput/FormButtons";
 import { sendData } from "../../Hooks/sendData";
 import { sendDetails } from "../../Hooks/sendDetails";
 import "./OrderForm.css";
-import { OrderTotals } from "./OrderTotals";
 
 function OrderForm() {
   const { menuOption } = React.useContext(MenuContext);

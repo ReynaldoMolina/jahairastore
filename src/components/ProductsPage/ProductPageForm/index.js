@@ -9,9 +9,11 @@ import { Loading } from "../../Loading";
 import "../../styles/RegisterForm.css";
 
 function ProductPageForm() {
-  const { menuOption } = React.useContext(MenuContext);
+  const { menuOption, apiBaseUrl } = React.useContext(MenuContext);
   const { setOpenModal, registerId, isNew, setIsUpdating } = React.useContext(DataContext);
-  const { data, isLoading } = useGetData(menuOption.url + registerId);
+
+  const url = isNew ? apiBaseUrl : menuOption.url + registerId;
+  const { data, isLoading } = useGetData(url);
 
   const [product, setProduct] = React.useState({
     name: '',
@@ -41,35 +43,34 @@ function ProductPageForm() {
     setIsUpdating(true);
   }
 
-  return (
-    <>
-      {isLoading ? <Loading/> :
-      (
-        <form
-          action={handleRegister}
-          className="flx flx-col frm-container">
-          {isNew || (
-            <div className="flx obj-info">
-              <span className="flx flx-center form-id">{data.id}</span>
-            </div>
-          )}
-          <div className="flx obj-info">
-            <FormInput name="name" holder="Nombre" value={product} setValue={setProduct}/>
-          </div>
-          <div className="flx obj-info">
-            <FormInput name="price" holder="Precio" type="number" value={product} setValue={setProduct}/>
-          </div>
-          <div className="flx obj-info">
-            <FormInput name="image" holder="Link de imagen" value={product} setValue={setProduct}/>
-          </div>
-          <div className="flx flx-center obj-info">
-            <img src={product.image} className="product-image" alt="Product"></img>
-          </div>
+  if (isLoading) return <Loading />;
 
-          <FormButtons />
-        </form>
+  return (
+    <form
+      action={handleRegister}
+      className="flx flx-col frm-container">
+      {isNew || (
+        <div className="flx obj-info">
+          <span className="flx flx-center form-id">{data.id}</span>
+        </div>
       )}
-    </>
+      <div className="flx obj-info">
+        <FormInput name="name" holder="Nombre" value={product} setValue={setProduct}/>
+      </div>
+      <div className="flx obj-info">
+        <FormInput name="price" holder="Precio" type="number" value={product} setValue={setProduct}/>
+      </div>
+      <div className="flx obj-info">
+        <FormInput name="image" holder="Link de imagen" value={product} setValue={setProduct}/>
+      </div>
+      <div className="flx flx-center obj-info">
+        {product.image && 
+          <img src={product.image} className="product-image" alt="Product image"></img>
+        }
+      </div>
+
+      <FormButtons />
+    </form>
   )
 }
 

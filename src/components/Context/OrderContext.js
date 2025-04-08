@@ -6,9 +6,11 @@ import { useGetData } from "../Hooks/useGetData";
 const OrderContext = React.createContext();
 
 function OrderProvider({ children }) {
-  const { menuOption } = React.useContext(MenuContext);
+  const { menuOption, apiBaseUrl } = React.useContext(MenuContext);
   const { registerId, isNew } = React.useContext(DataContext);
-  const { data, isLoading } = useGetData(`${menuOption.url}/${registerId}`);
+
+  let url = isNew ? apiBaseUrl : `${menuOption.url}/${registerId}`;
+  const { data, isLoading } = useGetData(url);
   const currentDate = new Date().toISOString().split("T")[0];
 
   const [order, setOrder] = React.useState({

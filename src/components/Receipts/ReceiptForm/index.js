@@ -12,10 +12,10 @@ import { sendData } from "../../Hooks/sendData";
 import "../../styles/RegisterForm.css";
 
 function ReceiptForm() {
-  const { menuOption } = React.useContext(MenuContext);
+  const { menuOption, apiBaseUrl } = React.useContext(MenuContext);
   const { setOpenModal, registerId, orderReceipt, isNew, setIsUpdating } = React.useContext(DataContext);
   
-  const url = `${menuOption.url}${registerId}`;
+  const url = isNew ? apiBaseUrl : `${menuOption.url}/${registerId}`;
   const { data, isLoading } = useGetData(url);
   const currenDate = new Date().toISOString().split("T")[0];
   
