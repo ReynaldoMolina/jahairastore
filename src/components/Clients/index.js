@@ -6,7 +6,6 @@ import { EmptyList } from "../EmptyList";
 import { ClientForm } from "../Clients/ClientForm";
 import { useFilterData } from "../Hooks/useFilterData";
 import "../styles/Registers.css";
-import "./Clients.css";
 
 function Clients({
   menuOption,
@@ -39,7 +38,7 @@ function Clients({
             <span className="flx flx-center id">{register.id}</span>
             <div className="flx info">
               <span className="name">{register.fullname}</span>
-              <span className="phone">{register.phone ? register.phone : '(Sin teléfono)'}</span>
+              <span className="phone">{register.phone}</span>
             </div>
           </div>
         ))}

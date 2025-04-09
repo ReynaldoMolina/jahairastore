@@ -9,7 +9,6 @@ import { EmptyList } from "../EmptyList";
 import { EmptyListSome } from "../EmptyListSome";
 import { OrderTotal } from "./OrderTotal/OrderTotal";
 import "../styles/Registers.css";
-import "./Orders.css";
 
 function Orders({
   menuOption,
@@ -71,17 +70,16 @@ function Orders({
             <div className="flx info">
               <span className="name">{register.fullname}</span>
               <span className="date">{register.orderDate}</span>
-              <div className="flx">
-                  <span className="total">{(register.totalSell).toFixed(2)}</span>
-                  <span className="abono">{(register.abonos).toFixed(2)}</span>
-                  <span className="saldo">{(register.saldo).toFixed(2)}</span>
-                  <span className="profit">{(register.profit).toFixed(2)}</span>
+              <div className="flx info-detail">
+                <span className="total">{(register.totalSell).toFixed(2)}</span>
+                <span className="abono">{(register.abonos).toFixed(2)}</span>
+                <span className="saldo">{(register.saldo).toFixed(2)}</span>
+                <span className="profit">{(register.profit).toFixed(2)}</span>
               </div>
             </div>
           </div>
         ))}
       </div>
-      <div className="total-separator"></div>
       {filteredData.length > 0 && (
         <OrderTotal ordersGeneralTotal={ordersGeneralTotal}/>
       )}

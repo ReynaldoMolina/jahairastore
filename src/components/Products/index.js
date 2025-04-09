@@ -7,7 +7,6 @@ import { EmptyListSome } from "../EmptyListSome";
 import { ProductForm } from "../Products/ProductForm";
 import { useFilterData } from "../Hooks/useFilterData";
 import "../styles/Registers.css";
-import "./Products.css";
 
 function Products({
   menuOption,
@@ -48,7 +47,7 @@ function Products({
             <span className="flx flx-center id">{register.id}</span>
             <div className="flx info">
               <span className="name">{register.name}</span>
-                <div className="flx">
+                <div className="flx info-detail">
                   <span className="sell-price">{(register.sellPrice).toFixed(2)}</span>
                   <span className="cost-price">{(register.costPrice).toFixed(2)}</span>
                   <span className="profit">{(register.sellPrice - register.costPrice).toFixed(2)}</span>

@@ -2,10 +2,11 @@
   background-color: var(--foreground);
   max-width: 500px;
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   border-radius: var(--rounded);
   margin: 0 auto;
   box-shadow: 1px 1px 2px var(--shadow);
+  gap: 10px;
 }
 .form-id {
   height: var(--input-h);
@@ -16,7 +17,6 @@
   color: var(--register-id);
 }
 .obj-info {
-  margin-bottom: 12px;
   width: 100%;
   align-items: end;
   gap: 12px;

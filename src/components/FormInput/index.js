@@ -3,7 +3,7 @@ import "./FormInput.css";
 
 function FormInput({ name, holder, type = "text", value, setValue, readonly = false, autocomplete = "off" }) {
   return (
-    <div className="flx flx-col">
+    <div className="flx flx-col frm-input-div">
       <label
         htmlFor={name}
         className="frm-input-label"

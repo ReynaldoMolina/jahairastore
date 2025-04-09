@@ -1,5 +1,6 @@
 .main-content {
   height: calc(100% - 62px);
-  padding: 1px 1px 12px 1px;
+  padding: 1px;
   overflow-y: scroll;
+  gap: 10px;
 }

@@ -6,7 +6,6 @@ import { CategoryForm } from "../Categories/CategoryForm";
 import { EmptyList } from "../EmptyList";
 import { useFilterData } from "../Hooks/useFilterData";
 import "../styles/Registers.css";
-import "./Categories.css";
 
 function Categories({
   menuOption,

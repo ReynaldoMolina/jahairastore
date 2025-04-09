@@ -1,12 +1,10 @@
 .header {
   justify-content: space-between;
   border-bottom: 1px solid var(--divider);
-  margin-bottom: 12px;
   min-height: 50px;
 }
 .header-profile-pic {
   cursor: pointer;
-  width: 25px;
   width: 35px;
   height: 35px;
   padding: 4px;

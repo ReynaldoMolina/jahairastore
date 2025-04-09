@@ -6,7 +6,6 @@ import { EmptyList } from "../EmptyList";
 import { ProductPageForm } from "../ProductsPage/ProductPageForm";
 import { useFilterData } from "../Hooks/useFilterData";
 import "../styles/Registers.css";
-import "./ProductsPage.css";
 
 function ProductsPage({
   menuOption,

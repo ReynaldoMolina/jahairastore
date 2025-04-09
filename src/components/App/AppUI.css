@@ -65,12 +65,12 @@ h1 {
 .app-container {
   height: 100vh;
   background-color: var(--background);
-  /* overflow: hidden; */
 }
 .main-window {
-  padding: 0 12px;
+  padding: 0 10px;
   flex-grow: 1;
   height: 100vh;
+  gap: 5px;
 }
   /*Flex and directions*/
 .flx {

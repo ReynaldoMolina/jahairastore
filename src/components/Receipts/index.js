@@ -2,14 +2,13 @@ import React from "react";
 import { OrderProvider } from "../Context/OrderContext";
 import { useGetData } from "../Hooks/useGetData";
 import { ReceiptForm } from "../Receipts/ReceiptForm";
+import { ActionTools } from "../ActionTools";
 import { Loading } from "../Loading";
 import { EmptyList } from "../EmptyList";
 import { EmptyListSome } from "../EmptyListSome";
 import { ReceiptTotal } from "./ReceiptTotal/ReceiptTotal";
 import { useFilterData } from "../Hooks/useFilterData";
 import "../styles/Registers.css";
-import "./Receipts.css";
-import { ActionTools } from "../ActionTools";
 
 function Receipts({
   menuOption,
@@ -58,16 +57,15 @@ function Receipts({
             <span className="flx flx-center id">{register.id}</span>
             <div className="flx info">
               <span className="name">{register.fullname}</span>
-                <div className="flx">
+                <div className="flx info-detail">
                   <span className="date">{register.saleDate}</span>
-                  <span className="total">{register.orderId}</span>
+                  <span className="order-no">{register.orderId}</span>
                   <span className="abono abono-receipt">{(register.abono).toFixed(2)}</span>
               </div>
             </div>
           </div>
         ))}
       </div>
-      <div className="total-separator"></div>
       {filteredData.length > 0 && (
         <ReceiptTotal receiptsGeneralTotal={receiptsGeneralTotal}/>
       )}

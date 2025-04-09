@@ -1,11 +1,12 @@
 .register-title {
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 .register-list {
   width: 100%;
   overflow-y: scroll;
   gap: 3px;
-  padding-bottom: 2px;
+  padding-bottom: 1px;
+  border-radius: var(--rounded);
 }
 .register-card {
   border-radius: var(--rounded);
@@ -14,6 +15,7 @@
   align-items: center;
   box-shadow: 1px 1px 1px var(--shadow);
   margin-right: 2px;
+  gap: 10px;
 }
 .register-card:hover {
   background-color: var(--hover);
@@ -23,34 +25,86 @@
   min-width: 40px;
   height: 20px;
   border-radius: var(--rounded);
-  margin-right: 10px;
   font-size: 1rem;
   color: var(--register-id);
 }
 .name {
   font-size: 1.3rem;
+  flex-grow: 1;
 }
-.info {
+.phone {
+  color: gray;
+  text-align: end;
+  font-size: 1.2rem;
+  width: 110px;
+}
+.info,
+.info-total {
   align-items: center;
   flex-grow: 1;
+  gap: 3px;
+}
+.info-total {
+  justify-content: end;
+}
+.info-detail {
+  gap: 3px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 .total,
 .abono,
 .saldo,
 .date,
-.profit {
-  font-size: 1.3rem;
+.profit,
+.order-no,
+.cost-price,
+.sell-price {
   border-radius: var(--rounded);
   padding: 3px 5px;
   text-align: right;
-  margin-left: 5px;
   font-size: 1rem;
-  width: 50px;
+  width: 60px;
+}
+.date {
+  text-align: center;
+  border: 1px solid gainsboro;
+}
+.order-no {
+  text-align: center;
+}
+.total,
+.order-no {
+  background-color: var(--info-gray);
+}
+.abono,
+.sell-price {
+  background-color: var(--info-green);
+}
+.saldo,
+.cost-price {
+  background-color: var(--info-red);
+}
+.profit {
+  background-color: var(--info-blue);
+}
+.total-separator {
+  width: 100%;
+  flex-grow: 1;
 }
 
 @media (max-width: 500px) {
   .info {
     flex-direction: column;
     align-items: start;
+  }
+  .info-total {
+    justify-content: start;
+  }
+  .phone {
+    text-align: left;
+  }
+  .phone {
+    font-size: 1.1rem;
   }
 }

@@ -1,16 +1,14 @@
 import React from "react";
-import "./ReceiptTotal.css"
+import "../../styles/RegistersTotal.css";
 
 function ReceiptTotal({ receiptsGeneralTotal }) {
   return (
-    <div className="flx receipttotal-card">
+    <div className="flx total-card">
       <span className="flx flx-center count">{receiptsGeneralTotal.totalCount}</span>
-      <div className="flx info">
-        <span className="name"></span>
-        <div className="flx">
-          <span className="date"></span>
+      <div className="flx info-total">
+        <div className="flx info-detail">
           <span className="total-spacer"></span>
-          <span className="total-abono-receipt">{(receiptsGeneralTotal.abono).toFixed(2)}</span>
+          <span className="abono">{(receiptsGeneralTotal.abono).toFixed(2)}</span>
         </div>
       </div>
     </div>

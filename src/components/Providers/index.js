@@ -6,7 +6,6 @@ import { ProviderForm } from "../Providers/ProviderForm";
 import { useFilterData } from "../Hooks/useFilterData";
 import { EmptyList } from "../EmptyList";
 import "../styles/Registers.css";
-import "./Providers.css";
 
 function Providers({
   menuOption,
@@ -22,7 +21,7 @@ function Providers({
   if (openModal) return <ProviderForm />;
   
   return (
-    <div>
+    <>
       <ActionTools />
       <div className="flx flx-col register-list">
         {filteredData.length === 0 && <EmptyList/> }
@@ -44,7 +43,7 @@ function Providers({
           </div>
         ))}
       </div>
-    </div>
+    </>
   )
 }
 
