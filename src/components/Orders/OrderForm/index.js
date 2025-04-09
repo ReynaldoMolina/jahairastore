@@ -91,7 +91,7 @@ function OrderForm() {
             <select
               id="state"
               name="state"
-              className="frm-input"
+              className="frm-input frm-select"
               value={order.state}
               onChange={(event) => {
                 const newValue = {

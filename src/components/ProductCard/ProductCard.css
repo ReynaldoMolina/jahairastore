@@ -13,17 +13,21 @@
   border-radius: var(--rounded);
   border-top: 1px solid gainsboro;
   border-left: 1px solid gainsboro;
+  gap: 10px;
 }
 .product-info-container {
   flex-grow: 1;
+  gap: 8px;
   justify-content: space-between;
+}
+.product-info {
+  gap: 10px;
 }
 .product-info:nth-child(2) {
   align-items: center;
 }
 .product-id {
   background-color: var(--action-button);
-  margin-right: 8px;
   border-radius: var(--rounded);
   height: 20px;
   min-width: 35px;
@@ -44,7 +48,6 @@
   text-align: right;
 }
 .quantity-container {
-  margin-left: 10px;
   border: 1px solid var(--shadow);
   border-radius: var(--rounded);
   overflow: hidden;
@@ -73,7 +76,6 @@
   background-color: var(--action-button-hover);
 }
 .subtotal {
-  margin-left: 5px;
   width: 60px;
   min-width: 60px;
   justify-content: right;
@@ -83,7 +85,6 @@
   border-radius: var(--rounded);
   padding: 5px;
   stroke: rgb(197, 28, 28);
-  margin-left: 10px;
   height: 27px;
   max-width: 27px;
   min-width: 27px;
@@ -103,20 +104,11 @@
     flex-direction: row-reverse;
   }
   .product-info:nth-child(2) {
-    margin-top: 5px;
     justify-content: left;
-  }
-  .product-price {
-    margin-left: 10px;
-  }
-  .quantity-container {
-    margin-left: 0;
   }
 }
 @media (max-width: 350px) {
   .product-price {
-    margin-left: 0;
-    margin-bottom: 5px;
     text-align: left;
   }
   .product-info:nth-child(2) {
