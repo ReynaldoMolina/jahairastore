@@ -1,8 +1,6 @@
 .client-search-container {
-  border: 1px solid var(--shadow);
   border-radius: var(--rounded);
   padding: 5px;
-  margin-bottom: 12px;
   background-color: var(--background);
 }
 .client-btn {
@@ -54,6 +52,7 @@
   min-height: 40vh;
   overflow-y: scroll;
   gap: 3px;
+  border-radius: var(--rounded);
 }
 .clients {
   border-radius: var(--rounded);

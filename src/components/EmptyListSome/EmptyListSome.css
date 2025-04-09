@@ -1,6 +1,7 @@
 .empty-list-some {
   margin-right: 1px;
   padding: 0 10px;
+  margin-bottom: 5px;
 }
 .empty-list-span {
   color: var(--text-color2);

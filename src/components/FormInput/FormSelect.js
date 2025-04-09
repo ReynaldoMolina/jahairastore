@@ -2,7 +2,7 @@ import React from "react";
 import { MenuContext } from "../Context/MenuContext";
 import { useGetData } from "../Hooks/useGetData";
 import { InputLoading } from "./InputLoading";
-import "./FormSelect.css";
+import "./FormInput.css";
 
 function FormSelect({ name, holder, value, setValue, option, field}) {
   const { menuOptions } = React.useContext(MenuContext);
@@ -12,17 +12,17 @@ function FormSelect({ name, holder, value, setValue, option, field}) {
     <>
       {isLoading ? <InputLoading holder={holder}/> :
       (
-        <div className="flx flx-col">
+        <div className="flx flx-col frm-input-div">
           <label
             htmlFor={name}
-            className="frm-select-label"
+            className="frm-input-label"
           >
             {holder}
           </label>
           <select
             id={name}
             name={name}
-            className="frm-select"
+            className="frm-input frm-select"
             value={value[name]}
             onChange={(event) => {
               const {id, ...valueNoId} = value;

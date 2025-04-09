@@ -14,6 +14,7 @@ import { OrderRestante } from "./OrderRestante";
 import { FormButtons } from "../../FormInput/FormButtons";
 import { sendData } from "../../Hooks/sendData";
 import { sendDetails } from "../../Hooks/sendDetails";
+import "../../styles/RegisterForm.css";
 import "./OrderForm.css";
 
 function OrderForm() {
@@ -75,22 +76,22 @@ function OrderForm() {
       action={handleRegister}
       className="flx flx-col order-container"
     >
-      <h2 className="order-title">Información del pedido</h2>
       <div className="flx flx-col order-info-container">
-        <div className="flx order-info">
+        <h2 className="order-title">Información</h2>
+        <div className="flx obj-info">
           <FormSpan name="order-id" holder="Pedido" value={order.id}/>
 
-          <div className="flx flx-col">
+          <div className="flx flx-col frm-input-div">
             <label
               htmlFor="state"
-              className="frm-select-label"
+              className="frm-input-label"
             >
               Estado
             </label>
             <select
               id="state"
               name="state"
-              className="frm-select"
+              className="frm-input"
               value={order.state}
               onChange={(event) => {
                 const newValue = {
@@ -108,7 +109,7 @@ function OrderForm() {
           <FormInput name="orderDate" holder="Fecha" type="date" value={order} setValue={setOrder}/>
         </div>
 
-        <div className="flx order-info">
+        <div className="flx obj-info">
           <FormSpan name="client-id" holder="Cliente" value={order.fullname}/>
           <button
             type="button"
@@ -121,11 +122,11 @@ function OrderForm() {
 
         <ClientSearch register={order} setRegister={setOrder} isSearchClientOpen={isSearchClientOpen} setIsSearchClientOpen={setIsSearchClientOpen}/>
 
-        <div className="flx order-info">
-          <FormSpan name="order-total" holder="Total" value={orderTotals.totalSell ? orderTotals.totalSell : 0} type="number"/>
-          <FormSpan name="order-abono" holder="Abono" value={order.abonos ? order.abonos : 0} type="number"/>
-          <FormSpan name="order-saldo" holder="Saldo" value={(orderTotals.totalSell ? orderTotals.totalSell : 0) - (order.abonos ? order.abonos : 0)} type="number"/>
-          <FormSpan name="order-profit" holder="Ganancia" value={orderTotals.profit ? orderTotals.profit : 0} type="number"/>
+        <div className="flx obj-info">
+          <FormSpan name="total order-total" holder="Total" value={orderTotals.totalSell ? orderTotals.totalSell : 0} type="number"/>
+          <FormSpan name="abono order-total" holder="Abono" value={order.abonos ? order.abonos : 0} type="number"/>
+          <FormSpan name="saldo order-total" holder="Saldo" value={(orderTotals.totalSell ? orderTotals.totalSell : 0) - (order.abonos ? order.abonos : 0)} type="number"/>
+          <FormSpan name="profit order-total" holder="Ganancia" value={orderTotals.profit ? orderTotals.profit : 0} type="number"/>
         </div>
       </div>
 

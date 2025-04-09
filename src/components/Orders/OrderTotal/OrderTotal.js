@@ -1,9 +1,9 @@
 import React from "react";
-import "../../styles/RegistersTotal.css"
+import "../../styles/Registers.css"
 
 function OrderTotal({ ordersGeneralTotal }) {
   return (
-    <div className="flx total-card">
+    <div className="flx register-card total-card">
       <span className="flx flx-center count">{ordersGeneralTotal.totalCount}</span>
       <div className="flx info-total">
         <div className="flx info-detail">

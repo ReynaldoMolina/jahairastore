@@ -1,7 +1,6 @@
 import React from "react";
 import { baseUrl } from "../urls/menuOptionsList";
 import { useGetData } from "../Hooks/useGetData";
-// import { ReactComponent as SvgAdd } from "./add.svg";
 import { EmptyList } from "../EmptyList";
 import { ReactComponent as SvgSearch } from './search.svg';
 import "./ClientSearch.css"

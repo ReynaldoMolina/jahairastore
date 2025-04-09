@@ -1,7 +1,7 @@
 .register-frm-btn {
-  margin-top: 20px;
   width: 100%;
   justify-content: center;
+  gap: 10px;
 }
 .frm-btn-cancel,
 .frm-btn-submit {
@@ -16,7 +16,6 @@
 }
 .frm-btn-submit {
   background-color: rgb(67, 160, 87);
-  margin-left: 12px;
 }
 .frm-btn-submit:hover {
   background-color: rgb(23, 121, 45);

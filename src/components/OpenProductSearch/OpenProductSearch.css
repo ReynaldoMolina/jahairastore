@@ -1,6 +1,7 @@
 .product-list-toggle-dropdown {
   height: 15px;
   width: 15px;
+  transition: linear 0.1s;
 }
 .dropdown-rotate {
   transform: rotate(180deg);

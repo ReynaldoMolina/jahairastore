@@ -17,9 +17,9 @@ function OrderRestante({ orderTotals, order, isNew }) {
   if (isNew) return null;
 
   return (
-    <>
+    <div className="flx flx-col order-info-container">
       <h2 className="order-title">Mensaje de dinero restante</h2>
-      <div className="flex order-restante">
+      <div className="flx flx-col order-restante">
         <div className="flx order-restante-input-div">
           <FormInput name="peso" holder="Peso" type="number" value={orderRestante} setValue={setOrderRestante} />
           <FormInput name="cambioDolar" holder="Cambio dólar" type="number" value={orderRestante} setValue={setOrderRestante} />
@@ -27,13 +27,19 @@ function OrderRestante({ orderTotals, order, isNew }) {
         </div>
         <div className="flx flx-col order-restante-mensaje">
           {/* <p>{message}</p> */}
-          <p>{`Hola ${order.name}, ya está tu pedido listo para entregar. 🥰`}</p>
-          <p>{`El paquete pesó ${orderPeso.toFixed(2)} libras en dólares $${orderEnvio.toFixed(2)}`}</p>
-          <p>{`El restante era de $${saldo.toFixed(2)}`}</p>
-          <p>{`En total $${ordereRestanteTotal.toFixed(2)} en córdobas C$${ordereRestanteTotalCordobas.toFixed(2)} 🥰`}</p>
+          <p>{`Hola ${order.name}, ya está tu pedido listo para entregar 🥰.`}</p>
+          <p>{`El paquete pesó ${orderPeso.toFixed(2)} libras, en dólares $${orderEnvio.toFixed(2)}.`}</p>
+
+          {saldo > 0 && <p>{`El restante era de $${saldo.toFixed(2)}.`}</p> }
+
+          {saldo > 0 ?
+            <p>{`En total $${ordereRestanteTotal.toFixed(2)}, en córdobas C$${ordereRestanteTotalCordobas.toFixed(2)} 🥰`}</p>
+            :
+            <p>{`En córdobas C$${ordereRestanteTotalCordobas.toFixed(2)} 🥰`}</p>
+          }
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

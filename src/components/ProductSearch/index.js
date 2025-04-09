@@ -4,11 +4,12 @@ import { DataContext } from "../Context/DataContext";
 import { OrderContext } from "../Context/OrderContext";
 import { OpenProductSearch } from "../OpenProductSearch";
 import { EmptyList } from "../EmptyList";
+import { EmptyListSome } from "../EmptyListSome";
 import { useGetData } from "../Hooks/useGetData";
 import { ReactComponent as SvgAdd } from "./add.svg";
 import { getOrderTotals } from "../Hooks/getOrderTotals";
-import filter from "./filter.svg";
 import { ReactComponent as SvgSearch } from './search.svg';
+import filter from "./filter.svg";
 import "./ProductSearch.css"
 
 function ProductSearch({ isSearchProductOpen, setIsSearchProductOpen }) {
@@ -19,13 +20,7 @@ function ProductSearch({ isSearchProductOpen, setIsSearchProductOpen }) {
   const currenDate = new Date().toISOString().split("T")[0];
   const [productDate, setProductDate] = React.useState(currenDate);
 
-  let url;
-  if (productDate !== '') {
-    url = `${baseUrl}products?addedDate=${productDate}`;
-  } else {
-    url = `${baseUrl}products`;
-  }
-
+  let url = productDate !== '' ? `${baseUrl}products?addedDate=${productDate}` : `${baseUrl}products`;
   const { data } = useGetData(url);
   
   const filteredData = data.filter((register) => {
@@ -57,6 +52,8 @@ function ProductSearch({ isSearchProductOpen, setIsSearchProductOpen }) {
     setProductList([...productList, { ...newDetail }]);
     setOrderTotals(getOrderTotals([...productList, newDetail]));
   }
+
+  const message = 'Solo se cargaron productos agregados hoy, da click al ícono de filtro para cargar todo';
 
   return (
     <div className="flx flx-col product-search-container">
@@ -95,6 +92,7 @@ function ProductSearch({ isSearchProductOpen, setIsSearchProductOpen }) {
       </div>
 
       <div className={`flx flx-col products-list ${isSearchProductOpen || "hidden"}`}>
+        {productDate !== '' && <EmptyListSome message={message} />}
         {filteredData.length === 0 && <EmptyList/>}
         {filteredData.map(register => (
             <div

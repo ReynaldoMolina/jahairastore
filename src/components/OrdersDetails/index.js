@@ -1,8 +1,6 @@
 import React from "react";
-import { baseUrl } from "../urls/menuOptionsList";
 import { DataContext } from "../Context/DataContext";
 import { OrderContext } from "../Context/OrderContext";
-import { useGetData } from "../Hooks/useGetData";
 import { ProductSearch } from "../ProductSearch";
 import { ProductCard } from "../ProductCard";
 import { ProductCardEmpty } from "../ProductCard/ProductCardEmpty";
@@ -32,16 +30,20 @@ function OrdersDetails() {
 
   return (
     <>
-      <h2 className="detail-title">Añadir productos</h2>
-      <ProductSearch isSearchProductOpen={isSearchProductOpen} setIsSearchProductOpen={setIsSearchProductOpen}/>
+      <div className="flx flx-col order-info-container">
+        <h2 className="order-title">Añadir productos</h2>
+        <ProductSearch isSearchProductOpen={isSearchProductOpen} setIsSearchProductOpen={setIsSearchProductOpen}/>
+      </div>
 
-      <h2 className="detail-title">Detalle del pedido</h2>
-      <div className="flx flx-col details-list">
-        {productList.length === 0 ? <ProductCardEmpty/> :
-          productList.map(product => (
-            <ProductCard product={product} />
-          ))
-        }
+      <div className="flx flx-col order-info-container">
+        <h2 className="order-title">Detalle</h2>
+        <div className="flx flx-col details-list">
+          {productList.length === 0 ? <ProductCardEmpty/> :
+            productList.map(product => (
+              <ProductCard product={product} />
+            ))
+          }
+        </div>
       </div>
     </>
   )

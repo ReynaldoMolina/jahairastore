@@ -60,8 +60,6 @@ function ClientForm() {
             )}
             <div className="flx obj-info">
               <FormInput name="name" holder="Nombre" value={client} setValue={setClient}/>
-            </div>
-            <div className="flx obj-info">
               <FormInput name="lastname" holder="Apellido" value={client} setValue={setClient}/>
             </div>
             <div className="flx obj-info">

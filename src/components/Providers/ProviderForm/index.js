@@ -4,7 +4,6 @@ import { DataContext } from "../../Context/DataContext";
 import { useGetData } from "../../Hooks/useGetData";
 import { Loading } from "../../Loading";
 import { FormInput } from "../../FormInput";
-import { ProviderOptions } from "./ProviderOptions";
 import { FormButtons } from "../../FormInput/FormButtons";
 import { sendData } from "../../Hooks/sendData";
 import "../../styles/RegisterForm.css";
@@ -59,8 +58,6 @@ function ProviderForm() {
           )}
           <div className="flx obj-info">
             <FormInput name="company" holder="Compañía" value={provider} setValue={setProvider}/>
-          </div>
-          <div className="flx obj-info">
             <FormInput name="contact" holder="Contacto" value={provider} setValue={setProvider}/>
           </div>
           <div className="flx obj-info">

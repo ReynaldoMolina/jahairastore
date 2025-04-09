@@ -49,7 +49,6 @@
 }
 .info-detail {
   gap: 3px;
-  flex-wrap: wrap;
   align-items: center;
 }
 .total,
@@ -69,6 +68,7 @@
 .date {
   text-align: center;
   border: 1px solid gainsboro;
+  background-color: white;
 }
 .order-no {
   text-align: center;
@@ -93,10 +93,32 @@
   flex-grow: 1;
 }
 
+/* Totals */
+.total-card {
+  padding: 5px 10px;
+}
+.total-card span {
+  font-weight: bold;
+}
+.total-card:hover {
+  background-color: white;
+}
+.count {
+  background-color: var(--info-gray);
+  padding: 3px 0;
+  border-radius: var(--rounded);
+  font-size: 1rem;
+  font-weight: bold;
+  min-width: 40px;
+}
+
 @media (max-width: 500px) {
   .info {
     flex-direction: column;
     align-items: start;
+  }
+  .info-detail {
+    flex-wrap: wrap;
   }
   .info-total {
     justify-content: start;
@@ -106,5 +128,8 @@
   }
   .phone {
     font-size: 1.1rem;
+  }
+  .total-spacer {
+    min-width: 123px;
   }
 }

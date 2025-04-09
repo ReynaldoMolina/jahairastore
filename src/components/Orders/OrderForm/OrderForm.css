@@ -1,19 +1,22 @@
 .order-container {
-  max-width: 600px;
   background-color: var(--foreground);
-  width: 100%;
-  padding: 12px;
   border-radius: var(--rounded);
+  max-width: 600px;
+  padding: 10px;
   margin: 0 auto;
+  gap: 20px;
+  width: 100%;
   box-shadow: 1px 1px 2px var(--shadow);
 }
 .order-info-container {
+  background-color: var(--foreground);
   border-radius: var(--rounded);
-  margin-bottom: 12px;
+  box-shadow: 1px 1px 2px var(--shadow);
+  gap: 10px;
+  padding: 10px;
 }
 .order-title {
   color: var(--text-color2);
-  margin-bottom: 12px;
 }
 .order-info {
   margin-bottom: 12px;
@@ -27,24 +30,11 @@
 .order-id {
   justify-content: center;
 }
-.order-total,
-.order-abono,
-.order-saldo,
-.order-profit {
+.order-total {
   justify-content: right;
   font-size: 1.1rem;
-}
-.order-total {
-  background-color: var(--info-gray);
-}
-.order-abono {
-  background-color: var(--info-green);
-}
-.order-saldo {
-  background-color: var(--info-red);
-}
-.order-profit {
-  background-color: var(--info-blue);
+  width: 100%;
+  padding: 0 10px;
 }
 .client-add {
   height: var(--input-h);
@@ -56,11 +46,9 @@
 }
 .order-totals {
   justify-content: space-evenly;
-  border-radius: var(--rounded);
-  padding: 5px;
-  margin-bottom: 24px;
-  box-shadow: 1px 1px 2px var(--shadow);
   background-color: var(--background);
+  padding: 10px 0;
+  border-radius: var(--rounded);
 }
 .order-totals-item,
 .order-totals-label {
@@ -75,7 +63,7 @@
   font-weight: bold;
 }
 .order-restante {
-  margin-bottom: 12px;
+  gap: 12px;
 }
 .order-restante-input-div {
   gap: 12px;
@@ -86,7 +74,6 @@
   padding: 10px;
   border-radius: var(--rounded);
   box-shadow: 1px 1px 2px var(--shadow);
-  margin-top: 12px;
 }
 .order-restante-mensaje p {
   font-size: 1.2rem;
