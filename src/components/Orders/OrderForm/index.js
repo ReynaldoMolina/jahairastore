@@ -41,7 +41,8 @@ function OrderForm() {
     const fetchRegister = {
       clientId: order.clientId,
       orderDate: order.orderDate,
-      state: order.state
+      state: order.state,
+      weight: order.weight,
     }
     
     const url = `${baseUrl}ordersdetails/`;
@@ -134,7 +135,7 @@ function OrderForm() {
 
       <OrderTotals orderTotals={orderTotals}/>
 
-      <OrderRestante orderTotals={orderTotals} order={order} isNew={isNew}/>
+      <OrderRestante orderTotals={orderTotals} order={order} setOrder={setOrder} isNew={isNew}/>
 
       {isNew ||
       <OrderOptions
