@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/jahairastore/static/css/main.724d085e.css",
-    "main.js": "/jahairastore/static/js/main.36292c38.js",
+    "main.js": "/jahairastore/static/js/main.e79535a2.js",
     "static/js/488.9d784508.chunk.js": "/jahairastore/static/js/488.9d784508.chunk.js",
     "static/media/downloadpdf.svg": "/jahairastore/static/media/downloadpdf.337ac25f7f351b5fd2d9db3d821ed118.svg",
     "static/media/providers.svg": "/jahairastore/static/media/providers.1c3b899c6016c15bf2f2a22dc0c25f13.svg",
@@ -25,11 +25,11 @@
     "static/media/search.svg": "/jahairastore/static/media/search.58b9126530d3ce11d4373ec32774d6d1.svg",
     "static/media/add.svg": "/jahairastore/static/media/add.db6a1b393f18fab9302cffaee47df564.svg",
     "main.724d085e.css.map": "/jahairastore/static/css/main.724d085e.css.map",
-    "main.36292c38.js.map": "/jahairastore/static/js/main.36292c38.js.map",
+    "main.e79535a2.js.map": "/jahairastore/static/js/main.e79535a2.js.map",
     "488.9d784508.chunk.js.map": "/jahairastore/static/js/488.9d784508.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.724d085e.css",
-    "static/js/main.36292c38.js"
+    "static/js/main.e79535a2.js"
   ]
 }
