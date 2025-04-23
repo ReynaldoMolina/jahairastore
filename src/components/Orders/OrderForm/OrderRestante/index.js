@@ -1,5 +1,7 @@
 import React from "react";
 import { FormInput } from "../../../FormInput";
+import { FormOption } from "../../../FormOption";
+import { ReactComponent as SvgCopy } from './copy.svg';
 
 function OrderRestante({ orderTotals, order, setOrder, isNew }) {
   const [orderRestante, setOrderRestante] = React.useState({
@@ -12,6 +14,20 @@ function OrderRestante({ orderTotals, order, setOrder, isNew }) {
   const orderEnvio = orderPeso * Number(orderRestante.precioLibra);
   const ordereRestanteTotal = orderEnvio + saldo;
   const ordereRestanteTotalCordobas = ordereRestanteTotal * orderRestante.cambioDolar;
+
+  const handleCopyToClipboard = async () => {
+    const textToCopy = `Hola ${order.name}, ya está tu pedido listo para entregar 🥰.\n` +
+                       `El paquete pesó ${orderPeso.toFixed(2)} libras, en dólares $${orderEnvio.toFixed(2)}.\n` +
+                       `${saldo > 0 ? `El restante es de $${saldo.toFixed(2)}.\nEn total $${ordereRestanteTotal.toFixed(2)}, en córdobas C$${ordereRestanteTotalCordobas.toFixed(2)} 🥰` : `En córdobas C$${ordereRestanteTotalCordobas.toFixed(2)} 🥰`}`;
+
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      alert('Texto copiado al portapapeles!');
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+      alert('No se pudo copiar el texto al portapapeles.');
+    }
+  };
 
   if (isNew) return null;
 
@@ -37,6 +53,12 @@ function OrderRestante({ orderTotals, order, setOrder, isNew }) {
             <p>{`En córdobas C$${ordereRestanteTotalCordobas.toFixed(2)} 🥰`}</p>
           }
         </div>
+        <FormOption
+          label="Copiar"
+          action={handleCopyToClipboard}
+        >
+          <SvgCopy className="register-option" />
+        </FormOption>
       </div>
     </div>
   );

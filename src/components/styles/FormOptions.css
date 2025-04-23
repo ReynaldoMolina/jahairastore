@@ -10,6 +10,7 @@
   border: none;
   box-shadow: 1px 1px 2px var(--shadow);
   transition: 0.1s linear;
+  gap: 5px;
 }
 .option-button:hover,
 .payment-opt:hover {
@@ -18,7 +19,6 @@
 .register-option {
   height: 15px;
   width: 15px;
-  margin-right: 5px;
 }
 .option-button-label {
   color: var(--text-color);
