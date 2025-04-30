@@ -1,0 +1,81 @@
+.login-main {
+  min-height: 100vh;
+}
+.login-container {
+  background-color: rgb(229, 239, 240);
+  border-radius: 0px;
+  box-shadow: 0px 0px 10px rgb(185, 185, 185);
+  gap: 20px;
+  height: 100vh;
+  padding: 40px;
+  width: 100%;
+}
+.login-logo {
+  gap: 15px;
+}
+.login-logo img {
+  height: 80px;
+  aspect-ratio: 1/1;
+}
+.login-data {
+  width: 100%;
+  gap: 10px;
+}
+.login-input {
+  width: 100%;
+  gap: 5px;
+}
+.login-input-div {
+  position: relative;;
+}
+.frm-input-login {
+  padding: 0 10px 0 35px;
+}
+.login-input-icon {
+  height: 15px;
+  width: 15px;
+  position: absolute;
+  left: 10px;
+}
+.user-data-error {
+  width: 100%;
+  color: rgb(228, 54, 54);
+  font-size: 1.1rem;
+  text-align: right;
+  padding-right: 5px;
+  min-height: 15px;
+}
+.login-options {
+  width: 100%;
+  justify-content: center;
+}
+.login-options a {
+  font-size: 1.1rem;
+  color: gray;
+  cursor: pointer;
+}
+.login-button {
+  width: 100%;
+  height: 35px;
+  cursor: pointer;
+  border: 0;
+  background-color: rgb(104, 104, 221);
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+}
+.login-button:hover {
+  background-color: rgb(89, 89, 189);
+}
+.login-button:active {
+  background-color: rgb(69, 69, 177)
+}
+
+@media (min-width: 450px) {
+  .login-container {
+    border-radius: 15px;
+    height: 420px;
+    margin: auto;
+    width: 320px;
+  }
+}

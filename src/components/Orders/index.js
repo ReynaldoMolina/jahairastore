@@ -22,7 +22,6 @@ function Orders({
   let totalSell, abonos, saldo, profit;
   let url = !loadAll ? `${menuOption.url}?debe=true` : menuOption.url
 
-
   const { data, isLoading } = useGetData(url);
   const filteredData = useFilterData(data, menuOption.name);
 
