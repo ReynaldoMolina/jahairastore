@@ -1,17 +1,19 @@
 .error {
-  margin-top: 12px;
-  background-color: gainsboro;
-  border-radius: 5px;
   width: 100%;
-  height: 100px;
+  height: 100%;
+  gap: 10px;
+}
+.error p:nth-child(2) {
+  color: gray;
+  font-size: 1.2rem;
 }
 .retry-button {
-  margin-top: 10px;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
   background-color: rgb(255, 170, 170);
+  transition: 0.1s linear;
 }
 .retry-button:hover{
-  background-color: rgb(255, 99, 99);
+  background-color: rgb(255, 126, 126);
 }

@@ -7,7 +7,9 @@ import { SideMenu } from '../SideMenu';
 import { MainContent } from '../MainContent/MainContent';
 import { DataContext } from '../Context/DataContext';
 import { MenuContext } from '../Context/MenuContext';
+import { AuthContext } from '../Context/AuthContext';
 
+import { Login } from '../Login';
 import { Home } from "../Home";
 import { Categories } from "../Categories";
 import { Clients } from "../Clients";
@@ -30,6 +32,8 @@ function AppUI() {
     menuOption, setMenuOption,
     isMenuOpen, setIsMenuOpen,
   } = React.useContext(MenuContext);
+
+  const { auth } = React.useContext(AuthContext);
 
   const components = {
     "Categorías": () =>
@@ -93,6 +97,8 @@ function AppUI() {
         setIsNew={setIsNew}
       />,
   };
+
+  if (!auth.isAuthenticated) return <Login />
 
   return (
     <main className='flx app-container'>

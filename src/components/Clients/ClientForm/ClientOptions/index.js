@@ -36,7 +36,7 @@ function ClientOptions({ fullname }) {
         />
       </FormOption>
       <FormOption
-        label="Ventas"
+        label="Recibos"
         action={goToReceipts}
       >
         <SvgReceipts

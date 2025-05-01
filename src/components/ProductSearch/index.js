@@ -1,5 +1,4 @@
 import React from "react";
-import { baseUrl } from "../urls/menuOptionsList";
 import { DataContext } from "../Context/DataContext";
 import { OrderContext } from "../Context/OrderContext";
 import { OpenProductSearch } from "../OpenProductSearch";
@@ -20,7 +19,7 @@ function ProductSearch({ isSearchProductOpen, setIsSearchProductOpen }) {
   const currenDate = new Date().toISOString().split("T")[0];
   const [productDate, setProductDate] = React.useState(currenDate);
 
-  let url = productDate !== '' ? `${baseUrl}products?addedDate=${productDate}` : `${baseUrl}products`;
+  let url = productDate !== '' ? `products?addedDate=${productDate}` : `products/`;
   const { data } = useGetData(url);
   
   const filteredData = data.filter((register) => {

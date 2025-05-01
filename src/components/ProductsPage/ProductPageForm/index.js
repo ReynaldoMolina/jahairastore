@@ -7,12 +7,14 @@ import { FormButtons } from "../../FormInput/FormButtons";
 import { sendData } from "../../Hooks/sendData";
 import { Loading } from "../../Loading";
 import "../../styles/RegisterForm.css";
+import { AuthContext } from "../../Context/AuthContext";
 
 function ProductPageForm() {
-  const { menuOption, apiBaseUrl } = React.useContext(MenuContext);
+  const { auth } = React.useContext(AuthContext);
+  const { menuOption } = React.useContext(MenuContext);
   const { setOpenModal, registerId, isNew, setIsUpdating } = React.useContext(DataContext);
 
-  const url = isNew ? apiBaseUrl : menuOption.url + registerId;
+  const url = isNew ? '' : `${menuOption.url}/${registerId}`;
   const { data, isLoading } = useGetData(url);
 
   const [product, setProduct] = React.useState({
@@ -38,7 +40,7 @@ function ProductPageForm() {
       alert("Precio y link de la imagen requeridos");
       return;
     }
-    sendData(product, menuOption.url, registerId);
+    sendData(product, menuOption.url, registerId, auth.token);
     setOpenModal(false);
     setIsUpdating(true);
   }

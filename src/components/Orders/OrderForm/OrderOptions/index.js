@@ -91,7 +91,7 @@ function OrderOptions({ order, orderTotals }) {
       </div>
 
       <FormOption
-        label="Ventas"
+        label="Recibos"
         action={goToReceipts}
         >
         <SvgReceipts className={svgClass} />

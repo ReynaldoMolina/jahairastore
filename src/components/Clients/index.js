@@ -2,6 +2,7 @@ import React from "react";
 import { useGetData } from "../Hooks/useGetData";
 import { ActionTools } from "../ActionTools";
 import { Loading } from "../Loading";
+import { Error } from "../Error";
 import { EmptyList } from "../EmptyList";
 import { ClientForm } from "../Clients/ClientForm";
 import { useFilterData } from "../Hooks/useFilterData";
@@ -14,10 +15,11 @@ function Clients({
   setRegisterId,
   setIsNew,
 }) {
-  const { data, isLoading } = useGetData(menuOption.url);
+  const { data, isLoading, error } = useGetData(menuOption.url);
   const filteredData = useFilterData(data, menuOption.name);
 
   if (isLoading) return <Loading />;
+  if (error) return <Error errorMessage="Salado mi hermano" />;
   if (openModal) return <ClientForm />;
 
   return (

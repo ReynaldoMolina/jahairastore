@@ -1,4 +1,5 @@
 import React from "react";
+import { AuthContext } from "../../Context/AuthContext";
 import { MenuContext } from "../../Context/MenuContext";
 import { DataContext } from "../../Context/DataContext";
 import { useGetData } from "../../Hooks/useGetData";
@@ -10,11 +11,12 @@ import { sendData } from "../../Hooks/sendData";
 import "../../styles/RegisterForm.css";
 
 function ClientForm() {
-  const { menuOption, apiBaseUrl } = React.useContext(MenuContext);
+  const { auth } = React.useContext(AuthContext);
+  const { menuOption } = React.useContext(MenuContext);
   const { setOpenModal, registerId, isNew, setIsUpdating } = React.useContext(DataContext);
 
-  let url = isNew ? apiBaseUrl : menuOption.url;
-  const { data, isLoading } = useGetData(url + registerId);
+  let url = isNew ? '' : `${menuOption.url}/${registerId}`;
+  const { data, isLoading } = useGetData(url);
 
   const [client, setClient] = React.useState({
     name: "",
@@ -23,7 +25,8 @@ function ClientForm() {
     municipio: "",
     city: "",
     country: "",
-    address: ""
+    address: "",
+    userId: null
   });
 
   React.useEffect(() => {
@@ -41,7 +44,7 @@ function ClientForm() {
       return;
     }
     console.log(client, menuOption.url, registerId)
-    sendData(client, menuOption.url, registerId);
+    sendData(client, menuOption.url, registerId, auth.token);
     setOpenModal(false);
     setIsUpdating(true);
   }

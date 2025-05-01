@@ -1,5 +1,4 @@
 import React from "react";
-import { baseUrl } from "../urls/menuOptionsList";
 import { OrderContext } from "../Context/OrderContext";
 import { useGetData } from "../Hooks/useGetData";
 import { Loading } from "../Loading";
@@ -9,7 +8,7 @@ import "./ProductCard.css";
 
 function ProductCard({ product }) {
   const { productList, setProductList, setOrderTotals } = React.useContext(OrderContext);
-  const { data, isLoading } = useGetData(baseUrl + 'products/' + product.productId);
+  const { data, isLoading } = useGetData('products/' + product.productId);
   const [quantity, setQuantity] = React.useState(product.quantity);
 
   function findId() {

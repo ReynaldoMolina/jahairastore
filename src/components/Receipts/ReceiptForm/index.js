@@ -1,4 +1,5 @@
 import React from "react";
+import { AuthContext } from "../../Context/AuthContext";
 import { MenuContext } from "../../Context/MenuContext";
 import { DataContext } from "../../Context/DataContext";
 import { Loading } from "../../Loading";
@@ -12,10 +13,11 @@ import { sendData } from "../../Hooks/sendData";
 import "../../styles/RegisterForm.css";
 
 function ReceiptForm() {
-  const { menuOption, apiBaseUrl } = React.useContext(MenuContext);
+  const { auth } = React.useContext(AuthContext);
+  const { menuOption } = React.useContext(MenuContext);
   const { setOpenModal, registerId, orderReceipt, isNew, setIsUpdating } = React.useContext(DataContext);
   
-  const url = isNew ? apiBaseUrl : `${menuOption.url}/${registerId}`;
+  const url = isNew ? '' : `${menuOption.url}/${registerId}`;
   const { data, isLoading } = useGetData(url);
   const currenDate = new Date().toISOString().split("T")[0];
   
@@ -56,7 +58,7 @@ function ReceiptForm() {
       return;
     }
     const { fullname, ...newData } = receipt;
-    sendData(newData, menuOption.url, registerId);
+    sendData(newData, menuOption.url, registerId, auth.token);
     setOpenModal(false);
     setIsUpdating(true);
   }

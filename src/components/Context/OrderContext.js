@@ -9,7 +9,7 @@ function OrderProvider({ children }) {
   const { menuOption, apiBaseUrl } = React.useContext(MenuContext);
   const { registerId, isNew } = React.useContext(DataContext);
 
-  let url = isNew ? apiBaseUrl : `${menuOption.url}/${registerId}`;
+  let url = isNew ? '' : `${menuOption.url}/${registerId}`;
   const { data, isLoading } = useGetData(url);
   const currentDate = new Date().toISOString().split("T")[0];
 

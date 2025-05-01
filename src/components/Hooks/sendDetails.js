@@ -1,4 +1,4 @@
-async function sendDetails(originalList, newList, url) {
+async function sendDetails(originalList, newList, url, token) {
   const updates = [];
   const deletions = [];
   const creations = [];
@@ -29,13 +29,19 @@ async function sendDetails(originalList, newList, url) {
     ...updates.map(detail => fetch(`${url}${detail.id}`, {
       method: 'PATCH',
       body: JSON.stringify({ quantity: detail.quantity }),
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
     })),
     ...deletions.map(id => fetch(`${url}${id}`, { method: 'DELETE' })),
     ...creations.map(detail => fetch(url, {
       method: 'POST',
       body: JSON.stringify(detail),
-      headers: { 'Content-Type': 'application/json' }
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
     }))
   ]);
 };

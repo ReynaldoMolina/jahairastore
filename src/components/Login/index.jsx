@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSendLoginData } from '../Hooks/useSendLoginData';
-import "./Login.css";
 import logo from '../Home/store-logo.png';
 import { LoginInput } from "./LoginInput";
 import { ReactComponent as UsernameIcon } from './username.svg';
 import { ReactComponent as PasswordIcon } from './password.svg';
 import { Loading } from "../Loading";
+import "./Login.css";
 
 function Login() {
   const [userData, setUserData] = useState({

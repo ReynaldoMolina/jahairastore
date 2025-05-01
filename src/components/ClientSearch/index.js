@@ -1,5 +1,4 @@
 import React from "react";
-import { baseUrl } from "../urls/menuOptionsList";
 import { useGetData } from "../Hooks/useGetData";
 import { EmptyList } from "../EmptyList";
 import { ReactComponent as SvgSearch } from './search.svg';
@@ -7,7 +6,7 @@ import "./ClientSearch.css"
 
 function ClientSearch({ register, setRegister, isSearchClientOpen, setIsSearchClientOpen }) {
   const [searchClient, setSearchClient] = React.useState('');
-  const url = baseUrl + 'clients/';
+  const url = 'clients/';
   const { data } = useGetData(url);
   
   const filteredData = data.filter((register) => {

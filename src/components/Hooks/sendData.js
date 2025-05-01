@@ -1,8 +1,10 @@
-async function sendData(fetchRegister, url, registerId) {
+import { baseUrl } from "../urls/menuOptionsList";
+
+async function sendData(fetchRegister, url, registerId, token) {
   let method, fetchUrl;
  
   if (registerId !== '') {
-    fetchUrl = url + registerId;
+    fetchUrl = `${baseUrl}${url}/${registerId}`;
     method = "PATCH";
   } else {
     fetchUrl = url;
@@ -13,6 +15,7 @@ async function sendData(fetchRegister, url, registerId) {
     method: method,
     body: JSON.stringify(fetchRegister),
     headers: {
+      Authorization: `Bearer ${token}`,
       "Content-type": "application/json"
     }
   })

@@ -1,5 +1,6 @@
 import React from "react";
 import { baseUrl } from "../../urls/menuOptionsList";
+import { AuthContext } from "../../Context/AuthContext";
 import { MenuContext } from "../../Context/MenuContext";
 import { DataContext } from "../../Context/DataContext";
 import { OrderContext } from "../../Context/OrderContext";
@@ -18,6 +19,7 @@ import "../../styles/RegisterForm.css";
 import "./OrderForm.css";
 
 function OrderForm() {
+  const { auth } = React.useContext(AuthContext);
   const { menuOption } = React.useContext(MenuContext);
   const { setOpenModal, registerId, isNew, setIsUpdating } = React.useContext(DataContext);
   const {
@@ -38,27 +40,36 @@ function OrderForm() {
       alert("Añade productos");
       return;
     }
+
+    let newWeight;
+
+    if (order.weight === '') {
+      newWeight = null;
+    } else {
+      newWeight = order.weight;
+    }
+
     const fetchRegister = {
       clientId: order.clientId,
       orderDate: order.orderDate,
       state: order.state,
-      weight: order.weight,
+      weight: newWeight,
     }
     
     const url = `${baseUrl}ordersdetails/`;
     
     const sendOrder = async () => {
       try {
-        const newOrder = await sendData(fetchRegister, menuOption.url + '/', registerId);
+        const newOrder = await sendData(fetchRegister, menuOption.url, registerId, auth.token);
         
         if (!isNew) {
-          sendDetails(originalProductList, productList, url);
+          sendDetails(originalProductList, productList, url, auth.token);
         } else {
           const updatedDetails = productList.map((detail) => ({
             ...detail,
             orderId: newOrder.id
           }));
-          sendDetails(originalProductList, updatedDetails, url);
+          sendDetails(originalProductList, updatedDetails, url, auth.token);
         }
       } catch (error) {
         console.error("Error sending order:", error);

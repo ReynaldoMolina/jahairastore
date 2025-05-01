@@ -4,7 +4,6 @@ import { ReactComponent as SvgDownloadPdf } from "./downloadpdf.svg";
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { FormOption } from "../../../FormOption";
 import { ReceiptPdf } from "../../../ReceiptPdf";
-import { baseUrl } from "../../../urls/menuOptionsList";
 import { useGetData } from "../../../Hooks/useGetData";
 import { Loading } from "../../../Loading";
 import "../../../styles/FormOptions.css";
@@ -13,7 +12,7 @@ const svgClass = "register-option";
 
 function ReceiptOptions() {
   const { registerId } = React.useContext(DataContext);
-  const url = `${baseUrl}receipts/${registerId}`;
+  const url = `receipts/${registerId}`;
   const { data: receipt, isLoading } = useGetData(url);
 
   if (isLoading) return <Loading/>

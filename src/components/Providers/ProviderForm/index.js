@@ -7,12 +7,14 @@ import { FormInput } from "../../FormInput";
 import { FormButtons } from "../../FormInput/FormButtons";
 import { sendData } from "../../Hooks/sendData";
 import "../../styles/RegisterForm.css";
+import { AuthContext } from "../../Context/AuthContext";
 
 function ProviderForm() {
-  const { menuOption, apiBaseUrl } = React.useContext(MenuContext);
+  const { auth } = React.useContext(AuthContext);
+  const { menuOption } = React.useContext(MenuContext);
   const { setOpenModal, registerId, isNew, setIsUpdating } = React.useContext(DataContext);
 
-  let url = isNew ? apiBaseUrl : menuOption.url + registerId;
+  let url = isNew ? '' : `${menuOption.url}/${registerId}`;
   const { data, isLoading } = useGetData(url);
 
   const [provider, setProvider] = React.useState({
@@ -39,7 +41,7 @@ function ProviderForm() {
       alert("Company and Contact required");
       return;
     }
-    sendData(provider, menuOption.url, registerId);
+    sendData(provider, menuOption.url, registerId, auth.token);
     setOpenModal(false);
     setIsUpdating(true);
   }
