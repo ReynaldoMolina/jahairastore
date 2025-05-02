@@ -20,6 +20,8 @@ import { Receipts } from "../Receipts";
 import { ProductsPage } from "../ProductsPage";
 
 function AppUI() {
+  const { auth } = React.useContext(AuthContext);
+
   const {
     openModal, setOpenModal,
     setRegisterId,
@@ -32,8 +34,6 @@ function AppUI() {
     menuOption, setMenuOption,
     isMenuOpen, setIsMenuOpen,
   } = React.useContext(MenuContext);
-
-  const { auth } = React.useContext(AuthContext);
 
   const components = {
     "Categorías": () =>
@@ -111,7 +111,7 @@ function AppUI() {
         isMenuOpen={isMenuOpen}
       />
       <div className='flx flx-col main-window'>
-        <Header menuOption={menuOption}>
+        <Header menuOption={menuOption} user={auth}>
           <ToggleMenuButton setIsMenuOpen={setIsMenuOpen} />
         </Header>
         <MainContent>

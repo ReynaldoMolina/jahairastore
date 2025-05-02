@@ -1,13 +1,14 @@
 import React from "react";
-import profilePic from "./store-logo-minimal.png";
 import "./Header.css";
 
-function Header({ children, menuOption }) {
+function Header({ children, menuOption, user }) {
+  console.log(user);
+  
   return (
     <header className="flx flx-center header">
       {children}
       <h1>{menuOption.name}</h1>
-      <img src={profilePic} className="header-profile-pic" alt="User"></img>
+      <img src={user.pictureUrl} className="header-profile-pic" alt="User"></img>
     </header>
   )
 }

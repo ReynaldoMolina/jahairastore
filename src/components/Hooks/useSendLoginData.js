@@ -26,7 +26,9 @@ function useSendLoginData(userData) {
         if (data.token) {
           setAuth({
             isAuthenticated: true,
-            token: data.token
+            token: data.token,
+            username: data.user.username,
+            pictureUrl: data.user.pictureUrl
           })
         }
       } catch (error) {
