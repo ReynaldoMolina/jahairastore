@@ -8,7 +8,7 @@ function LoginInput({ children, type, name, placeholder, value, setValue, errorD
         {children}
         <input
           type={type}
-          className={`frm-input frm-input-login ${name}`}
+          className={`frm-input-login ${name}`}
           placeholder={placeholder}
           value={value[name]}
           onChange={(event) => {
