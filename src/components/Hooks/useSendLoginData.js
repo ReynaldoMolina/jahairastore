@@ -32,7 +32,7 @@ function useSendLoginData(userData) {
           })
         }
       } catch (error) {
-        console.log(error);
+        //
       } finally {
         setIsLoading(false);
         setShouldSubmit(false);

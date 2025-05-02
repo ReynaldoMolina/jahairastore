@@ -47,7 +47,6 @@ function OrderOptions({ order, orderTotals }) {
       saldoInicial,
       concepto
     }
-    console.log('receiptOrder', receiptOrder);
     
     setOrderReceipt(receiptOrder);
     setRegisterId('');

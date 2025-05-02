@@ -5,6 +5,7 @@ import { OpenProductSearch } from "../OpenProductSearch";
 import { EmptyList } from "../EmptyList";
 import { EmptyListSome } from "../EmptyListSome";
 import { useGetData } from "../Hooks/useGetData";
+import { getLocalDate } from "../Hooks/getLocalDate";
 import { ReactComponent as SvgAdd } from "./add.svg";
 import { getOrderTotals } from "../Hooks/getOrderTotals";
 import { ReactComponent as SvgSearch } from './search.svg';
@@ -16,7 +17,7 @@ function ProductSearch({ isSearchProductOpen, setIsSearchProductOpen }) {
   const { productList, setProductList, setOrderTotals } = React.useContext(OrderContext);
   const [searchProduct, setSearchProduct] = React.useState('');
 
-  const currenDate = new Date().toISOString().split("T")[0];
+  const currenDate = getLocalDate();
   const [productDate, setProductDate] = React.useState(currenDate);
 
   let url = productDate !== '' ? `products?addedDate=${productDate}` : `products/`;

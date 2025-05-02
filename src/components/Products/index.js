@@ -6,6 +6,7 @@ import { EmptyList } from "../EmptyList";
 import { EmptyListSome } from "../EmptyListSome";
 import { ProductForm } from "../Products/ProductForm";
 import { useFilterData } from "../Hooks/useFilterData";
+import { getLocalDate } from '../Hooks/getLocalDate';
 import "../styles/Registers.css";
 
 function Products({
@@ -17,7 +18,7 @@ function Products({
   loadAll
 }) {
 
-  const currenDate = new Date().toISOString().split("T")[0];
+  const currenDate = getLocalDate();  
   let url = !loadAll ? `${menuOption.url}?addedDate=${currenDate}` : menuOption.url;
 
   const { data, isLoading } = useGetData(url);

@@ -10,6 +10,7 @@ import { ReceiptOptions } from "./ReceiptOptions";
 import { FormButtons } from "../../FormInput/FormButtons";
 import { useGetData } from "../../Hooks/useGetData";
 import { sendData } from "../../Hooks/sendData";
+import { getLocalDate } from "../../Hooks/getLocalDate";
 import "../../styles/RegisterForm.css";
 
 function ReceiptForm() {
@@ -19,7 +20,7 @@ function ReceiptForm() {
   
   const url = isNew ? '' : `${menuOption.url}/${registerId}`;
   const { data, isLoading } = useGetData(url);
-  const currenDate = new Date().toISOString().split("T")[0];
+  const currenDate = getLocalDate();
   
   const [isSearchClientOpen, setIsSearchClientOpen] = React.useState(false);
   const [receipt, setReceipt] = React.useState({

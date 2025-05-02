@@ -2,16 +2,17 @@ import React from "react";
 import { MenuContext } from "./MenuContext";
 import { DataContext } from "./DataContext";
 import { useGetData } from "../Hooks/useGetData";
+import { getLocalDate } from "../Hooks/getLocalDate";
 
 const OrderContext = React.createContext();
 
 function OrderProvider({ children }) {
-  const { menuOption, apiBaseUrl } = React.useContext(MenuContext);
+  const { menuOption } = React.useContext(MenuContext);
   const { registerId, isNew } = React.useContext(DataContext);
 
   let url = isNew ? '' : `${menuOption.url}/${registerId}`;
   const { data, isLoading } = useGetData(url);
-  const currentDate = new Date().toISOString().split("T")[0];
+  const currentDate = getLocalDate();
 
   const [order, setOrder] = React.useState({
     clientId: '',

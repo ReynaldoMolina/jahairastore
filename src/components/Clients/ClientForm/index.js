@@ -43,7 +43,6 @@ function ClientForm() {
       alert("Name and last name are needed.")
       return;
     }
-    console.log(client, menuOption.url, registerId)
     sendData(client, menuOption.url, registerId, auth.token);
     setOpenModal(false);
     setIsUpdating(true);

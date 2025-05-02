@@ -8,6 +8,7 @@ import { EmptyList } from "../EmptyList";
 import { EmptyListSome } from "../EmptyListSome";
 import { ReceiptTotal } from "./ReceiptTotal/ReceiptTotal";
 import { useFilterData } from "../Hooks/useFilterData";
+import { getLocalDate } from "../Hooks/getLocalDate";
 import "../styles/Registers.css";
 
 function Receipts({
@@ -18,7 +19,7 @@ function Receipts({
   setIsNew,
   loadAll
 }) {
-  const currenDate = new Date().toISOString().split("T")[0];
+  const currenDate = getLocalDate();
   let url = !loadAll ? `${menuOption.url}?saleDate=${currenDate}` : menuOption.url;
   const { data, isLoading } = useGetData(url);
   const filteredData = useFilterData(data, menuOption.name);
