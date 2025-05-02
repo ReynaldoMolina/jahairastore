@@ -2,8 +2,6 @@ import React from "react";
 import "./Header.css";
 
 function Header({ children, menuOption, user }) {
-  console.log(user);
-  
   return (
     <header className="flx flx-center header">
       {children}
