@@ -66,7 +66,7 @@ function Login() {
           id="login-button"
           onClick={() => handleLoginData()}
         >
-          {isLoading ? <Loading /> : "Login"}
+          {isLoading ? <Loading /> : "Iniciar sesión"}
         </button>
 
         {/* <div className="flx flx-center login-options">

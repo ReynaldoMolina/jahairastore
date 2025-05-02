@@ -63,7 +63,7 @@ h1 {
 }
 
 .app-container {
-  height: 100vh;
+  height: 100dvh;
   background-color: var(--background);
 }
 .main-window {
