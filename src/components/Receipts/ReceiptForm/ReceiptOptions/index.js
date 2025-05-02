@@ -23,7 +23,7 @@ function ReceiptOptions() {
           <PDFDownloadLink
             document={<ReceiptPdf receipt={receipt}/>}
             fileName={`Recibo ${receipt.id} Pedido ${receipt.orderId} ${receipt.clientName} ${receipt.clientLastname}`}>
-            <FormOption label="Descargar">
+            <FormOption label="Descargar PDF">
               <SvgDownloadPdf className={svgClass}/>
             </FormOption>
           </PDFDownloadLink>

@@ -3,13 +3,14 @@ import { DataContext } from "../Context/DataContext";
 import "./FormButtons.css";
 
 function FormButtons() {
-  const { setOpenModal, isNew } = React.useContext(DataContext);
+  const { setOpenModal, isNew, setIsNew } = React.useContext(DataContext);
 
   return (
     <div className="flx register-frm-btn">
       <button
         className="flx flx-center frm-btn-cancel"
         onClick={() => {
+          setIsNew(false);
           setOpenModal(false);
         }}
       >Cancelar</button>

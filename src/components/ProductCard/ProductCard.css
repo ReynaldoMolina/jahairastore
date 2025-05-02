@@ -75,6 +75,13 @@
 .quantity-button:hover {
   background-color: var(--action-button-hover);
 }
+.quantity-button-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.quantity-button-disabled:hover {
+  background-color: var(--action-button);
+}
 .subtotal {
   width: 60px;
   min-width: 60px;

@@ -4,8 +4,8 @@ import { AuthContext } from "../Context/AuthContext";
 import { baseUrl } from "../urls/menuOptionsList";
 
 function useGetData(endpoint) {
+  const { isUpdating, setIsUpdating, isNew } = React.useContext(DataContext);
   const { auth } = React.useContext(AuthContext);
-  const { isUpdating, setIsUpdating } = React.useContext(DataContext);
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [error, setError] = React.useState(false);
@@ -13,6 +13,10 @@ function useGetData(endpoint) {
   
   React.useEffect(() => {
     const fetchData = async () => {
+      if (isNew) {
+        setIsLoading(false);
+        return;
+      }
       setIsLoading(true);
       try {
         const response = await fetch(url, {

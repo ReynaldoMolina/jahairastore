@@ -16,10 +16,6 @@ function ProductCard({ product }) {
     return index;
   }
 
-  function orderTotals(list) {
-    setOrderTotals(getOrderTotals(list));
-  }
-
   function reduceQuantity() {
     if (quantity > 1) {
       const newList = productList.map((item, idx) =>
@@ -40,47 +36,44 @@ function ProductCard({ product }) {
     setOrderTotals(getOrderTotals(newList));
   }
 
-  return (
-    <>
-      {isLoading && <Loading/>}
-      {isLoading || (
-        <div
-          key={product.productId}
-          className="flx flx-center product-card"
-        >
-          <span className="flx flx-center product-id">{product.productId}</span>
+  if (isLoading) return <Loading/>;
 
-          <div className="flx product-info-container">
-            <span className="flx product-name">{data.name}</span>
-            <div className="flx product-info">
-              <span className="product-price">$ {(product.sellPrice).toFixed(2)}</span>
-              <div className="flx flx-center quantity-container">
-                <button
-                  className="quantity-button"
-                  type="button"
-                  onClick={() => reduceQuantity()}
-                  >-</button>
-                <span className="flx flx-center quantity">{quantity}</span>
-                <button
-                  className="quantity-button"
-                  type="button"
-                  onClick={() => addQuantity()}
-                >+</button>
-              </div>
-            </div>
+  return (
+    <div
+      key={product.productId}
+      className="flx flx-center product-card"
+    >
+      <span className="flx flx-center product-id">{product.productId}</span>
+
+      <div className="flx product-info-container">
+        <span className="flx product-name">{data.name}</span>
+        <div className="flx product-info">
+          <span className="product-price">$ {(product.sellPrice).toFixed(2)}</span>
+          <div className="flx flx-center quantity-container">
+            <button
+              className={`quantity-button ${quantity === 1 && "quantity-button-disabled"}`}
+              type="button"
+              onClick={() => reduceQuantity()}
+            >-</button>
+            <span className="flx flx-center quantity">{quantity}</span>
+            <button
+              className="quantity-button"
+              type="button"
+              onClick={() => addQuantity()}
+            >+</button>
           </div>
-          <span className="flx subtotal">$ {(product.sellPrice * quantity).toFixed(2)}</span>
-          <SvgDelete
-            className="product-delete"
-            onClick={() => {
-              const newList = productList.filter(e => e.productId !== product.productId);
-              setProductList(newList);
-              setOrderTotals(getOrderTotals(newList));
-            }}
-          />
         </div>
-      )}
-    </>
+      </div>
+      <span className="flx subtotal">$ {(product.sellPrice * quantity).toFixed(2)}</span>
+      <SvgDelete
+        className="product-delete"
+        onClick={() => {
+          const newList = productList.filter(e => e.productId !== product.productId);
+          setProductList(newList);
+          setOrderTotals(getOrderTotals(newList));
+        }}
+      />
+    </div>
   )
 }
 

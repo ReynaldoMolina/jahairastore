@@ -39,6 +39,12 @@
   padding: 0 10px 0 35px;
   width: 100%;
 }
+.frm-input-login:hover {
+  outline: 1px solid gray;
+}
+.frm-input-login:focus-within {
+  outline: 1px solid gray;
+}
 .login-input-icon {
   height: 15px;
   width: 15px;
@@ -67,7 +73,7 @@
   height: 35px;
   cursor: pointer;
   border: 0;
-  background-color: rgb(104, 104, 221);
+  background-color: rgb(119, 119, 220);
   border-radius: 5px;
   color: white;
   font-weight: bold;
