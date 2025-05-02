@@ -121,6 +121,13 @@
 .product-search-add:hover {
   background-color: rgb(170, 255, 170);
 }
+.product-search-add-disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+.product-search-add-disabled:hover {
+  background-color: rgb(220, 255, 220)
+}
 @media (max-width: 500px) {
   .product-search-info-container {
     flex-direction: column;

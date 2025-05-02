@@ -94,7 +94,9 @@ function ProductSearch({ isSearchProductOpen, setIsSearchProductOpen }) {
       <div className={`flx flx-col products-list ${isSearchProductOpen || "hidden"}`}>
         {productDate !== '' && <EmptyListSome message={message} />}
         {filteredData.length === 0 && <EmptyList/>}
-        {filteredData.map(register => (
+        {filteredData.map((register) => {
+          const isInList = productList.some(p => p.productId === register.id);
+          return (
             <div
               key={register.id}
               className="flx products"
@@ -108,11 +110,18 @@ function ProductSearch({ isSearchProductOpen, setIsSearchProductOpen }) {
                 </div>
               </div>
               <SvgAdd
-                className="flx product-search-add"
-                onClick={() => addProduct(register)}
+                className={`flx product-search-add ${isInList && "product-search-add-disabled"}`}
+                onClick={() => {
+                  if (!isInList) {
+                    addProduct(register);
+                  } else {
+                    alert('El producto ya está agregado');
+                  }
+                }}
               />
             </div>
-          ))}
+          )
+        })}
       </div>
     </div>
   )
