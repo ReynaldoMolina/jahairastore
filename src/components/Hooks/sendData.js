@@ -7,7 +7,7 @@ async function sendData(fetchRegister, url, registerId, token) {
     fetchUrl = `${baseUrl}${url}/${registerId}`;
     method = "PATCH";
   } else {
-    fetchUrl = url;
+    fetchUrl = `${baseUrl}${url}`;
     method = "POST";
   }
 

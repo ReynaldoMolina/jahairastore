@@ -24,12 +24,12 @@ function ProductForm() {
   const selectCategory = 6;
   
   const [product, setProduct] = React.useState({
-    providerId: '',
+    providerId: 1,
     name: '',
     description: '',
     costPrice: 0,
     sellPrice: 0,
-    categoryId: '',
+    categoryId: 1,
     addedDate: currenDate,
     sheinId: ''
   });
