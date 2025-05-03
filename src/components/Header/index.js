@@ -2,7 +2,7 @@ import React from "react";
 import { HeaderProfile } from "../HeaderProfile";
 import "./Header.css";
 
-function Header({ children, menuOption, user }) {
+function Header({ children, menuOption, user, setUser }) {
   const [isProfileOpen, setIsProfileOpen] = React.useState(false);
 
   return (
@@ -15,7 +15,7 @@ function Header({ children, menuOption, user }) {
         alt="User"
         onClick={() => setIsProfileOpen(state => !state)}  
       ></img>
-      <HeaderProfile user={user} isProfileOpen={isProfileOpen} setIsProfileOpen={setIsProfileOpen} />
+      <HeaderProfile user={user} setUser={setUser} isProfileOpen={isProfileOpen} setIsProfileOpen={setIsProfileOpen} />
     </header>
   )
 }

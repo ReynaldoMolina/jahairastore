@@ -3,7 +3,7 @@ import { ReactComponent as SvgLogout } from './logout.svg';
 import { ReactComponent as SvgClose } from './close.svg';
 import './HeaderProfile.css';
 
-function HeaderProfile({ user, isProfileOpen, setIsProfileOpen }) {
+function HeaderProfile({ user, setUser, isProfileOpen, setIsProfileOpen }) {
   return (
     <div className={`flx flx-col header-profile-container ${isProfileOpen || "header-profile-hidden"}`}>
       <button
@@ -18,6 +18,12 @@ function HeaderProfile({ user, isProfileOpen, setIsProfileOpen }) {
       <button
         className="flx header-profile-logout"
         type="button"
+        onClick={() => setUser({
+          isAuthenticated: false,
+          token: '',
+          username: '',
+          pictureUrl: ''
+        })}
       >
         <SvgLogout className="logout-icon"/>
         <span>Cerrar sesión</span>
