@@ -13,10 +13,10 @@ function useGetData(endpoint) {
   
   React.useEffect(() => {
     const fetchData = async () => {
-      if (isNew) {
-        setIsLoading(false);
-        return;
-      }
+      // if (isNew) {
+      //   setIsLoading(false);
+      //   return;
+      // }
       setIsLoading(true);
       try {
         const response = await fetch(url, {
