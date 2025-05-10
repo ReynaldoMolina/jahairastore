@@ -22,7 +22,7 @@ export default function Layout({ children }) {
         <Header user={user}>
           <ToggleMenuButton />
         </Header>
-        <div className="p-2 h-full">
+        <div className="flex flex-col p-2 h-full gap-2">
           {children}
         </div>
       </section>

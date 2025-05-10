@@ -8,13 +8,14 @@ import { menuOptions } from "@/app/lib/menuOptions";
 
 export default function Header({ children, user }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const pathname = usePathname();
-  const activeOption = menuOptions.find((option) => option.url === pathname);
+  // const pathname = usePathname();
+  // const activeOption = menuOptions.find((option) => option.url === pathname);
 
   return (
     <header className="flex justify-between border-b-1 border-b-neutral-200 dark:border-b-neutral-700 py-1 mx-2 bg-transparent relative">
       {children}
-      <h1 className="flex items-center font-semibold text-sm">{activeOption.name}</h1>
+      <h1 className="flex items-center font-semibold text-sm">Jahaira Store</h1>
+      {/* <h1 className="flex items-center font-semibold text-sm">{activeOption.name}</h1> */}
       <Image
         src={user.pictureUrl}
         alt="User"
