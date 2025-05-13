@@ -17,7 +17,6 @@ function OrderProvider({ children }) {
   const [order, setOrder] = React.useState({
     clientId: '',
     orderDate: currentDate,
-    state: 'Pendiente'
   });
   const [orderTotals, setOrderTotals] = React.useState({
     totalSell: 0,

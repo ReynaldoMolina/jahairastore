@@ -52,7 +52,6 @@ function OrderForm() {
     const fetchRegister = {
       clientId: order.clientId,
       orderDate: order.orderDate,
-      state: order.state,
       weight: newWeight,
     }
     
@@ -92,32 +91,6 @@ function OrderForm() {
         <h2 className="order-title">Información</h2>
         <div className="flx obj-info">
           <FormSpan name="order-id" holder="Pedido" value={order.id}/>
-
-          <div className="flx flx-col frm-input-div">
-            <label
-              htmlFor="state"
-              className="frm-input-label"
-            >
-              Estado
-            </label>
-            <select
-              id="state"
-              name="state"
-              className="frm-input frm-select"
-              value={order.state}
-              onChange={(event) => {
-                const newValue = {
-                  ...order,
-                  "state": event.target.value
-                }
-                setOrder(newValue);
-              }}
-            >
-              <option key="1" value="Pendiente">Pendiente</option>
-              <option key="2" value="Cancelado">Cancelado</option>
-              <option key="3" value="Entregado">Entregado</option>
-            </select>
-          </div>
           <FormInput name="orderDate" holder="Fecha" type="date" value={order} setValue={setOrder}/>
         </div>
 
