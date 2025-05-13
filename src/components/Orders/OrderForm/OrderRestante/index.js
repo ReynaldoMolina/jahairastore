@@ -17,7 +17,7 @@ function OrderRestante({ orderTotals, order, setOrder, isNew }) {
 
   const handleCopyToClipboard = async () => {
     const textToCopy = `Hola ${order.name}, ya está tu pedido listo para entregar 🥰.\n` +
-                       `El paquete pesó ${orderPeso.toFixed(2)} libras, en dólares $${orderEnvio.toFixed(2)}.\n` +
+                       `El paquete pesó ${orderPeso.toFixed(3)} libras, en dólares $${orderEnvio.toFixed(2)}.\n` +
                        `${saldo > 0 ? `El restante es de $${saldo.toFixed(2)}.\nEn total $${ordereRestanteTotal.toFixed(2)}, en córdobas C$${ordereRestanteTotalCordobas.toFixed(2)} 🥰` : `En córdobas C$${ordereRestanteTotalCordobas.toFixed(2)} 🥰`}`;
 
     try {
@@ -36,14 +36,14 @@ function OrderRestante({ orderTotals, order, setOrder, isNew }) {
       <h2 className="order-title">Mensaje de dinero restante</h2>
       <div className="flx flx-col order-restante">
         <div className="flx order-restante-input-div">
-          <FormInput name="weight" holder="Peso" type="number" value={order} setValue={setOrder} />
+          <FormInput name="weight" holder="Peso (libras)" type="number" value={order} setValue={setOrder} />
           <FormInput name="cambioDolar" holder="Cambio dólar" type="number" value={orderRestante} setValue={setOrderRestante} />
           <FormInput name="precioLibra" holder="Precio libra" type="number" value={orderRestante} setValue={setOrderRestante} />
         </div>
         <div className="flx flx-col order-restante-mensaje">
           {/* <p>{message}</p> */}
           <p>{`Hola ${order.name}, ya está tu pedido listo para entregar 🥰.`}</p>
-          <p>{`El paquete pesó ${orderPeso.toFixed(2)} libras, en dólares $${orderEnvio.toFixed(2)}.`}</p>
+          <p>{`El paquete pesó ${orderPeso.toFixed(3)} libras, en dólares $${orderEnvio.toFixed(2)}.`}</p>
 
           {saldo > 0 && <p>{`El restante es de $${saldo.toFixed(2)}.`}</p> }
 
