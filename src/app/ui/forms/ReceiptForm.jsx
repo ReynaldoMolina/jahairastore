@@ -5,18 +5,18 @@ export function ReceiptCreate() {
     <form
       className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
       <FormDiv>
-        <FormInput name="idpedido" holder="Pedido" value="" type="number" />
-        <FormDate name />
+        <FormInput name="Id_pedido" holder="Pedido" value="" type="number" />
+        <FormDate name="Fecha" />
       </FormDiv>
       <FormDiv>
-        <FormInput name="client" holder="Cliente" value="" />
+        <FormInput name="Id_cliente" holder="Cliente" value="" />
       </FormDiv>
       <FormDiv>
-        <FormInput name="abono" holder="Abono" value={0} type="number" />
-        <FormInput name="saldo" holder="Saldo" value={0} type="number" />
+        <FormInput name="Abono" holder="Abono" value={0} type="number" />
+        <FormInput name="Saldo" holder="Saldo" value={0} type="number" />
       </FormDiv>
       <FormDiv>
-        <FormInput name="description" holder="Descripción" value="" />
+        <FormInput name="Concepto" holder="Descripción" value="" />
       </FormDiv>
       <FormButtons link={'/receipts'} label={'Guardar'} />
     </form>
