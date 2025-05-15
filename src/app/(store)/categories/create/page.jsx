@@ -1,6 +1,6 @@
 import FormDiv from "@/app/ui/formInputs/FormDiv";
 import FormInput from "@/app/ui/formInputs/FormInput";
-import FormButtons from "@/app/ui/formInputs/FormButtons";
+import FormButtons from "@/app/ui/forms/formInputs";
 
 export default function CategoryAdd() {
   return (

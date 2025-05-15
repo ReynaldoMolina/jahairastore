@@ -1,9 +1,15 @@
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Close from './close.svg';
 import Logout from './logout.svg';
 
 export default function HeaderProfile({ user, isProfileOpen, setIsProfileOpen }) {
+  const router = useRouter();
+  function handleLogout() {
+    localStorage.removeItem('token');
+    router.replace('/login');
+  }
+
   return (
     <div className={`flex flex-col absolute p-7 bg-white dark:bg-neutral-700 rounded-2xl justify-center items-center right-0 top-12 gap-4 shadow-sm z-1 ${isProfileOpen || "hidden"}`}>
       <button
@@ -17,20 +23,14 @@ export default function HeaderProfile({ user, isProfileOpen, setIsProfileOpen })
       <h2
         className='text-sm'
       >{`¡Hola, ${user.username}!`}</h2>
-      <Link
-        href={"/login"}
+      <button
         className="flex p-2 rounded-xl bg-red-200 dark:bg-red-700 gap-2 items-center justify-center cursor-pointer"
-        // type="button"
-        // onClick={() => setUser({
-        //   isAuthenticated: false,
-        //   token: '',
-        //   username: '',
-        //   pictureUrl: ''
-        // })}
+        type="button"
+        onClick={handleLogout}
       >
         <Logout className="logout-icon"/>
         <span className='text-sm'>Cerrar sesión</span>
-      </Link>
+      </button>
     </div>
   );
 }
