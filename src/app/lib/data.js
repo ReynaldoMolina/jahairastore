@@ -75,7 +75,7 @@ export async function getProviders(query, currentPage) {
         "Id_proveedor"::text ILIKE ${`%${query}%`} OR
         "Nombre_empresa" ILIKE ${`%${query}%`} OR
         "Telefono" ILIKE ${`%${query}%`}
-      ORDER BY "Id_proveedor" DESC
+      ORDER BY "Id_proveedor" ASC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
@@ -351,6 +351,30 @@ export async function getProducts(query, currentPage) {
     
   } catch (error) {
     throw new Error('No se pudieron obtener los productos');
+  }
+}
+
+export async function getProductById(id) {
+  try {
+    const data = await sql`
+      SELECT
+        "Id_producto",
+        "Id_proveedor",
+        "Nombre",
+        "Descripcion",
+        "Precio_compra",
+        "Precio_venta",
+        "Id_categoria",
+        TO_CHAR("Fecha_agregado", 'YYYY-MM-DD') AS "Fecha",
+        "Id_shein"
+      FROM "Productos"
+      WHERE
+        "Id_producto" = ${id}
+    `;
+    return data[0];
+    
+  } catch (error) {
+    throw new Error('No se pudo obtener el producto');
   }
 }
 

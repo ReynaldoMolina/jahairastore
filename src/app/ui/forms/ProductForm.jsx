@@ -1,24 +1,24 @@
 import { FormDiv, FormInput, FormButtons, FormDate, FormId, FormSelectProveedor, FormSelectCategoria, FormSpan } from "@/app/ui/forms/formInputs";
 import { createProduct, updateProduct } from "@/app/lib/actions";
 
-export function ProductCreate({ providers, categories }) {
+export function ProductCreate() {
   return (
     <form
       action={createProduct}
       className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
       <FormInput name="Nombre" holder="Nombre" value="" />
       <FormDiv>
-        <FormSelectProveedor value={1} data={providers} />
-        <FormDate name="Fecha_agregado" />
-      </FormDiv>
-      <FormDiv>
-        <FormSelectCategoria value={1} data={categories} />
         <FormInput name="Id_shein" holder="Id SheIn" value="" required={false} />
+        <FormDate name="Fecha_agregado" />
       </FormDiv>
       <FormDiv>
         <FormInput name="Precio_compra" holder="Precio compra" value={0} type="number" />
         <FormInput name="Precio_venta" holder="Precio venta" value={0} type="number" />
         <FormSpan name="Profit" holder="Ganancia" value={0} type="number" />
+      </FormDiv>
+      <FormDiv>
+        <FormSelectProveedor value={1} />
+        <FormSelectCategoria value={1} />
       </FormDiv>
       <FormInput name="Descripcion" holder="Descripción" value="" required={false} />
       <FormButtons link={'/products'} label={'Guardar'} />
@@ -27,24 +27,30 @@ export function ProductCreate({ providers, categories }) {
 }
 
 export function ProductEdit({ product }) {
-  const updaProducttWithId = updateProduct.bind(null, product.Id_producto)
+ const updateProductWithId = updateProduct.bind(null, product.Id_producto)
+ const profit = product.Precio_venta - product.Precio_compra;
 
   return (
     <form
-      action={updaProducttWithId}
+      action={updateProductWithId}
       className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
-      <FormId holder="Recibo" value={receipt.Id_venta} />
+      <FormId holder="Producto" value={product.Id_producto} />
+      <FormInput name="Nombre" holder="Nombre" value={product.Nombre} />
       <FormDiv>
-        <FormInput name="Id_pedido" holder="Pedido" value={receipt.Id_pedido} type="number" />
-        <FormDate name="Fecha" date={receipt.Fecha} />
+        <FormInput name="Id_shein" holder="Id SheIn" value={product.Id_shein} required={false} />
+        <FormDate name="Fecha_agregado" date={product.Fecha_agregado} />
       </FormDiv>
-      <FormInput name="Id_cliente" holder="Cliente" value={receipt.Id_cliente} />
       <FormDiv>
-        <FormInput name="Abono" holder="Abono" value={receipt.Abono} type="number" />
-        <FormInput name="Saldo" holder="Saldo" value={receipt.Saldo} type="number" />
+        <FormInput name="Precio_compra" holder="Precio compra" value={product.Precio_compra} type="number" />
+        <FormInput name="Precio_venta" holder="Precio venta" value={product.Precio_venta} type="number" />
+        <FormSpan name="Profit" holder="Ganancia" value={profit} type="number" />
       </FormDiv>
-      <FormInput name="Concepto" holder="Descripción" value={receipt.Concepto} required={false} />
-      <FormButtons link={'/receipts'} label={'Guardar'} />
+      <FormDiv>
+        <FormSelectProveedor value={product.Id_proveedor} />
+        <FormSelectCategoria value={product.Id_categoria} />
+      </FormDiv>
+      <FormInput name="Descripcion" holder="Descripción" value={product.Descripcion} required={false} />
+      <FormButtons link={'/products'} label={'Guardar'} />
     </form>
   );
 }

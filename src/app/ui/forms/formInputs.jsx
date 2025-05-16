@@ -1,3 +1,4 @@
+import { getCategoriesSelect, getProvidersSelect } from "@/app/lib/data";
 import getDate from "@/app/lib/getDate";
 import Link from "next/link"
 
@@ -40,7 +41,7 @@ export function FormInput({ name, holder, value, type = 'text', autocomplete = '
         type={type}
         min={0}
         step="0.01"
-        className="flex bg-gray-100 dark:bg-neutral-600 items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full"
+        className={`flex bg-gray-100 dark:bg-neutral-600 items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full ${type === 'number' ? 'text-right' : 'text-left'}`}
         placeholder={holder}
         autoComplete={autocomplete}
         defaultValue={value}
@@ -62,7 +63,7 @@ export function FormSpan({ name, holder, value, type = 'text' }) {
       <span
         name={name}
         id={name}
-        className="flex bg-gray-100 dark:bg-neutral-600 items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full"
+        className={`flex bg-gray-100 dark:bg-neutral-600 items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full ${type === 'number' ? 'justify-end' : 'justify-start'}`}
       >
         {type === 'text' ? value : value.toFixed(2)}
       </span>
@@ -101,15 +102,15 @@ export function FormId({ holder, value }) {
   )
 }
 
-export function FormSelectProveedor({ value, data }) {
-  
+export async function FormSelectProveedor({ value }) {
+  const data = await getProvidersSelect();
   return (
     <div className="flex flex-col w-full gap-1">
       <label
         htmlFor="Proveedor"
         className="w-full text-xs pl-2 font-semibold"
       >
-        Proveedores
+        Proveedor
       </label>
       <select
         id="Proveedor"
@@ -131,15 +132,15 @@ export function FormSelectProveedor({ value, data }) {
   );
 }
 
-export function FormSelectCategoria({ value, data }) {
-  
+export async function FormSelectCategoria({ value }) {
+  const data = await getCategoriesSelect();
   return (
     <div className="flex flex-col w-full gap-1">
       <label
         htmlFor="Categoria"
         className="w-full text-xs pl-2 font-semibold"
       >
-        Categorías
+        Categoría
       </label>
       <select
         id="Categoria"
