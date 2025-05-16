@@ -190,6 +190,7 @@ export async function getCategoriesSelect() {
     return data;
     
   } catch (error) {
+    console.log(error);
     throw new Error('No se pudieron obtener los proveedores');
   }
 }
