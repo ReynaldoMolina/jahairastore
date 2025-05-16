@@ -1,6 +1,5 @@
 import getDate from "@/app/lib/getDate";
 import Link from "next/link"
-import { getProvidersSelect, getCategoriesSelect } from '@/app/lib/data';
 
 export function FormButtons({ link, label }) {
   return (
@@ -102,8 +101,8 @@ export function FormId({ holder, value }) {
   )
 }
 
-export async function FormSelectProveedor({ value }) {
-  const data = await getProvidersSelect();
+export function FormSelectProveedor({ value, data }) {
+  
   return (
     <div className="flex flex-col w-full gap-1">
       <label
@@ -132,8 +131,7 @@ export async function FormSelectProveedor({ value }) {
   );
 }
 
-export async function FormSelectCategoria({ value }) {
-  const data = await getCategoriesSelect();
+export function FormSelectCategoria({ value, data }) {
   
   return (
     <div className="flex flex-col w-full gap-1">
