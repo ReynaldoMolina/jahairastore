@@ -1,18 +1,18 @@
 import { FormDiv, FormInput, FormButtons, FormDate, FormId, FormSelectProveedor, FormSelectCategoria, FormSpan } from "@/app/ui/forms/formInputs";
 import { createProduct, updateProduct } from "@/app/lib/actions";
 
-export function ProductCreate({ providers, categories }) {
+export async function ProductCreate() {
   return (
     <form
       action={createProduct}
       className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
       <FormInput name="Nombre" holder="Nombre" value="" />
       <FormDiv>
-        <FormSelectProveedor value={1} data={providers} />
+        <FormSelectProveedor value={1} />
         <FormDate name="Fecha_agregado" />
       </FormDiv>
       <FormDiv>
-        <FormSelectCategoria value={1} data={categories} />
+        <FormSelectCategoria value={1} />
         <FormInput name="Id_shein" holder="Id SheIn" value="" required={false} />
       </FormDiv>
       <FormDiv>
