@@ -1,5 +1,6 @@
 import { getReceipts } from "@/app/lib/data";
 import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail, ListDate } from "@/app/ui/lists/lists";
+import EmptyList from "@/app/ui/lists/EmptyList";
 
 export default async function Receipts({ query, currentPage }) {
   const data = await getReceipts(query, currentPage);
@@ -9,14 +10,14 @@ export default async function Receipts({ query, currentPage }) {
   //   abono
   // }
 
-  if (data.length === 0) return <p>{`No hay resultados para ${query}`}</p>
+  if (data.length === 0) return <EmptyList query={query}/>
 
   return (
     <List>
       {data.map(register => (
         <ListCard
           key={register.Id_venta}
-          href={`/receipts/${register.Id_venta}`}
+          href={`/receipts/${register.Id_venta}/edit`}
         >
           <ListId id={register.Id_venta}/>
           <ListInfo>

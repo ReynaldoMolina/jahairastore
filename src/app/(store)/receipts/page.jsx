@@ -9,11 +9,9 @@ export default async function Page(props) {
   const currentPage = Number(searchParams?.page) || 1;
   const totalPages = await getReceiptsPages(query);
 
-  // const message = 'Solo se cargaron recibos agregados hoy, da click al ícono de filtro para cargar todo';
-
   return (
     <>
-      <ActionTools allowNew="false" />
+      <ActionTools allowNew={false} />
       <Receipts query={query} currentPage={currentPage} />
       <Pagination totalPages={totalPages} />
     </>

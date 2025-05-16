@@ -1,0 +1,31 @@
+import { getProviders } from "@/app/lib/data";
+import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListPhone } from "@/app/ui/lists/lists";
+import EmptyList from "@/app/ui/lists/EmptyList";
+
+export default async function Providers({ query, currentPage }) {
+  const data = await getProviders(query, currentPage);
+
+  if (data.length === 0) return <EmptyList query={query} />
+
+  return (
+    <List>
+      {data.map(register => (
+        <ListCard
+          key={register.Id_proveedor}
+          href={`/providers/${register.Id_proveedor}/edit`}
+        >
+          <ListId id={register.Id_proveedor}/>
+          <ListInfo>
+            <ListName name={register.Nombre_empresa} />
+              <ListInfoDetail>
+                <ListPhone phone={register.Telefono} />
+              </ListInfoDetail>
+          </ListInfo>
+        </ListCard>
+      ))}
+      {/* {data.length > 0 && (
+        <ReceiptTotal receiptsGeneralTotal={receiptsGeneralTotal}/>
+      )} */}
+    </List>
+  );
+}

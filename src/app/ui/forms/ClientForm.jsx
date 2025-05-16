@@ -1,0 +1,51 @@
+import { FormDiv, FormInput, FormButtons, FormId } from "@/app/ui/forms/formInputs";
+import { createClient, updateClient } from "@/app/lib/actions";
+
+export function ClientCreate() {
+  return (
+    <form
+      action={createClient}
+      className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
+      <FormDiv>
+        <FormInput name="Nombre" holder="Nombre" value="" />
+        <FormInput name="Apellido" holder="Apellido" value="" />
+      </FormDiv>
+      <FormDiv>
+        <FormInput name="Telefono" holder="Telefono" value="" required={false} />
+        <FormInput name="Municipio" holder="Municipio" value="" required={false} />
+      </FormDiv>
+      <FormDiv>
+        <FormInput name="Departamento" holder="Departamento" value="" required={false} />
+        <FormInput name="Pais" holder="País" value="" required={false} />
+      </FormDiv>
+      <FormInput name="Direccion" holder="Dirección" value="" required={false} />
+      <FormButtons link={'/clients'} label={'Guardar'} />
+    </form>
+  );
+}
+
+export function ClientEdit({ client }) {
+  const updateClientWithId = updateClient.bind(null, client.Id_cliente);  
+
+  return (
+    <form
+      action={updateClientWithId}
+      className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
+      <FormId holder="Cliente" value={client.Id_cliente} />
+      <FormDiv>
+        <FormInput name="Nombre" holder="Nombre" value={client.Nombre} />
+        <FormInput name="Apellido" holder="Apellido" value={client.Apellido} />
+      </FormDiv>
+      <FormDiv>
+        <FormInput name="Telefono" holder="Telefono" value={client.Telefono} required={false} />
+        <FormInput name="Municipio" holder="Municipio" value={client.Municipio} required={false} />
+      </FormDiv>
+      <FormDiv>
+        <FormInput name="Departamento" holder="Departamento" value={client.Departamento} required={false} />
+        <FormInput name="Pais" holder="País" value={client.Pais} required={false} />
+      </FormDiv>
+      <FormInput name="Direccion" holder="Dirección" value={client.Direccion} required={false} />
+      <FormButtons link={'/clients'} label={'Guardar'} />
+    </form>
+  );
+}

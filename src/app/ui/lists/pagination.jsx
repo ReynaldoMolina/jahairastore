@@ -8,6 +8,8 @@ import ArrowLeftIcon from '@/app/ui/lists/arrow-left.svg';
 import ArrowRightIcon from '@/app/ui/lists/arrow-right.svg';
 
 export function Pagination({ totalPages }) {
+  if (totalPages === 0) return;
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
@@ -20,7 +22,7 @@ export function Pagination({ totalPages }) {
   };
 
   return (
-    <div className={`inline-flex justify-center ${totalPages === 0 || "hidden"}`}>
+    <div className="inline-flex justify-center">
       <PaginationArrow
         direction="left"
         href={createPageURL(currentPage - 1)}

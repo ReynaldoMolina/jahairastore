@@ -1,24 +1,26 @@
-// 'use client';
+import { FormInput, FormButtons, FormId } from "@/app/ui/forms/formInputs";
+import { createCategory, updateCategory } from "@/app/lib/actions";
 
-// import { useParams } from "next/navigation";
-import { getCategoryById } from "@/app/lib/data";
-import { FormDiv, FormSpan, FormButtons } from "@/app/ui/forms/formInputs";
+export function CategoryCreate() {
+  return (
+    <form
+      action={createCategory}
+      className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
+      <FormInput name="Nombre_categoria" holder="Nombre" value="" />
+      <FormButtons link={'/categories'} label={'Guardar'} />
+    </form>
+  );
+}
 
-export default async function CategoryForm({ isNew = false }) {
-  // const { id } = useParams();
-  const data = await getCategoryById(1);
+export function CategoryEdit({ category }) {
+  const updateCategoryWithId = updateCategory.bind(null, category.Id_categoria);  
 
   return (
     <form
-      className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-200 p-3 w-full">
-      {isNew || (
-        <FormDiv>
-          <span className="flex justify-center items-center h-8 text-xs bg-sky-200 rounded-xl w-full text-black">{data.Id_categoria}</span>
-        </FormDiv>
-      )}
-      <FormDiv>
-        <FormSpan name="name" holder="Nombre" value={data.Nombre_categoria} />
-      </FormDiv>
+      action={updateCategoryWithId}
+      className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
+      <FormId holder="Categoría" value={category.Id_categoria} />
+      <FormInput name="Nombre_categoria" holder="Nombre" value={category.Nombre_categoria} />
       <FormButtons link={'/categories'} label={'Guardar'} />
     </form>
   );

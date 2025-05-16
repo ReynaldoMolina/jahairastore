@@ -25,7 +25,7 @@ export function ListDate({ date }) {
   );
 }
 
-export function ListDetail({ detail, color, type = "text" }) {
+export function ListDetail({ detail, color ='', type = "text" }) {
   const newDetail = type === "number" ? `${detail.toFixed(2)}` : detail;
   return (
     <span className={`rounded-xl py-1 px-2 text-xs w-17 ${color}`}>{newDetail}</span>
@@ -34,7 +34,7 @@ export function ListDetail({ detail, color, type = "text" }) {
 
 export function ListId({ id }) {
   return (
-    <span className="flex items-center justify-center bg-sky-200 p-1 min-w-12 h-6 rounded-xl text-xs text-black">{id}</span>
+    <span className="flex items-center justify-center bg-sky-200 dark:bg-sky-700 p-1 min-w-12 h-6 rounded-xl text-xs">{id}</span>
   );
 }
 
@@ -57,5 +57,11 @@ export function ListInfoDetail({ children }) {
 export function ListName({ name }) {
   return (
     <span className="flex w-full text-sm">{name}</span>
+  );
+}
+
+export function ListPhone({ phone }) {
+  return (
+    <span className="w-30 text-center text-xs bg-neutral-200 dark:bg-neutral-500 rounded-xl p-1">{phone === '' ? '-' : phone}</span>
   );
 }
