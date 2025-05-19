@@ -1,4 +1,4 @@
-import { getCategoriesSelect, getProvidersSelect } from "@/app/lib/data";
+import { getCategoriesSelect, getProvidersSelect, getClientsSelect } from "@/app/lib/data";
 import getDate from "@/app/lib/getDate";
 import Link from "next/link"
 
@@ -119,12 +119,12 @@ export async function FormSelectProveedor({ value }) {
         defaultValue={value}
       >
         <option value="" disabled>Selecciona una opción</option>
-        {data.map((opt) => {
+        {data.map((option) => {
           return (
             <option
-              key={opt.Id_proveedor}
-              value={opt.Id_proveedor}
-            >{opt.Nombre_empresa}</option>
+              key={option.NombreCompleto}
+              value={option.NombreCompleto}
+            >{option.Nombre_empresa}</option>
           )
         })}
       </select>
@@ -149,12 +149,42 @@ export async function FormSelectCategoria({ value }) {
         defaultValue={value}
       >
         <option value="" disabled>Selecciona una opción</option>
-        {data.map((opt) => {
+        {data.map((option) => {
           return (
             <option
-              key={opt.Id_categoria}
-              value={opt.Id_categoria}
-            >{opt.Nombre_categoria}</option>
+              key={option.Id_categoria}
+              value={option.Id_categoria}
+            >{option.Nombre_categoria}</option>
+          )
+        })}
+      </select>
+    </div>
+  );
+}
+
+export async function FormSelectClient({ value }) {
+  const data = await getClientsSelect();
+  return (
+    <div className="flex flex-col w-full gap-1">
+      <label
+        htmlFor="Clientes"
+        className="w-full text-xs pl-2 font-semibold"
+      >
+        Cliente
+      </label>
+      <select
+        id="Clientes"
+        name="Clientes"
+        className="flex bg-gray-100 dark:bg-neutral-600 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
+        defaultValue={value}
+      >
+        <option value="" disabled>Selecciona un cliente</option>
+        {data.map((option) => {
+          return (
+            <option
+              key={option.Id_cliente}
+              value={option.Id_cliente}
+            >{option.NombreCompleto}</option>
           )
         })}
       </select>

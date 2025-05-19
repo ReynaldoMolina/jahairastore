@@ -61,6 +61,22 @@ export async function getClientsPages(query) {
   }
 }
 
+export async function getClientsSelect() {
+  try {
+    const data = await sql`
+      SELECT
+        "Id_cliente",
+        "Nombre" || ' ' || "Apellido" AS "NombreCompleto"
+      FROM "Clientes"
+      ORDER BY "Nombre" ASC
+    `;
+    return data;
+    
+  } catch (error) {
+    throw new Error('No se pudieron obtener los clientes');
+  }
+}
+
 export async function getProviders(query, currentPage) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
@@ -337,13 +353,15 @@ export async function getProducts(query, currentPage) {
         "Id_producto",
         "Nombre",
         "Precio_compra",
-        "Precio_venta"
+        "Precio_venta",
+        TO_CHAR("Fecha_agregado", 'YYYY-MM-DD') AS "Fecha"
       FROM "Productos"
       WHERE
         "Id_producto"::text ILIKE ${`%${query}%`} OR
         "Nombre" ILIKE ${`%${query}%`} OR
         "Precio_compra"::text ILIKE ${`%${query}%`} OR
-        "Precio_venta"::text ILIKE ${`%${query}%`}
+        "Precio_venta"::text ILIKE ${`%${query}%`} OR
+        "Fecha_agregado"::text ILIKE ${`%${query}%`}
       ORDER BY "Id_producto" DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
@@ -388,12 +406,96 @@ export async function getProductsPages(query) {
         "Id_producto"::text ILIKE ${`%${query}%`} OR
         "Nombre" ILIKE ${`%${query}%`} OR
         "Precio_compra"::text ILIKE ${`%${query}%`} OR
-        "Precio_venta"::text ILIKE ${`%${query}%`}
+        "Precio_venta"::text ILIKE ${`%${query}%`} OR
+        "Fecha_agregado"::text ILIKE ${`%${query}%`}
     `;
     const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
     return totalPages;
     
   } catch (error) {
     throw new Error('No se pudieron obtener los productos');
+  }
+}
+
+export async function getOrders(query, currentPage) {
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const data = await sql`
+      WITH
+        PedidoTotalesVenta AS (
+          SELECT
+            "Id_pedido",
+            SUM("Precio_venta" * "Cantidad_venta") AS "TotalPedidoVenta"
+          FROM "PedidosDetalles"
+          GROUP BY "Id_pedido"
+        ),
+        PedidoTotalesCompra AS (
+          SELECT
+            "Id_pedido",
+            SUM("Precio_compra" * "Cantidad_venta") AS "TotalPedidoCompra"
+          FROM "PedidosDetalles"
+          GROUP BY "Id_pedido"
+        ),
+        VentaTotales AS (
+          SELECT
+            "Id_pedido",
+            SUM("Abono") AS "TotalAbono"
+          FROM "Ventas"
+          GROUP BY "Id_pedido"
+        )
+
+      SELECT
+        "Pedidos"."Id_pedido",
+        "Clientes"."Nombre" || ' ' || "Clientes"."Apellido" AS "NombreCompleto",
+        TO_CHAR("Pedidos"."Fecha_del_pedido", 'YYYY-MM-DD') AS "Fecha",
+        COALESCE(PedidoTotalesVenta."TotalPedidoVenta", 0) AS "TotalPedidoVenta",
+        COALESCE(PedidoTotalesCompra."TotalPedidoCompra", 0) AS "TotalPedidoCompra",
+        COALESCE(VentaTotales."TotalAbono", 0) AS "TotalAbono",
+        PedidoTotalesVenta."TotalPedidoVenta" - VentaTotales."TotalAbono" AS "Saldo",
+        PedidoTotalesVenta."TotalPedidoVenta" - PedidoTotalesCompra."TotalPedidoCompra" As "Ganancia"
+
+      FROM
+        "Pedidos"
+        JOIN "Clientes" ON "Pedidos"."Id_cliente" = "Clientes"."Id_cliente"
+        LEFT JOIN PedidoTotalesVenta ON "Pedidos"."Id_pedido" = PedidoTotalesVenta."Id_pedido"
+        LEFT JOIN PedidoTotalesCompra ON "Pedidos"."Id_pedido" = PedidoTotalesCompra."Id_pedido"
+        LEFT JOIN VentaTotales ON "Pedidos"."Id_pedido" = VentaTotales."Id_pedido"
+
+      WHERE
+        "Pedidos"."Id_pedido"::text ILIKE ${`%${query}%`} OR
+        "Clientes"."Nombre" ILIKE ${`%${query}%`} OR
+        "Clientes"."Apellido" ILIKE ${`%${query}%`} OR
+        "Pedidos"."Fecha_del_pedido"::text ILIKE ${`%${query}%`}
+
+      ORDER BY "Pedidos"."Id_pedido" DESC
+
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+    return data;
+    
+  } catch (error) {
+    throw new Error('No se pudieron obtener los pedidos');
+  }
+}
+
+export async function getOrdersPages(query) {
+
+  try {
+    const data = await sql`
+      SELECT COUNT(*)
+      FROM "Pedidos"
+      JOIN "Clientes" ON "Pedidos"."Id_cliente" = "Clientes"."Id_cliente"
+      WHERE
+        "Pedidos"."Id_pedido"::text ILIKE ${`%${query}%`} OR
+        "Clientes"."Nombre" ILIKE ${`%${query}%`} OR
+        "Clientes"."Apellido" ILIKE ${`%${query}%`} OR
+        "Pedidos"."Fecha_del_pedido"::text ILIKE ${`%${query}%`}
+    `;
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
+    return totalPages;
+    
+  } catch (error) {
+    throw new Error('No se pudieron obtener las órdenes');
   }
 }

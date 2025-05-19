@@ -12,7 +12,7 @@ export function ListCard({ children, href }) {
   return (
     <Link
       href={href}
-      className="flex rounded-xl bg-white dark:bg-neutral-700 p-2 items-center shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-600"
+      className="flex rounded-xl bg-white dark:bg-neutral-700 p-2 items-center shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-600/80"
     >
       {children}
     </Link>
@@ -26,9 +26,9 @@ export function ListDate({ date }) {
 }
 
 export function ListDetail({ detail, color ='', type = "text" }) {
-  const newDetail = type === "number" ? `${detail.toFixed(2)}` : detail;
+  const newDetail = type === "number" ? detail.toFixed(2) : detail;
   return (
-    <span className={`rounded-xl py-1 px-2 text-xs w-17 ${color}`}>{newDetail}</span>
+    <span className={`rounded-xl py-1 px-2 text-xs w-16 md:w-17 ${color}`}>{newDetail}</span>
   );
 }
 
@@ -40,7 +40,7 @@ export function ListId({ id }) {
 
 export function ListInfo({ children }) {
   return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center grow gap-1">
+    <div className="flex flex-col md:flex-row items-start md:items-center grow gap-1">
       {children}
     </div>
   );
@@ -48,7 +48,7 @@ export function ListInfo({ children }) {
 
 export function ListInfoDetail({ children }) {
   return (
-    <div className="flex gap-2 md items-center">
+    <div className="flex gap-1 sm:gap-2 items-center flex-wrap md:flex-nowrap">
       {children}
     </div>
   );
@@ -56,7 +56,7 @@ export function ListInfoDetail({ children }) {
 
 export function ListName({ name }) {
   return (
-    <span className="flex w-full text-sm">{name}</span>
+    <span className="flex w-full text-xs">{name}</span>
   );
 }
 

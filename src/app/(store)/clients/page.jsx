@@ -1,4 +1,4 @@
-import ActionTools from "@/app/ui/actiontools/ActionTools";
+import ActionTools from "@/app/ui/ActionTools/ActionTools";
 import Clients from "@/app/ui/lists/Clients";
 import { Pagination } from "@/app/ui/lists/pagination";
 import { getClientsPages } from "@/app/lib/data";

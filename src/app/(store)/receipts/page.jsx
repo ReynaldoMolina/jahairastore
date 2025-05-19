@@ -1,4 +1,4 @@
-import ActionTools from "@/app/ui/actiontools/ActionTools";
+import ActionTools from "@/app/ui/ActionTools/ActionTools";
 import Receipts from "@/app/ui/lists/Receipts";
 import { Pagination } from "@/app/ui/lists/pagination";
 import { getReceiptsPages } from "@/app/lib/data";

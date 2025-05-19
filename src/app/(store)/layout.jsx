@@ -15,7 +15,7 @@ const user = {
 
 export default function Layout({ children }) {
   return (
-    <main className="flex flex-col sm:flex-row bg-gray-100 dark:bg-neutral-800 h-screen">
+    <main className="flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 h-screen">
       <SideMenu />
       <div className="flex flex-col grow">
         <Header user={user}>

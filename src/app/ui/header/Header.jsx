@@ -1,10 +1,9 @@
 'use client';
 
 import { useState } from "react";
-import { usePathname } from "next/navigation";
+// import { usePathname } from "next/navigation";
 import Image from "next/image"
 import HeaderProfile from "@/app/ui/header/HeaderProfile";
-import { menuOptions } from "@/app/lib/menuOptions";
 
 export default function Header({ children, user }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -14,7 +13,7 @@ export default function Header({ children, user }) {
   return (
     <header className="flex justify-between border-b-1 border-b-neutral-200 dark:border-b-neutral-700 py-1 mx-2 bg-transparent relative">
       {children}
-      <h1 className="flex items-center font-semibold text-sm">Jahaira Store</h1>
+      <h1 className="flex items-center font-semibold text-sm text-center">Jahaira Store</h1>
       {/* <h1 className="flex items-center font-semibold text-sm">{activeOption.name}</h1> */}
       <Image
         src={user.pictureUrl}
