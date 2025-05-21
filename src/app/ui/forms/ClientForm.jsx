@@ -1,11 +1,11 @@
-import { FormDiv, FormInput, FormButtons, FormId } from "@/app/ui/forms/formInputs";
+import { FormContainer, FormDiv, FormInput, FormButtons, FormId } from "@/app/ui/forms/formInputs";
 import { createClient, updateClient } from "@/app/lib/actions";
 
 export function ClientCreate() {
   return (
-    <form
-      action={createClient}
-      className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
+    <FormContainer
+      maxWidth={130}
+      action={createClient}>
       <FormDiv>
         <FormInput name="Nombre" holder="Nombre" value="" />
         <FormInput name="Apellido" holder="Apellido" value="" />
@@ -20,7 +20,7 @@ export function ClientCreate() {
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value="" required={false} />
       <FormButtons link={'/clients'} label={'Guardar'} />
-    </form>
+    </FormContainer>
   );
 }
 
@@ -28,9 +28,8 @@ export function ClientEdit({ client }) {
   const updateClientWithId = updateClient.bind(null, client.Id_cliente);  
 
   return (
-    <form
-      action={updateClientWithId}
-      className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
+    <FormContainer
+      action={updateClientWithId}>
       <FormId holder="Cliente" value={client.Id_cliente} />
       <FormDiv>
         <FormInput name="Nombre" holder="Nombre" value={client.Nombre} />
@@ -46,6 +45,6 @@ export function ClientEdit({ client }) {
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value={client.Direccion} required={false} />
       <FormButtons link={'/clients'} label={'Guardar'} />
-    </form>
+    </FormContainer>
   );
 }

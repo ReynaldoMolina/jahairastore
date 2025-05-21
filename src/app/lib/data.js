@@ -354,6 +354,7 @@ export async function getProducts(query, currentPage) {
         "Nombre",
         "Precio_compra",
         "Precio_venta",
+        "Precio_venta" - "Precio_compra" AS "Ganancia",
         TO_CHAR("Fecha_agregado", 'YYYY-MM-DD') AS "Fecha"
       FROM "Productos"
       WHERE
@@ -384,7 +385,8 @@ export async function getProductById(id) {
         "Precio_venta",
         "Id_categoria",
         TO_CHAR("Fecha_agregado", 'YYYY-MM-DD') AS "Fecha",
-        "Id_shein"
+        "Id_shein",
+        "Precio_venta" - "Precio_compra" AS "Ganancia"
       FROM "Productos"
       WHERE
         "Id_producto" = ${id}
@@ -397,7 +399,6 @@ export async function getProductById(id) {
 }
 
 export async function getProductsPages(query) {
-
   try {
     const data = await sql`
       SELECT COUNT(*)

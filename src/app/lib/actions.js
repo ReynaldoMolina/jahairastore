@@ -277,3 +277,24 @@ export async function updateProduct(id, formData) {
   revalidatePath('/products');
   redirect('/products');
 }
+
+export async function createOrder(formData) {
+  const data = {
+    Id_cliente: Number(formData.get('Id_cliente')),
+    Fecha_del_pedido: formData.get('Fecha_del_pedido'),
+    Peso: Number(formData.get('Peso'))
+  }
+  return console.log(data);
+
+  try {
+    await sql`
+      INSERT INTO "Pedidos" ("Id_cliente", "Fecha_del_pedido", "Peso")
+      VALUES (${data.Id_cliente}, ${data.Fecha_del_pedido}, ${data.Peso})
+    `;
+  } catch (error) {
+    throw new Error('No se pudo crear el producto');
+  }
+
+  revalidatePath('/orders');
+  redirect('/orders');
+}

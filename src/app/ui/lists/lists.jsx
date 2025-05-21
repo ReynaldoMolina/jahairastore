@@ -12,7 +12,7 @@ export function ListCard({ children, href }) {
   return (
     <Link
       href={href}
-      className="flex rounded-xl bg-white dark:bg-neutral-700 p-2 items-center shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-600/80"
+      className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 items-center shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-700/60"
     >
       {children}
     </Link>
@@ -34,13 +34,13 @@ export function ListDetail({ detail, color ='', type = "text" }) {
 
 export function ListId({ id }) {
   return (
-    <span className="flex items-center justify-center bg-sky-200 dark:bg-sky-700 p-1 min-w-12 h-6 rounded-xl text-xs">{id}</span>
+    <span className="flex items-center justify-center bg-sky-200 p-1 min-w-12 h-6 rounded-xl text-xs text-black">{id}</span>
   );
 }
 
 export function ListInfo({ children }) {
   return (
-    <div className="flex flex-col md:flex-row items-start md:items-center grow gap-1">
+    <div className="flex flex-col md:flex-row items-start md:items-center grow gap-1 md:gap-2">
       {children}
     </div>
   );
@@ -62,6 +62,6 @@ export function ListName({ name }) {
 
 export function ListPhone({ phone }) {
   return (
-    <span className="w-30 text-center text-xs bg-neutral-200 dark:bg-neutral-500 rounded-xl p-1">{phone === '' ? '-' : phone}</span>
+    <span className="w-30 text-center text-xs bg-neutral-200/60 dark:bg-neutral-700 rounded-xl p-1">{phone === '' ? '-' : phone}</span>
   );
 }

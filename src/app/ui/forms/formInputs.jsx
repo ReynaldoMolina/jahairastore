@@ -2,6 +2,16 @@ import { getCategoriesSelect, getProvidersSelect, getClientsSelect } from "@/app
 import getDate from "@/app/lib/getDate";
 import Link from "next/link"
 
+export function FormContainer({ children, maxWidth = 130, action }) {
+  return (
+    <form
+    action={action}
+    className={`flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-${maxWidth} p-3 w-full`}>
+      {children}
+    </form>
+  );
+}
+
 export function FormButtons({ link, label }) {
   return (
     <div className="flex w-full justify-center gap-3">
@@ -41,7 +51,7 @@ export function FormInput({ name, holder, value, type = 'text', autocomplete = '
         type={type}
         min={0}
         step="0.01"
-        className={`flex bg-gray-100 dark:bg-neutral-600 items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full ${type === 'number' ? 'text-right' : 'text-left'}`}
+        className={`flex bg-gray-100 dark:bg-neutral-700 items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full ${type === 'number' ? 'text-right' : 'text-left'}`}
         placeholder={holder}
         autoComplete={autocomplete}
         defaultValue={value}
@@ -51,7 +61,7 @@ export function FormInput({ name, holder, value, type = 'text', autocomplete = '
   )
 }
 
-export function FormSpan({ name, holder, value, type = 'text' }) {
+export function FormSpan({ name, holder, value, type = 'text', color = "bg-gray-100 dark:bg-neutral-700 " }) {
   return (
     <div className="flex flex-col w-full gap-1">
       <label
@@ -63,7 +73,7 @@ export function FormSpan({ name, holder, value, type = 'text' }) {
       <span
         name={name}
         id={name}
-        className={`flex bg-gray-100 dark:bg-neutral-600 items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full ${type === 'number' ? 'justify-end' : 'justify-start'}`}
+        className={`flex ${color} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full ${type === 'number' ? 'justify-end' : 'justify-start'}`}
       >
         {type === 'text' ? value : value.toFixed(2)}
       </span>
@@ -83,7 +93,7 @@ export function FormDate({ name, date }) {
         id={name}
         name={name}
         type="date"
-        className="flex bg-gray-100 dark:bg-neutral-600 items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full"
+        className="flex bg-gray-100 dark:bg-neutral-700 items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full"
         defaultValue={date ? date : currentDate}
       ></input>
     </div>
@@ -95,7 +105,7 @@ export function FormId({ holder, value }) {
     <span
       name="id"
       id="id"
-      className="flex bg-sky-200 dark:bg-sky-800 font-semibold justify-center items-center rounded-xl text-xs h-8 px-3 w-full"
+      className="flex bg-sky-200 text-black font-semibold justify-center items-center rounded-xl text-xs h-8 px-3 w-full"
     >
       {holder} {value}
     </span>
@@ -115,7 +125,7 @@ export async function FormSelectProveedor({ value }) {
       <select
         id="Proveedor"
         name="Proveedor"
-        className="flex bg-gray-100 dark:bg-neutral-600 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
+        className="flex bg-gray-100 dark:bg-neutral-700 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
         defaultValue={value}
       >
         <option value="" disabled>Selecciona una opción</option>
@@ -145,7 +155,7 @@ export async function FormSelectCategoria({ value }) {
       <select
         id="Categoria"
         name="Categoria"
-        className="flex bg-gray-100 dark:bg-neutral-600 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
+        className="flex bg-gray-100 dark:bg-neutral-700 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
         defaultValue={value}
       >
         <option value="" disabled>Selecciona una opción</option>
@@ -167,15 +177,15 @@ export async function FormSelectClient({ value }) {
   return (
     <div className="flex flex-col w-full gap-1">
       <label
-        htmlFor="Clientes"
+        htmlFor="Id_cliente"
         className="w-full text-xs pl-2 font-semibold"
       >
         Cliente
       </label>
       <select
-        id="Clientes"
-        name="Clientes"
-        className="flex bg-gray-100 dark:bg-neutral-600 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
+        id="Id_cliente"
+        name="Id_cliente"
+        className="flex bg-gray-100 dark:bg-neutral-700 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
         defaultValue={value}
       >
         <option value="" disabled>Selecciona un cliente</option>

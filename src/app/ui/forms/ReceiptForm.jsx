@@ -1,11 +1,10 @@
-import { FormDiv, FormInput, FormButtons, FormDate, FormId } from "@/app/ui/forms/formInputs";
+import { FormContainer, FormDiv, FormInput, FormButtons, FormDate, FormId } from "@/app/ui/forms/formInputs";
 import { createReceipt, updateReceipt } from "@/app/lib/actions";
 
 export function ReceiptCreate() {
   return (
-    <form
-      action={createReceipt}
-      className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
+    <FormContainer
+      action={createReceipt}>
       <FormDiv>
         <FormInput name="Id_pedido" holder="Pedido" value="" type="number" />
         <FormDate name="Fecha" />
@@ -17,7 +16,7 @@ export function ReceiptCreate() {
       </FormDiv>
       <FormInput name="Concepto" holder="Descripción" value="" required={false} />
       <FormButtons link={'/receipts'} label={'Guardar'} />
-    </form>
+    </FormContainer>
   );
 }
 
@@ -25,9 +24,8 @@ export function ReceiptEdit({ receipt }) {
   const updateReceiptWithId = updateReceipt.bind(null, receipt.Id_venta)
 
   return (
-    <form
-      action={updateReceiptWithId}
-      className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
+    <FormContainer
+      action={updateReceiptWithId}>
       <FormId holder="Recibo" value={receipt.Id_venta} />
       <FormDiv>
         <FormInput name="Id_pedido" holder="Pedido" value={receipt.Id_pedido} type="number" />
@@ -40,6 +38,6 @@ export function ReceiptEdit({ receipt }) {
       </FormDiv>
       <FormInput name="Concepto" holder="Descripción" value={receipt.Concepto} required={false} />
       <FormButtons link={'/receipts'} label={'Guardar'} />
-    </form>
+    </FormContainer>
   );
 }

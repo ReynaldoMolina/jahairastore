@@ -6,7 +6,7 @@ import Add from "@/app/ui/actiontools/add.svg";
 import SearchInput from "@/app/ui/ActionTools/SeachInput";
 import getDate from "@/app/lib/getDate";
 
-const actionButtonStyle = "flex justify-center items-center w-full max-w-10 h-10 bg-sky-200 dark:bg-neutral-700 rounded-xl cursor-pointer border-none shadow-sm hover:bg-sky-300/70 dark:hover:bg-neutral-600 active:bg-sky-300 dark:active:bg-neutral-500";
+const actionButtonStyle = "flex justify-center items-center w-full max-w-10 h-10 bg-green-300 dark:bg-green-900 rounded-xl cursor-pointer border-none shadow-sm hover:bg-green-400/70 dark:hover:bg-green-700 active:bg-green-300 dark:active:bg-green-600";
 
 export default function ActionTools({ allowNew = true }) {
   const pathname = usePathname();
@@ -22,7 +22,7 @@ export default function ActionTools({ allowNew = true }) {
       <SearchInput />
       <Link
         href={href}
-        className={`${actionButtonStyle} ${allowNew || "hidden"} flex text-xs min-w-20 gap-1 items-center justify-center`}>
+        className={`${actionButtonStyle} ${allowNew || "hidden"} text-xs min-w-20 gap-1`}>
         <Add className="flex size-5" />
         Nuevo
       </Link>

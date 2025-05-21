@@ -1,11 +1,10 @@
-import { FormDiv, FormInput, FormButtons, FormDate, FormId, FormSelectProveedor, FormSelectCategoria, FormSpan } from "@/app/ui/forms/formInputs";
+import { FormContainer, FormDiv, FormInput, FormButtons, FormDate, FormId, FormSelectProveedor, FormSelectCategoria, FormSpan } from "@/app/ui/forms/formInputs";
 import { createProduct, updateProduct } from "@/app/lib/actions";
 
 export function ProductCreate() {
   return (
-    <form
-      action={createProduct}
-      className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
+    <FormContainer
+      action={createProduct}>
       <FormInput name="Nombre" holder="Nombre" value="" />
       <FormDiv>
         <FormInput name="Id_shein" holder="Id SheIn" value="" required={false} />
@@ -22,18 +21,16 @@ export function ProductCreate() {
       </FormDiv>
       <FormInput name="Descripcion" holder="Descripción" value="" required={false} />
       <FormButtons link={'/products'} label={'Guardar'} />
-    </form>
+    </FormContainer>
   );
 }
 
 export function ProductEdit({ product }) {
  const updateProductWithId = updateProduct.bind(null, product.Id_producto)
- const profit = product.Precio_venta - product.Precio_compra;
 
   return (
-    <form
-      action={updateProductWithId}
-      className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
+    <FormContainer
+      action={updateProductWithId}>
       <FormId holder="Producto" value={product.Id_producto} />
       <FormInput name="Nombre" holder="Nombre" value={product.Nombre} />
       <FormDiv>
@@ -43,7 +40,7 @@ export function ProductEdit({ product }) {
       <FormDiv>
         <FormInput name="Precio_compra" holder="Precio compra" value={product.Precio_compra} type="number" />
         <FormInput name="Precio_venta" holder="Precio venta" value={product.Precio_venta} type="number" />
-        <FormSpan name="Profit" holder="Ganancia" value={profit} type="number" />
+        <FormSpan name="Ganancia" holder="Ganancia" value={product.Ganancia} type="number" />
       </FormDiv>
       <FormDiv>
         <FormSelectProveedor value={product.Id_proveedor} />
@@ -51,6 +48,6 @@ export function ProductEdit({ product }) {
       </FormDiv>
       <FormInput name="Descripcion" holder="Descripción" value={product.Descripcion} required={false} />
       <FormButtons link={'/products'} label={'Guardar'} />
-    </form>
+    </FormContainer>
   );
 }

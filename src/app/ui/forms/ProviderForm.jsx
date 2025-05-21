@@ -1,11 +1,10 @@
-import { FormDiv, FormInput, FormButtons, FormId } from "@/app/ui/forms/formInputs";
+import { FormContainer, FormDiv, FormInput, FormButtons, FormId } from "@/app/ui/forms/formInputs";
 import { createProvider, updateProvider } from "@/app/lib/actions";
 
 export function ProviderCreate() {
   return (
-    <form
-      action={createProvider}
-      className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
+    <FormContainer
+      action={createProvider}>
       <FormDiv>
         <FormInput name="Nombre_empresa" holder="Nombre empresa" value="" />
         <FormInput name="Nombre_contacto" holder="Contacto" value="" required={false} />
@@ -20,7 +19,7 @@ export function ProviderCreate() {
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value="" required={false} />
       <FormButtons link={'/providers'} label={'Guardar'} />
-    </form>
+    </FormContainer>
   );
 }
 
@@ -28,9 +27,9 @@ export function ProviderEdit({ provider }) {
   const updateProviderWithId = updateProvider.bind(null, provider.Id_proveedor);  
 
   return (
-    <form
-      action={updateProviderWithId}
-      className="flex flex-col bg-white dark:bg-neutral-700 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full">
+    <FormContainer
+      action={updateProviderWithId}>
+      <FormId holder="Proveedor" value={provider.Id_proveedor} />
       <FormDiv>
         <FormInput name="Nombre_empresa" holder="Nombre empresa" value={provider.Nombre_empresa} />
         <FormInput name="Nombre_contacto" holder="Contacto" value={provider.Nombre_contacto} required={false} />
@@ -45,6 +44,6 @@ export function ProviderEdit({ provider }) {
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value={provider.Direccion} required={false} />
       <FormButtons link={'/providers'} label={'Guardar'} />
-    </form>
+    </FormContainer>
   );
 }

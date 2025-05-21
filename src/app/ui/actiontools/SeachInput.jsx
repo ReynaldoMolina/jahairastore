@@ -25,7 +25,7 @@ export default function SearchInput() {
       <Search className="flex size-5 absolute left-3 stroke-2" />
       <input
         type="search"
-        className="bg-white dark:bg-neutral-700 rounded-xl border-none h-10 pl-11 pr-1 w-full shadow-sm text-sm focus-within:outline-1 focus-within:outline-neutral-400 hover:outline-1 hover:outline-neutral-400"
+        className="bg-white dark:bg-neutral-800 rounded-xl border-none h-10 pl-11 pr-1 w-full shadow-sm text-sm focus-within:outline-1 focus-within:outline-neutral-400 hover:outline-1 hover:outline-neutral-400"
         placeholder="Buscar"
         autoComplete="off"
         defaultValue={searchParams.get('query')?.toString()}

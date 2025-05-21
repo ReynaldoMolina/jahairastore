@@ -20,7 +20,7 @@ export default async function WebsiteProduts({ query, currentPage }) {
               <ListInfoDetail>
                 <ListDetail
                   detail={register.price}
-                  color="bg-neutral-200 dark:bg-green-700 text-right" 
+                  color="bg-green-200 dark:bg-green-900 text-right" 
                   type="number"  
                 />
               </ListInfoDetail>

@@ -24,8 +24,8 @@ export default async function Receipts({ query, currentPage }) {
             <ListName name={register.NombreCompleto} />
               <ListInfoDetail>
                 <ListDate date={register.Fecha} />
-                <ListDetail detail={register.Id_pedido} color="bg-neutral-200 dark:bg-neutral-500 text-center" />
-                <ListDetail detail={register.Abono} color="bg-green-200 dark:bg-green-700 text-right" type="number" />
+                <ListDetail detail={register.Id_pedido} color="bg-neutral-200/60 dark:bg-neutral-700 text-center" />
+                <ListDetail detail={register.Abono} color="bg-green-200 dark:bg-green-900 text-right" type="number" />
               </ListInfoDetail>
           </ListInfo>
         </ListCard>
