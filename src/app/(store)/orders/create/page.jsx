@@ -1,5 +1,5 @@
 import { FormButtons, FormDate, FormSelectClient } from "@/app/ui/forms/formInputs";
-import SearchInput from "@/app/ui/ActionTools/SeachInput";
+import SearchInput from "@/app/ui/ActionTools/SearchInput";
 import ProductSearchList from "@/app/ui/orderForm/ProductSearchList";
 import OrderDetail from "@/app/ui/orderForm/OrderDetail";
 import { createOrder } from "@/app/lib/actions";
