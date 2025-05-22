@@ -5,7 +5,7 @@ import Link from "next/link";
 import getDate from "@/app/lib/getDate";
 import getOrderTotals from "@/app/lib/getOrderTotals";
 import ArrowDown from "@/app/ui/orderForm/arrowdown.svg";
-import SearchInput from "@/app/ui/ActionTools/SearchInput";
+import SearchInput from "@/app/ui/actiontools/SearchInput";
 import { createOrder } from "@/app/lib/actions";
 
 const OrderContext = createContext();

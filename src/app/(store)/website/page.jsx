@@ -1,4 +1,4 @@
-import ActionTools from "@/app/ui/ActionTools/ActionTools";
+import ActionTools from "@/app/ui/actiontools/ActionTools";
 import WebsiteProducts from "@/app/ui/lists/WebsiteProducts";
 import { Pagination } from "@/app/ui/lists/pagination";
 import { getWebsiteProductsPages } from "@/app/lib/data";
