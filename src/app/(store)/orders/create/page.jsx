@@ -8,7 +8,7 @@ export default async function Page(props) {
 
   return (
     <section className="flex grow overflow-y-scroll h-0">
-      <OrderForm>
+      <OrderForm orderdetail={[]}>
         <OrderInfo date="">
           <FormSelectClient />
         </OrderInfo>
