@@ -1,7 +1,7 @@
 import { ListId, ListName } from "@/app/ui/lists/lists";
 
 export function ProductCard({ product, children }) {
-  const subtotal = (product.Precio_venta * product.quantity).toFixed(2);
+  const subtotal = (product.Precio_venta * product.Cantidad_venta).toFixed(2);
   return (
     <div
       className="flex items-center gap-2 rounded-xl p-2 bg-white dark:bg-neutral-800 shadow-sm"
@@ -10,7 +10,7 @@ export function ProductCard({ product, children }) {
       <CardInfo>
         <ListName name={product.Nombre} />
         <CardInfoDetail>
-          <CardDetail detail={product.Precio_venta} type="number" color="bg-green-200 dark:bg-green-900 text-right" />
+          <CardDetail detail={product.Precio_venta} />
           {children}
         </CardInfoDetail>
       </CardInfo>
@@ -29,7 +29,7 @@ function CardInfo({ children }) {
 
 function CardInfoDetail({ children }) {
   return (
-    <div className="flex justify-start gap-1 sm:gap-2 flex-wrap sm:flex-nowrap">
+    <div className="flex justify-start gap-2 sm:gap-3 flex-wrap sm:flex-nowrap">
       {children}
     </div>
   );
@@ -37,6 +37,6 @@ function CardInfoDetail({ children }) {
 
 export function CardDetail({ detail }) {
   return (
-    <span className="flex items-center text-xs w-16">$ {detail.toFixed(2)}</span>
+    <span className="flex items-center justify-start sm:justify-end text-xs w-16">$ {detail.toFixed(2)}</span>
   );
 }

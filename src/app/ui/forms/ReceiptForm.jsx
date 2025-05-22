@@ -1,7 +1,7 @@
-import { FormContainer, FormDiv, FormInput, FormButtons, FormDate, FormId } from "@/app/ui/forms/formInputs";
+import { FormContainer, FormDiv, FormInput, FormButtons, FormDate, FormId, FormSelectClient } from "@/app/ui/forms/formInputs";
 import { createReceipt, updateReceipt } from "@/app/lib/actions";
 
-export function ReceiptCreate() {
+export function ReceiptCreate(props) {
   return (
     <FormContainer
       action={createReceipt}>
@@ -9,6 +9,7 @@ export function ReceiptCreate() {
         <FormInput name="Id_pedido" holder="Pedido" value="" type="number" />
         <FormDate name="Fecha" />
       </FormDiv>
+      <FormSelectClient value="" />
       <FormInput name="Id_cliente" holder="Cliente" value="" />
       <FormDiv>
         <FormInput name="Abono" holder="Abono" value={0} type="number" />
@@ -31,7 +32,7 @@ export function ReceiptEdit({ receipt }) {
         <FormInput name="Id_pedido" holder="Pedido" value={receipt.Id_pedido} type="number" />
         <FormDate name="Fecha" date={receipt.Fecha} />
       </FormDiv>
-      <FormInput name="Id_cliente" holder="Cliente" value={receipt.Id_cliente} />
+      <FormSelectClient value={receipt.Id_cliente} />
       <FormDiv>
         <FormInput name="Abono" holder="Abono" value={receipt.Abono} type="number" />
         <FormInput name="Saldo" holder="Saldo" value={receipt.Saldo} type="number" />

@@ -1,66 +1,104 @@
 'use client';
 
-import { useState, createContext, useContext } from "react";
-import OrderDetailList from "@/app/ui/orderForm/OrderDetailList";
-import ArrowDown from "@/app/ui/orderForm/arrowdown.svg";
+import { ProductCard } from "@/app/ui/orderForm/ProductCard";
+import CardDelete from "@/app/ui/orderForm/delete.svg";
 import getOrderTotals from "@/app/lib/getOrderTotals";
+import { useOrder } from "@/app/ui/forms/OrderForm";
 
-const OrderContext = createContext();
+export default function OrderDetail() {
+  const { productList, setProductList, orderTotals, setOrderTotals } = useOrder();
 
-export function useOrder() {
-  const context = useContext(OrderContext);
-  return context;  
-}
+  function findId(product) {
+    const index = productList.findIndex((e) => e.Id_producto === product.Id_producto);
+    return index;
+  }
 
-export default function OrderDetail({ children }) {
-  const [isSearchProductOpen, setIsSearchProductOpen] = useState(false);
-  const [productList, setProductList] = useState([]);
-  const [orderTotals, setOrderTotals] = useState(getOrderTotals(productList));
+  function addQuantity(product) {
+    const newList = productList.map((item, idx) =>
+      idx === findId(product) ? { ...item, Cantidad_venta: item.Cantidad_venta + 1 } : item
+    )
+    setProductList(newList);
+    setOrderTotals(getOrderTotals(newList));
+  }
+
+  function reduceQuantity(product) {
+    const newList = productList.map((item, idx) =>
+      idx === findId(product) ? { ...item, Cantidad_venta: item.Cantidad_venta - 1 } : item
+    )
+    setProductList(newList);
+    setOrderTotals(getOrderTotals(newList));
+  }
+
+  function deleteProduct(product) {
+    const newList = productList.filter(e => e.Id_producto !== product.Id_producto);
+    setProductList(newList);
+    setOrderTotals(getOrderTotals(newList));
+  }
 
   return (
     <>
-      <div className="flex w-full items-end gap-3">
-        <OrderFormSpan name="OrderTotal" holder="Total" value={orderTotals.totalSell} type="number" color="bg-neutral-200 dark:bg-neutral-600"/>
-        <OrderFormSpan name="OrderAbono" holder="Abono" value={0} type="number" color="bg-green-200 dark:bg-green-900" />
-        <OrderFormSpan name="Saldo" holder="Saldo" value={orderTotals.totalSell} type="number"  color="bg-red-200 dark:bg-red-900" />
-        <OrderFormSpan name="Profit" holder="Ganancia" value={orderTotals.totalSell - orderTotals.totalCost} type="number" color="bg-blue-200 dark:bg-blue-900" />
-      </div>
+      <div className="flex gap-2 rounded-xl flex-col bg-neutral-100 dark:bg-neutral-900 p-2">
 
-      <OrderContext.Provider value={{
-        productList, setProductList, orderTotals, setOrderTotals
-      }}>
-        <div className="flex flex-col gap-2 bg-neutral-100 dark:bg-neutral-900 rounded-xl p-2">
-          <div
-            className="flex items-center justify-between gap-1 cursor-pointer"
-            onClick={() => setIsSearchProductOpen(state => !state)}>
-            <p className="text-sm font-semibold px-2">Agregar productos</p>
-            <ArrowDown className={`rounded-xl w-10 h-6 bg-neutral-700 ${isSearchProductOpen ? "rotate-180" : "rotate-0"}`} />
+        <div className="flex justify-between px-2 items-center">
+          <p className="text-sm font-semibold">Detalle del pedido</p>
+          <div className="flex gap-5">
+            <span className="text-xs font-semibold">Cantidad: {orderTotals.quantity}</span>
+            <span className="text-xs font-semibold">Productos: {orderTotals.items}</span>
           </div>
-          {isSearchProductOpen && children}
         </div>
 
-        <OrderDetailList />
-      </OrderContext.Provider>
+        <div className="flex flex-col gap-1">
+          {productList.length === 0 ? <ProductCardEmpty /> :
+          productList.map(product =>
+            <ProductCard
+              key={product.Id_producto}
+              product={product}>
+              <div
+                className="flex border-1 rounded-xl overflow-hidden border-neutral-200 dark:border-neutral-700">
+                <MinusButton
+                  icon="-"
+                  quantity={product.Cantidad_venta}
+                  action={() => reduceQuantity(product)}
+                  deleteAction={() => deleteProduct(product)} />
+                <span className="flex justify-center items-center text-xs w-8 py-1">{product.Cantidad_venta}</span>
+                <QuantityButton
+                  icon="+"
+                  action={() => addQuantity(product)} />
+              </div>
+            </ProductCard>
+          )}
+        </div>
+      </div>
     </>
   );
 }
 
-function OrderFormSpan({ name, holder, value, type = 'text', color = "bg-gray-100 dark:bg-neutral-700 " }) {
+function ProductCardEmpty() {
   return (
-    <div className="flex flex-col w-full gap-1">
-      <label
-        htmlFor={name}
-        className="w-full text-xs pl-2 font-semibold"
-      >
-        {holder}
-      </label>
-      <span
-        name={name}
-        id={name}
-        className={`flex ${color} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full ${type === 'number' ? 'justify-end' : 'justify-start'}`}
-      >
-        {type === 'text' ? value : value.toFixed(2)}
-      </span>
-    </div>
-  )
+    <p className="flex items-center justify-center text-sm bg-white dark:bg-neutral-800 rounded-xl px-4 py-5 shadow-sm text-neutral-500 dark:text-neutral-400">Este pedido no tiene productos</p>
+  );
+}
+
+function MinusButton({ quantity, icon, action, deleteAction }) {
+  if (quantity === 1) return (
+    <button
+    className="flex items-center justify-center w-6 text-xs bg-neutral-200 dark:bg-neutral-700"
+    type="button"
+    onClick={deleteAction}
+  >
+    <CardDelete className="size-4 ml-0.5" />
+  </button>
+  );
+
+  return <QuantityButton icon={icon} action={action} />;
+}
+
+function QuantityButton({ icon, action }) {
+  return (
+    <button
+      className="w-6 text-xs bg-neutral-200 dark:bg-neutral-700"
+      type="button"
+      onClick={action}
+    >{icon}</button>
+  );
 }

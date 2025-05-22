@@ -22,8 +22,8 @@ export default async function Orders({ query, currentPage }) {
                 <div className="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap">
                   <ListDetail detail={register.TotalPedidoVenta} color="bg-neutral-200/60 dark:bg-neutral-700 text-right" type="number" />
                   <ListDetail detail={register.TotalAbono} color="bg-green-200 dark:bg-green-900 text-right" type="number" />
-                  <ListDetail detail={register.Saldo} color="bg-red-200 dark:bg-red-900 text-right" type="number" />
-                  <ListDetail detail={register.Ganancia} color="bg-blue-200 dark:bg-blue-900 text-right" type="number" />
+                  <ListDetail detail={(register.TotalPedidoVenta - register.TotalAbono)} color="bg-red-200 dark:bg-red-900 text-right" type="number" />
+                  <ListDetail detail={(register.TotalPedidoVenta - register.TotalPedidoCompra)} color="bg-blue-200 dark:bg-blue-900 text-right" type="number" />
                 </div>
               </ListInfoDetail>
           </ListInfo>

@@ -1,6 +1,9 @@
 import postgres from 'postgres';
 
-const sql = postgres(process.env.POSTGRES_URL, { ssl: 'require' });
+// const sql = postgres(process.env.POSTGRES_URL, { ssl: 'require' });
+const sql = postgres(process.env.POSTGRES_URL, {
+  ssl: process.env.NODE_ENV === 'production' ? 'require' : false,
+})
 const ITEMS_PER_PAGE = 20;
 
 export async function getClients(query, currentPage) {
@@ -452,9 +455,7 @@ export async function getOrders(query, currentPage) {
         TO_CHAR("Pedidos"."Fecha_del_pedido", 'YYYY-MM-DD') AS "Fecha",
         COALESCE(PedidoTotalesVenta."TotalPedidoVenta", 0) AS "TotalPedidoVenta",
         COALESCE(PedidoTotalesCompra."TotalPedidoCompra", 0) AS "TotalPedidoCompra",
-        COALESCE(VentaTotales."TotalAbono", 0) AS "TotalAbono",
-        PedidoTotalesVenta."TotalPedidoVenta" - VentaTotales."TotalAbono" AS "Saldo",
-        PedidoTotalesVenta."TotalPedidoVenta" - PedidoTotalesCompra."TotalPedidoCompra" As "Ganancia"
+        COALESCE(VentaTotales."TotalAbono", 0) AS "TotalAbono"
 
       FROM
         "Pedidos"
@@ -480,6 +481,38 @@ export async function getOrders(query, currentPage) {
   }
 }
 
+export async function getOrderById(id) {
+  try {
+    const data = await sql`
+      WITH
+        AbonosTotales AS (
+          SELECT
+            "Id_pedido",
+            SUM("Abono") AS "TotalAbono"
+          FROM "Ventas"
+          WHERE "Id_pedido" = ${id}
+          GROUP BY "Id_pedido"
+        )
+
+      SELECT
+        "Pedidos"."Id_pedido",
+        "Pedidos"."Id_cliente",
+        TO_CHAR("Pedidos"."Fecha_del_pedido", 'YYYY-MM-DD') AS "Fecha",
+        "Pedidos"."Peso"
+
+      FROM "Pedidos"
+        JOIN "Clientes" ON "Pedidos"."Id_cliente" = "Clientes"."Id_cliente"
+        LEFT JOIN AbonosTotales ON "Pedidos"."Id_pedido" = AbonosTotales."Id_pedido"
+      
+      WHERE "Pedidos"."Id_pedido" = ${id}
+    `;
+    return data[0];
+    
+  } catch (error) {
+    throw new Error('No se pudo obtener el pedido');
+  }
+}
+
 export async function getOrdersPages(query) {
 
   try {
@@ -498,5 +531,27 @@ export async function getOrdersPages(query) {
     
   } catch (error) {
     throw new Error('No se pudieron obtener las órdenes');
+  }
+}
+
+export async function getOrderDetailById(id) {
+  try {
+    const data = await sql`
+      SELECT
+        "PedidosDetalles"."Id_detalle",
+        "PedidosDetalles"."Id_pedido",
+        "PedidosDetalles"."Id_producto",
+        "PedidosDetalles"."Precio_venta",
+        "PedidosDetalles"."Precio_compra",
+        "PedidosDetalles"."Cantidad_venta",
+        "Productos"."Nombre"
+      FROM "PedidosDetalles"
+        JOIN "Productos" ON "PedidosDetalles"."Id_producto" = "Productos"."Id_producto"
+      WHERE "Id_pedido" = ${id}
+    `;
+    return data;
+    
+  } catch (error) {
+    throw new Error('No se pudo obtener el detalle del pedido');
   }
 }

@@ -2,7 +2,7 @@ import { getCategoriesSelect, getProvidersSelect, getClientsSelect } from "@/app
 import getDate from "@/app/lib/getDate";
 import Link from "next/link"
 
-export function FormContainer({ children, maxWidth = 130, action }) {
+export function FormContainer({ children, maxWidth = "130", action }) {
   return (
     <form
     action={action}
@@ -51,7 +51,7 @@ export function FormInput({ name, holder, value, type = 'text', autocomplete = '
         type={type}
         min={0}
         step="0.01"
-        className={`flex bg-gray-100 dark:bg-neutral-700 items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full ${type === 'number' ? 'text-right' : 'text-left'}`}
+        className="flex bg-gray-100 dark:bg-neutral-700 items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full"
         placeholder={holder}
         autoComplete={autocomplete}
         defaultValue={value}
@@ -172,7 +172,7 @@ export async function FormSelectCategoria({ value }) {
   );
 }
 
-export async function FormSelectClient({ value }) {
+export async function FormSelectClient({ value = "" }) {
   const data = await getClientsSelect();
   return (
     <div className="flex flex-col w-full gap-1">
@@ -187,6 +187,7 @@ export async function FormSelectClient({ value }) {
         name="Id_cliente"
         className="flex bg-gray-100 dark:bg-neutral-700 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
         defaultValue={value}
+        required
       >
         <option value="" disabled>Selecciona un cliente</option>
         {data.map((option) => {

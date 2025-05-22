@@ -1,6 +1,6 @@
 'use client';
 
-import { useOrder } from "./OrderDetail";
+import { useOrder } from "@/app/ui/forms/OrderForm";
 import Add from "@/app/ui/actiontools/add.svg";
 import getOrderTotals from "@/app/lib/getOrderTotals";
 
@@ -13,7 +13,7 @@ export default function AddProduct({ product }) {
       Nombre: product.Nombre,
       Precio_venta: product.Precio_venta,
       Precio_compra: product.Precio_compra,
-      quantity: 1,
+      Cantidad_venta: 1,
     };
     setProductList([...productList, { ...newProduct }]);
     setOrderTotals(getOrderTotals([...productList, newProduct]));

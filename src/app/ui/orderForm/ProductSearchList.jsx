@@ -16,7 +16,6 @@ export default async function ProductSearchList({ searchParams }) {
       <div className={`flex max-h-70 flex-col grow overflow-y-scroll gap-1 rounded-xl`}>
         {data.length === 0 && <EmptyList query={query} />}
         {data.map((product) => {
-          // const isInList = productList.some(p => p.productId === product.id);
           return (
             <div
               key={product.Id_producto}

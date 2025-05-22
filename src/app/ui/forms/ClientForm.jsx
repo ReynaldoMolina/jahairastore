@@ -4,7 +4,6 @@ import { createClient, updateClient } from "@/app/lib/actions";
 export function ClientCreate() {
   return (
     <FormContainer
-      maxWidth={130}
       action={createClient}>
       <FormDiv>
         <FormInput name="Nombre" holder="Nombre" value="" />

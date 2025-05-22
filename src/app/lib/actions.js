@@ -1,8 +1,11 @@
 'use server';
+
 import postgres from "postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-const sql = postgres(process.env.POSTGRES_URL, { ssl: 'require' });
+const sql = postgres(process.env.POSTGRES_URL, {
+  ssl: process.env.NODE_ENV === 'production' ? 'require' : false,
+});
 
 export async function createClient(formData) {
   const data = {
@@ -278,23 +281,44 @@ export async function updateProduct(id, formData) {
   redirect('/products');
 }
 
-export async function createOrder(formData) {
-  const data = {
+export async function createOrder(formData, productList) {
+  let Id_pedido;
+
+  const order = {
     Id_cliente: Number(formData.get('Id_cliente')),
     Fecha_del_pedido: formData.get('Fecha_del_pedido'),
     Peso: Number(formData.get('Peso'))
-  }
-  return console.log(data);
+  };
 
   try {
-    await sql`
+    const result = await sql`
       INSERT INTO "Pedidos" ("Id_cliente", "Fecha_del_pedido", "Peso")
-      VALUES (${data.Id_cliente}, ${data.Fecha_del_pedido}, ${data.Peso})
+      VALUES (${order.Id_cliente}, ${order.Fecha_del_pedido}, ${order.Peso})
+      RETURNING "Id_pedido"
     `;
+    Id_pedido = result[0].Id_pedido;
   } catch (error) {
-    throw new Error('No se pudo crear el producto');
+    throw new Error('No se pudo crear el pedido');
   }
 
+  await createOrderDetail(Id_pedido, productList);
+  
   revalidatePath('/orders');
   redirect('/orders');
+}
+
+export async function createOrderDetail(Id_pedido, productList) {
+  try {
+    const values = productList.map(product => {
+      const { Id_producto, Precio_venta, Precio_compra, Cantidad_venta } = product;
+      return [Id_pedido, Id_producto, Precio_venta, Precio_compra, Cantidad_venta];
+    });
+    
+    await sql`
+      INSERT INTO "PedidosDetalles" ("Id_pedido", "Id_producto", "Precio_venta", "Precio_compra", "Cantidad_venta")
+      VALUES ${sql(values)}
+    `;
+  } catch (error) {
+    throw new Error('No se pudo crear el detalle del pedido');
+  }
 }

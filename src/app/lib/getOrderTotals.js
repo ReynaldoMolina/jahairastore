@@ -6,17 +6,17 @@ export default function getOrderTotals(list) {
   let items = list.length;
 
   for (const element of list) {
-    totalSell += (element.quantity * element.Precio_venta);
+    totalSell += (element.Cantidad_venta * element.Precio_venta);
   }
 
   for (const element of list) {
-    totalCost += (element.quantity * element.Precio_compra);
+    totalCost += (element.Cantidad_venta * element.Precio_compra);
   }
 
   profit = totalSell - totalCost;
 
   for (const element of list) {
-    quantity += element.quantity;
+    quantity += element.Cantidad_venta;
   }
  
   return { totalSell, totalCost, profit, quantity, items };

@@ -11,7 +11,7 @@ export default async function Page(props) {
 
   return (
     <>
-      <ActionTools allowNew="false" />
+      <ActionTools />
       <Providers query={query} currentPage={currentPage} />
       <Pagination totalPages={totalPages} />
     </>
