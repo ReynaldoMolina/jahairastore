@@ -1,7 +1,8 @@
 import { FormContainer, FormDiv, FormInput, FormButtons, FormDate, FormId, FormSelectClient } from "@/app/ui/forms/formInputs";
 import { createReceipt, updateReceipt } from "@/app/lib/actions";
+import { ReceiptOptions } from "@/app/ui/forms/FormOptions";
 
-export function ReceiptCreate(props) {
+export function ReceiptCreate() {
   return (
     <FormContainer
       action={createReceipt}>
@@ -21,9 +22,9 @@ export function ReceiptCreate(props) {
   );
 }
 
-export function ReceiptEdit({ receipt }) {
-  const updateReceiptWithId = updateReceipt.bind(null, receipt.Id_venta)
-
+export function ReceiptEdit({ receipt, receiptpdf }) {
+  const updateReceiptWithId = updateReceipt.bind(null, receipt.Id_venta);
+  
   return (
     <FormContainer
       action={updateReceiptWithId}>
@@ -38,6 +39,9 @@ export function ReceiptEdit({ receipt }) {
         <FormInput name="Saldo" holder="Saldo" value={receipt.Saldo} type="number" />
       </FormDiv>
       <FormInput name="Concepto" holder="Descripción" value={receipt.Concepto} required={false} />
+
+      <ReceiptOptions receipt={receiptpdf} />
+
       <FormButtons link={'/receipts'} label={'Guardar'} />
     </FormContainer>
   );

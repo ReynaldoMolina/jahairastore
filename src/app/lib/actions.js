@@ -322,3 +322,88 @@ export async function createOrderDetail(Id_pedido, productList) {
     throw new Error('No se pudo crear el detalle del pedido');
   }
 }
+
+export async function updateOrder(orderId, formData, productList, originalList) {
+  const data = {
+    Id_cliente: Number(formData.get('Id_cliente')),
+    Fecha_del_pedido: formData.get('Fecha_del_pedido'),
+    Peso: Number(formData.get('Peso'))
+  };  
+
+  try {
+    await sql`
+      UPDATE "Pedidos"
+      SET "Id_cliente" = ${data.Id_cliente}, "Fecha_del_pedido" = ${data.Fecha_del_pedido}, "Peso" = ${data.Peso}
+      WHERE "Id_pedido" = ${orderId}
+    `;
+  } catch (error) {
+    throw new Error('No se pudo actualizar el pedido')
+  }
+
+  await updateOrderDetail(orderId, productList, originalList);
+
+  revalidatePath('/orders');
+  redirect('/orders');
+}
+
+export async function updateOrderDetail(orderId, productList, originalList) {
+  const updates = [];
+  const deletions = [];
+  const creations = [];
+
+  // Check modifications & deletions
+  originalList.forEach(originalProduct => {
+    const updated = productList.find(updatedProduct => updatedProduct.Id_detalle === originalProduct.Id_detalle);
+    
+    if (!updated) {
+      // It was removed
+      deletions.push(originalProduct.Id_detalle);
+    } else if (updated.Cantidad_venta !== originalProduct.Cantidad_venta) {
+      // It was modified
+      updates.push(updated);
+    }
+  });
+
+  // Check new additions
+  productList.forEach(detail => {
+    if (!detail.Id_detalle) {
+      // No ID means it’s new
+      const newDetail = {
+        Id_pedido: Number(orderId),
+        ...detail
+      }
+      creations.push(newDetail);
+    }
+  });
+
+  try {
+    await Promise.all([
+      // Update existing records
+      ...updates.map(detail =>
+        sql`
+          UPDATE "PedidosDetalles"
+          SET "Cantidad_venta" = ${detail.Cantidad_venta}
+          WHERE "Id_detalle" = ${detail.Id_detalle}
+        `
+      ),
+
+      // Delete removed records
+      ...deletions.map(id =>
+        sql`
+          DELETE FROM "PedidosDetalles"
+          WHERE "Id_detalle" = ${id}
+        `
+      ),
+
+      // Insert new records
+      ...creations.map(detail =>
+        sql`
+          INSERT INTO "PedidosDetalles" ("Id_pedido", "Id_producto", "Precio_venta", "Precio_compra", "Cantidad_venta")
+          VALUES (${detail.Id_pedido}, ${detail.Id_producto}, ${detail.Precio_venta}, ${detail.Precio_compra}, ${detail.Cantidad_venta})
+        `
+      )
+    ]);
+  } catch (error) {
+    throw new Error("No se pudieron procesar los detalles del pedido")
+  }
+}

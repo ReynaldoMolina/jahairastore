@@ -1,0 +1,17 @@
+.download-pdf {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+.download-pdf-btn {
+  padding: 7px 15px;
+  background-color: var(--action-button);
+  border-radius: 5px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border: 1px solid gray;
+}
+.download-pdf-btn:hover {
+  background-color: var(--action-button-hover);
+}

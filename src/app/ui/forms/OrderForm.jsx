@@ -6,7 +6,7 @@ import getDate from "@/app/lib/getDate";
 import getOrderTotals from "@/app/lib/getOrderTotals";
 import ArrowDown from "@/app/ui/orderForm/arrowdown.svg";
 import SearchInput from "@/app/ui/actiontools/SearchInput";
-import { createOrder } from "@/app/lib/actions";
+import { createOrder, updateOrder } from "@/app/lib/actions";
 
 const OrderContext = createContext();
 
@@ -15,8 +15,8 @@ export function useOrder() {
   return context;
 }
 
-export function OrderForm({ children, orderdetail }) {
-  const [productList, setProductList] = useState(orderdetail);
+export function OrderCreate({ children }) {
+  const [productList, setProductList] = useState([]);
   const [orderTotals, setOrderTotals] = useState(getOrderTotals(productList));
 
   function handleOrder(formData) {
@@ -25,6 +25,33 @@ export function OrderForm({ children, orderdetail }) {
       return;
     }
     createOrder(formData, productList);
+  }
+
+  return (
+    <form
+      action={handleOrder}
+      className="flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-170 p-3 w-full h-fit">
+      <OrderContext.Provider value={{
+        productList, setProductList,
+        orderTotals, setOrderTotals
+      }}>
+        {children}
+      </OrderContext.Provider>
+    </form>
+  );
+}
+
+export function OrderEdit({ children, orderId, orderdetail }) {
+  const originalList = orderdetail;
+  const [productList, setProductList] = useState(orderdetail);
+  const [orderTotals, setOrderTotals] = useState(getOrderTotals(productList));
+
+  function handleOrder(formData) {
+    if (productList.length === 0) {
+      alert("Agrega productos al pedido");
+      return;
+    }
+    updateOrder(orderId, formData, productList, originalList);
   }
 
   return (
@@ -61,7 +88,7 @@ export function ProductSearch({ children }) {
           className="flex items-center justify-between gap-1 cursor-pointer"
           onClick={() => setIsSearchProductOpen(state => !state)}>
           <p className="text-sm font-semibold px-2">Agregar productos</p>
-          <ArrowDown className={`rounded-xl w-10 h-6 bg-neutral-700 ${isSearchProductOpen ? "rotate-180" : "rotate-0"}`} />
+          <ArrowDown className={`rounded-xl w-10 h-6 shadow-xs bg-white dark:bg-neutral-700 ${isSearchProductOpen ? "rotate-180" : "rotate-0"}`} />
         </div>
         <SearchInput />
         {isSearchProductOpen && children}

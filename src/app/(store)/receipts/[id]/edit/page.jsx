@@ -1,18 +1,18 @@
 import { ReceiptEdit } from '@/app/ui/forms/ReceiptForm';
-import { getReceiptById } from '@/app/lib/data';
+import { getReceiptById, getReceiptPdf } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
  
 export default async function Page(props) {
-  // const customers = await fetchCustomers();
   const params = await props.params;
   const id = params.id;
-  const data = await getReceiptById(id);
+  const receipt = await getReceiptById(id);
+  const receiptpdf = await getReceiptPdf(id);
 
-  if (!data) {
+  if (!receipt) {
     notFound();
   }
  
   return (
-    <ReceiptEdit receipt={data} />
+    <ReceiptEdit receipt={receipt} receiptpdf={receiptpdf} />
   );
 }

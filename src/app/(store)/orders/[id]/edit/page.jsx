@@ -1,5 +1,5 @@
 import { FormId, FormSelectClient } from "@/app/ui/forms/formInputs";
-import { OrderForm, OrderFormButtons, OrderInfo, ProductSearch } from "@/app/ui/forms/OrderForm";
+import { OrderEdit, OrderFormButtons, OrderInfo, ProductSearch } from "@/app/ui/forms/OrderForm";
 import ProductSearchList from "@/app/ui/orderForm/ProductSearchList";
 import OrderDetail from "@/app/ui/orderForm/OrderDetail";
 import { getOrderById, getOrderDetailById } from "@/app/lib/data";
@@ -7,15 +7,14 @@ import { getOrderById, getOrderDetailById } from "@/app/lib/data";
 export default async function Page(props) {
   const searchParams = await props.searchParams;
   const params = await props.params;
-  const id = params.id;
-  const order = await getOrderById(id);
-  const orderdetail = await getOrderDetailById(id);
-  console.log(order);
+  const orderId = params.id;
+  const order = await getOrderById(orderId);
+  const orderdetail = await getOrderDetailById(orderId);
 
   return (
     <section className="flex grow overflow-y-scroll h-0">
-      <OrderForm orderdetail={orderdetail}>
-        <FormId holder="Pedido" value={id} />
+      <OrderEdit orderId={orderId} orderdetail={orderdetail}>
+        <FormId holder="Pedido" value={orderId} />
         <OrderInfo date={order.Fecha}>
           <FormSelectClient value={order.Id_cliente} />
         </OrderInfo>
@@ -25,8 +24,9 @@ export default async function Page(props) {
         </ProductSearch>
 
         <OrderDetail />
+
         <OrderFormButtons link={'/orders'} label={'Guardar'} />
-      </OrderForm>
+      </OrderEdit>
     </section>
   );
 }

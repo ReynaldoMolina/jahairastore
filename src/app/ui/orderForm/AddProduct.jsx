@@ -1,7 +1,8 @@
 'use client';
 
 import { useOrder } from "@/app/ui/forms/OrderForm";
-import Add from "@/app/ui/actiontools/add.svg";
+import Unchecked from "@/app/ui/orderForm/checkbox-blank.svg";
+import Checked from "@/app/ui/orderForm/checkbox-checked.svg";
 import getOrderTotals from "@/app/lib/getOrderTotals";
 
 export default function AddProduct({ product }) {
@@ -19,21 +20,31 @@ export default function AddProduct({ product }) {
     setOrderTotals(getOrderTotals([...productList, newProduct]));
   }
 
+  function deleteProduct() {
+      const newList = productList.filter(e => e.Id_producto !== product.Id_producto);
+      setProductList(newList);
+      setOrderTotals(getOrderTotals(newList));
+    }
+
   const isInList = productList.some(p => p.Id_producto === product.Id_producto);
 
   return (
     <button
       type="button"
-      className={`flex rounded-xl ${isInList ? "cursor-not-allowed" : "cursor-pointer"}`}
-      onClick={() => {
-        if (!isInList) {
-          addProduct();
-        } else {
-          alert('El producto ya está agregado');
-        }
-      }}
+      className="flex rounded-xl"
       >
-        <Add className={`size-7 min-w-7 ${isInList ? "fill-neutral-200 dark:fill-neutral-700" : "hover:fill-green-600"}`} />
+        {isInList ?
+        (
+          <Checked
+            className="size-7 min-w-7 hover:fill-neutral-100"
+            onClick={deleteProduct}/>
+        ) :
+        (
+          <Unchecked
+            className="size-7 min-w-7 hover:fill-neutral-100"
+            onClick={addProduct}/>
+        )
+        }
     </button>
   );
 }

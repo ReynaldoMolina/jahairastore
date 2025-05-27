@@ -2,11 +2,11 @@ import { getCategoriesSelect, getProvidersSelect, getClientsSelect } from "@/app
 import getDate from "@/app/lib/getDate";
 import Link from "next/link"
 
-export function FormContainer({ children, maxWidth = "130", action }) {
+export function FormContainer({ children, action }) {
   return (
     <form
     action={action}
-    className={`flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-${maxWidth} p-3 w-full`}>
+    className={`flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full`}>
       {children}
     </form>
   );

@@ -555,3 +555,44 @@ export async function getOrderDetailById(id) {
     throw new Error('No se pudo obtener el detalle del pedido');
   }
 }
+
+export async function getReceiptPdf(id) {
+  try {
+    const order = await sql`
+      SELECT
+        "Ventas"."Id_venta",
+        "Ventas"."Id_pedido",
+        TO_CHAR("Ventas"."Fecha", 'YYYY-MM-DD') AS "Fecha",
+        "Ventas"."Abono",
+        "Ventas"."Saldo",
+        "Clientes"."Nombre",
+        "Clientes"."Apellido"
+      FROM "Ventas"
+      JOIN "Clientes" ON "Ventas"."Id_cliente" = "Clientes"."Id_cliente"
+      WHERE
+        "Ventas"."Id_venta" = ${id}
+    `;
+    
+    const orderId = order[0].Id_pedido;
+
+    const orderdetail = await sql`
+      SELECT
+        "PedidosDetalles"."Precio_venta",
+        "PedidosDetalles"."Cantidad_venta",
+        "Productos"."Nombre"
+      FROM "PedidosDetalles"
+        JOIN "Productos" ON "PedidosDetalles"."Id_producto" = "Productos"."Id_producto"
+      WHERE "Id_pedido" = ${orderId}
+    `;
+
+    const data = {
+      ...order[0],
+      detail: orderdetail
+    };
+
+    return data;
+    
+  } catch (error) {
+    throw new Error('No se pudo obtener el recibo');
+  }
+}

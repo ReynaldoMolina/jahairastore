@@ -1,5 +1,5 @@
 import { FormSelectClient } from "@/app/ui/forms/formInputs";
-import { OrderForm, OrderFormButtons, OrderInfo, ProductSearch } from "@/app/ui/forms/OrderForm";
+import { OrderCreate, OrderFormButtons, OrderInfo, ProductSearch } from "@/app/ui/forms/OrderForm";
 import ProductSearchList from "@/app/ui/orderForm/ProductSearchList";
 import OrderDetail from "@/app/ui/orderForm/OrderDetail";
  
@@ -8,7 +8,7 @@ export default async function Page(props) {
 
   return (
     <section className="flex grow overflow-y-scroll h-0">
-      <OrderForm orderdetail={[]}>
+      <OrderCreate>
         <OrderInfo date="">
           <FormSelectClient />
         </OrderInfo>
@@ -19,7 +19,7 @@ export default async function Page(props) {
 
         <OrderDetail />
         <OrderFormButtons link={'/orders'} label={'Guardar'} />
-      </OrderForm>
+      </OrderCreate>
     </section>
   );
 }
