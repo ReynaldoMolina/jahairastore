@@ -7,12 +7,12 @@ import { useOrder } from "../forms/OrderForm";
 
 export function OrderOptions({ order }) {
   const { orderTotals } = useOrder();
-  const inicialbal = Math.round((orderTotals.totalSell - order.TotalAbono) * 100) / 100;
+  const balance = Math.round((orderTotals.totalSell - order.TotalAbono) * 100) / 100;
   
   return (
     <FormOptionContainer>
       {(orderTotals.totalSell - order.TotalAbono) > 0 &&
-        <FormOption label="Pagar" href={`/receipts/create?order=${order.Id_pedido}&client=${order.Id_cliente}&payment=${1}&inicialbal=${inicialbal}`}>
+        <FormOption label="Pagar" href={`/receipts/create?order=${order.Id_pedido}&client=${order.Id_cliente}&balance=${balance}`}>
           <PayIcon className="size-5" />
         </FormOption>
       }
