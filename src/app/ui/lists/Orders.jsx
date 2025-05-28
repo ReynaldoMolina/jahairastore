@@ -1,9 +1,14 @@
 import { getOrders } from "@/app/lib/data";
+import { getOrdersPages } from "@/app/lib/data";
 import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail, ListDate } from "@/app/ui/lists/lists";
+import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
+import getDate from "@/app/lib/getDate";
 
 export default async function Orders({ query, currentPage }) {
   const data = await getOrders(query, currentPage);
+  const totalPages = await getOrdersPages(query);
+  const currentDate = getDate();
 
   if (data.length === 0) return <EmptyList query={query}/>
 
@@ -12,7 +17,7 @@ export default async function Orders({ query, currentPage }) {
       {data.map(register => (
         <ListCard
           key={register.Id_pedido}
-          href={`/orders/${register.Id_pedido}/edit`}
+          href={`/orders/${register.Id_pedido}/edit?query=${currentDate}`}
         >
           <ListId id={register.Id_pedido}/>
           <ListInfo>
@@ -29,6 +34,7 @@ export default async function Orders({ query, currentPage }) {
           </ListInfo>
         </ListCard>
       ))}
+      <Pagination totalPages={totalPages} />
     </List>
   );
 }

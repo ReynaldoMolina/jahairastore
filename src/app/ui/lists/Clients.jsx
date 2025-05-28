@@ -1,9 +1,11 @@
-import { getClients } from "@/app/lib/data";
+import { getClients, getClientsPages } from "@/app/lib/data";
+import { Pagination } from "./pagination";
 import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListPhone } from "@/app/ui/lists/lists";
 import EmptyList from "@/app/ui/lists/EmptyList";
 
 export default async function Clients({ query, currentPage }) {
   const data = await getClients(query, currentPage);
+  const totalPages = await getClientsPages(query);
 
   if (data.length === 0) return <EmptyList query={query} />
 
@@ -23,9 +25,7 @@ export default async function Clients({ query, currentPage }) {
           </ListInfo>
         </ListCard>
       ))}
-      {/* {data.length > 0 && (
-        <ReceiptTotal receiptsGeneralTotal={receiptsGeneralTotal}/>
-      )} */}
+      <Pagination totalPages={totalPages} />
     </List>
   );
 }

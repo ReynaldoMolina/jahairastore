@@ -36,7 +36,7 @@ export function FormDiv({ children }) {
   );
 }
 
-export function FormInput({ name, holder, value, type = 'text', autocomplete = 'off', required = true }) {
+export function FormInput({ name, holder, value, type = 'text', autocomplete = 'off', required = true, color = "bg-gray-100 dark:bg-neutral-700" }) {
   return (
     <div className="flex flex-col w-full gap-1">
       <label
@@ -51,7 +51,7 @@ export function FormInput({ name, holder, value, type = 'text', autocomplete = '
         type={type}
         min={0}
         step="0.01"
-        className="flex bg-gray-100 dark:bg-neutral-700 items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full"
+        className={`flex ${color} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full`}
         placeholder={holder}
         autoComplete={autocomplete}
         defaultValue={value}
@@ -73,7 +73,7 @@ export function FormSpan({ name, holder, value, type = 'text', color = "bg-gray-
       <span
         name={name}
         id={name}
-        className={`flex ${color} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full ${type === 'number' ? 'justify-end' : 'justify-start'}`}
+        className={`flex ${color} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full`}
       >
         {type === 'text' ? value : value.toFixed(2)}
       </span>
@@ -117,14 +117,14 @@ export async function FormSelectProveedor({ value }) {
   return (
     <div className="flex flex-col w-full gap-1">
       <label
-        htmlFor="Proveedor"
+        htmlFor="Id_proveedor"
         className="w-full text-xs pl-2 font-semibold"
       >
         Proveedor
       </label>
       <select
-        id="Proveedor"
-        name="Proveedor"
+        id="Id_proveedor"
+        name="Id_proveedor"
         className="flex bg-gray-100 dark:bg-neutral-700 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
         defaultValue={value}
       >
@@ -132,8 +132,8 @@ export async function FormSelectProveedor({ value }) {
         {data.map((option) => {
           return (
             <option
-              key={option.NombreCompleto}
-              value={option.NombreCompleto}
+              key={option.Id_proveedor}
+              value={option.Id_proveedor}
             >{option.Nombre_empresa}</option>
           )
         })}
@@ -147,14 +147,14 @@ export async function FormSelectCategoria({ value }) {
   return (
     <div className="flex flex-col w-full gap-1">
       <label
-        htmlFor="Categoria"
+        htmlFor="Id_categoria"
         className="w-full text-xs pl-2 font-semibold"
       >
         Categoría
       </label>
       <select
-        id="Categoria"
-        name="Categoria"
+        id="Id_categoria"
+        name="Id_categoria"
         className="flex bg-gray-100 dark:bg-neutral-700 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
         defaultValue={value}
       >

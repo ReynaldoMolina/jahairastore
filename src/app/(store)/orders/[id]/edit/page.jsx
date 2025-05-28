@@ -3,6 +3,7 @@ import { OrderEdit, OrderFormButtons, OrderInfo, ProductSearch } from "@/app/ui/
 import ProductSearchList from "@/app/ui/orderForm/ProductSearchList";
 import OrderDetail from "@/app/ui/orderForm/OrderDetail";
 import { getOrderById, getOrderDetailById } from "@/app/lib/data";
+import { OrderOptions } from "@/app/ui/orderForm/OrderOptions";
  
 export default async function Page(props) {
   const searchParams = await props.searchParams;
@@ -15,15 +16,16 @@ export default async function Page(props) {
     <section className="flex grow overflow-y-scroll h-0">
       <OrderEdit orderId={orderId} orderdetail={orderdetail}>
         <FormId holder="Pedido" value={orderId} />
-        <OrderInfo date={order.Fecha}>
+        <OrderInfo date={order.Fecha} abono={order.TotalAbono}>
           <FormSelectClient value={order.Id_cliente} />
         </OrderInfo>
 
-        <ProductSearch>
+        <ProductSearch open={false}>
           <ProductSearchList searchParams={searchParams} />
         </ProductSearch>
 
         <OrderDetail />
+        <OrderOptions order={order} />
 
         <OrderFormButtons link={'/orders'} label={'Guardar'} />
       </OrderEdit>

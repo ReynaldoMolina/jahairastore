@@ -39,13 +39,7 @@ export default function OrderDetail() {
     <>
       <div className="flex gap-2 rounded-xl flex-col bg-neutral-100 dark:bg-neutral-900 p-2">
 
-        <div className="flex justify-between px-2 items-center">
-          <p className="text-sm font-semibold">Detalle del pedido</p>
-          <div className="flex gap-5">
-            <span className="text-xs font-semibold">Cantidad: {orderTotals.quantity}</span>
-            <span className="text-xs font-semibold">Productos: {orderTotals.items}</span>
-          </div>
-        </div>
+        <p className="text-sm font-semibold px-2">Detalle del pedido</p>  
 
         <div className="flex flex-col gap-1">
           {productList.length === 0 ? <ProductCardEmpty /> :
@@ -68,6 +62,8 @@ export default function OrderDetail() {
             </ProductCard>
           )}
         </div>
+
+        {productList.length > 0 && <OrderTotals orderTotals={orderTotals} />}
       </div>
     </>
   );
@@ -100,5 +96,14 @@ function QuantityButton({ icon, action }) {
       type="button"
       onClick={action}
     >{icon}</button>
+  );
+}
+
+function OrderTotals({ orderTotals }) {
+  return (
+    <div className="flex justify-end px-2 items-center gap-3">
+      <span className="flex flex-col text-xs font-semibold">Productos: {orderTotals.items}</span>
+      <span className="flex flex-col text-xs font-semibold">Cantidad: {orderTotals.quantity}</span>
+    </div>
   );
 }

@@ -23,7 +23,7 @@ export function Pagination({ totalPages }) {
 
   return (
     <div
-      className="inline-flex justify-center overflow-scroll">
+      className="inline-flex justify-center items-center overflow-scroll min-h-8">
       <PaginationArrow
         direction="left"
         href={createPageURL(currentPage - 1)}

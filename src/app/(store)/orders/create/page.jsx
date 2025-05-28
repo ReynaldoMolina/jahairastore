@@ -13,7 +13,7 @@ export default async function Page(props) {
           <FormSelectClient />
         </OrderInfo>
 
-        <ProductSearch>
+        <ProductSearch open={true}>
           <ProductSearchList searchParams={searchParams} />
         </ProductSearch>
 

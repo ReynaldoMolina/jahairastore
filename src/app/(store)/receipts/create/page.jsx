@@ -1,9 +1,8 @@
 import { ReceiptCreate } from '@/app/ui/forms/ReceiptForm';
  
-export default async function Page() {
-  // const customers = await fetchCustomers();
- 
+export default async function Page(props) {
+  const searchParams = await props.searchParams;
   return (
-    <ReceiptCreate />
+    <ReceiptCreate searchParams={searchParams} />
   );
 }

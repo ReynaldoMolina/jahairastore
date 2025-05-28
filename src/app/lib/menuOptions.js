@@ -1,57 +1,62 @@
+import getDate from "./getDate";
+
+const currentDate = getDate();
+
 export const menuOptions = [
   {
     id: 0,
     name: "Home",
+    path: '/',
     url: '/',
     divider: true
   },
   {
     id: 1,
     name: "Clientes",
+    path: '/clients',
     url: '/clients',
-    endpoint: 'clients',
     divider: false
   },
   {
     id: 2,
     name: "Pedidos",
-    url: '/orders',
-    endpoint: 'orders',
+    path: '/orders',
+    url: '/orders?query=debe',
     divider: false
   },
   {
     id: 3,
     name: "Recibos",
-    url: '/receipts',
-    endpoint: 'sales',
+    path: '/receipts',
+    url: `/receipts?query=${currentDate}`,
     divider: true
   },
   {
     id: 4,
     name: "Proveedores",
+    path: '/providers',
     url: '/providers',
-    endpoint: 'providers',
     divider: false
   },
   {
     id: 5,
     name: "Productos",
-    url: '/products',
-    endpoint: 'products',
+    path: '/products',
+    url: `/products?query=${currentDate}`,
     divider: false
   },
   {
     id: 6,
     name: "Categorías",
+    path: '/categories',
     url: '/categories',
-    endpoint: 'categories',
     divider: true
   },
   {
     id: 7,
     name: "Website",
+    path: '/website',
     url: '/website',
-    endpoint: 'productspage',
     divider: false
   },
 ];

@@ -8,10 +8,13 @@ const sql = postgres(process.env.POSTGRES_URL, {
 });
 
 export async function createClient(formData) {
+  const newTelefono = formData.get('Telefono') === '+505 '
+    ? '' : formData.get('Telefono');
+
   const data = {
     Nombre: formData.get('Nombre'),
     Apellido: formData.get('Apellido'),
-    Telefono: formData.get('Telefono'),
+    Telefono: newTelefono,
     Municipio: formData.get('Municipio'),
     Departamento: formData.get('Departamento'),
     Pais: formData.get('Pais'),
@@ -32,10 +35,13 @@ export async function createClient(formData) {
 }
 
 export async function updateClient(id, formData) {
+  const newTelefono = formData.get('Telefono') === '+505 '
+    ? '' : formData.get('Telefono');
+
   const data = {
     Nombre: formData.get('Nombre'),
     Apellido: formData.get('Apellido'),
-    Telefono: formData.get('Telefono'),
+    Telefono: newTelefono,
     Municipio: formData.get('Municipio'),
     Departamento: formData.get('Departamento'),
     Pais: formData.get('Pais'),
@@ -57,10 +63,13 @@ export async function updateClient(id, formData) {
 }
 
 export async function createProvider(formData) {
+  const newTelefono = formData.get('Telefono') === '+505 '
+    ? '' : formData.get('Telefono');
+
   const data = {
     Nombre_empresa: formData.get('Nombre_empresa'),
     Nombre_contacto: formData.get('Nombre_contacto'),
-    Telefono: formData.get('Telefono'),
+    Telefono: newTelefono,
     Departamento: formData.get('Departamento'),
     Municipio: formData.get('Municipio'),
     Pais: formData.get('Pais'),
@@ -81,10 +90,13 @@ export async function createProvider(formData) {
 }
 
 export async function updateProvider(id, formData) {
+  const newTelefono = formData.get('Telefono') === '+505 '
+    ? '' : formData.get('Telefono');
+
   const data = {
     Nombre_empresa: formData.get('Nombre_empresa'),
     Nombre_contacto: formData.get('Nombre_contacto'),
-    Telefono: formData.get('Telefono'),
+    Telefono: newTelefono,
     Departamento: formData.get('Departamento'),
     Municipio: formData.get('Municipio'),
     Pais: formData.get('Pais'),
@@ -143,6 +155,8 @@ export async function updateCategory(id, formData) {
 }
 
 export async function createReceipt(formData) {
+  let Id_venta;
+
   const data = {
     Id_pedido: Number(formData.get('Id_pedido')),
     Id_cliente: Number(formData.get('Id_cliente')),
@@ -153,16 +167,22 @@ export async function createReceipt(formData) {
   }
 
   try {
-    await sql`
+    const result = await sql`
       INSERT INTO "Ventas" ("Id_pedido", "Id_cliente", "Fecha", "Abono", "Saldo", "Concepto")
       VALUES (${data.Id_pedido}, ${data.Id_cliente}, ${data.Fecha}, ${data.Abono}, ${data.Saldo}, ${data.Concepto})
+      RETURNING "Id_venta"
     `;
+    console.log(result[0]);
+    
+    Id_venta = result[0].Id_venta;
+
+    console.log(Id_venta);
+    
   } catch (error) {
     throw new Error('No se pudo crear el recibo');
   }
 
-  revalidatePath('/receipts');
-  redirect('/receipts');
+  redirect(`/receipts/${Id_venta}/edit`);
 }
 
 export async function updateReceipt(id, formData) {
@@ -240,7 +260,7 @@ export async function createProduct(formData) {
     Id_categoria: Number(formData.get('Id_categoria')),
     Fecha_agregado: formData.get('Fecha_agregado'),
     Id_shein: formData.get('Id_shein')
-  }
+  }  
 
   try {
     await sql`
@@ -270,11 +290,11 @@ export async function updateProduct(id, formData) {
   try {
     await sql`
       UPDATE "Productos"
-      SET "Id_proveedor" = ${data.Id_proveedor}, "Nombre" = ${data.Nombre}, "Descripcion" = ${data.Descripcion}, "Precio_compra" = ${data.Precio_compra}, "Precio_venta" = ${data.Precio_venta}, "Id_categoria" = ${data.Id_categoria}, "Fecha_agregado" = ${data.Fecha_agregado}, "Id_shein" = ${data.Id_shein},
+      SET "Id_proveedor" = ${data.Id_proveedor}, "Nombre" = ${data.Nombre}, "Descripcion" = ${data.Descripcion}, "Precio_compra" = ${data.Precio_compra}, "Precio_venta" = ${data.Precio_venta}, "Id_categoria" = ${data.Id_categoria}, "Fecha_agregado" = ${data.Fecha_agregado}, "Id_shein" = ${data.Id_shein}
       WHERE "Id_producto" = ${id}
     `;
   } catch (error) {
-    throw new Error('No se pudo actualizar el producto')
+    throw new Error('No se pudo actualizar el producto');
   }
 
   revalidatePath('/products');
@@ -303,8 +323,8 @@ export async function createOrder(formData, productList) {
 
   await createOrderDetail(Id_pedido, productList);
   
-  revalidatePath('/orders');
-  redirect('/orders');
+  // revalidatePath('/orders');
+  redirect(`/orders/${Id_pedido}/edit`);
 }
 
 export async function createOrderDetail(Id_pedido, productList) {

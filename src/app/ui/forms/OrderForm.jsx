@@ -68,18 +68,18 @@ export function OrderEdit({ children, orderId, orderdetail }) {
   );
 }
 
-export function OrderInfo({ children, date }) {
+export function OrderInfo({ children, date, abono = 0 }) {
   return (
     <section className="flex flex-col gap-4">
       <OrderDate date={date} />
       {children}
-      <OrderSubtotals />
+      <OrderSubtotals abono={abono} />
     </section>
   );
 }
 
-export function ProductSearch({ children }) {
-  const [isSearchProductOpen, setIsSearchProductOpen] = useState(false);
+export function ProductSearch({ children, open }) {
+  const [isSearchProductOpen, setIsSearchProductOpen] = useState(open);
 
   return (
     <section className="flex flex-col gap-4">
@@ -90,7 +90,7 @@ export function ProductSearch({ children }) {
           <p className="text-sm font-semibold px-2">Agregar productos</p>
           <ArrowDown className={`rounded-xl w-10 h-6 shadow-xs bg-white dark:bg-neutral-700 ${isSearchProductOpen ? "rotate-180" : "rotate-0"}`} />
         </div>
-        <SearchInput />
+        {isSearchProductOpen && <SearchInput />}
         {isSearchProductOpen && children}
       </div>
     </section>
@@ -118,13 +118,13 @@ function OrderDate({ date }) {
   )
 }
 
-function OrderSubtotals() {
+function OrderSubtotals({ abono }) {
   const { orderTotals } = useContext(OrderContext);
   return (
     <div className="flex w-full items-end gap-3">
       <OrderFormSpan name="OrderTotal" holder="Total" value={orderTotals.totalSell} type="number" color="bg-neutral-200 dark:bg-neutral-600"/>
-      <OrderFormSpan name="OrderAbono" holder="Abono" value={0} type="number" color="bg-green-200 dark:bg-green-900" />
-      <OrderFormSpan name="Saldo" holder="Saldo" value={orderTotals.totalSell} type="number"  color="bg-red-200 dark:bg-red-900" />
+      <OrderFormSpan name="OrderAbono" holder="Abono" value={abono} type="number" color="bg-green-200 dark:bg-green-900" />
+      <OrderFormSpan name="Saldo" holder="Saldo" value={orderTotals.totalSell - abono} type="number"  color="bg-red-200 dark:bg-red-900" />
       <OrderFormSpan name="Profit" holder="Ganancia" value={orderTotals.totalSell - orderTotals.totalCost} type="number" color="bg-blue-200 dark:bg-blue-900" />
     </div>
   );
@@ -165,3 +165,4 @@ export function OrderFormButtons({ link, label }) {
     </div>
   )
 }
+

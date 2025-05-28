@@ -1,14 +1,11 @@
-import { getReceipts } from "@/app/lib/data";
+import { getReceipts, getReceiptsPages } from "@/app/lib/data";
 import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail, ListDate } from "@/app/ui/lists/lists";
+import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
 
 export default async function Receipts({ query, currentPage }) {
   const data = await getReceipts(query, currentPage);
-  // const abono = data ? data.reduce((sum, item) => sum + item.Abono, 0) : 0;
-  // const receiptsGeneralTotal = {
-  //   totalCount: data.length,
-  //   abono
-  // }
+  const totalPages = await getReceiptsPages(query);
 
   if (data.length === 0) return <EmptyList query={query}/>
 
@@ -30,9 +27,7 @@ export default async function Receipts({ query, currentPage }) {
           </ListInfo>
         </ListCard>
       ))}
-      {/* {data.length > 0 && (
-        <ReceiptTotal receiptsGeneralTotal={receiptsGeneralTotal}/>
-      )} */}
+      <Pagination totalPages={totalPages} />
     </List>
   );
 }

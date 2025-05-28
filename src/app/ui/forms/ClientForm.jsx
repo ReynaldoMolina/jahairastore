@@ -1,4 +1,5 @@
 import { FormContainer, FormDiv, FormInput, FormButtons, FormId } from "@/app/ui/forms/formInputs";
+import { ClientOptions } from "@/app/ui/forms/FormOptions";
 import { createClient, updateClient } from "@/app/lib/actions";
 
 export function ClientCreate() {
@@ -10,7 +11,7 @@ export function ClientCreate() {
         <FormInput name="Apellido" holder="Apellido" value="" />
       </FormDiv>
       <FormDiv>
-        <FormInput name="Telefono" holder="Telefono" value="" required={false} />
+        <FormInput name="Telefono" holder="Telefono" value="+505 " required={false} />
         <FormInput name="Municipio" holder="Municipio" value="" required={false} />
       </FormDiv>
       <FormDiv>
@@ -35,7 +36,7 @@ export function ClientEdit({ client }) {
         <FormInput name="Apellido" holder="Apellido" value={client.Apellido} />
       </FormDiv>
       <FormDiv>
-        <FormInput name="Telefono" holder="Telefono" value={client.Telefono} required={false} />
+        <FormInput name="Telefono" holder="Telefono" value={client.Telefono || '+505 '} required={false} />
         <FormInput name="Municipio" holder="Municipio" value={client.Municipio} required={false} />
       </FormDiv>
       <FormDiv>
@@ -43,6 +44,7 @@ export function ClientEdit({ client }) {
         <FormInput name="Pais" holder="País" value={client.Pais} required={false} />
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value={client.Direccion} required={false} />
+      <ClientOptions client={client}/>
       <FormButtons link={'/clients'} label={'Guardar'} />
     </FormContainer>
   );

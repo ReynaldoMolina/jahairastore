@@ -1,20 +1,25 @@
 import { FormContainer, FormDiv, FormInput, FormButtons, FormDate, FormId, FormSelectClient } from "@/app/ui/forms/formInputs";
 import { createReceipt, updateReceipt } from "@/app/lib/actions";
-import { ReceiptOptions } from "@/app/ui/forms/FormOptions";
+import { ReceiptOptions } from "@/app/ui/forms/ReceiptOptions";
 
-export function ReceiptCreate() {
+export function ReceiptCreate({ searchParams }) {
+  const order = searchParams?.order || '';
+  const client = searchParams?.client || '';
+  const payment = searchParams?.payment || 0;
+  const inicialbal = searchParams?.inicialbal || 0;
+  const balance = Math.round((inicialbal - payment) * 100) / 100;
+
   return (
     <FormContainer
       action={createReceipt}>
       <FormDiv>
-        <FormInput name="Id_pedido" holder="Pedido" value="" type="number" />
+        <FormInput name="Id_pedido" holder="Pedido" value={order} type="number" />
         <FormDate name="Fecha" />
       </FormDiv>
-      <FormSelectClient value="" />
-      <FormInput name="Id_cliente" holder="Cliente" value="" />
+      <FormSelectClient value={client} />
       <FormDiv>
-        <FormInput name="Abono" holder="Abono" value={0} type="number" />
-        <FormInput name="Saldo" holder="Saldo" value={0} type="number" />
+        <FormInput name="Abono" holder="Abono" value={payment} type="number" />
+        <FormInput name="Saldo" holder="Saldo" value={balance} type="number" />
       </FormDiv>
       <FormInput name="Concepto" holder="Descripción" value="" required={false} />
       <FormButtons link={'/receipts'} label={'Guardar'} />

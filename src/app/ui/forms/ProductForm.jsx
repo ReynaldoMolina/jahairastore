@@ -11,9 +11,9 @@ export function ProductCreate() {
         <FormDate name="Fecha_agregado" />
       </FormDiv>
       <FormDiv>
-        <FormInput name="Precio_compra" holder="Precio compra" value={0} type="number" />
-        <FormInput name="Precio_venta" holder="Precio venta" value={0} type="number" />
-        <FormSpan name="Profit" holder="Ganancia" value={0} type="number" />
+        <FormInput name="Precio_venta" holder="Precio venta" value={0} type="number" color="bg-green-100 dark:bg-green-900" />
+        <FormInput name="Precio_compra" holder="Precio compra" value={0} type="number" color="bg-red-100 dark:bg-red-900" />
+        <FormSpan name="Profit" holder="Ganancia" value={0} type="number" color="bg-blue-100 dark:bg-blue-900" />
       </FormDiv>
       <FormDiv>
         <FormSelectProveedor value={1} />
@@ -38,9 +38,9 @@ export function ProductEdit({ product }) {
         <FormDate name="Fecha_agregado" date={product.Fecha} />
       </FormDiv>
       <FormDiv>
-        <FormInput name="Precio_compra" holder="Precio compra" value={product.Precio_compra} type="number" />
-        <FormInput name="Precio_venta" holder="Precio venta" value={product.Precio_venta} type="number" />
-        <FormSpan name="Ganancia" holder="Ganancia" value={product.Ganancia} type="number" />
+        <FormInput name="Precio_venta" holder="Precio venta" value={product.Precio_venta} type="number" color="bg-green-100 dark:bg-green-900" />
+        <FormInput name="Precio_compra" holder="Precio compra" value={product.Precio_compra} type="number" color="bg-red-100 dark:bg-red-900" />
+        <FormSpan name="Ganancia" holder="Ganancia" value={product.Ganancia} type="number" color="bg-blue-100 dark:bg-blue-900" />
       </FormDiv>
       <FormDiv>
         <FormSelectProveedor value={product.Id_proveedor} />
