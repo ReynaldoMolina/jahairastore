@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import ReceiptPdf from "@/app/ui/ReceiptPdf/index";
 import DownloadIcon from "@/app/ui/forms/icons/download.svg";
+import { deleteReceipt } from "@/app/lib/actions";
 
 export function ReceiptOptions({ receipt }) {
   const [client, setClient] = useState(false);

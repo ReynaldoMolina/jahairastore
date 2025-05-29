@@ -112,6 +112,29 @@ export function FormId({ holder, value }) {
   )
 }
 
+export async function ReceiptStateSelect() {
+  return (
+    <div className="flex flex-col w-full gap-1">
+      <label
+        htmlFor="Estado"
+        className="w-full text-xs pl-2 font-semibold"
+      >
+        Estado
+      </label>
+      <select
+        id="Estado"
+        name="Estado"
+        className="flex bg-gray-100 dark:bg-neutral-700 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
+        defaultValue="Activo"
+      >
+        <option value="" disabled>Selecciona una opción</option>
+          <option value="Activo">Activo</option>
+          <option value="Anulado">Anulado</option>
+      </select>
+    </div>
+  );
+}
+
 export async function FormSelectProveedor({ value }) {
   const data = await getProvidersSelect();
   return (

@@ -1,11 +1,10 @@
 'use server';
 
-import postgres from "postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-const sql = postgres(process.env.POSTGRES_URL, {
-  ssl: process.env.NODE_ENV === 'production' ? 'require' : false,
-});
+import { signIn } from '@/auth';
+import { AuthError } from 'next-auth';
+import { sql } from "@/app/lib/db";
 
 export async function createClient(formData) {
   const newTelefono = formData.get('Telefono') === '+505 '
@@ -425,5 +424,21 @@ export async function updateOrderDetail(orderId, productList, originalList) {
     ]);
   } catch (error) {
     throw new Error("No se pudieron procesar los detalles del pedido")
+  }
+}
+
+export async function authenticate(prevState, formData) {
+  try {
+    await signIn('credentials', formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Invalid credentials.';
+        default:
+          return 'Something went wrong.';
+      }
+    }
+    throw error;
   }
 }

@@ -1,9 +1,5 @@
-import postgres from 'postgres';
+import { sql } from "@/app/lib/db";
 
-// const sql = postgres(process.env.POSTGRES_URL, { ssl: 'require' });
-const sql = postgres(process.env.POSTGRES_URL, {
-  ssl: process.env.NODE_ENV === 'production' ? 'require' : false,
-})
 const ITEMS_PER_PAGE = 20;
 
 export async function getClients(query, currentPage) {
