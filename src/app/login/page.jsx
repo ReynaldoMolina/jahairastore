@@ -41,7 +41,7 @@ export default function LoginForm() {
               <p className="text-sm text-red-500">{errorMessage}</p>
             )}
           </div>
-        </form>
+          </form>
         </Suspense>
       </div>
     </main>
