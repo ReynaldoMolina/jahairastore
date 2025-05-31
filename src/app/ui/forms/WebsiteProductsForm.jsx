@@ -8,7 +8,7 @@ export function WebsiteProductCreate() {
       <FormInput name="name" holder="Nombre" value="" />
       <FormInput name="price" holder="Precio" value="" type="number" />
       <FormInput name="image" holder="Link de la imagen" value="" />
-      <FormButtons link={'/website'} label={'Guardar'} />
+      <FormButtons link={'/website'} label={'Crear'} />
     </FormContainer>
   );
 }

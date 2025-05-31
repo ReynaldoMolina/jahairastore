@@ -1,6 +1,6 @@
 import { getCategoriesSelect, getProvidersSelect, getClientsSelect } from "@/app/lib/data";
 import getDate from "@/app/lib/getDate";
-import Link from "next/link"
+import Link from "next/link";
 
 export function FormContainer({ children, action }) {
   return (

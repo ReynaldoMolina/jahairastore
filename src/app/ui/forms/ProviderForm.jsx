@@ -18,7 +18,7 @@ export function ProviderCreate() {
         <FormInput name="Pais" holder="País" value="" required={false} />
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value="" required={false} />
-      <FormButtons link={'/providers'} label={'Guardar'} />
+      <FormButtons link={'/providers'} label={'Crear'} />
     </FormContainer>
   );
 }

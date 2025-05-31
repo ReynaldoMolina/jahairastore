@@ -4,6 +4,7 @@ import ProductSearchList from "@/app/ui/orderForm/ProductSearchList";
 import OrderDetail from "@/app/ui/orderForm/OrderDetail";
 import { getOrderById, getOrderDetailById } from "@/app/lib/data";
 import { OrderOptions } from "@/app/ui/orderForm/OrderOptions";
+import { OrderRestante } from "@/app/ui/orderForm/OrderRestante";
  
 export default async function Page(props) {
   const searchParams = await props.searchParams;
@@ -25,9 +26,12 @@ export default async function Page(props) {
         </ProductSearch>
 
         <OrderDetail />
+
+        <OrderRestante order={order} />
+
         <OrderOptions order={order} />
 
-        <OrderFormButtons link={'/orders'} label={'Guardar'} />
+        <OrderFormButtons link={'/orders?query=debe'} label={'Guardar'} />
       </OrderEdit>
     </section>
   );

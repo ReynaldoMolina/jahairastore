@@ -18,7 +18,8 @@ export default async function Page(props) {
         </ProductSearch>
 
         <OrderDetail />
-        <OrderFormButtons link={'/orders'} label={'Guardar'} />
+
+        <OrderFormButtons link={'/orders?query=debe'} label={'Crear'} />
       </OrderCreate>
     </section>
   );

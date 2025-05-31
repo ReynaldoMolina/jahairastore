@@ -13,10 +13,6 @@ export function ReceiptPayment({ inicialbal, abono = '' }) {
 
   return (
     <>
-      {/* <ReceiptDiv>
-        <ReceiptRadio id="half" name="paymentopt" label="50%" />
-        <ReceiptRadio id="half" name="paymentopt" label="100%" />
-      </ReceiptDiv> */}
       <ReceiptDiv>
         <ReceiptSpan name="Saldo inicial" holder="Saldo inicial" value={inicialbal} type="number" color="bg-amber-100 dark:bg-amber-900" />
         <PaymentInput name="Abono" holder="Abono" value={payment} setValue={handleAbono} color="bg-green-100 dark:bg-green-900" />

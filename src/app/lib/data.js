@@ -422,6 +422,7 @@ export async function getProductsPages(query) {
     return totalPages;
     
   } catch (error) {
+    console.error(error);
     throw new Error('No se pudieron obtener los productos');
   }
 }
@@ -481,7 +482,11 @@ export async function getOrders(query, currentPage) {
         ) ILIKE ${`%${newQuery}%`}
       )
 
-      ${filterDeben ? sql`AND (COALESCE(PedidoTotalesVenta."TotalPedidoVenta", 0) - COALESCE(VentaTotales."TotalAbono", 0)) > 0` : sql``}
+      ${filterDeben ? sql`AND ROUND(
+        COALESCE(PedidoTotalesVenta."TotalPedidoVenta", 0)::numeric -
+        COALESCE(VentaTotales."TotalAbono", 0)::numeric,
+        2
+      )::double precision > 0` : sql``}
 
       ORDER BY "Pedidos"."Id_pedido" DESC
 
@@ -490,6 +495,7 @@ export async function getOrders(query, currentPage) {
     return data;
     
   } catch (error) {
+    console.error(error);
     throw new Error('No se pudieron obtener los pedidos');
   }
 }
@@ -511,8 +517,11 @@ export async function getOrderById(id) {
         "Pedidos"."Id_pedido",
         "Pedidos"."Id_cliente",
         "Clientes"."Nombre" || ' ' || "Clientes"."Apellido" AS "NombreCompleto",
+        "Clientes"."Nombre",
         TO_CHAR("Pedidos"."Fecha_del_pedido", 'YYYY-MM-DD') AS "Fecha",
         "Pedidos"."Peso",
+        COALESCE("Pedidos"."Cambio_dolar", 0) AS "Cambio_dolar",
+        COALESCE("Pedidos"."Precio_libra", 0) AS "Precio_libra",
         COALESCE(AbonosTotales."TotalAbono", 0) AS "TotalAbono"
 
       FROM "Pedidos"
@@ -524,6 +533,8 @@ export async function getOrderById(id) {
     return data[0];
     
   } catch (error) {
+    console.error(error);
+    
     throw new Error('No se pudo obtener el pedido');
   }
 }
@@ -567,7 +578,11 @@ export async function getOrdersPages(query) {
         ) ILIKE ${`%${newQuery}%`}
       )
 
-      ${filterDeben ? sql`AND (COALESCE(PedidoTotalesVenta."TotalPedidoVenta", 0) - COALESCE(VentaTotales."TotalAbono", 0)) > 0` : sql``}
+      ${filterDeben ? sql`AND ROUND(
+        COALESCE(PedidoTotalesVenta."TotalPedidoVenta", 0)::numeric -
+        COALESCE(VentaTotales."TotalAbono", 0)::numeric,
+        2
+      )::double precision > 0` : sql``}
     `;
     
     const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)

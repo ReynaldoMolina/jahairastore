@@ -6,7 +6,7 @@ export function CategoryCreate() {
     <FormContainer
       action={createCategory}>
       <FormInput name="Nombre_categoria" holder="Nombre" value="" />
-      <FormButtons link={'/categories'} label={'Guardar'} />
+      <FormButtons link={'/categories'} label={'Crear'} />
     </FormContainer>
   );
 }

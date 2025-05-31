@@ -306,17 +306,21 @@ export async function createOrder(formData, productList) {
   const order = {
     Id_cliente: Number(formData.get('Id_cliente')),
     Fecha_del_pedido: formData.get('Fecha_del_pedido'),
-    Peso: Number(formData.get('Peso'))
+    Peso: 0,
+    Cambio_dolar: 37,
+    Precio_libra: 3
   };
 
   try {
     const result = await sql`
-      INSERT INTO "Pedidos" ("Id_cliente", "Fecha_del_pedido", "Peso")
-      VALUES (${order.Id_cliente}, ${order.Fecha_del_pedido}, ${order.Peso})
+      INSERT INTO "Pedidos" ("Id_cliente", "Fecha_del_pedido", "Peso", "Cambio_dolar", "Precio_libra")
+      VALUES (${order.Id_cliente}, ${order.Fecha_del_pedido}, ${order.Peso}, ${order.Cambio_dolar}, ${order.Precio_libra})
       RETURNING "Id_pedido"
     `;
     Id_pedido = result[0].Id_pedido;
   } catch (error) {
+    console.error(error);
+    
     throw new Error('No se pudo crear el pedido');
   }
 
@@ -346,13 +350,15 @@ export async function updateOrder(orderId, formData, productList, originalList) 
   const data = {
     Id_cliente: Number(formData.get('Id_cliente')),
     Fecha_del_pedido: formData.get('Fecha_del_pedido'),
-    Peso: Number(formData.get('Peso'))
-  };  
+    Peso: Number(formData.get('Peso')),
+    Cambio_dolar: Number(formData.get('Cambio_dolar')),
+    Precio_libra: Number(formData.get('Precio_libra'))
+  };
 
   try {
     await sql`
       UPDATE "Pedidos"
-      SET "Id_cliente" = ${data.Id_cliente}, "Fecha_del_pedido" = ${data.Fecha_del_pedido}, "Peso" = ${data.Peso}
+      SET "Id_cliente" = ${data.Id_cliente}, "Fecha_del_pedido" = ${data.Fecha_del_pedido}, "Peso" = ${data.Peso}, "Cambio_dolar" = ${data.Cambio_dolar}, "Precio_libra" = ${data.Precio_libra}
       WHERE "Id_pedido" = ${orderId}
     `;
   } catch (error) {

@@ -38,9 +38,9 @@ export function ListId({ id }) {
   );
 }
 
-export function ListInfo({ children }) {
+export function ListInfo({ children, display = "flex-col md:flex-row items-start md:items-center" }) {
   return (
-    <div className="flex flex-col md:flex-row items-start md:items-center grow gap-1 md:gap-2">
+    <div className={`flex ${display} grow gap-1 md:gap-2`}>
       {children}
     </div>
   );
@@ -62,6 +62,6 @@ export function ListName({ name }) {
 
 export function ListPhone({ phone }) {
   return (
-    <span className="w-30 text-center text-xs bg-neutral-200/60 dark:bg-neutral-700 rounded-xl p-1">{phone === '' ? '-' : phone}</span>
+    <span className="w-27 text-center text-xs bg-neutral-200/60 dark:bg-neutral-700 rounded-xl p-1">{phone === '' ? '-' : phone}</span>
   );
 }

@@ -1,7 +1,9 @@
 import { FormContainer, FormDiv, FormInput, FormButtons, FormDate, FormId, FormSelectProveedor, FormSelectCategoria, FormSpan } from "@/app/ui/forms/formInputs";
 import { createProduct, updateProduct } from "@/app/lib/actions";
+import getDate from "@/app/lib/getDate";
 
 export function ProductCreate() {
+  const currentDate = getDate();
   return (
     <FormContainer
       action={createProduct}>
@@ -20,13 +22,14 @@ export function ProductCreate() {
         <FormSelectCategoria value={1} />
       </FormDiv>
       <FormInput name="Descripcion" holder="Descripción" value="" required={false} />
-      <FormButtons link={'/products'} label={'Guardar'} />
+      <FormButtons link={`/products?query=${currentDate}`} label={'Crear'} />
     </FormContainer>
   );
 }
 
 export function ProductEdit({ product }) {
- const updateProductWithId = updateProduct.bind(null, product.Id_producto)
+ const updateProductWithId = updateProduct.bind(null, product.Id_producto);
+ const currentDate = getDate();
 
   return (
     <FormContainer
@@ -47,7 +50,7 @@ export function ProductEdit({ product }) {
         <FormSelectCategoria value={product.Id_categoria} />
       </FormDiv>
       <FormInput name="Descripcion" holder="Descripción" value={product.Descripcion} required={false} />
-      <FormButtons link={'/products'} label={'Guardar'} />
+      <FormButtons link={`/products?query=${currentDate}`} label={'Guardar'} />
     </FormContainer>
   );
 }

@@ -19,7 +19,7 @@ export function ClientCreate() {
         <FormInput name="Pais" holder="País" value="" required={false} />
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value="" required={false} />
-      <FormButtons link={'/clients'} label={'Guardar'} />
+      <FormButtons link={'/clients'} label={'Crear'} />
     </FormContainer>
   );
 }

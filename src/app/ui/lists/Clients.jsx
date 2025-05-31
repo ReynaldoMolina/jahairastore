@@ -17,7 +17,7 @@ export default async function Clients({ query, currentPage }) {
           href={`/clients/${register.Id_cliente}/edit`}
         >
           <ListId id={register.Id_cliente}/>
-          <ListInfo>
+          <ListInfo display="flex-row items-center">
             <ListName name={register.NombreCompleto} />
               <ListInfoDetail>
                 <ListPhone phone={register.Telefono} />

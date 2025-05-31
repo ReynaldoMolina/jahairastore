@@ -1,12 +1,15 @@
-import { FormContainer, FormDiv, FormInput, FormButtons, FormDate, FormId, FormSelectClient, FormSpan, ReceiptStateSelect } from "@/app/ui/forms/formInputs";
+import { FormContainer, FormDiv, FormInput, FormButtons, FormDate, FormId, FormSelectClient, ReceiptStateSelect } from "@/app/ui/forms/formInputs";
 import { createReceipt, updateReceipt } from "@/app/lib/actions";
 import { ReceiptOptions } from "@/app/ui/forms/ReceiptOptions";
 import { ReceiptPayment } from "./ReceiptPayment";
+import getDate from "@/app/lib/getDate";
 
 export function ReceiptCreate({ searchParams }) {
   const order = searchParams?.order || '';
   const client = searchParams?.client || '';
   const inicialbal = Number(searchParams?.balance) || 0;
+  const abono = Number(searchParams?.payment || 0);
+  const currentDate = getDate();
 
   return (
     <FormContainer
@@ -17,10 +20,10 @@ export function ReceiptCreate({ searchParams }) {
       </FormDiv>
       <FormSelectClient value={client} />
       <FormDiv>
-        <ReceiptPayment inicialbal={inicialbal} />
+        <ReceiptPayment inicialbal={inicialbal} abono={abono} />
       </FormDiv>
       <FormInput name="Concepto" holder="Descripción" value="" required={false} />
-      <FormButtons link={'/receipts'} label={'Guardar'} />
+      <FormButtons link={`/receipts?query=${currentDate}`} label={'Crear'} />
     </FormContainer>
   );
 }
@@ -28,6 +31,7 @@ export function ReceiptCreate({ searchParams }) {
 export function ReceiptEdit({ receipt, receiptpdf }) {
   const updateReceiptWithId = updateReceipt.bind(null, receipt.Id_venta);
   const inicialbal = receipt.Abono + receipt.Saldo;
+  const currentDate = getDate();
   
   return (
     <FormContainer
@@ -35,7 +39,6 @@ export function ReceiptEdit({ receipt, receiptpdf }) {
       <FormId holder="Recibo" value={receipt.Id_venta} />
       <FormDiv>
         <FormInput name="Id_pedido" holder="Pedido" value={receipt.Id_pedido} type="number" />
-        <ReceiptStateSelect />
         <FormDate name="Fecha" date={receipt.Fecha} />
       </FormDiv>
       <FormSelectClient value={receipt.Id_cliente} />
@@ -44,7 +47,7 @@ export function ReceiptEdit({ receipt, receiptpdf }) {
 
       <ReceiptOptions receipt={receiptpdf} />
 
-      <FormButtons link={'/receipts'} label={'Guardar'} />
+      <FormButtons link={`/receipts?query=${currentDate}`} label={'Guardar'} />
     </FormContainer>
   );
 }

@@ -27,7 +27,7 @@ export function FormOption({ label, children, href }) {
   return (
     <Link
       href={href}
-      className="flex justify-center items-center bg-sky-200 rounded-xl px-3 py-2 cursor-pointer shadow-xs gap-2">
+      className="flex justify-center items-center bg-sky-200 rounded-xl px-3 py-2 cursor-pointer shadow-xs gap-2 h-full">
       {children}
       <label className="text-xs font-semibold text-black cursor-pointer">
         {label}
