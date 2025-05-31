@@ -1,6 +1,10 @@
 import { CategoryEdit } from '@/app/ui/forms/CategoryForm';
 import { getCategoryById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
+
+export const metadata = {
+  title: 'Editar categoría'
+}
  
 export default async function Page(props) {
   const params = await props.params;

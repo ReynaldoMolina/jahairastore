@@ -1,6 +1,10 @@
 import ActionTools from "@/app/ui/actiontools/ActionTools";
 import Receipts from "@/app/ui/lists/Receipts";
 
+export const metadata = {
+  title: 'Recibos'
+}
+
 export default async function Page(props) {
   const searchParams = await props.searchParams;
   const query = searchParams?.query || '';

@@ -1,5 +1,9 @@
 import Logo from "@/app/ui/login/logo.svg";
 
+export const metadata = {
+  title: 'Home'
+}
+
 export default function Page() {
   return (
     <section className="flex flex-col justify-center items-center h-full">

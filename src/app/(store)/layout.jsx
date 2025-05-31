@@ -3,11 +3,6 @@ import Header from "@/app/ui/header/Header";
 import ToggleMenuButton from "@/app/ui/header/ToggleMenuButton";
 import "@/app/globals.css";
 
-export const metadata = {
-  title: "Jahaira Store",
-  description: "Store management system",
-};
-
 const user = {
   username: 'Reynaldo',
   pictureUrl: 'https://lh3.googleusercontent.com/ogw/AF2bZyjG_cSPuxnR0fNtDzSndXzPIy3-GzgtoIqJcc2Z03fOpDc=s32-c-mo',

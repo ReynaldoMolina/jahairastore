@@ -2,8 +2,11 @@ import { inter } from "@/app/ui/fonts";
 import "@/app/globals.css";
 
 export const metadata = {
-  title: "Login | Jahaira Store",
-  description: "Aplicación de gestión de tienda",
+  title: {
+    template: '%s - Jahaira Store',
+    default: 'Jahaira Store'
+  },
+  description: 'Aplicación de gestión de tienda',
 };
 
 export default function RootLayout({ children }) {

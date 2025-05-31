@@ -1,6 +1,10 @@
 import { WebsiteProductEdit } from '@/app/ui/forms/WebsiteProductsForm';
 import { getWebsiteProductById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
+
+export const metadata = {
+  title: 'Editar producto'
+}
  
 export default async function Page(props) {
   const params = await props.params;
