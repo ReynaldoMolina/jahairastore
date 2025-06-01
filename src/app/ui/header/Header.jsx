@@ -3,15 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import LogoMinimal from "@/app/ui/header/logominimal.svg";
-import HeaderProfile from "@/app/ui/header/HeaderProfile";
 
-export default function Header() {
+export default function Header({ children }) {
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+
   const user = {
     username: 'Reynaldo',
     pictureUrl: 'https://lh3.googleusercontent.com/ogw/AF2bZyjG_cSPuxnR0fNtDzSndXzPIy3-GzgtoIqJcc2Z03fOpDc=s32-c-mo',
   }
-
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   return (
     <header className="flex justify-between items-center border-b-1 border-b-neutral-200 dark:border-b-neutral-700 py-1 mx-2 bg-transparent relative">
@@ -25,7 +24,7 @@ export default function Header() {
         className="flex justify-center items-center cursor-pointer size-10 p-2 rounded-full hover:bg-sky-100 dark:hover:bg-neutral-700 text-xs"
         onClick={() => setIsProfileOpen(state => !state)}
       ></Image>
-      <HeaderProfile user={user} isProfileOpen={isProfileOpen} />
+      {isProfileOpen && children}
     </header>
   )
 }
