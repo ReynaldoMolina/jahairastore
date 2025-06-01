@@ -2,6 +2,7 @@ import { getReceipts, getReceiptsPages } from "@/app/lib/data";
 import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail, ListDate } from "@/app/ui/lists/lists";
 import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
+import { ReceiptListTotal } from "./ListTotal";
 
 export default async function Receipts({ query, currentPage }) {
   const data = await getReceipts(query, currentPage);
@@ -27,6 +28,7 @@ export default async function Receipts({ query, currentPage }) {
           </ListInfo>
         </ListCard>
       ))}
+      <ReceiptListTotal data={data} />
       <Pagination totalPages={totalPages} />
     </List>
   );

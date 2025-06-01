@@ -1,9 +1,6 @@
-import { ListCard, ListDetail, ListId, ListInfoDetail, ListDate } from "./lists";
+import { ListCard, ListDetail, ListId, ListInfo, ListInfoDetail, ListDate, ListName } from "./lists";
 
 export function OrderListTotal({ data }) {
-  console.log(data);
-  
-
   const totals = data.reduce((acc, item) => {
     acc.TotalPedidoVenta += item.TotalPedidoVenta;
     acc.TotalPedidoCompra += item.TotalPedidoCompra;
@@ -27,6 +24,30 @@ export function OrderListTotal({ data }) {
           <ListDetail detail={(totals.TotalPedidoVenta - totals.TotalPedidoCompra)} color="bg-blue-200 dark:bg-blue-900 text-right" type="number" />
         </div>
       </ListInfoDetail>
+    </ListCard>
+  );
+}
+
+export function ReceiptListTotal({ data }) {
+  const totals = data.reduce((acc, item) => {
+    acc.Abono += item.Abono;
+    return acc;
+  }, {
+    Abono: 0
+  });
+
+  return (
+    <ListCard
+      href=""
+    >
+      <ListId id={data.length}/>
+      <ListInfo>
+          <ListInfoDetail>
+            <ListDate date="Total" />
+            <ListDetail detail="-" color="bg-neutral-200/60 dark:bg-neutral-700 text-center" />
+            <ListDetail detail={totals.Abono} color="bg-green-200 dark:bg-green-900 text-right" type="number" />
+          </ListInfoDetail>
+      </ListInfo>
     </ListCard>
   );
 }
