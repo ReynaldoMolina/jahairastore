@@ -1,16 +1,22 @@
 'use client';
 
 import { useState } from "react";
-import Image from "next/image"
+import Image from "next/image";
+import LogoMinimal from "@/app/ui/header/logominimal.svg";
 import HeaderProfile from "@/app/ui/header/HeaderProfile";
 
-export default function Header({ children, user }) {
+export default function Header() {
+  const user = {
+    username: 'Reynaldo',
+    pictureUrl: 'https://lh3.googleusercontent.com/ogw/AF2bZyjG_cSPuxnR0fNtDzSndXzPIy3-GzgtoIqJcc2Z03fOpDc=s32-c-mo',
+  }
+
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   return (
-    <header className="flex justify-between border-b-1 border-b-neutral-200 dark:border-b-neutral-700 py-1 mx-2 bg-transparent relative">
-      {children}
-      <h1 className="flex items-center font-semibold text-sm text-center">Jahaira Store</h1>
+    <header className="flex justify-between items-center border-b-1 border-b-neutral-200 dark:border-b-neutral-700 py-1 mx-2 bg-transparent relative">
+      <LogoMinimal className="size-9 p-2" />
+      <h1 className="text-sm font-semibold">Jahaira Store</h1>
       <Image
         src={user.pictureUrl}
         alt="User"

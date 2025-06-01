@@ -17,6 +17,7 @@ export default function LoginInput({name, placeholder, type = 'text' }) {
         className=" border-none text-black dark:text-white h-10 px-3 w-full focus-within:outline-none text-sm"
         placeholder={placeholder}
         required
+        autoComplete='off'
         ></input>
     </div>
   );

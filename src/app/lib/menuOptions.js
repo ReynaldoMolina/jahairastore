@@ -33,16 +33,16 @@ export const menuOptions = [
   },
   {
     id: 4,
-    name: "Proveedores",
-    path: '/providers',
-    url: '/providers',
+    name: "Productos",
+    path: '/products',
+    url: `/products?query=${currentDate}`,
     divider: false
   },
   {
     id: 5,
-    name: "Productos",
-    path: '/products',
-    url: `/products?query=${currentDate}`,
+    name: "Proveedores",
+    path: '/providers',
+    url: '/providers',
     divider: false
   },
   {
