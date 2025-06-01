@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { signIn } from '@/auth';
+import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
 import { sql } from "@/app/lib/db";
 
@@ -440,11 +440,15 @@ export async function authenticate(prevState, formData) {
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin':
-          return 'Invalid credentials.';
+          return 'Datos incorrectos';
         default:
-          return 'Something went wrong.';
+          return `Algo salió mal, ${error.message}`;
       }
     }
     throw error;
   }
+}
+
+export async function handleLogout() {
+  await signOut({ redirectTo: '/' });
 }

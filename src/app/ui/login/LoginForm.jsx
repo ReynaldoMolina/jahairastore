@@ -2,9 +2,11 @@
 
 import LoginInput from "@/app/ui/login/LoginInput";
 import Logo from '@/app/ui/login/logo.svg';
+import Error from '@/app/ui/login/error.svg';
 import { useActionState } from 'react';
 import { authenticate } from '@/app/lib/actions';
 import { useSearchParams } from 'next/navigation';
+import LoadingIcon from "@/app/ui/loading/LoadingIcon";
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
@@ -27,19 +29,16 @@ export default function LoginForm() {
             type="submit"
             className="flex w-full h-10 cursor-pointer border-none bg-blue-500 rounded-lg text-white font-semibold hover:bg-blue-600 items-center justify-center"
             id="login-button"
-            aria-disabled={isPending}
+            disabled={isPending}
           >
-            Iniciar sesión
+            {isPending ? <LoadingIcon /> : "Iniciar sesión"}
           </button>
-          <div
-            className="flex h-8 items-end space-x-1"
-            aria-live="polite"
-            aria-atomic="true"
-          >
-            {errorMessage && (
-              <p className="text-sm text-red-500">{errorMessage}</p>
-            )}
-          </div>
+          {isPending || 
+            <div className={`flex gap-2 justify-center items-center ${errorMessage || "hidden"}`}>
+              <Error className="size-5 text-red-500" />
+              <p className="text-sm text-red-500 text-center">{errorMessage}</p>
+            </div>
+          }
         </form>
       </div>
     </main>
