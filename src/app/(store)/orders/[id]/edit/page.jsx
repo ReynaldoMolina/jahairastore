@@ -6,8 +6,12 @@ import { getOrderById, getOrderDetailById } from "@/app/lib/data";
 import { OrderOptions } from "@/app/ui/orderForm/OrderOptions";
 import { OrderRestante } from "@/app/ui/orderForm/OrderRestante";
  
-export const metadata = {
-  title: 'Editar pedido'
+export async function generateMetadata(props) {
+  const { id } = await props.params;
+
+  return {
+    title: `Pedido ${id}`
+  }
 }
 
 export default async function Page(props) {

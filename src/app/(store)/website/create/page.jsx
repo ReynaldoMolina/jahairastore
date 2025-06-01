@@ -1,7 +1,7 @@
 import { WebsiteProductCreate } from '@/app/ui/forms/WebsiteProductsForm';
 
 export const metadata = {
-  title: 'Editar producto'
+  title: 'Crear producto'
 }
  
 export default async function Page() {

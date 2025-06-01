@@ -2,8 +2,12 @@ import { ReceiptEdit } from '@/app/ui/forms/ReceiptForm';
 import { getReceiptById, getReceiptPdf } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 
-export const metadata = {
-  title: 'Editar recibo'
+export async function generateMetadata(props) {
+  const { id } = await props.params;
+
+  return {
+    title: `Recibo ${id}`
+  }
 }
  
 export default async function Page(props) {

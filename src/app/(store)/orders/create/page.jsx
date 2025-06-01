@@ -4,7 +4,7 @@ import ProductSearchList from "@/app/ui/orderForm/ProductSearchList";
 import OrderDetail from "@/app/ui/orderForm/OrderDetail";
 
 export const metadata = {
-  title: 'Nuevo pedido'
+  title: 'Crear pedido'
 }
  
 export default async function Page(props) {

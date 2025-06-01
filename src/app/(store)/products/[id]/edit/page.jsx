@@ -2,8 +2,12 @@ import { ProductEdit } from '@/app/ui/forms/ProductForm';
 import { getProductById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 
-export const metadata = {
-  title: 'Editar producto'
+export async function generateMetadata(props) {
+  const { id } = await props.params;
+
+  return {
+    title: `Producto ${id}`
+  }
 }
  
 export default async function Page(props) {

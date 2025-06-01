@@ -1,7 +1,7 @@
 import { CategoryCreate } from '@/app/ui/forms/CategoryForm';
 
 export const metadata = {
-  title: 'Nueva categoría'
+  title: 'Crear categoría'
 }
  
 export default async function Page() {
