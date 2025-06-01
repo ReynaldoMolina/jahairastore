@@ -3,6 +3,7 @@ import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail,
 import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
 import getDate from "@/app/lib/getDate";
+import { OrderListTotal } from "./ListTotal";
 
 export default async function Orders({ query, currentPage }) {
   const data = await getOrders(query, currentPage);
@@ -33,6 +34,7 @@ export default async function Orders({ query, currentPage }) {
           </ListInfo>
         </ListCard>
       ))}
+      <OrderListTotal data={data} />
       <Pagination totalPages={totalPages} />
     </List>
   );
