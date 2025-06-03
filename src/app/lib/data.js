@@ -518,6 +518,7 @@ export async function getOrderById(id) {
         "Pedidos"."Id_cliente",
         "Clientes"."Nombre" || ' ' || "Clientes"."Apellido" AS "NombreCompleto",
         "Clientes"."Nombre",
+        "Clientes"."Telefono",
         TO_CHAR("Pedidos"."Fecha_del_pedido", 'YYYY-MM-DD') AS "Fecha",
         "Pedidos"."Peso",
         COALESCE("Pedidos"."Cambio_dolar", 0) AS "Cambio_dolar",

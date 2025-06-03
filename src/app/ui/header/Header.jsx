@@ -8,9 +8,9 @@ export default function Header({ children }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const user = {
-    username: 'Reynaldo',
-    pictureUrl: 'https://lh3.googleusercontent.com/ogw/AF2bZyjG_cSPuxnR0fNtDzSndXzPIy3-GzgtoIqJcc2Z03fOpDc=s32-c-mo',
-  }
+    username: 'Jahaira',
+    pictureUrl: '/default-avatar.jpg',
+  };
 
   return (
     <header className="flex justify-between items-center border-b-1 border-b-neutral-200 dark:border-b-neutral-700 py-1 mx-2 bg-transparent relative">

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useOrder } from "../forms/OrderForm";
 import CopyIcon from "@/app/ui/forms/icons/copy.svg";
+import WhatsAppIcon from "@/app/ui/forms/icons/whatsapp.svg";
 
 export function OrderRestante({ order }) {
   const { orderTotals } = useOrder();
@@ -19,13 +20,14 @@ export function OrderRestante({ order }) {
   const ordereRestanteTotal = orderEnvio + saldo;
   const ordereRestanteTotalCordobas = ordereRestanteTotal * orderRestante.Cambio_dolar;
 
-  const handleCopyToClipboard = async () => {
-    const textToCopy = `Hola ${order.Nombre}, ya está tu pedido listo para entregar 🥰.\n` +
-                       `El paquete pesó ${orderPeso.toFixed(3)} libras, en dólares $${orderEnvio.toFixed(2)}.\n` +
-                       `${saldo > 0 ? `El restante es de $${saldo.toFixed(2)}.\nEn total $${ordereRestanteTotal.toFixed(2)}, en córdobas C$${ordereRestanteTotalCordobas.toFixed(2)} 🥰` : `En córdobas C$${ordereRestanteTotalCordobas.toFixed(2)} 🥰`}`;
+  const message =
+    `Hola ${order.Nombre}, ya está tu pedido listo para entregar 🥰.\n` +
+    `El paquete pesó ${orderPeso.toFixed(3)} libras, en dólares $${orderEnvio.toFixed(2)}.\n` +
+    `${saldo > 0 ? `El restante es de $${saldo.toFixed(2)}.\nEn total *$${ordereRestanteTotal.toFixed(2)}*, en córdobas *C$${ordereRestanteTotalCordobas.toFixed(2)}* 🥰` : `En córdobas *C$${ordereRestanteTotalCordobas.toFixed(2)}* 🥰`}`;
 
+  const handleCopyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(textToCopy);
+      await navigator.clipboard.writeText(message);
       alert('Texto copiado al portapapeles');
     } catch (err) {
       console.error('Failed to copy text: ', err);
@@ -54,12 +56,22 @@ export function OrderRestante({ order }) {
             <p className="text-xs text-center">{`En córdobas C$${ordereRestanteTotalCordobas.toFixed(2)} 🥰`}</p>
           }
         </div>
-        <FormOption
-          label="Copiar"
-          action={handleCopyToClipboard}
-        >
-          <CopyIcon className="size-5" />
-        </FormOption>
+        <div className="flex gap-2">
+          <FormOption
+            label="Copiar"
+            action={handleCopyToClipboard}
+          >
+            <CopyIcon className="size-5" />
+          </FormOption>
+          {order.Telefono && (
+            <WhatsAppButton
+              message={message}
+              phoneNumber={order.Telefono}
+              label="Enviar WhatsApp">
+              <WhatsAppIcon className="size-5" />
+            </WhatsAppButton>
+          )}
+        </div>
       </div>
     </section>
   );
@@ -109,4 +121,23 @@ function FormOption({ label, children, action }) {
       </label>
     </button>
   )
+}
+
+function WhatsAppButton({ children, message, phoneNumber, label }) {
+  const encodedMessage = encodeURIComponent(message);
+  const formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
+  const whatsAppUrl = `https://api.whatsapp.com/send?phone=${formattedPhoneNumber}&text=${encodedMessage}`;
+
+  return (
+    <a
+      href={whatsAppUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex justify-center items-center bg-sky-200 rounded-xl px-3 py-2 cursor-pointer shadow-xs gap-2">
+      {children}
+      <label className="text-xs font-semibold text-black cursor-pointer">
+        {label}
+      </label>
+    </a>
+  );
 }

@@ -8,9 +8,9 @@ import LoadingIcon from '@/app/ui/loading/LoadingIcon';
 
 export default function HeaderProfile() {
   const user = {
-    username: 'Reynaldo',
-    pictureUrl: 'https://lh3.googleusercontent.com/ogw/AF2bZyjG_cSPuxnR0fNtDzSndXzPIy3-GzgtoIqJcc2Z03fOpDc=s32-c-mo',
-  }
+    username: 'Jahaira',
+    pictureUrl: '/default-avatar.jpg',
+  };
 
   const [errorMessage, formAction, isPending] = useActionState(handleLogout, undefined);
 
