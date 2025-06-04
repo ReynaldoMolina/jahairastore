@@ -6,7 +6,7 @@ export function FormContainer({ children, action }) {
   return (
     <form
     action={action}
-    className={`flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-130 p-3 w-full`}>
+    className="flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-170 p-3 w-full h-fit">
       {children}
     </form>
   );

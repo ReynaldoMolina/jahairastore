@@ -20,6 +20,8 @@ export default async function Page(props) {
   }
  
   return (
-    <ProductEdit product={data} />
+    <section className="flex grow overflow-y-scroll h-0">
+      <ProductEdit product={data} />
+    </section>
   );
 }

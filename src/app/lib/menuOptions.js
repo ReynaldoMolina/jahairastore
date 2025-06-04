@@ -1,7 +1,3 @@
-import getDate from "./getDate";
-
-const currentDate = getDate();
-
 export const menuOptions = [
   {
     id: 0,
@@ -28,14 +24,14 @@ export const menuOptions = [
     id: 3,
     name: "Recibos",
     path: '/receipts',
-    url: `/receipts?query=${currentDate}`,
+    url: "/receipts",
     divider: true
   },
   {
     id: 4,
     name: "Productos",
     path: '/products',
-    url: `/products?query=${currentDate}`,
+    url: "/products",
     divider: false
   },
   {

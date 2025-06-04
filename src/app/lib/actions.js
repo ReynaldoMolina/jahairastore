@@ -258,15 +258,18 @@ export async function createProduct(formData) {
     Precio_venta: Number(formData.get('Precio_venta')),
     Id_categoria: Number(formData.get('Id_categoria')),
     Fecha_agregado: formData.get('Fecha_agregado'),
-    Id_shein: formData.get('Id_shein')
+    Id_shein: formData.get('Id_shein'),
+    Inventario: formData.get('Inventario') === 'on' ? true : false,
+    Cambio_dolar: Number(formData.get('Cambio_dolar')) || null,
   }  
 
   try {
     await sql`
-      INSERT INTO "Productos" ("Id_proveedor", "Nombre", "Descripcion", "Precio_compra", "Precio_venta", "Id_categoria", "Fecha_agregado", "Id_shein")
-      VALUES (${data.Id_proveedor}, ${data.Nombre}, ${data.Descripcion}, ${data.Precio_compra}, ${data.Precio_venta}, ${data.Id_categoria}, ${data.Fecha_agregado}, ${data.Id_shein})
+      INSERT INTO "Productos" ("Id_proveedor", "Nombre", "Descripcion", "Precio_compra", "Precio_venta", "Id_categoria", "Fecha_agregado", "Id_shein", "Inventario", "Cambio_dolar")
+      VALUES (${data.Id_proveedor}, ${data.Nombre}, ${data.Descripcion}, ${data.Precio_compra}, ${data.Precio_venta}, ${data.Id_categoria}, ${data.Fecha_agregado}, ${data.Id_shein}, ${data.Inventario}, ${data.Cambio_dolar})
     `;
   } catch (error) {
+    console.error(error);
     throw new Error('No se pudo crear el producto');
   }
 
@@ -283,16 +286,19 @@ export async function updateProduct(id, formData) {
     Precio_venta: Number(formData.get('Precio_venta')),
     Id_categoria: Number(formData.get('Id_categoria')),
     Fecha_agregado: formData.get('Fecha_agregado'),
-    Id_shein: formData.get('Id_shein')
+    Id_shein: formData.get('Id_shein'),
+    Inventario: formData.get('Inventario') === 'on' ? true : false,
+    Cambio_dolar: Number(formData.get('Cambio_dolar')) || null,
   }
-
+  
   try {
     await sql`
       UPDATE "Productos"
-      SET "Id_proveedor" = ${data.Id_proveedor}, "Nombre" = ${data.Nombre}, "Descripcion" = ${data.Descripcion}, "Precio_compra" = ${data.Precio_compra}, "Precio_venta" = ${data.Precio_venta}, "Id_categoria" = ${data.Id_categoria}, "Fecha_agregado" = ${data.Fecha_agregado}, "Id_shein" = ${data.Id_shein}
+      SET "Id_proveedor" = ${data.Id_proveedor}, "Nombre" = ${data.Nombre}, "Descripcion" = ${data.Descripcion}, "Precio_compra" = ${data.Precio_compra}, "Precio_venta" = ${data.Precio_venta}, "Id_categoria" = ${data.Id_categoria}, "Fecha_agregado" = ${data.Fecha_agregado}, "Id_shein" = ${data.Id_shein}, "Inventario" = ${data.Inventario}, "Cambio_dolar" = ${data.Cambio_dolar}
       WHERE "Id_producto" = ${id}
     `;
   } catch (error) {
+    console.error(error);
     throw new Error('No se pudo actualizar el producto');
   }
 

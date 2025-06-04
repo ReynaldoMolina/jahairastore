@@ -6,6 +6,8 @@ export const metadata = {
  
 export default async function Page() {
   return (
-    <ProductCreate />
+    <section className="flex grow overflow-y-scroll h-0">
+      <ProductCreate />
+    </section>
   );
 }

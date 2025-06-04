@@ -23,7 +23,7 @@ export function ReceiptCreate({ searchParams }) {
         <ReceiptPayment inicialbal={inicialbal} abono={abono} />
       </FormDiv>
       <FormInput name="Concepto" holder="Descripción" value="" required={false} />
-      <FormButtons link={`/receipts?query=${currentDate}`} label={'Crear'} />
+      <FormButtons link="/receipts" label={'Crear'} />
     </FormContainer>
   );
 }
@@ -47,7 +47,7 @@ export function ReceiptEdit({ receipt, receiptpdf }) {
 
       <ReceiptOptions receipt={receiptpdf} />
 
-      <FormButtons link={`/receipts?query=${currentDate}`} label={'Guardar'} />
+      <FormButtons link="/receipts" label={'Guardar'} />
     </FormContainer>
   );
 }

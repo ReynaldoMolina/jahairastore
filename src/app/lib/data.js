@@ -393,6 +393,8 @@ export async function getProductById(id) {
         "Precio_compra",
         "Precio_venta",
         "Id_categoria",
+        "Inventario",
+        "Cambio_dolar",
         TO_CHAR("Fecha_agregado", 'YYYY-MM-DD') AS "Fecha",
         "Id_shein",
         "Precio_venta" - "Precio_compra" AS "Ganancia"
