@@ -67,7 +67,7 @@ export function OrderRestante({ order }) {
             <WhatsAppButton
               message={message}
               phoneNumber={order.Telefono}
-              label="Enviar WhatsApp">
+              label="Enviar">
               <WhatsAppIcon className="size-5" />
             </WhatsAppButton>
           )}

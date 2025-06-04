@@ -1,12 +1,12 @@
 'use client';
 
-import { useOrder } from "@/app/ui/forms/OrderForm";
+import { usePurchase } from "@/app/ui/forms/PurchaseForm";
 import Unchecked from "@/app/ui/orderForm/checkbox-blank.svg";
 import Checked from "@/app/ui/orderForm/checkbox-checked.svg";
-import { getOrderTotals } from "@/app/lib/getTotals";
+import { getPurchasesTotals } from "@/app/lib/getTotals";
 
 export default function AddProduct({ product }) {
-  const { productList, setProductList, setOrderTotals } = useOrder();
+  const { productList, setProductList, setPurchaseTotals } = usePurchase();
   
   function addProduct() {
     const newProduct = {
@@ -14,16 +14,17 @@ export default function AddProduct({ product }) {
       Nombre: product.Nombre,
       Precio_venta: product.Precio_venta,
       Precio_compra: product.Precio_compra,
-      Cantidad_venta: 1,
+      Cantidad_compra: 1,
+      Cambio_dolar: product.Cambio_dolar,
     };
     setProductList([...productList, { ...newProduct }]);
-    setOrderTotals(getOrderTotals([...productList, newProduct]));
+    setPurchaseTotals(getPurchasesTotals([...productList, newProduct]));
   }
 
   function deleteProduct() {
       const newList = productList.filter(e => e.Id_producto !== product.Id_producto);
       setProductList(newList);
-      setOrderTotals(getOrderTotals(newList));
+      setPurchaseTotals(getPurchasesTotals(newList));
     }
 
   const isInList = productList.some(p => p.Id_producto === product.Id_producto);

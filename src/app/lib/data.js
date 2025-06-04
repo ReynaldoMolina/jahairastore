@@ -382,6 +382,39 @@ export async function getProducts(query, currentPage) {
   }
 }
 
+export async function getProductsInventario(query, currentPage) {
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const data = await sql`
+      SELECT
+        "Id_producto",
+        "Nombre",
+        "Precio_compra",
+        "Precio_venta",
+        "Cambio_dolar",
+        "Inventario",
+        "Precio_venta" - "Precio_compra" AS "Ganancia",
+        TO_CHAR("Fecha_agregado", 'YYYY-MM-DD') AS "Fecha"
+      FROM "Productos"
+      WHERE (
+        (
+          "Id_producto"::text || ' ' ||
+          "Nombre" || ' ' ||
+          "Fecha_agregado"::text
+        ) ILIKE ${`%${query}%`}
+      )
+        AND "Inventario" = true
+      ORDER BY "Id_producto" DESC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+    return data;
+    
+  } catch (error) {
+    throw new Error('No se pudieron obtener los productos');
+  }
+}
+
 export async function getProductById(id) {
   try {
     const data = await sql`
@@ -419,6 +452,29 @@ export async function getProductsPages(query) {
         "Nombre" || ' ' ||
         "Fecha_agregado"::text
       ) ILIKE ${`%${query}%`}
+    `;
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
+    return totalPages;
+    
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudieron obtener los productos');
+  }
+}
+
+export async function getProductsInventarioPages(query) {
+  try {
+    const data = await sql`
+      SELECT COUNT(*)
+      FROM "Productos"
+      WHERE (
+        (
+          "Id_producto"::text || ' ' ||
+          "Nombre" || ' ' ||
+          "Fecha_agregado"::text
+        ) ILIKE ${`%${query}%`}
+      )
+        AND "Inventario" = true
     `;
     const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
     return totalPages;
@@ -656,5 +712,62 @@ export async function getReceiptPdf(id) {
     
   } catch (error) {
     throw new Error('No se pudo obtener el recibo');
+  }
+}
+
+export async function getPurchaseById(id) {
+  try {
+    const data = await sql`
+      WITH
+        GastosTotales AS (
+          SELECT
+            "Id_compra",
+            SUM("Gasto") AS "TotalGasto"
+          FROM "Egresos"
+          WHERE "Id_compra" = ${id}
+          GROUP BY "Id_compra"
+        )
+
+      SELECT
+        "Compras"."Id_compra",
+        "Compras"."Id_proveedor",
+        TO_CHAR("Compras"."Fecha_compra", 'YYYY-MM-DD') AS "Fecha",
+        "Proveedores"."Nombre_empresa",
+        COALESCE(GastosTotales."TotalGasto", 0) AS "TotalGasto"
+
+      FROM "Compras"
+        JOIN "Proveedores" ON "Compras"."Id_proveedor" = "Proveedores"."Id_proveedor"
+        LEFT JOIN GastosTotales ON "Compras"."Id_compra" = GastosTotales."Id_compra"
+      
+      WHERE "Compras"."Id_compra" = ${id}
+    `;
+    return data[0];
+    
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudo obtener la compra');
+  }
+}
+
+export async function getPurchaseDetailById(id) {
+  try {
+    const data = await sql`
+      SELECT
+        "ComprasDetalles"."Id_detalle",
+        "ComprasDetalles"."Id_compra",
+        "ComprasDetalles"."Id_producto",
+        "ComprasDetalles"."Precio_compra",
+        "ComprasDetalles"."Cantidad_compra",
+        "ComprasDetalles"."Precio_venta",
+        "ComprasDetalles"."Cambio_dolar",
+        "Productos"."Nombre"
+      FROM "ComprasDetalles"
+        JOIN "Productos" ON "ComprasDetalles"."Id_producto" = "Productos"."Id_producto"
+      WHERE "Id_compra" = ${id}
+    `;
+    return data;
+    
+  } catch (error) {
+    throw new Error('No se pudo obtener el detalle de la compra');
   }
 }

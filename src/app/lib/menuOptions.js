@@ -36,20 +36,27 @@ export const menuOptions = [
   },
   {
     id: 5,
-    name: "Proveedores",
-    path: '/providers',
-    url: '/providers',
-    divider: false
-  },
-  {
-    id: 6,
     name: "Categorías",
     path: '/categories',
     url: '/categories',
     divider: true
   },
   {
+    id: 6,
+    name: "Proveedores",
+    path: '/providers',
+    url: '/providers',
+    divider: false
+  },
+  {
     id: 7,
+    name: "Compras",
+    path: '/purchases',
+    url: '/purchases',
+    divider: true
+  },
+  {
+    id: 8,
     name: "Website",
     path: '/website',
     url: '/website',

@@ -458,3 +458,130 @@ export async function authenticate(prevState, formData) {
 export async function handleLogout() {
   await signOut({ redirectTo: '/' });
 }
+
+export async function createPurchase(formData, productList) {
+  let Id_compra;
+
+  const purchase = {
+    Id_proveedor: Number(formData.get('Id_proveedor')),
+    Fecha_compra: formData.get('Fecha_compra')
+  };
+
+  try {
+    const result = await sql`
+      INSERT INTO "Compras" ("Id_proveedor", "Fecha_compra")
+      VALUES (${purchase.Id_proveedor}, ${purchase.Fecha_compra})
+      RETURNING "Id_compra"
+    `;
+    Id_compra = result[0].Id_compra;
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudo crear la compra');
+  }
+
+  await createPurchaseDetail(Id_compra, productList);
+  
+  redirect(`/purchases/${Id_compra}/edit`);
+}
+
+export async function createPurchaseDetail(Id_compra, productList) {
+  try {
+    const values = productList.map(product => {
+      const { Id_producto, Precio_compra, Cantidad_compra, Precio_venta, Cambio_dolar } = product;
+      return [Id_compra, Id_producto, Precio_compra, Cantidad_compra, Precio_venta, Cambio_dolar];
+    });
+    
+    await sql`
+      INSERT INTO "ComprasDetalles" ("Id_compra", "Id_producto", "Precio_compra", "Cantidad_compra", "Precio_venta", "Cambio_dolar")
+      VALUES ${sql(values)}
+    `;
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudo crear el detalle de la compra');
+  }
+}
+
+export async function updatePurchase(purchaseId, formData, productList, originalList) {
+  const data = {
+    Id_proveedor: Number(formData.get('Id_proveedor')),
+    Fecha_compra: formData.get('Fecha_compra')
+  };
+
+  try {
+    await sql`
+      UPDATE "Compras"
+      SET "Id_proveedor" = ${data.Id_proveedor}, "Fecha_compra" = ${data.Fecha_compra}
+      WHERE "Id_compra" = ${purchaseId}
+    `;
+  } catch (error) {
+    throw new Error('No se pudo actualizar la compra')
+  }
+
+  await updatePurchaseDetail(purchaseId, productList, originalList);
+
+  revalidatePath('/purchases');
+  redirect('/purchases');
+}
+
+export async function updatePurchaseDetail(purchaseId, productList, originalList) {
+  const updates = [];
+  const deletions = [];
+  const creations = [];
+
+  // Check modifications & deletions
+  originalList.forEach(originalProduct => {
+    const updated = productList.find(updatedProduct => updatedProduct.Id_detalle === originalProduct.Id_detalle);
+    
+    if (!updated) {
+      // It was removed
+      deletions.push(originalProduct.Id_detalle);
+    } else if (updated.Cantidad_compra !== originalProduct.Cantidad_compra) {
+      // It was modified
+      updates.push(updated);
+    }
+  });
+
+  // Check new additions
+  productList.forEach(detail => {
+    if (!detail.Id_detalle) {
+      // No ID means it’s new
+      const newDetail = {
+        Id_compra: Number(purchaseId),
+        ...detail
+      }
+      creations.push(newDetail);
+    }
+  });
+
+  try {
+    await Promise.all([
+      // Update existing records
+      ...updates.map(detail =>
+        sql`
+          UPDATE "ComprasDetalles"
+          SET "Cantidad_compra" = ${detail.Cantidad_compra}
+          WHERE "Id_detalle" = ${detail.Id_detalle}
+        `
+      ),
+
+      // Delete removed records
+      ...deletions.map(id =>
+        sql`
+          DELETE FROM "ComprasDetalles"
+          WHERE "Id_detalle" = ${id}
+        `
+      ),
+
+      // Insert new records
+      ...creations.map(detail =>
+        sql`
+          INSERT INTO "ComprasDetalles" ("Id_compra", "Id_producto", "Precio_compra", "Cantidad_compra", "Precio_venta", "Cambio_dolar")
+          VALUES (${detail.Id_compra}, ${detail.Id_producto}, ${detail.Precio_compra}, ${detail.Cantidad_compra}, ${detail.Precio_venta}, ${detail.Cambio_dolar})
+        `
+      )
+    ]);
+  } catch (error) {
+    console.error(error);
+    throw new Error("No se pudieron procesar los detalles de la compra")
+  }
+}

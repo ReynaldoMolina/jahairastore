@@ -3,77 +3,77 @@
 import { useState, createContext, useContext } from "react";
 import Link from "next/link";
 import getDate from "@/app/lib/getDate";
-import { getOrderTotals } from "@/app/lib/getTotals";
+import { getPurchasesTotals } from "@/app/lib/getTotals";
 import ArrowDown from "@/app/ui/orderForm/arrowdown.svg";
 import SearchInput from "@/app/ui/actiontools/SearchInput";
-import { createOrder, updateOrder } from "@/app/lib/actions";
+import { createPurchase, updatePurchase } from "@/app/lib/actions";
 
-const OrderContext = createContext();
+const PurchaseContext = createContext();
 
-export function useOrder() {
-  const context = useContext(OrderContext);
+export function usePurchase() {
+  const context = useContext(PurchaseContext);
   return context;
 }
 
-export function OrderCreate({ children }) {
+export function PurchaseCreate({ children }) {
   const [productList, setProductList] = useState([]);
-  const [orderTotals, setOrderTotals] = useState(getOrderTotals(productList));
+  const [purchaseTotals, setPurchaseTotals] = useState(getPurchasesTotals(productList));
 
-  function handleOrder(formData) {
+  function handlePurchase(formData) {
     if (productList.length === 0) {
-      alert("Agrega productos al pedido");
+      alert("Agrega productos a la compra");
       return;
     }
-    createOrder(formData, productList);
+    createPurchase(formData, productList);
   }
 
   return (
     <form
-      action={handleOrder}
+      action={handlePurchase}
       className="flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-170 p-3 w-full h-fit">
-      <OrderContext.Provider value={{
+      <PurchaseContext.Provider value={{
         productList, setProductList,
-        orderTotals, setOrderTotals
+        purchaseTotals, setPurchaseTotals
       }}>
         {children}
-      </OrderContext.Provider>
+      </PurchaseContext.Provider>
     </form>
   );
 }
 
-export function OrderEdit({ children, orderId, orderdetail }) {
-  const originalList = orderdetail;
-  const [productList, setProductList] = useState(orderdetail);
-  const [orderTotals, setOrderTotals] = useState(getOrderTotals(productList));
+export function PurchaseEdit({ children, purchaseId, purchasedetail }) {
+  const originalList = purchasedetail;
+  const [productList, setProductList] = useState(purchasedetail);
+  const [purchaseTotals, setPurchaseTotals] = useState(getPurchasesTotals(productList));
 
-  function handleOrder(formData) {
+  function handlePurchase(formData) {
     if (productList.length === 0) {
-      alert("Agrega productos al pedido");
+      alert("Agrega productos a la compra");
       return;
     }
-    updateOrder(orderId, formData, productList, originalList);
+    updatePurchase(purchaseId, formData, productList, originalList);
   }
 
   return (
     <form
-      action={handleOrder}
+      action={handlePurchase}
       className="flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-170 p-3 w-full h-fit">
-      <OrderContext.Provider value={{
+      <PurchaseContext.Provider value={{
         productList, setProductList,
-        orderTotals, setOrderTotals
+        purchaseTotals, setPurchaseTotals
       }}>
         {children}
-      </OrderContext.Provider>
+      </PurchaseContext.Provider>
     </form>
   );
 }
 
-export function OrderInfo({ children, date, abono = 0 }) {
+export function PurchaseInfo({ children, date, gastos = 0 }) {
   return (
     <section className="flex flex-col gap-4">
-      <OrderDate date={date} />
+      <PurchaseDate date={date} />
       {children}
-      <OrderSubtotals abono={abono} />
+      <PurchaseSubtotals gastos={gastos} />
     </section>
   );
 }
@@ -97,18 +97,18 @@ export function ProductSearch({ children, open }) {
   );
 }
 
-function OrderDate({ date }) {
+function PurchaseDate({ date }) {
   const currentDate = getDate();
   const newDate = date === "" ? currentDate : date; 
   return (
     <div className="flex flex-col w-full gap-1">
       <label
-        htmlFor="Fecha_del_pedido"
+        htmlFor="Fecha_compra"
         className="w-full text-xs pl-2 font-semibold"
       >Fecha</label>
       <input
-        id="Fecha_del_pedido"
-        name="Fecha_del_pedido"
+        id="Fecha_compra"
+        name="Fecha_compra"
         type="date"
         className="flex bg-gray-100 dark:bg-neutral-700 items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full"
         required
@@ -118,19 +118,20 @@ function OrderDate({ date }) {
   )
 }
 
-function OrderSubtotals({ abono }) {
-  const { orderTotals } = useContext(OrderContext);
+function PurchaseSubtotals({ gastos }) {
+  const { purchaseTotals } = useContext(PurchaseContext);
+  const profit = (purchaseTotals.totalSell - purchaseTotals.totalCost - gastos);
   return (
     <div className="flex w-full items-end gap-3">
-      <OrderFormSpan name="OrderTotal" holder="Total" value={orderTotals.totalSell} type="number" color="bg-neutral-200 dark:bg-neutral-600"/>
-      <OrderFormSpan name="OrderAbono" holder="Abono" value={abono} type="number" color="bg-green-200 dark:bg-green-900" />
-      <OrderFormSpan name="Saldo" holder="Saldo" value={orderTotals.totalSell - abono} type="number"  color="bg-red-200 dark:bg-red-900" />
-      <OrderFormSpan name="Profit" holder="Ganancia" value={orderTotals.totalSell - orderTotals.totalCost} type="number" color="bg-blue-200 dark:bg-blue-900" />
+      <PurchaseFormSpan name="PurchaseTotal" holder="Total venta" value={purchaseTotals.totalSell} type="number" color="bg-green-100 dark:bg-green-900"/>
+      <PurchaseFormSpan name="PurchaseTotalCompra" holder="Total compra" value={purchaseTotals.totalCost} type="number" color="bg-red-100 dark:bg-red-900"/>
+      <PurchaseFormSpan name="PurchaseGastos" holder="Gastos" value={gastos} type="number" color="bg-amber-100 dark:bg-amber-900"/>
+      <PurchaseFormSpan name="Profit" holder="Ganancia" value={profit} type="number" color="bg-blue-100 dark:bg-blue-900" />
     </div>
   );
 }
 
-function OrderFormSpan({ name, holder, value, type = 'text', color = "bg-gray-100 dark:bg-neutral-700 " }) {
+function PurchaseFormSpan({ name, holder, value, color = "bg-gray-100 dark:bg-neutral-700 " }) {
   return (
     <div className="flex flex-col w-full gap-1">
       <label
@@ -142,15 +143,15 @@ function OrderFormSpan({ name, holder, value, type = 'text', color = "bg-gray-10
       <span
         name={name}
         id={name}
-        className={`flex ${color} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full ${type === 'number' ? 'justify-end' : 'justify-start'}`}
+        className={`flex ${color} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full justify-end`}
       >
-        {type === 'text' ? value : value.toFixed(2)}
+        {value.toFixed(2)}
       </span>
     </div>
   )
 }
 
-export function OrderFormButtons({ link, label }) {
+export function PurchaseFormButtons({ link, label }) {
   return (
     <div className="flex w-full justify-center gap-3">
       <Link

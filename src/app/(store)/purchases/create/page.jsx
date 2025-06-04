@@ -1,10 +1,10 @@
-import { FormSelectClient } from "@/app/ui/forms/formInputs";
-import { OrderCreate, OrderFormButtons, OrderInfo, ProductSearch } from "@/app/ui/forms/OrderForm";
-import ProductSearchList from "@/app/ui/orderForm/ProductSearchList";
-import OrderDetail from "@/app/ui/orderForm/OrderDetail";
+import { FormSelectProveedor } from "@/app/ui/forms/formInputs";
+import { PurchaseCreate, PurchaseFormButtons, PurchaseInfo, ProductSearch } from "@/app/ui/forms/PurchaseForm";
+import ProductSearchList from "@/app/ui/purchaseForm/ProductSearchList";
+import PurchaseDetail from "@/app/ui/purchaseForm/PurchaseDetail";
 
 export const metadata = {
-  title: 'Crear pedido'
+  title: 'Crear compra'
 }
  
 export default async function Page(props) {
@@ -12,19 +12,19 @@ export default async function Page(props) {
 
   return (
     <section className="flex grow overflow-y-scroll h-0">
-      <OrderCreate>
-        <OrderInfo date="">
-          <FormSelectClient />
-        </OrderInfo>
+      <PurchaseCreate>
+        <PurchaseInfo date="">
+          <FormSelectProveedor />
+        </PurchaseInfo>
 
         <ProductSearch open={true}>
           <ProductSearchList searchParams={searchParams} />
         </ProductSearch>
 
-        <OrderDetail />
+        <PurchaseDetail />
 
-        <OrderFormButtons link={'/orders?query=debe'} label={'Crear'} />
-      </OrderCreate>
+        <PurchaseFormButtons link={'/purchases'} label={'Crear'} />
+      </PurchaseCreate>
     </section>
   );
 }

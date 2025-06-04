@@ -1,12 +1,12 @@
 'use client';
 
-import { ProductCard } from "@/app/ui/orderForm/ProductCard";
-import CardDelete from "@/app/ui/orderForm/delete.svg";
-import { getOrderTotals } from "@/app/lib/getTotals";
-import { useOrder } from "@/app/ui/forms/OrderForm";
+import { ProductCard } from "@/app/ui/purchaseForm/ProductCard";
+import CardDelete from "@/app/ui/purchaseForm/delete.svg";
+import { getPurchasesTotals } from "@/app/lib/getTotals";
+import { usePurchase } from "@/app/ui/forms/PurchaseForm";
 
-export default function OrderDetail() {
-  const { productList, setProductList, orderTotals, setOrderTotals } = useOrder();
+export default function PurchaseDetail() {
+  const { productList, setProductList, purchaseTotals, setPurchaseTotals } = usePurchase();
 
   function findId(product) {
     const index = productList.findIndex((e) => e.Id_producto === product.Id_producto);
@@ -15,31 +15,31 @@ export default function OrderDetail() {
 
   function addQuantity(product) {
     const newList = productList.map((item, idx) =>
-      idx === findId(product) ? { ...item, Cantidad_venta: item.Cantidad_venta + 1 } : item
+      idx === findId(product) ? { ...item, Cantidad_compra: item.Cantidad_compra + 1 } : item
     )
     setProductList(newList);
-    setOrderTotals(getOrderTotals(newList));
+    setPurchaseTotals(getPurchasesTotals(newList));
   }
 
   function reduceQuantity(product) {
     const newList = productList.map((item, idx) =>
-      idx === findId(product) ? { ...item, Cantidad_venta: item.Cantidad_venta - 1 } : item
+      idx === findId(product) ? { ...item, Cantidad_compra: item.Cantidad_compra - 1 } : item
     )
     setProductList(newList);
-    setOrderTotals(getOrderTotals(newList));
+    setPurchaseTotals(getPurchasesTotals(newList));
   }
 
   function deleteProduct(product) {
     const newList = productList.filter(e => e.Id_producto !== product.Id_producto);
     setProductList(newList);
-    setOrderTotals(getOrderTotals(newList));
+    setPurchaseTotals(getPurchasesTotals(newList));
   }
 
   return (
     <>
       <div className="flex gap-2 rounded-xl flex-col bg-neutral-100 dark:bg-neutral-900 p-2">
 
-        <p className="text-sm font-semibold px-2">Detalle del pedido</p>  
+        <p className="text-sm font-semibold px-2">Detalle de la compra</p>  
 
         <div className="flex flex-col gap-1">
           {productList.length === 0 ? <ProductCardEmpty /> :
@@ -51,10 +51,10 @@ export default function OrderDetail() {
                 className="flex border-1 rounded-xl overflow-hidden border-neutral-200 dark:border-neutral-700">
                 <MinusButton
                   icon="-"
-                  quantity={product.Cantidad_venta}
+                  quantity={product.Cantidad_compra}
                   action={() => reduceQuantity(product)}
                   deleteAction={() => deleteProduct(product)} />
-                <span className="flex justify-center items-center text-xs w-8 py-1">{product.Cantidad_venta}</span>
+                <span className="flex justify-center items-center text-xs w-8 py-1">{product.Cantidad_compra}</span>
                 <QuantityButton
                   icon="+"
                   action={() => addQuantity(product)} />
@@ -63,7 +63,7 @@ export default function OrderDetail() {
           )}
         </div>
 
-        {productList.length > 0 && <OrderTotals orderTotals={orderTotals} />}
+        {productList.length > 0 && <OrderTotals purchaseTotals={purchaseTotals} />}
       </div>
     </>
   );
@@ -99,11 +99,11 @@ function QuantityButton({ icon, action }) {
   );
 }
 
-function OrderTotals({ orderTotals }) {
+function OrderTotals({ purchaseTotals }) {
   return (
     <div className="flex justify-end px-2 items-center gap-3">
-      <span className="flex flex-col text-xs font-semibold">Productos: {orderTotals.items}</span>
-      <span className="flex flex-col text-xs font-semibold">Cantidad: {orderTotals.quantity}</span>
+      <span className="flex flex-col text-xs font-semibold">Productos: {purchaseTotals.items}</span>
+      <span className="flex flex-col text-xs font-semibold">Cantidad: {purchaseTotals.quantity}</span>
     </div>
   );
 }

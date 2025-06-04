@@ -2,7 +2,7 @@
 
 import { useState, createContext } from "react";
 import getDate from "@/app/lib/getDate";
-import getOrderTotals from "@/app/lib/getOrderTotals";
+import getOrderTotals from "@/app/lib/getTotals";
 
 const OrderContext = createContext();
 

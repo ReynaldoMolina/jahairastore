@@ -5,6 +5,7 @@ import Orders from "./orders.svg";
 import Products from "./products.svg";
 import Providers from "./providers.svg";
 import Receipts from "./receipts.svg";
+import Purchases from "./purchases.svg";
 import Website from "./website.svg";
 
 const style = "size-5"
@@ -17,6 +18,7 @@ const icons = {
   "Productos": <Products className={style}/>,
   "Website": <Website className={style}/>,
   "Proveedores": <Providers className={style}/>,
+  "Compras": <Purchases className={style}/>,
   "Recibos": <Receipts className={style}/>,
 };
 

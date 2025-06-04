@@ -8,7 +8,6 @@ import { OrderRestante } from "@/app/ui/orderForm/OrderRestante";
  
 export async function generateMetadata(props) {
   const { id } = await props.params;
-
   return {
     title: `Pedido ${id}`
   }

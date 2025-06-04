@@ -1,46 +1,42 @@
-import { FormId, FormSelectClient } from "@/app/ui/forms/formInputs";
-import { OrderEdit, OrderFormButtons, OrderInfo, ProductSearch } from "@/app/ui/forms/OrderForm";
-import ProductSearchList from "@/app/ui/orderForm/ProductSearchList";
-import OrderDetail from "@/app/ui/orderForm/OrderDetail";
-import { getOrderById, getOrderDetailById } from "@/app/lib/data";
-import { OrderOptions } from "@/app/ui/orderForm/OrderOptions";
-import { OrderRestante } from "@/app/ui/orderForm/OrderRestante";
+import { FormId, FormSelectProveedor } from "@/app/ui/forms/formInputs";
+import { PurchaseEdit, PurchaseFormButtons, PurchaseInfo, ProductSearch } from "@/app/ui/forms/PurchaseForm";
+import ProductSearchList from "@/app/ui/purchaseForm/ProductSearchList";
+import PurchaseDetail from "@/app/ui/purchaseForm/PurchaseDetail";
+import { getPurchaseById, getPurchaseDetailById } from "@/app/lib/data";
+import { PurchaseOptions } from "@/app/ui/purchaseForm/PurchaseOptions";
  
 export async function generateMetadata(props) {
   const { id } = await props.params;
-
   return {
-    title: `Pedido ${id}`
+    title: `Compra ${id}`
   }
 }
 
 export default async function Page(props) {
   const searchParams = await props.searchParams;
   const params = await props.params;
-  const orderId = params.id;
-  const order = await getOrderById(orderId);
-  const orderdetail = await getOrderDetailById(orderId);
+  const purchaseId = params.id;
+  const purchase = await getPurchaseById(purchaseId);
+  const purchasedetail = await getPurchaseDetailById(purchaseId);
 
   return (
     <section className="flex grow overflow-y-scroll h-0">
-      <OrderEdit orderId={orderId} orderdetail={orderdetail}>
-        <FormId holder="Pedido" value={orderId} />
-        <OrderInfo date={order.Fecha} abono={order.TotalAbono}>
-          <FormSelectClient value={order.Id_cliente} />
-        </OrderInfo>
+      <PurchaseEdit purchaseId={purchaseId} purchasedetail={purchasedetail}>
+        <FormId holder="Compra" value={purchaseId} />
+        <PurchaseInfo date={purchase.Fecha} gastos={purchase.TotalGastos}>
+          <FormSelectProveedor value={purchase.Id_proveedor} />
+        </PurchaseInfo>
 
         <ProductSearch open={false}>
           <ProductSearchList searchParams={searchParams} />
         </ProductSearch>
 
-        <OrderDetail />
+        <PurchaseDetail />
 
-        <OrderRestante order={order} />
+        <PurchaseOptions purchase={purchase} />
 
-        <OrderOptions order={order} />
-
-        <OrderFormButtons link={'/orders?query=debe'} label={'Guardar'} />
-      </OrderEdit>
+        <PurchaseFormButtons link={'/purchases'} label={'Guardar'} />
+      </PurchaseEdit>
     </section>
   );
 }
