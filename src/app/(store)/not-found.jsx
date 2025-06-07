@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import NotFoundIcon from '@/app/ui/error/notfound.svg';
+import NotFoundIcon from '@/app/ui/icons/notfound.svg';
  
 export default function NotFound() {
   return (

@@ -3,7 +3,7 @@ import { List, ListCard, ListId, ListName, ListInfo } from "@/app/ui/lists/lists
 import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
 
-export default async function Clients({ query, currentPage }) {
+export default async function Categories({ query, currentPage }) {
   const data = await getCategories(query, currentPage);
   const totalPages = await getCategoriesPages(query);
 
@@ -13,12 +13,12 @@ export default async function Clients({ query, currentPage }) {
     <List>
       {data.map(register => (
         <ListCard
-          key={register.Id_categoria}
-          href={`/categories/${register.Id_categoria}/edit`}
+          key={register.Id}
+          href={`/categorias/${register.Id}`}
         >
-          <ListId id={register.Id_categoria}/>
+          <ListId id={register.Id}/>
           <ListInfo>
-            <ListName name={register.Nombre_categoria} />
+            <ListName name={register.Nombre} />
           </ListInfo>
         </ListCard>
       ))}

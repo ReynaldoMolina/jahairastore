@@ -1,0 +1,33 @@
+import { FormSelect, FormId } from "@/app/ui/forms/formInputs";
+import { FormCreate, FormButtons, FormInfo, ProductSearch } from "@/app/ui/forms/RegisterForm";
+import ProductSearchList from "@/app/ui/registerForm/ProductSearchList";
+import FormDetail from "@/app/ui/registerForm/FormDetail";
+import { createOrder } from "@/app/lib/actions";
+
+export const metadata = {
+  title: 'Crear pedido'
+}
+ 
+export default async function Page(props) {
+  const searchParams = await props.searchParams;
+
+  return (
+    <section className="flex grow overflow-y-scroll h-0">
+      <FormCreate createRegister={createOrder} >
+        <FormId holder="Crear pedido" />
+
+        <FormInfo date="" register="orders">
+          <FormSelect value="" name="Id_cliente" label="Cliente" />
+        </FormInfo>
+
+        <ProductSearch open={true}>
+          <ProductSearchList searchParams={searchParams} />
+        </ProductSearch>
+
+        <FormDetail />
+
+        <FormButtons link={'/pedidos?query=debe'} label={'Crear'} />
+      </FormCreate>
+    </section>
+  );
+}

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Logout from './logout.svg';
+import Logout from '@/app/ui/icons/logout.svg';
 import { handleLogout } from '@/app/lib/actions';
 import { useActionState } from 'react';
 import LoadingIcon from '@/app/ui/loading/LoadingIcon';

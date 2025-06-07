@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { bgColors } from "../bgcolors";
 
 export function List({ children }) {
   return (
-    <section className="flex h-0 flex-col grow overflow-y-scroll gap-1 rounded-xl">
+    <section className="flex h-0 flex-col grow overflow-scroll gap-1 rounded-xl">
       {children}
     </section>
   );
@@ -19,16 +20,35 @@ export function ListCard({ children, href }) {
   );
 }
 
+export function ListCardNoLink({ children }) {
+  return (
+    <div
+      className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 items-center shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-700/60"
+    >
+      {children}
+    </div>
+  );
+}
+
 export function ListDate({ date }) {
   return (
     <span className="rounded-xl py-1 px-2 text-center text-xs w-24 border-1 border-neutral-300 dark:border-neutral-500">{date}</span>
   );
 }
 
-export function ListDetail({ detail, color ='', type = "text" }) {
-  const newDetail = type === "number" ? detail.toFixed(2) : detail;
+export function ListDetail({ detail, color = 'gray', type = "number" }) {
+  const value = type === "number" ? detail.toFixed(2) : detail;
+  const textAlign = type === "number" ? "text-right" : "text-center";
+  const bgColor = bgColors[color];
+
   return (
-    <span className={`rounded-xl py-1 px-2 text-xs w-16 md:w-17 ${color}`}>{newDetail}</span>
+    <span className={`rounded-xl py-1 px-2 text-xs w-16 md:w-17 ${bgColor} ${textAlign}`}>{value}</span>
+  );
+}
+
+export function ListDescription({ detail }) {
+  return (
+    <span className="py-1 opacity-60 text-xs md:border-b-1 border-neutral-300 dark:border-neutral-500 text-left w-full max-w-58 truncate">{detail}</span>
   );
 }
 

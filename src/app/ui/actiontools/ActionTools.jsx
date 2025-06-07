@@ -2,7 +2,7 @@
 
 import {usePathname } from "next/navigation";
 import Link from "next/link";
-import Add from "@/app/ui/actiontools/add.svg";
+import Add from "@/app/ui/icons/add.svg";
 import SearchInput from "@/app/ui/actiontools/SearchInput";
 import getDate from "@/app/lib/getDate";
 
@@ -13,8 +13,12 @@ export default function ActionTools({ allowNew = true }) {
   const currentDate = getDate();
   let href = `${pathname}/create`;
 
-  if (pathname === '/orders') {
+  if (pathname === '/pedidos') {
     href = `${pathname}/create?page=1&query=${currentDate}`
+  }
+
+  if (pathname === '/ventas') {
+    href = `${pathname}/create?page=1&query=disponibles`
   }
   
   return (

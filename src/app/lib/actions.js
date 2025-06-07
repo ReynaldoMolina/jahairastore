@@ -29,8 +29,8 @@ export async function createClient(formData) {
     throw new Error('No se pudo crear el cliente');
   }
 
-  revalidatePath('/clients');
-  redirect('/clients');
+  revalidatePath('/clientes');
+  redirect('/clientes');
 }
 
 export async function updateClient(id, formData) {
@@ -51,14 +51,14 @@ export async function updateClient(id, formData) {
     await sql`
       UPDATE "Clientes"
       SET "Nombre" = ${data.Nombre}, "Apellido" = ${data.Apellido}, "Telefono" = ${data.Telefono}, "Municipio" = ${data.Municipio}, "Departamento" = ${data.Departamento}, "Pais" =  ${data.Pais}, "Direccion" = ${data.Direccion}
-      WHERE "Id_cliente" = ${id}
+      WHERE "Id" = ${id}
     `;
   } catch (error) {
     throw new Error('No se pudo actualizar el cliente')
   }
 
-  revalidatePath('/clients');
-  redirect('/clients');
+  revalidatePath('/clientes');
+  redirect('/clientes');
 }
 
 export async function createProvider(formData) {
@@ -84,8 +84,8 @@ export async function createProvider(formData) {
     throw new Error('No se pudo crear el proveedor');
   }
 
-  revalidatePath('/providers');
-  redirect('/providers');
+  revalidatePath('/proveedores');
+  redirect('/proveedores');
 }
 
 export async function updateProvider(id, formData) {
@@ -106,55 +106,56 @@ export async function updateProvider(id, formData) {
     await sql`
       UPDATE "Proveedores"
       SET "Nombre_empresa" = ${data.Nombre_empresa}, "Nombre_contacto" = ${data.Nombre_contacto}, "Telefono" = ${data.Telefono}, "Departamento" = ${data.Departamento}, "Municipio" = ${data.Municipio}, "Pais" =  ${data.Pais}, "Direccion" = ${data.Direccion}
-      WHERE "Id_proveedor" = ${id}
+      WHERE "Id" = ${id}
     `;
   } catch (error) {
+    console.error(error);
     throw new Error('No se pudo actualizar el proveedor')
   }
 
-  revalidatePath('/providers');
-  redirect('/providers');
+  revalidatePath('/proveedores');
+  redirect('/proveedores');
 }
 
 export async function createCategory(formData) {
   const data = {
-    Nombre_categoria: formData.get('Nombre_categoria'),
+    Nombre: formData.get('Nombre'),
   }
 
   try {
     await sql`
-      INSERT INTO "Categoria_productos" ("Nombre_categoria")
-      VALUES (${data.Nombre_categoria})
+      INSERT INTO "Categorias" ("Nombre")
+      VALUES (${data.Nombre})
     `;
   } catch (error) {
     throw new Error('No se pudo crear la categoría');
   }
 
-  revalidatePath('/categories');
-  redirect('/categories');
+  revalidatePath('/categorias');
+  redirect('/categorias');
 }
 
 export async function updateCategory(id, formData) {
   const data = {
-    Nombre_categoria: formData.get('Nombre_categoria'),
+    Nombre: formData.get('Nombre'),
   }
 
   try {
     await sql`
-      UPDATE "Categoria_productos"
-      SET "Nombre_categoria" = ${data.Nombre_categoria}
-      WHERE "Id_categoria" = ${id}
+      UPDATE "Categorias"
+      SET "Nombre" = ${data.Nombre}
+      WHERE "Id" = ${id}
     `;
   } catch (error) {
     throw new Error('No se pudo actualizar la categoría')
   }
 
-  revalidatePath('/categories');
-  redirect('/categories');
+  revalidatePath('/categorias');
+  redirect('/categorias');
 }
 
 export async function createReceipt(formData) {
-  let Id_venta;
+  let Id_recibo;
 
   const data = {
     Id_pedido: Number(formData.get('Id_pedido')),
@@ -167,21 +168,18 @@ export async function createReceipt(formData) {
 
   try {
     const result = await sql`
-      INSERT INTO "Ventas" ("Id_pedido", "Id_cliente", "Fecha", "Abono", "Saldo", "Concepto")
+      INSERT INTO "Recibos" ("Id_pedido", "Id_cliente", "Fecha", "Abono", "Saldo", "Concepto")
       VALUES (${data.Id_pedido}, ${data.Id_cliente}, ${data.Fecha}, ${data.Abono}, ${data.Saldo}, ${data.Concepto})
-      RETURNING "Id_venta"
+      RETURNING "Id"
     `;
-    console.log(result[0]);
     
-    Id_venta = result[0].Id_venta;
-
-    console.log(Id_venta);
+    Id_recibo = result[0].Id;
     
   } catch (error) {
     throw new Error('No se pudo crear el recibo');
   }
 
-  redirect(`/receipts/${Id_venta}/edit`);
+  redirect(`/recibos/${Id_recibo}`);
 }
 
 export async function updateReceipt(id, formData) {
@@ -196,31 +194,32 @@ export async function updateReceipt(id, formData) {
 
   try {
     await sql`
-      UPDATE "Ventas"
+      UPDATE "Recibos"
       SET "Id_pedido" = ${data.Id_pedido}, "Id_cliente" = ${data.Id_cliente}, "Fecha" = ${data.Fecha}, "Abono" = ${data.Abono}, "Saldo" =  ${data.Saldo}, "Concepto" = ${data.Concepto}
-      WHERE "Id_venta" = ${id}
+      WHERE "Id" = ${id}
     `;
   } catch (error) {
     throw new Error('No se pudo actualizar el recibo')
   }
 
-  revalidatePath('/receipts');
-  redirect('/receipts');
+  revalidatePath('/recibos');
+  redirect('/recibos');
 }
 
 export async function createWebsiteProduct(formData) {
   const data = {
-    name: formData.get('name'),
-    price: Number(formData.get('price')),
-    image: formData.get('image'),
+    Nombre: formData.get('Nombre'),
+    Precio: Number(formData.get('Precio')),
+    Imagen: formData.get('Imagen'),
   }
 
   try {
     await sql`
-      INSERT INTO "ProductsPage" ("name", "price", "image")
-      VALUES (${data.name}, ${data.price}, ${data.image})
+      INSERT INTO "ProductsPage" ("Nombre", "Precio", "Imagen")
+      VALUES (${data.Nombre}, ${data.Precio}, ${data.Imagen})
     `;
   } catch (error) {
+    console.error(error);
     throw new Error('No se pudo crear el producto');
   }
 
@@ -230,16 +229,16 @@ export async function createWebsiteProduct(formData) {
 
 export async function updateWebsiteProduct(id, formData) {
   const data = {
-    name: formData.get('name'),
-    price: Number(formData.get('price')),
-    image: formData.get('image'),
+    Nombre: formData.get('Nombre'),
+    Precio: Number(formData.get('Precio')),
+    Imagen: formData.get('Imagen'),
   }
 
   try {
     await sql`
       UPDATE "ProductsPage"
-      SET "name" = ${data.name}, "price" = ${data.price}, "image" = ${data.image}
-      WHERE "id" = ${id}
+      SET "Nombre" = ${data.Nombre}, "Precio" = ${data.Precio}, "Imagen" = ${data.Imagen}
+      WHERE "Id" = ${id}
     `;
   } catch (error) {
     throw new Error('No se pudo actualizar el producto')
@@ -257,7 +256,7 @@ export async function createProduct(formData) {
     Precio_compra: Number(formData.get('Precio_compra')),
     Precio_venta: Number(formData.get('Precio_venta')),
     Id_categoria: Number(formData.get('Id_categoria')),
-    Fecha_agregado: formData.get('Fecha_agregado'),
+    Fecha: formData.get('Fecha'),
     Id_shein: formData.get('Id_shein'),
     Inventario: formData.get('Inventario') === 'on' ? true : false,
     Cambio_dolar: Number(formData.get('Cambio_dolar')) || null,
@@ -265,16 +264,16 @@ export async function createProduct(formData) {
 
   try {
     await sql`
-      INSERT INTO "Productos" ("Id_proveedor", "Nombre", "Descripcion", "Precio_compra", "Precio_venta", "Id_categoria", "Fecha_agregado", "Id_shein", "Inventario", "Cambio_dolar")
-      VALUES (${data.Id_proveedor}, ${data.Nombre}, ${data.Descripcion}, ${data.Precio_compra}, ${data.Precio_venta}, ${data.Id_categoria}, ${data.Fecha_agregado}, ${data.Id_shein}, ${data.Inventario}, ${data.Cambio_dolar})
+      INSERT INTO "Productos" ("Id_proveedor", "Nombre", "Descripcion", "Precio_compra", "Precio_venta", "Id_categoria", "Fecha", "Id_shein", "Inventario", "Cambio_dolar")
+      VALUES (${data.Id_proveedor}, ${data.Nombre}, ${data.Descripcion}, ${data.Precio_compra}, ${data.Precio_venta}, ${data.Id_categoria}, ${data.Fecha}, ${data.Id_shein}, ${data.Inventario}, ${data.Cambio_dolar})
     `;
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo crear el producto');
   }
 
-  revalidatePath('/products');
-  redirect('/products');
+  revalidatePath('/productos');
+  redirect('/productos');
 }
 
 export async function updateProduct(id, formData) {
@@ -285,7 +284,7 @@ export async function updateProduct(id, formData) {
     Precio_compra: Number(formData.get('Precio_compra')),
     Precio_venta: Number(formData.get('Precio_venta')),
     Id_categoria: Number(formData.get('Id_categoria')),
-    Fecha_agregado: formData.get('Fecha_agregado'),
+    Fecha: formData.get('Fecha'),
     Id_shein: formData.get('Id_shein'),
     Inventario: formData.get('Inventario') === 'on' ? true : false,
     Cambio_dolar: Number(formData.get('Cambio_dolar')) || null,
@@ -294,16 +293,16 @@ export async function updateProduct(id, formData) {
   try {
     await sql`
       UPDATE "Productos"
-      SET "Id_proveedor" = ${data.Id_proveedor}, "Nombre" = ${data.Nombre}, "Descripcion" = ${data.Descripcion}, "Precio_compra" = ${data.Precio_compra}, "Precio_venta" = ${data.Precio_venta}, "Id_categoria" = ${data.Id_categoria}, "Fecha_agregado" = ${data.Fecha_agregado}, "Id_shein" = ${data.Id_shein}, "Inventario" = ${data.Inventario}, "Cambio_dolar" = ${data.Cambio_dolar}
-      WHERE "Id_producto" = ${id}
+      SET "Id_proveedor" = ${data.Id_proveedor}, "Nombre" = ${data.Nombre}, "Descripcion" = ${data.Descripcion}, "Precio_compra" = ${data.Precio_compra}, "Precio_venta" = ${data.Precio_venta}, "Id_categoria" = ${data.Id_categoria}, "Fecha" = ${data.Fecha}, "Id_shein" = ${data.Id_shein}, "Inventario" = ${data.Inventario}, "Cambio_dolar" = ${data.Cambio_dolar}
+      WHERE "Id" = ${id}
     `;
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo actualizar el producto');
   }
 
-  revalidatePath('/products');
-  redirect('/products');
+  revalidatePath('/productos');
+  redirect('/productos');
 }
 
 export async function createOrder(formData, productList) {
@@ -311,7 +310,7 @@ export async function createOrder(formData, productList) {
 
   const order = {
     Id_cliente: Number(formData.get('Id_cliente')),
-    Fecha_del_pedido: formData.get('Fecha_del_pedido'),
+    Fecha: formData.get('Fecha'),
     Peso: 0,
     Cambio_dolar: 37,
     Precio_libra: 3
@@ -319,35 +318,35 @@ export async function createOrder(formData, productList) {
 
   try {
     const result = await sql`
-      INSERT INTO "Pedidos" ("Id_cliente", "Fecha_del_pedido", "Peso", "Cambio_dolar", "Precio_libra")
-      VALUES (${order.Id_cliente}, ${order.Fecha_del_pedido}, ${order.Peso}, ${order.Cambio_dolar}, ${order.Precio_libra})
-      RETURNING "Id_pedido"
+      INSERT INTO "Pedidos" ("Id_cliente", "Fecha", "Peso", "Cambio_dolar", "Precio_libra")
+      VALUES (${order.Id_cliente}, ${order.Fecha}, ${order.Peso}, ${order.Cambio_dolar}, ${order.Precio_libra})
+      RETURNING "Id"
     `;
-    Id_pedido = result[0].Id_pedido;
+    Id_pedido = result[0].Id;
   } catch (error) {
     console.error(error);
-    
     throw new Error('No se pudo crear el pedido');
   }
 
   await createOrderDetail(Id_pedido, productList);
   
-  // revalidatePath('/orders');
-  redirect(`/orders/${Id_pedido}/edit`);
+  // revalidatePath('/pedidos');
+  redirect(`/pedidos/${Id_pedido}`);
 }
 
 export async function createOrderDetail(Id_pedido, productList) {
   try {
     const values = productList.map(product => {
-      const { Id_producto, Precio_venta, Precio_compra, Cantidad_venta } = product;
-      return [Id_pedido, Id_producto, Precio_venta, Precio_compra, Cantidad_venta];
+      const { Id, Precio_venta, Precio_compra, Cantidad } = product;
+      return [Id_pedido, Id, Precio_venta, Precio_compra, Cantidad];
     });
     
     await sql`
-      INSERT INTO "PedidosDetalles" ("Id_pedido", "Id_producto", "Precio_venta", "Precio_compra", "Cantidad_venta")
+      INSERT INTO "PedidosDetalles" ("Id_pedido", "Id_producto", "Precio_venta", "Precio_compra", "Cantidad")
       VALUES ${sql(values)}
     `;
   } catch (error) {
+    console.error(error);
     throw new Error('No se pudo crear el detalle del pedido');
   }
 }
@@ -355,26 +354,27 @@ export async function createOrderDetail(Id_pedido, productList) {
 export async function updateOrder(orderId, formData, productList, originalList) {
   const data = {
     Id_cliente: Number(formData.get('Id_cliente')),
-    Fecha_del_pedido: formData.get('Fecha_del_pedido'),
+    Fecha: formData.get('Fecha'),
     Peso: Number(formData.get('Peso')),
     Cambio_dolar: Number(formData.get('Cambio_dolar')),
     Precio_libra: Number(formData.get('Precio_libra'))
   };
-
+  
   try {
     await sql`
       UPDATE "Pedidos"
-      SET "Id_cliente" = ${data.Id_cliente}, "Fecha_del_pedido" = ${data.Fecha_del_pedido}, "Peso" = ${data.Peso}, "Cambio_dolar" = ${data.Cambio_dolar}, "Precio_libra" = ${data.Precio_libra}
-      WHERE "Id_pedido" = ${orderId}
+      SET "Id_cliente" = ${data.Id_cliente}, "Fecha" = ${data.Fecha}, "Peso" = ${data.Peso}, "Cambio_dolar" = ${data.Cambio_dolar}, "Precio_libra" = ${data.Precio_libra}
+      WHERE "Id" = ${orderId}
     `;
   } catch (error) {
+    console.error(error);
     throw new Error('No se pudo actualizar el pedido')
   }
 
   await updateOrderDetail(orderId, productList, originalList);
 
-  revalidatePath('/orders');
-  redirect('/orders');
+  revalidatePath('/pedidos');
+  redirect('/pedidos');
 }
 
 export async function updateOrderDetail(orderId, productList, originalList) {
@@ -383,13 +383,13 @@ export async function updateOrderDetail(orderId, productList, originalList) {
   const creations = [];
 
   // Check modifications & deletions
-  originalList.forEach(originalProduct => {
-    const updated = productList.find(updatedProduct => updatedProduct.Id_detalle === originalProduct.Id_detalle);
+  originalList.forEach(originalDetail => {
+    const updated = productList.find(updatedDetail => updatedDetail.Id === originalDetail.Id);
     
     if (!updated) {
       // It was removed
-      deletions.push(originalProduct.Id_detalle);
-    } else if (updated.Cantidad_venta !== originalProduct.Cantidad_venta) {
+      deletions.push(originalDetail.Id);
+    } else if (updated.Cantidad !== originalDetail.Cantidad) {
       // It was modified
       updates.push(updated);
     }
@@ -397,7 +397,7 @@ export async function updateOrderDetail(orderId, productList, originalList) {
 
   // Check new additions
   productList.forEach(detail => {
-    if (!detail.Id_detalle) {
+    if (!detail.Id) {
       // No ID means it’s new
       const newDetail = {
         Id_pedido: Number(orderId),
@@ -413,8 +413,8 @@ export async function updateOrderDetail(orderId, productList, originalList) {
       ...updates.map(detail =>
         sql`
           UPDATE "PedidosDetalles"
-          SET "Cantidad_venta" = ${detail.Cantidad_venta}
-          WHERE "Id_detalle" = ${detail.Id_detalle}
+          SET "Cantidad" = ${detail.Cantidad}
+          WHERE "Id" = ${detail.Id}
         `
       ),
 
@@ -422,19 +422,20 @@ export async function updateOrderDetail(orderId, productList, originalList) {
       ...deletions.map(id =>
         sql`
           DELETE FROM "PedidosDetalles"
-          WHERE "Id_detalle" = ${id}
+          WHERE "Id" = ${id}
         `
       ),
 
       // Insert new records
       ...creations.map(detail =>
         sql`
-          INSERT INTO "PedidosDetalles" ("Id_pedido", "Id_producto", "Precio_venta", "Precio_compra", "Cantidad_venta")
-          VALUES (${detail.Id_pedido}, ${detail.Id_producto}, ${detail.Precio_venta}, ${detail.Precio_compra}, ${detail.Cantidad_venta})
+          INSERT INTO "PedidosDetalles" ("Id_pedido", "Id_producto", "Precio_venta", "Precio_compra", "Cantidad")
+          VALUES (${detail.Id_pedido}, ${detail.Id_producto}, ${detail.Precio_venta}, ${detail.Precio_compra}, ${detail.Cantidad})
         `
       )
     ]);
   } catch (error) {
+    console.error(error);
     throw new Error("No se pudieron procesar los detalles del pedido")
   }
 }
@@ -464,13 +465,13 @@ export async function createPurchase(formData, productList) {
 
   const purchase = {
     Id_proveedor: Number(formData.get('Id_proveedor')),
-    Fecha_compra: formData.get('Fecha_compra')
+    Fecha: formData.get('Fecha')
   };
 
   try {
     const result = await sql`
-      INSERT INTO "Compras" ("Id_proveedor", "Fecha_compra")
-      VALUES (${purchase.Id_proveedor}, ${purchase.Fecha_compra})
+      INSERT INTO "Compras" ("Id_proveedor", "Fecha")
+      VALUES (${purchase.Id_proveedor}, ${purchase.Fecha})
       RETURNING "Id_compra"
     `;
     Id_compra = result[0].Id_compra;
@@ -481,18 +482,18 @@ export async function createPurchase(formData, productList) {
 
   await createPurchaseDetail(Id_compra, productList);
   
-  redirect(`/purchases/${Id_compra}/edit`);
+  redirect(`/compras/${Id_compra}`);
 }
 
 export async function createPurchaseDetail(Id_compra, productList) {
   try {
     const values = productList.map(product => {
-      const { Id_producto, Precio_compra, Cantidad_compra, Precio_venta, Cambio_dolar } = product;
-      return [Id_compra, Id_producto, Precio_compra, Cantidad_compra, Precio_venta, Cambio_dolar];
+      const { Id_producto, Precio_compra, Cantidad, Precio_venta, Cambio_dolar } = product;
+      return [Id_compra, Id_producto, Precio_compra, Cantidad, Precio_venta, Cambio_dolar];
     });
     
     await sql`
-      INSERT INTO "ComprasDetalles" ("Id_compra", "Id_producto", "Precio_compra", "Cantidad_compra", "Precio_venta", "Cambio_dolar")
+      INSERT INTO "ComprasDetalles" ("Id_compra", "Id_producto", "Precio_compra", "Cantidad", "Precio_venta", "Cambio_dolar")
       VALUES ${sql(values)}
     `;
   } catch (error) {
@@ -504,14 +505,14 @@ export async function createPurchaseDetail(Id_compra, productList) {
 export async function updatePurchase(purchaseId, formData, productList, originalList) {
   const data = {
     Id_proveedor: Number(formData.get('Id_proveedor')),
-    Fecha_compra: formData.get('Fecha_compra')
+    Fecha: formData.get('Fecha')
   };
 
   try {
     await sql`
       UPDATE "Compras"
-      SET "Id_proveedor" = ${data.Id_proveedor}, "Fecha_compra" = ${data.Fecha_compra}
-      WHERE "Id_compra" = ${purchaseId}
+      SET "Id_proveedor" = ${data.Id_proveedor}, "Fecha" = ${data.Fecha}
+      WHERE "Id" = ${purchaseId}
     `;
   } catch (error) {
     throw new Error('No se pudo actualizar la compra')
@@ -519,8 +520,8 @@ export async function updatePurchase(purchaseId, formData, productList, original
 
   await updatePurchaseDetail(purchaseId, productList, originalList);
 
-  revalidatePath('/purchases');
-  redirect('/purchases');
+  revalidatePath('/compras');
+  redirect('/compras');
 }
 
 export async function updatePurchaseDetail(purchaseId, productList, originalList) {
@@ -529,13 +530,13 @@ export async function updatePurchaseDetail(purchaseId, productList, originalList
   const creations = [];
 
   // Check modifications & deletions
-  originalList.forEach(originalProduct => {
-    const updated = productList.find(updatedProduct => updatedProduct.Id_detalle === originalProduct.Id_detalle);
+  originalList.forEach(originalDetail => {
+    const updated = productList.find(updatedDetail => updatedDetail.Id === originalDetail.Id);
     
     if (!updated) {
       // It was removed
-      deletions.push(originalProduct.Id_detalle);
-    } else if (updated.Cantidad_compra !== originalProduct.Cantidad_compra) {
+      deletions.push(originalDetail.Id);
+    } else if (updated.Cantidad !== originalDetail.Cantidad) {
       // It was modified
       updates.push(updated);
     }
@@ -543,7 +544,7 @@ export async function updatePurchaseDetail(purchaseId, productList, originalList
 
   // Check new additions
   productList.forEach(detail => {
-    if (!detail.Id_detalle) {
+    if (!detail.Id) {
       // No ID means it’s new
       const newDetail = {
         Id_compra: Number(purchaseId),
@@ -559,8 +560,8 @@ export async function updatePurchaseDetail(purchaseId, productList, originalList
       ...updates.map(detail =>
         sql`
           UPDATE "ComprasDetalles"
-          SET "Cantidad_compra" = ${detail.Cantidad_compra}
-          WHERE "Id_detalle" = ${detail.Id_detalle}
+          SET "Cantidad" = ${detail.Cantidad}
+          WHERE "Id" = ${detail.Id}
         `
       ),
 
@@ -568,20 +569,109 @@ export async function updatePurchaseDetail(purchaseId, productList, originalList
       ...deletions.map(id =>
         sql`
           DELETE FROM "ComprasDetalles"
-          WHERE "Id_detalle" = ${id}
+          WHERE "Id" = ${id}
         `
       ),
 
       // Insert new records
       ...creations.map(detail =>
         sql`
-          INSERT INTO "ComprasDetalles" ("Id_compra", "Id_producto", "Precio_compra", "Cantidad_compra", "Precio_venta", "Cambio_dolar")
-          VALUES (${detail.Id_compra}, ${detail.Id_producto}, ${detail.Precio_compra}, ${detail.Cantidad_compra}, ${detail.Precio_venta}, ${detail.Cambio_dolar})
+          INSERT INTO "ComprasDetalles" ("Id_compra", "Id_producto", "Precio_compra", "Cantidad", "Precio_venta", "Cambio_dolar")
+          VALUES (${detail.Id_compra}, ${detail.Id_producto}, ${detail.Precio_compra}, ${detail.Cantidad}, ${detail.Precio_venta}, ${detail.Cambio_dolar})
         `
       )
     ]);
   } catch (error) {
     console.error(error);
     throw new Error("No se pudieron procesar los detalles de la compra")
+  }
+}
+
+export async function createExpense(formData) {
+  const data = {
+    Id_compra: Number(formData.get('Id_compra')),
+    Id_proveedor: Number(formData.get('Id_proveedor')),
+    Fecha: formData.get('Fecha'),
+    Gasto: Number(formData.get('Gasto')),
+    Concepto: formData.get('Concepto'),
+    Cambio_dolar: Number(formData.get('Cambio_dolar')),
+  }
+
+  try {
+    await sql`
+      INSERT INTO "Egresos" ("Id_compra", "Id_proveedor", "Fecha", "Gasto", "Concepto", "Cambio_dolar")
+      VALUES (${data.Id_compra}, ${data.Id_proveedor}, ${data.Fecha}, ${data.Gasto}, ${data.Concepto}, ${data.Cambio_dolar})
+    `;
+  } catch (error) {
+    throw new Error('No se pudo crear el gasto');
+  }
+
+  revalidatePath('/gastos');
+  redirect('/gastos');
+}
+
+export async function updateExpense(id, formData) {
+  const data = {
+    Id_compra: Number(formData.get('Id_compra')),
+    Id_proveedor: Number(formData.get('Id_proveedor')),
+    Fecha: formData.get('Fecha'),
+    Gasto: Number(formData.get('Gasto')),
+    Concepto: formData.get('Concepto'),
+    Cambio_dolar: Number(formData.get('Cambio_dolar')),
+  }
+
+  try {
+    await sql`
+      UPDATE "Egresos"
+      SET "Id_compra" = ${data.Id_compra}, "Id_proveedor" = ${data.Id_proveedor}, "Fecha" = ${data.Fecha}, "Gasto" = ${data.Gasto}, "Concepto" = ${data.Concepto}, "Cambio_dolar" =  ${data.Cambio_dolar}
+      WHERE "Id" = ${id}
+    `;
+  } catch (error) {
+    throw new Error('No se pudo actualizar el gasto')
+  }
+
+  revalidatePath('/gastos');
+  redirect('/gastos');
+}
+
+export async function createSale(formData, productList) {
+  let Id_venta;
+
+  const venta = {
+    Id_cliente: Number(formData.get('Id_cliente')),
+    Fecha: formData.get('Fecha'),
+  };
+
+  try {
+    const result = await sql`
+      INSERT INTO "Ventas" ("Id_cliente", "Fecha")
+      VALUES (${venta.Id_cliente}, ${venta.Fecha})
+      RETURNING "Id"
+    `;
+    Id_venta = result[0].Id;
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudo crear el pedido');
+  }
+
+  await createSaleDetail(Id_venta, productList);
+  
+  redirect(`/ventas`);
+}
+
+export async function createSaleDetail(Id_venta, productList) {
+  try {
+    const values = productList.map(product => {
+      const { Id_producto, Precio_venta, Precio_compra, Cantidad, Cambio_dolar } = product;
+      return [Id_producto, Precio_venta, Precio_compra, Cantidad, Cambio_dolar, Id_venta];
+    });
+    
+    await sql`
+      INSERT INTO "VentasDetalles" ("Id_producto", "Precio_venta", "Precio_compra", "Cantidad", "Cambio_dolar", "Id_venta")
+      VALUES ${sql(values)}
+    `;
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudo crear el detalle del pedido');
   }
 }

@@ -1,6 +1,7 @@
 import { getCategoriesSelect, getProvidersSelect, getClientsSelect } from "@/app/lib/data";
 import getDate from "@/app/lib/getDate";
 import Link from "next/link";
+import { bgColors } from "@/app/ui/bgcolors";
 
 export function FormContainer({ children, action }) {
   return (
@@ -36,7 +37,9 @@ export function FormDiv({ children }) {
   );
 }
 
-export function FormInput({ name, holder, value, type = 'text', autocomplete = 'off', required = true, color = "bg-gray-100 dark:bg-neutral-700" }) {
+export function FormInput({ name, holder, value, type = 'text', autocomplete = 'off', required = true, color = "gray" }) {
+  const bgColor = bgColors[color];
+
   return (
     <div className="flex flex-col w-full gap-1">
       <label
@@ -51,7 +54,7 @@ export function FormInput({ name, holder, value, type = 'text', autocomplete = '
         type={type}
         min={0}
         step="0.01"
-        className={`flex ${color} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full`}
+        className={`flex ${bgColor} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full`}
         placeholder={holder}
         autoComplete={autocomplete}
         defaultValue={value}
@@ -61,7 +64,9 @@ export function FormInput({ name, holder, value, type = 'text', autocomplete = '
   )
 }
 
-export function FormSpan({ name, holder, value, type = 'text', color = "bg-gray-100 dark:bg-neutral-700 " }) {
+export function FormSpan({ name, holder, value, type = 'text', color = "gray" }) {
+  const bgColor = bgColors[color];
+
   return (
     <div className="flex flex-col w-full gap-1">
       <label
@@ -73,7 +78,7 @@ export function FormSpan({ name, holder, value, type = 'text', color = "bg-gray-
       <span
         name={name}
         id={name}
-        className={`flex ${color} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full`}
+        className={`flex ${bgColor} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full`}
       >
         {type === 'text' ? value : value.toFixed(2)}
       </span>
@@ -81,26 +86,27 @@ export function FormSpan({ name, holder, value, type = 'text', color = "bg-gray-
   )
 }
 
-export function FormDate({ name, date }) {
+export function FormDate({ date }) {
+  const bgColor = bgColors.gray;
   const currentDate = getDate();
   return (
     <div className="flex flex-col w-full gap-1">
       <label
-        htmlFor={name}
+        htmlFor="Fecha"
         className="w-full text-xs pl-2 font-semibold"
       >Fecha</label>
       <input
-        id={name}
-        name={name}
+        id="Fecha"
+        name="Fecha"
         type="date"
-        className="flex bg-gray-100 dark:bg-neutral-700 items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full"
+        className={`flex ${bgColor} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full`}
         defaultValue={date ? date : currentDate}
       ></input>
     </div>
   )
 }
 
-export function FormId({ holder, value }) {
+export function FormId({ holder, value = "" }) {
   return (
     <span
       name="id"
@@ -112,42 +118,26 @@ export function FormId({ holder, value }) {
   )
 }
 
-export async function ReceiptStateSelect() {
-  return (
-    <div className="flex flex-col w-full gap-1">
-      <label
-        htmlFor="Estado"
-        className="w-full text-xs pl-2 font-semibold"
-      >
-        Estado
-      </label>
-      <select
-        id="Estado"
-        name="Estado"
-        className="flex bg-gray-100 dark:bg-neutral-700 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
-        defaultValue="Activo"
-      >
-        <option value="" disabled>Selecciona una opción</option>
-          <option value="Activo">Activo</option>
-          <option value="Anulado">Anulado</option>
-      </select>
-    </div>
-  );
-}
+export async function FormSelect({ value, name, label }) {
+  const getOptions = {
+    "Id_cliente": getClientsSelect,
+    "Id_proveedor": getProvidersSelect,
+    "Id_categoria": getCategoriesSelect,
+  };
 
-export async function FormSelectProveedor({ value }) {
-  const data = await getProvidersSelect();
+  const data = await (getOptions[name]?.());
+
   return (
     <div className="flex flex-col w-full gap-1">
       <label
-        htmlFor="Id_proveedor"
+        htmlFor={name}
         className="w-full text-xs pl-2 font-semibold"
       >
-        Proveedor
+        {label}
       </label>
       <select
-        id="Id_proveedor"
-        name="Id_proveedor"
+        id={name}
+        name={name}
         className="flex bg-gray-100 dark:bg-neutral-700 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
         defaultValue={value}
       >
@@ -155,70 +145,9 @@ export async function FormSelectProveedor({ value }) {
         {data.map((option) => {
           return (
             <option
-              key={option.Id_proveedor}
-              value={option.Id_proveedor}
-            >{option.Nombre_empresa}</option>
-          )
-        })}
-      </select>
-    </div>
-  );
-}
-
-export async function FormSelectCategoria({ value }) {
-  const data = await getCategoriesSelect();
-  return (
-    <div className="flex flex-col w-full gap-1">
-      <label
-        htmlFor="Id_categoria"
-        className="w-full text-xs pl-2 font-semibold"
-      >
-        Categoría
-      </label>
-      <select
-        id="Id_categoria"
-        name="Id_categoria"
-        className="flex bg-gray-100 dark:bg-neutral-700 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
-        defaultValue={value}
-      >
-        <option value="" disabled>Selecciona una opción</option>
-        {data.map((option) => {
-          return (
-            <option
-              key={option.Id_categoria}
-              value={option.Id_categoria}
-            >{option.Nombre_categoria}</option>
-          )
-        })}
-      </select>
-    </div>
-  );
-}
-
-export async function FormSelectClient({ value = "" }) {
-  const data = await getClientsSelect();
-  return (
-    <div className="flex flex-col w-full gap-1">
-      <label
-        htmlFor="Id_cliente"
-        className="w-full text-xs pl-2 font-semibold"
-      >
-        Cliente
-      </label>
-      <select
-        id="Id_cliente"
-        name="Id_cliente"
-        className="flex bg-gray-100 dark:bg-neutral-700 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
-        defaultValue={value}
-        required
-      >
-        <option value="" disabled>Selecciona un cliente</option>
-        {data.map((option) => {
-          return (
-            <option
-              key={option.Id_cliente}
-              value={option.Id_cliente}
-            >{option.NombreCompleto}</option>
+              key={option.Id}
+              value={option.Id}
+            >{option.Nombre}</option>
           )
         })}
       </select>

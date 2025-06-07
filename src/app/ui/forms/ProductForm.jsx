@@ -1,10 +1,8 @@
-import { FormContainer, FormDiv, FormInput, FormButtons, FormDate, FormId, FormSelectProveedor, FormSelectCategoria } from "@/app/ui/forms/formInputs";
+import { FormContainer, FormDiv, FormInput, FormButtons, FormDate, FormId, FormSelect } from "@/app/ui/forms/formInputs";
 import { createProduct, updateProduct } from "@/app/lib/actions";
-import getDate from "@/app/lib/getDate";
 import { ProductPrices } from "../productForm/ProductFormInputs";
 
 export function ProductCreate() {
-  const currentDate = getDate();
   const product = {
     Precio_venta: 0,
     Precio_compra: 0,
@@ -14,42 +12,42 @@ export function ProductCreate() {
   return (
     <FormContainer
       action={createProduct}>
+      <FormId holder="Crear producto" />
       <FormInput name="Nombre" holder="Nombre" value="" />
       <FormDiv>
         <FormInput name="Id_shein" holder="Id SheIn" value="" required={false} />
-        <FormDate name="Fecha_agregado" />
+        <FormDate date="" />
       </FormDiv>
       <FormDiv>
-        <FormSelectProveedor value={1} />
-        <FormSelectCategoria value={1} />
+        <FormSelect value={1} name="Id_proveedor" label="Proveedor" />
+        <FormSelect value={1} name="Id_categoria" label="Categoría" />
       </FormDiv>
       <FormInput name="Descripcion" holder="Descripción" value="" required={false} />
       <ProductPrices product={product} />
-      <FormButtons link="/products" label={'Crear'} />
+      <FormButtons link="/productos" label={'Crear'} />
     </FormContainer>
   );
 }
 
 export function ProductEdit({ product }) {
- const updateProductWithId = updateProduct.bind(null, product.Id_producto);
- const currentDate = getDate();
+ const updateProductWithId = updateProduct.bind(null, product.Id);
 
   return (
     <FormContainer
       action={updateProductWithId}>
-      <FormId holder="Producto" value={product.Id_producto} />
+      <FormId holder="Producto" value={product.Id} />
       <FormInput name="Nombre" holder="Nombre" value={product.Nombre} />
       <FormDiv>
         <FormInput name="Id_shein" holder="Id SheIn" value={product.Id_shein} required={false} />
-        <FormDate name="Fecha_agregado" date={product.Fecha} />
+        <FormDate date={product.Fecha} />
       </FormDiv>
       <FormDiv>
-        <FormSelectProveedor value={product.Id_proveedor} />
-        <FormSelectCategoria value={product.Id_categoria} />
+        <FormSelect value={product.Id_proveedor} name="Id_proveedor" label="Proveedor" />
+        <FormSelect value={product.Id_categoria} name="Id_categoria" label="Categoría" />
       </FormDiv>
       <FormInput name="Descripcion" holder="Descripción" value={product.Descripcion} required={false} />
       <ProductPrices product={product} />
-      <FormButtons link="/products" label={'Guardar'} />
+      <FormButtons link="/productos" label={'Guardar'} />
     </FormContainer>
   );
 }

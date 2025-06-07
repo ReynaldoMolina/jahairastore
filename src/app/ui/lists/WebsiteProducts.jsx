@@ -13,18 +13,14 @@ export default async function WebsiteProduts({ query, currentPage }) {
     <List>
       {data.map(register => (
         <ListCard
-          key={register.id}
-          href={`/website/${register.id}/edit`}
+          key={register.Id}
+          href={`/website/${register.Id}`}
         >
-          <ListId id={register.id}/>
+          <ListId id={register.Id}/>
           <ListInfo>
-            <ListName name={register.name} />
+            <ListName name={register.Nombre} />
               <ListInfoDetail>
-                <ListDetail
-                  detail={register.price}
-                  color="bg-green-200 dark:bg-green-900 text-right" 
-                  type="number"  
-                />
+                <ListDetail detail={register.Precio} color="green" />
               </ListInfoDetail>
           </ListInfo>
         </ListCard>

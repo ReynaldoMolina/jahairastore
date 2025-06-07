@@ -2,8 +2,7 @@
 import { useState, useEffect } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import ReceiptPdf from "@/app/ui/ReceiptPdf/index";
-import DownloadIcon from "@/app/ui/forms/icons/download.svg";
-import { deleteReceipt } from "@/app/lib/actions";
+import DownloadIcon from "@/app/ui/icons/download.svg";
 
 export function ReceiptOptions({ receipt }) {
   const [client, setClient] = useState(false);
@@ -16,7 +15,7 @@ export function ReceiptOptions({ receipt }) {
     <div className="flex w-full justify-around">
       <PDFDownloadLink
       document={<ReceiptPdf receipt={receipt}/>}
-      fileName={`Recibo ${receipt.Id_venta} Pedido ${receipt.Id_pedido} ${receipt.Nombre} ${receipt.Apellido}`}>
+      fileName={`Recibo ${receipt.Id} Pedido ${receipt.Id_pedido} ${receipt.Nombre} ${receipt.Apellido}`}>
         <ReceiptOption label="Descargar PDF" >
           <DownloadIcon className="size-5 text-black" />
         </ReceiptOption>

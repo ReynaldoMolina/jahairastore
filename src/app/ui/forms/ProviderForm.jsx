@@ -5,6 +5,7 @@ export function ProviderCreate() {
   return (
     <FormContainer
       action={createProvider}>
+      <FormId holder="Crear proveedor" />
       <FormDiv>
         <FormInput name="Nombre_empresa" holder="Nombre empresa" value="" />
         <FormInput name="Nombre_contacto" holder="Contacto" value="" required={false} />
@@ -18,18 +19,18 @@ export function ProviderCreate() {
         <FormInput name="Pais" holder="País" value="" required={false} />
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value="" required={false} />
-      <FormButtons link={'/providers'} label={'Crear'} />
+      <FormButtons link={'/proveedores'} label={'Crear'} />
     </FormContainer>
   );
 }
 
 export function ProviderEdit({ provider }) {
-  const updateProviderWithId = updateProvider.bind(null, provider.Id_proveedor);  
+  const updateProviderWithId = updateProvider.bind(null, provider.Id);  
 
   return (
     <FormContainer
       action={updateProviderWithId}>
-      <FormId holder="Proveedor" value={provider.Id_proveedor} />
+      <FormId holder="Proveedor" value={provider.Id} />
       <FormDiv>
         <FormInput name="Nombre_empresa" holder="Nombre empresa" value={provider.Nombre_empresa} />
         <FormInput name="Nombre_contacto" holder="Contacto" value={provider.Nombre_contacto} required={false} />
@@ -43,7 +44,7 @@ export function ProviderEdit({ provider }) {
         <FormInput name="Pais" holder="País" value={provider.Pais} required={false} />
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value={provider.Direccion} required={false} />
-      <FormButtons link={'/providers'} label={'Guardar'} />
+      <FormButtons link={'/proveedores'} label={'Guardar'} />
     </FormContainer>
   );
 }

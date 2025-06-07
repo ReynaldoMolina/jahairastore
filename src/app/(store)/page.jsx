@@ -1,4 +1,4 @@
-import Logo from "@/app/ui/login/logo.svg";
+import Logo from "@/app/ui/icons/logo.svg";
 
 export const metadata = {
   title: 'Home'

@@ -2,10 +2,8 @@ import { Page, Text, View, Document, Image } from '@react-pdf/renderer';
 import { styles } from "./style";
 
 export default function ReceiptPdf({ receipt }) {
-  console.log(receipt);
- 
-  const totalQuantity = receipt.detail.reduce((sum, item) => sum + item.Cantidad_venta, 0);
-  const generalTotal = receipt.detail.reduce((sum, item) => sum + (item.Precio_venta * item.Cantidad_venta), 0);
+  const totalQuantity = receipt.detail.reduce((sum, item) => sum + item.Cantidad, 0);
+  const generalTotal = receipt.detail.reduce((sum, item) => sum + (item.Precio_venta * item.Cantidad), 0);
 
   return (
     <>
@@ -33,7 +31,7 @@ export default function ReceiptPdf({ receipt }) {
               <View style={styles.orderInfo2}>
                 <View style={styles.orderInfoContainer}>
                   <Text style={styles.orderInfoLabel2}>Recibo:</Text>
-                  <Text style={styles.orderInfoText}>{receipt.Id_venta}</Text>
+                  <Text style={styles.orderInfoText}>{receipt.Id}</Text>
                 </View>
                 <View style={styles.orderInfoContainer}>
                   <Text style={styles.orderInfoLabel2}>Pedido:</Text>
@@ -53,8 +51,8 @@ export default function ReceiptPdf({ receipt }) {
                 <View key={detail.Id_detalle} style={styles.tableRow}>
                   <Text style={styles.tableRowName}>{detail.Nombre}</Text>
                   <Text style={styles.tableRowData}>${(detail.Precio_venta).toFixed(2)}</Text>
-                  <Text style={styles.tableRowCant}>{detail.Cantidad_venta}</Text>
-                  <Text style={styles.tableRowData}>${(detail.Precio_venta * detail.Cantidad_venta).toFixed(2)}</Text>
+                  <Text style={styles.tableRowCant}>{detail.Cantidad}</Text>
+                  <Text style={styles.tableRowData}>${(detail.Precio_venta * detail.Cantidad).toFixed(2)}</Text>
                 </View>
               ))}
               <View style={styles.tableFooter}>
@@ -89,17 +87,3 @@ export default function ReceiptPdf({ receipt }) {
     </>
   );
 }
-
-// export function PDFView({ receipt }) {
-//   const [client, setClient] = useState(false);
-
-//   useEffect(() => {
-//     setClient(true);
-//   }, []);
-
-//   return (
-//     <PDFViewer>
-//       <ReceiptPdf receipt={receipt} />
-//     </PDFViewer>
-//   );
-// }

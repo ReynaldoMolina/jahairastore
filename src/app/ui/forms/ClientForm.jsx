@@ -6,6 +6,7 @@ export function ClientCreate() {
   return (
     <FormContainer
       action={createClient}>
+      <FormId holder="Crear cliente" />
       <FormDiv>
         <FormInput name="Nombre" holder="Nombre" value="" />
         <FormInput name="Apellido" holder="Apellido" value="" />
@@ -19,18 +20,18 @@ export function ClientCreate() {
         <FormInput name="Pais" holder="País" value="" required={false} />
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value="" required={false} />
-      <FormButtons link={'/clients'} label={'Crear'} />
+      <FormButtons link={'/clientes'} label={'Crear'} />
     </FormContainer>
   );
 }
 
 export function ClientEdit({ client }) {
-  const updateClientWithId = updateClient.bind(null, client.Id_cliente);  
+  const updateClientWithId = updateClient.bind(null, client.Id);  
 
   return (
     <FormContainer
       action={updateClientWithId}>
-      <FormId holder="Cliente" value={client.Id_cliente} />
+      <FormId holder="Cliente" value={client.Id} />
       <FormDiv>
         <FormInput name="Nombre" holder="Nombre" value={client.Nombre} />
         <FormInput name="Apellido" holder="Apellido" value={client.Apellido} />
@@ -45,7 +46,7 @@ export function ClientEdit({ client }) {
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value={client.Direccion} required={false} />
       <ClientOptions client={client}/>
-      <FormButtons link={'/clients'} label={'Guardar'} />
+      <FormButtons link={'/clientes'} label={'Guardar'} />
     </FormContainer>
   );
 }

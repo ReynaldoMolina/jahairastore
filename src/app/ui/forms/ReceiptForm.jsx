@@ -1,53 +1,51 @@
-import { FormContainer, FormDiv, FormInput, FormButtons, FormDate, FormId, FormSelectClient, ReceiptStateSelect } from "@/app/ui/forms/formInputs";
+import { FormContainer, FormDiv, FormInput, FormButtons, FormDate, FormId, FormSelect } from "@/app/ui/forms/formInputs";
 import { createReceipt, updateReceipt } from "@/app/lib/actions";
 import { ReceiptOptions } from "@/app/ui/forms/ReceiptOptions";
 import { ReceiptPayment } from "./ReceiptPayment";
-import getDate from "@/app/lib/getDate";
 
 export function ReceiptCreate({ searchParams }) {
-  const order = searchParams?.order || '';
-  const client = searchParams?.client || '';
-  const inicialbal = Number(searchParams?.balance) || 0;
-  const abono = Number(searchParams?.payment || 0);
-  const currentDate = getDate();
+  const pedido = searchParams?.pedido || '';
+  const cliente = searchParams?.cliente || '';
+  const saldoInicial = Number(searchParams?.saldo) || 0;
+  const abono = Number(searchParams?.abono || 0);
 
   return (
     <FormContainer
       action={createReceipt}>
+      <FormId holder="Crear recibo" />
       <FormDiv>
-        <FormInput name="Id_pedido" holder="Pedido" value={order} type="number" />
+        <FormInput name="Id_pedido" holder="Pedido" value={pedido} type="number" />
         <FormDate name="Fecha" />
       </FormDiv>
-      <FormSelectClient value={client} />
+      <FormSelect value={cliente} name="Id_cliente" label="Cliente" />
       <FormDiv>
-        <ReceiptPayment inicialbal={inicialbal} abono={abono} />
+        <ReceiptPayment saldoInicial={saldoInicial} abono={abono} />
       </FormDiv>
       <FormInput name="Concepto" holder="Descripción" value="" required={false} />
-      <FormButtons link="/receipts" label={'Crear'} />
+      <FormButtons link="/recibos" label={'Crear'} />
     </FormContainer>
   );
 }
 
 export function ReceiptEdit({ receipt, receiptpdf }) {
-  const updateReceiptWithId = updateReceipt.bind(null, receipt.Id_venta);
-  const inicialbal = receipt.Abono + receipt.Saldo;
-  const currentDate = getDate();
+  const updateReceiptWithId = updateReceipt.bind(null, receipt.Id);
+  const saldoInicial = receipt.Abono + receipt.Saldo;
   
   return (
     <FormContainer
       action={updateReceiptWithId}>
-      <FormId holder="Recibo" value={receipt.Id_venta} />
+      <FormId holder="Recibo" value={receipt.Id} />
       <FormDiv>
         <FormInput name="Id_pedido" holder="Pedido" value={receipt.Id_pedido} type="number" />
         <FormDate name="Fecha" date={receipt.Fecha} />
       </FormDiv>
-      <FormSelectClient value={receipt.Id_cliente} />
-      <ReceiptPayment inicialbal={inicialbal} abono={receipt.Abono} />
+      <FormSelect value={receipt.Id_cliente} name="Id_cliente" label="Cliente" />
+      <ReceiptPayment saldoInicial={saldoInicial} abono={receipt.Abono} />
       <FormInput name="Concepto" holder="Descripción" value={receipt.Concepto} required={false} />
 
       <ReceiptOptions receipt={receiptpdf} />
 
-      <FormButtons link="/receipts" label={'Guardar'} />
+      <FormButtons link="/recibos" label={'Guardar'} />
     </FormContainer>
   );
 }

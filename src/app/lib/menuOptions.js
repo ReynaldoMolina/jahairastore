@@ -8,55 +8,76 @@ export const menuOptions = [
   },
   {
     id: 1,
-    name: "Clientes",
-    path: '/clients',
-    url: '/clients',
+    name: "Ventas",
+    path: '/ventas',
+    url: "/ventas",
     divider: false
   },
   {
     id: 2,
     name: "Pedidos",
-    path: '/orders',
-    url: '/orders?query=debe',
+    path: '/pedidos',
+    url: '/pedidos?query=debe',
     divider: false
   },
   {
     id: 3,
-    name: "Recibos",
-    path: '/receipts',
-    url: "/receipts",
+    name: "Productos",
+    path: '/productos',
+    url: "/productos",
     divider: true
   },
   {
     id: 4,
-    name: "Productos",
-    path: '/products',
-    url: "/products",
+    name: "Recibos",
+    path: '/recibos',
+    url: "/recibos",
     divider: false
   },
   {
     id: 5,
-    name: "Categorías",
-    path: '/categories',
-    url: '/categories',
+    name: "Clientes",
+    path: '/clientes',
+    url: '/clientes',
     divider: true
   },
   {
     id: 6,
-    name: "Proveedores",
-    path: '/providers',
-    url: '/providers',
+    name: "Inventario",
+    path: '/inventario',
+    url: '/inventario?query=disponibles',
     divider: false
   },
   {
     id: 7,
     name: "Compras",
-    path: '/purchases',
-    url: '/purchases',
-    divider: true
+    path: '/compras',
+    url: '/compras',
+    divider: false
   },
   {
     id: 8,
+    name: "Gastos",
+    path: '/gastos',
+    url: '/gastos',
+    divider: true
+  },
+  {
+    id: 9,
+    name: "Proveedores",
+    path: '/proveedores',
+    url: '/proveedores',
+    divider: false
+  },
+  {
+    id: 10,
+    name: "Categorías",
+    path: '/categorias',
+    url: '/categorias',
+    divider: true
+  },
+  {
+    id: 11,
     name: "Website",
     path: '/website',
     url: '/website',

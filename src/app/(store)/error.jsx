@@ -1,6 +1,6 @@
 'use client';
  
-import ErrorIcon from '@/app/ui/error/error.svg';
+import ErrorIcon from '@/app/ui/icons/error.svg';
  
 export default function Error({ error, reset}) {
   return (

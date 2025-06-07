@@ -1,5 +1,5 @@
-import Username from '@/app/ui/login/username.svg';
-import Password from '@/app/ui/login/password.svg';
+import Username from '@/app/ui/icons/username.svg';
+import Password from '@/app/ui/icons/password.svg';
 
 const icons = {
   username: <Username className='size-5 ml-3' />,

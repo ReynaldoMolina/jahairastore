@@ -1,8 +1,8 @@
 'use client';
 
 import LoginInput from "@/app/ui/login/LoginInput";
-import Logo from '@/app/ui/login/logo.svg';
-import Error from '@/app/ui/login/error.svg';
+import Logo from '@/app/ui/icons/logo.svg';
+import Error from '@/app/ui/icons/error.svg';
 import { useActionState } from 'react';
 import { authenticate } from '@/app/lib/actions';
 import { useSearchParams } from 'next/navigation';

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import LogoMinimal from "@/app/ui/header/logominimal.svg";
+import LogoMinimal from "@/app/ui/icons/logominimal.svg";
 
 export default function Header({ children }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);

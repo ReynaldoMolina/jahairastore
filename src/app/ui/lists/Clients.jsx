@@ -13,12 +13,12 @@ export default async function Clients({ query, currentPage }) {
     <List>
       {data.map(register => (
         <ListCard
-          key={register.Id_cliente}
-          href={`/clients/${register.Id_cliente}/edit`}
+          key={register.Id}
+          href={`/clientes/${register.Id}`}
         >
-          <ListId id={register.Id_cliente}/>
+          <ListId id={register.Id}/>
           <ListInfo display="flex-row items-center">
-            <ListName name={register.NombreCompleto} />
+            <ListName name={register.NombreCliente} />
               <ListInfoDetail>
                 <ListPhone phone={register.Telefono} />
               </ListInfoDetail>

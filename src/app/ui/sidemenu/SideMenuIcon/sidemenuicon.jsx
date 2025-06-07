@@ -6,7 +6,10 @@ import Products from "./products.svg";
 import Providers from "./providers.svg";
 import Receipts from "./receipts.svg";
 import Purchases from "./purchases.svg";
+import Expenses from "./expenses.svg";
 import Website from "./website.svg";
+import Sales from "./pos.svg";
+import Inventory from "./inventory.svg";
 
 const style = "size-5"
 
@@ -20,6 +23,9 @@ const icons = {
   "Proveedores": <Providers className={style}/>,
   "Compras": <Purchases className={style}/>,
   "Recibos": <Receipts className={style}/>,
+  "Gastos": <Expenses className={style}/>,
+  "Ventas": <Sales className={style}/>,
+  "Inventario": <Inventory className={style}/>,
 };
 
 export default function SideMenuIcon({ name }) {

@@ -4,8 +4,8 @@ import Link from "next/link";
 import clsx from "clsx";
 import { usePathname, useSearchParams } from "next/navigation";
 import generatePagination from "@/app/lib/generatePagination";
-import ArrowLeftIcon from '@/app/ui/lists/arrow-left.svg';
-import ArrowRightIcon from '@/app/ui/lists/arrow-right.svg';
+import ArrowLeftIcon from '@/app/ui/icons/arrow-left.svg';
+import ArrowRightIcon from '@/app/ui/icons/arrow-right.svg';
 
 export function Pagination({ totalPages }) {
   if (totalPages === 0) return;
@@ -30,7 +30,7 @@ export function Pagination({ totalPages }) {
         isDisabled={currentPage <= 1}
       />
 
-      <div className="flex -space-x-px">
+      <div className="flex gap-1">
         {allPages.map((page, index) => {
           let position;
 
@@ -62,10 +62,10 @@ export function Pagination({ totalPages }) {
 
 function PaginationNumber({ page, href, isActive, position }) {
   const className = clsx(
-    'flex size-7 items-center justify-center text-xs border border-neutral-300 dark:border-neutral-700 dark:hover:bg-neutral-700 hover:bg-sky-200',
+    'flex size-7 items-center justify-center text-xs dark:hover:bg-neutral-700 hover:bg-sky-200 rounded-md ',
     {
-      'rounded-l-md': position === 'first' || position === 'single',
-      'rounded-r-md': position === 'last' || position === 'single',
+      // 'rounded-l-md': position === 'first' || position === 'single',
+      // 'rounded-r-md': position === 'last' || position === 'single',
       'z-10 bg-sky-200 dark:bg-neutral-700': isActive,
       'text-gray-300': position === 'middle',
     },
@@ -82,7 +82,7 @@ function PaginationNumber({ page, href, isActive, position }) {
 
 function PaginationArrow({ href, direction, isDisabled }) {
   const className = clsx(
-    'flex size-7 items-center justify-center rounded-md border border-neutral-300 dark:border-neutral-700',
+    'flex size-7 items-center justify-center rounded-md',
     {
       'pointer-events-none text-neutral-400 dark:text-neutral-700': isDisabled,
       'hover:bg-sky-100 dark:hover:bg-neutral-700': !isDisabled,
