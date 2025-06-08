@@ -3,6 +3,7 @@ import { FormEdit, FormButtons, FormInfo, ProductSearch } from "@/app/ui/forms/R
 import ProductSearchList from "@/app/ui/registerForm/ProductSearchList";
 import FormDetail from "@/app/ui/registerForm/FormDetail";
 import { getSaleById, getSaleDetailById } from "@/app/lib/data";
+import { updateSale } from "@/app/lib/actions";
  
 export async function generateMetadata(props) {
   const { id } = await props.params;
@@ -20,7 +21,7 @@ export default async function Page(props) {
 
   return (
     <section className="flex grow overflow-y-scroll h-0">
-      <FormEdit registerId={saleId} detailList={saledetail} convert={true}>
+      <FormEdit  updateRegister={updateSale} registerId={saleId} detailList={saledetail} convert={true} allowEmpty={true}>
         <FormId holder="Venta" value={saleId} />
         <FormInfo date={sale.Fecha} register="sales">
           <FormSelect value={sale.Id_cliente} name="Id_cliente" label="Cliente" />

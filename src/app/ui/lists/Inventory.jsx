@@ -21,10 +21,10 @@ export default async function Inventory({ query, currentPage }) {
           <ListInfo>
             <ListName name={register.Nombre} />
               <ListInfoDetail>
+                <ListDetail detail={register.Existencias} type="text" />
+                <ListDetail detail={register.Ganancia} color="blue" />
                 <ListDetail detail={register.TotalCompraCantidad} color="green" type="text" />
                 <ListDetail detail={register.TotalVentaCantidad} color="red" type="text" />
-                <ListDetail detail={register.Existencias} color="blue" type="text" />
-                <ListDetail detail={register.Ganancia} color="blue" />
               </ListInfoDetail>
           </ListInfo>
         </ListCard>

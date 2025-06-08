@@ -9,7 +9,7 @@ export default function FormDetail({ convert = false, price, showProfit = false,
   const { productList, setProductList, formTotals, setFormTotals } = useFormContext();
 
   function findId(product) {
-    const index = productList.findIndex((e) => e.Id === product.Id);
+    const index = productList.findIndex((e) => e.Id_producto === product.Id_producto);
     return index;
   }
 
@@ -38,7 +38,7 @@ export default function FormDetail({ convert = false, price, showProfit = false,
   }
 
   function deleteProduct(product) {
-    const newList = productList.filter(e => e.Id !== product.Id);
+    const newList = productList.filter(e => e.Id_producto !== product.Id_producto);
     setProductList(newList);
     setFormTotals(calculateTotals(newList, convert));
   }
@@ -69,6 +69,7 @@ export default function FormDetail({ convert = false, price, showProfit = false,
                 <span className="flex justify-center items-center text-xs w-8 py-1">{product.Cantidad}</span>
                 <QuantityButton
                   icon="+"
+                  disabled={product.Existencias <= 0}
                   action={() => addQuantity(product)} />
               </div>
             </ProductCard>
@@ -101,13 +102,16 @@ function MinusButton({ quantity, icon, action, deleteAction }) {
   return <QuantityButton icon={icon} action={action} />;
 }
 
-function QuantityButton({ icon, action }) {
+function QuantityButton({ icon, action, disabled = false }) {
   return (
     <button
       className="w-6 text-xs bg-neutral-200 dark:bg-neutral-700"
       type="button"
-      onClick={action}
-    >{icon}</button>
+      onClick={() =>{
+        if (disabled) return;
+        action();
+      }}
+    >{disabled ? '' : icon}</button>
   );
 }
 

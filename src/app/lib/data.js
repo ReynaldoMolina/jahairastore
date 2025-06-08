@@ -1144,6 +1144,22 @@ export async function getSaleById(id) {
 export async function getSaleDetailById(id) {
   try {
     const data = await sql`
+    WITH
+        ComprasTotalesCantidad AS (
+          SELECT
+          "Id_producto",
+          SUM("Cantidad")::int AS "TotalCompraCantidad"
+        FROM "ComprasDetalles"
+        GROUP BY "Id_producto"
+        ),
+        VentasTotalesCantidad AS (
+          SELECT
+            "Id_producto",
+            SUM("Cantidad")::int AS "TotalVentaCantidad"
+          FROM "VentasDetalles"
+          GROUP BY "Id_producto"
+        )
+
       SELECT
         "VentasDetalles"."Id",
         "VentasDetalles"."Id_producto",
@@ -1152,9 +1168,13 @@ export async function getSaleDetailById(id) {
         "VentasDetalles"."Precio_compra",
         "VentasDetalles"."Cantidad",
         "VentasDetalles"."Cambio_dolar",
-        "VentasDetalles"."Id_venta"
+        "VentasDetalles"."Id_venta",
+        COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0) - COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0) AS "Existencias"
       FROM "VentasDetalles"
         JOIN "Productos" ON "VentasDetalles"."Id_producto" = "Productos"."Id"
+        LEFT JOIN ComprasTotalesCantidad ON "VentasDetalles"."Id_producto" = ComprasTotalesCantidad."Id_producto"
+        LEFT JOIN VentasTotalesCantidad ON "VentasDetalles"."Id_producto" = VentasTotalesCantidad."Id_producto"
+
       WHERE "Id_venta" = ${id}
     `;
     return data;

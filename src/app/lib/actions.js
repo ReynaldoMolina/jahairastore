@@ -675,3 +675,88 @@ export async function createSaleDetail(Id_venta, productList) {
     throw new Error('No se pudo crear el detalle del pedido');
   }
 }
+
+export async function updateSale(saleId, formData, productList, originalList) {
+  const data = {
+    Id_cliente: Number(formData.get('Id_cliente')),
+    Fecha: formData.get('Fecha')
+  };
+
+  try {
+    await sql`
+      UPDATE "Ventas"
+      SET "Id_cliente" = ${data.Id_cliente}, "Fecha" = ${data.Fecha}
+      WHERE "Id" = ${saleId}
+    `;
+  } catch (error) {
+    throw new Error('No se pudo actualizar la venta')
+  }
+
+  await updateSaleDetail(saleId, productList, originalList);
+
+  revalidatePath('/ventas');
+  redirect('/ventas');
+}
+
+export async function updateSaleDetail(saleId, productList, originalList) {
+  const updates = [];
+  const deletions = [];
+  const creations = [];
+
+  // Check modifications & deletions
+  originalList.forEach(originalDetail => {
+    const updated = productList.find(updatedDetail => updatedDetail.Id === originalDetail.Id);
+    
+    if (!updated) {
+      // It was removed
+      deletions.push(originalDetail.Id);
+    } else if (updated.Cantidad !== originalDetail.Cantidad) {
+      // It was modified
+      updates.push(updated);
+    }
+  });
+
+  // Check new additions
+  productList.forEach(detail => {
+    if (!detail.Id) {
+      // No ID means it’s new
+      const newDetail = {
+        Id_venta: Number(saleId),
+        ...detail
+      }
+      creations.push(newDetail);
+    }
+  });
+
+  try {
+    await Promise.all([
+      // Update existing records
+      ...updates.map(detail =>
+        sql`
+          UPDATE "VentasDetalles"
+          SET "Cantidad" = ${detail.Cantidad}
+          WHERE "Id" = ${detail.Id}
+        `
+      ),
+
+      // Delete removed records
+      ...deletions.map(id =>
+        sql`
+          DELETE FROM "VentasDetalles"
+          WHERE "Id" = ${id}
+        `
+      ),
+
+      // Insert new records
+      ...creations.map(detail =>
+        sql`
+          INSERT INTO "VentasDetalles" ("Id_producto", "Precio_venta", "Precio_compra", "Cantidad", "Cambio_dolar", "Id_venta")
+          VALUES (${detail.Id_producto}, ${detail.Precio_venta}, ${detail.Precio_compra}, ${detail.Cantidad}, ${detail.Cambio_dolar}, ${detail.Id_venta})
+        `
+      )
+    ]);
+  } catch (error) {
+    console.error(error);
+    throw new Error("No se pudieron procesar los detalles de la venta")
+  }
+}

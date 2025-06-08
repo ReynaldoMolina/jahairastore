@@ -41,14 +41,14 @@ export function FormCreate({ children, createRegister, convert = false }) {
   );
 }
 
-export function FormEdit({ children, updateRegister, registerId, detailList,convert = false }) {
+export function FormEdit({ children, updateRegister, registerId, detailList,convert = false, allowEmpty = false }) {
   const originalList = detailList;
   const [productList, setProductList] = useState(detailList);
   const totals = convert ? calculateTotals(productList, convert) : calculateTotals(productList);
   const [formTotals, setFormTotals] = useState(totals);
 
   function handleOrder(formData) {
-    if (productList.length === 0) {
+    if (!allowEmpty && productList.length === 0) {
       alert("Agrega productos a la lista");
       return;
     }

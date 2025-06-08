@@ -160,10 +160,10 @@ export function InventoryListTotal({ data }) {
         <ListName name="" />
         <ListInfoDetail>
           <div className="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap">
+            <ListDetail detail={totals.Existencias} type="text" />
+            <ListDetail detail={totals.Ganancia} color="blue" />
             <ListDetail detail={totals.TotalCompraCantidad} color="green" type="text" />
             <ListDetail detail={totals.TotalVentaCantidad} color="red" type="text" />
-            <ListDetail detail={totals.Existencias} color="blue" type="text" />
-            <ListDetail detail={totals.Ganancia} color="blue" />
           </div>
         </ListInfoDetail>
       </ListInfo>

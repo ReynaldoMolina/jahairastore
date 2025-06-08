@@ -22,12 +22,15 @@ export function ProductCard({ children, product, convert, price = 'venta', showP
           <CardDetail detail={precio} convert={convert} price={price} />
           {children}
           {showLeft && (
-          <span className="text-xs min-w-18 text-left sm:text-right text-neutral-400">Quedan {product.Existencias}</span>
+          <span className="text-xs min-w-18 text-left sm:text-right text-neutral-400">{
+            product.Existencias === 1 ? 'Queda 1' :
+            product.Existencias <= 0 ? 'Agotado' : `Quedan ${product.Existencias}`
+          }</span>
         )}
         </CardInfoDetail>
       </CardInfo>
       <div className="flex gap-2 flex-col">
-        <span className={`text-xs font-bold min-w-19 pr-0.5 text-right ${price === 'compra' ? "text-red-400" : "text-green-400"}`}>{convert ? 'C$' : '$'} {subtotal.toFixed(2)}</span>
+        <span className={`text-xs font-bold min-w-19 pr-0.5 text-right ${price === 'compra' ? "text-red-600" : "text-green-600"}`}>{convert ? 'C$' : '$'} {subtotal.toFixed(2)}</span>
         {showProfit && (
           <span className="text-xs font-bold min-w-19 pr-0.5 text-right text-blue-400">{convert ? 'C$' : '$'} {ganancia.toFixed(2)}</span>
         )}
@@ -54,8 +57,8 @@ function CardInfoDetail({ children }) {
 
 export function CardDetail({ detail, convert, price }) {
   const colors = {
-    venta: "text-green-400",
-    compra: "text-red-400",
+    venta: "text-green-600",
+    compra: "text-red-600",
   };
   const color = colors[price];
   return (
