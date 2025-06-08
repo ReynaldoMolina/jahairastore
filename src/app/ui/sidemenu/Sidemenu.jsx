@@ -8,8 +8,8 @@ export default function SideMenu() {
     <menu
       className="flex flex-col md:min-h-screen bg-white dark:bg-neutral-700/50 md:shadow-xl rounded-t-xl md:rounded-tl-none md:rounded-r-xl z-1 w-screen md:min-w-55 md:w-55 order-2 md:order-0"
     >
-      <h2 className="hidden md:flex h-13 bg-transparent justify-center items-center font-semibold">Jahaira Store</h2>
-      <nav className="flex flex-row md:flex-col justify-start overflow-scroll px-2 py-1 md:p-0 gap-1">
+      <h2 className="hidden md:flex min-h-13 bg-transparent justify-center items-center font-semibold">Jahaira Store</h2>
+      <nav className="flex flex-row md:flex-col justify-start overflow-scroll px-2 mb-2 md:p-0 gap-1">
         {menuOptions.map(option => (
           <div
             key={option.id}
