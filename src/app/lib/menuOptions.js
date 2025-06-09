@@ -1,7 +1,7 @@
 export const menuOptions = [
   {
     id: 0,
-    name: "Home",
+    name: "Inicio",
     path: '/',
     url: '/',
     divider: true

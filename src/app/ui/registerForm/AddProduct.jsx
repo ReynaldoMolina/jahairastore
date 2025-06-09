@@ -38,12 +38,12 @@ export default function AddProduct({ product, convert }) {
       {isInList ?
         (
           <Checked
-            className="size-7 min-w-7 hover:fill-neutral-100"
+            className="size-7 min-w-7 cursor-pointer"
             onClick={deleteProduct}/>
         ) :
         (
           <Unchecked
-            className="size-7 min-w-7 hover:fill-neutral-100"
+            className="size-7 min-w-7 cursor-pointer"
             onClick={addProduct}/>
         )
       }

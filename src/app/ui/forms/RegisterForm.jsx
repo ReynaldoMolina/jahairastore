@@ -95,7 +95,7 @@ export function ProductSearch({ children, open }) {
           className="flex items-center justify-between gap-1 cursor-pointer"
           onClick={() => setIsSearchProductOpen(state => !state)}>
           <p className="text-sm font-semibold px-2">Agregar productos</p>
-          <ArrowDown className={`rounded-xl w-10 h-6 shadow-xs bg-white dark:bg-neutral-700 ${isSearchProductOpen ? "rotate-180" : "rotate-0"}`} />
+          <ArrowDown className={`rounded-xl w-10 h-6 border border-neutral-300 bg-white dark:bg-neutral-700 ${isSearchProductOpen ? "rotate-180" : "rotate-0"}`} />
         </div>
         {isSearchProductOpen && <SearchInput />}
         {isSearchProductOpen && children}

@@ -1,12 +1,9 @@
 'use client';
 
-import { useState } from "react";
 import Image from "next/image";
 import LogoMinimal from "@/app/ui/icons/logominimal.svg";
 
-export default function Header({ children }) {
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-
+export default function Header() {
   const user = {
     username: 'Jahaira',
     pictureUrl: '/default-avatar.jpg',
@@ -22,9 +19,8 @@ export default function Header({ children }) {
         width={200}
         height={200}
         className="flex justify-center items-center cursor-pointer size-10 p-2 rounded-full hover:bg-sky-100 dark:hover:bg-neutral-700 text-xs"
-        onClick={() => setIsProfileOpen(state => !state)}
+        onClick={() => alert('¡Hola Jahaira!')}
       ></Image>
-      {isProfileOpen && children}
     </header>
   )
 }

@@ -1,28 +1,20 @@
 'use client';
 
-import Image from 'next/image';
 import Logout from '@/app/ui/icons/logout.svg';
 import { handleLogout } from '@/app/lib/actions';
 import { useActionState } from 'react';
 import LoadingIcon from '@/app/ui/loading/LoadingIcon';
 
-export default function HeaderProfile() {
-  const user = {
-    username: 'Jahaira',
-    pictureUrl: '/default-avatar.jpg',
-  };
-
+export default function LogoutForm() {
   const [errorMessage, formAction, isPending] = useActionState(handleLogout, undefined);
 
   return (
     <form
-      className="flex flex-col absolute p-7 bg-white dark:bg-neutral-700 rounded-2xl justify-center items-center right-0 top-12 gap-4 shadow-sm z-1"
+      className="flex flex-col mt-5 justify-center items-center gap-4"
       action={formAction}
     >
-      <Image src={user.pictureUrl} alt="User picture" width={32} height={32} className="size-12 rounded-full" />
       <h2
-        className='text-sm'
-      >{`¡Hola, ${user.username}!`}</h2>
+        className="text-center text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-pink-500">¡Hola, Jahaira! ¡Vos podés!</h2>
       <button
         className="flex p-2 rounded-xl bg-red-200 dark:bg-red-700 gap-2 items-center justify-center cursor-pointer w-38"
       >
