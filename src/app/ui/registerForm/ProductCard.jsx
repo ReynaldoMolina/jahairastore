@@ -1,6 +1,8 @@
 import { ListId, ListName } from "@/app/ui/lists/lists";
 
 export function ProductCard({ children, product, convert, price = 'venta', showProfit, showLeft }) {
+  console.log(product);
+  
   const prices = {
     venta: 'Precio_venta',
     compra: 'Precio_compra'

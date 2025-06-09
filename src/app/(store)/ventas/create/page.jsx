@@ -23,7 +23,7 @@ export default async function Page(props) {
           <ProductSearchList searchParams={searchParams} inventario={true} />
         </ProductSearch>
 
-        <FormDetail convert={true} price="venta" showProfit={true} showLeft={true} />
+        <FormDetail convert={true} price="venta" showProfit={true} showLeft={true} overrideLeft={false} />
 
         <FormButtons link={'/ventas'} label={'Crear'} />
       </FormCreate>

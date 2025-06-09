@@ -337,8 +337,8 @@ export async function createOrder(formData, productList) {
 export async function createOrderDetail(Id_pedido, productList) {
   try {
     const values = productList.map(product => {
-      const { Id, Precio_venta, Precio_compra, Cantidad } = product;
-      return [Id_pedido, Id, Precio_venta, Precio_compra, Cantidad];
+      const { Id_producto, Precio_venta, Precio_compra, Cantidad } = product;
+      return [Id_pedido, Id_producto, Precio_venta, Precio_compra, Cantidad];
     });
     
     await sql`
@@ -472,9 +472,9 @@ export async function createPurchase(formData, productList) {
     const result = await sql`
       INSERT INTO "Compras" ("Id_proveedor", "Fecha")
       VALUES (${purchase.Id_proveedor}, ${purchase.Fecha})
-      RETURNING "Id_compra"
+      RETURNING "Id"
     `;
-    Id_compra = result[0].Id_compra;
+    Id_compra = result[0].Id;
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo crear la compra');

@@ -5,7 +5,7 @@ import CardDelete from "@/app/ui/icons/delete.svg";
 import { calculateTotals } from "@/app/lib/calculateTotals";
 import { useFormContext } from "@/app/ui/forms/RegisterForm";
 
-export default function FormDetail({ convert = false, price, showProfit = false, showLeft = false }) {
+export default function FormDetail({ convert = false, price, showProfit = false, showLeft = false, overrideLeft = true }) {
   const { productList, setProductList, formTotals, setFormTotals } = useFormContext();
 
   function findId(product) {
@@ -69,7 +69,8 @@ export default function FormDetail({ convert = false, price, showProfit = false,
                 <span className="flex justify-center items-center text-xs w-8 py-1">{product.Cantidad}</span>
                 <QuantityButton
                   icon="+"
-                  disabled={product.Existencias <= 0}
+                  overrideLeft={overrideLeft}
+                  disabled={overrideLeft ? false : product.Existencias <= 0}
                   action={() => addQuantity(product)} />
               </div>
             </ProductCard>
@@ -102,15 +103,20 @@ function MinusButton({ quantity, icon, action, deleteAction }) {
   return <QuantityButton icon={icon} action={action} />;
 }
 
-function QuantityButton({ icon, action, disabled = false }) {
+function QuantityButton({ icon, action, overrideLeft, disabled = false }) {
+  function handleButton() {
+    if (overrideLeft) {
+      action();
+    } else if (!disabled) {
+      action();
+    }
+  }
+
   return (
     <button
       className="w-6 text-xs bg-neutral-200 dark:bg-neutral-700"
       type="button"
-      onClick={() =>{
-        if (disabled) return;
-        action();
-      }}
+      onClick={handleButton}
     >{disabled ? '' : icon}</button>
   );
 }

@@ -22,45 +22,45 @@ export const menuOptions = [
   },
   {
     id: 3,
-    name: "Productos",
-    path: '/productos',
-    url: "/productos",
+    name: "Recibos",
+    path: '/recibos',
+    url: "/recibos",
     divider: true
   },
   {
     id: 4,
-    name: "Recibos",
-    path: '/recibos',
-    url: "/recibos",
-    divider: false
-  },
-  {
-    id: 5,
-    name: "Clientes",
-    path: '/clientes',
-    url: '/clientes',
-    divider: true
-  },
-  {
-    id: 6,
     name: "Inventario",
     path: '/inventario',
     url: '/inventario?query=disponibles',
     divider: false
   },
   {
-    id: 7,
+    id: 5,
+    name: "Productos",
+    path: '/productos',
+    url: "/productos",
+    divider: false
+  },
+  {
+    id: 6,
     name: "Compras",
     path: '/compras',
     url: '/compras',
     divider: false
   },
   {
-    id: 8,
+    id: 7,
     name: "Gastos",
     path: '/gastos',
     url: '/gastos',
     divider: true
+  },
+  {
+    id: 8,
+    name: "Clientes",
+    path: '/clientes',
+    url: '/clientes',
+    divider: false
   },
   {
     id: 9,

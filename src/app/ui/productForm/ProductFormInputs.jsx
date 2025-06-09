@@ -8,7 +8,7 @@ export function ProductPrices({ product }) {
   const [precioNio, setPrecioNio] = useState(product.Cambio_dolar === null ? false : true);
   const [inventario, setInventario] = useState(product.Inventario);
   const [prices, setPrices] = useState({
-    Cambio_dolar: product.Cambio_dolar || 1,
+    Cambio_dolar: product.Cambio_dolar || 37,
     Precio_venta: product.Precio_venta,
     Precio_venta_nio: (product.Precio_venta * product.Cambio_dolar) || 0,
     Precio_compra: product.Precio_compra,

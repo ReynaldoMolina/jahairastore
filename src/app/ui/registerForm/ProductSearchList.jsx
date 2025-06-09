@@ -10,11 +10,11 @@ export default async function ProductSearchList({ searchParams, inventario = fal
 
   const totalPages = inventario
     ? await getProductsInventarioPages(query)
-    : await getProductsPages(query);
+    : await getProductsPages(query, false, false);
 
   const data = inventario
     ? await getProductsInventario(query, currentPage)
-    : await getProducts(query, currentPage);
+    : await getProducts(query, currentPage, false, false);
 
   return (
     <div className={`flex max-h-70 flex-col grow overflow-y-scroll gap-1 rounded-xl`}>

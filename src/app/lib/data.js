@@ -359,7 +359,7 @@ export async function getWebsiteProductsPages(query) {
   }
 }
 
-export async function getProducts(query, currentPage) {
+export async function getProducts(query, currentPage, inventario = false, ShowAll = true) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
@@ -373,10 +373,14 @@ export async function getProducts(query, currentPage) {
         TO_CHAR("Fecha", 'YYYY-MM-DD') AS "Fecha"
       FROM "Productos"
       WHERE (
-        "Id"::text || ' ' ||
-        "Nombre" || ' ' ||
-        "Fecha"::text
-      ) ILIKE ${`%${query}%`}
+        (
+          "Id"::text || ' ' ||
+          "Nombre" || ' ' ||
+          "Fecha"::text
+        ) ILIKE ${`%${query}%`}
+      )
+      ${ShowAll ? sql`` : sql`AND "Inventario" = ${inventario}`}
+
       ORDER BY "Id" DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
@@ -477,16 +481,19 @@ export async function getProductById(id) {
   }
 }
 
-export async function getProductsPages(query) {
+export async function getProductsPages(query, inventario = false, showAll = true) {
   try {
     const data = await sql`
       SELECT COUNT(*)
       FROM "Productos"
       WHERE (
-        "Id"::text || ' ' ||
-        "Nombre" || ' ' ||
-        "Fecha"::text
-      ) ILIKE ${`%${query}%`}
+        (
+          "Id"::text || ' ' ||
+          "Nombre" || ' ' ||
+          "Fecha"::text
+        ) ILIKE ${`%${query}%`}
+      )
+      ${showAll ? sql`` : sql`AND "Inventario" = ${inventario}`}
     `;
     const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
     return totalPages;

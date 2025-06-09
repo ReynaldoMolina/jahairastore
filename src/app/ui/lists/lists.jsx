@@ -48,7 +48,7 @@ export function ListDetail({ detail, color = 'gray', type = "number" }) {
 
 export function ListDescription({ detail }) {
   return (
-    <span className="py-1 opacity-60 text-xs md:border-b-1 border-neutral-300 dark:border-neutral-500 text-left w-full max-w-58 truncate">{detail}</span>
+    <span className="py-1 opacity-60 text-xs md:border-b-1 border-neutral-300 dark:border-neutral-500 text-left w-full max-w-58 truncate">{detail !== '' ? detail : '(Sin concepto)'}</span>
   );
 }
 
@@ -76,7 +76,7 @@ export function ListInfoDetail({ children }) {
 
 export function ListName({ name }) {
   return (
-    <span className="flex w-full text-xs">{name}</span>
+    <span className="w-full text-xs break-all">{name}</span>
   );
 }
 
