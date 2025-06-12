@@ -9,88 +9,42 @@ export async function goBackTo(path) {
   redirect(path);
 }
 
-export async function createRecord({ tableName, columns, data, returningId = false }) {
-  const values = columns.map(col => data[col]);
-
-  let query = sql`
-    INSERT INTO ${sql(tableName)}
-    (${sql(columns)})
-    VALUES ${sql(values)}
-  `;
-
-  if (returningId) {
-    query = sql`
-      INSERT INTO ${sql(tableName)}
-      (${sql(columns)})
-      VALUES ${sql(values)}
-      RETURNING "Id"
-    `;
-  }
-
+export async function createRecord({ tableName, data, returningId = false }) {
+  const columns = Object.keys(data);
   try {
-    if (returningId) {
-      const result = await query;
-      return result[0].Id;
-    } else {
-      await query;
-      return null;
-    }
+    const result = await sql`
+      INSERT INTO ${sql(tableName)}
+      ${sql(data, columns)}
+      ${returningId ? sql`RETURNING "Id"` : sql``}
+    `;
+    return returningId ? result[0].Id : null;
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo crear el registro');
   }
 }
 
-export async function updateRecord({ tableName, id, data }) {
-  const setClauses = []; // This will store strings like '"Column" = $1'
-  const values = [];     // This will store the actual data values
-  let paramIndex = 1;    // To keep track of our parameter placeholders ($1, $2, etc.)
-
-  for (const key in data) {
-    // Ensure the property belongs to the object and isn't 'Id' (which is for WHERE)
-    if (data.hasOwnProperty(key) && key !== 'Id') {
-      setClauses.push(`"${key}" = $${paramIndex}`); // Add ' "Column" = $N ' to the clause array
-      values.push(data[key]);                        // Add the actual value to the values array
-      paramIndex++;                                  // Increment for the next parameter
-    }
-  }
-
-  // If no data is provided, there's nothing to update. Handle this case.
-  if (setClauses.length === 0) {
-    console.warn("No fields provided for update. Skipping update operation.");
-    return { affectedRows: 0 }; // Or throw an error if this should not happen
-  }
-
-  // Add the 'id' for the WHERE clause as the last parameter
-  values.push(id);
-  const idParam = `$${paramIndex}`; // The placeholder for the ID in the WHERE clause
-
+export async function updateRecord({ tableName, data, id }) {
+  const columns = Object.keys(data);
   try {
-    const result = await sql`
+    await sql`
       UPDATE ${sql(tableName)}
-      SET ${sql.join(setClauses, ', ')}
-      WHERE "Id" = ${sql(idParam)}
+      SET ${sql(data, columns)}
+      WHERE "Id" = ${id}
     `;
-    // The 'sql' client often returns a result object, check its structure
-    // For postgres.js, `result.count` typically holds the number of affected rows.
-    return result;
   } catch (error) {
-    console.error("Error updating record:", error);
-    // You can inspect the error object for more details if needed
+    console.error(error);
     throw new Error('No se pudo actualizar el registro');
   }
 }
 
-export async function createRecordDetail({ tableName, recordId, columns, productList }) {
+export async function createRecordDetail({ tableName, foreignKeyName, foreignKeyValue, columns, productList }) {
   try {
     await Promise.all(productList.map(product => {
-      let values = columns.map(col => product[col]);
-      values[0] = recordId;
-  
+      const productWithRecordId = { [foreignKeyName]: foreignKeyValue, ...product };
       return sql`
         INSERT INTO ${sql(tableName)}
-        (${sql(columns)})
-        VALUES ${sql(values)}
+        ${sql(productWithRecordId, columns)}
       `;
     }))
   } catch (error) {
@@ -105,7 +59,7 @@ export async function updateDetailRecords({
   tableName,
   productList,
   originalList,
-  insertColumns, // array of column names
+  columns,
 }) {
   const updates = [];
   const deletions = [];
@@ -154,13 +108,9 @@ export async function updateDetailRecords({
 
       // Insert
       ...creations.map(item => {
-        const columns = [foreignKeyName, ...insertColumns];
-        const values = columns.map(col => item[col]);
-
         return sql`
           INSERT INTO ${sql(tableName)}
-          (${sql(columns)})
-          VALUES ${sql(values)}
+          ${sql(item, columns)}
         `;
       })
     ]);
