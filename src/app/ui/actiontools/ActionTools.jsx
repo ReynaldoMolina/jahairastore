@@ -13,10 +13,6 @@ export default function ActionTools({ allowNew = true }) {
   const currentDate = getDate();
   let href = `${pathname}/create`;
 
-  if (pathname === '/pedidos') {
-    href = `${pathname}/create?page=1&query=${currentDate}`
-  }
-
   if (pathname === '/ventas') {
     href = `${pathname}/create?page=1&query=disponibles`
   }

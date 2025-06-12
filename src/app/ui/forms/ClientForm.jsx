@@ -17,7 +17,7 @@ export function ClientCreate() {
       </FormDiv>
       <FormDiv>
         <FormInput name="Departamento" holder="Departamento" value="" required={false} />
-        <FormInput name="Pais" holder="País" value="" required={false} />
+        <FormInput name="Pais" holder="País" value="Nicaragua" required={false} />
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value="" required={false} />
       <FormButtons link={'/clientes'} label={'Crear'} />
@@ -26,7 +26,7 @@ export function ClientCreate() {
 }
 
 export function ClientEdit({ client }) {
-  const updateClientWithId = updateClient.bind(null, client.Id);  
+  const updateClientWithId = updateClient.bind(null, client.Id);
 
   return (
     <FormContainer

@@ -21,7 +21,7 @@ export default async function Page(props) {
         </FormInfo>
 
         <ProductSearch open={true}>
-          <ProductSearchList searchParams={searchParams} />
+          <ProductSearchList searchParams={searchParams} inventario={false} />
         </ProductSearch>
 
         <FormDetail />

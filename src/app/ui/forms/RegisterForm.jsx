@@ -137,8 +137,8 @@ function PurchaseSubtotals({ gastos }) {
   const profit = (formTotals.totalSell - formTotals.totalCost - gastos);
   return (
     <div className="flex w-full items-end gap-3">
-      <FormSpan name="PurchaseTotal" holder="Total venta" value={formTotals.totalSell} type="number" color="green"/>
-      <FormSpan name="PurchaseTotalCompra" holder="Total compra" value={formTotals.totalCost} type="number" color="red"/>
+      <FormSpan name="PurchaseTotal" holder="Venta" value={formTotals.totalSell} type="number" color="green"/>
+      <FormSpan name="PurchaseTotalCompra" holder="Compra" value={formTotals.totalCost} type="number" color="red"/>
       <FormSpan name="PurchaseGastos" holder="Gastos" value={gastos} type="number" color="amber"/>
       <FormSpan name="Profit" holder="Ganancia" value={profit} type="number" color="blue" />
     </div>
@@ -150,8 +150,8 @@ function SaleSubtotals() {
   const profit = (formTotals.totalSell - formTotals.totalCost);
   return (
     <div className="flex w-full items-end gap-3">
-      <FormSpan name="PurchaseTotal" holder="Total venta" value={formTotals.totalSell} type="number" color="green"/>
-      <FormSpan name="PurchaseTotalCompra" holder="Total compra" value={formTotals.totalCost} type="number" color="red"/>
+      <FormSpan name="PurchaseTotal" holder="Venta" value={formTotals.totalSell} type="number" color="green"/>
+      <FormSpan name="PurchaseTotalCompra" holder="Compra" value={formTotals.totalCost} type="number" color="red"/>
       <FormSpan name="Profit" holder="Ganancia" value={profit} type="number" color="blue" />
     </div>
   );

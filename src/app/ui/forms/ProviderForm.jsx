@@ -16,7 +16,7 @@ export function ProviderCreate() {
       </FormDiv>
       <FormDiv>
         <FormInput name="Municipio" holder="Municipio" value="" required={false} />
-        <FormInput name="Pais" holder="País" value="" required={false} />
+        <FormInput name="Pais" holder="País" value="Nicaragua" required={false} />
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value="" required={false} />
       <FormButtons link={'/proveedores'} label={'Crear'} />

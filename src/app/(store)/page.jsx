@@ -1,10 +1,6 @@
 import Logo from "@/app/ui/icons/logo.svg";
 import Logout from "../ui/login/LogoutForm";
 
-export const metadata = {
-  title: 'Home'
-}
-
 export default function Page() {
   return (
     <section className="flex flex-col justify-center items-center h-full">

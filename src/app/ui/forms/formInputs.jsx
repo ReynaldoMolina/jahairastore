@@ -140,6 +140,7 @@ export async function FormSelect({ value, name, label }) {
         name={name}
         className="flex bg-gray-100 dark:bg-neutral-700 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
         defaultValue={value}
+        required
       >
         <option value="" disabled>Selecciona una opción</option>
         {data.map((option) => {

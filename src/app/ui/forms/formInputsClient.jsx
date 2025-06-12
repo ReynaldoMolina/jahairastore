@@ -101,6 +101,7 @@ export function FormDate({ date }) {
         type="date"
         className={`flex ${bgColor} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full`}
         defaultValue={date ? date : currentDate}
+        required
       ></input>
     </div>
   )

@@ -1,11 +1,7 @@
 import postgres from 'postgres';
 
-const globalForSql = globalThis;
+const sqlInstance = postgres(process.env.POSTGRES_URL, {
+  ssl: process.env.NODE_ENV === 'production' ? 'require' : false,
+});
 
-if (!globalForSql.sql) {
-  globalForSql.sql = postgres(process.env.POSTGRES_URL, {
-    ssl: process.env.NODE_ENV === 'production' ? 'require' : false,
-  });
-}
-
-export const sql = globalForSql.sql;
+export const sql = sqlInstance;

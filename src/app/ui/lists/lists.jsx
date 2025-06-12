@@ -76,7 +76,7 @@ export function ListInfoDetail({ children }) {
 
 export function ListName({ name }) {
   return (
-    <span className="w-full text-xs break-all">{name}</span>
+    <span className="w-full text-xs">{name}</span>
   );
 }
 

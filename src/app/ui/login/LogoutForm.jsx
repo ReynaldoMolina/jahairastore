@@ -14,9 +14,9 @@ export default function LogoutForm() {
       action={formAction}
     >
       <h2
-        className="text-center text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-sky-500">¡Hola, Jahaira! ¡Vos podés!</h2>
+        className="text-center text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-sky-500">¡Hola, Jahaira! ¡Vos podés!</h2>
       <button
-        className="flex p-2 rounded-xl bg-red-200 dark:bg-red-700 gap-2 items-center justify-center cursor-pointer w-38"
+        className="flex p-2 rounded-xl bg-red-200 dark:bg-red-900 gap-2 items-center justify-center cursor-pointer w-38"
       >
         {isPending ? <LoadingIcon /> : (
           <>
