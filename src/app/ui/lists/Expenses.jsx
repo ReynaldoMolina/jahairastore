@@ -11,7 +11,7 @@ export default async function Expenses({ query, currentPage }) {
   if (data.length === 0) return <EmptyList query={query}/>
 
   return (
-    <List>
+    <List blankSpaceBottom={false}>
       {data.map(register => (
         <ListCard
           key={register.Id}

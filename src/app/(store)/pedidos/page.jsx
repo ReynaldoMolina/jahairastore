@@ -1,4 +1,4 @@
-import ActionTools from "@/app/ui/actiontools/ActionTools";
+import NewRegister from "@/app/ui/actiontools/NewRegister";
 import Orders from "@/app/ui/lists/Orders";
 
 export const metadata = {
@@ -12,8 +12,8 @@ export default async function Page(props) {
 
   return (
     <>
-      <ActionTools />
       <Orders query={query} currentPage={currentPage} />
+      <NewRegister />
     </>
   );
 };

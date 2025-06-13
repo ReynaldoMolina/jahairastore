@@ -17,7 +17,7 @@ export default async function ProductSearchList({ searchParams, inventario = fal
     : await getProducts(query, currentPage, false, false);
 
   return (
-    <div className={`flex max-h-70 flex-col grow overflow-y-scroll gap-1 rounded-xl`}>
+    <div className={`flex flex-col grow overflow-y-scroll gap-1 rounded-xl`}>
       {data.length === 0 && <EmptyList query={query} />}
       {data.map((product) => {
         const precioVenta = inventario ? (product.Precio_venta * product.Cambio_dolar) : product.Precio_venta;

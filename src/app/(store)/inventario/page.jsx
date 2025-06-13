@@ -1,4 +1,3 @@
-import ActionTools from "@/app/ui/actiontools/ActionTools";
 import Inventory from "@/app/ui/lists/Inventory";
 
 export const metadata = {
@@ -12,7 +11,6 @@ export default async function Page(props) {
 
   return (
     <>
-      <ActionTools allowNew={false} />
       <Inventory query={query} currentPage={currentPage} />
     </>
   );

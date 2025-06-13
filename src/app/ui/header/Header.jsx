@@ -1,26 +1,40 @@
 'use client';
 
-import Image from "next/image";
+import { useState } from "react";
+import SearchInput from "@/app/ui/actiontools/SearchInput";
 import LogoMinimal from "@/app/ui/icons/logominimal.svg";
+import Search from "@/app/ui/icons/search.svg";
+import Close from "@/app/ui/icons/close.svg";
+import { usePathname } from "next/navigation";
 
-export default function Header() {
-  const user = {
-    username: 'Jahaira',
-    pictureUrl: '/default-avatar.jpg',
-  };
-
+export default function Header({ allowSearch = false }) {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const pathname = usePathname();
+  
   return (
-    <header className="flex justify-between items-center border-b-1 border-b-neutral-200 dark:border-b-neutral-700 py-1 mx-2 bg-transparent relative">
-      <LogoMinimal className="size-9 p-2" />
-      <h1 className="text-sm font-semibold">Jahaira Store</h1>
-      <Image
-        src={user.pictureUrl}
-        alt="User"
-        width={200}
-        height={200}
-        className="flex justify-center items-center cursor-pointer size-10 p-2 rounded-full hover:bg-sky-100 dark:hover:bg-neutral-700 text-xs"
-        onClick={() => alert('¡Hola Jahaira!')}
-      ></Image>
+    <header className="flex gap-2 justify-between items-center border-b-1 border-b-neutral-200 dark:border-b-neutral-700 p-1 pt-0 bg-transparent relative">
+      {isSearchOpen ||
+        <h1 className="font-semibold">Jahaira Store</h1>
+      }
+      {isSearchOpen && 
+        <SearchInput />
+      }
+      <div className="flex gap-2">
+        {(isSearchOpen || allowSearch) ?
+          <Close
+            className="size-9 p-2 rounded-full bg-white dark:bg-neutral-800 cursor-pointer"
+            onClick={() => setIsSearchOpen(false)}
+          />
+          :
+          <Search
+            className="size-9 p-2 rounded-full hover:bg-white hover:dark:bg-neutral-800 cursor-pointer"
+            onClick={() => setIsSearchOpen(true)}
+          />
+        }
+        <LogoMinimal
+          className="size-9 p-2 rounded-full hover:bg-white hover:dark:bg-neutral-800 cursor-pointer"
+          onClick={() => alert('Hola')} />
+      </div>
     </header>
   )
 }

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { bgColors } from "../bgcolors";
 
-export function List({ children }) {
+export function List({ children, blankSpaceBottom = true }) {
   return (
-    <section className="flex h-0 flex-col grow overflow-scroll gap-1 rounded-xl">
+    <section className={`flex h-0 flex-col grow overflow-scroll gap-1 rounded-xl ${blankSpaceBottom && "pb-18"}`}>
       {children}
     </section>
   );

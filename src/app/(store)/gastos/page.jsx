@@ -1,4 +1,3 @@
-import ActionTools from "@/app/ui/actiontools/ActionTools";
 import Expenses from "@/app/ui/lists/Expenses";
 
 export const metadata = {
@@ -11,9 +10,6 @@ export default async function Page(props) {
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
-    <>
-      <ActionTools allowNew={false} />
-      <Expenses query={query} currentPage={currentPage} />
-    </>
+    <Expenses query={query} currentPage={currentPage} />
   );
 };

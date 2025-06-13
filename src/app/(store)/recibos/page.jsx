@@ -1,4 +1,4 @@
-import ActionTools from "@/app/ui/actiontools/ActionTools";
+import ActionTools from "@/app/ui/actiontools/NewRegister";
 import Receipts from "@/app/ui/lists/Receipts";
 
 export const metadata = {
@@ -11,9 +11,6 @@ export default async function Page(props) {
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
-    <>
-      <ActionTools allowNew={false} />
-      <Receipts query={query} currentPage={currentPage} />
-    </>
+    <Receipts query={query} currentPage={currentPage} />
   );
 };
