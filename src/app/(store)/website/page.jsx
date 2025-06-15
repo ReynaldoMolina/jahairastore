@@ -1,4 +1,5 @@
 import NewRegister from "@/app/ui/actiontools/NewRegister";
+import SearchInput from "@/app/ui/actiontools/SearchInput";
 import WebsiteProducts from "@/app/ui/lists/WebsiteProducts";
 
 export const metadata = {
@@ -12,6 +13,7 @@ export default async function Page(props) {
 
   return (
     <>
+      <SearchInput />
       <WebsiteProducts query={query} currentPage={currentPage} />
       <NewRegister />
     </>

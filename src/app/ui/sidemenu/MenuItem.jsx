@@ -11,7 +11,7 @@ export function MenuItem({ option }) {
   return (
     <Link
       href={option.url}
-      className={`flex flex-col md:flex-row md:w-8/10 md:min-h-11 justify-center md:justify-start items-center cursor-pointer rounded-xl mx-auto hover:bg-sky-100 dark:hover:bg-neutral-600 gap-1 md:gap-3 py-1.5 md:py-0 px-2 md:px-3 text-xs md:text-md text-center ${isActive ? "bg-sky-100 dark:bg-neutral-600" : ""}`}
+      className={`flex flex-col md:flex-row md:w-8/10 md:min-h-11 justify-center md:justify-start items-center cursor-pointer rounded-xl mx-auto hover:bg-sky-100 dark:hover:bg-neutral-600 gap-1 md:gap-3 py-2 md:py-0 px-3 md:px-3 text-xs md:text-md text-center ${isActive ? "bg-sky-100 dark:bg-neutral-600" : ""}`}
     >
       <SideMenuIcon name={option.name} />
       {option.name}

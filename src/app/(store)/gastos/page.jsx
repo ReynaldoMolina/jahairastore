@@ -1,3 +1,4 @@
+import SearchInput from "@/app/ui/actiontools/SearchInput";
 import Expenses from "@/app/ui/lists/Expenses";
 
 export const metadata = {
@@ -10,6 +11,9 @@ export default async function Page(props) {
   const currentPage = Number(searchParams?.page) || 1;
 
   return (
-    <Expenses query={query} currentPage={currentPage} />
+    <>
+      <SearchInput />
+      <Expenses query={query} currentPage={currentPage} />
+    </>
   );
 };

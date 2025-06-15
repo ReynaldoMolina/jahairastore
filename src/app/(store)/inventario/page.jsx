@@ -1,3 +1,4 @@
+import SearchInput from "@/app/ui/actiontools/SearchInput";
 import Inventory from "@/app/ui/lists/Inventory";
 
 export const metadata = {
@@ -11,6 +12,7 @@ export default async function Page(props) {
 
   return (
     <>
+      <SearchInput />
       <Inventory query={query} currentPage={currentPage} />
     </>
   );
