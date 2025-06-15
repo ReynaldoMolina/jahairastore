@@ -12,26 +12,30 @@ export default async function Sales({ query, currentPage }) {
 
   return (
     <List>
-      {data.map(register => (
-        <ListCard
-          key={register.Id}
-          href={`/ventas/${register.Id}?query=disponibles`}
-        >
-          <ListId id={register.Id}/>
-          <ListInfo>
-            <NameDateDiv>
-              <ListName name={register.NombreCliente} />
-              <ListDate date={register.Fecha} />
-            </NameDateDiv>
-            <ListInfoDetail>
-              <ListDetail detail={register.TotalVenta} />
-              <ListDetail detail={register.Abono || 0} color="green" />
-              <ListDetail detail={register.Saldo || 0} color="red" />
-              <ListDetail detail={(register.TotalVenta - register.TotalCompra)} color="blue" />
-            </ListInfoDetail>
-          </ListInfo>
-        </ListCard>
-      ))}
+      {data.map(register => {
+        console.log(register);
+        
+        return (
+          <ListCard
+            key={register.Id}
+            href={`/ventas/${register.Id}?query=disponibles`}
+            hasSaldo={register.Saldo > 0.001}
+          >
+            <ListId id={register.Id}/>
+            <ListInfo>
+              <NameDateDiv>
+                <ListName name={register.NombreCliente} />
+                <ListDate date={register.Fecha} />
+              </NameDateDiv>
+              <ListInfoDetail>
+                <ListDetail detail={register.TotalVenta} />
+                <ListDetail detail={register.Abono || 0} color="green" />
+                <ListDetail detail={register.Saldo || 0} color="red" />
+                <ListDetail detail={(register.TotalVenta - register.TotalCompra)} color="blue" />
+              </ListInfoDetail>
+            </ListInfo>
+          </ListCard>
+        )})}
       <SaleListTotal data={data} />
       <Pagination totalPages={totalPages} />
     </List>
