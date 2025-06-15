@@ -26,7 +26,7 @@ export default async function ProductSearchList({ searchParams, inventario = fal
         return (
           <div
             key={product.Id}
-            className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 items-center shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-700/80"
+            className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-700/80"
           >
             <ListId id={product.Id} />
             <ListInfo>

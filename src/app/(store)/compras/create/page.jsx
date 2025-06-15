@@ -1,4 +1,4 @@
-import { FormSelect } from "@/app/ui/forms/formInputs";
+import { FormId, FormSelect } from "@/app/ui/forms/formInputs";
 import { FormCreate, FormButtons, FormInfo, ProductSearch } from "@/app/ui/forms/RegisterForm";
 import ProductSearchList from "@/app/ui/registerForm/ProductSearchList";
 import FormDetail from "@/app/ui/registerForm/FormDetail";
@@ -14,6 +14,7 @@ export default async function Page(props) {
   return (
     <section className="flex grow overflow-y-scroll h-0">
       <FormCreate createRegister={createPurchase} convert={true}>
+        <FormId holder="Crear compra" value="" />
         <FormInfo date="" register="purchases">
           <FormSelect value="" name="Id_proveedor" label="Proveedor" />
         </FormInfo>
@@ -22,7 +23,7 @@ export default async function Page(props) {
           <ProductSearchList searchParams={searchParams} inventario={true} />
         </ProductSearch>
 
-        <FormDetail convert={true} price="compra" showProfit={true} />
+        <FormDetail convert={true} price="compra" />
 
         <FormButtons link={'/compras'} label={'Crear'} />
       </FormCreate>

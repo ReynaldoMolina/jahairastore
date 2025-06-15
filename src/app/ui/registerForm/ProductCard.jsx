@@ -1,27 +1,27 @@
 import { ListId, ListName } from "@/app/ui/lists/lists";
 
-export function ProductCard({ children, product, convert, price = 'venta', showProfit, showLeft }) {
-  console.log(product);
-  
+export function ProductCard({ children, product, convert, showLeft, price }) {
   const prices = {
-    venta: 'Precio_venta',
-    compra: 'Precio_compra'
-  };
-  const newPrice = prices[price];
+    venta: "Precio_venta",
+    compra: "Precio_compra"
+  }
 
-  const precio = convert ? (product[newPrice] * product.Cambio_dolar) : product[newPrice];
-  const subtotal = precio * product.Cantidad;
-  const ganancia = convert ? ((product.Precio_venta - product.Precio_compra) * product.Cambio_dolar * product.Cantidad) : ((product.Precio_venta - product.Precio_compra) * product.Cambio_dolar);
+  const priceToShow = convert ? product[prices[price]] * product.Cambio_dolar : product[prices[price]];
+  const precioVenta = convert ? (product.Precio_venta * product.Cambio_dolar) : product.Precio_venta;
+  const precioCompra = convert ? (product.Precio_compra * product.Cambio_dolar) : product.Precio_compra;
+  const subtotalVenta = precioVenta * product.Cantidad;
+  const subtotalCompra = precioCompra * product.Cantidad;
+  const ganancia = subtotalVenta - subtotalCompra;
 
   return (
     <div
-      className="flex items-center gap-2 rounded-xl p-2 bg-white dark:bg-neutral-800 shadow-sm"
+      className="flex gap-2 items-center rounded-xl p-2 bg-white dark:bg-neutral-800 shadow-sm"
     >
       <ListId id={product.Id_producto} />
       <CardInfo>
         <ListName name={product.Nombre} />
         <CardInfoDetail>
-          <CardDetail detail={precio} convert={convert} price={price} />
+          <CardDetail detail={priceToShow} convert={convert} color={price === 'venta' ? "green" : "red"} />
           {children}
           {showLeft && (
           <span className="text-xs min-w-18 text-left sm:text-right text-neutral-500 dark:text-neutral-400">{
@@ -31,11 +31,10 @@ export function ProductCard({ children, product, convert, price = 'venta', showP
         )}
         </CardInfoDetail>
       </CardInfo>
-      <div className="flex gap-2 flex-col">
-        <span className={`text-xs font-bold min-w-19 pr-0.5 text-right ${price === 'compra' ? "text-red-600 dark:text-red-400" : "text-green-600 dark:text-green-500"}`}>{convert ? 'C$' : '$'} {subtotal.toFixed(2)}</span>
-        {showProfit && (
-          <span className="text-xs font-bold min-w-19 pr-0.5 text-right text-blue-500 dark:text-blue-300">{convert ? 'C$' : '$'} {ganancia.toFixed(2)}</span>
-        )}
+      <div className="flex gap-2 flex-col justify-center">
+        <span className="text-xs font-bold min-w-19 pr-0.5 text-right text-green-600 dark:text-green-500">{convert ? 'C$' : '$'} {subtotalVenta.toFixed(2)}</span>
+        <span className="text-xs font-bold min-w-19 pr-0.5 text-right text-red-600 dark:text-red-400">{convert ? 'C$' : '$'} {subtotalCompra.toFixed(2)}</span>
+        <span className="text-xs font-bold min-w-19 pr-0.5 text-right text-blue-500 dark:text-blue-300">{convert ? 'C$' : '$'} {ganancia.toFixed(2)}</span>
       </div>
     </div>
   );
@@ -57,13 +56,14 @@ function CardInfoDetail({ children }) {
   );
 }
 
-export function CardDetail({ detail, convert, price }) {
+export function CardDetail({ detail, convert, color }) {
   const colors = {
-    venta: "text-green-600 dark:text-green-500",
-    compra: "text-red-600 dark:text-red-400",
+    green: "text-green-600 dark:text-green-500",
+    red: "text-red-600 dark:text-red-400",
+    blue: "text-blue-600 dark:text-blue-400",
   };
-  const color = colors[price];
+
   return (
-    <span className={`flex items-center justify-start sm:justify-end text-xs w-16 ${color}`}>{convert ? 'C$' : '$'} {detail.toFixed(2)}</span>
+    <span className={`flex items-center justify-start sm:justify-end text-xs w-16 ${colors[color]}`}>{convert ? 'C$' : '$'} {detail.toFixed(2)}</span>
   );
 }

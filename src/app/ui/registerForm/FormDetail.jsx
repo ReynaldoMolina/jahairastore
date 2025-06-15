@@ -5,7 +5,7 @@ import CardDelete from "@/app/ui/icons/delete.svg";
 import { calculateTotals } from "@/app/lib/calculateTotals";
 import { useFormContext } from "@/app/ui/forms/RegisterForm";
 
-export default function FormDetail({ convert = false, price, showProfit = false, showLeft = false, overrideLeft = true }) {
+export default function FormDetail({ convert = false, showLeft = false, overrideLeft = true, price = 'venta' }) {
   const { productList, setProductList, formTotals, setFormTotals } = useFormContext();
 
   function findId(product) {
@@ -56,9 +56,8 @@ export default function FormDetail({ convert = false, price, showProfit = false,
               key={product.Id_producto}
               product={product}
               convert={convert}
-              price={price}
-              showProfit={showProfit}
-              showLeft={showLeft}>
+              showLeft={showLeft}
+              price={price}>
               <div
                 className="flex border-1 rounded-xl overflow-hidden border-neutral-200 dark:border-neutral-700">
                 <MinusButton

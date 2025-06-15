@@ -192,7 +192,7 @@ function ListInfo({ children, display = "flex-col md:flex-row items-end md:items
 function ListCard({ children}) {
   return (
     <div
-      className="flex p-2 items-center gap-2"
+      className="flex p-2 gap-2"
     >
       {children}
     </div>

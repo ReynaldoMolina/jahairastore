@@ -9,11 +9,11 @@ export function List({ children, blankSpaceBottom = true }) {
   );
 }
 
-export function ListCard({ children, href }) {
+export function ListCard({ children, href, hasSaldo }) {
   return (
     <Link
       href={href}
-      className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 items-center shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-700/60"
+      className={`flex rounded-xl ${hasSaldo ? "bg-red-100 dark:bg-red-900/70" : "bg-white dark:bg-neutral-800"} p-2 shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-700/60`}
     >
       {children}
     </Link>
@@ -76,7 +76,7 @@ export function ListInfoDetail({ children }) {
 
 export function ListName({ name }) {
   return (
-    <span className="w-full text-xs">{name}</span>
+    <span className="py-1 w-full text-xs">{name}</span>
   );
 }
 

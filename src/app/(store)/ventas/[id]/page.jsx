@@ -41,7 +41,7 @@ export default async function Page(props) {
           <ProductSearchList searchParams={searchParams} inventario={true} />
         </ProductSearch>
 
-        <FormDetail convert={true} price="venta" showProfit={true} showLeft={true} overrideLeft={false} />
+        <FormDetail convert={true} showLeft={true} overrideLeft={false} />
 
         <FormButtons link={'/ventas'} label={'Guardar'} />
       </FormEdit>

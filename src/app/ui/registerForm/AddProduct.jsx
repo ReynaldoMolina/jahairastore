@@ -33,7 +33,7 @@ export default function AddProduct({ product, convert }) {
   return (
     <button
       type="button"
-      className="flex rounded-xl"
+      className="flex rounded-xl items-center"
     >
       {isInList ?
         (
