@@ -58,7 +58,7 @@ export function ListId({ id }) {
   );
 }
 
-export function ListInfo({ children, display = "flex-col md:flex-row items-end md:items-center" }) {
+export function ListInfo({ children, display = "flex-col md:flex-row items-start md:items-center" }) {
   return (
     <div className={`flex ${display} grow gap-1 md:gap-2`}>
       {children}

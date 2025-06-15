@@ -9,21 +9,12 @@ export default function LogoutForm() {
   const [errorMessage, formAction, isPending] = useActionState(handleLogout, undefined);
 
   return (
-    <form
-      className="flex flex-col mt-5 justify-center items-center gap-7"
-      action={formAction}
-    >
-      <h2
-        className="text-center text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-sky-500">¡Hola, Jahaira! ¡Vos podés!</h2>
-      <button
-        className="flex p-2 rounded-xl bg-red-200 dark:bg-red-900 gap-2 items-center justify-center cursor-pointer w-38"
-      >
-        {isPending ? <LoadingIcon /> : (
-          <>
-            <Logout className="logout-icon"/>
-            <span className='text-sm'>Cerrar sesión</span>
-          </>
-        )}
+    <form action={formAction}>
+      <button className="flex cursor-pointer">
+        {isPending ?
+          <LoadingIcon /> :
+          <Logout className="size-9 p-2 rounded-full hover:bg-white hover:dark:bg-neutral-700 cursor-pointer" />
+        }
       </button>
     </form>
   );

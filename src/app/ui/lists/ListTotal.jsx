@@ -131,15 +131,15 @@ export function SaleListTotal({ data }) {
     <ListCard href="">
       <ListId id={data.length} />
       <ListInfo>
-        <ListName name="Total" />
-        <ListDate date="" />
+        <NameDateDiv>
+          <ListName name="Total" />
+          <ListDate date="" />
+        </NameDateDiv>
         <ListInfoDetail>
-          <div className="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap">
-            <ListDetail detail={totals.TotalVenta} />
-            <ListDetail detail={totals.Abono} color="green" />
-            <ListDetail detail={totals.TotalVenta - totals.Abono} color="red" />
-            <ListDetail detail={(totals.TotalVenta - totals.TotalCompra)} color="blue" />
-          </div>
+          <ListDetail detail={totals.TotalVenta} />
+          <ListDetail detail={totals.Abono} color="green" />
+          <ListDetail detail={totals.TotalVenta - totals.Abono} color="red" />
+          <ListDetail detail={(totals.TotalVenta - totals.TotalCompra)} color="blue" />
         </ListInfoDetail>
       </ListInfo>
     </ListCard>
@@ -181,7 +181,7 @@ export function InventoryListTotal({ data }) {
   );
 }
 
-function ListInfo({ children, display = "flex-col md:flex-row items-end md:items-center" }) {
+function ListInfo({ children, display = "flex-col md:flex-row items-start md:items-center" }) {
   return (
     <div className={`flex ${display} grow md:gap-2 justify-between`}>
       {children}
