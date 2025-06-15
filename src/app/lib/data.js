@@ -1225,7 +1225,11 @@ export async function getInventory(query, currentPage) {
         COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0) AS "TotalCompraCantidad",
         COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0) AS "TotalVentaCantidad",
         COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0) - COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0) AS "Existencias",
-        (COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0) - COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0)) * "Productos"."Precio_venta" * "Productos"."Cambio_dolar" AS "Ganancia"
+        (
+          (
+            COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0) - COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0)
+          ) * ("Productos"."Precio_venta" - "Productos"."Precio_compra")
+        ) * "Productos"."Cambio_dolar" AS "Ganancia"
 
       FROM
         "Productos"
