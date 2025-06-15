@@ -1057,7 +1057,8 @@ export async function getSales(query, currentPage) {
         "Ventas"."Abono",
         TO_CHAR("Ventas"."Fecha", 'YYYY-MM-DD') AS "Fecha",
         COALESCE(VentaTotalesVenta."TotalVenta", 0) AS "TotalVenta",
-        COALESCE(VentaTotalesCompra."TotalCompra", 0) AS "TotalCompra"
+        COALESCE(VentaTotalesCompra."TotalCompra", 0) AS "TotalCompra",
+        COALESCE(VentaTotalesVenta."TotalVenta", 0) - "Ventas"."Abono" AS "Saldo"
 
       FROM
         "Ventas"
