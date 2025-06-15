@@ -18,6 +18,7 @@ export function FormCreate({ children, createRegister, convert = false }) {
   const [productList, setProductList] = useState([]);
   const totals = convert ? calculateTotals(productList, convert) : calculateTotals(productList);
   const [formTotals, setFormTotals] = useState(totals);
+  const [formAbono, setFormAbono] = useState(0);
 
   function handleRegister(formData) {
     if (productList.length === 0) {
@@ -33,7 +34,8 @@ export function FormCreate({ children, createRegister, convert = false }) {
       className="flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-170 p-3 w-full h-fit">
       <FormContext.Provider value={{
         productList, setProductList,
-        formTotals, setFormTotals
+        formTotals, setFormTotals,
+        formAbono, setFormAbono
       }}>
         {children}
       </FormContext.Provider>
@@ -41,11 +43,12 @@ export function FormCreate({ children, createRegister, convert = false }) {
   );
 }
 
-export function FormEdit({ children, updateRegister, registerId, detailList,convert = false, allowEmpty = false }) {
+export function FormEdit({ children, updateRegister, registerId, detailList, convert = false, allowEmpty = false, abono = 0 }) {
   const originalList = detailList;
   const [productList, setProductList] = useState(detailList);
   const totals = convert ? calculateTotals(productList, convert) : calculateTotals(productList);
   const [formTotals, setFormTotals] = useState(totals);
+  const [formAbono, setFormAbono] = useState(abono);
 
   function handleOrder(formData) {
     if (!allowEmpty && productList.length === 0) {
@@ -61,7 +64,8 @@ export function FormEdit({ children, updateRegister, registerId, detailList,conv
       className="flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-170 p-3 w-full h-fit">
       <FormContext.Provider value={{
         productList, setProductList,
-        formTotals, setFormTotals
+        formTotals, setFormTotals,
+        formAbono, setFormAbono
       }}>
         {children}
       </FormContext.Provider>
@@ -73,12 +77,12 @@ export function FormInfo({ children, date, value = 0, register }) {
   const formSubtotals = {
     orders: <OrderSubtotals abono={value} />,
     purchases: <PurchaseSubtotals gastos={value} />,
-    sales: <SaleSubtotals />
+    sales: <SaleSubtotals abono={value} />
   }
 
   return (
     <section className="flex flex-col gap-4">
-      <div className="flex gap-4">
+      <div className="flex gap-1 md:gap-4">
         {children}
         <FormDate date={date} />
       </div>
@@ -122,15 +126,23 @@ export function FormButtons({ link, label }) {
   )
 }
 
+function SubtotalsDiv({ children }) {
+  return (
+    <div className="flex w-full items-end gap-1 md:gap-3">
+      {children}
+    </div>
+  )
+}
+
 function OrderSubtotals({ abono }) {
   const { formTotals } = useContext(FormContext);
   return (
-    <div className="flex w-full items-end gap-3">
+    <SubtotalsDiv>
       <FormSpan name="OrderTotal" holder="Total" value={formTotals.totalSell} type="number" color="gray"/>
       <FormSpan name="OrderAbono" holder="Abono" value={abono} type="number" color="green" />
       <FormSpan name="Saldo" holder="Saldo" value={formTotals.totalSell - abono} type="number"  color="red" />
       <FormSpan name="Profit" holder="Ganancia" value={formTotals.totalSell - formTotals.totalCost} type="number" color="blue" />
-    </div>
+    </SubtotalsDiv>
   );
 }
 
@@ -138,23 +150,24 @@ function PurchaseSubtotals({ gastos }) {
   const { formTotals } = useContext(FormContext);
   const profit = (formTotals.totalSell - formTotals.totalCost - gastos);
   return (
-    <div className="flex w-full items-end gap-3">
+    <SubtotalsDiv>
       <FormSpan name="PurchaseTotal" holder="Venta" value={formTotals.totalSell} type="number" color="green"/>
       <FormSpan name="PurchaseTotalCompra" holder="Compra" value={formTotals.totalCost} type="number" color="red"/>
       <FormSpan name="PurchaseGastos" holder="Gastos" value={gastos} type="number" color="amber"/>
       <FormSpan name="Profit" holder="Ganancia" value={profit} type="number" color="blue" />
-    </div>
+    </SubtotalsDiv>
   );
 }
 
 function SaleSubtotals() {
-  const { formTotals } = useContext(FormContext);
+  const { formTotals, formAbono } = useContext(FormContext);
   const profit = (formTotals.totalSell - formTotals.totalCost);
   return (
-    <div className="flex w-full items-end gap-3">
-      <FormSpan name="PurchaseTotal" holder="Venta" value={formTotals.totalSell} type="number" color="green"/>
-      <FormSpan name="PurchaseTotalCompra" holder="Compra" value={formTotals.totalCost} type="number" color="red"/>
+    <SubtotalsDiv>
+      <FormSpan name="SaleTotal" holder="Venta" value={formTotals.totalSell} type="number" />
+      <FormSpan name="SaleAbono" holder="Abono" value={formAbono || 0} type="number" color="green" />
+      <FormSpan name="SaleBalance" holder="Saldo" value={formTotals.totalSell - (formAbono || 0)} type="number" color="red"/>
       <FormSpan name="Profit" holder="Ganancia" value={profit} type="number" color="blue" />
-    </div>
+    </SubtotalsDiv>
   );
 }

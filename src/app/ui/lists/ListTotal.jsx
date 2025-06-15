@@ -1,4 +1,4 @@
-import { ListDetail, ListInfoDetail, ListName, ListId, ListDate } from "./lists";
+import { ListDetail, ListInfoDetail, ListName, ListId, ListDate, NameDateDiv } from "./lists";
 
 export function OrderListTotal({ data }) {
   const totals = data.reduce((acc, item) => {
@@ -16,15 +16,15 @@ export function OrderListTotal({ data }) {
     <ListCard href="">
       <ListId id={data.length} />
       <ListInfo>
-        <ListName name="" />
+        <NameDateDiv>
+          <ListName name="Total" />
+          <ListDate date="" />
+        </NameDateDiv>
         <ListInfoDetail>
-          <ListDate date="Total" />
-          <div className="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap">
-            <ListDetail detail={totals.TotalPedidoVenta} color="gray" />
-            <ListDetail detail={totals.TotalAbono} color="green" />
-            <ListDetail detail={(totals.TotalPedidoVenta - totals.TotalAbono)} color="red" />
-            <ListDetail detail={(totals.TotalPedidoVenta - totals.TotalPedidoCompra)} color="blue" />
-          </div>
+          <ListDetail detail={totals.TotalPedidoVenta} color="gray" />
+          <ListDetail detail={totals.TotalAbono} color="green" />
+          <ListDetail detail={(totals.TotalPedidoVenta - totals.TotalAbono)} color="red" />
+          <ListDetail detail={(totals.TotalPedidoVenta - totals.TotalPedidoCompra)} color="blue" />
         </ListInfoDetail>
       </ListInfo>
     </ListCard>
@@ -45,12 +45,14 @@ export function ReceiptListTotal({ data }) {
     >
       <ListId id={data.length}/>
       <ListInfo>
-        <ListName name="" />
-          <ListInfoDetail>
-            <ListDate date="Total" />
-            <ListDetail detail="-" type="text" />
-            <ListDetail detail={totals.Abono} color="green" />
-          </ListInfoDetail>
+        <NameDateDiv>
+          <ListName name="Total" />
+          <ListDate date="" />
+        </NameDateDiv>
+        <ListInfoDetail>
+          <ListDetail detail="-" type="text" />
+          <ListDetail detail={totals.Abono} color="green" />
+        </ListInfoDetail>
       </ListInfo>
     </ListCard>
   );
@@ -72,15 +74,15 @@ const totals = data.reduce((acc, item) => {
     <ListCard href="">
       <ListId id={data.length} />
       <ListInfo>
-        <ListName name="" />
+        <NameDateDiv>
+          <ListName name="Total" />
+          <ListDate date="" />
+        </NameDateDiv>
         <ListInfoDetail>
-          <ListDate date="Total" />
-          <div className="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap">
-            <ListDetail detail={totals.TotalCompraVenta} color="green" />
-            <ListDetail detail={totals.TotalCompraCompra} color="red" />
-            <ListDetail detail={totals.TotalGasto} color="amber" />
-            <ListDetail detail={(totals.TotalCompraVenta - totals.TotalCompraCompra - totals.TotalGasto)} color="blue" />
-          </div>
+          <ListDetail detail={totals.TotalCompraVenta} color="green" />
+          <ListDetail detail={totals.TotalCompraCompra} color="red" />
+          <ListDetail detail={totals.TotalGasto} color="amber" />
+          <ListDetail detail={(totals.TotalCompraVenta - totals.TotalCompraCompra - totals.TotalGasto)} color="blue" />
         </ListInfoDetail>
       </ListInfo>
     </ListCard>
@@ -100,12 +102,14 @@ export function ExpensesListTotal({ data }) {
       href="">
       <ListId id={data.length} />
       <ListInfo>
-        <ListName name="" />
-          <ListInfoDetail>
-            <ListDate date="Total" />
-            <ListDetail detail="-" type="text" />
-            <ListDetail detail={totals.Gasto} color="green" />
-          </ListInfoDetail>
+        <NameDateDiv>
+          <ListName name="Total" />
+          <ListDate date="" />
+        </NameDateDiv>
+        <ListInfoDetail>
+          <ListDetail detail="-" type="text" />
+          <ListDetail detail={totals.Gasto} color="green" />
+        </ListInfoDetail>
       </ListInfo>
     </ListCard>
   );
@@ -115,22 +119,25 @@ export function SaleListTotal({ data }) {
   const totals = data.reduce((acc, item) => {
     acc.TotalVenta += item.TotalVenta;
     acc.TotalCompra += item.TotalCompra;
+    acc.Abono += item.Abono;
     return acc;
   }, {
     TotalVenta: 0,
     TotalCompra: 0,
+    Abono: 0,
   });
 
   return (
     <ListCard href="">
       <ListId id={data.length} />
       <ListInfo>
-        <ListName name="" />
+        <ListName name="Total" />
+        <ListDate date="" />
         <ListInfoDetail>
-          <ListDate date="Total" />
           <div className="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap">
-            <ListDetail detail={totals.TotalVenta} color="green" />
-            <ListDetail detail={totals.TotalCompra} color="red" />
+            <ListDetail detail={totals.TotalVenta} />
+            <ListDetail detail={totals.Abono} color="green" />
+            <ListDetail detail={totals.TotalVenta - totals.Abono} color="red" />
             <ListDetail detail={(totals.TotalVenta - totals.TotalCompra)} color="blue" />
           </div>
         </ListInfoDetail>
@@ -157,7 +164,10 @@ export function InventoryListTotal({ data }) {
     <ListCard href="">
       <ListId id={data.length} />
       <ListInfo>
-        <ListName name="" />
+        <NameDateDiv>
+          <ListName name="Total" />
+          <ListDate date="" />
+        </NameDateDiv>
         <ListInfoDetail>
           <div className="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap">
             <ListDetail detail={totals.Existencias} type="text" />
@@ -171,7 +181,7 @@ export function InventoryListTotal({ data }) {
   );
 }
 
-function ListInfo({ children, display = "flex-col md:flex-row items-start md:items-center" }) {
+function ListInfo({ children, display = "flex-col md:flex-row items-end md:items-center" }) {
   return (
     <div className={`flex ${display} grow md:gap-2 justify-between`}>
       {children}

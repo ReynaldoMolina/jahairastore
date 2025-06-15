@@ -95,5 +95,7 @@ export function getSaleFormData(formData) {
   return {
     Id_cliente: Number(formData.get('Id_cliente')),
     Fecha: formData.get('Fecha'),
+    Abono: Number(formData.get('Abono')),
+    Credito: formData.get('Credito') === 'on' ? true : false,
   };
 }

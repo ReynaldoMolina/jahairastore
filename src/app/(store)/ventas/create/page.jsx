@@ -3,6 +3,7 @@ import { FormCreate, FormButtons, FormInfo, ProductSearch } from "@/app/ui/forms
 import ProductSearchList from "@/app/ui/registerForm/ProductSearchList";
 import FormDetail from "@/app/ui/registerForm/FormDetail";
 import { createSale } from "@/app/lib/actions";
+import { SalePayment } from "@/app/ui/saleForm/SalePayment";
 
 export const metadata = {
   title: 'Crear venta'
@@ -18,6 +19,8 @@ export default async function Page(props) {
         <FormInfo date="" register="sales">
           <FormSelect value={0} name="Id_cliente" label="Cliente" />
         </FormInfo>
+
+        <SalePayment />
 
         <ProductSearch open={true}>
           <ProductSearchList searchParams={searchParams} inventario={true} />

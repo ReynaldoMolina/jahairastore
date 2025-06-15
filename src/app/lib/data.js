@@ -1054,6 +1054,7 @@ export async function getSales(query, currentPage) {
       SELECT
         "Ventas"."Id",
         "Clientes"."Nombre" || ' ' || "Clientes"."Apellido" AS "NombreCliente",
+        "Ventas"."Abono",
         TO_CHAR("Ventas"."Fecha", 'YYYY-MM-DD') AS "Fecha",
         COALESCE(VentaTotalesVenta."TotalVenta", 0) AS "TotalVenta",
         COALESCE(VentaTotalesCompra."TotalCompra", 0) AS "TotalCompra"
@@ -1133,6 +1134,8 @@ export async function getSaleById(id) {
       SELECT
         "Ventas"."Id",
         "Ventas"."Id_cliente",
+        "Ventas"."Abono",
+        "Ventas"."Credito",
         TO_CHAR("Ventas"."Fecha", 'YYYY-MM-DD') AS "Fecha"
 
       FROM "Ventas"

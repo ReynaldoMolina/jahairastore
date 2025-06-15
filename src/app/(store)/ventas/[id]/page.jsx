@@ -4,6 +4,7 @@ import ProductSearchList from "@/app/ui/registerForm/ProductSearchList";
 import FormDetail from "@/app/ui/registerForm/FormDetail";
 import { getSaleById, getSaleDetailById } from "@/app/lib/data";
 import { updateSale } from "@/app/lib/actions";
+import { SalePayment } from "@/app/ui/saleForm/SalePayment";
  
 export async function generateMetadata(props) {
   const { id } = await props.params;
@@ -21,11 +22,20 @@ export default async function Page(props) {
 
   return (
     <section className="flex grow overflow-y-scroll h-0">
-      <FormEdit  updateRegister={updateSale} registerId={saleId} detailList={saledetail} convert={true} allowEmpty={true}>
+      <FormEdit 
+        updateRegister={updateSale}
+        registerId={saleId}
+        detailList={saledetail}
+        convert={true}
+        allowEmpty={true}
+        abono={sale.Abono}
+      >
         <FormId holder="Venta" value={saleId} />
         <FormInfo date={sale.Fecha} register="sales">
           <FormSelect value={sale.Id_cliente} name="Id_cliente" label="Cliente" />
         </FormInfo>
+
+        <SalePayment credito={sale.Credito} />
 
         <ProductSearch open={false}>
           <ProductSearchList searchParams={searchParams} inventario={true} />

@@ -1,5 +1,5 @@
 import { getExpenses, getExpensesPages } from "@/app/lib/data";
-import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail, ListDate, ListDescription } from "@/app/ui/lists/lists";
+import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail, ListDate, ListDescription, NameDateDiv } from "@/app/ui/lists/lists";
 import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
 import { ExpensesListTotal } from "./ListTotal";
@@ -19,10 +19,12 @@ export default async function Expenses({ query, currentPage }) {
         >
           <ListId id={register.Id}/>
           <ListInfo>
-            <ListName name={register.Nombre_empresa} />
+            <NameDateDiv>
+              <ListName name={register.Nombre_empresa} />
+              <ListDate date={register.Fecha} />
+            </NameDateDiv>
             <ListDescription detail={register.Concepto} />
               <ListInfoDetail>
-                <ListDate date={register.Fecha} />
                 <ListDetail detail={register.Id_compra} type="text" />
                 <ListDetail detail={register.Gasto * register.Cambio_dolar} color="green" />
               </ListInfoDetail>

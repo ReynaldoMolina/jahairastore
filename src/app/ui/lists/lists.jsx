@@ -32,7 +32,7 @@ export function ListCardNoLink({ children }) {
 
 export function ListDate({ date }) {
   return (
-    <span className="rounded-xl py-1 px-2 text-center text-xs w-24 border-1 border-neutral-300 dark:border-neutral-500">{date}</span>
+    <span className="p-1 text-xs text-left md:text-center min-w-fit text-neutral-500 dark:text-neutral-400">{date}</span>
   );
 }
 
@@ -58,7 +58,7 @@ export function ListId({ id }) {
   );
 }
 
-export function ListInfo({ children, display = "flex-col md:flex-row items-start md:items-center" }) {
+export function ListInfo({ children, display = "flex-col md:flex-row items-end md:items-center" }) {
   return (
     <div className={`flex ${display} grow gap-1 md:gap-2`}>
       {children}
@@ -83,5 +83,13 @@ export function ListName({ name }) {
 export function ListPhone({ phone }) {
   return (
     <span className="w-27 text-center text-xs bg-neutral-200/60 dark:bg-neutral-700 rounded-xl p-1">{phone === '' ? '-' : phone}</span>
+  );
+}
+
+export function NameDateDiv({ children }) {
+  return (
+    <div className="flex items-center w-full">
+      {children}
+    </div>
   );
 }

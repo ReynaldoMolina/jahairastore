@@ -1,5 +1,5 @@
 import { getProducts, getProductsPages } from "@/app/lib/data";
-import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail } from "@/app/ui/lists/lists";
+import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail, NameDateDiv, ListDate } from "@/app/ui/lists/lists";
 import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
 
@@ -18,7 +18,10 @@ export default async function Products({ query, currentPage }) {
         >
           <ListId id={register.Id}/>
           <ListInfo>
-            <ListName name={register.Nombre} />
+            <NameDateDiv>
+              <ListName name={register.Nombre} />
+              <ListDate date={register.Fecha} />
+            </NameDateDiv>
               <ListInfoDetail>
                 <ListDetail detail={register.Precio_venta} color="green" />
                 <ListDetail detail={register.Precio_compra} color="red" />

@@ -1,5 +1,5 @@
 import { getSales, getSalesPages } from "@/app/lib/data";
-import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail, ListDate } from "@/app/ui/lists/lists";
+import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail, ListDate, NameDateDiv } from "@/app/ui/lists/lists";
 import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
 import { SaleListTotal } from "./ListTotal";
@@ -19,15 +19,16 @@ export default async function Sales({ query, currentPage }) {
         >
           <ListId id={register.Id}/>
           <ListInfo>
-            <ListName name={register.NombreCliente} />
-              <ListInfoDetail>
-                <ListDate date={register.Fecha} />
-                <div className="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap">
-                  <ListDetail detail={register.TotalVenta} color="green" />
-                  <ListDetail detail={register.TotalCompra} color="red" />
-                  <ListDetail detail={(register.TotalVenta - register.TotalCompra)} color="blue" />
-                </div>
-              </ListInfoDetail>
+            <NameDateDiv>
+              <ListName name={register.NombreCliente} />
+              <ListDate date={register.Fecha} />
+            </NameDateDiv>
+            <ListInfoDetail>
+              <ListDetail detail={register.TotalVenta} />
+              <ListDetail detail={register.Abono || 0} color="green" />
+              <ListDetail detail={register.Saldo || 0} color="red" />
+              <ListDetail detail={(register.TotalVenta - register.TotalCompra)} color="blue" />
+            </ListInfoDetail>
           </ListInfo>
         </ListCard>
       ))}

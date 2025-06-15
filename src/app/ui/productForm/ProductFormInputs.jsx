@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { FormDiv, FormSpan } from "@/app/ui/forms/formInputsClient";
+import { FormDiv, FormSpan, FormCheck } from "@/app/ui/forms/formInputsClient";
 import { bgColors } from "@/app/ui/bgcolors";
 
 export function ProductPrices({ product }) {  
@@ -111,25 +111,4 @@ function FormCambioDolar({ name, holder, value, setValue }) {
       ></input>
     </div>
   )
-}
-
-function FormCheck({ name, holder, value, setValue }) {
-  return (
-    <div className="flex flex-col gap-1 w-full">
-      <label
-        htmlFor={name}
-        className="w-full text-xs text-center font-semibold"
-      >
-        {holder}
-      </label>
-      <input
-        name={name}
-        id={name}
-        className="h-8"
-        type="checkbox"
-        checked={value}
-        onChange={() => setValue(state => !state)}
-      ></input>
-    </div>
-  );
 }

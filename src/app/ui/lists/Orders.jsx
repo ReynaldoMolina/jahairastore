@@ -1,5 +1,5 @@
 import { getOrders, getOrdersPages } from "@/app/lib/data";
-import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDate, ListDetail } from "@/app/ui/lists/lists";
+import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDate, ListDetail, NameDateDiv } from "@/app/ui/lists/lists";
 import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
 import { OrderListTotal } from "./ListTotal";
@@ -19,15 +19,15 @@ export default async function Orders({ query, currentPage }) {
         >
           <ListId id={register.Id}/>
           <ListInfo>
-            <ListName name={register.NombreCliente} />
+            <NameDateDiv>
+              <ListName name={register.NombreCliente} />
+              <ListDate date={register.Fecha} />
+            </NameDateDiv>
               <ListInfoDetail>
-                <ListDate date={register.Fecha} />
-                <div className="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap">
-                  <ListDetail detail={register.TotalPedidoVenta} color="gray" />
-                  <ListDetail detail={register.TotalAbono} color="green" />
-                  <ListDetail detail={(register.TotalPedidoVenta - register.TotalAbono)} color="red" />
-                  <ListDetail detail={(register.TotalPedidoVenta - register.TotalPedidoCompra)} color="blue" />
-                </div>
+                <ListDetail detail={register.TotalPedidoVenta} color="gray" />
+                <ListDetail detail={register.TotalAbono} color="green" />
+                <ListDetail detail={(register.TotalPedidoVenta - register.TotalAbono)} color="red" />
+                <ListDetail detail={(register.TotalPedidoVenta - register.TotalPedidoCompra)} color="blue" />
               </ListInfoDetail>
           </ListInfo>
         </ListCard>
