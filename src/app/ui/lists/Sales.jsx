@@ -16,7 +16,6 @@ export default async function Sales({ query, currentPage }) {
         <ListCard
           key={register.Id}
           href={`/ventas/${register.Id}?query=disponibles`}
-          hasSaldo={register.Saldo > 0.001}
         >
           <ListId id={register.Id}/>
           <ListInfo>
@@ -27,7 +26,7 @@ export default async function Sales({ query, currentPage }) {
             <ListInfoDetail>
               <ListDetail detail={register.TotalVenta} />
               <ListDetail detail={register.Abono || 0} color="green" />
-              <ListDetail detail={register.Saldo || 0} color="red" />
+              <ListDetail detail={register.Saldo || 0} color="red" ping={register.Saldo > 0.001} />
               <ListDetail detail={(register.TotalVenta - register.TotalCompra)} color="blue" />
             </ListInfoDetail>
           </ListInfo>

@@ -9,11 +9,11 @@ export function List({ children, blankSpaceBottom = true }) {
   );
 }
 
-export function ListCard({ children, href, hasSaldo }) {
+export function ListCard({ children, href }) {
   return (
     <Link
       href={href}
-      className={`flex rounded-xl ${hasSaldo ? "bg-red-100 dark:bg-red-900/70" : "bg-white dark:bg-neutral-800"} p-2 shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-700/60`}
+      className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-700/60"
     >
       {children}
     </Link>
@@ -36,13 +36,21 @@ export function ListDate({ date }) {
   );
 }
 
-export function ListDetail({ detail, color = 'gray', type = "number" }) {
+export function ListDetail({ detail, color = 'gray', type = "number", ping = false }) {
   const value = type === "number" ? detail.toFixed(2) : detail;
   const textAlign = type === "number" ? "text-right" : "text-center";
   const bgColor = bgColors[color];
 
   return (
-    <span className={`rounded-xl py-1 px-2 text-xs w-16 md:w-17 ${bgColor} ${textAlign}`}>{value}</span>
+    <div className="flex relative ">
+      <span className={`rounded-xl py-1 px-2 text-xs w-16 md:w-17 ${bgColor} ${textAlign}`}>{value}</span>
+      {ping &&
+        <>
+          <span className="flex absolute -right-0.5 -top-0.5 rounded-full bg-red-400 size-2.5"></span>
+          <span className="flex absolute -right-0.5 -top-0.5 animate-ping rounded-full bg-red-400 size-2.5"></span>
+        </>
+      }
+    </div>
   );
 }
 

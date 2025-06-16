@@ -33,11 +33,13 @@ export function ProductPrices({ product }) {
           </FormDiv>
         </>
       )}
-      <FormDiv>
-        <FormInput name="Precio_venta" holder="Venta $" value={prices} setValue={setPrices} value2="Precio_venta_nio" convertToNio={true} color="green" required={true} />
-        <FormInput name="Precio_compra" holder="Compra $" value={prices} setValue={setPrices} value2="Precio_compra_nio" convertToNio={true} color="red" required={true} />
-        <FormSpan name="Ganancia $" holder="Ganancia $" value={profitDol} setValue={setPrices} color="blue" type="number" />
-      </FormDiv>
+      {precioNio || (
+        <FormDiv>
+          <FormInput name="Precio_venta" holder="Venta $" value={prices} setValue={setPrices} value2="Precio_venta_nio" convertToNio={true} color="green" required={true} />
+          <FormInput name="Precio_compra" holder="Compra $" value={prices} setValue={setPrices} value2="Precio_compra_nio" convertToNio={true} color="red" required={true} />
+          <FormSpan name="Ganancia $" holder="Ganancia $" value={profitDol} setValue={setPrices} color="blue" type="number" />
+        </FormDiv>
+      )}
     </div>
   );
 }
