@@ -28,24 +28,48 @@ export function ProductPrices({ product }) {
           <FormCambioDolar name="Cambio_dolar" holder="Cambio dólar" value={prices} setValue={setPrices} />
           <FormDiv>
             <FormInput name="Precio_venta_nio" holder="Venta C$" value={prices} setValue={setPrices} value2="Precio_venta" color="green" />
-            <FormInput name="Precio_compra_nio" holder="Compra C$" value={prices} setValue={setPrices} value2="Precio_compra" color="red" />
+            <FormInput name="Precio_compra_nio" holder="Compra C$" value={prices} setValue={setPrices} value2="Precio_compra" calculateVenta={true} color="red" />
             <FormSpan name="Ganancia C$" holder="Ganancia C$" value={profitNio} color="blue" type="number" />
           </FormDiv>
         </>
       )}
-      {precioNio || (
+      {/* {precioNio || ( */}
         <FormDiv>
           <FormInput name="Precio_venta" holder="Venta $" value={prices} setValue={setPrices} value2="Precio_venta_nio" convertToNio={true} color="green" required={true} />
           <FormInput name="Precio_compra" holder="Compra $" value={prices} setValue={setPrices} value2="Precio_compra_nio" convertToNio={true} color="red" required={true} />
           <FormSpan name="Ganancia $" holder="Ganancia $" value={profitDol} setValue={setPrices} color="blue" type="number" />
         </FormDiv>
-      )}
+      {/* )} */}
     </div>
   );
 }
 
-function FormInput({ name, holder, value, value2, convertToNio = false, setValue, color = "gray" }, required = false ) {
+function FormInput({ name, holder, value, value2, convertToNio = false, setValue, color = "gray", required = false, calculateVenta = false }) {
   const bgColor = bgColors[color];
+
+  function handleChange(event) {
+    let newValue = {};
+    const newValue2 = convertToNio ? (event.target.value * value.Cambio_dolar) : (event.target.value / value.Cambio_dolar);
+
+    if (!calculateVenta) {
+      newValue = {
+        ...value,
+        [name]: event.target.value,
+        [value2]: newValue2,
+      };
+    } else {
+      const calculatedVenta = ((event.target.value * 3) / 2);
+      newValue = {
+        ...value,
+        [name]: event.target.value,
+        [value2]: newValue2,
+        Precio_venta_nio: calculatedVenta,
+        Precio_venta: calculatedVenta / value.Cambio_dolar,
+      }
+    }
+
+    setValue(newValue);
+  }
 
   return (
     <div className="flex flex-col w-full gap-1">
@@ -65,15 +89,7 @@ function FormInput({ name, holder, value, value2, convertToNio = false, setValue
         placeholder={holder}
         autoComplete='off'
         value={value[name]}
-        onChange={(event) => {
-          const newValue2 = convertToNio ? (event.target.value * value.Cambio_dolar) : (event.target.value / value.Cambio_dolar);
-          const newValue = {
-            ...value,
-            [name]: event.target.value,
-            [value2]: newValue2,
-          };
-          setValue(newValue);
-        }}
+        onChange={(event) => handleChange(event)}
         required={required}
       ></input>
     </div>
