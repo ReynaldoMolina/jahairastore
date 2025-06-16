@@ -153,7 +153,9 @@ function PurchaseSubtotals({ gastos }) {
     <SubtotalsDiv>
       <FormSpan name="PurchaseTotal" holder="Venta" value={formTotals.totalSell} type="number" color="green"/>
       <FormSpan name="PurchaseTotalCompra" holder="Compra" value={formTotals.totalCost} type="number" color="red"/>
-      <FormSpan name="PurchaseGastos" holder="Gastos" value={gastos} type="number" color="amber"/>
+      {gastos > 0 && 
+        <FormSpan name="PurchaseGastos" holder="Gastos" value={gastos} type="number" color="amber"/>
+      }
       <FormSpan name="Profit" holder="Ganancia" value={profit} type="number" color="blue" />
     </SubtotalsDiv>
   );
