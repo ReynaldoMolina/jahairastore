@@ -32,7 +32,7 @@ export default async function Page(props) {
           <ProductSearchList searchParams={searchParams} inventario={true} />
         </ProductSearch>
 
-        <FormDetail convert={true} />
+        <FormDetail convert={true} price="compra" />
 
         <PurchaseOptions purchase={purchase} />
 
