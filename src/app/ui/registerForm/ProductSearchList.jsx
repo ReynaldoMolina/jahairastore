@@ -3,6 +3,7 @@ import { getProducts, getProductsPages, getProductsInventario, getProductsInvent
 import { ListInfo, ListId, ListInfoDetail, ListDetail, ListName } from "@/app/ui/lists/lists";
 import { Pagination } from "@/app/ui/lists/pagination";
 import AddProduct from "./AddProduct";
+import { ProductSearchListHeader } from "../lists/ListHeader";
 
 export default async function ProductSearchList({ searchParams, inventario = false, price = 'venta' }) {
   const prices = {
@@ -22,7 +23,8 @@ export default async function ProductSearchList({ searchParams, inventario = fal
     : await getProducts(query, currentPage, false, false);
 
   return (
-    <div className={`flex flex-col grow overflow-y-scroll gap-1 rounded-xl`}>
+    <div className={`flex flex-col grow overflow-y-scroll gap-1 rounded-xl h-100`}>
+      <ProductSearchListHeader price={price} />
       {data.length === 0 && <EmptyList query={query} />}
       {data.map((product) => {
         const priceToShow = inventario ? (product[prices[price]] * product.Cambio_dolar) : product.Precio_venta;
@@ -38,7 +40,7 @@ export default async function ProductSearchList({ searchParams, inventario = fal
               <ListInfoDetail>
                 <ListDetail detail={priceToShow} color={price === 'venta' ? 'green' : 'red'} />
                 {inventario &&
-                  <ListDetail detail={`Hay ${product.Existencias}`} type="text" />
+                  <ListDetail detail={product.Existencias} type="text" />
                 }
               </ListInfoDetail>
             </ListInfo>

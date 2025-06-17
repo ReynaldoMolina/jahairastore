@@ -20,10 +20,20 @@ export function ListCard({ children, href }) {
   );
 }
 
-export function ListCardNoLink({ children }) {
+export function ListFooter({ children }) {
   return (
     <div
-      className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 items-start shadow-xs gap-2"
+      className="flex p-2 md:justify-between items-start gap-2"
+    >
+      {children}
+    </div>
+  );
+}
+
+export function ListHeader({ children }) {
+  return (
+    <div
+      className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 md:justify-between items-start gap-2 sticky top-0 z-10 border-1 border-neutral-300 dark:border-neutral-500"
     >
       {children}
     </div>
@@ -60,9 +70,10 @@ export function ListDescription({ detail }) {
   );
 }
 
-export function ListId({ id }) {
+export function ListId({ id, color = 'sky' }) {
+  const bgColor = bgColors[color];
   return (
-    <span className="flex items-center justify-center bg-sky-200 p-1 min-w-12 h-6 rounded-xl text-xs text-black">{id}</span>
+    <span className={`flex items-center justify-center p-1 min-w-12 h-6 rounded-xl text-xs ${color !== 'gray' && "text-black"} ${bgColor}`}>{id}</span>
   );
 }
 

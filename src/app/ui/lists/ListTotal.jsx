@@ -1,4 +1,4 @@
-import { ListDetail, ListInfoDetail, ListName, ListId, ListDate, NameDateDiv, ListCardNoLink, ListInfo } from "@/app/ui/lists/lists";
+import { ListDetail, ListInfoDetail, ListId, ListFooter } from "@/app/ui/lists/lists";
 
 export function OrderListTotal({ data }) {
   const totals = data.reduce((acc, item) => {
@@ -13,21 +13,15 @@ export function OrderListTotal({ data }) {
   });
 
   return (
-    <ListCardNoLink>
-      <ListId id={data.length} />
-      <ListInfo>
-        <NameDateDiv>
-          <ListName name="Total" />
-          <ListDate date="" />
-        </NameDateDiv>
-        <ListInfoDetail>
-          <ListDetail detail={totals.TotalPedidoVenta} color="gray" />
-          <ListDetail detail={totals.TotalAbono} color="green" />
-          <ListDetail detail={(totals.TotalPedidoVenta - totals.TotalAbono)} color="red" />
-          <ListDetail detail={(totals.TotalPedidoVenta - totals.TotalPedidoCompra)} color="blue" />
-        </ListInfoDetail>
-      </ListInfo>
-    </ListCardNoLink>
+    <ListFooter>
+      <ListId id={data.length} color="gray" />
+      <ListInfoDetail>
+        <ListDetail detail={totals.TotalPedidoVenta} color="gray" />
+        <ListDetail detail={totals.TotalAbono} color="green" />
+        <ListDetail detail={(totals.TotalPedidoVenta - totals.TotalAbono)} color="red" />
+        <ListDetail detail={(totals.TotalPedidoVenta - totals.TotalPedidoCompra)} color="blue" />
+      </ListInfoDetail>
+    </ListFooter>
   );
 }
 
@@ -40,19 +34,13 @@ export function ReceiptListTotal({ data }) {
   });
 
   return (
-    <ListCardNoLink>
-      <ListId id={data.length}/>
-      <ListInfo>
-        <NameDateDiv>
-          <ListName name="Total" />
-          <ListDate date="" />
-        </NameDateDiv>
-        <ListInfoDetail>
-          <ListDetail detail="-" type="text" />
-          <ListDetail detail={totals.Abono} color="green" />
-        </ListInfoDetail>
-      </ListInfo>
-    </ListCardNoLink>
+    <ListFooter>
+      <ListId id={data.length} color="gray" />
+      <ListInfoDetail>
+        <ListDetail detail="-" type="text" />
+        <ListDetail detail={totals.Abono} color="green" />
+      </ListInfoDetail>
+    </ListFooter>
   );
 }
 
@@ -69,20 +57,14 @@ export function PurchaseListTotal({ data }) {
   });
 
   return (
-    <ListCardNoLink>
-      <ListId id={data.length} />
-      <ListInfo>
-        <NameDateDiv>
-          <ListName name="Total" />
-          <ListDate date="" />
-        </NameDateDiv>
-        <ListInfoDetail>
-          <ListDetail detail={totals.TotalCompraCompra} />
-          <ListDetail detail={totals.TotalGasto} color="amber" />
-          <ListDetail detail={(totals.TotalCompraVenta - totals.TotalCompraCompra - totals.TotalGasto)} color="blue" />
-        </ListInfoDetail>
-      </ListInfo>
-    </ListCardNoLink>
+    <ListFooter>
+      <ListId id={data.length} color="gray" />
+      <ListInfoDetail>
+        <ListDetail detail={totals.TotalCompraCompra} />
+        <ListDetail detail={totals.TotalGasto} color="red" />
+        <ListDetail detail={(totals.TotalCompraVenta - totals.TotalCompraCompra - totals.TotalGasto)} color="blue" />
+      </ListInfoDetail>
+    </ListFooter>
   );
 }
 
@@ -95,19 +77,13 @@ export function ExpensesListTotal({ data }) {
   });
 
   return (
-    <ListCardNoLink>
+    <ListFooter>
       <ListId id={data.length} />
-      <ListInfo>
-        <NameDateDiv>
-          <ListName name="Total" />
-          <ListDate date="" />
-        </NameDateDiv>
-        <ListInfoDetail>
-          <ListDetail detail="-" type="text" />
-          <ListDetail detail={totals.Gasto} color="red" />
-        </ListInfoDetail>
-      </ListInfo>
-    </ListCardNoLink>
+      <ListInfoDetail>
+        <ListDetail detail="-" type="text" />
+        <ListDetail detail={totals.Gasto} color="red" />
+      </ListInfoDetail>
+    </ListFooter>
   );
 }
 
@@ -124,20 +100,14 @@ export function SaleListTotal({ data }) {
   });
 
   return (
-    <ListCardNoLink>
-      <ListId id={data.length} />
-      <ListInfo>
-        <NameDateDiv>
-          <ListName name="Total" />
-          <ListDate date="" />
-        </NameDateDiv>
-        <ListInfoDetail>
-          <ListDetail detail={totals.TotalVenta} />
-          <ListDetail detail={totals.TotalVenta - totals.totalAbono} color="red" />
-          <ListDetail detail={(totals.TotalVenta - totals.TotalCompra)} color="blue" />
-        </ListInfoDetail>
-      </ListInfo>
-    </ListCardNoLink>
+    <ListFooter>
+      <ListId id={data.length} color="gray" />
+      <ListInfoDetail>
+        <ListDetail detail={totals.TotalVenta} />
+        <ListDetail detail={totals.TotalVenta - totals.totalAbono} color="red" />
+        <ListDetail detail={(totals.TotalVenta - totals.TotalCompra)} color="blue" />
+      </ListInfoDetail>
+    </ListFooter>
   );
 }
 
@@ -152,21 +122,15 @@ export function InventoryListTotal({ data }) {
   });
 
   return (
-    <ListCardNoLink>
-      <ListId id={data.length} />
-      <ListInfo>
-        <NameDateDiv>
-          <ListName name="Total" />
-          <ListDate date="" />
-        </NameDateDiv>
-        <ListInfoDetail>
-          <div className="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap">
-            <ListDetail detail={totals.Existencias} type="text" />
-            <ListDetail detail="-" color="green" type="text" />
-            <ListDetail detail={totals.Ganancia} color="blue" />
-          </div>
-        </ListInfoDetail>
-      </ListInfo>
-    </ListCardNoLink>
+    <ListFooter>
+      <ListId id={data.length} color="gray" />
+      <ListInfoDetail>
+        <div className="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap">
+          <ListDetail detail={totals.Existencias} type="text" />
+          <ListDetail detail="-" color="green" type="text" />
+          <ListDetail detail={totals.Ganancia} color="blue" />
+        </div>
+      </ListInfoDetail>
+    </ListFooter>
   );
 }
