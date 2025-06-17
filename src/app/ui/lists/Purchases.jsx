@@ -3,6 +3,7 @@ import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDate, L
 import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
 import { PurchaseListTotal } from "./ListTotal";
+import { PurchaseListHeader } from "./ListHeader";
 
 export default async function Purchases({ query, currentPage }) {
   const data = await getPurchases(query, currentPage);
@@ -12,6 +13,7 @@ export default async function Purchases({ query, currentPage }) {
 
   return (
     <List>
+      <PurchaseListHeader />
       {data.map(register => (
         <ListCard
           key={register.Id}

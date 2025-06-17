@@ -10,9 +10,9 @@ export function ProductPrices({ product }) {
   const [prices, setPrices] = useState({
     Cambio_dolar: product.Cambio_dolar || 37,
     Precio_venta: product.Precio_venta,
-    Precio_venta_nio: (product.Precio_venta * product.Cambio_dolar) || 0,
+    Precio_venta_nio: Math.round(product.Precio_venta * product.Cambio_dolar * 100) / 100 || 0,
     Precio_compra: product.Precio_compra,
-    Precio_compra_nio: (product.Precio_compra * product.Cambio_dolar) || 0,
+    Precio_compra_nio: Math.round(product.Precio_compra * product.Cambio_dolar * 100) / 100 || 0,
   });
   const profitDol = (prices.Precio_venta - prices.Precio_compra) || 0;
   const profitNio = (prices.Precio_venta_nio - prices.Precio_compra_nio) || 0;
@@ -33,13 +33,11 @@ export function ProductPrices({ product }) {
           </FormDiv>
         </>
       )}
-      {/* {precioNio || ( */}
-        <FormDiv>
-          <FormInput name="Precio_venta" holder="Venta $" value={prices} setValue={setPrices} value2="Precio_venta_nio" convertToNio={true} color="green" required={true} />
-          <FormInput name="Precio_compra" holder="Compra $" value={prices} setValue={setPrices} value2="Precio_compra_nio" convertToNio={true} color="red" required={true} />
-          <FormSpan name="Ganancia $" holder="Ganancia $" value={profitDol} setValue={setPrices} color="blue" type="number" />
-        </FormDiv>
-      {/* )} */}
+      <FormDiv>
+        <FormInput name="Precio_venta" holder="Venta $" value={prices} setValue={setPrices} value2="Precio_venta_nio" convertToNio={true} color="green" required={true} />
+        <FormInput name="Precio_compra" holder="Compra $" value={prices} setValue={setPrices} value2="Precio_compra_nio" convertToNio={true} color="red" required={true} />
+        <FormSpan name="Ganancia $" holder="Ganancia $" value={profitDol} setValue={setPrices} color="blue" type="number" />
+      </FormDiv>
     </div>
   );
 }

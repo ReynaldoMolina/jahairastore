@@ -2,6 +2,7 @@ import { getProducts, getProductsPages } from "@/app/lib/data";
 import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail, NameDateDiv, ListDate } from "@/app/ui/lists/lists";
 import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
+import { ProductListHeader } from "./ListHeader";
 
 export default async function Products({ query, currentPage }) {
   const data = await getProducts(query, currentPage);
@@ -11,6 +12,7 @@ export default async function Products({ query, currentPage }) {
 
   return (
     <List>
+      <ProductListHeader />
       {data.map(register => (
         <ListCard
           key={register.Id}

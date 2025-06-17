@@ -3,6 +3,7 @@ import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail,
 import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
 import { ReceiptListTotal } from "./ListTotal";
+import { ReceiptListHeader } from "./ListHeader";
 
 export default async function Receipts({ query, currentPage }) {
   const data = await getReceipts(query, currentPage);
@@ -12,6 +13,7 @@ export default async function Receipts({ query, currentPage }) {
 
   return (
     <List blankSpaceBottom={false}>
+      <ReceiptListHeader />
       {data.map(register => (
         <ListCard
           key={register.Id}

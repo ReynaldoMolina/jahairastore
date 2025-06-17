@@ -40,14 +40,6 @@ export function getReceiptFormData(formData) {
   }
 }
 
-export function getWebsiteFormData(formData) {
-  return {
-    Nombre: formData.get('Nombre').trim(),
-    Precio: Number(formData.get('Precio')),
-    Imagen: formData.get('Imagen').trim(),
-  }
-}
-
 export function getProductFormData(formData) {
   return {
     Id_proveedor: Number(formData.get('Id_proveedor')),

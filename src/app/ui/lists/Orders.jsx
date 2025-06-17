@@ -3,6 +3,7 @@ import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDate, L
 import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
 import { OrderListTotal } from "./ListTotal";
+import { OrderListHeader } from "./ListHeader";
 
 export default async function Orders({ query, currentPage }) {
   const data = await getOrders(query, currentPage);
@@ -11,6 +12,7 @@ export default async function Orders({ query, currentPage }) {
 
   return (
     <List>
+      <OrderListHeader />
       {data.map(register => {
         const saldo = (register.TotalPedidoVenta - register.TotalAbono);
 

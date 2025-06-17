@@ -3,6 +3,7 @@ import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail,
 import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
 import { SaleListTotal } from "./ListTotal";
+import { SaleListHeader } from "./ListHeader";
 
 export default async function Sales({ query, currentPage }) {
   const data = await getSales(query, currentPage);
@@ -12,6 +13,7 @@ export default async function Sales({ query, currentPage }) {
 
   return (
     <List>
+      <SaleListHeader />
       {data.map(register => (
         <ListCard
           key={register.Id}
@@ -24,8 +26,7 @@ export default async function Sales({ query, currentPage }) {
               <ListDate date={register.Fecha} />
             </NameDateDiv>
             <ListInfoDetail>
-              <ListDetail detail={register.TotalVenta} />
-              <ListDetail detail={register.Abono || 0} color="green" />
+              <ListDetail detail={register.TotalVenta} color="green" />
               <ListDetail detail={register.Saldo || 0} color="red" ping={register.Saldo > 0.001} />
               <ListDetail detail={(register.TotalVenta - register.TotalCompra)} color="blue" />
             </ListInfoDetail>

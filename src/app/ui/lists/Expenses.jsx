@@ -3,6 +3,7 @@ import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail,
 import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
 import { ExpensesListTotal } from "./ListTotal";
+import { ExpensesListHeader } from "./ListHeader";
 
 export default async function Expenses({ query, currentPage }) {
   const data = await getExpenses(query, currentPage);
@@ -12,6 +13,7 @@ export default async function Expenses({ query, currentPage }) {
 
   return (
     <List blankSpaceBottom={false}>
+    <ExpensesListHeader />
       {data.map(register => (
         <ListCard
           key={register.Id}
@@ -24,10 +26,10 @@ export default async function Expenses({ query, currentPage }) {
               <ListDate date={register.Fecha} />
             </NameDateDiv>
             <ListDescription detail={register.Concepto} />
-              <ListInfoDetail>
-                <ListDetail detail={register.Id_compra} type="text" />
-                <ListDetail detail={register.Gasto * register.Cambio_dolar} color="green" />
-              </ListInfoDetail>
+            <ListInfoDetail>
+              <ListDetail detail={register.Id_compra} type="text" />
+              <ListDetail detail={register.Gasto * register.Cambio_dolar} color="red" />
+            </ListInfoDetail>
           </ListInfo>
         </ListCard>
       ))}

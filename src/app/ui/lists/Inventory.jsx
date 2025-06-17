@@ -3,6 +3,7 @@ import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail 
 import { Pagination } from "@/app/ui/lists/pagination";
 import EmptyList from "@/app/ui/lists/EmptyList";
 import { InventoryListTotal } from "./ListTotal";
+import { InventoryListHeader } from "./ListHeader";
 
 export default async function Inventory({ query, currentPage }) {
   const data = await getInventory(query, currentPage);
@@ -12,6 +13,7 @@ export default async function Inventory({ query, currentPage }) {
 
   return (
     <List blankSpaceBottom={false}>
+      <InventoryListHeader />
       {data.map(register => (
         <ListCard
           href={`/productos/${register.Id}`}
@@ -22,9 +24,8 @@ export default async function Inventory({ query, currentPage }) {
             <ListName name={register.Nombre} />
               <ListInfoDetail>
                 <ListDetail detail={register.Existencias} type="text" />
+                <ListDetail detail={register.Precio_venta} color="green" />
                 <ListDetail detail={register.Ganancia} color="blue" />
-                <ListDetail detail={register.TotalCompraCantidad} color="green" type="text" />
-                <ListDetail detail={register.TotalVentaCantidad} color="red" type="text" />
               </ListInfoDetail>
           </ListInfo>
         </ListCard>

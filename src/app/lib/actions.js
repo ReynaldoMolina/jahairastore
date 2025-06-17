@@ -73,18 +73,6 @@ export async function updateReceipt(id, formData) {
   await goBackTo('/recibos');
 }
 
-export async function createWebsiteProduct(formData) {
-  const data = getWebsiteFormData(formData);
-  await createRecord({ tableName: 'ProductsPage', data });
-  await goBackTo('/website');
-}
-
-export async function updateWebsiteProduct(id, formData) {
-  const data = getWebsiteFormData(formData);
-  await updateRecord({ tableName: 'ProductsPage', data, id })
-  await goBackTo('/website');
-}
-
 export async function createProduct(formData) {
   const data = getProductFormData(formData);
   await createRecord({ tableName: 'Productos', data })

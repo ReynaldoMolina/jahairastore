@@ -23,7 +23,7 @@ export function ListCard({ children, href }) {
 export function ListCardNoLink({ children }) {
   return (
     <div
-      className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 items-center shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-700/60"
+      className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 items-start shadow-xs gap-2"
     >
       {children}
     </div>
@@ -43,7 +43,7 @@ export function ListDetail({ detail, color = 'gray', type = "number", ping = fal
 
   return (
     <div className="flex relative ">
-      <span className={`rounded-xl py-1 px-2 text-xs w-16 md:w-17 ${bgColor} ${textAlign}`}>{value}</span>
+      <span className={`rounded-xl py-1 px-2 text-xs w-18 ${bgColor} ${textAlign}`}>{value}</span>
       {ping &&
         <>
           <span className="flex absolute -right-0.5 -top-0.5 rounded-full bg-red-400 size-2.5"></span>

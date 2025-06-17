@@ -1222,6 +1222,8 @@ export async function getInventory(query, currentPage) {
       SELECT
         "Productos"."Id",
         "Productos"."Nombre",
+        "Productos"."Precio_venta" * "Productos"."Cambio_dolar" AS "Precio_venta",
+        "Productos"."Precio_compra" * "Productos"."Cambio_dolar" AS "Precio_compra",
         COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0) AS "TotalCompraCantidad",
         COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0) AS "TotalVentaCantidad",
         COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0) - COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0) AS "Existencias",

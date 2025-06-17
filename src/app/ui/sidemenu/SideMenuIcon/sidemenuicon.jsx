@@ -7,7 +7,6 @@ import Providers from "./providers.svg";
 import Receipts from "./receipts.svg";
 import Purchases from "./purchases.svg";
 import Expenses from "./expenses.svg";
-import Website from "./website.svg";
 import Sales from "./pos.svg";
 import Inventory from "./inventory.svg";
 
@@ -19,7 +18,6 @@ const icons = {
   "Inicio": <Home className={style}/>,
   "Pedidos": <Orders className={style}/>,
   "Productos": <Products className={style}/>,
-  "Website": <Website className={style}/>,
   "Proveedores": <Providers className={style}/>,
   "Compras": <Purchases className={style}/>,
   "Recibos": <Receipts className={style}/>,

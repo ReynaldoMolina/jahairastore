@@ -15,44 +15,44 @@ export const menuOptions = [
   },
   {
     id: 2,
-    name: "Pedidos",
-    path: '/pedidos',
-    url: '/pedidos?query=debe',
-    divider: false
-  },
-  {
-    id: 3,
-    name: "Recibos",
-    path: '/recibos',
-    url: "/recibos",
-    divider: true
-  },
-  {
-    id: 4,
     name: "Inventario",
     path: '/inventario',
     url: '/inventario?query=disponibles',
     divider: false
   },
   {
-    id: 5,
+    id: 3,
     name: "Productos",
     path: '/productos',
     url: "/productos",
-    divider: false
+    divider: true
   },
   {
-    id: 6,
+    id: 4,
     name: "Compras",
     path: '/compras',
     url: '/compras',
     divider: false
   },
   {
-    id: 7,
+    id: 5,
     name: "Gastos",
     path: '/gastos',
     url: '/gastos',
+    divider: true
+  },
+  {
+    id: 6,
+    name: "Pedidos",
+    path: '/pedidos',
+    url: '/pedidos?query=debe',
+    divider: false
+  },
+  {
+    id: 7,
+    name: "Recibos",
+    path: '/recibos',
+    url: "/recibos",
     divider: true
   },
   {
@@ -74,13 +74,6 @@ export const menuOptions = [
     name: "Categorías",
     path: '/categorias',
     url: '/categorias',
-    divider: true
-  },
-  {
-    id: 11,
-    name: "Website",
-    path: '/website',
-    url: '/website',
     divider: false
-  },
+  }
 ];

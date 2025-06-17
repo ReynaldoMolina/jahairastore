@@ -1,4 +1,4 @@
-import { ListDetail, ListInfoDetail, ListName, ListId, ListDate, NameDateDiv } from "./lists";
+import { ListDetail, ListInfoDetail, ListName, ListId, ListDate, NameDateDiv, ListCardNoLink, ListInfo } from "@/app/ui/lists/lists";
 
 export function OrderListTotal({ data }) {
   const totals = data.reduce((acc, item) => {
@@ -13,7 +13,7 @@ export function OrderListTotal({ data }) {
   });
 
   return (
-    <ListCard href="">
+    <ListCardNoLink>
       <ListId id={data.length} />
       <ListInfo>
         <NameDateDiv>
@@ -27,7 +27,7 @@ export function OrderListTotal({ data }) {
           <ListDetail detail={(totals.TotalPedidoVenta - totals.TotalPedidoCompra)} color="blue" />
         </ListInfoDetail>
       </ListInfo>
-    </ListCard>
+    </ListCardNoLink>
   );
 }
 
@@ -40,9 +40,7 @@ export function ReceiptListTotal({ data }) {
   });
 
   return (
-    <ListCard
-      href=""
-    >
+    <ListCardNoLink>
       <ListId id={data.length}/>
       <ListInfo>
         <NameDateDiv>
@@ -54,12 +52,12 @@ export function ReceiptListTotal({ data }) {
           <ListDetail detail={totals.Abono} color="green" />
         </ListInfoDetail>
       </ListInfo>
-    </ListCard>
+    </ListCardNoLink>
   );
 }
 
 export function PurchaseListTotal({ data }) {
-const totals = data.reduce((acc, item) => {
+  const totals = data.reduce((acc, item) => {
     acc.TotalCompraVenta += item.TotalCompraVenta;
     acc.TotalCompraCompra += item.TotalCompraCompra;
     acc.TotalGasto += item.TotalGasto;
@@ -71,7 +69,7 @@ const totals = data.reduce((acc, item) => {
   });
 
   return (
-    <ListCard href="">
+    <ListCardNoLink>
       <ListId id={data.length} />
       <ListInfo>
         <NameDateDiv>
@@ -85,7 +83,7 @@ const totals = data.reduce((acc, item) => {
           <ListDetail detail={(totals.TotalCompraVenta - totals.TotalCompraCompra - totals.TotalGasto)} color="blue" />
         </ListInfoDetail>
       </ListInfo>
-    </ListCard>
+    </ListCardNoLink>
   );
 }
 
@@ -98,8 +96,7 @@ export function ExpensesListTotal({ data }) {
   });
 
   return (
-    <ListCard
-      href="">
+    <ListCardNoLink>
       <ListId id={data.length} />
       <ListInfo>
         <NameDateDiv>
@@ -108,10 +105,10 @@ export function ExpensesListTotal({ data }) {
         </NameDateDiv>
         <ListInfoDetail>
           <ListDetail detail="-" type="text" />
-          <ListDetail detail={totals.Gasto} color="green" />
+          <ListDetail detail={totals.Gasto} color="red" />
         </ListInfoDetail>
       </ListInfo>
-    </ListCard>
+    </ListCardNoLink>
   );
 }
 
@@ -119,16 +116,16 @@ export function SaleListTotal({ data }) {
   const totals = data.reduce((acc, item) => {
     acc.TotalVenta += item.TotalVenta;
     acc.TotalCompra += item.TotalCompra;
-    acc.Abono += item.Abono;
+    acc.totalAbono += item.Abono;
     return acc;
   }, {
     TotalVenta: 0,
     TotalCompra: 0,
-    Abono: 0,
+    totalAbono: 0,
   });
 
   return (
-    <ListCard href="">
+    <ListCardNoLink>
       <ListId id={data.length} />
       <ListInfo>
         <NameDateDiv>
@@ -136,32 +133,27 @@ export function SaleListTotal({ data }) {
           <ListDate date="" />
         </NameDateDiv>
         <ListInfoDetail>
-          <ListDetail detail={totals.TotalVenta} />
-          <ListDetail detail={totals.Abono} color="green" />
-          <ListDetail detail={totals.TotalVenta - totals.Abono} color="red" />
+          <ListDetail detail={totals.TotalVenta} color="green" />
+          <ListDetail detail={totals.TotalVenta - totals.totalAbono} color="red" />
           <ListDetail detail={(totals.TotalVenta - totals.TotalCompra)} color="blue" />
         </ListInfoDetail>
       </ListInfo>
-    </ListCard>
+    </ListCardNoLink>
   );
 }
 
 export function InventoryListTotal({ data }) {
   const totals = data.reduce((acc, item) => {
-    acc.TotalCompraCantidad += item.TotalCompraCantidad;
-    acc.TotalVentaCantidad += item.TotalVentaCantidad;
     acc.Existencias += item.Existencias;
     acc.Ganancia += item.Ganancia;
     return acc;
   }, {
-    TotalCompraCantidad: 0,
-    TotalVentaCantidad: 0,
     Existencias: 0,
     Ganancia: 0,
   });
 
   return (
-    <ListCard href="">
+    <ListCardNoLink>
       <ListId id={data.length} />
       <ListInfo>
         <NameDateDiv>
@@ -171,30 +163,11 @@ export function InventoryListTotal({ data }) {
         <ListInfoDetail>
           <div className="flex gap-1 sm:gap-2 flex-wrap md:flex-nowrap">
             <ListDetail detail={totals.Existencias} type="text" />
+            <ListDetail detail="-" color="green" type="text" />
             <ListDetail detail={totals.Ganancia} color="blue" />
-            <ListDetail detail={totals.TotalCompraCantidad} color="green" type="text" />
-            <ListDetail detail={totals.TotalVentaCantidad} color="red" type="text" />
           </div>
         </ListInfoDetail>
       </ListInfo>
-    </ListCard>
-  );
-}
-
-function ListInfo({ children, display = "flex-col md:flex-row items-start md:items-center" }) {
-  return (
-    <div className={`flex ${display} grow md:gap-2 justify-between`}>
-      {children}
-    </div>
-  );
-}
-
-function ListCard({ children}) {
-  return (
-    <div
-      className="flex p-2 gap-2"
-    >
-      {children}
-    </div>
+    </ListCardNoLink>
   );
 }
