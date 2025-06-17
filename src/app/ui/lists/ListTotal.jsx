@@ -77,8 +77,7 @@ export function PurchaseListTotal({ data }) {
           <ListDate date="" />
         </NameDateDiv>
         <ListInfoDetail>
-          <ListDetail detail={totals.TotalCompraVenta} color="green" />
-          <ListDetail detail={totals.TotalCompraCompra} color="red" />
+          <ListDetail detail={totals.TotalCompraCompra} />
           <ListDetail detail={totals.TotalGasto} color="amber" />
           <ListDetail detail={(totals.TotalCompraVenta - totals.TotalCompraCompra - totals.TotalGasto)} color="blue" />
         </ListInfoDetail>
@@ -133,7 +132,7 @@ export function SaleListTotal({ data }) {
           <ListDate date="" />
         </NameDateDiv>
         <ListInfoDetail>
-          <ListDetail detail={totals.TotalVenta} color="green" />
+          <ListDetail detail={totals.TotalVenta} />
           <ListDetail detail={totals.TotalVenta - totals.totalAbono} color="red" />
           <ListDetail detail={(totals.TotalVenta - totals.TotalCompra)} color="blue" />
         </ListInfoDetail>

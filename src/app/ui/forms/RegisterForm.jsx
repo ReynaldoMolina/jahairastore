@@ -151,8 +151,7 @@ function PurchaseSubtotals({ gastos }) {
   const profit = (formTotals.totalSell - formTotals.totalCost - gastos);
   return (
     <SubtotalsDiv>
-      <FormSpan name="PurchaseTotal" holder="Venta" value={formTotals.totalSell} type="number" color="green"/>
-      <FormSpan name="PurchaseTotalCompra" holder="Compra" value={formTotals.totalCost} type="number" color="red"/>
+      <FormSpan name="PurchaseTotalCompra" holder="Total" value={formTotals.totalCost} type="number" color="red" />
       {gastos > 0 && 
         <FormSpan name="PurchaseGastos" holder="Gastos" value={gastos} type="number" color="amber"/>
       }
@@ -166,7 +165,7 @@ function SaleSubtotals() {
   const profit = (formTotals.totalSell - formTotals.totalCost);
   return (
     <SubtotalsDiv>
-      <FormSpan name="SaleTotal" holder="Venta" value={formTotals.totalSell} type="number" />
+      <FormSpan name="SaleTotal" holder="Total" value={formTotals.totalSell} type="number" />
       <FormSpan name="SaleAbono" holder="Abono" value={formAbono || 0} type="number" color="green" />
       <FormSpan name="SaleBalance" holder="Saldo" value={formTotals.totalSell - (formAbono || 0)} type="number" color="red"/>
       <FormSpan name="Profit" holder="Ganancia" value={profit} type="number" color="blue" />

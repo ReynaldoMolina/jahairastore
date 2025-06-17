@@ -48,8 +48,7 @@ export function PurchaseListHeader() {
           <ListDate date="Fecha" />
         </NameDateDiv>
         <ListInfoDetail>
-          <ListDetail detail="T. venta" color="green" type="text" />
-          <ListDetail detail="T. compr" color="red" type="text" />
+          <ListDetail detail="Total" type="text" />
           <ListDetail detail="Gastos" color="amber" type="text" />
           <ListDetail detail="Ganancia" color="blue" type="text" />
         </ListInfoDetail>
@@ -87,7 +86,7 @@ export function SaleListHeader() {
           <ListDate date="Fecha" />
         </NameDateDiv>
         <ListInfoDetail>
-          <ListDetail detail="Total" color="green" type="text" />
+          <ListDetail detail="Total" type="text" />
           <ListDetail detail="Saldo" color="red" type="text" />
           <ListDetail detail="Ganancia" color="blue" type="text" />
         </ListInfoDetail>
@@ -107,7 +106,7 @@ export function InventoryListHeader() {
         </NameDateDiv>
         <ListInfoDetail>
           <ListDetail detail="Cantidad" type="text" />
-          <ListDetail detail="P. venta" color="green" type="text" />
+          <ListDetail detail="Precio" color="green" type="text" />
           <ListDetail detail="Ganancia" color="blue" type="text" />
         </ListInfoDetail>
       </ListInfo>
@@ -125,8 +124,8 @@ export function ProductListHeader() {
           <ListDate date="Fecha agregado" />
         </NameDateDiv>
         <ListInfoDetail>
-          <ListDetail detail="P. venta" color="green" type="text" />
-          <ListDetail detail="P. comp" color="red" type="text" />
+          <ListDetail detail="Venta" color="green" type="text" />
+          <ListDetail detail="Compra" color="red" type="text" />
           <ListDetail detail="Ganancia" color="blue" type="text" />
         </ListInfoDetail>
       </ListInfo>

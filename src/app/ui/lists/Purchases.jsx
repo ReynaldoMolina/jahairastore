@@ -26,8 +26,7 @@ export default async function Purchases({ query, currentPage }) {
               <ListDate date={register.Fecha} />
             </NameDateDiv>
               <ListInfoDetail>
-                <ListDetail detail={register.TotalCompraVenta} color="green" />
-                <ListDetail detail={register.TotalCompraCompra} color="red" />
+                <ListDetail detail={register.TotalCompraCompra} />
                 <ListDetail detail={register.TotalGasto} color="amber" />
                 <ListDetail detail={(register.TotalCompraVenta - register.TotalCompraCompra - register.TotalGasto)} color="blue" />
               </ListInfoDetail>

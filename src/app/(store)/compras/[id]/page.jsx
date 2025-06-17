@@ -29,7 +29,7 @@ export default async function Page(props) {
         </FormInfo>
 
         <ProductSearch open={false}>
-          <ProductSearchList searchParams={searchParams} inventario={true} />
+          <ProductSearchList searchParams={searchParams} inventario={true} price="compra" />
         </ProductSearch>
 
         <FormDetail convert={true} price="compra" />
