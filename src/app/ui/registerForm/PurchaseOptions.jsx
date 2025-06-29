@@ -7,7 +7,7 @@ import ShipmentIcon from "@/app/ui/icons/shipping.svg";
 export function PurchaseOptions({ purchase }) {
   return (
     <FormOptionContainer>
-      <div className="flex gap-1 items-center">
+      <div className="flex gap-2 md:gap-3 items-center">
         <FormOption label="Gasto" href={`/gastos/create?compra=${purchase.Id}&proveedor=${purchase.Id_proveedor}`}>
           <ExpensesIcon className="size-5" />
         </FormOption>

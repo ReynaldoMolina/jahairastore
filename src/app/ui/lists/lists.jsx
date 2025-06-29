@@ -23,7 +23,7 @@ export function ListCard({ children, href }) {
 export function ListFooter({ children }) {
   return (
     <div
-      className="flex p-2 md:justify-between items-start gap-2"
+      className="flex p-2 md:justify-between items-start gap-2 border-t-2 border-neutral-300 dark:border-neutral-700 mt-1"
     >
       {children}
     </div>
@@ -33,7 +33,7 @@ export function ListFooter({ children }) {
 export function ListHeader({ children }) {
   return (
     <div
-      className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 md:justify-between items-start gap-2 sticky top-0 z-10 border-1 border-neutral-300 dark:border-neutral-500"
+      className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 md:justify-between items-start gap-2 sticky top-0 z-10 shadow-lg"
     >
       {children}
     </div>

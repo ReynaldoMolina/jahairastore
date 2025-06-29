@@ -82,9 +82,9 @@ export function FormInfo({ children, date, value = 0, register }) {
 
   return (
     <section className="flex flex-col gap-4">
-      <div className="flex gap-1 md:gap-4">
-        {children}
+      <div className="flex flex-col md:flex-row gap-4">
         <FormDate date={date} />
+        {children}
       </div>
       {formSubtotals[register]}
     </section>

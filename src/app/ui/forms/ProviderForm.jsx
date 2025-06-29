@@ -6,17 +6,15 @@ export function ProviderCreate() {
     <FormContainer
       action={createProvider}>
       <FormId holder="Crear proveedor" />
+      <FormInput name="Nombre_empresa" holder="Nombre empresa" value="" />
       <FormDiv>
-        <FormInput name="Nombre_empresa" holder="Nombre empresa" value="" />
         <FormInput name="Nombre_contacto" holder="Contacto" value="" required={false} />
-      </FormDiv>
-      <FormDiv>
         <FormInput name="Telefono" holder="Teléfono" value="+505 " required={false} />
-        <FormInput name="Departamento" holder="Departamento" value="" required={false} />
       </FormDiv>
       <FormDiv>
-        <FormInput name="Municipio" holder="Municipio" value="" required={false} />
         <FormInput name="Pais" holder="País" value="Nicaragua" required={false} />
+        <FormInput name="Municipio" holder="Municipio" value="" required={false} />
+        <FormInput name="Departamento" holder="Departamento" value="" required={false} />
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value="" required={false} />
       <FormButtons link={'/proveedores'} label={'Crear'} />
@@ -31,17 +29,15 @@ export function ProviderEdit({ provider }) {
     <FormContainer
       action={updateProviderWithId}>
       <FormId holder="Proveedor" value={provider.Id} />
+      <FormInput name="Nombre_empresa" holder="Nombre empresa" value={provider.Nombre_empresa} />
       <FormDiv>
-        <FormInput name="Nombre_empresa" holder="Nombre empresa" value={provider.Nombre_empresa} />
         <FormInput name="Nombre_contacto" holder="Contacto" value={provider.Nombre_contacto} required={false} />
-      </FormDiv>
-      <FormDiv>
         <FormInput name="Telefono" holder="Teléfono" value={provider.Telefono} required={false} />
-        <FormInput name="Departamento" holder="Departamento" value={provider.Departamento} required={false} />
       </FormDiv>
       <FormDiv>
-        <FormInput name="Municipio" holder="Municipio" value={provider.Municipio} required={false} />
         <FormInput name="Pais" holder="País" value={provider.Pais} required={false} />
+        <FormInput name="Departamento" holder="Departamento" value={provider.Departamento} required={false} />
+        <FormInput name="Municipio" holder="Municipio" value={provider.Municipio} required={false} />
       </FormDiv>
       <FormInput name="Direccion" holder="Dirección" value={provider.Direccion} required={false} />
       <FormButtons link={'/proveedores'} label={'Guardar'} />

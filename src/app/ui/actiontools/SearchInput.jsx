@@ -30,8 +30,7 @@ export default function SearchInput() {
         autoComplete="off"
         defaultValue={searchParams.get('query')?.toString()}
         onChange={(event) => handleSearch(event.target.value)}
-      >
-      </input>
+      ></input>
     </search>
   )
 }

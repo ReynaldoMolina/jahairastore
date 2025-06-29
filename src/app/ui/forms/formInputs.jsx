@@ -7,7 +7,7 @@ export function FormContainer({ children, action }) {
   return (
     <form
     action={action}
-    className="flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-170 p-3 w-full h-fit">
+    className="flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-140 p-3 w-full h-fit">
       {children}
     </form>
   );
@@ -31,7 +31,7 @@ export function FormButtons({ link, label }) {
 
 export function FormDiv({ children }) {
   return (
-    <div className="flex w-full items-end gap-3">
+    <div className="flex w-full items-end gap-2 md:gap-3">
       {children}
     </div>
   );
