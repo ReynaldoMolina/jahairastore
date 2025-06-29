@@ -13,6 +13,7 @@ export function OrderOptions({ order }) {
     <FormOptionContainer>
       {(formTotals.totalSell - order.TotalAbono) > 0 && (
         <div className="flex gap-1 items-center">
+          <p className="text-xs opacity-60">Pagar:</p>
           <FormOption label="0%" href={`/recibos/create?pedido=${order.Id}&cliente=${order.Id_cliente}&saldo=${balance}&abono=${0}`}>
           </FormOption>
           <FormOption label="50%" href={`/recibos/create?pedido=${order.Id}&cliente=${order.Id_cliente}&saldo=${balance}&abono=${half}`}>

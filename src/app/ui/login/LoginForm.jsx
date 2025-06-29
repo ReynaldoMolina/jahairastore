@@ -27,7 +27,7 @@ export default function LoginForm() {
           <input type="hidden" name="redirectTo" value={callbackUrl} />
           <button
             type="submit"
-            className="flex w-full h-10 cursor-pointer border-none bg-blue-500 rounded-lg text-white font-semibold hover:bg-blue-600 items-center justify-center"
+            className="flex w-full h-10 cursor-pointer border-none bg-blue-500 rounded-lg text-white font-semibold hover:bg-blue-600 items-center justify-center transition"
             id="login-button"
             disabled={isPending}
           >

@@ -91,7 +91,7 @@ function ProductCardEmpty() {
 function MinusButton({ quantity, icon, action, deleteAction }) {
   if (quantity === 1) return (
     <button
-    className="flex items-center justify-center w-6 text-xs bg-neutral-200 dark:bg-neutral-700"
+    className="flex items-center justify-center w-6 text-xs bg-neutral-200 dark:bg-neutral-700 cursor-pointer"
     type="button"
     onClick={deleteAction}
   >
@@ -113,7 +113,7 @@ function QuantityButton({ icon, action, overrideLeft, disabled = false }) {
 
   return (
     <button
-      className="w-6 text-xs bg-neutral-200 dark:bg-neutral-700"
+      className={`w-6 text-xs bg-neutral-200 dark:bg-neutral-700 ${!disabled && "cursor-pointer"}`}
       type="button"
       onClick={handleButton}
     >{disabled ? '' : icon}</button>

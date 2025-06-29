@@ -9,7 +9,7 @@ const icons = {
 export default function LoginInput({name, placeholder, type = 'text' }) {
   return (
     <div
-      className="flex justify-center items-center bg-white dark:bg-neutral-800 rounded-lg shadow-sm focus-within:outline-1 focus-within:outline-neutral-500 dark:focus-within:outline-neutral-400 hover:outline-1 hover:outline-neutral-500 dark:hover:outline-neutral-400">
+      className="flex justify-center items-center bg-white dark:bg-neutral-800 rounded-lg shadow-sm focus-within:outline-1 focus-within:outline-neutral-500 dark:focus-within:outline-neutral-400 hover:outline hover:outline-neutral-500 dark:hover:outline-neutral-400">
       {icons[name]}
       <input
         type={type}

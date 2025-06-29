@@ -10,10 +10,10 @@ export default function LogoutForm() {
 
   return (
     <form action={formAction}>
-      <button className="flex cursor-pointer">
+      <button className="flex">
         {isPending ?
           <LoadingIcon /> :
-          <Logout className="size-9 p-2 rounded-full hover:bg-white hover:dark:bg-neutral-700 cursor-pointer" />
+          <Logout className="size-9 p-2 rounded-full hover:bg-white hover:dark:bg-neutral-700 cursor-pointer transition" />
         }
       </button>
     </form>

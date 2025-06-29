@@ -13,7 +13,7 @@ export function ListCard({ children, href }) {
   return (
     <Link
       href={href}
-      className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-700/60"
+      className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-700/60 transition"
     >
       {children}
     </Link>

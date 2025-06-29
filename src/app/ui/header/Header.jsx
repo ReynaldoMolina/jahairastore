@@ -7,7 +7,7 @@ export default function Header({ allowSearch = false }) {
       <h1 className="font-semibold">Jahaira Store</h1>
       <div className="flex items-center gap-1">
         <LogoutForm />
-        <LogoMinimal className="size-9 p-2 rounded-full hover:bg-white hover:dark:bg-neutral-700 cursor-pointer" />
+        <LogoMinimal className="size-9 p-2 rounded-full hover:bg-white hover:dark:bg-neutral-700 cursor-pointer transition" />
       </div>
     </header>
   )

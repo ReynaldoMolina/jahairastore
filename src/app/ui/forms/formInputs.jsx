@@ -18,12 +18,12 @@ export function FormButtons({ link, label }) {
     <div className="flex w-full justify-center gap-3">
       <Link
         href={link}
-        className="flex items-center justify-center rounded-xl font-semibold cursor-pointer h-9 w-full sm:w-35 bg-red-500 text-xs text-white"
+        className="flex items-center justify-center rounded-xl font-semibold cursor-pointer h-9 w-full sm:w-35 bg-red-500 text-xs text-white hover:bg-red-600 transition"
       >Cancelar</Link>
       <button
         type="submit"
         value="Save"
-        className="flex items-center justify-center rounded-xl font-semibold cursor-pointer h-9 w-full sm:w-35 bg-green-600 text-xs text-white"
+        className="flex items-center justify-center rounded-xl font-semibold cursor-pointer h-9 w-full sm:w-35 bg-green-600 hover:bg-green-700 text-xs text-white transition"
       >{label}</button>
     </div>
   )

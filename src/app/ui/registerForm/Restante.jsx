@@ -112,7 +112,7 @@ function FormInput({ name, holder, value, setValue, color = "bg-white dark:bg-ne
 function FormOption({ label, children, action }) {
   return (
     <button
-      className="flex justify-center items-center bg-sky-200 rounded-xl px-3 py-2 cursor-pointer shadow-xs gap-2"
+      className="flex justify-center items-center bg-sky-200 hover:bg-sky-300 transition rounded-xl px-3 py-2 cursor-pointer shadow-xs gap-2"
       type="button"
       onClick={action}>
       {children}
