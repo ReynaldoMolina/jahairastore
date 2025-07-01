@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from "react";
-import { FormDiv, FormInputState } from "./formInputsClient";
-import { bgColors } from "../bgcolors";
+import { useState } from 'react';
+import { FormDiv, FormInputState } from './FormInputs/formInputsClient';
+import { bgColors } from '../bgcolors';
 
 export function ExpensePayment({ gasto = 0, cambioDolar = 37 }) {
   const [cambioDol, setCambioDol] = useState(cambioDolar);
@@ -30,28 +30,49 @@ export function ExpensePayment({ gasto = 0, cambioDolar = 37 }) {
     setPayment({
       GastoCor: payment.GastoCor,
       Gasto: payment.GastoCor / value,
-    })
+    });
   }
 
   return (
     <>
       <FormDiv>
-        <FormInputState name="Cambio_dolar" holder="Cambio dólar" value={cambioDol} setValue={handleCambioDol} />
-        <PaymentInput name="GastoCor" holder="Gasto CS" value={payment} setValue={handleNio} color="red" />
-        <PaymentInput name="Gasto" holder="Gasto $" value={payment} setValue={handleDol} color="red" />
+        <FormInputState
+          name="Cambio_dolar"
+          holder="Cambio dólar"
+          value={cambioDol}
+          setValue={handleCambioDol}
+        />
+        <PaymentInput
+          name="GastoCor"
+          holder="Gasto CS"
+          value={payment}
+          setValue={handleNio}
+          color="red"
+        />
+        <PaymentInput
+          name="Gasto"
+          holder="Gasto $"
+          value={payment}
+          setValue={handleDol}
+          color="red"
+        />
       </FormDiv>
     </>
   );
 }
 
-function PaymentInput({ name, holder, value, setValue, setValue2, color = "gray" }) {
+function PaymentInput({
+  name,
+  holder,
+  value,
+  setValue,
+  setValue2,
+  color = 'gray',
+}) {
   const bgColor = bgColors[color];
   return (
     <div className="flex flex-col w-full gap-1">
-      <label
-        htmlFor={name}
-        className="w-full text-xs pl-2 font-semibold"
-      >
+      <label htmlFor={name} className="w-full text-xs pl-2 font-semibold">
         {holder}
       </label>
       <input
@@ -68,5 +89,5 @@ function PaymentInput({ name, holder, value, setValue, setValue2, color = "gray"
         required={true}
       ></input>
     </div>
-  )
+  );
 }

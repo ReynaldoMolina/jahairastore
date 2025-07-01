@@ -2,8 +2,23 @@
 
 import { signIn, signOut } from '@/auth';
 import { AuthError } from 'next-auth';
-import { getClientFormData, getProviderFormData, getReceiptFormData, getWebsiteFormData, getProductFormData, getOrderFormData, getPurchaseFormData, getExpenseFormData, getSaleFormData } from "@/app/lib/getFormData";
-import { createRecord, createRecordDetail, goBackTo, updateDetailRecords, updateRecord } from "@/app/lib/actionsUtils";
+import {
+  getClientFormData,
+  getProviderFormData,
+  getReceiptFormData,
+  getProductFormData,
+  getOrderFormData,
+  getPurchaseFormData,
+  getExpenseFormData,
+  getSaleFormData,
+} from '@/app/lib/getFormData';
+import {
+  createRecord,
+  createRecordDetail,
+  goBackTo,
+  updateDetailRecords,
+  updateRecord,
+} from '@/app/lib/actionsUtils';
 
 export async function authenticate(prevState, formData) {
   try {
@@ -56,7 +71,7 @@ export async function createCategory(formData) {
 }
 
 export async function updateCategory(id, formData) {
-  const data = { Nombre: formData.get('Nombre').trim() }
+  const data = { Nombre: formData.get('Nombre').trim() };
   await updateRecord({ tableName: 'Categorias', data, id });
   await goBackTo('/categorias');
 }
@@ -69,40 +84,50 @@ export async function createReceipt(formData) {
 
 export async function updateReceipt(id, formData) {
   const data = getReceiptFormData(formData);
-  await updateRecord({ tableName: 'Recibos', data, id })
+  await updateRecord({ tableName: 'Recibos', data, id });
   await goBackTo('/recibos');
 }
 
 export async function createProduct(formData) {
   const data = getProductFormData(formData);
-  await createRecord({ tableName: 'Productos', data })
+  await createRecord({ tableName: 'Productos', data });
   await goBackTo('/productos');
 }
 
 export async function updateProduct(id, formData) {
   const data = getProductFormData(formData);
-  await updateRecord({ tableName: 'Productos', data, id })
+  await updateRecord({ tableName: 'Productos', data, id });
   await goBackTo('/productos');
 }
 
 export async function createOrder(formData, productList) {
   const data = getOrderFormData(formData);
-  const id = await createRecord({ tableName: 'Pedidos', data, returningId: true });
+  const id = await createRecord({
+    tableName: 'Pedidos',
+    data,
+    returningId: true,
+  });
 
   await createRecordDetail({
     tableName: 'PedidosDetalles',
     foreignKeyName: 'Id_pedido',
     foreignKeyValue: id,
-    columns: ['Id_pedido', 'Id_producto', 'Precio_venta', 'Precio_compra', 'Cantidad'],
-    productList
-  })
-  
+    columns: [
+      'Id_pedido',
+      'Id_producto',
+      'Precio_venta',
+      'Precio_compra',
+      'Cantidad',
+    ],
+    productList,
+  });
+
   await goBackTo('/pedidos');
 }
 
 export async function updateOrder(id, formData, productList, originalList) {
   const data = getOrderFormData(formData);
-  await updateRecord({ tableName: 'Pedidos', data, id })
+  await updateRecord({ tableName: 'Pedidos', data, id });
 
   await updateDetailRecords({
     tableName: 'PedidosDetalles',
@@ -110,30 +135,48 @@ export async function updateOrder(id, formData, productList, originalList) {
     foreignKeyValue: Number(id),
     productList,
     originalList,
-    columns: ['Id_pedido', 'Id_producto', 'Precio_venta', 'Precio_compra', 'Cantidad'],
+    columns: [
+      'Id_pedido',
+      'Id_producto',
+      'Precio_venta',
+      'Precio_compra',
+      'Cantidad',
+    ],
+    updateColumns: ['Cantidad', 'Precio_venta'],
   });
-  
+
   await goBackTo('/pedidos');
 }
 
 export async function createPurchase(formData, productList) {
   const data = getPurchaseFormData(formData);
-  const id = await createRecord({ tableName: 'Compras', data, returningId: true });
+  const id = await createRecord({
+    tableName: 'Compras',
+    data,
+    returningId: true,
+  });
 
   await createRecordDetail({
     tableName: 'ComprasDetalles',
     foreignKeyName: 'Id_compra',
     foreignKeyValue: id,
-    columns: ['Id_compra', 'Id_producto', 'Precio_compra', 'Cantidad', 'Precio_venta', 'Cambio_dolar'],
-    productList
+    columns: [
+      'Id_compra',
+      'Id_producto',
+      'Precio_compra',
+      'Cantidad',
+      'Precio_venta',
+      'Cambio_dolar',
+    ],
+    productList,
   });
-  
+
   await goBackTo('/compras');
 }
 
 export async function updatePurchase(id, formData, productList, originalList) {
   const data = getPurchaseFormData(formData);
-  await updateRecord({ tableName: 'Compras', data, id })
+  await updateRecord({ tableName: 'Compras', data, id });
 
   await updateDetailRecords({
     foreignKeyName: 'Id_compra',
@@ -141,7 +184,15 @@ export async function updatePurchase(id, formData, productList, originalList) {
     tableName: 'ComprasDetalles',
     productList,
     originalList,
-    columns: ['Id_compra', 'Id_producto', 'Precio_compra', 'Cantidad', 'Precio_venta', 'Cambio_dolar'],
+    columns: [
+      'Id_compra',
+      'Id_producto',
+      'Precio_compra',
+      'Cantidad',
+      'Precio_venta',
+      'Cambio_dolar',
+    ],
+    updateColumns: ['Cantidad', 'Precio_compra'],
   });
 
   await goBackTo('/compras');
@@ -155,22 +206,33 @@ export async function createExpense(formData) {
 
 export async function updateExpense(id, formData) {
   const data = getExpenseFormData(formData);
-  await updateRecord({ tableName: 'Egresos', data, id })
+  await updateRecord({ tableName: 'Egresos', data, id });
   await goBackTo('/gastos');
 }
 
 export async function createSale(formData, productList) {
   const data = getSaleFormData(formData);
-  const id = await createRecord({ tableName: 'Ventas', data, returningId: true });
+  const id = await createRecord({
+    tableName: 'Ventas',
+    data,
+    returningId: true,
+  });
 
   await createRecordDetail({
     tableName: 'VentasDetalles',
     foreignKeyName: 'Id_venta',
     foreignKeyValue: id,
-    columns: [ 'Id_venta', 'Id_producto', 'Precio_venta', 'Precio_compra', 'Cantidad', 'Cambio_dolar'],
-    productList
+    columns: [
+      'Id_venta',
+      'Id_producto',
+      'Precio_venta',
+      'Precio_compra',
+      'Cantidad',
+      'Cambio_dolar',
+    ],
+    productList,
   });
-  
+
   await goBackTo('/ventas');
 }
 
@@ -184,8 +246,16 @@ export async function updateSale(id, formData, productList, originalList) {
     tableName: 'VentasDetalles',
     productList,
     originalList,
-    columns: ['Id_venta', 'Id_producto', 'Precio_venta', 'Precio_compra', 'Cantidad', 'Cambio_dolar'],
+    columns: [
+      'Id_venta',
+      'Id_producto',
+      'Precio_venta',
+      'Precio_compra',
+      'Cantidad',
+      'Cambio_dolar',
+    ],
+    updateColumns: ['Cantidad', 'Precio_venta'],
   });
-  
+
   await goBackTo('/ventas');
 }

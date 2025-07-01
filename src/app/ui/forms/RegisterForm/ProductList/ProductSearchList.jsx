@@ -1,15 +1,30 @@
-import EmptyList from "@/app/ui/lists/EmptyList";
-import { getProducts, getProductsPages, getProductsInventario, getProductsInventarioPages } from "@/app/lib/data";
-import { ListInfo, ListId, ListInfoDetail, ListDetail, ListName } from "@/app/ui/lists/lists";
-import { Pagination } from "@/app/ui/lists/pagination";
-import AddProduct from "./AddProduct";
-import { ProductSearchListHeader } from "../lists/ListHeader";
+import EmptyList from '@/app/ui/lists/EmptyList';
+import {
+  getProducts,
+  getProductsPages,
+  getProductsInventario,
+  getProductsInventarioPages,
+} from '@/app/lib/data';
+import {
+  ListInfo,
+  ListId,
+  ListInfoDetail,
+  ListDetail,
+  ListName,
+} from '@/app/ui/lists/lists';
+import { Pagination } from '@/app/ui/lists/Pagination';
+import AddProduct from './AddProduct';
+import { ProductSearchListHeader } from '@/app/ui/lists/ListHeader';
 
-export default async function ProductSearchList({ searchParams, inventario = false, price = 'venta' }) {
+export default async function ProductSearchList({
+  searchParams,
+  inventario = false,
+  price = 'venta',
+}) {
   const prices = {
     venta: 'Precio_venta',
-    compra: 'Precio_compra'
-  }
+    compra: 'Precio_compra',
+  };
 
   const query = searchParams?.query || '';
   const currentPage = Number(searchParams?.page) || 1;
@@ -23,11 +38,15 @@ export default async function ProductSearchList({ searchParams, inventario = fal
     : await getProducts(query, currentPage, false, false);
 
   return (
-    <div className={`flex flex-col grow overflow-y-scroll gap-1 rounded-xl h-100`}>
+    <div
+      className={`flex flex-col grow overflow-y-scroll gap-1 rounded-xl h-100`}
+    >
       <ProductSearchListHeader price={price} />
       {data.length === 0 && <EmptyList query={query} />}
       {data.map((product) => {
-        const priceToShow = inventario ? (product[prices[price]] * product.Cambio_dolar) : product.Precio_venta;
+        const priceToShow = inventario
+          ? product[prices[price]] * product.Cambio_dolar
+          : product.Precio_venta;
 
         return (
           <div
@@ -38,15 +57,18 @@ export default async function ProductSearchList({ searchParams, inventario = fal
             <ListInfo>
               <ListName name={product.Nombre} />
               <ListInfoDetail>
-                <ListDetail detail={priceToShow} color={price === 'venta' ? 'green' : 'red'} />
-                {inventario &&
+                <ListDetail
+                  detail={priceToShow}
+                  color={price === 'venta' ? 'green' : 'red'}
+                />
+                {inventario && (
                   <ListDetail detail={product.Existencias} type="text" />
-                }
+                )}
               </ListInfoDetail>
             </ListInfo>
             <AddProduct product={product} convert={inventario} />
           </div>
-        )
+        );
       })}
       <Pagination totalPages={totalPages} />
     </div>

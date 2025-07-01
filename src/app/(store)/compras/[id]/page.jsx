@@ -1,16 +1,21 @@
-import { FormId, FormSelect } from "@/app/ui/forms/formInputs";
-import { FormEdit, FormButtons, FormInfo, ProductSearch } from "@/app/ui/forms/RegisterForm";
-import ProductSearchList from "@/app/ui/registerForm/ProductSearchList";
-import FormDetail from "@/app/ui/registerForm/FormDetail";
-import { PurchaseOptions } from "@/app/ui/registerForm/PurchaseOptions";
-import { getPurchaseById, getPurchaseDetailById } from "@/app/lib/data";
-import { updatePurchase } from "@/app/lib/actions";
- 
+import { FormId, FormSelect } from '@/app/ui/forms/FormInputs/formInputs';
+import {
+  FormEdit,
+  FormButtons,
+  FormInfo,
+  ProductSearch,
+} from '@/app/ui/forms/RegisterForm';
+import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';
+import FormDetail from '@/app/ui/forms/RegisterForm/DetailList/FormDetail';
+import { PurchaseOptions } from '@/app/ui/forms/Options/PurchaseOptions';
+import { getPurchaseById, getPurchaseDetailById } from '@/app/lib/data';
+import { updatePurchase } from '@/app/lib/actions';
+
 export async function generateMetadata(props) {
   const { id } = await props.params;
   return {
-    title: `Compra ${id}`
-  }
+    title: `Compra ${id}`,
+  };
 }
 
 export default async function Page(props) {
@@ -22,14 +27,31 @@ export default async function Page(props) {
 
   return (
     <section className="flex grow overflow-y-scroll h-0">
-      <FormEdit updateRegister={updatePurchase} registerId={purchaseId} detailList={purchasedetail} convert={true}>
+      <FormEdit
+        updateRegister={updatePurchase}
+        registerId={purchaseId}
+        detailList={purchasedetail}
+        convert={true}
+      >
         <FormId holder="Compra" value={purchaseId} />
-        <FormInfo date={purchase.Fecha} value={purchase.TotalGasto} register="purchases">
-          <FormSelect value={purchase.Id_proveedor} name="Id_proveedor" label="Proveedor" />
+        <FormInfo
+          date={purchase.Fecha}
+          value={purchase.TotalGasto}
+          register="purchases"
+        >
+          <FormSelect
+            value={purchase.Id_proveedor}
+            name="Id_proveedor"
+            label="Proveedor"
+          />
         </FormInfo>
 
         <ProductSearch open={false}>
-          <ProductSearchList searchParams={searchParams} inventario={true} price="compra" />
+          <ProductSearchList
+            searchParams={searchParams}
+            inventario={true}
+            price="compra"
+          />
         </ProductSearch>
 
         <FormDetail convert={true} price="compra" />

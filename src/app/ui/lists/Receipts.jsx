@@ -1,25 +1,32 @@
-import { getReceipts, getReceiptsPages } from "@/app/lib/data";
-import { List, ListCard, ListId, ListName, ListInfo, ListInfoDetail, ListDetail, ListDate, NameDateDiv } from "@/app/ui/lists/lists";
-import { Pagination } from "@/app/ui/lists/pagination";
-import EmptyList from "@/app/ui/lists/EmptyList";
-import { ReceiptListTotal } from "./ListTotal";
-import { ReceiptListHeader } from "./ListHeader";
+import { getReceipts, getReceiptsPages } from '@/app/lib/data';
+import {
+  List,
+  ListCard,
+  ListId,
+  ListName,
+  ListInfo,
+  ListInfoDetail,
+  ListDetail,
+  ListDate,
+  NameDateDiv,
+} from '@/app/ui/lists/lists';
+import { Pagination } from '@/app/ui/lists/Pagination';
+import EmptyList from '@/app/ui/lists/EmptyList';
+import { ReceiptListTotal } from './ListTotal';
+import { ReceiptListHeader } from './ListHeader';
 
 export default async function Receipts({ query, currentPage }) {
   const data = await getReceipts(query, currentPage);
   const totalPages = await getReceiptsPages(query);
 
-  if (data.length === 0) return <EmptyList query={query}/>
+  if (data.length === 0) return <EmptyList query={query} />;
 
   return (
     <List blankSpaceBottom={false}>
       <ReceiptListHeader />
-      {data.map(register => (
-        <ListCard
-          key={register.Id}
-          href={`/recibos/${register.Id}`}
-        >
-          <ListId id={register.Id}/>
+      {data.map((register) => (
+        <ListCard key={register.Id} href={`/recibos/${register.Id}`}>
+          <ListId id={register.Id} />
           <ListInfo>
             <NameDateDiv>
               <ListName name={register.NombreCliente} />

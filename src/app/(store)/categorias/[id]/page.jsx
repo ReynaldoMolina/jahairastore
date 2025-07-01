@@ -3,13 +3,13 @@ import { getCategoryById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata(props) {
-  const { id } =  await props.params;
+  const { id } = await props.params;
 
   return {
-    title: `Categoría ${id}`
-  }
+    title: `Categoría ${id}`,
+  };
 }
- 
+
 export default async function Page(props) {
   const params = await props.params;
   const id = params.id;
@@ -18,8 +18,6 @@ export default async function Page(props) {
   if (!data) {
     notFound();
   }
- 
-  return (
-    <CategoryEdit category={data} />
-  );
+
+  return <CategoryEdit category={data} />;
 }

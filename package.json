@@ -29,5 +29,8 @@
     "eslint-config-next": "15.3.2",
     "mini-css-extract-plugin": "^2.9.2",
     "tailwindcss": "^4"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
   }
 }

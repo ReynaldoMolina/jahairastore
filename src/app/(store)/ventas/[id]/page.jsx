@@ -1,16 +1,21 @@
-import { FormId, FormSelect } from "@/app/ui/forms/formInputs";
-import { FormEdit, FormButtons, FormInfo, ProductSearch } from "@/app/ui/forms/RegisterForm";
-import ProductSearchList from "@/app/ui/registerForm/ProductSearchList";
-import FormDetail from "@/app/ui/registerForm/FormDetail";
-import { getSaleById, getSaleDetailById } from "@/app/lib/data";
-import { updateSale } from "@/app/lib/actions";
-import { SalePayment } from "@/app/ui/saleForm/SalePayment";
- 
+import { FormId, FormSelect } from '@/app/ui/forms/FormInputs/formInputs';
+import {
+  FormEdit,
+  FormButtons,
+  FormInfo,
+  ProductSearch,
+} from '@/app/ui/forms/RegisterForm';
+import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';
+import FormDetail from '@/app/ui/forms/RegisterForm/DetailList/FormDetail';
+import { getSaleById, getSaleDetailById } from '@/app/lib/data';
+import { updateSale } from '@/app/lib/actions';
+import { SalePayment } from '@/app/ui/forms/SaleForm/SalePayment';
+
 export async function generateMetadata(props) {
   const { id } = await props.params;
   return {
-    title: `Venta ${id}`
-  }
+    title: `Venta ${id}`,
+  };
 }
 
 export default async function Page(props) {
@@ -22,7 +27,7 @@ export default async function Page(props) {
 
   return (
     <section className="flex grow overflow-y-scroll h-0">
-      <FormEdit 
+      <FormEdit
         updateRegister={updateSale}
         registerId={saleId}
         detailList={saledetail}
@@ -32,7 +37,11 @@ export default async function Page(props) {
       >
         <FormId holder="Venta" value={saleId} />
         <FormInfo date={sale.Fecha} register="sales">
-          <FormSelect value={sale.Id_cliente} name="Id_cliente" label="Cliente" />
+          <FormSelect
+            value={sale.Id_cliente}
+            name="Id_cliente"
+            label="Cliente"
+          />
         </FormInfo>
 
         <SalePayment credito={sale.Credito} />
