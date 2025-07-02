@@ -5,8 +5,8 @@ import {
   FormInfo,
   ProductSearch,
 } from '@/app/ui/forms/RegisterForm';
-import ProductSearchList from '@/app/ui/registerForm/ProductList/ProductSearchList';
-import FormDetail from '@/app/ui/registerForm/DetailList/FormDetail';
+import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';
+import FormDetail from '@/app/ui/forms/RegisterForm/DetailList/FormDetail';
 import { createOrder } from '@/app/lib/actions';
 
 export const metadata = {

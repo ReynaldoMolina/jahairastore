@@ -38,9 +38,7 @@ export default async function ProductSearchList({
     : await getProducts(query, currentPage, false, false);
 
   return (
-    <div
-      className={`flex flex-col grow overflow-y-scroll gap-1 rounded-xl h-100`}
-    >
+    <div className={`flex flex-col gap-1 rounded-xl`}>
       <ProductSearchListHeader price={price} />
       {data.length === 0 && <EmptyList query={query} />}
       {data.map((product) => {
