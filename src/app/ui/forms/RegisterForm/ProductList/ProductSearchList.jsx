@@ -12,7 +12,7 @@ import {
   ListDetail,
   ListName,
 } from '@/app/ui/lists/lists';
-import { Pagination } from '@/app/ui/lists/Pagination2';
+import { Pagination } from '@/app/ui/lists/Pagination';
 import AddProduct from './AddProduct';
 import { ProductSearchListHeader } from '@/app/ui/lists/ListHeader';
 

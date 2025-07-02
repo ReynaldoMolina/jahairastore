@@ -11,7 +11,7 @@ import {
   ListDescription,
   NameDateDiv,
 } from '@/app/ui/lists/lists';
-import { Pagination } from '@/app/ui/lists/Pagination2';
+import { Pagination } from '@/app/ui/lists/Pagination';
 import EmptyList from '@/app/ui/lists/EmptyList';
 import { ExpensesListTotal } from './ListTotal';
 import { ExpensesListHeader } from './ListHeader';

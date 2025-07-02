@@ -6,7 +6,7 @@ import {
   ListName,
   ListInfo,
 } from '@/app/ui/lists/lists';
-import { Pagination } from '@/app/ui/lists/Pagination2';
+import { Pagination } from '@/app/ui/lists/Pagination';
 import EmptyList from '@/app/ui/lists/EmptyList';
 
 export default async function Categories({ query, currentPage }) {

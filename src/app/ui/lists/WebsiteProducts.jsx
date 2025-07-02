@@ -8,7 +8,7 @@ import {
   ListInfoDetail,
   ListDetail,
 } from '@/app/ui/lists/lists';
-import { Pagination } from '@/app/ui/lists/Pagination2';
+import { Pagination } from '@/app/ui/lists/Pagination';
 import EmptyList from '@/app/ui/lists/EmptyList';
 
 export default async function WebsiteProduts({ query, currentPage }) {

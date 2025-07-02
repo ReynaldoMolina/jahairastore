@@ -1,5 +1,5 @@
 import { getClients, getClientsPages } from '@/app/lib/data';
-import { Pagination } from './Pagination2';
+import { Pagination } from './Pagination';
 import {
   List,
   ListCard,
