@@ -8,7 +8,7 @@ import {
   ListInfoDetail,
   ListDetail,
 } from '@/app/ui/lists/lists';
-import { Pagination } from '@/app/ui/lists/Pagination';
+import { Pagination } from '@/app/ui/lists/Pagination2';
 import EmptyList from '@/app/ui/lists/EmptyList';
 import { InventoryListTotal } from './ListTotal';
 import { InventoryListHeader } from './ListHeader';
