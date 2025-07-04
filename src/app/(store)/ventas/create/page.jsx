@@ -1,4 +1,4 @@
-import { FormSelect, FormId } from '@/app/ui/forms/FormInputs/formInputs';
+import { FormSelect, FormId } from '@/app/ui/forms/FormInputs/formInputsServer';
 import {
   FormCreate,
   FormButtons,

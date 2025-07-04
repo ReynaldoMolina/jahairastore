@@ -5,7 +5,7 @@ import {
   FormDiv,
   FormSpan,
   FormCheck,
-} from '@/app/ui/forms/FormInputs/formInputsClient';
+} from '@/app/ui/forms/FormInputs/formInputs';
 import { bgColors } from '@/app/ui/bgcolors';
 
 export function ProductPrices({ product }) {

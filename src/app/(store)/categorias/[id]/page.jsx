@@ -1,4 +1,4 @@
-import { CategoryEdit } from '@/app/ui/forms/CategoryForm';
+import { CategoryForm } from '@/app/ui/forms/CategoryForm';
 import { getCategoryById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 
@@ -19,5 +19,5 @@ export default async function Page(props) {
     notFound();
   }
 
-  return <CategoryEdit category={data} />;
+  return <CategoryForm isNew={false} category={data} />;
 }

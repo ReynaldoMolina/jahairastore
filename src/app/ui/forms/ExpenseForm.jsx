@@ -6,7 +6,7 @@ import {
   FormDate,
   FormId,
   FormSelect,
-} from '@/app/ui/forms/FormInputs/formInputs';
+} from '@/app/ui/forms/FormInputs/formInputsServer';
 import { createExpense, updateExpense } from '@/app/lib/actions';
 import { ExpensePayment } from './ExpensePayment';
 

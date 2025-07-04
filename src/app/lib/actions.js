@@ -40,51 +40,83 @@ export async function handleLogout() {
   await signOut({ redirectTo: '/' });
 }
 
-export async function createClient(formData) {
-  const data = getClientFormData(formData);
-  await createRecord({ tableName: 'Clientes', data });
+export async function createClient(prevState, formData) {
+  try {
+    const data = getClientFormData(formData);
+    await createRecord({ tableName: 'Clientes', data });
+  } catch (error) {
+    return error;
+  }
   await goBackTo('/clientes');
 }
 
-export async function updateClient(id, formData) {
-  const data = getClientFormData(formData);
-  await updateRecord({ tableName: 'Clientes', data, id });
+export async function updateClient(id, prevState, formData) {
+  try {
+    const data = getClientFormData(formData);
+    await updateRecord({ tableName: 'Clientes', data, id });
+  } catch (error) {
+    return error;
+  }
   await goBackTo('/clientes');
 }
 
-export async function createProvider(formData) {
-  const data = getProviderFormData(formData);
-  await createRecord({ tableName: 'Proveedores', data });
+export async function createProvider(prevState, formData) {
+  try {
+    const data = getProviderFormData(formData);
+    await createRecord({ tableName: 'Proveedores', data });
+  } catch (error) {
+    return error;
+  }
   await goBackTo('/proveedores');
 }
 
-export async function updateProvider(id, formData) {
-  const data = getProviderFormData(formData);
-  await updateRecord({ tableName: 'Proveedores', data, id });
+export async function updateProvider(id, prevState, formData) {
+  try {
+    const data = getProviderFormData(formData);
+    await updateRecord({ tableName: 'Proveedores', data, id });
+  } catch (error) {
+    return error;
+  }
   await goBackTo('/proveedores');
 }
 
-export async function createCategory(formData) {
-  const data = { Nombre: formData.get('Nombre').trim() };
-  await createRecord({ tableName: 'Categorias', data });
+export async function createCategory(prevState, formData) {
+  try {
+    const data = { Nombre: formData.get('Nombre').trim() };
+    await createRecord({ tableName: 'Categorias', data });
+  } catch (error) {
+    return error;
+  }
   await goBackTo('/categorias');
 }
 
-export async function updateCategory(id, formData) {
-  const data = { Nombre: formData.get('Nombre').trim() };
-  await updateRecord({ tableName: 'Categorias', data, id });
+export async function updateCategory(id, prevState, formData) {
+  try {
+    const data = { Nombre: formData.get('Nombre').trim() };
+    await updateRecord({ tableName: 'Categorias', data, id });
+  } catch (error) {
+    return error;
+  }
   await goBackTo('/categorias');
 }
 
-export async function createReceipt(formData) {
-  const data = getReceiptFormData(formData);
-  await createRecord({ tableName: 'Recibos', data });
+export async function createReceipt(prevState, formData) {
+  try {
+    const data = getReceiptFormData(formData);
+    await createRecord({ tableName: 'Recibos', data });
+  } catch (error) {
+    return error;
+  }
   await goBackTo('/recibos');
 }
 
-export async function updateReceipt(id, formData) {
-  const data = getReceiptFormData(formData);
-  await updateRecord({ tableName: 'Recibos', data, id });
+export async function updateReceipt(id, prevState, formData) {
+  try {
+    const data = getReceiptFormData(formData);
+    await updateRecord({ tableName: 'Recibos', data, id });
+  } catch (error) {
+    return error;
+  }
   await goBackTo('/recibos');
 }
 

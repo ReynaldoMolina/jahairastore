@@ -1,79 +1,79 @@
 export const menuOptions = [
   {
     id: 0,
-    name: "Inicio",
+    name: 'Inicio',
     path: '/',
     url: '/',
-    divider: true
+    divider: true,
   },
   {
     id: 1,
-    name: "Ventas",
+    name: 'Ventas',
     path: '/ventas',
-    url: "/ventas",
-    divider: false
+    url: '/ventas',
+    divider: false,
   },
   {
     id: 2,
-    name: "Inventario",
+    name: 'Inventario',
     path: '/inventario',
     url: '/inventario?query=disponibles',
-    divider: false
+    divider: false,
   },
   {
     id: 3,
-    name: "Productos",
+    name: 'Productos',
     path: '/productos',
-    url: "/productos",
-    divider: true
+    url: '/productos',
+    divider: true,
   },
   {
     id: 4,
-    name: "Compras",
+    name: 'Compras',
     path: '/compras',
     url: '/compras',
-    divider: false
+    divider: false,
   },
   {
     id: 5,
-    name: "Gastos",
+    name: 'Gastos',
     path: '/gastos',
     url: '/gastos',
-    divider: true
+    divider: true,
   },
   {
     id: 6,
-    name: "Pedidos",
+    name: 'Pedidos',
     path: '/pedidos',
     url: '/pedidos?query=debe',
-    divider: false
+    divider: false,
   },
   {
     id: 7,
-    name: "Recibos",
+    name: 'Recibos',
     path: '/recibos',
-    url: "/recibos",
-    divider: true
+    url: '/recibos',
+    divider: true,
   },
   {
     id: 8,
-    name: "Clientes",
+    name: 'Clientes',
     path: '/clientes',
     url: '/clientes',
-    divider: false
+    divider: false,
   },
   {
     id: 9,
-    name: "Proveedores",
+    name: 'Proveedores',
     path: '/proveedores',
     url: '/proveedores',
-    divider: false
+    divider: false,
   },
   {
     id: 10,
-    name: "Categorías",
+    name: 'Categorías',
     path: '/categorias',
     url: '/categorias',
-    divider: false
-  }
+    divider: true,
+  },
 ];

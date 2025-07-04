@@ -1,26 +1,34 @@
 'use client';
 
-import { menuOptions } from "@/app/lib/menuOptions";
-import { MenuItem } from "./MenuItem";
+import { menuOptions } from '@/app/lib/menuOptions';
+import { MenuItem } from './MenuItem';
+import LogoMinimal from '@/app/ui/icons/logominimal.svg';
+import LogoutForm from '../login/LogoutForm';
 
 export default function SideMenu() {
   return (
-    <menu
-      className="flex flex-col md:min-h-screen bg-white dark:bg-neutral-700/50 md:shadow-xl rounded-t-xl md:rounded-tl-none md:rounded-r-xl z-1 w-screen md:min-w-50 md:w-50 order-2 md:order-0 overflow-hidden"
-    >
-      <h2 className="hidden md:flex min-h-13 bg-transparent justify-center items-center font-semibold">Menu</h2>
-      <nav className="flex flex-row md:flex-col justify-start overflow-scroll px-2 py-1 md:mb-2 md:p-0 gap-1">
-        {menuOptions.map(option => (
-          <div
-            key={option.id}
-            className="flex md:flex-col items-center gap-1 w-full">
-            <MenuItem option={option} />
-            {option.divider && (
-              <div className="h-7/10 md:w-8/10 border-r-1 md:border-b-1 dark:border-neutral-600 border-neutral-200"></div>
-            )}
-          </div>
-        ))}
-      </nav>
-    </menu>
-  )
+    <nav className="flex items-center md:flex-col overflow-y-scroll gap-1 p-1 md:p-2 sticky bottom-0 md:top-0 bg-white dark:bg-neutral-800 z-10 w-screen md:min-w-25 md:w-25 md:max-h-screen order-2 md:order-0 border-t md:border-t-0 md:border-r border-neutral-300 dark:border-neutral-600 overscroll-contain">
+      <MenuLogo />
+      {menuOptions.map((option) => (
+        <div
+          key={option.id}
+          className="flex md:flex-col items-center gap-1 w-full"
+        >
+          <MenuItem option={option} />
+          {option.divider && (
+            <div className="h-10 md:h-0 md:w-8/10 border-r-1 md:border-b-1 dark:border-neutral-600 border-neutral-300"></div>
+          )}
+        </div>
+      ))}
+      <LogoutForm />
+    </nav>
+  );
+}
+
+function MenuLogo() {
+  return (
+    <div className="flex min-w-17 md:min-h-17 justify-center items-center">
+      <LogoMinimal className="size-12 p-2" />
+    </div>
+  );
 }

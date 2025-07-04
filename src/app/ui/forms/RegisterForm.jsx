@@ -3,12 +3,16 @@
 import Link from 'next/link';
 import { useState, createContext, useContext } from 'react';
 import { calculateTotals } from '@/app/lib/calculateTotals';
-import { FormSpan, FormDate } from '@/app/ui/forms/FormInputs/formInputsClient';
+import {
+  FormContainer,
+  FormSpan,
+  FormDate,
+} from '@/app/ui/forms/FormInputs/formInputs';
 import ArrowDown from '@/app/ui/icons/arrowdown.svg';
 import SearchInput from '@/app/ui/actiontools/SearchInput';
+import { bgColors } from '../bgcolors';
 
 const FormContext = createContext();
-
 export function useFormContext() {
   const context = useContext(FormContext);
   return context;
@@ -31,10 +35,7 @@ export function FormCreate({ children, createRegister, convert = false }) {
   }
 
   return (
-    <form
-      action={handleRegister}
-      className="flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-170 p-3 w-full h-fit"
-    >
+    <FormContainer action={handleRegister}>
       <FormContext.Provider
         value={{
           productList,
@@ -47,7 +48,7 @@ export function FormCreate({ children, createRegister, convert = false }) {
       >
         {children}
       </FormContext.Provider>
-    </form>
+    </FormContainer>
   );
 }
 
@@ -77,10 +78,7 @@ export function FormEdit({
   }
 
   return (
-    <form
-      action={handleOrder}
-      className="flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-170 p-3 w-full h-fit"
-    >
+    <FormContainer action={handleOrder}>
       <FormContext.Provider
         value={{
           productList,
@@ -93,7 +91,7 @@ export function FormEdit({
       >
         {children}
       </FormContext.Provider>
-    </form>
+    </FormContainer>
   );
 }
 
@@ -107,8 +105,8 @@ export function FormInfo({ children, date, value = 0, register }) {
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-col md:flex-row gap-4">
-        <FormDate date={date} />
         {children}
+        <FormDate date={date} />
       </div>
       {formSubtotals[register]}
     </section>
@@ -119,22 +117,22 @@ export function ProductSearch({ children, open }) {
   const [isSearchProductOpen, setIsSearchProductOpen] = useState(open);
 
   return (
-    <section className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2 bg-neutral-100 dark:bg-neutral-900 rounded-xl p-2">
-        <div
-          className="flex items-center justify-between gap-1 cursor-pointer"
-          onClick={() => setIsSearchProductOpen((state) => !state)}
-        >
-          <p className="text-sm font-semibold px-2">Agregar productos</p>
-          <ArrowDown
-            className={`rounded-xl w-10 h-6 border border-neutral-300 bg-white dark:bg-neutral-700 ${
-              isSearchProductOpen ? 'rotate-180' : 'rotate-0'
-            }`}
-          />
-        </div>
-        {isSearchProductOpen && <SearchInput />}
-        {isSearchProductOpen && children}
+    <section
+      className={`flex flex-col gap-4 bg-neutral-100 dark:bg-black ${bgColors.borderColor} rounded-lg py-2 my-4`}
+    >
+      <div
+        className="flex items-center justify-between gap-1 cursor-pointer"
+        onClick={() => setIsSearchProductOpen((state) => !state)}
+      >
+        <p className="text-sm font-semibold px-2">Agregar productos</p>
+        <ArrowDown
+          className={`rounded-md w-10 h-6 border border-neutral-300 bg-white dark:bg-neutral-700 ${
+            isSearchProductOpen ? 'rotate-180' : 'rotate-0'
+          }`}
+        />
       </div>
+      {isSearchProductOpen && <SearchInput />}
+      {isSearchProductOpen && children}
     </section>
   );
 }

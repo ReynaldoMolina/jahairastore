@@ -20,23 +20,40 @@ export default async function Inventory({ query, currentPage }) {
   if (data.length === 0) return <EmptyList query={query} />;
 
   return (
-    <List blankSpaceBottom={false}>
-      <InventoryListHeader />
-      {data.map((register) => (
-        <ListCard href={`/productos/${register.Id}`} key={register.Id}>
-          <ListId id={register.Id} />
-          <ListInfo>
-            <ListName name={register.Nombre} />
-            <ListInfoDetail>
-              <ListDetail detail={register.Existencias} type="text" />
-              <ListDetail detail={register.Precio_venta} color="green" />
-              <ListDetail detail={register.Ganancia} color="blue" />
-            </ListInfoDetail>
-          </ListInfo>
-        </ListCard>
-      ))}
-      <InventoryListTotal data={data} />
+    <>
+      <List blankSpaceBottom={false}>
+        <InventoryListHeader />
+        {data.map((register) => (
+          <ListCard href={`/productos/${register.Id}`} key={register.Id}>
+            <ListId id={register.Id} />
+            <ListInfo>
+              <ListName name={register.Nombre} />
+              <ListInfoDetail>
+                <ListDetail
+                  detail={register.Existencias}
+                  label="Disponibles"
+                  color="gray"
+                  number={false}
+                />
+                <ListDetail
+                  detail={register.Precio_venta}
+                  label="Precio"
+                  color="green"
+                  nio={true}
+                />
+                <ListDetail
+                  detail={register.Ganancia}
+                  label="Ganancia"
+                  color="blue"
+                  nio={true}
+                />
+              </ListInfoDetail>
+            </ListInfo>
+          </ListCard>
+        ))}
+        <InventoryListTotal data={data} />
+      </List>
       <Pagination totalPages={totalPages} />
-    </List>
+    </>
   );
 }

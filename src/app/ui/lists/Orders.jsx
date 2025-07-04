@@ -6,9 +6,9 @@ import {
   ListName,
   ListInfo,
   ListInfoDetail,
-  ListDate,
   ListDetail,
-  NameDateDiv,
+  ListBlankSpace,
+  ListDate,
 } from '@/app/ui/lists/lists';
 import { Pagination } from '@/app/ui/lists/Pagination';
 import EmptyList from '@/app/ui/lists/EmptyList';
@@ -21,36 +21,51 @@ export default async function Orders({ query, currentPage }) {
   if (data.length === 0) return <EmptyList query={query} />;
 
   return (
-    <List>
-      <OrderListHeader />
-      {data.map((register) => {
-        const saldo = register.TotalPedidoVenta - register.TotalAbono;
+    <>
+      <List>
+        <OrderListHeader />
+        {data.map((register) => {
+          const saldo = register.TotalPedidoVenta - register.TotalAbono;
 
-        return (
-          <ListCard key={register.Id} href={`/pedidos/${register.Id}`}>
-            <ListId id={register.Id} />
-            <ListInfo>
-              <NameDateDiv>
+          return (
+            <ListCard key={register.Id} href={`/pedidos/${register.Id}`}>
+              <ListId id={register.Id} />
+              <ListInfo>
                 <ListName name={register.NombreCliente} />
-                <ListDate date={register.Fecha} />
-              </NameDateDiv>
-              <ListInfoDetail>
-                <ListDetail detail={register.TotalPedidoVenta} color="gray" />
-                <ListDetail detail={register.TotalAbono} color="green" />
-                <ListDetail detail={saldo} color="red" ping={saldo > 0} />
-                <ListDetail
-                  detail={
-                    register.TotalPedidoVenta - register.TotalPedidoCompra
-                  }
-                  color="blue"
-                />
-              </ListInfoDetail>
-            </ListInfo>
-          </ListCard>
-        );
-      })}
-      <OrderListTotal data={data} />
+                <ListInfoDetail>
+                  <ListDate date={register.Fecha} />
+                  <ListDetail
+                    detail={register.TotalPedidoVenta}
+                    label="Total"
+                    color="gray"
+                  />
+                  <ListDetail
+                    detail={register.TotalAbono}
+                    label="Abonos"
+                    color="green"
+                  />
+                  <ListDetail
+                    detail={saldo}
+                    label="Saldo"
+                    color="red"
+                    ping={saldo > 0}
+                  />
+                  <ListDetail
+                    detail={
+                      register.TotalPedidoVenta - register.TotalPedidoCompra
+                    }
+                    label="Ganancia"
+                    color="blue"
+                  />
+                </ListInfoDetail>
+              </ListInfo>
+            </ListCard>
+          );
+        })}
+        <OrderListTotal data={data} />
+      </List>
       <Pagination totalPages={totalPages} />
-    </List>
+      <ListBlankSpace />
+    </>
   );
 }

@@ -1,14 +1,58 @@
-import { ListDetail, ListInfoDetail, ListName, ListId, ListDate, NameDateDiv, ListHeader, ListInfo, ListDescription } from "@/app/ui/lists/lists";
+import {
+  ListDetail,
+  ListInfoDetail,
+  ListName,
+  ListId,
+  ListHeader,
+  ListPhone,
+  ListDescription,
+  ListDate,
+} from '@/app/ui/lists/lists';
+
+export function CategoryListHeader() {
+  return (
+    <ListHeader hide={false}>
+      <ListId id="ID" color="none" />
+      <ListName name="NOMBRE" />
+    </ListHeader>
+  );
+}
+
+export function ProviderListHeader() {
+  return (
+    <ListHeader hide={false}>
+      <ListId id="ID" color="none" />
+      <ListName name="NOMBRE" />
+      <ListInfoDetail>
+        <ListPhone phone="TELÉFONO" color="none" />
+      </ListInfoDetail>
+    </ListHeader>
+  );
+}
+
+export function ClientListHeader() {
+  return (
+    <ListHeader hide={false}>
+      <ListId id="ID" color="none" />
+      <ListName name="NOMBRE" />
+      <ListInfoDetail>
+        <ListPhone phone="TELÉFONO" color="none" />
+      </ListInfoDetail>
+    </ListHeader>
+  );
+}
 
 export function OrderListHeader() {
   return (
     <ListHeader>
-      <ListId id="Id" color="gray"/>
+      <ListId id="ID" color="none" />
+      <ListName name="CLIENTE" />
       <ListInfoDetail>
-        <ListDetail detail="Total" color="gray" type="text" />
-        <ListDetail detail="Abono" color="green" type="text" />
-        <ListDetail detail="Saldo" color="red" type="text" />
-        <ListDetail detail="Ganancia" color="blue" type="text" />
+        <ListDate />
+        <ListDetail detail="TOTAL" color="none" number={false} />
+        <ListDetail detail="ABONO" color="none" number={false} />
+        <ListDetail detail="SALDO" color="none" number={false} />
+        <ListDetail detail="GANANCIA" color="none" number={false} />
       </ListInfoDetail>
     </ListHeader>
   );
@@ -17,10 +61,12 @@ export function OrderListHeader() {
 export function ReceiptListHeader() {
   return (
     <ListHeader>
-      <ListId id="Id" color="gray" />
+      <ListId id="ID" color="none" />
+      <ListName name="CLIENTE" color="none" />
       <ListInfoDetail>
-        <ListDetail detail="Id pedido" type="text" />
-        <ListDetail detail="Abono" color="green" type="text" />
+        <ListDate />
+        <ListDetail detail="ID PEDIDO" color="none" number={false} />
+        <ListDetail detail="ABONO" color="none" number={false} />
       </ListInfoDetail>
     </ListHeader>
   );
@@ -29,11 +75,13 @@ export function ReceiptListHeader() {
 export function PurchaseListHeader() {
   return (
     <ListHeader>
-      <ListId id="Id" color="gray"/>
+      <ListId id="ID" color="none" />
+      <ListName name="EMPRESA" />
       <ListInfoDetail>
-        <ListDetail detail="Total" type="text" />
-        <ListDetail detail="Gastos" color="red" type="text" />
-        <ListDetail detail="Ganancia" color="blue" type="text" />
+        <ListDate />
+        <ListDetail detail="TOTAL" number={false} />
+        <ListDetail detail="GASTOS" number={false} />
+        <ListDetail detail="GANANCIA" number={false} />
       </ListInfoDetail>
     </ListHeader>
   );
@@ -42,10 +90,13 @@ export function PurchaseListHeader() {
 export function ExpensesListHeader() {
   return (
     <ListHeader>
-      <ListId id="Id" color="gray" />
+      <ListId id="ID" color="none" />
+      <ListName name="EMPRESA" color="none" />
       <ListInfoDetail>
-        <ListDetail detail="Id compr" type="text" />
-        <ListDetail detail="Gasto" color="red" type="text" />
+        <ListDetail detail="FECHA" color="none" number={false} />
+        <ListDescription detail="CONCEPTO" header={true} />
+        <ListDetail detail="ID COMPRA" color="none" number={false} />
+        <ListDetail detail="GASTO" color="none" number={false} />
       </ListInfoDetail>
     </ListHeader>
   );
@@ -54,11 +105,13 @@ export function ExpensesListHeader() {
 export function SaleListHeader() {
   return (
     <ListHeader>
-      <ListId id="Id" color="gray" />
+      <ListId id="ID" color="none" />
+      <ListName name="CLIENTE" />
       <ListInfoDetail>
-        <ListDetail detail="Total" type="text" />
-        <ListDetail detail="Saldo" color="red" type="text" />
-        <ListDetail detail="Ganancia" color="blue" type="text" />
+        <ListDate />
+        <ListDetail detail="TOTAL" number={false} />
+        <ListDetail detail="SALDO" number={false} />
+        <ListDetail detail="GANANCIA" number={false} />
       </ListInfoDetail>
     </ListHeader>
   );
@@ -67,11 +120,12 @@ export function SaleListHeader() {
 export function InventoryListHeader() {
   return (
     <ListHeader>
-      <ListId id="Id" color="gray" />
+      <ListId id="ID" color="none" />
+      <ListName name="PRODUCTO" />
       <ListInfoDetail>
-        <ListDetail detail="Cantidad" type="text" />
-        <ListDetail detail="Precio" color="green" type="text" />
-        <ListDetail detail="Ganancia" color="blue" type="text" />
+        <ListDetail detail="DISPONIBLES" number={false} />
+        <ListDetail detail="PRECIO" number={false} />
+        <ListDetail detail="GANANCIA" number={false} />
       </ListInfoDetail>
     </ListHeader>
   );
@@ -80,23 +134,30 @@ export function InventoryListHeader() {
 export function ProductListHeader() {
   return (
     <ListHeader>
-      <ListId id="Id" color="gray" />
+      <ListId id="ID" color="none" />
+      <ListName name="PRODUCTO" />
       <ListInfoDetail>
-        <ListDetail detail="Venta" color="green" type="text" />
-        <ListDetail detail="Compra" color="red" type="text" />
-        <ListDetail detail="Ganancia" color="blue" type="text" />
+        <ListDate />
+        <ListDetail detail="VENTA" number={false} />
+        <ListDetail detail="COMPRA" number={false} />
+        <ListDetail detail="GANANCIA" number={false} />
       </ListInfoDetail>
     </ListHeader>
   );
 }
 
-export function ProductSearchListHeader({ price }) {
+export function ProductSearchListHeader({ price, inventario }) {
   return (
     <ListHeader>
-      <ListId id="Id" color="gray" />
+      <ListId id="Id" />
       <ListInfoDetail>
-        <ListDetail detail="Precio" color={price === 'venta' ? 'green' : 'red'} type="text" />
-        <ListDetail detail="Cantidad" type="text" />
+        <ListDetail
+          detail="Precio"
+          color={price === 'venta' ? 'green' : 'red'}
+          number={false}
+        />
+        {inventario && <ListDetail detail="Cantidad" number={false} />}
+        <div className="size-7"></div>
       </ListInfoDetail>
     </ListHeader>
   );

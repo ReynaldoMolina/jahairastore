@@ -6,7 +6,7 @@ import {
   FormDate,
   FormId,
   FormSelect,
-} from '@/app/ui/forms/FormInputs/formInputs';
+} from '@/app/ui/forms/FormInputs/formInputsServer';
 import { createProduct, updateProduct } from '@/app/lib/actions';
 import { ProductPrices } from './ProductForm/ProductFormInputs';
 

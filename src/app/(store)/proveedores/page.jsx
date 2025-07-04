@@ -1,10 +1,10 @@
-import NewRegister from "@/app/ui/actiontools/NewRegister";
-import SearchInput from "@/app/ui/actiontools/SearchInput";
-import Providers from "@/app/ui/lists/Providers";
+import SearchInput from '@/app/ui/actiontools/SearchInput';
+import { ListTitle } from '@/app/ui/lists/lists';
+import Providers from '@/app/ui/lists/Providers';
 
 export const metadata = {
-  title: 'Proveedores'
-}
+  title: 'Proveedores',
+};
 
 export default async function Page(props) {
   const searchParams = await props.searchParams;
@@ -13,9 +13,9 @@ export default async function Page(props) {
 
   return (
     <>
+      <ListTitle title="Proveedores" />
       <SearchInput />
       <Providers query={query} currentPage={currentPage} />
-      <NewRegister />
     </>
   );
-};
+}

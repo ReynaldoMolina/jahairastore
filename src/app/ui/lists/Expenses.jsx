@@ -9,7 +9,6 @@ import {
   ListDetail,
   ListDate,
   ListDescription,
-  NameDateDiv,
 } from '@/app/ui/lists/lists';
 import { Pagination } from '@/app/ui/lists/Pagination';
 import EmptyList from '@/app/ui/lists/EmptyList';
@@ -23,29 +22,36 @@ export default async function Expenses({ query, currentPage }) {
   if (data.length === 0) return <EmptyList query={query} />;
 
   return (
-    <List blankSpaceBottom={false}>
-      <ExpensesListHeader />
-      {data.map((register) => (
-        <ListCard key={register.Id} href={`/gastos/${register.Id}`}>
-          <ListId id={register.Id} />
-          <ListInfo>
-            <NameDateDiv>
+    <>
+      <List>
+        <ExpensesListHeader />
+        {data.map((register) => (
+          <ListCard key={register.Id} href={`/gastos/${register.Id}`}>
+            <ListId id={register.Id} />
+            <ListInfo>
               <ListName name={register.Nombre_empresa} />
-              <ListDate date={register.Fecha} />
-            </NameDateDiv>
-            <ListDescription detail={register.Concepto} />
-            <ListInfoDetail>
-              <ListDetail detail={register.Id_compra} type="text" />
-              <ListDetail
-                detail={register.Gasto * register.Cambio_dolar}
-                color="red"
-              />
-            </ListInfoDetail>
-          </ListInfo>
-        </ListCard>
-      ))}
-      <ExpensesListTotal data={data} />
+              <ListInfoDetail>
+                <ListDate date={register.Fecha} />
+                <ListDescription detail={register.Concepto} />
+                <ListDetail
+                  detail={register.Id_compra}
+                  label="Id compra"
+                  color="gray"
+                  number={false}
+                />
+                <ListDetail
+                  detail={register.Gasto * register.Cambio_dolar}
+                  label="Gasto"
+                  color="red"
+                  nio={true}
+                />
+              </ListInfoDetail>
+            </ListInfo>
+          </ListCard>
+        ))}
+        <ExpensesListTotal data={data} />
+      </List>
       <Pagination totalPages={totalPages} />
-    </List>
+    </>
   );
 }

@@ -1,4 +1,4 @@
-import LoadingSvg from "@/app/ui/loading/loading.svg";
+import LoadingSvg from '@/app/ui/loading/loading.svg';
 
 export default function LoadingIcon() {
   return (

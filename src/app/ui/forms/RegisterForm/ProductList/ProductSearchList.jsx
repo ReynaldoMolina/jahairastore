@@ -6,6 +6,7 @@ import {
   getProductsInventarioPages,
 } from '@/app/lib/data';
 import {
+  ListCard,
   ListInfo,
   ListId,
   ListInfoDetail,
@@ -39,7 +40,9 @@ export default async function ProductSearchList({
 
   return (
     <div className={`flex flex-col gap-1 rounded-xl`}>
-      <ProductSearchListHeader price={price} />
+      {data.length !== 0 && (
+        <ProductSearchListHeader price={price} inventario={inventario} />
+      )}
       {data.length === 0 && <EmptyList query={query} />}
       {data.map((product) => {
         const priceToShow = inventario
@@ -49,7 +52,7 @@ export default async function ProductSearchList({
         return (
           <div
             key={product.Id}
-            className="flex rounded-xl bg-white dark:bg-neutral-800 p-2 shadow-xs gap-2 hover:bg-sky-100 dark:hover:bg-neutral-700/80"
+            className="flex rounded-lg items-center bg-white dark:bg-neutral-900 px-2 py-3 md:px-2 md:py-2 shadow-sm gap-2 hover:bg-sky-100 dark:hover:bg-neutral-800"
           >
             <ListId id={product.Id} />
             <ListInfo>

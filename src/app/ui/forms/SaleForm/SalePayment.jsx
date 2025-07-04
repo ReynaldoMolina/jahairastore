@@ -1,11 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import {
-  FormDiv,
-  FormCheck,
-  FormInputState,
-} from '../FormInputs/formInputsClient';
+import { FormDiv, FormCheck, FormInputState } from '../FormInputs/formInputs';
 import { useFormContext } from '../RegisterForm';
 
 export function SalePayment({ credito = false }) {

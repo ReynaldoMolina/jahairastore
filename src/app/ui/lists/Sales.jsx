@@ -9,6 +9,7 @@ import {
   ListDetail,
   ListDate,
   NameDateDiv,
+  ListBlankSpace,
 } from '@/app/ui/lists/lists';
 import { Pagination } from '@/app/ui/lists/Pagination';
 import EmptyList from '@/app/ui/lists/EmptyList';
@@ -22,36 +23,46 @@ export default async function Sales({ query, currentPage }) {
   if (data.length === 0) return <EmptyList query={query} />;
 
   return (
-    <List>
-      <SaleListHeader />
-      {data.map((register) => (
-        <ListCard
-          key={register.Id}
-          href={`/ventas/${register.Id}?query=disponibles`}
-        >
-          <ListId id={register.Id} />
-          <ListInfo>
-            <NameDateDiv>
+    <>
+      <List>
+        <SaleListHeader />
+        {data.map((register) => (
+          <ListCard
+            key={register.Id}
+            href={`/ventas/${register.Id}?query=disponibles`}
+          >
+            <ListId id={register.Id} />
+            <ListInfo>
               <ListName name={register.NombreCliente} />
-              <ListDate date={register.Fecha} />
-            </NameDateDiv>
-            <ListInfoDetail>
-              <ListDetail detail={register.TotalVenta} />
-              <ListDetail
-                detail={register.Saldo || 0}
-                color="red"
-                ping={register.Saldo > 0.001}
-              />
-              <ListDetail
-                detail={register.TotalVenta - register.TotalCompra}
-                color="blue"
-              />
-            </ListInfoDetail>
-          </ListInfo>
-        </ListCard>
-      ))}
-      <SaleListTotal data={data} />
+              <ListInfoDetail>
+                <ListDate date={register.Fecha} />
+                <ListDetail
+                  detail={register.TotalVenta}
+                  label="Total"
+                  color="gray"
+                  nio={true}
+                />
+                <ListDetail
+                  detail={register.Saldo || 0}
+                  label="Saldo"
+                  color="red"
+                  nio={true}
+                  ping={register.Saldo > 0.001}
+                />
+                <ListDetail
+                  detail={register.TotalVenta - register.TotalCompra}
+                  label="Ganancia"
+                  color="blue"
+                  nio={true}
+                />
+              </ListInfoDetail>
+            </ListInfo>
+          </ListCard>
+        ))}
+        <SaleListTotal data={data} />
+      </List>
       <Pagination totalPages={totalPages} />
-    </List>
+      <ListBlankSpace />
+    </>
   );
 }

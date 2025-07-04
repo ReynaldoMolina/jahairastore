@@ -8,7 +8,7 @@ import {
   ListInfoDetail,
   ListDate,
   ListDetail,
-  NameDateDiv,
+  ListBlankSpace,
 } from '@/app/ui/lists/lists';
 import { Pagination } from '@/app/ui/lists/Pagination';
 import EmptyList from '@/app/ui/lists/EmptyList';
@@ -22,33 +22,46 @@ export default async function Purchases({ query, currentPage }) {
   if (data.length === 0) return <EmptyList query={query} />;
 
   return (
-    <List>
-      <PurchaseListHeader />
-      {data.map((register) => (
-        <ListCard key={register.Id} href={`/compras/${register.Id}`}>
-          <ListId id={register.Id} />
-          <ListInfo>
-            <NameDateDiv>
+    <>
+      <List>
+        <PurchaseListHeader />
+        {data.map((register) => (
+          <ListCard key={register.Id} href={`/compras/${register.Id}`}>
+            <ListId id={register.Id} />
+            <ListInfo>
               <ListName name={register.Nombre_empresa} />
-              <ListDate date={register.Fecha} />
-            </NameDateDiv>
-            <ListInfoDetail>
-              <ListDetail detail={register.TotalCompraCompra} />
-              <ListDetail detail={register.TotalGasto} color="red" />
-              <ListDetail
-                detail={
-                  register.TotalCompraVenta -
-                  register.TotalCompraCompra -
-                  register.TotalGasto
-                }
-                color="blue"
-              />
-            </ListInfoDetail>
-          </ListInfo>
-        </ListCard>
-      ))}
-      <PurchaseListTotal data={data} />
+              <ListInfoDetail>
+                <ListDate date={register.Fecha} />
+                <ListDetail
+                  detail={register.TotalCompraCompra}
+                  label="Compra"
+                  color="gray"
+                  nio={true}
+                />
+                <ListDetail
+                  detail={register.TotalGasto}
+                  label="Gastos"
+                  color="red"
+                  nio={true}
+                />
+                <ListDetail
+                  detail={
+                    register.TotalCompraVenta -
+                    register.TotalCompraCompra -
+                    register.TotalGasto
+                  }
+                  label="Ganancia"
+                  color="blue"
+                  nio={true}
+                />
+              </ListInfoDetail>
+            </ListInfo>
+          </ListCard>
+        ))}
+        <PurchaseListTotal data={data} />
+      </List>
       <Pagination totalPages={totalPages} />
-    </List>
+      <ListBlankSpace />
+    </>
   );
 }

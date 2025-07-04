@@ -1,9 +1,10 @@
-import SearchInput from "@/app/ui/actiontools/SearchInput";
-import Expenses from "@/app/ui/lists/Expenses";
+import SearchInput from '@/app/ui/actiontools/SearchInput';
+import Expenses from '@/app/ui/lists/Expenses';
+import { ListTitle } from '@/app/ui/lists/lists';
 
 export const metadata = {
-  title: 'Gastos'
-}
+  title: 'Gastos',
+};
 
 export default async function Page(props) {
   const searchParams = await props.searchParams;
@@ -12,8 +13,9 @@ export default async function Page(props) {
 
   return (
     <>
-      <SearchInput />
+      <ListTitle title="Gastos" />
+      <SearchInput allowNew={false} />
       <Expenses query={query} currentPage={currentPage} />
     </>
   );
-};
+}

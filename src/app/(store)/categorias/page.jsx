@@ -1,10 +1,10 @@
-import NewRegister from "@/app/ui/actiontools/NewRegister";
-import SearchInput from "@/app/ui/actiontools/SearchInput";
-import Categories from "@/app/ui/lists/Categories";
+import SearchInput from '@/app/ui/actiontools/SearchInput';
+import Categories from '@/app/ui/lists/Categories';
+import { ListTitle } from '@/app/ui/lists/lists';
 
 export const metadata = {
-  title: 'Categorías'
-}
+  title: 'Categorías',
+};
 
 export default async function Page(props) {
   const searchParams = await props.searchParams;
@@ -13,9 +13,9 @@ export default async function Page(props) {
 
   return (
     <>
+      <ListTitle title="Categorías" />
       <SearchInput />
       <Categories query={query} currentPage={currentPage} />
-      <NewRegister />
     </>
   );
-};
+}

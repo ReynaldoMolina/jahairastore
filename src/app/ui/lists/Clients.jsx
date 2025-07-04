@@ -8,8 +8,10 @@ import {
   ListInfo,
   ListInfoDetail,
   ListPhone,
+  ListBlankSpace,
 } from '@/app/ui/lists/lists';
 import EmptyList from '@/app/ui/lists/EmptyList';
+import { ClientListHeader } from './ListHeader';
 
 export default async function Clients({ query, currentPage }) {
   const data = await getClients(query, currentPage);
@@ -18,19 +20,21 @@ export default async function Clients({ query, currentPage }) {
   if (data.length === 0) return <EmptyList query={query} />;
 
   return (
-    <List>
-      {data.map((register) => (
-        <ListCard key={register.Id} href={`/clientes/${register.Id}`}>
-          <ListId id={register.Id} />
-          <ListInfo display="flex-row items-center">
+    <>
+      <List>
+        <ClientListHeader />
+        {data.map((register) => (
+          <ListCard key={register.Id} href={`/clientes/${register.Id}`}>
+            <ListId id={register.Id} />
             <ListName name={register.NombreCliente} />
             <ListInfoDetail>
               <ListPhone phone={register.Telefono} />
             </ListInfoDetail>
-          </ListInfo>
-        </ListCard>
-      ))}
+          </ListCard>
+        ))}
+      </List>
       <Pagination totalPages={totalPages} />
-    </List>
+      <ListBlankSpace />
+    </>
   );
 }

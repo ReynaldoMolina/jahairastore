@@ -1,15 +1,11 @@
-import SideMenu from "@/app/ui/sidemenu/Sidemenu";
-import "@/app/globals.css";
-import Header from "../ui/header/Header";
+import SideMenu from '@/app/ui/sidemenu/Sidemenu';
+import '@/app/globals.css';
 
 export default function Layout({ children }) {
   return (
-    <main className="flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-900 h-[100dvh]">
+    <main className="flex relative flex-col md:flex-row bg-gray-100 dark:bg-black min-h-screen">
       <SideMenu />
-      <div className="flex flex-col p-2 gap-2 grow">
-        <Header />
-        {children}
-      </div>
+      <div className="flex flex-col p-4 gap-4 grow">{children}</div>
     </main>
   );
 }

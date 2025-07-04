@@ -1,29 +1,36 @@
+'use client';
+
 import {
   FormContainer,
   FormInput,
   FormButtons,
   FormId,
-} from '@/app/ui/forms/FormInputs/formInputs';
+  FormError,
+} from './FormInputs/formInputs';
+import { useActionState } from 'react';
 import { createCategory, updateCategory } from '@/app/lib/actions';
 
-export function CategoryCreate() {
-  return (
-    <FormContainer action={createCategory}>
-      <FormId holder="Crear categoría" />
-      <FormInput name="Nombre" holder="Nombre" value="" />
-      <FormButtons link={'/categorias'} label={'Crear'} />
-    </FormContainer>
-  );
-}
-
-export function CategoryEdit({ category }) {
-  const updateCategoryWithId = updateCategory.bind(null, category.Id);
+export function CategoryForm({ isNew, category }) {
+  const action = isNew
+    ? createCategory
+    : updateCategory.bind(null, category.Id);
+  const [state, formAction, isPending] = useActionState(action, {
+    message: '',
+  });
 
   return (
-    <FormContainer action={updateCategoryWithId}>
-      <FormId holder="Categoría" value={category.Id} />
-      <FormInput name="Nombre" holder="Nombre" value={category.Nombre} />
-      <FormButtons link={'/categorias'} label={'Guardar'} />
+    <FormContainer action={formAction}>
+      <FormId
+        holder={isNew ? 'Crear categoría' : 'Categoría'}
+        value={isNew ? '' : category.Id}
+      />
+      <FormInput
+        name="Nombre"
+        holder="Nombre"
+        value={isNew ? '' : category.Nombre}
+      />
+      <FormError isPending={isPending} state={state} />
+      <FormButtons link={'/categorias'} isNew={isNew} isPending={isPending} />
     </FormContainer>
   );
 }

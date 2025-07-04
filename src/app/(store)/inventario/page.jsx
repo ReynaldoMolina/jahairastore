@@ -1,9 +1,10 @@
-import SearchInput from "@/app/ui/actiontools/SearchInput";
-import Inventory from "@/app/ui/lists/Inventory";
+import SearchInput from '@/app/ui/actiontools/SearchInput';
+import Inventory from '@/app/ui/lists/Inventory';
+import { ListTitle } from '@/app/ui/lists/lists';
 
 export const metadata = {
-  title: 'Inventario'
-}
+  title: 'Inventario',
+};
 
 export default async function Page(props) {
   const searchParams = await props.searchParams;
@@ -12,8 +13,9 @@ export default async function Page(props) {
 
   return (
     <>
-      <SearchInput />
+      <ListTitle title="Inventario" />
+      <SearchInput allowNew={false} />
       <Inventory query={query} currentPage={currentPage} />
     </>
   );
-};
+}

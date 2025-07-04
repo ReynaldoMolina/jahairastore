@@ -1,4 +1,4 @@
-import { ProviderEdit } from '@/app/ui/forms/ProviderForm';
+import { ProviderForm } from '@/app/ui/forms/ProviderForm';
 import { getProviderById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 
@@ -6,10 +6,10 @@ export async function generateMetadata(props) {
   const { id } = await props.params;
 
   return {
-    title: `Proveedor ${id}`
-  }
+    title: `Proveedor ${id}`,
+  };
 }
- 
+
 export default async function Page(props) {
   const params = await props.params;
   const id = params.id;
@@ -18,8 +18,6 @@ export default async function Page(props) {
   if (!data) {
     notFound();
   }
- 
-  return (
-    <ProviderEdit provider={data} />
-  );
+
+  return <ProviderForm isNew={false} provider={data} />;
 }

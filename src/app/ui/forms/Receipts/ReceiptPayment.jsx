@@ -5,7 +5,7 @@ import {
   FormDiv,
   FormSpan,
   FormInputState,
-} from '@/app/ui/forms/FormInputs/formInputsClient';
+} from '@/app/ui/forms/FormInputs/formInputs';
 
 export function ReceiptPayment({ saldoInicial, abono = '' }) {
   const [payment, setPayment] = useState(abono);
@@ -26,20 +26,21 @@ export function ReceiptPayment({ saldoInicial, abono = '' }) {
           holder="Saldo inicial"
           value={saldoInicial}
           type="number"
+          color="none"
         />
         <FormInputState
           name="Abono"
           holder="Abono"
           value={payment}
           setValue={handleAbono}
-          color="green"
+          required={true}
         />
         <FormInputState
           name="Saldo"
           holder="Saldo final"
           value={saldo}
           setValue={setSaldo}
-          color="red"
+          required={true}
         />
       </FormDiv>
     </>

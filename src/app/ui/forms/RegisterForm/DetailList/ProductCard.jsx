@@ -41,14 +41,14 @@ export function ProductCard({
         </CardInfoDetail>
       </CardInfo>
       <div className="flex gap-2 flex-col justify-center">
-        <span className="text-xs font-bold min-w-19 pr-0.5 text-right text-green-600 dark:text-green-500">
-          {convert ? 'C$' : '$'} {subtotalVenta.toFixed(2)}
+        <span className="text-xs font-bold min-w-40 pr-0.5 text-right text-green-600 dark:text-green-500">
+          Venta {convert ? 'C$' : '$'} {subtotalVenta.toFixed(2)}
         </span>
         <span className="text-xs font-bold min-w-19 pr-0.5 text-right text-red-600 dark:text-red-400">
-          {convert ? 'C$' : '$'} {subtotalCompra.toFixed(2)}
+          Compra {convert ? 'C$' : '$'} {subtotalCompra.toFixed(2)}
         </span>
         <span className="text-xs font-bold min-w-19 pr-0.5 text-right text-blue-500 dark:text-blue-300">
-          {convert ? 'C$' : '$'} {ganancia.toFixed(2)}
+          Ganancia {convert ? 'C$' : '$'} {ganancia.toFixed(2)}
         </span>
       </div>
     </div>
@@ -65,7 +65,7 @@ function CardInfo({ children }) {
 
 function CardInfoDetail({ children }) {
   return (
-    <div className="flex justify-start items-center gap-2 sm:gap-3 flex-wrap sm:flex-nowrap">
+    <div className="flex justify-start items-center gap-4 flex-wrap sm:flex-nowrap">
       {children}
     </div>
   );

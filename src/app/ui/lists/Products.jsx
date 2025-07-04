@@ -9,6 +9,7 @@ import {
   ListDetail,
   NameDateDiv,
   ListDate,
+  ListBlankSpace,
 } from '@/app/ui/lists/lists';
 import { Pagination } from '@/app/ui/lists/Pagination';
 import EmptyList from '@/app/ui/lists/EmptyList';
@@ -21,25 +22,38 @@ export default async function Products({ query, currentPage }) {
   if (data.length === 0) return <EmptyList query={query} />;
 
   return (
-    <List>
-      <ProductListHeader />
-      {data.map((register) => (
-        <ListCard key={register.Id} href={`/productos/${register.Id}`}>
-          <ListId id={register.Id} />
-          <ListInfo>
-            <NameDateDiv>
+    <>
+      <List>
+        <ProductListHeader />
+        {data.map((register) => (
+          <ListCard key={register.Id} href={`/productos/${register.Id}`}>
+            <ListId id={register.Id} />
+            <ListInfo>
               <ListName name={register.Nombre} />
-              <ListDate date={register.Fecha} />
-            </NameDateDiv>
-            <ListInfoDetail>
-              <ListDetail detail={register.Precio_venta} color="green" />
-              <ListDetail detail={register.Precio_compra} color="red" />
-              <ListDetail detail={register.Ganancia} color="blue" />
-            </ListInfoDetail>
-          </ListInfo>
-        </ListCard>
-      ))}
+              <ListInfoDetail>
+                <ListDate date={register.Fecha} />
+                <ListDetail
+                  detail={register.Precio_venta}
+                  label="Precio venta"
+                  color="green"
+                />
+                <ListDetail
+                  detail={register.Precio_compra}
+                  label="Precio compra"
+                  color="red"
+                />
+                <ListDetail
+                  detail={register.Ganancia}
+                  label="Ganancia"
+                  color="blue"
+                />
+              </ListInfoDetail>
+            </ListInfo>
+          </ListCard>
+        ))}
+      </List>
       <Pagination totalPages={totalPages} />
-    </List>
+      <ListBlankSpace />
+    </>
   );
 }

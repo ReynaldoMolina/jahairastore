@@ -1,157 +1,219 @@
-import { getCategoriesSelect, getProvidersSelect, getClientsSelect } from "@/app/lib/data";
-import getDate from "@/app/lib/getDate";
-import Link from "next/link";
-import { bgColors } from "@/app/ui/bgcolors";
+'use client';
+
+import { bgColors } from '@/app/ui/bgcolors';
+import { useState } from 'react';
+import getDate from '@/app/lib/getDate';
+import LoadingIcon from '../../loading/LoadingIcon';
+import Link from 'next/link';
 
 export function FormContainer({ children, action }) {
   return (
-    <form
-    action={action}
-    className="flex flex-col bg-white dark:bg-neutral-800 rounded-xl shadow-md gap-4 mx-auto max-w-140 p-3 w-full h-fit">
-      {children}
-    </form>
+    <section className="flex grow overflow-y-scroll h-0">
+      <form
+        action={action}
+        className="flex flex-col bg-white dark:bg-neutral-900 rounded-xl shadow-md gap-5 md:gap-7 mx-auto max-w-3xl p-4 md:p-7 w-full h-fit mb-2"
+      >
+        {children}
+      </form>
+    </section>
   );
-}
-
-export function FormButtons({ link, label }) {
-  return (
-    <div className="flex w-full justify-center gap-3">
-      <Link
-        href={link}
-        className="flex items-center justify-center rounded-xl font-semibold cursor-pointer h-9 w-full sm:w-35 bg-red-500 text-xs text-white hover:bg-red-600 transition"
-      >Cancelar</Link>
-      <button
-        type="submit"
-        value="Save"
-        className="flex items-center justify-center rounded-xl font-semibold cursor-pointer h-9 w-full sm:w-35 bg-green-600 hover:bg-green-700 text-xs text-white transition"
-      >{label}</button>
-    </div>
-  )
 }
 
 export function FormDiv({ children }) {
   return (
-    <div className="flex w-full items-end gap-2 md:gap-3">
+    <div className="flex flex-col md:flex-row w-full items-end gap-5">
       {children}
     </div>
   );
 }
 
-export function FormInput({ name, holder, value, type = 'text', autocomplete = 'off', required = true, color = "gray" }) {
-  const bgColor = bgColors[color];
+export function FormInput({
+  name,
+  holder,
+  value,
+  type = 'text',
+  autocomplete = 'off',
+  required = true,
+}) {
+  const [inputValue, setInputValue] = useState(value);
 
   return (
     <div className="flex flex-col w-full gap-1">
-      <label
-        htmlFor={name}
-        className="w-full text-xs pl-2 font-semibold"
-      >
-        {holder}
-      </label>
+      <FormLabel name={name}>
+        <span>{holder}</span>
+        {!required && (
+          <span className="font-normal text-xs text-neutral-700 dark:text-neutral-300">
+            {' (opcional)'}
+          </span>
+        )}
+      </FormLabel>
       <input
         id={name}
         name={name}
         type={type}
         min={0}
         step="0.01"
-        className={`flex ${bgColor} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full`}
+        className={`flex ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
         placeholder={holder}
         autoComplete={autocomplete}
-        defaultValue={value}
+        value={inputValue}
+        onChange={(event) => setInputValue(event.target.value)}
         required={required}
       ></input>
     </div>
-  )
+  );
 }
 
-export function FormSpan({ name, holder, value, type = 'text', color = "gray" }) {
+export function FormInputState({
+  name,
+  holder,
+  value,
+  setValue,
+  type = 'text',
+  required = false,
+}) {
+  return (
+    <div
+      className={`flex flex-col w-full gap-1 ${type === 'hidden' && 'hidden'}`}
+    >
+      <FormLabel name={name}>
+        <span>{holder}</span>
+        {!required && (
+          <span className="font-normal text-xs text-neutral-700 dark:text-neutral-300">
+            {' (opcional)'}
+          </span>
+        )}
+      </FormLabel>
+      <input
+        id={name}
+        name={name}
+        type={type}
+        min={0}
+        step="0.01"
+        className={`flex ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
+        placeholder={holder}
+        autoComplete="off"
+        value={value}
+        onChange={(event) => {
+          const newValue =
+            type === 'number' ? event.target.valueAsNumber : event.target.value;
+          setValue(newValue);
+        }}
+        required={required}
+      ></input>
+    </div>
+  );
+}
+
+export function FormSpan({
+  name,
+  holder,
+  value,
+  type = 'text',
+  color = 'gray',
+}) {
   const bgColor = bgColors[color];
 
   return (
     <div className="flex flex-col w-full gap-1">
-      <label
-        htmlFor={name}
-        className="w-full text-xs pl-2 font-semibold"
-      >
-        {holder}
-      </label>
+      <FormLabel name={name}>{holder}</FormLabel>
       <span
         name={name}
         id={name}
-        className={`flex ${bgColor} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full`}
+        className={`flex ${bgColors.borderColor} ${bgColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
       >
         {type === 'text' ? value : value.toFixed(2)}
       </span>
     </div>
-  )
+  );
 }
 
 export function FormDate({ date }) {
-  const bgColor = bgColors.gray;
   const currentDate = getDate();
+
   return (
     <div className="flex flex-col w-full gap-1">
-      <label
-        htmlFor="Fecha"
-        className="w-full text-xs pl-2 font-semibold"
-      >Fecha</label>
+      <FormLabel name="Fecha">Fecha</FormLabel>
       <input
         id="Fecha"
         name="Fecha"
         type="date"
-        className={`flex ${bgColor} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full`}
+        className={`flex ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
         defaultValue={date ? date : currentDate}
+        required
       ></input>
     </div>
-  )
+  );
 }
 
-export function FormId({ holder, value = "" }) {
+export function FormCheck({ name, holder, value, setValue }) {
+  return (
+    <div className="flex flex-col gap-1 w-full">
+      <FormLabel name={name}>{holder}</FormLabel>
+      <input
+        name={name}
+        id={name}
+        className="h-8"
+        type="checkbox"
+        checked={value}
+        onChange={() => setValue((state) => !state)}
+      ></input>
+    </div>
+  );
+}
+
+export function FormButtons({ link, isNew, isPending }) {
+  const label = isNew ? 'Crear' : 'Guardar';
+  return (
+    <div className="flex w-full justify-center gap-5">
+      <Link
+        href={link}
+        className="flex items-center justify-center rounded-lg font-bold cursor-pointer h-9 w-full sm:w-50 bg-red-500 text-xs text-white hover:bg-red-600 transition"
+      >
+        Cancelar
+      </Link>
+      <button
+        type="submit"
+        value="Save"
+        disabled={isPending}
+        className={`flex items-center justify-center rounded-lg font-bold ${
+          isPending ? 'cursor-not-allowed' : 'cursor-pointer'
+        } h-9 w-full sm:w-50 bg-green-600 hover:bg-green-700 text-xs text-white transition`}
+      >
+        {isPending ? <LoadingIcon /> : label}
+      </button>
+    </div>
+  );
+}
+
+export function FormId({ holder, value = '' }) {
   return (
     <span
       name="id"
       id="id"
-      className="flex bg-sky-200 text-black font-semibold justify-center items-center rounded-xl text-xs h-8 px-3 w-full"
+      className="flex bg-sky-200 dark:bg-sky-900 font-semibold justify-center items-center rounded-lg text-sm h-9 px-3 w-full"
     >
       {holder} {value}
     </span>
-  )
+  );
 }
 
-export async function FormSelect({ value, name, label }) {
-  const getOptions = {
-    "Id_cliente": getClientsSelect,
-    "Id_proveedor": getProvidersSelect,
-    "Id_categoria": getCategoriesSelect,
-  };
-
-  const data = await (getOptions[name]?.());
-
+export function FormError({ isPending, state }) {
   return (
-    <div className="flex flex-col w-full gap-1">
-      <label
-        htmlFor={name}
-        className="w-full text-xs pl-2 font-semibold"
-      >
-        {label}
-      </label>
-      <select
-        id={name}
-        name={name}
-        className="flex bg-gray-100 dark:bg-neutral-700 rounded-xl shadow-sm text-xs h-8 px-3 w-full"
-        defaultValue={value}
-        required
-      >
-        <option value="" disabled>Selecciona una opción</option>
-        {data.map((option) => {
-          return (
-            <option
-              key={option.Id}
-              value={option.Id}
-            >{option.Nombre}</option>
-          )
-        })}
-      </select>
-    </div>
+    <>
+      {!isPending && state.message?.trim() && (
+        <p className="text-sm pl-2 text-center italic text-red-400">
+          {state.message}
+        </p>
+      )}
+    </>
+  );
+}
+
+function FormLabel({ children, name }) {
+  return (
+    <label htmlFor={name} className="w-full text-xs px-3 font-bold">
+      {children}
+    </label>
   );
 }

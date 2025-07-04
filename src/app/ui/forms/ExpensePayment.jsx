@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FormDiv, FormInputState } from './FormInputs/formInputsClient';
+import { FormDiv, FormInputState } from './FormInputs/formInputs';
 import { bgColors } from '../bgcolors';
 
 export function ExpensePayment({ gasto = 0, cambioDolar = 37 }) {

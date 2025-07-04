@@ -2,6 +2,7 @@
 
 import { ProductCard } from '@/app/ui/forms/RegisterForm/DetailList/ProductCard';
 import { useFormContext } from '@/app/ui/forms/RegisterForm';
+import { bgColors } from '@/app/ui/bgcolors';
 
 export default function FormDetail({
   convert = false,
@@ -12,30 +13,30 @@ export default function FormDetail({
   const { productList, formTotals } = useFormContext();
 
   return (
-    <>
-      <div className="flex gap-2 rounded-xl flex-col bg-neutral-100 dark:bg-neutral-900 p-2">
-        <p className="text-sm font-semibold px-2">Detalle</p>
+    <div
+      className={`flex flex-col gap-4 p-2 rounded-lg bg-neutral-100 dark:bg-black border ${bgColors.borderColor}`}
+    >
+      <p className="text-sm font-semibold px-2">Detalle</p>
 
-        <div className="flex flex-col gap-1">
-          {productList.length === 0 ? (
-            <ProductCardEmpty />
-          ) : (
-            productList.map((product) => (
-              <ProductCard
-                key={product.Id_producto}
-                product={product}
-                convert={convert}
-                showLeft={showLeft}
-                price={price}
-                overrideLeft={overrideLeft}
-              />
-            ))
-          )}
-        </div>
-
-        {productList.length > 0 && <FormTotals formTotals={formTotals} />}
+      <div className="flex flex-col gap-1">
+        {productList.length === 0 ? (
+          <ProductCardEmpty />
+        ) : (
+          productList.map((product) => (
+            <ProductCard
+              key={product.Id_producto}
+              product={product}
+              convert={convert}
+              showLeft={showLeft}
+              price={price}
+              overrideLeft={overrideLeft}
+            />
+          ))
+        )}
       </div>
-    </>
+
+      {productList.length > 0 && <FormTotals formTotals={formTotals} />}
+    </div>
   );
 }
 

@@ -1,12 +1,9 @@
-import { ClientCreate } from '@/app/ui/forms/ClientForm';
-import Header from '@/app/ui/header/Header';
- 
+import { ClientForm } from '@/app/ui/forms/ClientForm';
+
 export const metadata = {
-  title: 'Crear cliente'
-}
+  title: 'Crear cliente',
+};
 
 export default async function Page() {
-  return (
-    <ClientCreate />
-  );
+  return <ClientForm isNew={true} />;
 }

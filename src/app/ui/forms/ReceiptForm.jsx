@@ -1,3 +1,5 @@
+'use client';
+
 import {
   FormContainer,
   FormDiv,
@@ -5,77 +7,64 @@ import {
   FormButtons,
   FormDate,
   FormId,
-  FormSelect,
+  FormError,
 } from '@/app/ui/forms/FormInputs/formInputs';
-import { createReceipt, updateReceipt } from '@/app/lib/actions';
-import { ReceiptOptions } from '@/app/ui/forms/Receipts/ReceiptOptions';
+import { useActionState } from 'react';
 import { ReceiptPayment } from './Receipts/ReceiptPayment';
+import { ReceiptOptions } from '@/app/ui/forms/Receipts/ReceiptOptions';
+import { createReceipt, updateReceipt } from '@/app/lib/actions';
 
-export function ReceiptCreate({ searchParams }) {
-  const pedido = searchParams?.pedido || '';
-  const cliente = searchParams?.cliente || '';
-  const saldoInicial = Number(searchParams?.saldo) || 0;
-  const abono = Number(searchParams?.abono || 0);
+export function ReceiptForm({
+  children,
+  isNew,
+  receipt,
+  receiptpdf,
+  searchParams,
+}) {
+  const action = isNew ? createReceipt : updateReceipt.bind(null, receipt.Id);
+  const [state, formAction, isPending] = useActionState(action, {
+    message: '',
+  });
+
+  let pedido, saldoInicial, abono;
+
+  if (isNew) {
+    pedido = searchParams?.pedido || '';
+    saldoInicial = Number(searchParams?.saldo) || 0;
+    abono = Number(searchParams?.abono || 0);
+  } else {
+    saldoInicial = receipt.Abono + receipt.Saldo;
+    abono = receipt.Abono;
+  }
 
   return (
-    <FormContainer action={createReceipt}>
-      <FormId holder="Crear recibo" />
+    <FormContainer action={formAction}>
+      <FormId
+        holder={isNew ? 'Crear recibo' : 'Recibo'}
+        value={isNew ? '' : receipt.Id}
+      />
       <FormDiv>
         <FormInput
           name="Id_pedido"
           holder="Pedido"
-          value={pedido}
+          value={isNew ? pedido : receipt.Id_pedido}
           type="number"
         />
-        <FormDate name="Fecha" />
+        <FormDate name="Fecha" date={isNew ? '' : receipt.Fecha} />
       </FormDiv>
-      <FormSelect value={cliente} name="Id_cliente" label="Cliente" />
-      <FormDiv>
-        <ReceiptPayment saldoInicial={saldoInicial} abono={abono} />
-      </FormDiv>
+      {children}
+      <ReceiptPayment saldoInicial={saldoInicial} abono={abono} />
       <FormInput
         name="Concepto"
         holder="Descripción"
-        value=""
-        required={false}
-      />
-      <FormButtons link="/recibos" label={'Crear'} />
-    </FormContainer>
-  );
-}
-
-export function ReceiptEdit({ receipt, receiptpdf }) {
-  const updateReceiptWithId = updateReceipt.bind(null, receipt.Id);
-  const saldoInicial = receipt.Abono + receipt.Saldo;
-
-  return (
-    <FormContainer action={updateReceiptWithId}>
-      <FormId holder="Recibo" value={receipt.Id} />
-      <FormDiv>
-        <FormInput
-          name="Id_pedido"
-          holder="Pedido"
-          value={receipt.Id_pedido}
-          type="number"
-        />
-        <FormDate name="Fecha" date={receipt.Fecha} />
-      </FormDiv>
-      <FormSelect
-        value={receipt.Id_cliente}
-        name="Id_cliente"
-        label="Cliente"
-      />
-      <ReceiptPayment saldoInicial={saldoInicial} abono={receipt.Abono} />
-      <FormInput
-        name="Concepto"
-        holder="Descripción"
-        value={receipt.Concepto}
+        value={isNew ? '' : receipt.Concepto}
         required={false}
       />
 
-      <ReceiptOptions receipt={receiptpdf} />
+      {!isNew && <ReceiptOptions receipt={receiptpdf} />}
 
-      <FormButtons link="/recibos" label={'Guardar'} />
+      <FormError isPending={isPending} state={state} />
+      <FormButtons link="/recibos" isNew={isNew} isPending={isPending} />
     </FormContainer>
   );
 }
