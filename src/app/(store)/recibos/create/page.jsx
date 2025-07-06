@@ -10,7 +10,7 @@ export default async function Page(props) {
 
   return (
     <ReceiptForm isNew={true} searchParams={searchParams}>
-      <FormSelect value="" name="Id_cliente" label="Cliente" />
+      <FormSelect value="" name="Id_cliente" />
     </ReceiptForm>
   );
 }

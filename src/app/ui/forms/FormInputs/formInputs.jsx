@@ -5,6 +5,7 @@ import { useState } from 'react';
 import getDate from '@/app/lib/getDate';
 import LoadingIcon from '../../loading/LoadingIcon';
 import Link from 'next/link';
+import { formatNumber } from '@/app/lib/formatNumber';
 
 export function FormContainer({ children, action }) {
   return (
@@ -19,9 +20,13 @@ export function FormContainer({ children, action }) {
   );
 }
 
-export function FormDiv({ children }) {
+export function FormDiv({ children, flexCol = true }) {
   return (
-    <div className="flex flex-col md:flex-row w-full items-end gap-5">
+    <div
+      className={`flex ${
+        flexCol && 'flex-col md:flex-row'
+      } w-full items-end gap-3 md:gap-5`}
+    >
       {children}
     </div>
   );
@@ -109,9 +114,10 @@ export function FormSpan({
   name,
   holder,
   value,
-  type = 'text',
-  color = 'gray',
+  number = true,
+  color = 'none',
 }) {
+  const newValue = number ? formatNumber(value) : value;
   const bgColor = bgColors[color];
 
   return (
@@ -122,7 +128,7 @@ export function FormSpan({
         id={name}
         className={`flex ${bgColors.borderColor} ${bgColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
       >
-        {type === 'text' ? value : value.toFixed(2)}
+        {newValue}
       </span>
     </div>
   );
@@ -149,7 +155,9 @@ export function FormDate({ date }) {
 export function FormCheck({ name, holder, value, setValue }) {
   return (
     <div className="flex flex-col gap-1 w-full">
-      <FormLabel name={name}>{holder}</FormLabel>
+      <FormLabel name={name} textCenter={true}>
+        {holder}
+      </FormLabel>
       <input
         name={name}
         id={name}
@@ -165,10 +173,10 @@ export function FormCheck({ name, holder, value, setValue }) {
 export function FormButtons({ link, isNew, isPending }) {
   const label = isNew ? 'Crear' : 'Guardar';
   return (
-    <div className="flex w-full justify-center gap-5">
+    <div className="flex w-full justify-center gap-4">
       <Link
         href={link}
-        className="flex items-center justify-center rounded-lg font-bold cursor-pointer h-9 w-full sm:w-50 bg-red-500 text-xs text-white hover:bg-red-600 transition"
+        className="flex items-center justify-center rounded-lg font-bold cursor-pointer h-10 w-full sm:w-50 bg-red-500 text-sm text-white hover:bg-red-600 transition"
       >
         Cancelar
       </Link>
@@ -178,7 +186,7 @@ export function FormButtons({ link, isNew, isPending }) {
         disabled={isPending}
         className={`flex items-center justify-center rounded-lg font-bold ${
           isPending ? 'cursor-not-allowed' : 'cursor-pointer'
-        } h-9 w-full sm:w-50 bg-green-600 hover:bg-green-700 text-xs text-white transition`}
+        } h-10 w-full sm:w-50 bg-green-600 hover:bg-green-700 text-sm text-white transition`}
       >
         {isPending ? <LoadingIcon /> : label}
       </button>
@@ -202,7 +210,7 @@ export function FormError({ isPending, state }) {
   return (
     <>
       {!isPending && state.message?.trim() && (
-        <p className="text-sm pl-2 text-center italic text-red-400">
+        <p className="text-xs pl-2 text-center italic text-red-400">
           {state.message}
         </p>
       )}
@@ -210,9 +218,12 @@ export function FormError({ isPending, state }) {
   );
 }
 
-function FormLabel({ children, name }) {
+export function FormLabel({ children, name, textCenter = false }) {
   return (
-    <label htmlFor={name} className="w-full text-xs px-3 font-bold">
+    <label
+      htmlFor={name}
+      className={`w-full ${textCenter && 'text-center'} text-xs px-3 font-bold`}
+    >
       {children}
     </label>
   );

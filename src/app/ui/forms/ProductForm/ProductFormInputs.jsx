@@ -5,6 +5,7 @@ import {
   FormDiv,
   FormSpan,
   FormCheck,
+  FormLabel,
 } from '@/app/ui/forms/FormInputs/formInputs';
 import { bgColors } from '@/app/ui/bgcolors';
 
@@ -17,17 +18,18 @@ export function ProductPrices({ product }) {
     Cambio_dolar: product.Cambio_dolar || 37,
     Precio_venta: product.Precio_venta,
     Precio_venta_nio:
-      Math.round(product.Precio_venta * product.Cambio_dolar * 100) / 100 || 0,
+      Math.round(product.Precio_venta * product.Cambio_dolar * 100) / 100 || '',
     Precio_compra: product.Precio_compra,
     Precio_compra_nio:
-      Math.round(product.Precio_compra * product.Cambio_dolar * 100) / 100 || 0,
+      Math.round(product.Precio_compra * product.Cambio_dolar * 100) / 100 ||
+      '',
   });
   const profitDol = prices.Precio_venta - prices.Precio_compra || 0;
   const profitNio = prices.Precio_venta_nio - prices.Precio_compra_nio || 0;
 
   return (
-    <div className="flex flex-col gap-4 my-4">
-      <FormDiv>
+    <div className="flex flex-col gap-6 my-4">
+      <FormDiv flexCol={false}>
         <FormCheck
           name="Inventario"
           holder="¿Agregar al inventario?"
@@ -49,15 +51,7 @@ export function ProductPrices({ product }) {
             value={prices}
             setValue={setPrices}
           />
-          <FormDiv>
-            <FormInput
-              name="Precio_venta_nio"
-              holder="Venta C$"
-              value={prices}
-              setValue={setPrices}
-              value2="Precio_venta"
-              color="green"
-            />
+          <FormDiv flexCol={false}>
             <FormInput
               name="Precio_compra_nio"
               holder="Compra C$"
@@ -66,6 +60,14 @@ export function ProductPrices({ product }) {
               value2="Precio_compra"
               calculateVenta={true}
               color="red"
+            />
+            <FormInput
+              name="Precio_venta_nio"
+              holder="Venta C$"
+              value={prices}
+              setValue={setPrices}
+              value2="Precio_venta"
+              color="green"
             />
             <FormSpan
               name="Ganancia C$"
@@ -77,17 +79,7 @@ export function ProductPrices({ product }) {
           </FormDiv>
         </>
       )}
-      <FormDiv>
-        <FormInput
-          name="Precio_venta"
-          holder="Venta $"
-          value={prices}
-          setValue={setPrices}
-          value2="Precio_venta_nio"
-          convertToNio={true}
-          color="green"
-          required={true}
-        />
+      <FormDiv flexCol={false}>
         <FormInput
           name="Precio_compra"
           holder="Compra $"
@@ -96,6 +88,16 @@ export function ProductPrices({ product }) {
           value2="Precio_compra_nio"
           convertToNio={true}
           color="red"
+          required={true}
+        />
+        <FormInput
+          name="Precio_venta"
+          holder="Venta $"
+          value={prices}
+          setValue={setPrices}
+          value2="Precio_venta_nio"
+          convertToNio={true}
+          color="green"
           required={true}
         />
         <FormSpan
@@ -118,7 +120,7 @@ function FormInput({
   value2,
   convertToNio = false,
   setValue,
-  color = 'gray',
+  color,
   required = false,
   calculateVenta = false,
 }) {
@@ -152,16 +154,14 @@ function FormInput({
 
   return (
     <div className="flex flex-col w-full gap-1">
-      <label htmlFor={name} className="w-full text-xs pl-2 font-semibold">
-        {holder}
-      </label>
+      <FormLabel>{holder}</FormLabel>
       <input
         id={name}
         name={name}
         type="number"
         min={0}
         step="any"
-        className={`flex ${bgColor} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full`}
+        className={`flex ${bgColor} ${bgColors.borderColor} items-center rounded-lg shadow-sm text-xs h-9 px-3 w-full`}
         placeholder={holder}
         autoComplete="off"
         value={value[name]}
@@ -173,7 +173,6 @@ function FormInput({
 }
 
 function FormCambioDolar({ name, holder, value, setValue }) {
-  const bgColor = bgColors.gray;
   return (
     <div className="flex flex-col w-full gap-1">
       <label htmlFor={name} className="w-full text-xs pl-2 font-semibold">
@@ -185,7 +184,7 @@ function FormCambioDolar({ name, holder, value, setValue }) {
         type="number"
         min={0}
         step="0.01"
-        className={`flex ${bgColor} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full`}
+        className={`flex ${bgColors.borderColor} items-center rounded-lg shadow-sm text-xs h-9 px-3 w-full`}
         placeholder={holder}
         autoComplete="off"
         value={value[name]}

@@ -1,7 +1,7 @@
-import { FormId, FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
+import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
+import { FormId, FormButtons } from '@/app/ui/forms/FormInputs/formInputs';
 import {
   FormCreate,
-  FormButtons,
   FormInfo,
   ProductSearch,
 } from '@/app/ui/forms/RegisterForm';
@@ -17,25 +17,23 @@ export default async function Page(props) {
   const searchParams = await props.searchParams;
 
   return (
-    <section className="flex grow overflow-y-scroll h-0">
-      <FormCreate createRegister={createPurchase} convert={true}>
-        <FormId holder="Crear compra" value="" />
-        <FormInfo date="" register="purchases">
-          <FormSelect value="" name="Id_proveedor" label="Proveedor" />
-        </FormInfo>
+    <FormCreate createRegister={createPurchase} convert={true}>
+      <FormId holder="Crear compra" value="" />
+      <FormInfo date="" register="purchases">
+        <FormSelect value="" name="Id_proveedor" label="Proveedor" />
+      </FormInfo>
 
-        <ProductSearch open={true}>
-          <ProductSearchList
-            searchParams={searchParams}
-            inventario={true}
-            price="compra"
-          />
-        </ProductSearch>
+      <ProductSearch open={true}>
+        <ProductSearchList
+          searchParams={searchParams}
+          inventario={true}
+          price="compra"
+        />
+      </ProductSearch>
 
-        <FormDetail convert={true} price="compra" />
+      <FormDetail convert={true} price="compra" />
 
-        <FormButtons link={'/compras'} label={'Crear'} />
-      </FormCreate>
-    </section>
+      <FormButtons link={'/compras'} label={'Crear'} />
+    </FormCreate>
   );
 }

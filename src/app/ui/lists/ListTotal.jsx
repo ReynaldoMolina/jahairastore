@@ -24,28 +24,44 @@ export function OrderListTotal({ data }) {
 
   return (
     <ListFooter>
-      <ListId id={data.length} color="gray" />
       <ListInfo>
+        <ListId id={data.length} color="gray" />
         <ListName name="TOTAL" />
-        <ListInfoDetail>
-          <ListDetail
-            detail={totals.TotalPedidoVenta}
-            label="Total"
-            color="gray"
-          />
-          <ListDetail detail={totals.TotalAbono} label="Abonos" color="green" />
-          <ListDetail
-            detail={totals.TotalPedidoVenta - totals.TotalAbono}
-            label="Saldo"
-            color="red"
-          />
-          <ListDetail
-            detail={totals.TotalPedidoVenta - totals.TotalPedidoCompra}
-            label="Ganancia"
-            color="blue"
-          />
-        </ListInfoDetail>
       </ListInfo>
+      <ListInfoDetail>
+        <ListDetail
+          detail={totals.TotalPedidoVenta}
+          label="Total"
+          color="gray"
+        />
+        <ListDetail detail={totals.TotalAbono} label="Abonos" color="green" />
+        <ListDetail
+          detail={totals.TotalPedidoVenta - totals.TotalAbono}
+          label="Saldo"
+          color="red"
+        />
+        <ListDetail
+          detail={totals.TotalPedidoVenta - totals.TotalPedidoCompra}
+          label="Ganancia"
+          color="blue"
+        />
+      </ListInfoDetail>
+    </ListFooter>
+  );
+}
+
+export function RegisterListTotal({ formTotals, productList }) {
+  return (
+    <ListFooter>
+      <ListInfo>
+        <ListId id={productList.length} color="gray" />
+        <ListName name="TOTAL" />
+      </ListInfo>
+      <ListInfoDetail>
+        <ListDetail detail={formTotals.totalSell} label="Venta" color="green" />
+        <ListDetail detail={formTotals.totalCost} label="Compra" color="red" />
+        <ListDetail detail={formTotals.profit} label="Ganancia" color="blue" />
+      </ListInfoDetail>
     </ListFooter>
   );
 }
@@ -63,8 +79,10 @@ export function ReceiptListTotal({ data }) {
 
   return (
     <ListFooter>
-      <ListId id={data.length} color="gray" />
-      <ListName name="TOTAL" />
+      <ListInfo>
+        <ListId id={data.length} color="gray" />
+        <ListName name="TOTAL" />
+      </ListInfo>
       <ListInfoDetail>
         <ListDetail detail={totals.Abono} color="green" />
       </ListInfoDetail>
@@ -89,34 +107,34 @@ export function PurchaseListTotal({ data }) {
 
   return (
     <ListFooter>
-      <ListId id={data.length} color="gray" />
       <ListInfo>
+        <ListId id={data.length} color="gray" />
         <ListName name="TOTAL" />
-        <ListInfoDetail>
-          <ListDetail
-            detail={totals.TotalCompraCompra}
-            label="Compra"
-            color="gray"
-            nio={true}
-          />
-          <ListDetail
-            detail={totals.TotalGasto}
-            label="Gastos"
-            color="red"
-            nio={true}
-          />
-          <ListDetail
-            detail={
-              totals.TotalCompraVenta -
-              totals.TotalCompraCompra -
-              totals.TotalGasto
-            }
-            label="Ganancia"
-            color="blue"
-            nio={true}
-          />
-        </ListInfoDetail>
       </ListInfo>
+      <ListInfoDetail>
+        <ListDetail
+          detail={totals.TotalCompraCompra}
+          label="Compra"
+          color="gray"
+          nio={true}
+        />
+        <ListDetail
+          detail={totals.TotalGasto}
+          label="Gastos"
+          color="red"
+          nio={true}
+        />
+        <ListDetail
+          detail={
+            totals.TotalCompraVenta -
+            totals.TotalCompraCompra -
+            totals.TotalGasto
+          }
+          label="Ganancia"
+          color="blue"
+          nio={true}
+        />
+      </ListInfoDetail>
     </ListFooter>
   );
 }
@@ -133,10 +151,12 @@ export function ExpensesListTotal({ data }) {
   );
 
   return (
-    <ListFooter>
-      <ListId id={data.length} color="gray" />
-      <ListName name="TOTAL" />
-      <ListInfoDetail>
+    <ListFooter flexCol={false}>
+      <ListInfo>
+        <ListId id={data.length} color="gray" />
+        <ListName name="TOTAL" />
+      </ListInfo>
+      <ListInfoDetail fullWidth={false}>
         <ListDetail detail={totals.Gasto} color="red" nio={true} />
       </ListInfoDetail>
     </ListFooter>
@@ -160,30 +180,30 @@ export function SaleListTotal({ data }) {
 
   return (
     <ListFooter>
-      <ListId id={data.length} color="gray" />
       <ListInfo>
+        <ListId id={data.length} color="gray" />
         <ListName name="TOTAL" />
-        <ListInfoDetail>
-          <ListDetail
-            detail={totals.TotalVenta}
-            label="Total"
-            color="gray"
-            nio={true}
-          />
-          <ListDetail
-            detail={totals.TotalVenta - totals.totalAbono}
-            label="Saldo"
-            color="red"
-            nio={true}
-          />
-          <ListDetail
-            detail={totals.TotalVenta - totals.TotalCompra}
-            label="Ganancia"
-            color="blue"
-            nio={true}
-          />
-        </ListInfoDetail>
       </ListInfo>
+      <ListInfoDetail>
+        <ListDetail
+          detail={totals.TotalVenta}
+          label="Total"
+          color="gray"
+          nio={true}
+        />
+        <ListDetail
+          detail={totals.TotalVenta - totals.totalAbono}
+          label="Saldo"
+          color="red"
+          nio={true}
+        />
+        <ListDetail
+          detail={totals.TotalVenta - totals.TotalCompra}
+          label="Ganancia"
+          color="blue"
+          nio={true}
+        />
+      </ListInfoDetail>
     </ListFooter>
   );
 }
@@ -203,25 +223,25 @@ export function InventoryListTotal({ data }) {
 
   return (
     <ListFooter>
-      <ListId id={data.length} color="gray" />
       <ListInfo>
+        <ListId id={data.length} color="gray" />
         <ListName name="TOTAL" />
-        <ListInfoDetail>
-          <ListDetail
-            detail={totals.Existencias}
-            label="Disponibles"
-            color="gray"
-            number={false}
-          />
-          <ListDetail detail="-" label="Precio" color="green" number={false} />
-          <ListDetail
-            detail={totals.Ganancia}
-            label="Ganancia"
-            color="blue"
-            nio={true}
-          />
-        </ListInfoDetail>
       </ListInfo>
+      <ListInfoDetail>
+        <ListDetail
+          detail={totals.Existencias}
+          label="Disponibles"
+          color="gray"
+          number={false}
+        />
+        <ListDetail detail="-" label="Precio" color="green" number={false} />
+        <ListDetail
+          detail={totals.Ganancia}
+          label="Ganancia"
+          color="blue"
+          nio={true}
+        />
+      </ListInfoDetail>
     </ListFooter>
   );
 }

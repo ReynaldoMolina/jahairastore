@@ -22,14 +22,16 @@ export function ClientOptions({ client }) {
 }
 
 export function FormOptionContainer({ children }) {
-  return <div className="flex justify-around p-2 gap-3">{children}</div>;
+  return (
+    <div className="flex justify-around p-2 gap-3 items-end">{children}</div>
+  );
 }
 
 export function FormOption({ label, children, href }) {
   return (
     <Link
       href={href}
-      className="flex justify-center items-center bg-sky-200 hover:bg-sky-300 transition rounded-lg py-2 px-3 cursor-pointer shadow-xs gap-2 h-full"
+      className="flex justify-center items-center bg-sky-200 hover:bg-sky-300 transition rounded-lg py-2 px-3 cursor-pointer shadow-xs gap-2 min-h-9 h-full"
     >
       {children}
       <label className="text-xs font-bold text-black cursor-pointer">

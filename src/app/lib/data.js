@@ -1,4 +1,4 @@
-import { sql } from "@/app/lib/db";
+import { sql } from '@/app/lib/db';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -22,7 +22,6 @@ export async function getClients(query, currentPage) {
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
-    
   } catch (error) {
     throw new Error('No se pudieron obtener los clientes');
   }
@@ -35,7 +34,6 @@ export async function getClientById(id) {
       WHERE "Id" = ${id}
     `;
     return data[0];
-    
   } catch (error) {
     throw new Error('No se pudo obtener el cliente');
   }
@@ -53,9 +51,8 @@ export async function getClientsPages(query) {
         "Telefono"
       ) ILIKE ${`%${query}%`}
     `;
-    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
     return totalPages;
-    
   } catch (error) {
     throw new Error('No se pudieron obtener los clientes');
   }
@@ -71,7 +68,6 @@ export async function getClientsSelect() {
       ORDER BY "Nombre" ASC
     `;
     return data;
-    
   } catch (error) {
     throw new Error('No se pudieron obtener los clientes');
   }
@@ -96,7 +92,6 @@ export async function getProviders(query, currentPage) {
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
-    
   } catch (error) {
     throw new Error('No se pudieron obtener los proveedores');
   }
@@ -110,7 +105,6 @@ export async function getProviderById(id) {
         "Id" = ${id}
     `;
     return data[0];
-    
   } catch (error) {
     throw new Error('No se pudo obtener el proveedor');
   }
@@ -127,9 +121,8 @@ export async function getProvidersPages(query) {
         "Telefono"
       ) ILIKE ${`%${query}%`}
     `;
-    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
     return totalPages;
-    
   } catch (error) {
     throw new Error('No se pudieron obtener los proveedores');
   }
@@ -145,7 +138,6 @@ export async function getProvidersSelect() {
       ORDER BY "Id" ASC
     `;
     return data;
-    
   } catch (error) {
     throw new Error('No se pudieron obtener los proveedores');
   }
@@ -165,7 +157,6 @@ export async function getCategories(query, currentPage) {
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
-    
   } catch (error) {
     throw new Error('No se pudieron obtener las categorías');
   }
@@ -178,7 +169,6 @@ export async function getCategoryById(id) {
       WHERE "Id" = ${id}
     `;
     return data[0];
-    
   } catch (error) {
     throw new Error('No se puedo obtener la categoría');
   }
@@ -194,9 +184,8 @@ export async function getCategoriesPages(query) {
         "Nombre"
       ) ILIKE ${`%${query}%`}
     `;
-    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
     return totalPages;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener las categorías');
@@ -213,7 +202,6 @@ export async function getCategoriesSelect() {
       ORDER BY "Id" ASC
     `;
     return data;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener las categorías');
@@ -244,7 +232,6 @@ export async function getReceipts(query, currentPage) {
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener los recibos');
@@ -269,7 +256,6 @@ export async function getReceiptById(id) {
         "Recibos"."Id" = ${id}
     `;
     return data[0];
-    
   } catch (error) {
     throw new Error('No se pudo obtener el recibo');
   }
@@ -289,9 +275,8 @@ export async function getReceiptsPages(query) {
         "Clientes"."Apellido"
       ) ILIKE ${`%${query}%`}
     `;
-    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
     return totalPages;
-    
   } catch (error) {
     throw new Error('No se pudieron obtener los recibos');
   }
@@ -316,7 +301,6 @@ export async function getWebsiteProducts(query, currentPage) {
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener los productos');
@@ -331,7 +315,6 @@ export async function getWebsiteProductById(id) {
         "Id" = ${id}
     `;
     return data[0];
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo obtener el producto');
@@ -339,7 +322,6 @@ export async function getWebsiteProductById(id) {
 }
 
 export async function getWebsiteProductsPages(query) {
-
   try {
     const data = await sql`
       SELECT COUNT(*)
@@ -350,16 +332,20 @@ export async function getWebsiteProductsPages(query) {
         "Precio"::text
       ) ILIKE ${`%${query}%`}
     `;
-    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
     return totalPages;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener los productos');
   }
 }
 
-export async function getProducts(query, currentPage, inventario = false, ShowAll = true) {
+export async function getProducts(
+  query,
+  currentPage,
+  inventario = false,
+  ShowAll = true
+) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
@@ -385,7 +371,6 @@ export async function getProducts(query, currentPage, inventario = false, ShowAl
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener los productos');
@@ -395,7 +380,9 @@ export async function getProducts(query, currentPage, inventario = false, ShowAl
 export async function getProductsInventario(query, currentPage) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   const filterDisponible = query.includes('disponibles');
-  const newQuery = filterDisponible ? query.replace(/^disponibles\s*/, '') : query;
+  const newQuery = filterDisponible
+    ? query.replace(/^disponibles\s*/, '')
+    : query;
 
   try {
     const data = await sql`
@@ -436,18 +423,21 @@ export async function getProductsInventario(query, currentPage) {
       )
         AND "Inventario" = true
 
-      ${filterDisponible ? sql`AND
+      ${
+        filterDisponible
+          ? sql`AND
         (
           COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0)::numeric -
           COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0)::numeric
-        )::numeric > 0` : sql``}
+        )::numeric > 0`
+          : sql``
+      }
 
       ORDER BY "Id" DESC
 
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener los productos');
@@ -460,6 +450,7 @@ export async function getProductById(id) {
       SELECT
         "Id",
         "Id_proveedor",
+        "Id_categoria",
         "Nombre",
         "Descripcion",
         "Precio_compra",
@@ -475,13 +466,16 @@ export async function getProductById(id) {
         "Id" = ${id}
     `;
     return data[0];
-    
   } catch (error) {
     throw new Error('No se pudo obtener el producto');
   }
 }
 
-export async function getProductsPages(query, inventario = false, showAll = true) {
+export async function getProductsPages(
+  query,
+  inventario = false,
+  showAll = true
+) {
   try {
     const data = await sql`
       SELECT COUNT(*)
@@ -495,9 +489,8 @@ export async function getProductsPages(query, inventario = false, showAll = true
       )
       ${showAll ? sql`` : sql`AND "Inventario" = ${inventario}`}
     `;
-    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
     return totalPages;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener los productos');
@@ -506,7 +499,9 @@ export async function getProductsPages(query, inventario = false, showAll = true
 
 export async function getProductsInventarioPages(query) {
   const filterDisponible = query.includes('disponibles');
-  const newQuery = filterDisponible ? query.replace(/^disponibles\s*/, '') : query;
+  const newQuery = filterDisponible
+    ? query.replace(/^disponibles\s*/, '')
+    : query;
   try {
     const data = await sql`
       WITH
@@ -541,15 +536,18 @@ export async function getProductsInventarioPages(query) {
       
       AND "Inventario" = true
       
-      ${filterDisponible ? sql`AND
+      ${
+        filterDisponible
+          ? sql`AND
         (
           COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0)::numeric -
           COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0)::numeric
-        )::numeric > 0` : sql``}
+        )::numeric > 0`
+          : sql``
+      }
     `;
-    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
     return totalPages;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener los productos');
@@ -611,18 +609,21 @@ export async function getOrders(query, currentPage) {
         ) ILIKE ${`%${newQuery}%`}
       )
 
-      ${filterDeben ? sql`AND ROUND(
+      ${
+        filterDeben
+          ? sql`AND ROUND(
         COALESCE(PedidoTotalesVenta."TotalPedidoVenta", 0)::numeric -
         COALESCE(ReciboTotales."TotalAbono", 0)::numeric,
         2
-      )::double precision > 0` : sql``}
+      )::double precision > 0`
+          : sql``
+      }
 
       ORDER BY "Pedidos"."Id" DESC
 
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener los pedidos');
@@ -661,10 +662,9 @@ export async function getOrderById(id) {
       WHERE "Pedidos"."Id" = ${id}
     `;
     return data[0];
-    
   } catch (error) {
     console.error(error);
-    
+
     throw new Error('No se pudo obtener el pedido');
   }
 }
@@ -708,16 +708,19 @@ export async function getOrdersPages(query) {
         ) ILIKE ${`%${newQuery}%`}
       )
 
-      ${filterDeben ? sql`AND ROUND(
+      ${
+        filterDeben
+          ? sql`AND ROUND(
         COALESCE(PedidoTotalesVenta."TotalPedidoVenta", 0)::numeric -
         COALESCE(ReciboTotales."TotalAbono", 0)::numeric,
         2
-      )::double precision > 0` : sql``}
+      )::double precision > 0`
+          : sql``
+      }
     `;
-    
-    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
+
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
     return totalPages;
-    
   } catch (error) {
     throw new Error('No se pudieron obtener los pedidos');
   }
@@ -737,9 +740,9 @@ export async function getOrderDetailById(id) {
       FROM "PedidosDetalles"
         JOIN "Productos" ON "PedidosDetalles"."Id_producto" = "Productos"."Id"
       WHERE "Id_pedido" = ${id}
+      ORDER BY "Productos"."Id" DESC
     `;
     return data;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo obtener el detalle del pedido');
@@ -762,7 +765,7 @@ export async function getReceiptPdf(id) {
       WHERE
         "Recibos"."Id" = ${id}
     `;
-    
+
     const orderId = order[0].Id_pedido;
 
     const orderdetail = await sql`
@@ -777,11 +780,10 @@ export async function getReceiptPdf(id) {
 
     const data = {
       ...order[0],
-      detail: orderdetail
+      detail: orderdetail,
     };
 
     return data;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo obtener el recibo');
@@ -843,7 +845,6 @@ export async function getPurchases(query, currentPage) {
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener las compras');
@@ -883,10 +884,9 @@ export async function getPurchasesPages(query) {
         TO_CHAR("Compras"."Fecha", 'YYYY-MM-DD')
       ) ILIKE ${`%${query}%`}
     `;
-    
-    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
+
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
     return totalPages;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener las compras');
@@ -920,7 +920,6 @@ export async function getPurchaseById(id) {
       WHERE "Compras"."Id" = ${id}
     `;
     return data[0];
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo obtener la compra');
@@ -944,7 +943,6 @@ export async function getPurchaseDetailById(id) {
       WHERE "Id_compra" = ${id}
     `;
     return data;
-    
   } catch (error) {
     throw new Error('No se pudo obtener el detalle de la compra');
   }
@@ -967,7 +965,6 @@ export async function getExpenseById(id) {
         "Egresos"."Id" = ${id}
     `;
     return data[0];
-    
   } catch (error) {
     throw new Error('No se pudo obtener el gasto');
   }
@@ -1002,7 +999,6 @@ export async function getExpenses(query, currentPage) {
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener los gastos');
@@ -1022,9 +1018,8 @@ export async function getExpensesPages(query) {
         "Egresos"."Fecha"::text
       ) ILIKE ${`%${query}%`}
     `;
-    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
     return totalPages;
-    
   } catch (error) {
     throw new Error('No se pudieron obtener los gastos');
   }
@@ -1079,7 +1074,6 @@ export async function getSales(query, currentPage) {
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener las ventas');
@@ -1120,10 +1114,9 @@ export async function getSalesPages(query) {
         TO_CHAR("Ventas"."Fecha", 'YYYY-MM-DD')
       ) ILIKE ${`%${query}%`}
     `;
-    
-    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
+
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
     return totalPages;
-    
   } catch (error) {
     throw new Error('No se pudieron obtener las ventas');
   }
@@ -1145,7 +1138,6 @@ export async function getSaleById(id) {
       WHERE "Ventas"."Id" = ${id}
     `;
     return data[0];
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo obtener la venta');
@@ -1189,7 +1181,6 @@ export async function getSaleDetailById(id) {
       WHERE "Id_venta" = ${id}
     `;
     return data;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo obtener el detalle de la venta');
@@ -1199,7 +1190,9 @@ export async function getSaleDetailById(id) {
 export async function getInventory(query, currentPage) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   const filterDisponible = query.includes('disponibles');
-  const newQuery = filterDisponible ? query.replace(/^disponibles\s*/, '') : query;
+  const newQuery = filterDisponible
+    ? query.replace(/^disponibles\s*/, '')
+    : query;
 
   try {
     const data = await sql`
@@ -1247,18 +1240,21 @@ export async function getInventory(query, currentPage) {
       )
         AND "Productos"."Inventario" = true
 
-      ${filterDisponible ? sql`AND
+      ${
+        filterDisponible
+          ? sql`AND
       (
         COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0)::numeric -
         COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0)::numeric
-      )::numeric > 0` : sql``}
+      )::numeric > 0`
+          : sql``
+      }
 
       ORDER BY "Productos"."Nombre" ASC
 
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo obtener el inventario');
@@ -1268,7 +1264,9 @@ export async function getInventory(query, currentPage) {
 export async function getInventoryPages(query, currentPage) {
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   const filterDisponible = query.includes('disponibles');
-  const newQuery = filterDisponible ? query.replace(/^disponibles\s*/, '') : query;
+  const newQuery = filterDisponible
+    ? query.replace(/^disponibles\s*/, '')
+    : query;
 
   try {
     const data = await sql`
@@ -1304,16 +1302,19 @@ export async function getInventoryPages(query, currentPage) {
       )
         AND "Productos"."Inventario" = true
 
-      ${filterDisponible ? sql`AND
+      ${
+        filterDisponible
+          ? sql`AND
       (
         COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0)::numeric -
         COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0)::numeric
-      )::numeric > 0` : sql``}
+      )::numeric > 0`
+          : sql``
+      }
     `;
 
-    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE)
+    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
     return totalPages;
-    
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo obtener el inventario');

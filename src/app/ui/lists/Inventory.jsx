@@ -25,30 +25,30 @@ export default async function Inventory({ query, currentPage }) {
         <InventoryListHeader />
         {data.map((register) => (
           <ListCard href={`/productos/${register.Id}`} key={register.Id}>
-            <ListId id={register.Id} />
             <ListInfo>
+              <ListId id={register.Id} />
               <ListName name={register.Nombre} />
-              <ListInfoDetail>
-                <ListDetail
-                  detail={register.Existencias}
-                  label="Disponibles"
-                  color="gray"
-                  number={false}
-                />
-                <ListDetail
-                  detail={register.Precio_venta}
-                  label="Precio"
-                  color="green"
-                  nio={true}
-                />
-                <ListDetail
-                  detail={register.Ganancia}
-                  label="Ganancia"
-                  color="blue"
-                  nio={true}
-                />
-              </ListInfoDetail>
             </ListInfo>
+            <ListInfoDetail>
+              <ListDetail
+                detail={register.Existencias}
+                label="Disponibles"
+                color="gray"
+                number={false}
+              />
+              <ListDetail
+                detail={register.Precio_venta}
+                label="Precio"
+                color="green"
+                nio={true}
+              />
+              <ListDetail
+                detail={register.Ganancia}
+                label="Ganancia"
+                color="blue"
+                nio={true}
+              />
+            </ListInfoDetail>
           </ListCard>
         ))}
         <InventoryListTotal data={data} />

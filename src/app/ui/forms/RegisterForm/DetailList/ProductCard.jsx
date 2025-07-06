@@ -1,8 +1,14 @@
-import { ListId, ListName } from '@/app/ui/lists/lists';
+import {
+  ListId,
+  ListName,
+  ListDetail,
+  ListInfoDetail,
+} from '@/app/ui/lists/lists';
 import { ChangeQuantity } from './ChangeQuantity';
 import { useFormContext } from '@/app/ui/forms/RegisterForm';
 import { useState } from 'react';
 import { calculateTotals } from '@/app/lib/calculateTotals';
+import { bgColors } from '@/app/ui/bgcolors';
 
 export function ProductCard({
   product,
@@ -18,60 +24,40 @@ export function ProductCard({
   const ganancia = subtotalVenta - subtotalCompra;
 
   return (
-    <div className="flex gap-2 items-center rounded-xl p-2 bg-white dark:bg-neutral-800 shadow-sm">
-      <ListId id={product.Id_producto} />
+    <div className="flex flex-col items-start p-4 gap-3 border-t first-of-type:border-t-0 border-neutral-300 dark:border-neutral-700">
       <CardInfo>
+        <ListId id={product.Id_producto} />
         <ListName name={product.Nombre} />
-        <CardInfoDetail>
-          <CardPrice product={product} price={price} convert={convert} />
-          <ChangeQuantity
-            product={product}
-            overrideLeft={overrideLeft}
-            convert={convert}
-          />
-          {showLeft && (
-            <span className="text-xs min-w-18 text-left sm:text-right text-neutral-500 dark:text-neutral-400">
-              {product.Existencias === 1
-                ? 'Queda 1'
-                : product.Existencias <= 0
-                ? 'Agotado'
-                : `Quedan ${product.Existencias}`}
-            </span>
-          )}
-        </CardInfoDetail>
       </CardInfo>
-      <div className="flex gap-2 flex-col justify-center">
-        <span className="text-xs font-bold min-w-40 pr-0.5 text-right text-green-600 dark:text-green-500">
-          Venta {convert ? 'C$' : '$'} {subtotalVenta.toFixed(2)}
-        </span>
-        <span className="text-xs font-bold min-w-19 pr-0.5 text-right text-red-600 dark:text-red-400">
-          Compra {convert ? 'C$' : '$'} {subtotalCompra.toFixed(2)}
-        </span>
-        <span className="text-xs font-bold min-w-19 pr-0.5 text-right text-blue-500 dark:text-blue-300">
-          Ganancia {convert ? 'C$' : '$'} {ganancia.toFixed(2)}
-        </span>
+      <div className="flex flex-col md:flex-row justify-between w-full gap-1">
+        <ListInfoDetail>
+          <CardDetail label="Precio">
+            <CardPrice product={product} price={price} convert={convert} />
+          </CardDetail>
+          <CardDetail label="Cantidad">
+            <ChangeQuantity
+              product={product}
+              overrideLeft={overrideLeft}
+              convert={convert}
+            />
+          </CardDetail>
+        </ListInfoDetail>
+        <ListInfoDetail>
+          <RemainingStock showLeft={showLeft} product={product} />
+          <ListDetail detail={subtotalVenta} label="Venta" color="green" />
+          <ListDetail detail={subtotalCompra} label="Compra" color="red" />
+          <ListDetail detail={ganancia} label="Ganancia" color="blue" />
+        </ListInfoDetail>
       </div>
     </div>
   );
 }
 
 function CardInfo({ children }) {
-  return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center grow gap-2">
-      {children}
-    </div>
-  );
+  return <div className="flex items-start grow gap-2">{children}</div>;
 }
 
-function CardInfoDetail({ children }) {
-  return (
-    <div className="flex justify-start items-center gap-4 flex-wrap sm:flex-nowrap">
-      {children}
-    </div>
-  );
-}
-
-export function CardPrice({ product, price, convert }) {
+function CardPrice({ product, price, convert }) {
   const { productList, setProductList, setFormTotals } = useFormContext();
 
   const prices = {
@@ -114,7 +100,7 @@ export function CardPrice({ product, price, convert }) {
 
   return (
     <div
-      className={`flex items-center justify-start sm:justify-end text-xs w-20 gap-1 ${colors[color]}`}
+      className={`flex items-center justify-start sm:justify-end text-xs w-27 md:w-20 gap-1 ${colors[color]}`}
     >
       {convert ? 'C$' : '$'}
       <input
@@ -126,6 +112,36 @@ export function CardPrice({ product, price, convert }) {
         onChange={(event) => handleChange(event.target.value)}
         placeholder="precio"
       ></input>
+    </div>
+  );
+}
+
+function RemainingStock({ showLeft, product }) {
+  if (!showLeft) return;
+  const remainig = product.Existencias <= 0 ? 'Agotado' : product.Existencias;
+  const bgColor = bgColors['gray'];
+
+  return (
+    <div className="flex w-full md:w-auto items-center justify-between gap-1 relative">
+      <span className="md:hidden text-neutral-500 dark:text-neutral-400 text-xs w-18">
+        Quedan
+      </span>
+      <span
+        className={`rounded-xl py-1 px-2 text-xs min-w-25 text-right ${bgColor}`}
+      >
+        {remainig}
+      </span>
+    </div>
+  );
+}
+
+function CardDetail({ children, label }) {
+  return (
+    <div className="flex w-full md:w-auto items-center justify-between gap-1 relative">
+      <span className="md:hidden text-neutral-500 dark:text-neutral-400 text-xs w-18">
+        {label}
+      </span>
+      {children}
     </div>
   );
 }

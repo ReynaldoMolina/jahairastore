@@ -1,87 +1,64 @@
-import {
-  FormContainer,
-  FormDiv,
-  FormInput,
-  FormButtons,
-  FormDate,
-  FormId,
-  FormSelect,
-} from '@/app/ui/forms/FormInputs/formInputsServer';
-import { createProduct, updateProduct } from '@/app/lib/actions';
-import { ProductPrices } from './ProductForm/ProductFormInputs';
+'use client';
 
-export function ProductCreate() {
-  const product = {
-    Precio_venta: 0,
-    Precio_compra: 0,
+import {
+  FormButtons,
+  FormContainer,
+  FormDate,
+  FormDiv,
+  FormError,
+  FormId,
+  FormInput,
+} from '@/app/ui/forms/FormInputs/formInputs';
+import { useActionState } from 'react';
+import { ProductPrices } from './ProductForm/ProductFormInputs';
+import { createProduct, updateProduct } from '@/app/lib/actions';
+
+export function ProductForm({ children, isNew, product }) {
+  const action = isNew ? createProduct : updateProduct.bind(null, product.Id);
+  const [state, formAction, isPending] = useActionState(action, {
+    message: '',
+  });
+
+  const newProduct = {
+    Precio_venta: '',
+    Precio_compra: '',
     Inventario: false,
     Cambio_dolar: null,
   };
+
   return (
-    <FormContainer action={createProduct}>
-      <FormId holder="Crear producto" />
-      <FormInput name="Nombre" holder="Nombre" value="" />
+    <FormContainer action={formAction}>
+      <FormId
+        holder={isNew ? 'Crear producto' : 'Producto'}
+        value={isNew ? '' : product.Id}
+      />
+      <FormInput
+        name="Nombre"
+        holder="Nombre"
+        value={isNew ? '' : product.Nombre}
+      />
       <FormDiv>
         <FormInput
           name="Id_shein"
-          holder="Id SheIn"
-          value=""
+          holder="Id producto"
+          value={isNew ? '' : product.Id_shein}
           required={false}
         />
-        <FormDate date="" />
+        <FormDate date={isNew ? '' : product.Fecha} />
       </FormDiv>
-      <FormDiv>
-        <FormSelect value={1} name="Id_proveedor" label="Proveedor" />
-        <FormSelect value={1} name="Id_categoria" label="Categoría" />
-      </FormDiv>
+      <FormDiv flexCol={false}>{children}</FormDiv>
       <FormInput
         name="Descripcion"
         holder="Descripción"
-        value=""
+        value={isNew ? '' : product.Descripcion}
         required={false}
       />
-      <ProductPrices product={product} />
-      <FormButtons link="/productos" label={'Crear'} />
-    </FormContainer>
-  );
-}
 
-export function ProductEdit({ product }) {
-  const updateProductWithId = updateProduct.bind(null, product.Id);
+      <ProductPrices product={isNew ? newProduct : product} />
 
-  return (
-    <FormContainer action={updateProductWithId}>
-      <FormId holder="Producto" value={product.Id} />
-      <FormInput name="Nombre" holder="Nombre" value={product.Nombre} />
-      <FormDiv>
-        <FormInput
-          name="Id_shein"
-          holder="Id SheIn"
-          value={product.Id_shein}
-          required={false}
-        />
-        <FormDate date={product.Fecha} />
-      </FormDiv>
-      <FormDiv>
-        <FormSelect
-          value={product.Id_proveedor}
-          name="Id_proveedor"
-          label="Proveedor"
-        />
-        <FormSelect
-          value={product.Id_categoria}
-          name="Id_categoria"
-          label="Categoría"
-        />
-      </FormDiv>
-      <FormInput
-        name="Descripcion"
-        holder="Descripción"
-        value={product.Descripcion}
-        required={false}
-      />
-      <ProductPrices product={product} />
-      <FormButtons link="/productos" label={'Guardar'} />
+      <FormError isPending={isPending} state={state} />
+
+      <FormButtons link="/productos" isNew={isNew} isPending={isPending} />
     </FormContainer>
   );
 }

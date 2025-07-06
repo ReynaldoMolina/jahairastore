@@ -16,27 +16,29 @@ export function OrderOptions({ order }) {
   return (
     <FormOptionContainer>
       {formTotals.totalSell - order.TotalAbono > 0 && (
-        <div className="flex gap-1 items-center">
-          <p className="text-xs opacity-60">Pagar:</p>
-          <FormOption
-            label="0%"
-            href={`/recibos/create?pedido=${order.Id}&cliente=${
-              order.Id_cliente
-            }&saldo=${balance}&abono=${0}`}
-          ></FormOption>
-          <FormOption
-            label="50%"
-            href={`/recibos/create?pedido=${order.Id}&cliente=${order.Id_cliente}&saldo=${balance}&abono=${half}`}
-          ></FormOption>
-          <FormOption
-            label="100%"
-            href={`/recibos/create?pedido=${order.Id}&cliente=${order.Id_cliente}&saldo=${balance}&abono=${balance}`}
-          ></FormOption>
+        <div className="flex flex-col md:flex-row gap-1 md:items-center">
+          <p className="text-xs opacity-60 px-1">Pagar</p>
+          <div className="flex gap-1 items-center">
+            <FormOption
+              label="0%"
+              href={`/recibos/create?pedido=${order.Id}&cliente=${
+                order.Id_cliente
+              }&saldo=${balance}&abono=${0}`}
+            ></FormOption>
+            <FormOption
+              label="50%"
+              href={`/recibos/create?pedido=${order.Id}&cliente=${order.Id_cliente}&saldo=${balance}&abono=${half}`}
+            ></FormOption>
+            <FormOption
+              label="100%"
+              href={`/recibos/create?pedido=${order.Id}&cliente=${order.Id_cliente}&saldo=${balance}&abono=${balance}`}
+            ></FormOption>
+          </div>
         </div>
       )}
       {order.TotalAbono > 0 && (
         <FormOption
-          label="Recibos"
+          label="Ver recibos"
           href={`/recibos?query=${order.Id} ${order.NombreCliente}`}
         >
           <ReceiptsIcon className="size-5" />

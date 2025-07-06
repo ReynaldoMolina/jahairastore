@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { FormDiv, FormInputState } from './FormInputs/formInputs';
 import { bgColors } from '../bgcolors';
 
-export function ExpensePayment({ gasto = 0, cambioDolar = 37 }) {
+export function ExpensePayment({ gasto = '', cambioDolar, isNew }) {
   const [cambioDol, setCambioDol] = useState(cambioDolar);
   const [payment, setPayment] = useState({
     GastoCor: gasto,
-    Gasto: gasto / cambioDol,
+    Gasto: isNew ? '' : gasto / cambioDol,
   });
 
   function handleNio(value) {
@@ -35,41 +35,32 @@ export function ExpensePayment({ gasto = 0, cambioDolar = 37 }) {
 
   return (
     <>
-      <FormDiv>
+      <FormDiv flexCol={false}>
         <FormInputState
           name="Cambio_dolar"
-          holder="Cambio dólar"
+          holder="Cambio USD"
           value={cambioDol}
           setValue={handleCambioDol}
+          required={true}
         />
         <PaymentInput
           name="GastoCor"
           holder="Gasto CS"
           value={payment}
           setValue={handleNio}
-          color="red"
         />
         <PaymentInput
           name="Gasto"
           holder="Gasto $"
           value={payment}
           setValue={handleDol}
-          color="red"
         />
       </FormDiv>
     </>
   );
 }
 
-function PaymentInput({
-  name,
-  holder,
-  value,
-  setValue,
-  setValue2,
-  color = 'gray',
-}) {
-  const bgColor = bgColors[color];
+function PaymentInput({ name, holder, value, setValue }) {
   return (
     <div className="flex flex-col w-full gap-1">
       <label htmlFor={name} className="w-full text-xs pl-2 font-semibold">
@@ -81,7 +72,7 @@ function PaymentInput({
         type="number"
         min={0}
         step="any"
-        className={`flex ${bgColor} items-center rounded-xl shadow-sm text-xs h-8 px-3 w-full`}
+        className={`flex ${bgColors.borderColor} items-center rounded-lg shadow-sm text-xs h-9 px-3 w-full`}
         placeholder={holder}
         autoComplete="off"
         value={value[name]}

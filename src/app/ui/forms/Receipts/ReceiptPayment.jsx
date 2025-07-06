@@ -20,7 +20,7 @@ export function ReceiptPayment({ saldoInicial, abono = '' }) {
 
   return (
     <>
-      <FormDiv>
+      <FormDiv flexCol={false}>
         <FormSpan
           name="SaldoInicial"
           holder="Saldo inicial"

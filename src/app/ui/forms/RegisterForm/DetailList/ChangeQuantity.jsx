@@ -49,14 +49,14 @@ export function ChangeQuantity({ product, overrideLeft, convert }) {
   }
 
   return (
-    <div className="flex border-1 rounded-xl overflow-hidden border-neutral-200 dark:border-neutral-700">
+    <div className="flex border-1 md:my-0 rounded-xl overflow-hidden border-neutral-200 dark:border-neutral-700">
       <MinusButton
         icon="-"
         quantity={product.Cantidad}
         action={() => reduceQuantity()}
         deleteAction={() => deleteProduct()}
       />
-      <span className="flex justify-center items-center text-xs w-8 py-1">
+      <span className="flex justify-center items-center text-xs w-12.5 md:w-8 py-1">
         {product.Cantidad}
       </span>
       <QuantityButton
@@ -73,7 +73,7 @@ function MinusButton({ quantity, icon, action, deleteAction }) {
   if (quantity === 1)
     return (
       <button
-        className="flex items-center justify-center w-6 text-xs bg-neutral-200 dark:bg-neutral-700 cursor-pointer"
+        className="flex items-center justify-center min-w-6 text-xs bg-neutral-200 dark:bg-neutral-700 cursor-pointer"
         type="button"
         onClick={deleteAction}
       >
@@ -95,7 +95,7 @@ function QuantityButton({ icon, action, overrideLeft, disabled = false }) {
 
   return (
     <button
-      className={`w-6 text-xs bg-neutral-200 dark:bg-neutral-700 ${
+      className={`min-w-6 text-xs bg-neutral-200 dark:bg-neutral-700 ${
         !disabled && 'cursor-pointer'
       }`}
       type="button"

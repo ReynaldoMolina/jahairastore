@@ -126,11 +126,17 @@ import { bgColors } from '@/app/ui/bgcolors';
 //   );
 // }
 
-export async function FormSelect({ value, name, label }) {
+export async function FormSelect({ value, name }) {
   const getOptions = {
     Id_cliente: getClientsSelect,
     Id_proveedor: getProvidersSelect,
     Id_categoria: getCategoriesSelect,
+  };
+
+  const labels = {
+    Id_cliente: 'Cliente',
+    Id_proveedor: 'Proveedor',
+    Id_categoria: 'Categoría',
   };
 
   const data = await getOptions[name]?.();
@@ -138,7 +144,7 @@ export async function FormSelect({ value, name, label }) {
   return (
     <div className="flex flex-col w-full gap-1">
       <FormLabel name={name}>
-        <span className="font-bold">{label}</span>
+        <span className="font-bold">{labels[name]}</span>
       </FormLabel>
       <select
         id={name}
@@ -147,7 +153,7 @@ export async function FormSelect({ value, name, label }) {
         defaultValue={value}
         required
       >
-        <option value="" disabled className="text-sm">
+        <option value="" className="text-sm">
           Selecciona una opción
         </option>
         {data.map((option) => {

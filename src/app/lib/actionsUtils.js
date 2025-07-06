@@ -20,7 +20,9 @@ export async function createRecord({ tableName, data, returningId = false }) {
     return returningId ? result[0].Id : null;
   } catch (error) {
     console.error(error);
-    throw new Error('No se pudo crear el registro, intenta de nuevo.');
+    throw new Error(
+      'No se pudo crear el registro, por favor intenta de nuevo.'
+    );
   }
 }
 
@@ -34,7 +36,9 @@ export async function updateRecord({ tableName, data, id }) {
     `;
   } catch (error) {
     console.error(error);
-    throw new Error('No se pudo actualizar el registro, intenta de nuevo.');
+    throw new Error(
+      'No se pudo actualizar el registro, por favor intenta de nuevo.'
+    );
   }
 }
 

@@ -1,10 +1,6 @@
-import { FormId, FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
-import {
-  FormEdit,
-  FormButtons,
-  FormInfo,
-  ProductSearch,
-} from '@/app/ui/forms/RegisterForm';
+import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
+import { FormEdit, FormInfo, ProductSearch } from '@/app/ui/forms/RegisterForm';
+import { FormId, FormButtons } from '@/app/ui/forms/FormInputs/formInputs';
 import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';
 import FormDetail from '@/app/ui/forms/RegisterForm/DetailList/FormDetail';
 import { getSaleById, getSaleDetailById } from '@/app/lib/data';
@@ -26,34 +22,28 @@ export default async function Page(props) {
   const saledetail = await getSaleDetailById(saleId);
 
   return (
-    <section className="flex grow overflow-y-scroll h-0">
-      <FormEdit
-        updateRegister={updateSale}
-        registerId={saleId}
-        detailList={saledetail}
-        convert={true}
-        allowEmpty={true}
-        abono={sale.Abono}
-      >
-        <FormId holder="Venta" value={saleId} />
-        <FormInfo date={sale.Fecha} register="sales">
-          <FormSelect
-            value={sale.Id_cliente}
-            name="Id_cliente"
-            label="Cliente"
-          />
-        </FormInfo>
+    <FormEdit
+      updateRegister={updateSale}
+      registerId={saleId}
+      detailList={saledetail}
+      convert={true}
+      allowEmpty={true}
+      abono={sale.Abono}
+    >
+      <FormId holder="Venta" value={saleId} />
+      <FormInfo date={sale.Fecha} register="sales">
+        <FormSelect value={sale.Id_cliente} name="Id_cliente" label="Cliente" />
+      </FormInfo>
 
-        <SalePayment credito={sale.Credito} />
+      <SalePayment credito={sale.Credito} />
 
-        <ProductSearch open={false}>
-          <ProductSearchList searchParams={searchParams} inventario={true} />
-        </ProductSearch>
+      <ProductSearch open={false}>
+        <ProductSearchList searchParams={searchParams} inventario={true} />
+      </ProductSearch>
 
-        <FormDetail convert={true} showLeft={true} overrideLeft={false} />
+      <FormDetail convert={true} showLeft={true} overrideLeft={false} />
 
-        <FormButtons link={'/ventas'} label={'Guardar'} />
-      </FormEdit>
-    </section>
+      <FormButtons link={'/ventas'} label={'Guardar'} />
+    </FormEdit>
   );
 }

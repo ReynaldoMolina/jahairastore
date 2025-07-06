@@ -26,24 +26,20 @@ export default async function Receipts({ query, currentPage }) {
         <ReceiptListHeader />
         {data.map((register) => (
           <ListCard key={register.Id} href={`/recibos/${register.Id}`}>
-            <ListId id={register.Id} />
             <ListInfo>
+              <ListId id={register.Id} />
               <ListName name={register.NombreCliente} />
-              <ListInfoDetail>
-                <ListDate date={register.Fecha} />
-                <ListDetail
-                  detail={register.Id_pedido}
-                  label="Id pedido"
-                  color="gray"
-                  number={false}
-                />
-                <ListDetail
-                  detail={register.Abono}
-                  label="Abono"
-                  color="green"
-                />
-              </ListInfoDetail>
             </ListInfo>
+            <ListInfoDetail>
+              <ListDate date={register.Fecha} />
+              <ListDetail
+                detail={register.Id_pedido}
+                label="Pedido"
+                color="gray"
+                number={false}
+              />
+              <ListDetail detail={register.Abono} label="Abono" color="green" />
+            </ListInfoDetail>
           </ListCard>
         ))}
         <ReceiptListTotal data={data} />

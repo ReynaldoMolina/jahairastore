@@ -29,36 +29,36 @@ export default async function Orders({ query, currentPage }) {
 
           return (
             <ListCard key={register.Id} href={`/pedidos/${register.Id}`}>
-              <ListId id={register.Id} />
               <ListInfo>
+                <ListId id={register.Id} />
                 <ListName name={register.NombreCliente} />
-                <ListInfoDetail>
-                  <ListDate date={register.Fecha} />
-                  <ListDetail
-                    detail={register.TotalPedidoVenta}
-                    label="Total"
-                    color="gray"
-                  />
-                  <ListDetail
-                    detail={register.TotalAbono}
-                    label="Abonos"
-                    color="green"
-                  />
-                  <ListDetail
-                    detail={saldo}
-                    label="Saldo"
-                    color="red"
-                    ping={saldo > 0}
-                  />
-                  <ListDetail
-                    detail={
-                      register.TotalPedidoVenta - register.TotalPedidoCompra
-                    }
-                    label="Ganancia"
-                    color="blue"
-                  />
-                </ListInfoDetail>
               </ListInfo>
+              <ListInfoDetail>
+                <ListDate date={register.Fecha} />
+                <ListDetail
+                  detail={register.TotalPedidoVenta}
+                  label="Total"
+                  color="gray"
+                />
+                <ListDetail
+                  detail={register.TotalAbono}
+                  label="Abonos"
+                  color="green"
+                />
+                <ListDetail
+                  detail={saldo}
+                  label="Saldo"
+                  color="red"
+                  ping={saldo > 0}
+                />
+                <ListDetail
+                  detail={
+                    register.TotalPedidoVenta - register.TotalPedidoCompra
+                  }
+                  label="Ganancia"
+                  color="blue"
+                />
+              </ListInfoDetail>
             </ListCard>
           );
         })}

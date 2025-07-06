@@ -1,15 +1,16 @@
-import { ProductEdit } from '@/app/ui/forms/ProductForm';
+import { ProductForm } from '@/app/ui/forms/ProductForm';
 import { getProductById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
+import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
 
 export async function generateMetadata(props) {
   const { id } = await props.params;
 
   return {
-    title: `Producto ${id}`
-  }
+    title: `Producto ${id}`,
+  };
 }
- 
+
 export default async function Page(props) {
   const params = await props.params;
   const id = params.id;
@@ -18,10 +19,11 @@ export default async function Page(props) {
   if (!data) {
     notFound();
   }
- 
+
   return (
-    <section className="flex grow overflow-y-scroll h-0">
-      <ProductEdit product={data} />
-    </section>
+    <ProductForm product={data}>
+      <FormSelect value={data.Id_proveedor} name="Id_proveedor" />
+      <FormSelect value={data.Id_categoria} name="Id_categoria" />
+    </ProductForm>
   );
 }

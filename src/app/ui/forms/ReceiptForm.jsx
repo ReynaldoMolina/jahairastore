@@ -1,13 +1,13 @@
 'use client';
 
 import {
-  FormContainer,
-  FormDiv,
-  FormInput,
   FormButtons,
+  FormContainer,
   FormDate,
-  FormId,
+  FormDiv,
   FormError,
+  FormId,
+  FormInput,
 } from '@/app/ui/forms/FormInputs/formInputs';
 import { useActionState } from 'react';
 import { ReceiptPayment } from './Receipts/ReceiptPayment';

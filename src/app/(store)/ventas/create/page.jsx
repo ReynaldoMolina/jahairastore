@@ -1,7 +1,7 @@
-import { FormSelect, FormId } from '@/app/ui/forms/FormInputs/formInputsServer';
+import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
+import { FormId, FormButtons } from '@/app/ui/forms/FormInputs/formInputs';
 import {
   FormCreate,
-  FormButtons,
   FormInfo,
   ProductSearch,
 } from '@/app/ui/forms/RegisterForm';
@@ -18,28 +18,26 @@ export default async function Page(props) {
   const searchParams = await props.searchParams;
 
   return (
-    <section className="flex grow overflow-y-scroll h-0">
-      <FormCreate createRegister={createSale}>
-        <FormId holder="Crear venta" />
-        <FormInfo date="" register="sales">
-          <FormSelect value={0} name="Id_cliente" label="Cliente" />
-        </FormInfo>
+    <FormCreate createRegister={createSale}>
+      <FormId holder="Crear venta" />
+      <FormInfo date="" register="sales">
+        <FormSelect value={0} name="Id_cliente" />
+      </FormInfo>
 
-        <SalePayment />
+      <SalePayment />
 
-        <ProductSearch open={true}>
-          <ProductSearchList searchParams={searchParams} inventario={true} />
-        </ProductSearch>
+      <ProductSearch open={true}>
+        <ProductSearchList searchParams={searchParams} inventario={true} />
+      </ProductSearch>
 
-        <FormDetail
-          convert={true}
-          price="venta"
-          showLeft={true}
-          overrideLeft={false}
-        />
+      <FormDetail
+        convert={true}
+        price="venta"
+        showLeft={true}
+        overrideLeft={false}
+      />
 
-        <FormButtons link={'/ventas'} label={'Crear'} />
-      </FormCreate>
-    </section>
+      <FormButtons link={'/ventas'} isNew={true} />
+    </FormCreate>
   );
 }

@@ -58,6 +58,21 @@ export function OrderListHeader() {
   );
 }
 
+export function RegisterDetailListHeader({ showLeft }) {
+  return (
+    <ListHeader>
+      <ListId id="ID" color="none" />
+      <ListName name="PRODUCTO" />
+      <ListInfoDetail>
+        {showLeft && <ListDetail detail="QUEDAN" number={false} />}
+        <ListDetail detail="VENTA" number={false} />
+        <ListDetail detail="COMPRA" number={false} />
+        <ListDetail detail="GANANCIA" number={false} />
+      </ListInfoDetail>
+    </ListHeader>
+  );
+}
+
 export function ReceiptListHeader() {
   return (
     <ListHeader>
@@ -93,8 +108,8 @@ export function ExpensesListHeader() {
       <ListId id="ID" color="none" />
       <ListName name="EMPRESA" color="none" />
       <ListInfoDetail>
-        <ListDetail detail="FECHA" color="none" number={false} />
         <ListDescription detail="CONCEPTO" header={true} />
+        <ListDetail detail="FECHA" color="none" number={false} />
         <ListDetail detail="ID COMPRA" color="none" number={false} />
         <ListDetail detail="GASTO" color="none" number={false} />
       </ListInfoDetail>
@@ -146,18 +161,15 @@ export function ProductListHeader() {
   );
 }
 
-export function ProductSearchListHeader({ price, inventario }) {
+export function ProductSearchListHeader({ inventario }) {
   return (
     <ListHeader>
-      <ListId id="Id" />
+      <ListId id="ID" color="none" />
+      <ListName name="PRODUCTO" />
       <ListInfoDetail>
-        <ListDetail
-          detail="Precio"
-          color={price === 'venta' ? 'green' : 'red'}
-          number={false}
-        />
-        {inventario && <ListDetail detail="Cantidad" number={false} />}
-        <div className="size-7"></div>
+        <ListDetail detail="PRECIO" number={false} />
+        {inventario && <ListDetail detail="DISPONIBLES" number={false} />}
+        <div className="h-3 min-w-7"></div>
       </ListInfoDetail>
     </ListHeader>
   );

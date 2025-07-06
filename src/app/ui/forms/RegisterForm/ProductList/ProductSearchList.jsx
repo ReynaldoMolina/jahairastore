@@ -6,12 +6,12 @@ import {
   getProductsInventarioPages,
 } from '@/app/lib/data';
 import {
-  ListCard,
   ListInfo,
   ListId,
   ListInfoDetail,
   ListDetail,
   ListName,
+  List,
 } from '@/app/ui/lists/lists';
 import { Pagination } from '@/app/ui/lists/Pagination';
 import AddProduct from './AddProduct';
@@ -38,40 +38,60 @@ export default async function ProductSearchList({
     ? await getProductsInventario(query, currentPage)
     : await getProducts(query, currentPage, false, false);
 
-  return (
-    <div className={`flex flex-col gap-1 rounded-xl`}>
-      {data.length !== 0 && (
-        <ProductSearchListHeader price={price} inventario={inventario} />
-      )}
-      {data.length === 0 && <EmptyList query={query} />}
-      {data.map((product) => {
-        const priceToShow = inventario
-          ? product[prices[price]] * product.Cambio_dolar
-          : product.Precio_venta;
+  if (data.length === 0) return <EmptyList query={query} />;
 
-        return (
-          <div
-            key={product.Id}
-            className="flex rounded-lg items-center bg-white dark:bg-neutral-900 px-2 py-3 md:px-2 md:py-2 shadow-sm gap-2 hover:bg-sky-100 dark:hover:bg-neutral-800"
-          >
-            <ListId id={product.Id} />
-            <ListInfo>
-              <ListName name={product.Nombre} />
+  return (
+    <>
+      <List>
+        <ProductSearchListHeader price={price} inventario={inventario} />
+        {data.map((product) => {
+          const priceToShow = inventario
+            ? product[prices[price]] * product.Cambio_dolar
+            : product.Precio_venta;
+
+          return (
+            <div
+              key={product.Id}
+              className="flex flex-col md:flex-row items-start p-4 gap-3 hover:bg-sky-100 dark:hover:bg-neutral-800 border-t first-of-type:border-t-0 border-neutral-300 dark:border-neutral-700"
+            >
+              <ListInfo>
+                <ListId id={product.Id} />
+                <ListName name={product.Nombre} />
+              </ListInfo>
               <ListInfoDetail>
                 <ListDetail
                   detail={priceToShow}
+                  label="Precio"
                   color={price === 'venta' ? 'green' : 'red'}
                 />
                 {inventario && (
-                  <ListDetail detail={product.Existencias} type="text" />
+                  <ListDetail
+                    detail={product.Existencias}
+                    label="Disponibles"
+                    number={false}
+                    color="gray"
+                  />
                 )}
+                <CardDetail label="Añadir">
+                  <AddProduct product={product} convert={inventario} />
+                </CardDetail>
               </ListInfoDetail>
-            </ListInfo>
-            <AddProduct product={product} convert={inventario} />
-          </div>
-        );
-      })}
+            </div>
+          );
+        })}
+      </List>
       <Pagination totalPages={totalPages} />
+    </>
+  );
+}
+
+function CardDetail({ children, label }) {
+  return (
+    <div className="flex w-full md:w-auto items-center justify-between gap-1 relative">
+      <span className="md:hidden text-neutral-500 dark:text-neutral-400 text-xs w-18">
+        {label}
+      </span>
+      {children}
     </div>
   );
 }

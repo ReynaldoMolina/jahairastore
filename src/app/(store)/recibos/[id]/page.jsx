@@ -23,11 +23,7 @@ export default async function Page(props) {
 
   return (
     <ReceiptForm isNew={false} receipt={receipt} receiptpdf={receiptpdf}>
-      <FormSelect
-        value={receipt.Id_cliente}
-        name="Id_cliente"
-        label="Cliente"
-      />
+      <FormSelect value={receipt.Id_cliente} name="Id_cliente" />
     </ReceiptForm>
   );
 }

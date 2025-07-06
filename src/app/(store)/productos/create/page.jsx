@@ -1,13 +1,15 @@
-import { ProductCreate } from '@/app/ui/forms/ProductForm';
+import { ProductForm } from '@/app/ui/forms/ProductForm';
+import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
 
 export const metadata = {
-  title: 'Crear producto'
-}
- 
+  title: 'Crear producto',
+};
+
 export default async function Page() {
   return (
-    <section className="flex grow overflow-y-scroll h-0">
-      <ProductCreate />
-    </section>
+    <ProductForm isNew={true}>
+      <FormSelect value="" name="Id_proveedor" />
+      <FormSelect value="" name="Id_categoria" />
+    </ProductForm>
   );
 }

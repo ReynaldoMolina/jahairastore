@@ -118,42 +118,22 @@ export function ProductSearch({ children, open }) {
 
   return (
     <section
-      className={`flex flex-col gap-4 bg-neutral-100 dark:bg-black ${bgColors.borderColor} rounded-lg py-2 my-4`}
+      className={`flex flex-col gap-4 bg-neutral-100 dark:bg-black ${bgColors.borderColor} rounded-lg p-2 my-4`}
     >
       <div
         className="flex items-center justify-between gap-1 cursor-pointer"
         onClick={() => setIsSearchProductOpen((state) => !state)}
       >
-        <p className="text-sm font-semibold px-2">Agregar productos</p>
+        <p className="text-sm font-semibold">Agregar productos</p>
         <ArrowDown
-          className={`rounded-md w-10 h-6 border border-neutral-300 bg-white dark:bg-neutral-700 ${
+          className={`rounded-md w-10 h-6 bg-white dark:bg-neutral-700 ${
             isSearchProductOpen ? 'rotate-180' : 'rotate-0'
           }`}
         />
       </div>
-      {isSearchProductOpen && <SearchInput />}
+      {isSearchProductOpen && <SearchInput allowNew={false} />}
       {isSearchProductOpen && children}
     </section>
-  );
-}
-
-export function FormButtons({ link, label }) {
-  return (
-    <div className="flex w-full justify-center gap-3">
-      <Link
-        href={link}
-        className="flex items-center justify-center rounded-xl font-semibold cursor-pointer h-9 w-full sm:w-35 bg-red-500 hover:bg-red-600 transition text-xs text-white"
-      >
-        Cancelar
-      </Link>
-      <button
-        type="submit"
-        value="Save"
-        className="flex items-center justify-center rounded-xl font-semibold cursor-pointer h-9 w-full sm:w-35 bg-green-600 hover:bg-green-700 transition text-xs text-white"
-      >
-        {label}
-      </button>
-    </div>
   );
 }
 
@@ -169,21 +149,13 @@ function OrderSubtotals({ abono }) {
         name="OrderTotal"
         holder="Total"
         value={formTotals.totalSell}
-        type="number"
         color="gray"
       />
-      <FormSpan
-        name="OrderAbono"
-        holder="Abono"
-        value={abono}
-        type="number"
-        color="green"
-      />
+      <FormSpan name="OrderAbono" holder="Abono" value={abono} color="green" />
       <FormSpan
         name="Saldo"
         holder="Saldo"
         value={formTotals.totalSell - abono}
-        type="number"
         color="red"
       />
       <FormSpan
@@ -206,30 +178,23 @@ function PurchaseSubtotals({ gastos }) {
         name="PurchaseTotalVenta"
         holder="Venta"
         value={formTotals.totalSell}
-        type="number"
+        color="green"
       />
       <FormSpan
         name="PurchaseTotalCompra"
         holder="Compra"
         value={formTotals.totalCost}
-        type="number"
+        color="red"
       />
       {gastos > 0 && (
         <FormSpan
           name="PurchaseGastos"
           holder="Gastos"
           value={gastos}
-          type="number"
-          color="red"
+          color="amber"
         />
       )}
-      <FormSpan
-        name="Profit"
-        holder="Ganancia"
-        value={profit}
-        type="number"
-        color="blue"
-      />
+      <FormSpan name="Profit" holder="Ganancia" value={profit} color="blue" />
     </SubtotalsDiv>
   );
 }

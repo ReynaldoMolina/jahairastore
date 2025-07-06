@@ -27,35 +27,35 @@ export default async function Purchases({ query, currentPage }) {
         <PurchaseListHeader />
         {data.map((register) => (
           <ListCard key={register.Id} href={`/compras/${register.Id}`}>
-            <ListId id={register.Id} />
             <ListInfo>
+              <ListId id={register.Id} />
               <ListName name={register.Nombre_empresa} />
-              <ListInfoDetail>
-                <ListDate date={register.Fecha} />
-                <ListDetail
-                  detail={register.TotalCompraCompra}
-                  label="Compra"
-                  color="gray"
-                  nio={true}
-                />
-                <ListDetail
-                  detail={register.TotalGasto}
-                  label="Gastos"
-                  color="red"
-                  nio={true}
-                />
-                <ListDetail
-                  detail={
-                    register.TotalCompraVenta -
-                    register.TotalCompraCompra -
-                    register.TotalGasto
-                  }
-                  label="Ganancia"
-                  color="blue"
-                  nio={true}
-                />
-              </ListInfoDetail>
             </ListInfo>
+            <ListInfoDetail>
+              <ListDate date={register.Fecha} />
+              <ListDetail
+                detail={register.TotalCompraCompra}
+                label="Compra"
+                color="gray"
+                nio={true}
+              />
+              <ListDetail
+                detail={register.TotalGasto}
+                label="Gastos"
+                color="red"
+                nio={true}
+              />
+              <ListDetail
+                detail={
+                  register.TotalCompraVenta -
+                  register.TotalCompraCompra -
+                  register.TotalGasto
+                }
+                label="Ganancia"
+                color="blue"
+                nio={true}
+              />
+            </ListInfoDetail>
           </ListCard>
         ))}
         <PurchaseListTotal data={data} />

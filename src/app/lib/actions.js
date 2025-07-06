@@ -120,15 +120,23 @@ export async function updateReceipt(id, prevState, formData) {
   await goBackTo('/recibos');
 }
 
-export async function createProduct(formData) {
-  const data = getProductFormData(formData);
-  await createRecord({ tableName: 'Productos', data });
+export async function createProduct(prevState, formData) {
+  try {
+    const data = getProductFormData(formData);
+    await createRecord({ tableName: 'Productos', data });
+  } catch (error) {
+    return error;
+  }
   await goBackTo('/productos');
 }
 
-export async function updateProduct(id, formData) {
-  const data = getProductFormData(formData);
-  await updateRecord({ tableName: 'Productos', data, id });
+export async function updateProduct(id, prevState, formData) {
+  try {
+    const data = getProductFormData(formData);
+    await updateRecord({ tableName: 'Productos', data, id });
+  } catch (error) {
+    return error;
+  }
   await goBackTo('/productos');
 }
 
@@ -230,15 +238,23 @@ export async function updatePurchase(id, formData, productList, originalList) {
   await goBackTo('/compras');
 }
 
-export async function createExpense(formData) {
-  const data = getExpenseFormData(formData);
-  await createRecord({ tableName: 'Egresos', data });
+export async function createExpense(prevState, formData) {
+  try {
+    const data = getExpenseFormData(formData);
+    await createRecord({ tableName: 'Egresos', data });
+  } catch (error) {
+    return error;
+  }
   await goBackTo('/gastos');
 }
 
-export async function updateExpense(id, formData) {
-  const data = getExpenseFormData(formData);
-  await updateRecord({ tableName: 'Egresos', data, id });
+export async function updateExpense(id, prevState, formData) {
+  try {
+    const data = getExpenseFormData(formData);
+    await updateRecord({ tableName: 'Egresos', data, id });
+  } catch (error) {
+    return error;
+  }
   await goBackTo('/gastos');
 }
 

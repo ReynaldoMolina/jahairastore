@@ -1,15 +1,16 @@
-import { ExpenseEdit } from '@/app/ui/forms/ExpenseForm';
+import { ExpenseForm } from '@/app/ui/forms/ExpenseForm';
 import { getExpenseById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
+import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
 
 export async function generateMetadata(props) {
   const { id } = await props.params;
 
   return {
-    title: `Gasto ${id}`
-  }
+    title: `Gasto ${id}`,
+  };
 }
- 
+
 export default async function Page(props) {
   const params = await props.params;
   const id = params.id;
@@ -18,8 +19,10 @@ export default async function Page(props) {
   if (!expense) {
     notFound();
   }
- 
+
   return (
-    <ExpenseEdit expense={expense} />
+    <ExpenseForm expense={expense}>
+      <FormSelect value={expense.Id_proveedor} name="Id_proveedor" />
+    </ExpenseForm>
   );
 }

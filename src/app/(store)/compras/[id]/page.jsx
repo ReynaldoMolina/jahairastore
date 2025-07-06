@@ -1,10 +1,6 @@
-import { FormId, FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
-import {
-  FormEdit,
-  FormButtons,
-  FormInfo,
-  ProductSearch,
-} from '@/app/ui/forms/RegisterForm';
+import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
+import { FormId, FormButtons } from '@/app/ui/forms/FormInputs/formInputs';
+import { FormEdit, FormInfo, ProductSearch } from '@/app/ui/forms/RegisterForm';
 import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';
 import FormDetail from '@/app/ui/forms/RegisterForm/DetailList/FormDetail';
 import { PurchaseOptions } from '@/app/ui/forms/Options/PurchaseOptions';
@@ -26,40 +22,38 @@ export default async function Page(props) {
   const purchasedetail = await getPurchaseDetailById(purchaseId);
 
   return (
-    <section className="flex grow overflow-y-scroll h-0">
-      <FormEdit
-        updateRegister={updatePurchase}
-        registerId={purchaseId}
-        detailList={purchasedetail}
-        convert={true}
+    <FormEdit
+      updateRegister={updatePurchase}
+      registerId={purchaseId}
+      detailList={purchasedetail}
+      convert={true}
+    >
+      <FormId holder="Compra" value={purchaseId} />
+      <FormInfo
+        date={purchase.Fecha}
+        value={purchase.TotalGasto}
+        register="purchases"
       >
-        <FormId holder="Compra" value={purchaseId} />
-        <FormInfo
-          date={purchase.Fecha}
-          value={purchase.TotalGasto}
-          register="purchases"
-        >
-          <FormSelect
-            value={purchase.Id_proveedor}
-            name="Id_proveedor"
-            label="Proveedor"
-          />
-        </FormInfo>
+        <FormSelect
+          value={purchase.Id_proveedor}
+          name="Id_proveedor"
+          label="Proveedor"
+        />
+      </FormInfo>
 
-        <ProductSearch open={false}>
-          <ProductSearchList
-            searchParams={searchParams}
-            inventario={true}
-            price="compra"
-          />
-        </ProductSearch>
+      <ProductSearch open={false}>
+        <ProductSearchList
+          searchParams={searchParams}
+          inventario={true}
+          price="compra"
+        />
+      </ProductSearch>
 
-        <FormDetail convert={true} price="compra" />
+      <FormDetail convert={true} price="compra" />
 
-        <PurchaseOptions purchase={purchase} />
+      <PurchaseOptions purchase={purchase} />
 
-        <FormButtons link={'/compras'} label={'Guardar'} />
-      </FormEdit>
-    </section>
+      <FormButtons link={'/compras'} label={'Guardar'} />
+    </FormEdit>
   );
 }

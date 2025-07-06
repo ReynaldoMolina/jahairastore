@@ -1,10 +1,6 @@
-import { FormId, FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
-import {
-  FormEdit,
-  FormButtons,
-  FormInfo,
-  ProductSearch,
-} from '@/app/ui/forms/RegisterForm';
+import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
+import { FormEdit, FormInfo, ProductSearch } from '@/app/ui/forms/RegisterForm';
+import { FormId, FormButtons } from '@/app/ui/forms/FormInputs/formInputs';
 import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';
 import FormDetail from '@/app/ui/forms/RegisterForm/DetailList/FormDetail';
 import { getOrderById, getOrderDetailById } from '@/app/lib/data';
@@ -27,31 +23,32 @@ export default async function Page(props) {
   const orderdetail = await getOrderDetailById(orderId);
 
   return (
-    <section className="flex grow overflow-y-scroll h-0">
-      <FormEdit
-        updateRegister={updateOrder}
-        registerId={orderId}
-        detailList={orderdetail}
-      >
-        <FormId holder="Pedido" value={orderId} />
+    <FormEdit
+      updateRegister={updateOrder}
+      registerId={orderId}
+      detailList={orderdetail}
+    >
+      <FormId holder="Pedido" value={orderId} />
 
-        <FormInfo date={order.Fecha} value={order.TotalAbono} register="orders">
-          <FormSelect
-            value={order.Id_cliente}
-            name="Id_cliente"
-            label="Cliente"
-          />
-        </FormInfo>
+      <FormInfo date={order.Fecha} value={order.TotalAbono} register="orders">
+        <FormSelect
+          value={order.Id_cliente}
+          name="Id_cliente"
+          label="Cliente"
+        />
+      </FormInfo>
 
-        <ProductSearch open={false}>
-          <ProductSearchList searchParams={searchParams} />
-        </ProductSearch>
+      <ProductSearch open={false}>
+        <ProductSearchList searchParams={searchParams} />
+      </ProductSearch>
 
-        <FormDetail />
-        <Restante order={order} />
-        <OrderOptions order={order} />
-        <FormButtons link={'/pedidos?query=debe'} label={'Guardar'} />
-      </FormEdit>
-    </section>
+      <FormDetail />
+
+      <Restante order={order} />
+
+      <OrderOptions order={order} />
+
+      <FormButtons link={'/pedidos?query=debe'} label={'Guardar'} />
+    </FormEdit>
   );
 }

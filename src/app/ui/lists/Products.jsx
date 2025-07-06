@@ -7,7 +7,6 @@ import {
   ListInfo,
   ListInfoDetail,
   ListDetail,
-  NameDateDiv,
   ListDate,
   ListBlankSpace,
 } from '@/app/ui/lists/lists';
@@ -27,28 +26,28 @@ export default async function Products({ query, currentPage }) {
         <ProductListHeader />
         {data.map((register) => (
           <ListCard key={register.Id} href={`/productos/${register.Id}`}>
-            <ListId id={register.Id} />
             <ListInfo>
+              <ListId id={register.Id} />
               <ListName name={register.Nombre} />
-              <ListInfoDetail>
-                <ListDate date={register.Fecha} />
-                <ListDetail
-                  detail={register.Precio_venta}
-                  label="Precio venta"
-                  color="green"
-                />
-                <ListDetail
-                  detail={register.Precio_compra}
-                  label="Precio compra"
-                  color="red"
-                />
-                <ListDetail
-                  detail={register.Ganancia}
-                  label="Ganancia"
-                  color="blue"
-                />
-              </ListInfoDetail>
             </ListInfo>
+            <ListInfoDetail>
+              <ListDate date={register.Fecha} />
+              <ListDetail
+                detail={register.Precio_venta}
+                label="Precio venta"
+                color="green"
+              />
+              <ListDetail
+                detail={register.Precio_compra}
+                label="Precio compra"
+                color="red"
+              />
+              <ListDetail
+                detail={register.Ganancia}
+                label="Ganancia"
+                color="blue"
+              />
+            </ListInfoDetail>
           </ListCard>
         ))}
       </List>

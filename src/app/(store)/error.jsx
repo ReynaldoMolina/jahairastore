@@ -15,7 +15,7 @@ export default function Error({ error, reset }) {
         {error.message}
       </p>
       <button
-        className="mt-4 rounded-lg bg-green-600 px-4 py-3 text-xs text-white transition-colors hover:bg-green-700 font-bold"
+        className="mt-4 rounded-lg bg-green-600 px-4 py-3 text-sm text-white transition-colors hover:bg-green-700 font-semibold"
         onClick={() => reset()}
       >
         Reintentar

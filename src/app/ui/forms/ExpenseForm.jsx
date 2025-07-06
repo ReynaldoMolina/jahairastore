@@ -1,72 +1,99 @@
+'use client';
+
 import {
-  FormContainer,
-  FormDiv,
-  FormInput,
   FormButtons,
+  FormContainer,
   FormDate,
+  FormDiv,
+  FormError,
   FormId,
+  FormInput,
   FormSelect,
-} from '@/app/ui/forms/FormInputs/formInputsServer';
-import { createExpense, updateExpense } from '@/app/lib/actions';
+} from '@/app/ui/forms/FormInputs/formInputs';
+import { useActionState } from 'react';
 import { ExpensePayment } from './ExpensePayment';
+import { createExpense, updateExpense } from '@/app/lib/actions';
 
-export function ExpenseCreate({ searchParams }) {
-  const compra = searchParams?.compra || '';
-  const proveedor = searchParams?.proveedor || '';
-  const concepto = searchParams?.concepto || '';
+export function ExpenseForm({ children, isNew, expense, searchParams }) {
+  const action = isNew ? createExpense : updateExpense.bind(null, expense.Id);
+  const [state, formAction, isPending] = useActionState(action, {
+    message: '',
+  });
 
-  return (
-    <FormContainer action={createExpense}>
-      <FormId holder="Crear gasto" />
-      <FormDiv>
-        <FormInput
-          name="Id_compra"
-          holder="Compra"
-          value={compra}
-          type="number"
-        />
-        <FormDate name="Fecha" />
-      </FormDiv>
-      <FormSelect value={proveedor} name="Id_proveedor" label="Proveedor" />
-      <ExpensePayment gasto={0} />
-      <FormInput name="Concepto" holder="Descripción" value={concepto} />
-      <FormButtons link="/gastos" label={'Crear'} />
-    </FormContainer>
-  );
-}
+  let compra,
+    proveedor,
+    concepto = '';
 
-export function ExpenseEdit({ expense }) {
-  const updateExpenseWithId = updateExpense.bind(null, expense.Id);
+  if (isNew) {
+    compra = searchParams?.compra || '';
+    proveedor = searchParams?.proveedor || '';
+    concepto = searchParams?.concepto || '';
+  }
 
   return (
-    <FormContainer action={updateExpenseWithId}>
-      <FormId holder="Gasto" value={expense.Id} />
-      <FormDiv>
-        <FormInput
-          name="Id_compra"
-          holder="Compra"
-          value={expense.Id_compra}
-          type="number"
-        />
-        <FormDate name="Fecha" date={expense.Fecha} />
-      </FormDiv>
-      <FormSelect
-        value={expense.Id_proveedor}
-        name="Id_proveedor"
-        label="Proveedor"
+    <FormContainer action={formAction}>
+      <FormId
+        holder={isNew ? 'Crear gasto' : 'Gasto'}
+        value={isNew ? '' : expense.Id}
       />
+      <FormDiv>
+        <FormInput
+          name="Id_compra"
+          holder="Compra"
+          value={isNew ? compra : expense.Id_compra}
+          type="number"
+        />
+        <FormDate name="Fecha" date={isNew ? '' : expense.Fecha} />
+      </FormDiv>
+      {children}
       <ExpensePayment
-        gasto={expense.Gasto * expense.Cambio_dolar}
-        cambioDolar={expense.Cambio_dolar}
+        gasto={isNew ? '' : expense.Gasto * expense.Cambio_dolar}
+        cambioDolar={isNew ? 37 : expense.Cambio_dolar}
+        isNew={isNew}
       />
       <FormInput
         name="Concepto"
         holder="Descripción"
-        value={expense.Concepto}
-        required={false}
+        value={isNew ? concepto : expense.Concepto}
       />
-
-      <FormButtons link="/gastos" label={'Guardar'} />
+      <FormError isPending={isNew} state={state} />
+      <FormButtons link="/gastos" isNew={isNew} isPending={isPending} />
     </FormContainer>
   );
 }
+
+// export function ExpenseEdit({ expense }) {
+//   const updateExpenseWithId = updateExpense.bind(null, expense.Id);
+
+//   return (
+//     <FormContainer action={updateExpenseWithId}>
+//       <FormId holder="Gasto" value={expense.Id} />
+//       <FormDiv>
+//         <FormInput
+//           name="Id_compra"
+//           holder="Compra"
+//           value={expense.Id_compra}
+//           type="number"
+//         />
+//         <FormDate name="Fecha" date={expense.Fecha} />
+//       </FormDiv>
+//       <FormSelect
+//         value={expense.Id_proveedor}
+//         name="Id_proveedor"
+//         label="Proveedor"
+//       />
+//       <ExpensePayment
+//         gasto={expense.Gasto * expense.Cambio_dolar}
+//         cambioDolar={expense.Cambio_dolar}
+//       />
+//       <FormInput
+//         name="Concepto"
+//         holder="Descripción"
+//         value={expense.Concepto}
+//         required={false}
+//       />
+
+//       <FormButtons link="/gastos" label={'Guardar'} />
+//     </FormContainer>
+//   );
+// }

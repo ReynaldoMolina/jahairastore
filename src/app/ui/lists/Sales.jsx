@@ -8,7 +8,6 @@ import {
   ListInfoDetail,
   ListDetail,
   ListDate,
-  NameDateDiv,
   ListBlankSpace,
 } from '@/app/ui/lists/lists';
 import { Pagination } from '@/app/ui/lists/Pagination';
@@ -31,32 +30,32 @@ export default async function Sales({ query, currentPage }) {
             key={register.Id}
             href={`/ventas/${register.Id}?query=disponibles`}
           >
-            <ListId id={register.Id} />
             <ListInfo>
+              <ListId id={register.Id} />
               <ListName name={register.NombreCliente} />
-              <ListInfoDetail>
-                <ListDate date={register.Fecha} />
-                <ListDetail
-                  detail={register.TotalVenta}
-                  label="Total"
-                  color="gray"
-                  nio={true}
-                />
-                <ListDetail
-                  detail={register.Saldo || 0}
-                  label="Saldo"
-                  color="red"
-                  nio={true}
-                  ping={register.Saldo > 0.001}
-                />
-                <ListDetail
-                  detail={register.TotalVenta - register.TotalCompra}
-                  label="Ganancia"
-                  color="blue"
-                  nio={true}
-                />
-              </ListInfoDetail>
             </ListInfo>
+            <ListInfoDetail>
+              <ListDate date={register.Fecha} />
+              <ListDetail
+                detail={register.TotalVenta}
+                label="Total"
+                color="gray"
+                nio={true}
+              />
+              <ListDetail
+                detail={register.Saldo || 0}
+                label="Saldo"
+                color="red"
+                nio={true}
+                ping={register.Saldo > 0.001}
+              />
+              <ListDetail
+                detail={register.TotalVenta - register.TotalCompra}
+                label="Ganancia"
+                color="blue"
+                nio={true}
+              />
+            </ListInfoDetail>
           </ListCard>
         ))}
         <SaleListTotal data={data} />

@@ -1,13 +1,16 @@
-import { ExpenseCreate } from '@/app/ui/forms/ExpenseForm';
+import { ExpenseForm } from '@/app/ui/forms/ExpenseForm';
+import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
 
 export const metadata = {
-  title: 'Crear gasto'
-}
- 
+  title: 'Crear gasto',
+};
+
 export default async function Page(props) {
   const searchParams = await props.searchParams;
 
   return (
-    <ExpenseCreate searchParams={searchParams} />
+    <ExpenseForm isNew={true} searchParams={searchParams}>
+      <FormSelect value="" name="Id_proveedor" />
+    </ExpenseForm>
   );
 }
