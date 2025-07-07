@@ -7,22 +7,27 @@ import {
   ListPhone,
   ListDescription,
   ListDate,
+  ListInfo,
 } from '@/app/ui/lists/lists';
 
 export function CategoryListHeader() {
   return (
-    <ListHeader hide={false}>
-      <ListId id="ID" color="none" />
-      <ListName name="NOMBRE" />
+    <ListHeader>
+      <ListInfo>
+        <ListId id="ID" color="none" />
+        <ListName name="NOMBRE" />
+      </ListInfo>
     </ListHeader>
   );
 }
 
 export function ProviderListHeader() {
   return (
-    <ListHeader hide={false}>
-      <ListId id="ID" color="none" />
-      <ListName name="NOMBRE" />
+    <ListHeader>
+      <ListInfo>
+        <ListId id="ID" color="none" />
+        <ListName name="NOMBRE" />
+      </ListInfo>
       <ListInfoDetail>
         <ListPhone phone="TELÉFONO" color="none" />
       </ListInfoDetail>
@@ -32,9 +37,11 @@ export function ProviderListHeader() {
 
 export function ClientListHeader() {
   return (
-    <ListHeader hide={false}>
-      <ListId id="ID" color="none" />
-      <ListName name="NOMBRE" />
+    <ListHeader>
+      <ListInfo>
+        <ListId id="ID" color="none" />
+        <ListName name="NOMBRE" />
+      </ListInfo>
       <ListInfoDetail>
         <ListPhone phone="TELÉFONO" color="none" />
       </ListInfoDetail>
@@ -45,8 +52,10 @@ export function ClientListHeader() {
 export function OrderListHeader() {
   return (
     <ListHeader>
-      <ListId id="ID" color="none" />
-      <ListName name="CLIENTE" />
+      <ListInfo>
+        <ListId id="ID" color="none" />
+        <ListName name="CLIENTE" />
+      </ListInfo>
       <ListInfoDetail>
         <ListDate />
         <ListDetail detail="TOTAL" color="none" number={false} />
@@ -61,9 +70,13 @@ export function OrderListHeader() {
 export function RegisterDetailListHeader({ showLeft }) {
   return (
     <ListHeader>
-      <ListId id="ID" color="none" />
-      <ListName name="PRODUCTO" />
+      <ListInfo>
+        <ListId id="ID" color="none" />
+        <ListName name="PRODUCTO" />
+      </ListInfo>
       <ListInfoDetail>
+        <ListDetail detail="PRECIO" number={false} />
+        <ListDetail detail="CANTIDAD" number={false} />
         {showLeft && <ListDetail detail="QUEDAN" number={false} />}
         <ListDetail detail="VENTA" number={false} />
         <ListDetail detail="COMPRA" number={false} />
@@ -76,8 +89,10 @@ export function RegisterDetailListHeader({ showLeft }) {
 export function ReceiptListHeader() {
   return (
     <ListHeader>
-      <ListId id="ID" color="none" />
-      <ListName name="CLIENTE" color="none" />
+      <ListInfo>
+        <ListId id="ID" color="none" />
+        <ListName name="CLIENTE" color="none" />
+      </ListInfo>
       <ListInfoDetail>
         <ListDate />
         <ListDetail detail="ID PEDIDO" color="none" number={false} />
@@ -90,8 +105,10 @@ export function ReceiptListHeader() {
 export function PurchaseListHeader() {
   return (
     <ListHeader>
-      <ListId id="ID" color="none" />
-      <ListName name="EMPRESA" />
+      <ListInfo>
+        <ListId id="ID" color="none" />
+        <ListName name="EMPRESA" />
+      </ListInfo>
       <ListInfoDetail>
         <ListDate />
         <ListDetail detail="TOTAL" number={false} />
@@ -105,8 +122,10 @@ export function PurchaseListHeader() {
 export function ExpensesListHeader() {
   return (
     <ListHeader>
-      <ListId id="ID" color="none" />
-      <ListName name="EMPRESA" color="none" />
+      <ListInfo>
+        <ListId id="ID" color="none" />
+        <ListName name="EMPRESA" color="none" />
+      </ListInfo>
       <ListInfoDetail>
         <ListDescription detail="CONCEPTO" header={true} />
         <ListDetail detail="FECHA" color="none" number={false} />
@@ -120,8 +139,10 @@ export function ExpensesListHeader() {
 export function SaleListHeader() {
   return (
     <ListHeader>
-      <ListId id="ID" color="none" />
-      <ListName name="CLIENTE" />
+      <ListInfo>
+        <ListId id="ID" color="none" />
+        <ListName name="CLIENTE" />
+      </ListInfo>
       <ListInfoDetail>
         <ListDate />
         <ListDetail detail="TOTAL" number={false} />
@@ -135,8 +156,10 @@ export function SaleListHeader() {
 export function InventoryListHeader() {
   return (
     <ListHeader>
-      <ListId id="ID" color="none" />
-      <ListName name="PRODUCTO" />
+      <ListInfo>
+        <ListId id="ID" color="none" />
+        <ListName name="PRODUCTO" />
+      </ListInfo>
       <ListInfoDetail>
         <ListDetail detail="DISPONIBLES" number={false} />
         <ListDetail detail="PRECIO" number={false} />
@@ -149,8 +172,10 @@ export function InventoryListHeader() {
 export function ProductListHeader() {
   return (
     <ListHeader>
-      <ListId id="ID" color="none" />
-      <ListName name="PRODUCTO" />
+      <ListInfo>
+        <ListId id="ID" color="none" />
+        <ListName name="PRODUCTO" />
+      </ListInfo>
       <ListInfoDetail>
         <ListDate />
         <ListDetail detail="VENTA" number={false} />
@@ -164,8 +189,10 @@ export function ProductListHeader() {
 export function ProductSearchListHeader({ inventario }) {
   return (
     <ListHeader>
-      <ListId id="ID" color="none" />
-      <ListName name="PRODUCTO" />
+      <ListInfo>
+        <ListId id="ID" color="none" />
+        <ListName name="PRODUCTO" />
+      </ListInfo>
       <ListInfoDetail>
         <ListDetail detail="PRECIO" number={false} />
         {inventario && <ListDetail detail="DISPONIBLES" number={false} />}

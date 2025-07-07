@@ -27,7 +27,7 @@ export default async function Products({ query, currentPage }) {
         {data.map((register) => (
           <ListCard key={register.Id} href={`/productos/${register.Id}`}>
             <ListInfo>
-              <ListId id={register.Id} />
+              <ListId id={register.Id} label="ID PRODUCTO" />
               <ListName name={register.Nombre} />
             </ListInfo>
             <ListInfoDetail>

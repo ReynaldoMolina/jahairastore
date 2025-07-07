@@ -31,14 +31,14 @@ export default async function Sales({ query, currentPage }) {
             href={`/ventas/${register.Id}?query=disponibles`}
           >
             <ListInfo>
-              <ListId id={register.Id} />
+              <ListId id={register.Id} label="ID VENTA" />
               <ListName name={register.NombreCliente} />
             </ListInfo>
             <ListInfoDetail>
               <ListDate date={register.Fecha} />
               <ListDetail
                 detail={register.TotalVenta}
-                label="Total"
+                label="Total venta"
                 color="gray"
                 nio={true}
               />

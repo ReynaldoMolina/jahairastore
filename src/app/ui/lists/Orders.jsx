@@ -30,14 +30,14 @@ export default async function Orders({ query, currentPage }) {
           return (
             <ListCard key={register.Id} href={`/pedidos/${register.Id}`}>
               <ListInfo>
-                <ListId id={register.Id} />
+                <ListId id={register.Id} label="ID PEDIDO" />
                 <ListName name={register.NombreCliente} />
               </ListInfo>
               <ListInfoDetail>
                 <ListDate date={register.Fecha} />
                 <ListDetail
                   detail={register.TotalPedidoVenta}
-                  label="Total"
+                  label="Total pedido"
                   color="gray"
                 />
                 <ListDetail

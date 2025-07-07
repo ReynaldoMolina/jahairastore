@@ -35,7 +35,7 @@ export function FormCreate({ children, createRegister, convert = false }) {
   }
 
   return (
-    <FormContainer action={handleRegister}>
+    <FormContainer action={handleRegister} wider={true}>
       <FormContext.Provider
         value={{
           productList,
@@ -78,7 +78,7 @@ export function FormEdit({
   }
 
   return (
-    <FormContainer action={handleOrder}>
+    <FormContainer action={handleOrder} wider={true}>
       <FormContext.Provider
         value={{
           productList,

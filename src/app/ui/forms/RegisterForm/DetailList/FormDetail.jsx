@@ -19,14 +19,7 @@ export default function FormDetail({
     <div
       className={`flex flex-col rounded-lg bg-neutral-100 dark:bg-black border ${bgColors.borderColor} px-2 py-3 gap-3`}
     >
-      <div className="flex justify-between">
-        <p className="text-sm font-semibold px-1">Detalle del pedido</p>
-        {productList.length > 0 && (
-          <span className="flex flex-col text-xs font-semibold">
-            Cantidad: {formTotals.quantity}
-          </span>
-        )}
-      </div>
+      <h2 className="text-sm font-semibold">Detalle del pedido</h2>
 
       {productList.length === 0 ? (
         <ProductCardEmpty />

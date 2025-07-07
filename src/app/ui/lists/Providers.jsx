@@ -24,16 +24,12 @@ export default async function Providers({ query, currentPage }) {
       <List>
         <ProviderListHeader />
         {data.map((register) => (
-          <ListCard
-            key={register.Id}
-            href={`/proveedores/${register.Id}`}
-            flexCol={false}
-          >
-            <ListInfo display="flex-row items-center">
-              <ListId id={register.Id} />
+          <ListCard key={register.Id} href={`/proveedores/${register.Id}`}>
+            <ListInfo>
+              <ListId id={register.Id} label="ID PROVEEDOR" />
               <ListName name={register.Nombre_empresa} />
             </ListInfo>
-            <ListInfoDetail fullWidth={false}>
+            <ListInfoDetail>
               <ListPhone phone={register.Telefono} />
             </ListInfoDetail>
           </ListCard>

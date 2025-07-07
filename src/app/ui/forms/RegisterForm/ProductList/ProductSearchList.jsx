@@ -12,6 +12,7 @@ import {
   ListDetail,
   ListName,
   List,
+  ProductSearchCard,
 } from '@/app/ui/lists/lists';
 import { Pagination } from '@/app/ui/lists/Pagination';
 import AddProduct from './AddProduct';
@@ -50,12 +51,9 @@ export default async function ProductSearchList({
             : product.Precio_venta;
 
           return (
-            <div
-              key={product.Id}
-              className="flex flex-col md:flex-row items-start p-4 gap-3 hover:bg-sky-100 dark:hover:bg-neutral-800 border-t first-of-type:border-t-0 border-neutral-300 dark:border-neutral-700"
-            >
+            <ProductSearchCard key={product.Id}>
               <ListInfo>
-                <ListId id={product.Id} />
+                <ListId id={product.Id} label="ID PRODUCTO" />
                 <ListName name={product.Nombre} />
               </ListInfo>
               <ListInfoDetail>
@@ -76,7 +74,7 @@ export default async function ProductSearchList({
                   <AddProduct product={product} convert={inventario} />
                 </CardDetail>
               </ListInfoDetail>
-            </div>
+            </ProductSearchCard>
           );
         })}
       </List>
@@ -89,7 +87,7 @@ function CardDetail({ children, label }) {
   return (
     <div className="flex w-full md:w-auto items-center justify-between gap-1 relative">
       <span className="md:hidden text-neutral-500 dark:text-neutral-400 text-xs w-18">
-        {label}
+        {label}:
       </span>
       {children}
     </div>

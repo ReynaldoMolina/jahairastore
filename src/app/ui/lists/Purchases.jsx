@@ -28,14 +28,14 @@ export default async function Purchases({ query, currentPage }) {
         {data.map((register) => (
           <ListCard key={register.Id} href={`/compras/${register.Id}`}>
             <ListInfo>
-              <ListId id={register.Id} />
+              <ListId id={register.Id} label="ID COMPRA" />
               <ListName name={register.Nombre_empresa} />
             </ListInfo>
             <ListInfoDetail>
               <ListDate date={register.Fecha} />
               <ListDetail
                 detail={register.TotalCompraCompra}
-                label="Compra"
+                label="Total compra"
                 color="gray"
                 nio={true}
               />

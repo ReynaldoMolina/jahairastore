@@ -149,7 +149,7 @@ export async function FormSelect({ value, name }) {
       <select
         id={name}
         name={name}
-        className={`flex ${bgColors.borderColor} dark:bg-neutral-900 rounded-lg text-xs h-9 px-3 w-full`}
+        className={`flex ${bgColors.borderColor} dark:bg-black md:dark:bg-neutral-900 rounded-lg text-xs h-9 px-3 w-full`}
         defaultValue={value}
         required
       >

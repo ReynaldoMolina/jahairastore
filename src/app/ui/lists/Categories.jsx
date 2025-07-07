@@ -23,8 +23,8 @@ export default async function Categories({ query, currentPage }) {
         <CategoryListHeader />
         {data.map((register) => (
           <ListCard key={register.Id} href={`/categorias/${register.Id}`}>
-            <ListInfo>
-              <ListId id={register.Id} />
+            <ListInfo hideBorder={true}>
+              <ListId id={register.Id} label="ID CATEGORIA" />
               <ListName name={register.Nombre} />
             </ListInfo>
           </ListCard>

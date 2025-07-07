@@ -56,7 +56,7 @@ export function ChangeQuantity({ product, overrideLeft, convert }) {
         action={() => reduceQuantity()}
         deleteAction={() => deleteProduct()}
       />
-      <span className="flex justify-center items-center text-xs w-12.5 md:w-8 py-1">
+      <span className="flex justify-center items-center text-xs w-12.5 py-1">
         {product.Cantidad}
       </span>
       <QuantityButton

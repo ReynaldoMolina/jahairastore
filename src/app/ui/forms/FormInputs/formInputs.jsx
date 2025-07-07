@@ -7,12 +7,13 @@ import LoadingIcon from '../../loading/LoadingIcon';
 import Link from 'next/link';
 import { formatNumber } from '@/app/lib/formatNumber';
 
-export function FormContainer({ children, action }) {
+export function FormContainer({ children, action, wider = false }) {
+  const maxWidth = wider ? '' : 'max-w-3xl';
   return (
     <section className="flex grow overflow-y-scroll h-0">
       <form
         action={action}
-        className="flex flex-col bg-white dark:bg-neutral-900 rounded-xl shadow-md gap-5 md:gap-7 mx-auto max-w-3xl p-4 md:p-7 w-full h-fit mb-2"
+        className={`flex flex-col md:bg-white md:dark:bg-neutral-900 rounded-xl md:shadow-md gap-5 md:gap-7 mx-auto ${maxWidth} py-4 md:p-7 w-full h-fit mb-2`}
       >
         {children}
       </form>

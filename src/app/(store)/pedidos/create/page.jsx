@@ -30,7 +30,7 @@ export default async function Page(props) {
 
       <FormDetail />
 
-      <FormButtons link={'/pedidos?query=debe'} label={'Crear'} />
+      <FormButtons link={'/pedidos?query=debe'} />
     </FormCreate>
   );
 }

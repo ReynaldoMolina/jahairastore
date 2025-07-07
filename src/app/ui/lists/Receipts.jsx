@@ -27,14 +27,14 @@ export default async function Receipts({ query, currentPage }) {
         {data.map((register) => (
           <ListCard key={register.Id} href={`/recibos/${register.Id}`}>
             <ListInfo>
-              <ListId id={register.Id} />
+              <ListId id={register.Id} label="ID RECIBO" />
               <ListName name={register.NombreCliente} />
             </ListInfo>
             <ListInfoDetail>
               <ListDate date={register.Fecha} />
               <ListDetail
                 detail={register.Id_pedido}
-                label="Pedido"
+                label="Id pedido"
                 color="gray"
                 number={false}
               />

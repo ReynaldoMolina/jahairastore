@@ -24,37 +24,37 @@ export function ProductCard({
   const ganancia = subtotalVenta - subtotalCompra;
 
   return (
-    <div className="flex flex-col items-start p-4 gap-3 border-t first-of-type:border-t-0 border-neutral-300 dark:border-neutral-700">
+    <div className="flex flex-col md:flex-row items-start p-4 gap-3 md:border-t first-of-type:border-t-0 border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg md:rounded-none shadow md:shadow-none">
       <CardInfo>
-        <ListId id={product.Id_producto} />
+        <ListId id={product.Id_producto} label="ID PRODUCTO" />
         <ListName name={product.Nombre} />
       </CardInfo>
-      <div className="flex flex-col md:flex-row justify-between w-full gap-1">
-        <ListInfoDetail>
-          <CardDetail label="Precio">
-            <CardPrice product={product} price={price} convert={convert} />
-          </CardDetail>
-          <CardDetail label="Cantidad">
-            <ChangeQuantity
-              product={product}
-              overrideLeft={overrideLeft}
-              convert={convert}
-            />
-          </CardDetail>
-        </ListInfoDetail>
-        <ListInfoDetail>
-          <RemainingStock showLeft={showLeft} product={product} />
-          <ListDetail detail={subtotalVenta} label="Venta" color="green" />
-          <ListDetail detail={subtotalCompra} label="Compra" color="red" />
-          <ListDetail detail={ganancia} label="Ganancia" color="blue" />
-        </ListInfoDetail>
-      </div>
+      <ListInfoDetail>
+        <CardDetail label="Precio">
+          <CardPrice product={product} price={price} convert={convert} />
+        </CardDetail>
+        <CardDetail label="Cantidad">
+          <ChangeQuantity
+            product={product}
+            overrideLeft={overrideLeft}
+            convert={convert}
+          />
+        </CardDetail>
+        <RemainingStock showLeft={showLeft} product={product} />
+        <ListDetail detail={subtotalVenta} label="Venta" color="green" />
+        <ListDetail detail={subtotalCompra} label="Compra" color="red" />
+        <ListDetail detail={ganancia} label="Ganancia" color="blue" />
+      </ListInfoDetail>
     </div>
   );
 }
 
 function CardInfo({ children }) {
-  return <div className="flex items-start grow gap-2">{children}</div>;
+  return (
+    <div className="flex flex-col md:flex-row w-full items-start grow gap-1 md:gap-4 pb-2 md:pb-0 border-b md:border-b-0 border-neutral-300 dark:border-neutral-700">
+      {children}
+    </div>
+  );
 }
 
 function CardPrice({ product, price, convert }) {
@@ -139,7 +139,7 @@ function CardDetail({ children, label }) {
   return (
     <div className="flex w-full md:w-auto items-center justify-between gap-1 relative">
       <span className="md:hidden text-neutral-500 dark:text-neutral-400 text-xs w-18">
-        {label}
+        {label}:
       </span>
       {children}
     </div>

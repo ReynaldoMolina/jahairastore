@@ -25,13 +25,13 @@ export function OrderListTotal({ data }) {
   return (
     <ListFooter>
       <ListInfo>
-        <ListId id={data.length} color="gray" />
+        <ListId id={data.length} label="CONTEO" color="mdgray" />
         <ListName name="TOTAL" />
       </ListInfo>
       <ListInfoDetail>
         <ListDetail
           detail={totals.TotalPedidoVenta}
-          label="Total"
+          label="Total pedido"
           color="gray"
         />
         <ListDetail detail={totals.TotalAbono} label="Abonos" color="green" />
@@ -54,10 +54,16 @@ export function RegisterListTotal({ formTotals, productList }) {
   return (
     <ListFooter>
       <ListInfo>
-        <ListId id={productList.length} color="gray" />
+        <ListId id={productList.length} label="CONTEO" color="mdgray" />
         <ListName name="TOTAL" />
       </ListInfo>
       <ListInfoDetail>
+        <ListDetail
+          detail={formTotals.quantity}
+          label="Cantidad"
+          color="gray"
+          number={false}
+        />
         <ListDetail detail={formTotals.totalSell} label="Venta" color="green" />
         <ListDetail detail={formTotals.totalCost} label="Compra" color="red" />
         <ListDetail detail={formTotals.profit} label="Ganancia" color="blue" />
@@ -80,11 +86,11 @@ export function ReceiptListTotal({ data }) {
   return (
     <ListFooter>
       <ListInfo>
-        <ListId id={data.length} color="gray" />
+        <ListId id={data.length} label="CONTEO" color="mdgray" />
         <ListName name="TOTAL" />
       </ListInfo>
       <ListInfoDetail>
-        <ListDetail detail={totals.Abono} color="green" />
+        <ListDetail detail={totals.Abono} label="Abonos" color="green" />
       </ListInfoDetail>
     </ListFooter>
   );
@@ -108,13 +114,13 @@ export function PurchaseListTotal({ data }) {
   return (
     <ListFooter>
       <ListInfo>
-        <ListId id={data.length} color="gray" />
+        <ListId id={data.length} label="CONTEO" color="mdgray" />
         <ListName name="TOTAL" />
       </ListInfo>
       <ListInfoDetail>
         <ListDetail
           detail={totals.TotalCompraCompra}
-          label="Compra"
+          label="Total compras"
           color="gray"
           nio={true}
         />
@@ -151,13 +157,18 @@ export function ExpensesListTotal({ data }) {
   );
 
   return (
-    <ListFooter flexCol={false}>
+    <ListFooter>
       <ListInfo>
-        <ListId id={data.length} color="gray" />
+        <ListId id={data.length} label="CONTEO" color="mdgray" />
         <ListName name="TOTAL" />
       </ListInfo>
-      <ListInfoDetail fullWidth={false}>
-        <ListDetail detail={totals.Gasto} color="red" nio={true} />
+      <ListInfoDetail>
+        <ListDetail
+          detail={totals.Gasto}
+          label="Gasto"
+          color="red"
+          nio={true}
+        />
       </ListInfoDetail>
     </ListFooter>
   );
@@ -181,13 +192,13 @@ export function SaleListTotal({ data }) {
   return (
     <ListFooter>
       <ListInfo>
-        <ListId id={data.length} color="gray" />
+        <ListId id={data.length} label="CONTEO" color="mdgray" />
         <ListName name="TOTAL" />
       </ListInfo>
       <ListInfoDetail>
         <ListDetail
           detail={totals.TotalVenta}
-          label="Total"
+          label="Total ventas"
           color="gray"
           nio={true}
         />
@@ -224,7 +235,7 @@ export function InventoryListTotal({ data }) {
   return (
     <ListFooter>
       <ListInfo>
-        <ListId id={data.length} color="gray" />
+        <ListId id={data.length} label="CONTEO" color="mdgray" />
         <ListName name="TOTAL" />
       </ListInfo>
       <ListInfoDetail>

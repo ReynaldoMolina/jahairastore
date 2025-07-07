@@ -28,7 +28,7 @@ export default async function Expenses({ query, currentPage }) {
         {data.map((register) => (
           <ListCard key={register.Id} href={`/gastos/${register.Id}`}>
             <ListInfo>
-              <ListId id={register.Id} />
+              <ListId id={register.Id} label="ID GASTO" />
               <ListName name={register.Nombre_empresa} />
             </ListInfo>
             <ListInfoDetail>
@@ -36,7 +36,7 @@ export default async function Expenses({ query, currentPage }) {
               <ListDate date={register.Fecha} />
               <ListDetail
                 detail={register.Id_compra}
-                label="Compra"
+                label="Id compra"
                 color="gray"
                 number={false}
               />
