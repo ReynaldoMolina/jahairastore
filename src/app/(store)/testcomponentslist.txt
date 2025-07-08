@@ -17,7 +17,7 @@ gastos: {
   list, create, update
 }
 compras: {
-  list, create, update //product search loses focus, add useFormAction
+  list, create, update
 }
 poductos: {
   list, create, update
@@ -25,3 +25,9 @@ poductos: {
 ventas: {
   list, create, update
 }
+
+To do:
+1. product search loses focus
+2. add useFormAction to register form
+3. Add filters
+4. add settings

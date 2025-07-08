@@ -107,7 +107,7 @@ export function RegisterForm({
             name={formName === 'compras' ? 'Id_proveedor' : 'Id_cliente'}
             data={selectData}
           />
-          <FormDate date={isNew ? '' : register.date} />
+          <FormDate date={isNew ? '' : register.Fecha} />
         </FormDiv>
 
         <FormSubtotals credit={isNew ? false : register.Credito} />
