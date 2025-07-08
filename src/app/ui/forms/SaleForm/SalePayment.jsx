@@ -1,11 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { FormDiv, FormCheck, FormInputState } from '../FormInputs/formInputs';
 import { useFormContext } from '../RegisterForm';
 
-export function SalePayment({ credito = false }) {
-  const [isCredit, setIsCredit] = useState(credito);
+export function SalePayment({ isCredit, setIsCredit }) {
   const { formTotals, formAbono, setFormAbono } = useFormContext();
 
   useEffect(() => {
@@ -28,6 +27,7 @@ export function SalePayment({ credito = false }) {
         value={formAbono}
         setValue={setFormAbono}
         type={isCredit ? 'number' : 'hidden'}
+        required={true}
       />
     </FormDiv>
   );

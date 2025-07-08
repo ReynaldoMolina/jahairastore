@@ -40,6 +40,7 @@ export function FormInput({
   type = 'text',
   autocomplete = 'off',
   required = true,
+  focus = false,
 }) {
   const [inputValue, setInputValue] = useState(value);
 
@@ -65,6 +66,7 @@ export function FormInput({
         value={inputValue}
         onChange={(event) => setInputValue(event.target.value)}
         required={required}
+        autoFocus={focus}
       ></input>
     </div>
   );
@@ -77,6 +79,7 @@ export function FormInputState({
   setValue,
   type = 'text',
   required = false,
+  focus = false,
 }) {
   return (
     <div
@@ -106,6 +109,7 @@ export function FormInputState({
           setValue(newValue);
         }}
         required={required}
+        autoFocus={focus}
       ></input>
     </div>
   );
@@ -162,7 +166,7 @@ export function FormCheck({ name, holder, value, setValue }) {
       <input
         name={name}
         id={name}
-        className="h-8"
+        className="h-9"
         type="checkbox"
         checked={value}
         onChange={() => setValue((state) => !state)}
@@ -227,5 +231,39 @@ export function FormLabel({ children, name, textCenter = false }) {
     >
       {children}
     </label>
+  );
+}
+
+export function FormSelect({ value, name, data }) {
+  const labels = {
+    Id_cliente: 'Cliente',
+    Id_proveedor: 'Proveedor',
+    Id_categoria: 'Categoría',
+  };
+
+  return (
+    <div className="flex flex-col w-full gap-1">
+      <FormLabel name={name}>
+        <span className="font-bold">{labels[name]}</span>
+      </FormLabel>
+      <select
+        id={name}
+        name={name}
+        className={`flex ${bgColors.borderColor} dark:bg-black md:dark:bg-neutral-900 rounded-lg text-xs h-9 px-3 w-full`}
+        defaultValue={value}
+        required
+      >
+        <option value="" className="text-sm">
+          Selecciona una opción
+        </option>
+        {data.map((option) => {
+          return (
+            <option key={option.Id} value={option.Id} className="text-sm">
+              {option.Nombre}
+            </option>
+          );
+        })}
+      </select>
+    </div>
   );
 }

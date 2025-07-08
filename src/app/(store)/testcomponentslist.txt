@@ -1,0 +1,27 @@
+categories: {
+  list, create, update
+}
+proveedores: {
+  list, create, update
+}
+clientes: {
+  list, create, update
+}
+recibos: {
+  list, create, update
+}
+pedidos: {
+  list, create, update
+}
+gastos: {
+  list, create, update
+}
+compras: {
+  list, create, update //product search loses focus, add useFormAction
+}
+poductos: {
+  list, create, update
+}
+ventas: {
+  list, create, update
+}

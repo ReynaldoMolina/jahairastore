@@ -29,6 +29,7 @@ export function ClientForm({ isNew, client }) {
           name="Nombre"
           holder="Nombre"
           value={isNew ? '' : client.Nombre}
+          focus={isNew}
         />
         <FormInput
           name="Apellido"

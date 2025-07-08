@@ -67,7 +67,7 @@ export function OrderListHeader() {
   );
 }
 
-export function RegisterDetailListHeader({ showLeft }) {
+export function RegisterDetailListHeader() {
   return (
     <ListHeader>
       <ListInfo>
@@ -77,7 +77,6 @@ export function RegisterDetailListHeader({ showLeft }) {
       <ListInfoDetail>
         <ListDetail detail="PRECIO" number={false} />
         <ListDetail detail="CANTIDAD" number={false} />
-        {showLeft && <ListDetail detail="QUEDAN" number={false} />}
         <ListDetail detail="VENTA" number={false} />
         <ListDetail detail="COMPRA" number={false} />
         <ListDetail detail="GANANCIA" number={false} />

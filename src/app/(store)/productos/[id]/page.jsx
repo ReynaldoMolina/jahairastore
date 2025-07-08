@@ -1,7 +1,7 @@
 import { ProductForm } from '@/app/ui/forms/ProductForm';
 import { getProductById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
-import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
+import { getProvidersSelect, getCategoriesSelect } from '@/app/lib/data';
 
 export async function generateMetadata(props) {
   const { id } = await props.params;
@@ -15,15 +15,19 @@ export default async function Page(props) {
   const params = await props.params;
   const id = params.id;
   const data = await getProductById(id);
+  const providersData = await getProvidersSelect();
+  const categoriesData = await getCategoriesSelect();
 
   if (!data) {
     notFound();
   }
 
   return (
-    <ProductForm product={data}>
-      <FormSelect value={data.Id_proveedor} name="Id_proveedor" />
-      <FormSelect value={data.Id_categoria} name="Id_categoria" />
-    </ProductForm>
+    <ProductForm
+      isNew={false}
+      product={data}
+      providersData={providersData}
+      categoriesData={categoriesData}
+    />
   );
 }

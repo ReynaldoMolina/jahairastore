@@ -9,7 +9,7 @@ import {
 } from '@/app/ui/forms/FormInputs/formInputs';
 import { bgColors } from '@/app/ui/bgcolors';
 
-export function ProductPrices({ product }) {
+export function ProductPrices({ isNew, product }) {
   const [precioNio, setPrecioNio] = useState(
     product.Cambio_dolar === null ? false : true
   );
@@ -60,6 +60,7 @@ export function ProductPrices({ product }) {
               value2="Precio_compra"
               calculateVenta={true}
               color="red"
+              focus={isNew}
             />
             <FormInput
               name="Precio_venta_nio"
@@ -123,6 +124,7 @@ function FormInput({
   color,
   required = false,
   calculateVenta = false,
+  focus = false,
 }) {
   const bgColor = bgColors[color];
 
@@ -167,6 +169,7 @@ function FormInput({
         value={value[name]}
         onChange={(event) => handleChange(event)}
         required={required}
+        autoFocus={focus}
       ></input>
     </div>
   );

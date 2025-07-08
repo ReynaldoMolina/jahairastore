@@ -50,7 +50,7 @@ export function OrderListTotal({ data }) {
   );
 }
 
-export function RegisterListTotal({ formTotals, productList }) {
+export function RegisterListTotal({ formTotals, productList, convert }) {
   return (
     <ListFooter>
       <ListInfo>
@@ -64,9 +64,24 @@ export function RegisterListTotal({ formTotals, productList }) {
           color="gray"
           number={false}
         />
-        <ListDetail detail={formTotals.totalSell} label="Venta" color="green" />
-        <ListDetail detail={formTotals.totalCost} label="Compra" color="red" />
-        <ListDetail detail={formTotals.profit} label="Ganancia" color="blue" />
+        <ListDetail
+          detail={formTotals.totalSell}
+          label="Venta"
+          color="green"
+          nio={convert}
+        />
+        <ListDetail
+          detail={formTotals.totalCost}
+          label="Compra"
+          color="red"
+          nio={convert}
+        />
+        <ListDetail
+          detail={formTotals.profit}
+          label="Ganancia"
+          color="blue"
+          nio={convert}
+        />
       </ListInfoDetail>
     </ListFooter>
   );

@@ -29,6 +29,7 @@ export function ProviderForm({ isNew, provider }) {
         name="Nombre_empresa"
         holder="Nombre empresa"
         value={isNew ? '' : provider.Nombre_empresa}
+        focus={isNew}
       />
       <FormDiv>
         <FormInput
@@ -40,7 +41,7 @@ export function ProviderForm({ isNew, provider }) {
         <FormInput
           name="Telefono"
           holder="Teléfono"
-          value={isNew ? '+505 ' : provider.Telefono}
+          value={isNew ? '+505 ' : provider.Telefono || '+505 '}
           required={false}
         />
       </FormDiv>

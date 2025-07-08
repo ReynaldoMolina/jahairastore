@@ -8,33 +8,37 @@ import {
   FormError,
   FormId,
   FormInput,
+  FormSelect,
 } from '@/app/ui/forms/FormInputs/formInputs';
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import { ReceiptPayment } from './Receipts/ReceiptPayment';
 import { ReceiptOptions } from '@/app/ui/forms/Receipts/ReceiptOptions';
 import { createReceipt, updateReceipt } from '@/app/lib/actions';
 
 export function ReceiptForm({
-  children,
   isNew,
   receipt,
   receiptpdf,
   searchParams,
+  selectData,
 }) {
   const action = isNew ? createReceipt : updateReceipt.bind(null, receipt.Id);
   const [state, formAction, isPending] = useActionState(action, {
     message: '',
   });
+  const [isAbonoChanged, setIsAbonoChanged] = useState(false);
 
-  let pedido, saldoInicial, abono;
+  let pedido, cliente, saldoInicial, abono, originalAbono;
 
   if (isNew) {
-    pedido = searchParams?.pedido || '';
+    pedido = Number(searchParams?.pedido) || '';
+    cliente = Number(searchParams?.cliente) || 0;
     saldoInicial = Number(searchParams?.saldo) || 0;
     abono = Number(searchParams?.abono || 0);
   } else {
     saldoInicial = receipt.Abono + receipt.Saldo;
     abono = receipt.Abono;
+    originalAbono = receipt.Abono;
   }
 
   return (
@@ -52,16 +56,26 @@ export function ReceiptForm({
         />
         <FormDate name="Fecha" date={isNew ? '' : receipt.Fecha} />
       </FormDiv>
-      {children}
-      <ReceiptPayment saldoInicial={saldoInicial} abono={abono} />
+      <FormSelect
+        value={isNew ? cliente : receipt.Id_cliente}
+        name="Id_cliente"
+        data={selectData}
+      />
+      <ReceiptPayment
+        saldoInicial={saldoInicial}
+        abono={abono}
+        originalPayment={originalAbono}
+        setIsAbonoChanged={setIsAbonoChanged}
+        isNew={isNew}
+      />
       <FormInput
         name="Concepto"
-        holder="Descripción"
+        holder="Concepto"
         value={isNew ? '' : receipt.Concepto}
         required={false}
       />
 
-      {!isNew && <ReceiptOptions receipt={receiptpdf} />}
+      {!isNew && !isAbonoChanged && <ReceiptOptions receipt={receiptpdf} />}
 
       <FormError isPending={isPending} state={state} />
       <FormButtons link="/recibos" isNew={isNew} isPending={isPending} />

@@ -9,6 +9,7 @@ import {
   ListInfoDetail,
   ListPhone,
   ListBlankSpace,
+  ListDetailLink,
 } from '@/app/ui/lists/lists';
 import EmptyList from '@/app/ui/lists/EmptyList';
 import { ClientListHeader } from './ListHeader';

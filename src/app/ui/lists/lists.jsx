@@ -160,7 +160,7 @@ export function ListPhone({ phone }) {
       <span className="md:hidden text-neutral-500 dark:text-neutral-400 text-xs min-w-18">
         Teléfono:
       </span>
-      <span className="w-25 min-w-25 text-left text-xs md:py-1">
+      <span className="w-25 min-w-25 text-right text-xs md:py-1">
         {phone === '' ? '-' : phone}
       </span>
     </div>

@@ -6,8 +6,10 @@ import {
 } from '@/app/ui/forms/Options/FormOptions';
 import ExpensesIcon from '@/app/ui/icons/expenses.svg';
 import ShipmentIcon from '@/app/ui/icons/shipping.svg';
+import { useFormContext } from '../RegisterForm';
 
-export function PurchaseOptions({ purchase }) {
+export function PurchaseOptions() {
+  const { register } = useFormContext();
   return (
     <FormOptionContainer>
       <div className="flex flex-col md:flex-row gap-1 md:items-center">
@@ -15,22 +17,22 @@ export function PurchaseOptions({ purchase }) {
         <div className="flex gap-1 items-center">
           <FormOption
             label="Gasto"
-            href={`/gastos/create?compra=${purchase.Id}&proveedor=${purchase.Id_proveedor}`}
+            href={`/gastos/create?compra=${register.Id}&proveedor=${register.Id_proveedor}`}
           >
             <ExpensesIcon className="size-5" />
           </FormOption>
           <FormOption
             label="Envío"
-            href={`/gastos/create?compra=${purchase.Id}&proveedor=${purchase.Id_proveedor}&concepto=Envío`}
+            href={`/gastos/create?compra=${register.Id}&proveedor=${register.Id_proveedor}&concepto=Envío`}
           >
             <ShipmentIcon className="size-5" />
           </FormOption>
         </div>
       </div>
-      {purchase.TotalGasto > 0 && (
+      {register.TotalGasto > 0 && (
         <FormOption
           label="Ver gastos"
-          href={`/gastos?query=${purchase.Id} ${purchase.Nombre_empresa}`}
+          href={`/gastos?query=${register.Id} ${register.Nombre_empresa}`}
         >
           <ExpensesIcon className="size-5" />
         </FormOption>

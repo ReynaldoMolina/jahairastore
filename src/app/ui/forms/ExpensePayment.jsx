@@ -48,6 +48,7 @@ export function ExpensePayment({ gasto = '', cambioDolar, isNew }) {
           holder="Gasto CS"
           value={payment}
           setValue={handleNio}
+          focus={isNew}
         />
         <PaymentInput
           name="Gasto"
@@ -60,7 +61,7 @@ export function ExpensePayment({ gasto = '', cambioDolar, isNew }) {
   );
 }
 
-function PaymentInput({ name, holder, value, setValue }) {
+function PaymentInput({ name, holder, value, setValue, focus = false }) {
   return (
     <div className="flex flex-col w-full gap-1">
       <label htmlFor={name} className="w-full text-xs pl-2 font-semibold">
@@ -78,6 +79,7 @@ function PaymentInput({ name, holder, value, setValue }) {
         value={value[name]}
         onChange={(event) => setValue(event.target.value)}
         required={true}
+        autoFocus={focus}
       ></input>
     </div>
   );

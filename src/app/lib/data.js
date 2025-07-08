@@ -88,7 +88,7 @@ export async function getProviders(query, currentPage) {
         "Nombre_empresa" || ' ' ||
         "Telefono"
       ) ILIKE ${`%${query}%`}
-      ORDER BY "Id" ASC
+      ORDER BY "Id" DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
@@ -153,7 +153,7 @@ export async function getCategories(query, currentPage) {
         "Id"::text || ' ' ||
         "Nombre"
       ) ILIKE ${`%${query}%`}
-      ORDER BY "Id" ASC
+      ORDER BY "Id" DESC
       LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
     `;
     return data;
@@ -758,6 +758,7 @@ export async function getReceiptPdf(id) {
         TO_CHAR("Recibos"."Fecha", 'YYYY-MM-DD') AS "Fecha",
         "Recibos"."Abono",
         "Recibos"."Saldo",
+        "Recibos"."Id_cliente",
         "Clientes"."Nombre",
         "Clientes"."Apellido"
       FROM "Recibos"

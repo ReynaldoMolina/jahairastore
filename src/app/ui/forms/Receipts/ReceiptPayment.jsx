@@ -7,7 +7,13 @@ import {
   FormInputState,
 } from '@/app/ui/forms/FormInputs/formInputs';
 
-export function ReceiptPayment({ saldoInicial, abono = '' }) {
+export function ReceiptPayment({
+  saldoInicial,
+  abono = '',
+  originalPayment,
+  setIsAbonoChanged,
+  isNew,
+}) {
   const [payment, setPayment] = useState(abono);
   const [saldo, setSaldo] = useState(
     Math.round((saldoInicial - payment) * 100) / 100
@@ -16,6 +22,12 @@ export function ReceiptPayment({ saldoInicial, abono = '' }) {
   function handleAbono(value) {
     setPayment(value);
     setSaldo(Math.round((saldoInicial - value) * 100) / 100);
+
+    if (originalPayment !== Number(value)) {
+      setIsAbonoChanged(true);
+    } else {
+      setIsAbonoChanged(false);
+    }
   }
 
   return (
@@ -34,6 +46,7 @@ export function ReceiptPayment({ saldoInicial, abono = '' }) {
           value={payment}
           setValue={handleAbono}
           required={true}
+          focus={isNew}
         />
         <FormInputState
           name="Saldo"

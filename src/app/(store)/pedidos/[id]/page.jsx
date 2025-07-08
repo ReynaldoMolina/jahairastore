@@ -1,12 +1,8 @@
-import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
-import { FormEdit, FormInfo, ProductSearch } from '@/app/ui/forms/RegisterForm';
-import { FormId, FormButtons } from '@/app/ui/forms/FormInputs/formInputs';
+import { RegisterForm } from '@/app/ui/forms/RegisterForm';
 import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';
-import FormDetail from '@/app/ui/forms/RegisterForm/DetailList/FormDetail';
 import { getOrderById, getOrderDetailById } from '@/app/lib/data';
 import { OrderOptions } from '@/app/ui/forms/Options/OrderOptions';
-import { Restante } from '@/app/ui/forms/RegisterForm/Restante';
-import { updateOrder } from '@/app/lib/actions';
+import { getClientsSelect } from '@/app/lib/data';
 
 export async function generateMetadata(props) {
   const { id } = await props.params;
@@ -20,35 +16,21 @@ export default async function Page(props) {
   const params = await props.params;
   const orderId = params.id;
   const order = await getOrderById(orderId);
+
   const orderdetail = await getOrderDetailById(orderId);
+  const selectData = await getClientsSelect();
 
   return (
-    <FormEdit
-      updateRegister={updateOrder}
+    <RegisterForm
+      isNew={false}
+      register={order}
       registerId={orderId}
       detailList={orderdetail}
+      abono={order.TotalAbono}
+      selectData={selectData}
+      formName="pedidos"
     >
-      <FormId holder="Pedido" value={orderId} />
-
-      <FormInfo date={order.Fecha} value={order.TotalAbono} register="orders">
-        <FormSelect
-          value={order.Id_cliente}
-          name="Id_cliente"
-          label="Cliente"
-        />
-      </FormInfo>
-
-      <ProductSearch open={false}>
-        <ProductSearchList searchParams={searchParams} />
-      </ProductSearch>
-
-      <FormDetail />
-
-      <Restante order={order} />
-
-      <OrderOptions order={order} />
-
-      <FormButtons link={'/pedidos?query=debe'} label={'Guardar'} />
-    </FormEdit>
+      <ProductSearchList searchParams={searchParams} />
+    </RegisterForm>
   );
 }

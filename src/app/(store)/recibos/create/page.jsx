@@ -1,5 +1,5 @@
 import { ReceiptForm } from '@/app/ui/forms/ReceiptForm';
-import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
+import { getClientsSelect } from '@/app/lib/data';
 
 export const metadata = {
   title: 'Crear recibo',
@@ -7,10 +7,13 @@ export const metadata = {
 
 export default async function Page(props) {
   const searchParams = await props.searchParams;
+  const selectData = await getClientsSelect();
 
   return (
-    <ReceiptForm isNew={true} searchParams={searchParams}>
-      <FormSelect value="" name="Id_cliente" />
-    </ReceiptForm>
+    <ReceiptForm
+      isNew={true}
+      searchParams={searchParams}
+      selectData={selectData}
+    />
   );
 }

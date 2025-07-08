@@ -1,13 +1,6 @@
-import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
-import {
-  FormCreate,
-  FormInfo,
-  ProductSearch,
-} from '@/app/ui/forms/RegisterForm';
-import { FormId, FormButtons } from '@/app/ui/forms/FormInputs/formInputs';
+import { RegisterForm } from '@/app/ui/forms/RegisterForm';
 import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';
-import FormDetail from '@/app/ui/forms/RegisterForm/DetailList/FormDetail';
-import { createOrder } from '@/app/lib/actions';
+import { getClientsSelect } from '@/app/lib/data';
 
 export const metadata = {
   title: 'Crear pedido',
@@ -15,22 +8,11 @@ export const metadata = {
 
 export default async function Page(props) {
   const searchParams = await props.searchParams;
+  const selectData = await getClientsSelect();
 
   return (
-    <FormCreate createRegister={createOrder}>
-      <FormId holder="Crear pedido" />
-
-      <FormInfo date="" register="orders">
-        <FormSelect value="" name="Id_cliente" label="Cliente" />
-      </FormInfo>
-
-      <ProductSearch open={true}>
-        <ProductSearchList searchParams={searchParams} inventario={false} />
-      </ProductSearch>
-
-      <FormDetail />
-
-      <FormButtons link={'/pedidos?query=debe'} />
-    </FormCreate>
+    <RegisterForm isNew={true} selectData={selectData} formName="pedidos">
+      <ProductSearchList searchParams={searchParams} inventario={false} />
+    </RegisterForm>
   );
 }

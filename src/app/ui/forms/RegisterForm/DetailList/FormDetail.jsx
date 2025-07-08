@@ -7,13 +7,30 @@ import { List } from '@/app/ui/lists/lists';
 import { RegisterDetailListHeader } from '@/app/ui/lists/ListHeader';
 import { RegisterListTotal } from '@/app/ui/lists/ListTotal';
 
-export default function FormDetail({
-  convert = false,
-  showLeft = false,
-  overrideLeft = true,
-  price = 'venta',
-}) {
-  const { productList, formTotals } = useFormContext();
+export default function FormDetail() {
+  const { productList, formTotals, formName } = useFormContext();
+
+  const registerOptions = {
+    ventas: {
+      inventario: true,
+      convert: true,
+      price: 'venta',
+      overrideLeft: false,
+    },
+    compras: {
+      inventario: true,
+      convert: true,
+      price: 'compra',
+      overrideLeft: true,
+    },
+    pedidos: {
+      inventario: false,
+      convert: false,
+      price: 'venta',
+      overrideLeft: true,
+    },
+  };
+  const options = registerOptions[formName];
 
   return (
     <div
@@ -25,20 +42,20 @@ export default function FormDetail({
         <ProductCardEmpty />
       ) : (
         <List>
-          <RegisterDetailListHeader showLeft={showLeft} />
+          <RegisterDetailListHeader />
           {productList.map((product) => (
             <ProductCard
               key={product.Id_producto}
               product={product}
-              convert={convert}
-              showLeft={showLeft}
-              price={price}
-              overrideLeft={overrideLeft}
+              convert={options.convert}
+              price={options.price}
+              overrideLeft={options.overrideLeft}
             />
           ))}
           <RegisterListTotal
             formTotals={formTotals}
             productList={productList}
+            convert={options.convert}
           />
         </List>
       )}

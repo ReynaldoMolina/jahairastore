@@ -61,6 +61,7 @@ export default async function ProductSearchList({
                   detail={priceToShow}
                   label="Precio"
                   color={price === 'venta' ? 'green' : 'red'}
+                  nio={inventario}
                 />
                 {inventario && (
                   <ListDetail

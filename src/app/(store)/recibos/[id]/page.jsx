@@ -1,7 +1,10 @@
 import { ReceiptForm } from '@/app/ui/forms/ReceiptForm';
-import { getReceiptById, getReceiptPdf } from '@/app/lib/data';
+import {
+  getClientsSelect,
+  getReceiptById,
+  getReceiptPdf,
+} from '@/app/lib/data';
 import { notFound } from 'next/navigation';
-import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
 
 export async function generateMetadata(props) {
   const { id } = await props.params;
@@ -16,14 +19,18 @@ export default async function Page(props) {
   const id = params.id;
   const receipt = await getReceiptById(id);
   const receiptpdf = await getReceiptPdf(id);
+  const selectData = await getClientsSelect();
 
   if (!receipt) {
     notFound();
   }
 
   return (
-    <ReceiptForm isNew={false} receipt={receipt} receiptpdf={receiptpdf}>
-      <FormSelect value={receipt.Id_cliente} name="Id_cliente" />
-    </ReceiptForm>
+    <ReceiptForm
+      isNew={false}
+      receipt={receipt}
+      receiptpdf={receiptpdf}
+      selectData={selectData}
+    />
   );
 }

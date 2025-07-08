@@ -1,13 +1,6 @@
-import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
-import { FormId, FormButtons } from '@/app/ui/forms/FormInputs/formInputs';
-import {
-  FormCreate,
-  FormInfo,
-  ProductSearch,
-} from '@/app/ui/forms/RegisterForm';
+import { RegisterForm } from '@/app/ui/forms/RegisterForm';
 import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';
-import FormDetail from '@/app/ui/forms/RegisterForm/DetailList/FormDetail';
-import { createPurchase } from '@/app/lib/actions';
+import { getProvidersSelect } from '@/app/lib/data';
 
 export const metadata = {
   title: 'Crear compra',
@@ -15,25 +8,20 @@ export const metadata = {
 
 export default async function Page(props) {
   const searchParams = await props.searchParams;
+  const selectData = await getProvidersSelect();
 
   return (
-    <FormCreate createRegister={createPurchase} convert={true}>
-      <FormId holder="Crear compra" value="" />
-      <FormInfo date="" register="purchases">
-        <FormSelect value="" name="Id_proveedor" label="Proveedor" />
-      </FormInfo>
-
-      <ProductSearch open={true}>
-        <ProductSearchList
-          searchParams={searchParams}
-          inventario={true}
-          price="compra"
-        />
-      </ProductSearch>
-
-      <FormDetail convert={true} price="compra" />
-
-      <FormButtons link={'/compras'} label={'Crear'} />
-    </FormCreate>
+    <RegisterForm
+      isNew={true}
+      convert={true}
+      selectData={selectData}
+      formName="compras"
+    >
+      <ProductSearchList
+        searchParams={searchParams}
+        inventario={true}
+        price="compra"
+      />
+    </RegisterForm>
   );
 }

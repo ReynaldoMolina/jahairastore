@@ -8,15 +8,8 @@ import { ChangeQuantity } from './ChangeQuantity';
 import { useFormContext } from '@/app/ui/forms/RegisterForm';
 import { useState } from 'react';
 import { calculateTotals } from '@/app/lib/calculateTotals';
-import { bgColors } from '@/app/ui/bgcolors';
 
-export function ProductCard({
-  product,
-  convert,
-  showLeft,
-  price,
-  overrideLeft,
-}) {
+export function ProductCard({ product, convert, price, overrideLeft }) {
   const { Precio_venta, Precio_compra, Cambio_dolar, Cantidad } = product;
   const factor = convert ? Cambio_dolar : 1;
   const subtotalVenta = Precio_venta * factor * Cantidad;
@@ -40,10 +33,24 @@ export function ProductCard({
             convert={convert}
           />
         </CardDetail>
-        <RemainingStock showLeft={showLeft} product={product} />
-        <ListDetail detail={subtotalVenta} label="Venta" color="green" />
-        <ListDetail detail={subtotalCompra} label="Compra" color="red" />
-        <ListDetail detail={ganancia} label="Ganancia" color="blue" />
+        <ListDetail
+          detail={subtotalVenta}
+          label="Venta"
+          color="green"
+          nio={convert}
+        />
+        <ListDetail
+          detail={subtotalCompra}
+          label="Compra"
+          color="red"
+          nio={convert}
+        />
+        <ListDetail
+          detail={ganancia}
+          label="Ganancia"
+          color="blue"
+          nio={convert}
+        />
       </ListInfoDetail>
     </div>
   );
@@ -100,37 +107,18 @@ function CardPrice({ product, price, convert }) {
 
   return (
     <div
-      className={`flex items-center justify-start sm:justify-end text-xs w-27 md:w-20 gap-1 ${colors[color]}`}
+      className={`flex items-center justify-start sm:justify-end text-xs gap-1 ${colors[color]}`}
     >
       {convert ? 'C$' : '$'}
       <input
         name="priceNio"
         type="number"
-        className="w-full border-b text-center py-1"
+        className="border-b text-center py-1 w-24.5 md:w-20"
         step="0.01"
         value={priceNio}
         onChange={(event) => handleChange(event.target.value)}
         placeholder="precio"
       ></input>
-    </div>
-  );
-}
-
-function RemainingStock({ showLeft, product }) {
-  if (!showLeft) return;
-  const remainig = product.Existencias <= 0 ? 'Agotado' : product.Existencias;
-  const bgColor = bgColors['gray'];
-
-  return (
-    <div className="flex w-full md:w-auto items-center justify-between gap-1 relative">
-      <span className="md:hidden text-neutral-500 dark:text-neutral-400 text-xs w-18">
-        Quedan
-      </span>
-      <span
-        className={`rounded-xl py-1 px-2 text-xs min-w-25 text-right ${bgColor}`}
-      >
-        {remainig}
-      </span>
     </div>
   );
 }

@@ -1,15 +1,19 @@
 import { ProductForm } from '@/app/ui/forms/ProductForm';
-import { FormSelect } from '@/app/ui/forms/FormInputs/formInputsServer';
+import { getProvidersSelect, getCategoriesSelect } from '@/app/lib/data';
 
 export const metadata = {
   title: 'Crear producto',
 };
 
 export default async function Page() {
+  const providersData = await getProvidersSelect();
+  const categoriesData = await getCategoriesSelect();
+
   return (
-    <ProductForm isNew={true}>
-      <FormSelect value="" name="Id_proveedor" />
-      <FormSelect value="" name="Id_categoria" />
-    </ProductForm>
+    <ProductForm
+      isNew={true}
+      providersData={providersData}
+      categoriesData={categoriesData}
+    />
   );
 }

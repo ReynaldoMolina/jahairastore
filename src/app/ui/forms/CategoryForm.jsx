@@ -28,6 +28,7 @@ export function CategoryForm({ isNew, category }) {
         name="Nombre"
         holder="Nombre"
         value={isNew ? '' : category.Nombre}
+        focus={isNew}
       />
       <FormError isPending={isPending} state={state} />
       <FormButtons link={'/categorias'} isNew={isNew} isPending={isPending} />

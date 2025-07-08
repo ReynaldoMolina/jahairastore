@@ -9,11 +9,12 @@ import {
   FormId,
   FormInput,
 } from '@/app/ui/forms/FormInputs/formInputs';
+import { FormSelect } from '@/app/ui/forms/FormInputs/formInputs';
 import { useActionState } from 'react';
 import { ProductPrices } from './ProductForm/ProductFormInputs';
 import { createProduct, updateProduct } from '@/app/lib/actions';
 
-export function ProductForm({ children, isNew, product }) {
+export function ProductForm({ isNew, product, providersData, categoriesData }) {
   const action = isNew ? createProduct : updateProduct.bind(null, product.Id);
   const [state, formAction, isPending] = useActionState(action, {
     message: '',
@@ -36,6 +37,7 @@ export function ProductForm({ children, isNew, product }) {
         name="Nombre"
         holder="Nombre"
         value={isNew ? '' : product.Nombre}
+        focus={isNew}
       />
       <FormDiv>
         <FormInput
@@ -46,7 +48,18 @@ export function ProductForm({ children, isNew, product }) {
         />
         <FormDate date={isNew ? '' : product.Fecha} />
       </FormDiv>
-      <FormDiv flexCol={false}>{children}</FormDiv>
+      <FormDiv flexCol={false}>
+        <FormSelect
+          value={isNew ? '' : product.Id_proveedor}
+          name="Id_proveedor"
+          data={providersData}
+        />
+        <FormSelect
+          value={isNew ? '' : product.Id_categoria}
+          name="Id_categoria"
+          data={categoriesData}
+        />
+      </FormDiv>
       <FormInput
         name="Descripcion"
         holder="Descripción"
@@ -54,7 +67,7 @@ export function ProductForm({ children, isNew, product }) {
         required={false}
       />
 
-      <ProductPrices product={isNew ? newProduct : product} />
+      <ProductPrices isNew={isNew} product={isNew ? newProduct : product} />
 
       <FormError isPending={isPending} state={state} />
 

@@ -3,18 +3,13 @@ import ReceiptsIcon from '@/app/ui/icons/receipts.svg';
 import OrdersIcon from '@/app/ui/sidemenu/SideMenuIcon/orders.svg';
 
 export function ClientOptions({ client }) {
+  const nombreCliente = `${client.Nombre} ${client.Apellido}`;
   return (
     <FormOptionContainer>
-      <FormOption
-        label="Ver pedidos"
-        href={`/pedidos?query=${client.Nombre} ${client.Apellido}`}
-      >
+      <FormOption label="Ver pedidos" href={`/pedidos?query=${nombreCliente}`}>
         <OrdersIcon className="size-5 text-black" />
       </FormOption>
-      <FormOption
-        label="Ver recibos"
-        href={`/recibos?query=${client.Nombre} ${client.Apellido}`}
-      >
+      <FormOption label="Ver recibos" href={`/recibos?query=${nombreCliente}`}>
         <ReceiptsIcon className="size-5 text-black" />
       </FormOption>
     </FormOptionContainer>
