@@ -30,7 +30,7 @@ function ReceiptOption({ label, children, action }) {
   return (
     <button
       type="button"
-      className="flex justify-center items-center bg-sky-200 hover:bg-sky-300 transition rounded-xl py-3 px-4 cursor-pointer shadow-xs gap-2 h-full"
+      className="flex justify-center items-center bg-sky-200 hover:bg-sky-300 rounded-xl py-3 px-4 cursor-pointer shadow-xs gap-2 h-full"
       onClick={action}
     >
       {children}

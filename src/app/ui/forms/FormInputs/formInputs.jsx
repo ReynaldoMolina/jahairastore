@@ -181,7 +181,7 @@ export function FormButtons({ link, isNew, isPending }) {
     <div className="flex w-full justify-center gap-4">
       <Link
         href={link}
-        className="flex items-center justify-center rounded-lg font-bold cursor-pointer h-10 w-full sm:w-50 bg-red-500 text-sm text-white hover:bg-red-600 transition"
+        className="flex items-center justify-center rounded-lg font-bold cursor-pointer h-10 w-full sm:w-50 bg-red-500 text-sm text-white hover:bg-red-600"
       >
         Cancelar
       </Link>
@@ -191,7 +191,7 @@ export function FormButtons({ link, isNew, isPending }) {
         disabled={isPending}
         className={`flex items-center justify-center rounded-lg font-bold ${
           isPending ? 'cursor-not-allowed' : 'cursor-pointer'
-        } h-10 w-full sm:w-50 bg-green-600 hover:bg-green-700 text-sm text-white transition`}
+        } h-10 w-full sm:w-50 bg-green-600 hover:bg-green-700 text-sm text-white`}
       >
         {isPending ? <LoadingIcon /> : label}
       </button>
