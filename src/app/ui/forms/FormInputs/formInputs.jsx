@@ -13,7 +13,7 @@ export function FormContainer({ children, action, wider = false }) {
     <section className="flex grow overflow-y-scroll h-0">
       <form
         action={action}
-        className={`flex flex-col md:bg-white md:dark:bg-neutral-900 rounded-xl md:shadow-md gap-5 md:gap-7 mx-auto ${maxWidth} py-4 md:p-7 w-full h-fit mb-2`}
+        className={`flex flex-col bg-white dark:bg-neutral-900 rounded-xl md:shadow-md gap-5 md:gap-7 mx-auto ${maxWidth} px-2 py-4 md:p-7 w-full h-fit mb-2 shadow`}
       >
         {children}
       </form>

@@ -163,7 +163,7 @@ function FormInput({
         type="number"
         min={0}
         step="any"
-        className={`flex ${bgColor} ${bgColors.borderColor} items-center rounded-lg shadow-sm text-xs h-9 px-3 w-full`}
+        className={`flex ${bgColor} ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
         placeholder={holder}
         autoComplete="off"
         value={value[name]}
@@ -187,7 +187,7 @@ function FormCambioDolar({ name, holder, value, setValue }) {
         type="number"
         min={0}
         step="0.01"
-        className={`flex ${bgColors.borderColor} items-center rounded-lg shadow-sm text-xs h-9 px-3 w-full`}
+        className={`flex ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
         placeholder={holder}
         autoComplete="off"
         value={value[name]}
