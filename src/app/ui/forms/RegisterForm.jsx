@@ -9,6 +9,7 @@ import {
   FormDiv,
   FormButtons,
   FormSelect,
+  FormError,
 } from '@/app/ui/forms/FormInputs/formInputs';
 import FormDetail from './RegisterForm/DetailList/FormDetail';
 import { ProductSearch } from './RegisterForm/ProductList/ProductSearch';
@@ -20,6 +21,7 @@ import {
   createPurchase,
   updatePurchase,
 } from '@/app/lib/actions';
+import { useActionState } from 'react';
 import { FormSubtotals } from './RegisterForm/RegisterSubtotals';
 import { RegisterFormOptions } from './RegisterForm/RegisterFormOptions';
 
@@ -53,8 +55,8 @@ export function RegisterForm({
   const holder = formInfo[formName].holder;
   const actions = formInfo[formName];
   const action = isNew ? actions.create : actions.update;
-
   const originalList = detailList;
+
   const [productList, setProductList] = useState(isNew ? [] : detailList);
   const totals = convert
     ? calculateTotals(productList, convert)
@@ -62,15 +64,26 @@ export function RegisterForm({
   const [formTotals, setFormTotals] = useState(totals);
   const [formAbono, setFormAbono] = useState(abono);
 
+  const [state, formAction, isPending] = useActionState(action, {
+    message: '',
+  });
+
   function handleRegister(formData) {
     if (!allowEmpty && productList.length === 0) {
       alert('Agrega productos a la lista');
       return;
     }
+
     if (isNew) {
-      action(formData, productList);
+      formAction({ formData, productList });
     } else {
-      action(registerId, formData, productList, originalList);
+      const payload = {
+        id: registerId,
+        formData,
+        productList,
+        originalList,
+      };
+      formAction(payload);
     }
   }
 
@@ -118,7 +131,13 @@ export function RegisterForm({
 
         {!isNew && <RegisterFormOptions />}
 
-        <FormButtons link={`/${formName}`} isNew={isNew} isPending={false} />
+        <FormError isPending={isPending} state={state} />
+
+        <FormButtons
+          link={`/${formName}`}
+          isNew={isNew}
+          isPending={isPending}
+        />
       </FormContext.Provider>
     </FormContainer>
   );

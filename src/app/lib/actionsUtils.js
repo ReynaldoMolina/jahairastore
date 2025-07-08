@@ -64,7 +64,9 @@ export async function createRecordDetail({
     );
   } catch (error) {
     console.error(error);
-    throw new Error('No se pudo crear el detalle del registro');
+    throw new Error(
+      'No se pudo crear el detalle del registro, por favor intenta de nuevo.'
+    );
   }
 }
 
@@ -138,6 +140,8 @@ export async function updateDetailRecords({
     ]);
   } catch (error) {
     console.error(error);
-    throw new Error('No se pudieron procesar los detalles');
+    throw new Error(
+      'No se pudieron actualizar los detalles del registro, por favor intenta de nuevo.'
+    );
   }
 }

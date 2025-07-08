@@ -27,7 +27,7 @@ ventas: {
 }
 
 To do:
-1. product search loses focus
-2. add useFormAction to register form
+1. add useFormAction to register form
+2. product search loses focus
 3. Add filters
 4. add settings
