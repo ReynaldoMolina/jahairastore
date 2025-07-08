@@ -30,13 +30,21 @@ export default function FormDetail() {
       overrideLeft: true,
     },
   };
+
+  const subtitleOptions = {
+    ventas: 'de la venta',
+    compras: 'de la compra',
+    pedidos: 'del pedido',
+  };
+
   const options = registerOptions[formName];
+  const subtitle = subtitleOptions[formName];
 
   return (
     <div
       className={`flex flex-col rounded-lg bg-neutral-100 dark:bg-black border ${bgColors.borderColor} px-2 py-3 gap-3`}
     >
-      <h2 className="text-sm font-semibold">Detalle del pedido</h2>
+      <h2 className="text-sm font-semibold">{`Detalle ${subtitle}`}</h2>
 
       {productList.length === 0 ? (
         <ProductCardEmpty />
