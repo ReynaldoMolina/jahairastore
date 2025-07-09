@@ -13,9 +13,8 @@ import EmptyList from '@/app/ui/lists/EmptyList';
 import { InventoryListTotal } from './ListTotal';
 import { InventoryListHeader } from './ListHeader';
 
-export default async function Inventory({ query, currentPage }) {
-  const data = await getInventory(query, currentPage);
-  const totalPages = await getInventoryPages(query);
+export default async function Inventory({ searchParams }) {
+  const { data, query, totalPages } = await getInventory(searchParams);
 
   if (data.length === 0) return <EmptyList query={query} />;
 

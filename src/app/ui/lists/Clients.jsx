@@ -1,4 +1,4 @@
-import { getClients, getClientsPages } from '@/app/lib/data';
+import { getRegisters } from '@/app/lib/data';
 import { Pagination } from './Pagination';
 import {
   List,
@@ -9,14 +9,15 @@ import {
   ListInfoDetail,
   ListPhone,
   ListBlankSpace,
-  ListDetailLink,
 } from '@/app/ui/lists/lists';
 import EmptyList from '@/app/ui/lists/EmptyList';
 import { ClientListHeader } from './ListHeader';
 
-export default async function Clients({ query, currentPage }) {
-  const data = await getClients(query, currentPage);
-  const totalPages = await getClientsPages(query);
+export default async function Clients({ searchParams }) {
+  const { data, query, totalPages } = await getRegisters(
+    'clientes',
+    searchParams
+  );
 
   if (data.length === 0) return <EmptyList query={query} />;
 
@@ -28,7 +29,7 @@ export default async function Clients({ query, currentPage }) {
           <ListCard key={register.Id} href={`/clientes/${register.Id}`}>
             <ListInfo>
               <ListId id={register.Id} label="ID CLIENTE" />
-              <ListName name={register.NombreCliente} />
+              <ListName name={`${register.Nombre} ${register.Apellido}`} />
             </ListInfo>
             <ListInfoDetail>
               <ListPhone phone={register.Telefono} />

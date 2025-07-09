@@ -15,9 +15,9 @@ import EmptyList from '@/app/ui/lists/EmptyList';
 import { OrderListTotal } from './ListTotal';
 import { OrderListHeader } from './ListHeader';
 
-export default async function Orders({ query, currentPage }) {
-  const data = await getOrders(query, currentPage);
-  const totalPages = await getOrdersPages(query);
+export default async function Orders({ searchParams }) {
+  const { data, query, totalPages } = await getOrders(searchParams);
+
   if (data.length === 0) return <EmptyList query={query} />;
 
   return (

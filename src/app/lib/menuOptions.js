@@ -17,7 +17,7 @@ export const menuOptions = [
     id: 2,
     name: 'Inventario',
     path: '/inventario',
-    url: '/inventario?query=disponibles',
+    url: '/inventario',
     divider: false,
   },
   {
@@ -45,7 +45,7 @@ export const menuOptions = [
     id: 6,
     name: 'Pedidos',
     path: '/pedidos',
-    url: '/pedidos?query=debe',
+    url: '/pedidos',
     divider: false,
   },
   {

@@ -14,9 +14,8 @@ import { Pagination } from '@/app/ui/lists/Pagination';
 import EmptyList from '@/app/ui/lists/EmptyList';
 import { ProductListHeader } from './ListHeader';
 
-export default async function Products({ query, currentPage }) {
-  const data = await getProducts(query, currentPage);
-  const totalPages = await getProductsPages(query);
+export default async function Products({ searchParams }) {
+  const { data, query, totalPages } = await getProducts(searchParams);
 
   if (data.length === 0) return <EmptyList query={query} />;
 

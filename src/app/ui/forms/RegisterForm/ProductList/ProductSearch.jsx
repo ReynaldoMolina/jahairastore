@@ -21,8 +21,13 @@ export function ProductSearch({ children, open }) {
           }`}
         />
       </div>
-      {isSearchProductOpen && <SearchInput allowNew={false} />}
-      {isSearchProductOpen && children}
+
+      {isSearchProductOpen && (
+        <>
+          <SearchInput allowNew={false} />
+          {children}
+        </>
+      )}
     </section>
   );
 }

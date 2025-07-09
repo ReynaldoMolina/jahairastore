@@ -15,9 +15,8 @@ import EmptyList from '@/app/ui/lists/EmptyList';
 import { PurchaseListTotal } from './ListTotal';
 import { PurchaseListHeader } from './ListHeader';
 
-export default async function Purchases({ query, currentPage }) {
-  const data = await getPurchases(query, currentPage);
-  const totalPages = await getPurchasesPages(query);
+export default async function Purchases({ searchParams }) {
+  const { data, query, totalPages } = await getPurchases(searchParams);
 
   if (data.length === 0) return <EmptyList query={query} />;
 

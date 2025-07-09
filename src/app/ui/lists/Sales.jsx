@@ -1,4 +1,4 @@
-import { getSales, getSalesPages } from '@/app/lib/data';
+import { getSales } from '@/app/lib/data';
 import {
   List,
   ListCard,
@@ -15,9 +15,8 @@ import EmptyList from '@/app/ui/lists/EmptyList';
 import { SaleListTotal } from './ListTotal';
 import { SaleListHeader } from './ListHeader';
 
-export default async function Sales({ query, currentPage }) {
-  const data = await getSales(query, currentPage);
-  const totalPages = await getSalesPages(query);
+export default async function Sales({ searchParams }) {
+  const { data, query, totalPages } = await getSales(searchParams);
 
   if (data.length === 0) return <EmptyList query={query} />;
 

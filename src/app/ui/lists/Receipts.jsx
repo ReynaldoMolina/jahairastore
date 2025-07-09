@@ -1,4 +1,4 @@
-import { getReceipts, getReceiptsPages } from '@/app/lib/data';
+import { getReceipts } from '@/app/lib/data';
 import {
   List,
   ListCard,
@@ -14,9 +14,10 @@ import EmptyList from '@/app/ui/lists/EmptyList';
 import { ReceiptListTotal } from './ListTotal';
 import { ReceiptListHeader } from './ListHeader';
 
-export default async function Receipts({ query, currentPage }) {
-  const data = await getReceipts(query, currentPage);
-  const totalPages = await getReceiptsPages(query);
+export default async function Receipts({ searchParams }) {
+  const { data, query, totalPages } = await getReceipts(searchParams);
+
+  console.log(query, totalPages);
 
   if (data.length === 0) return <EmptyList query={query} />;
 

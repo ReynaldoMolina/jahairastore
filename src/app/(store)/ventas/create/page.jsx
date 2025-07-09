@@ -11,8 +11,10 @@ export default async function Page(props) {
   const searchParams = await props.searchParams;
 
   return (
-    <RegisterForm isNew={true} selectData={selectData} formName="ventas">
-      <ProductSearchList searchParams={searchParams} inventario={true} />
-    </RegisterForm>
+    <>
+      <RegisterForm isNew={true} selectData={selectData} formName="ventas">
+        <ProductSearchList searchParams={searchParams} inventario={true} />
+      </RegisterForm>
+    </>
   );
 }

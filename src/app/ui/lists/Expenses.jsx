@@ -15,9 +15,8 @@ import EmptyList from '@/app/ui/lists/EmptyList';
 import { ExpensesListTotal } from './ListTotal';
 import { ExpensesListHeader } from './ListHeader';
 
-export default async function Expenses({ query, currentPage }) {
-  const data = await getExpenses(query, currentPage);
-  const totalPages = await getExpensesPages(query);
+export default async function Expenses({ searchParams }) {
+  const { data, query, totalPages } = await getExpenses(searchParams);
 
   if (data.length === 0) return <EmptyList query={query} />;
 

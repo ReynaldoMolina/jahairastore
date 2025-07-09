@@ -1,4 +1,4 @@
-import { getCategories, getCategoriesPages } from '@/app/lib/data';
+import { getRegisters } from '@/app/lib/data';
 import {
   List,
   ListCard,
@@ -7,13 +7,15 @@ import {
   ListInfo,
   ListBlankSpace,
 } from '@/app/ui/lists/lists';
-import { Pagination } from '@/app/ui/lists/Pagination';
 import EmptyList from '@/app/ui/lists/EmptyList';
 import { CategoryListHeader } from './ListHeader';
+import { Pagination } from '@/app/ui/lists/Pagination';
 
-export default async function Categories({ query, currentPage }) {
-  const data = await getCategories(query, currentPage);
-  const totalPages = await getCategoriesPages(query);
+export default async function Categories({ searchParams }) {
+  const { data, query, totalPages } = await getRegisters(
+    'categorias',
+    searchParams
+  );
 
   if (data.length === 0) return <EmptyList query={query} />;
 

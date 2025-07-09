@@ -1,4 +1,4 @@
-import { getProviders, getProvidersPages } from '@/app/lib/data';
+import { getRegisters } from '@/app/lib/data';
 import {
   List,
   ListCard,
@@ -13,9 +13,11 @@ import { Pagination } from '@/app/ui/lists/Pagination';
 import EmptyList from '@/app/ui/lists/EmptyList';
 import { ProviderListHeader } from './ListHeader';
 
-export default async function Providers({ query, currentPage }) {
-  const data = await getProviders(query, currentPage);
-  const totalPages = await getProvidersPages(query);
+export default async function Providers({ searchParams }) {
+  const { data, query, totalPages } = await getRegisters(
+    'proveedores',
+    searchParams
+  );
 
   if (data.length === 0) return <EmptyList query={query} />;
 
