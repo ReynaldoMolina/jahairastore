@@ -1,5 +1,5 @@
 import { sql } from '@/app/lib/db';
-import { getUrlParams, ITEMS_PER_PAGE } from './filter';
+import { getUrlParams } from './filter';
 import {
   getPurchasesPages,
   getRegisterPages,
@@ -9,6 +9,7 @@ import {
   getProductsPages,
   getInventoryPages,
   getSalesPages,
+  getProductsInventarioPages,
 } from './dataPages';
 
 const registerOptions = {
@@ -227,7 +228,12 @@ export async function getProducts(
       ORDER BY "Id" DESC
       ${limitFragment}
     `;
-    const totalPages = await getProductsPages(query, limit);
+    const totalPages = await getProductsPages(
+      query,
+      limit,
+      inventario,
+      ShowAll
+    );
     return { data, query, totalPages };
   } catch (error) {
     console.error(error);
@@ -235,12 +241,8 @@ export async function getProducts(
   }
 }
 
-export async function getProductsInventario(query, page) {
-  const offset = (page - 1) * ITEMS_PER_PAGE;
-  const filterDisponible = query.includes('disponibles');
-  const newQuery = filterDisponible
-    ? query.replace(/^disponibles\s*/, '')
-    : query;
+export async function getProductsInventario(searchParams) {
+  const { query, limit, limitFragment } = getUrlParams(searchParams);
 
   try {
     const data = await sql`
@@ -277,25 +279,22 @@ export async function getProductsInventario(query, page) {
           "Id"::text || ' ' ||
           "Nombre" || ' ' ||
           "Fecha"::text
-        ) ILIKE ${`%${newQuery}%`}
+        ) ILIKE ${`%${query}%`}
       )
         AND "Inventario" = true
 
-      ${
-        filterDisponible
-          ? sql`AND
-        (
-          COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0)::numeric -
-          COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0)::numeric
-        )::numeric > 0`
-          : sql``
-      }
+        AND
+          (
+            COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0)::numeric -
+            COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0)::numeric
+          )::numeric > 0
 
       ORDER BY "Id" DESC
 
-      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+      ${limitFragment}
     `;
-    return data;
+    const totalPages = await getProductsInventarioPages(query, limit);
+    return { data, query, totalPages };
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener los productos');
@@ -326,63 +325,6 @@ export async function getProductById(id) {
     return data[0];
   } catch (error) {
     throw new Error('No se pudo obtener el producto');
-  }
-}
-
-export async function getProductsInventarioPages(query) {
-  const filterDisponible = query.includes('disponibles');
-  const newQuery = filterDisponible
-    ? query.replace(/^disponibles\s*/, '')
-    : query;
-  try {
-    const data = await sql`
-      WITH
-        ComprasTotalesCantidad AS (
-          SELECT
-          "Id_producto",
-          SUM("Cantidad")::int AS "TotalCompraCantidad"
-        FROM "ComprasDetalles"
-        GROUP BY "Id_producto"
-        ),
-        VentasTotalesCantidad AS (
-          SELECT
-            "Id_producto",
-            SUM("Cantidad")::int AS "TotalVentaCantidad"
-          FROM "VentasDetalles"
-          GROUP BY "Id_producto"
-        )
-
-      SELECT COUNT(*)
-
-      FROM "Productos"
-        LEFT JOIN ComprasTotalesCantidad ON "Productos"."Id" = ComprasTotalesCantidad."Id_producto"
-        LEFT JOIN VentasTotalesCantidad ON "Productos"."Id" = VentasTotalesCantidad."Id_producto"
-
-      WHERE (
-        (
-          "Id"::text || ' ' ||
-          "Nombre" || ' ' ||
-          "Fecha"::text
-        ) ILIKE ${`%${newQuery}%`}
-      )
-      
-      AND "Inventario" = true
-      
-      ${
-        filterDisponible
-          ? sql`AND
-        (
-          COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0)::numeric -
-          COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0)::numeric
-        )::numeric > 0`
-          : sql``
-      }
-    `;
-    const totalPages = Math.ceil(Number(data[0].count) / ITEMS_PER_PAGE);
-    return totalPages;
-  } catch (error) {
-    console.error(error);
-    throw new Error('No se pudieron obtener los productos');
   }
 }
 

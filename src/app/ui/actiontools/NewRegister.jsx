@@ -8,10 +8,6 @@ export default function NewRegister({ allowNew = true }) {
   const pathname = usePathname();
   let href = `${pathname}/create`;
 
-  if (pathname === '/ventas') {
-    href = `${pathname}/create?page=1&query=disponibles`;
-  }
-
   return (
     <Link
       href={href}

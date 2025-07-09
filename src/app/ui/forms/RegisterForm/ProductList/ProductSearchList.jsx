@@ -28,16 +28,9 @@ export default async function ProductSearchList({
     compra: 'Precio_compra',
   };
 
-  const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
-
-  const totalPages = inventario
-    ? await getProductsInventarioPages(query)
-    : await getProductsPages(query, false, false);
-
-  const data = inventario
-    ? await getProductsInventario(query, currentPage)
-    : await getProducts(query, currentPage, false, false);
+  const { data, query, totalPages } = inventario
+    ? await getProductsInventario(searchParams)
+    : await getProducts(searchParams, false, false);
 
   if (data.length === 0) return <EmptyList query={query} />;
 

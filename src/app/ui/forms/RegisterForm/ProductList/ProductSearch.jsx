@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ArrowDown from '@/app/ui/icons/arrowdown.svg';
 import SearchInput from '@/app/ui/actiontools/SearchInput';
 import { bgColors } from '@/app/ui/bgcolors';
+import { ListFilter } from '@/app/ui/actiontools/ListFilter';
 
 export function ProductSearch({ children, open }) {
   const [isSearchProductOpen, setIsSearchProductOpen] = useState(open);
@@ -25,6 +26,7 @@ export function ProductSearch({ children, open }) {
       {isSearchProductOpen && (
         <>
           <SearchInput allowNew={false} />
+          <ListFilter />
           {children}
         </>
       )}

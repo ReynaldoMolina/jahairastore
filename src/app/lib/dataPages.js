@@ -1,5 +1,4 @@
 import { sql } from '@/app/lib/db';
-import { ITEMS_PER_PAGE } from './filter';
 
 export async function getRegisterPages(query, whereFragment, limit, options) {
   try {
@@ -278,5 +277,52 @@ export async function getSalesPages(query, state, limit) {
     return Math.ceil(Number(data[0].count) / limit) || 1;
   } catch (error) {
     throw new Error('No se pudieron obtener las ventas');
+  }
+}
+
+export async function getProductsInventarioPages(query, limit) {
+  try {
+    const data = await sql`
+      WITH
+        ComprasTotalesCantidad AS (
+          SELECT
+          "Id_producto",
+          SUM("Cantidad")::int AS "TotalCompraCantidad"
+        FROM "ComprasDetalles"
+        GROUP BY "Id_producto"
+        ),
+        VentasTotalesCantidad AS (
+          SELECT
+            "Id_producto",
+            SUM("Cantidad")::int AS "TotalVentaCantidad"
+          FROM "VentasDetalles"
+          GROUP BY "Id_producto"
+        )
+
+      SELECT COUNT(*)
+
+      FROM "Productos"
+        LEFT JOIN ComprasTotalesCantidad ON "Productos"."Id" = ComprasTotalesCantidad."Id_producto"
+        LEFT JOIN VentasTotalesCantidad ON "Productos"."Id" = VentasTotalesCantidad."Id_producto"
+
+      WHERE (
+        (
+          "Id"::text || ' ' ||
+          "Nombre" || ' ' ||
+          "Fecha"::text
+        ) ILIKE ${`%${query}%`}
+      )
+        AND "Inventario" = true
+        
+        AND
+          (
+            COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0)::numeric -
+            COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0)::numeric
+          )::numeric > 0
+    `;
+    return Math.ceil(Number(data[0].count) / limit) || 1;
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudieron obtener los productos');
   }
 }

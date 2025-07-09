@@ -25,10 +25,7 @@ export default async function Sales({ searchParams }) {
       <List>
         <SaleListHeader />
         {data.map((register) => (
-          <ListCard
-            key={register.Id}
-            href={`/ventas/${register.Id}?query=disponibles`}
-          >
+          <ListCard key={register.Id} href={`/ventas/${register.Id}`}>
             <ListInfo>
               <ListId id={register.Id} label="ID VENTA" />
               <ListName name={register.NombreCliente} />

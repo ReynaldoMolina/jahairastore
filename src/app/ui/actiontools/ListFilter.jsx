@@ -12,7 +12,7 @@ export function ListFilter({ showState = false, stateLabel, searchParams }) {
   });
 
   return (
-    <div className="flex justify-end gap-4">
+    <div className="flex justify-start gap-4">
       {showState && (
         <FilterState
           filter={filter}
