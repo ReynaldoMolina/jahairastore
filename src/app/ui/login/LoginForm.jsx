@@ -32,8 +32,10 @@ export default function LoginForm() {
           <input type="hidden" name="redirectTo" value={callbackUrl} />
           <button
             type="submit"
-            className={`flex w-full h-10 border-none bg-blue-500 rounded-lg text-white font-semibold hover:bg-blue-600 items-center justify-center transition ${
-              isPending ? 'cursor-not-allowed' : 'cursor-pointer'
+            className={`flex w-full h-10 border-none rounded-lg text-white font-semibold items-center justify-center transition ${
+              isPending
+                ? 'cursor-not-allowed bg-neutral-300 dark:bg-neutral-700'
+                : 'cursor-pointer bg-blue-500 hover:bg-blue-600'
             }`}
             id="login-button"
             disabled={isPending}

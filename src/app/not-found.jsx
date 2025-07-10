@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import NotFoundIcon from '@/app/ui/icons/notfound.svg';
- 
+
 export default function NotFound() {
   return (
     <section className="flex h-full flex-col items-center justify-center gap-2">
