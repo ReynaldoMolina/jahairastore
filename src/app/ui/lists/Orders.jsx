@@ -1,4 +1,4 @@
-import { getOrders, getOrdersPages } from '@/app/lib/data';
+import { getOrders } from '@/app/lib/data';
 import {
   List,
   ListCard,

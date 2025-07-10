@@ -1,4 +1,4 @@
-import { getPurchases, getPurchasesPages } from '@/app/lib/data';
+import { getPurchases } from '@/app/lib/data';
 import {
   List,
   ListCard,

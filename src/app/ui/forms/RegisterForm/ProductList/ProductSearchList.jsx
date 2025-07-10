@@ -1,10 +1,5 @@
 import EmptyList from '@/app/ui/lists/EmptyList';
-import {
-  getProducts,
-  getProductsPages,
-  getProductsInventario,
-  getProductsInventarioPages,
-} from '@/app/lib/data';
+import { getProducts, getProductsInventario } from '@/app/lib/data';
 import {
   ListInfo,
   ListId,

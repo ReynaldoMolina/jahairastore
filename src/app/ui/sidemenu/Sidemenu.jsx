@@ -4,7 +4,6 @@ import { menuOptions } from '@/app/lib/menuOptions';
 import { MenuItem } from './MenuItem';
 import LogoMinimal from '@/app/ui/icons/logominimal.svg';
 import LogoutForm from '../login/LogoutForm';
-import { bgColors } from '../bgcolors';
 
 export default function SideMenu() {
   return (

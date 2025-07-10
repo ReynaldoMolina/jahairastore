@@ -1,4 +1,4 @@
-import { getExpenses, getExpensesPages } from '@/app/lib/data';
+import { getExpenses } from '@/app/lib/data';
 import {
   List,
   ListCard,
