@@ -882,3 +882,20 @@ export async function getInventory(searchParams) {
     throw new Error('No se pudo obtener el inventario');
   }
 }
+
+export async function getBusinessData() {
+  try {
+    const data = await sql`
+      SELECT 
+        "Nombre_empresa",
+        "Eslogan",
+        "Mensaje"
+      FROM "Configuracion"
+      WHERE "Id" = ${1}
+    `;
+    return data[0];
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudo obtener la información del negocio');
+  }
+}

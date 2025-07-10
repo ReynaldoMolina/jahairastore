@@ -27,23 +27,5 @@ ventas: {
 }
 
 To do:
-// 1. add useFormAction to register form
-2. product search loses focus
-3. Add filters
-4. add settings
-
-Filters
-General = [LIMIT]
-Categorias = General
-Proveedores = General
-Clientes = General
-Recibos = [fecha (rango)]
-Pedidos = [fecha (rango), debe]
-Gastos = [fecha (rango)]
-Compras = Pedidos
-Productos = [...General, fecha (rango)]
-Inventario = [...General, disponibles]
-Ventas = [...General, fecha (rango), debe]
-
-otros
-Gastos filtrar por concepto
+1. product search loses focus
+2. add settings
