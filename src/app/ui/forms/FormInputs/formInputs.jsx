@@ -1,10 +1,10 @@
 'use client';
 
-import { bgColors } from '@/app/ui/bgcolors';
 import { useState } from 'react';
-import getDate from '@/app/lib/getDate';
 import LoadingIcon from '../../loading/LoadingIcon';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import getDate from '@/app/lib/getDate';
+import { bgColors } from '@/app/ui/bgcolors';
 import { formatNumber } from '@/app/lib/formatNumber';
 
 export function FormContainer({ children, action, wider = false }) {
@@ -176,15 +176,17 @@ export function FormCheck({ name, holder, value, setValue }) {
 }
 
 export function FormButtons({ link, isNew, isPending }) {
+  const router = useRouter();
   const label = isNew ? 'Crear' : 'Guardar';
   return (
     <div className="flex w-full justify-center gap-4">
-      <Link
-        href={link}
+      <button
+        type="button"
         className="flex items-center justify-center rounded-lg font-bold cursor-pointer h-10 w-full sm:w-50 bg-red-500 text-sm text-white hover:bg-red-600"
+        onClick={() => router.back()}
       >
         Cancelar
-      </Link>
+      </button>
       <button
         type="submit"
         value="Save"
