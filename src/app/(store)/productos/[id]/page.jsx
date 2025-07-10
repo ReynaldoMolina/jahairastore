@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { ProductForm } from '@/app/ui/forms/ProductForm';
 import { getProductById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';

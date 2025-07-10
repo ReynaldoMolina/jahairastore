@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { ExpenseForm } from '@/app/ui/forms/ExpenseForm';
 import { getProvidersSelect } from '@/app/lib/data';
 

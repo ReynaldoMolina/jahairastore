@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import Logo from '@/app/ui/icons/logo.svg';
 import { getBusinessData } from '../lib/data';
 

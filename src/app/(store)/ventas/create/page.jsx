@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getClientsSelect } from '@/app/lib/data';
 import { RegisterForm } from '@/app/ui/forms/RegisterForm';
 import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';

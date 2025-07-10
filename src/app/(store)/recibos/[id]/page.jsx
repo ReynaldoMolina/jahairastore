@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { ReceiptForm } from '@/app/ui/forms/ReceiptForm';
 import {
   getClientsSelect,
