@@ -10,7 +10,7 @@ const icons = {
 export default function LoginInput({ name, placeholder, type = 'text' }) {
   const [input, setInput] = useState('');
   return (
-    <div className="flex justify-center items-center bg-white dark:bg-neutral-800 rounded-lg shadow-sm focus-within:outline-1 focus-within:outline-neutral-500 dark:focus-within:outline-neutral-400 hover:outline hover:outline-neutral-500 dark:hover:outline-neutral-400">
+    <div className="flex w-full justify-center items-center bg-white dark:bg-neutral-800 rounded-lg shadow-sm focus-within:outline-1 focus-within:outline-neutral-500 dark:focus-within:outline-neutral-400 hover:outline hover:outline-neutral-500 dark:hover:outline-neutral-400">
       {icons[name]}
       <input
         type={type}
@@ -20,7 +20,7 @@ export default function LoginInput({ name, placeholder, type = 'text' }) {
         required
         autoComplete="off"
         value={input}
-        onChange={(event) => setInput(event.target.value.trim())}
+        onChange={(event) => setInput(event.target.value)}
       ></input>
     </div>
   );
