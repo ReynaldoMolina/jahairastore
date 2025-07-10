@@ -6,9 +6,10 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
 export function ListFilter({ showState = false, stateLabel, searchParams }) {
   const limitParam = searchParams?.limit;
+  const stateParam = searchParams?.state;
   const [filter, setFilter] = useState({
     limit: limitParam || 10,
-    state: false,
+    state: stateParam || false,
   });
 
   return (
