@@ -4,6 +4,7 @@ import { menuOptions } from '@/app/lib/menuOptions';
 import { MenuItem } from './MenuItem';
 import LogoMinimal from '@/app/ui/icons/logominimal.svg';
 import LogoutForm from '../login/LogoutForm';
+import { isDemo } from '@/middleware';
 
 export default function SideMenu() {
   return (
@@ -20,7 +21,7 @@ export default function SideMenu() {
           )}
         </div>
       ))}
-      <LogoutForm />
+      {!isDemo && <LogoutForm />}
     </nav>
   );
 }
