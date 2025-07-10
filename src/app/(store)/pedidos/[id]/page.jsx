@@ -1,7 +1,6 @@
 import { RegisterForm } from '@/app/ui/forms/RegisterForm';
 import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';
 import { getOrderById, getOrderDetailById } from '@/app/lib/data';
-import { OrderOptions } from '@/app/ui/forms/Options/OrderOptions';
 import { getClientsSelect } from '@/app/lib/data';
 
 export async function generateMetadata(props) {

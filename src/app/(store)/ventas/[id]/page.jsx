@@ -1,16 +1,6 @@
-import { FormSelect } from '@/app/ui/forms/FormInputs/formInputs';
-import {
-  RegisterForm,
-  FormInfo,
-  ProductSearch,
-} from '@/app/ui/forms/RegisterForm';
-import { FormButtons } from '@/app/ui/forms/FormInputs/formInputs';
+import { RegisterForm } from '@/app/ui/forms/RegisterForm';
 import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';
-import FormDetail from '@/app/ui/forms/RegisterForm/DetailList/FormDetail';
 import { getSaleById, getSaleDetailById } from '@/app/lib/data';
-import { updateSale } from '@/app/lib/actions';
-import { SalePayment } from '@/app/ui/forms/SaleForm/SalePayment';
-
 import { getClientsSelect } from '@/app/lib/data';
 
 export async function generateMetadata(props) {
