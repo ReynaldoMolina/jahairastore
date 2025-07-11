@@ -39,19 +39,25 @@ export function formatDate(isoDateStr, locale = 'es-NI') {
   const input = new Date(isoDateStr);
   const now = new Date();
 
-  const inputDay = input.toDateString();
-  const today = now.toDateString();
+  const sameDay =
+    input.getDate() === now.getDate() &&
+    input.getMonth() === now.getMonth() &&
+    input.getFullYear() === now.getFullYear();
 
   const yesterday = new Date();
   yesterday.setDate(now.getDate() - 1);
-  const yesterdayStr = yesterday.toDateString();
 
-  if (inputDay === today) return 'Hoy';
-  if (inputDay === yesterdayStr) return 'Ayer';
+  const isYesterday =
+    input.getDate() === yesterday.getDate() &&
+    input.getMonth() === yesterday.getMonth() &&
+    input.getFullYear() === yesterday.getFullYear();
+
+  if (sameDay) return 'Hoy';
+  if (isYesterday) return 'Ayer';
 
   const day = input.getDate();
   const month = input.toLocaleString(locale, { month: 'long' });
   const year = input.getFullYear();
 
-  return `${day} ${month}, ${year}`;
+  return `${day} ${month} ${year}`;
 }
