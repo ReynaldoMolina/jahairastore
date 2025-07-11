@@ -9,8 +9,11 @@ export function getCurrentDate() {
 export function formatDate(isoDateStr, locale = 'es-NI') {
   const [year, month, day] = isoDateStr.split('-').map(Number);
   const input = new Date(year, month - 1, day);
+
   const dayStr = input.getDate();
-  const monthStr = input.toLocaleString(locale, { month: 'long' });
+  const monthStr = input
+    .toLocaleString(locale, { month: 'long' })
+    .substring(0, 3);
   const yearStr = input.getFullYear();
 
   return `${dayStr} ${monthStr} ${yearStr}`;

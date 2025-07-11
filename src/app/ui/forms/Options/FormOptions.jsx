@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import ReceiptsIcon from '@/app/ui/icons/receipts.svg';
 import OrdersIcon from '@/app/ui/sidemenu/SideMenuIcon/orders.svg';
+import SalesIcon from '@/app/ui/sidemenu/SideMenuIcon/pos.svg';
 
 export function ClientOptions({ client }) {
   const nombreCliente = `${client.Nombre} ${client.Apellido}`;
@@ -11,6 +12,9 @@ export function ClientOptions({ client }) {
       </FormOption>
       <FormOption label="Ver recibos" href={`/recibos?query=${nombreCliente}`}>
         <ReceiptsIcon className="size-5 text-black" />
+      </FormOption>
+      <FormOption label="Ver ventas" href={`/ventas?query=${nombreCliente}`}>
+        <SalesIcon className="size-5 text-black" />
       </FormOption>
     </FormOptionContainer>
   );
