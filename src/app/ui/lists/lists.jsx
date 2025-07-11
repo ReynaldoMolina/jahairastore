@@ -18,7 +18,7 @@ export function ListTitle({ title }) {
 const listCardSClassName =
   'flex flex-col md:flex-row items-start p-4 gap-3 hover:bg-sky-100 dark:hover:bg-neutral-800 md:border-t first-of-type:border-t-0 border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg md:rounded-none shadow md:shadow-none';
 
-export function ListCard({ children, href, flexCol = true }) {
+export function ListCard({ children, href }) {
   return (
     <Link href={href} className={listCardSClassName}>
       {children}

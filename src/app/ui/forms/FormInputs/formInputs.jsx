@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import LoadingIcon from '../../loading/LoadingIcon';
 import { useRouter } from 'next/navigation';
-import getDate from '@/app/lib/getDate';
+import { getCurrentDate } from '@/app/lib/getDate';
 import { bgColors } from '@/app/ui/bgcolors';
 import { formatNumber } from '@/app/lib/formatNumber';
 
@@ -140,7 +140,7 @@ export function FormSpan({
 }
 
 export function FormDate({ date }) {
-  const currentDate = getDate();
+  const currentDate = getCurrentDate();
 
   return (
     <div className="flex flex-col w-full gap-1">
