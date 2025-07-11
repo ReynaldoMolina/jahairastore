@@ -10,14 +10,12 @@ import { formatNumber } from '@/app/lib/formatNumber';
 export function FormContainer({ children, action, wider = false }) {
   const maxWidth = wider ? '' : 'max-w-3xl';
   return (
-    <section className="flex grow overflow-y-scroll h-0">
-      <form
-        action={action}
-        className={`flex flex-col bg-white dark:bg-neutral-900 rounded-xl md:shadow-md gap-5 md:gap-7 mx-auto ${maxWidth} px-2 py-4 md:p-7 w-full h-fit mb-2 shadow`}
-      >
-        {children}
-      </form>
-    </section>
+    <form
+      action={action}
+      className={`flex flex-col bg-white dark:bg-neutral-900 rounded-lg md:shadow-md gap-5 md:gap-7 mx-auto ${maxWidth} px-2 py-4 md:p-7 w-full h-fit shadow`}
+    >
+      {children}
+    </form>
   );
 }
 
