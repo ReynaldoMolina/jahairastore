@@ -36,7 +36,8 @@ export default function getDate() {
 // }
 
 export function formatDate(isoDateStr, locale = 'es-NI') {
-  const input = new Date(isoDateStr);
+  const [year, month, day] = isoDateStr.split('-').map(Number);
+  const input = new Date(year, month - 1, day); // mes va de 0 a 11
   const now = new Date();
 
   const sameDay =
@@ -44,7 +45,7 @@ export function formatDate(isoDateStr, locale = 'es-NI') {
     input.getMonth() === now.getMonth() &&
     input.getFullYear() === now.getFullYear();
 
-  const yesterday = new Date();
+  const yesterday = new Date(now);
   yesterday.setDate(now.getDate() - 1);
 
   const isYesterday =
@@ -55,9 +56,9 @@ export function formatDate(isoDateStr, locale = 'es-NI') {
   if (sameDay) return 'Hoy';
   if (isYesterday) return 'Ayer';
 
-  const day = input.getDate();
-  const month = input.toLocaleString(locale, { month: 'long' });
-  const year = input.getFullYear();
+  const dayStr = input.getDate();
+  const monthStr = input.toLocaleString(locale, { month: 'long' });
+  const yearStr = input.getFullYear();
 
-  return `${day} ${month} ${year}`;
+  return `${dayStr} ${monthStr} ${yearStr}`;
 }
