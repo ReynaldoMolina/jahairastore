@@ -21,6 +21,7 @@ export default async function Page(props) {
     >
       <ProductSearchList
         searchParams={searchParams}
+        showAll={true}
         inventario={true}
         price="compra"
       />

@@ -241,7 +241,7 @@ export async function getProducts(
   }
 }
 
-export async function getProductsInventario(searchParams) {
+export async function getProductsInventario(searchParams, showAll) {
   const { query, limit, limitFragment } = getUrlParams(searchParams);
 
   try {
@@ -283,11 +283,15 @@ export async function getProductsInventario(searchParams) {
       )
         AND "Inventario" = true
 
-        AND
+        ${
+          showAll
+            ? sql``
+            : sql`AND
           (
             COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0)::numeric -
             COALESCE(VentasTotalesCantidad."TotalVentaCantidad", 0)::numeric
-          )::numeric > 0
+          )::numeric > 0`
+        }
 
       ORDER BY "Id" DESC
 

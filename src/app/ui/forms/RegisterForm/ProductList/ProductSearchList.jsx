@@ -15,6 +15,7 @@ import { ProductSearchListHeader } from '@/app/ui/lists/ListHeader';
 
 export default async function ProductSearchList({
   searchParams,
+  showAll = false,
   inventario = false,
   price = 'venta',
 }) {
@@ -24,7 +25,7 @@ export default async function ProductSearchList({
   };
 
   const { data, query, totalPages } = inventario
-    ? await getProductsInventario(searchParams)
+    ? await getProductsInventario(searchParams, showAll)
     : await getProducts(searchParams, false, false);
 
   if (data.length === 0) return <EmptyList query={query} />;
