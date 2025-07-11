@@ -6,9 +6,8 @@ export default function getDate() {
   return `${year}-${month}-${day}`;
 }
 
-export function formatDate(isoDateStr, locale = undefined) {
-  // Force midnight so comparisons are date‑only, not time‑of‑day.
-  const input = new Date(`${isoDateStr}T00:00:00`);
+export function formatDate(isoDateStr, locale = 'es-NI') {
+  const input = new Date(isoDateStr);
   const today = new Date();
 
   // Strip time parts → YYYY‑MM‑DD only.
@@ -29,7 +28,6 @@ export function formatDate(isoDateStr, locale = undefined) {
   if (diffDays === 0) return 'Hoy';
   if (diffDays === 1) return 'Ayer';
 
-  // dd/mm/yyyy in the chosen locale (defaults to system locale).
   return inputMidnight.toLocaleDateString(locale ?? 'es-NI', {
     day: '2-digit',
     month: '2-digit',
