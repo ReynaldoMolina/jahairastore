@@ -6,31 +6,52 @@ export default function getDate() {
   return `${year}-${month}-${day}`;
 }
 
+// export function formatDate(isoDateStr, locale = 'es-NI') {
+//   const input = new Date(isoDateStr);
+//   const today = new Date();
+
+//   // Strip time parts → YYYY‑MM‑DD only.
+//   const inputMidnight = new Date(
+//     input.getFullYear(),
+//     input.getMonth(),
+//     input.getDate()
+//   );
+//   const todayMidnight = new Date(
+//     today.getFullYear(),
+//     today.getMonth(),
+//     today.getDate()
+//   );
+
+//   const msPerDay = 86_400_000;
+//   const diffDays = Math.round((todayMidnight - inputMidnight) / msPerDay);
+
+//   if (diffDays === 0) return 'Hoy';
+//   if (diffDays === 1) return 'Ayer';
+
+//   return inputMidnight.toLocaleDateString(locale ?? 'es-NI', {
+//     day: '2-digit',
+//     month: '2-digit',
+//     year: 'numeric',
+//   });
+// }
+
 export function formatDate(isoDateStr, locale = 'es-NI') {
   const input = new Date(isoDateStr);
-  const today = new Date();
+  const now = new Date();
 
-  // Strip time parts → YYYY‑MM‑DD only.
-  const inputMidnight = new Date(
-    input.getFullYear(),
-    input.getMonth(),
-    input.getDate()
-  );
-  const todayMidnight = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate()
-  );
+  const inputDay = input.toDateString();
+  const today = now.toDateString();
 
-  const msPerDay = 86_400_000;
-  const diffDays = Math.round((todayMidnight - inputMidnight) / msPerDay);
+  const yesterday = new Date();
+  yesterday.setDate(now.getDate() - 1);
+  const yesterdayStr = yesterday.toDateString();
 
-  if (diffDays === 0) return 'Hoy';
-  if (diffDays === 1) return 'Ayer';
+  if (inputDay === today) return 'Hoy';
+  if (inputDay === yesterdayStr) return 'Ayer';
 
-  return inputMidnight.toLocaleDateString(locale ?? 'es-NI', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  });
+  const day = input.getDate();
+  const month = input.toLocaleString(locale, { month: 'long' });
+  const year = input.getFullYear();
+
+  return `${day} ${month}, ${year}`;
 }
