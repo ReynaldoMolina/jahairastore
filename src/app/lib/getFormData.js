@@ -10,7 +10,7 @@ export function getClientFormData(formData) {
     Departamento: formData.get('Departamento').trim(),
     Pais: formData.get('Pais').trim(),
     Direccion: formData.get('Direccion').trim(),
-  }
+  };
 }
 
 export function getProviderFormData(formData) {
@@ -25,8 +25,7 @@ export function getProviderFormData(formData) {
     Municipio: formData.get('Municipio').trim(),
     Pais: formData.get('Pais').trim(),
     Direccion: formData.get('Direccion').trim(),
-  }
-
+  };
 }
 
 export function getReceiptFormData(formData) {
@@ -37,7 +36,7 @@ export function getReceiptFormData(formData) {
     Abono: Number(formData.get('Abono')),
     Saldo: Number(formData.get('Saldo')),
     Concepto: formData.get('Concepto').trim(),
-  }
+  };
 }
 
 export function getProductFormData(formData) {
@@ -52,7 +51,7 @@ export function getProductFormData(formData) {
     Id_shein: formData.get('Id_shein').trim(),
     Inventario: formData.get('Inventario') === 'on' ? true : false,
     Cambio_dolar: Number(formData.get('Cambio_dolar')) || null,
-  }
+  };
 }
 
 export function getOrderFormData(formData) {
@@ -62,13 +61,13 @@ export function getOrderFormData(formData) {
     Peso: Number(formData.get('Peso') ?? 0),
     Cambio_dolar: Number(formData.get('Cambio_dolar') ?? 37),
     Precio_libra: Number(formData.get('Precio_libra') ?? 3),
-  }
+  };
 }
 
 export function getPurchaseFormData(formData) {
   return {
     Id_proveedor: Number(formData.get('Id_proveedor')),
-    Fecha: formData.get('Fecha')
+    Fecha: formData.get('Fecha'),
   };
 }
 
@@ -80,7 +79,7 @@ export function getExpenseFormData(formData) {
     Gasto: Number(formData.get('Gasto')),
     Concepto: formData.get('Concepto').trim(),
     Cambio_dolar: Number(formData.get('Cambio_dolar')),
-  }
+  };
 }
 
 export function getSaleFormData(formData) {
@@ -89,5 +88,13 @@ export function getSaleFormData(formData) {
     Fecha: formData.get('Fecha'),
     Abono: Number(formData.get('Abono')),
     Credito: formData.get('Credito') === 'on' ? true : false,
+  };
+}
+
+export function getSettingsFormData(formData) {
+  return {
+    Nombre_empresa: formData.get('Nombre_empresa').trim(),
+    Eslogan: formData.get('Eslogan').trim(),
+    Mensaje: formData.get('Mensaje').trim(),
   };
 }

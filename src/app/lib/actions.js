@@ -11,6 +11,7 @@ import {
   getPurchaseFormData,
   getExpenseFormData,
   getSaleFormData,
+  getSettingsFormData,
 } from '@/app/lib/getFormData';
 import {
   createRecord,
@@ -330,4 +331,15 @@ export async function updateSale(
   });
 
   await goBackTo('/ventas');
+}
+
+export async function updateSettings(prevState, formData) {
+  try {
+    const id = 1;
+    const data = getSettingsFormData(formData);
+    await updateRecord({ tableName: 'Configuracion', data, id });
+  } catch (error) {
+    return error;
+  }
+  await goBackTo('/');
 }

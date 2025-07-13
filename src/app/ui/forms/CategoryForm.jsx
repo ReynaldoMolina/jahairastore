@@ -31,7 +31,7 @@ export function CategoryForm({ isNew, category }) {
         focus={isNew}
       />
       <FormError isPending={isPending} state={state} />
-      <FormButtons link={'/categorias'} isNew={isNew} isPending={isPending} />
+      <FormButtons isNew={isNew} isPending={isPending} />
     </FormContainer>
   );
 }

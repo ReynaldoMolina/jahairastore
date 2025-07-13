@@ -80,7 +80,7 @@ export function ReceiptForm({
       )}
 
       <FormError isPending={isPending} state={state} />
-      <FormButtons link="/recibos" isNew={isNew} isPending={isPending} />
+      <FormButtons isNew={isNew} isPending={isPending} />
     </FormContainer>
   );
 }

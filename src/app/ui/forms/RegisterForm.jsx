@@ -134,11 +134,7 @@ export function RegisterForm({
 
         <FormError isPending={isPending} state={state} />
 
-        <FormButtons
-          link={`/${formName}`}
-          isNew={isNew}
-          isPending={isPending}
-        />
+        <FormButtons isNew={isNew} isPending={isPending} />
       </FormContext.Provider>
     </FormContainer>
   );

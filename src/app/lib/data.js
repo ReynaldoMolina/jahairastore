@@ -932,7 +932,7 @@ export async function getInventory(searchParams) {
   }
 }
 
-export async function getBusinessInfo(id) {
+export async function getBusinessInfo(id = 1) {
   try {
     const data = await sql`
       SELECT 

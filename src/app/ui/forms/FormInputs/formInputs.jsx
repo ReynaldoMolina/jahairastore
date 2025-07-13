@@ -173,7 +173,7 @@ export function FormCheck({ name, holder, value, setValue }) {
   );
 }
 
-export function FormButtons({ link, isNew, isPending }) {
+export function FormButtons({ isNew, isPending }) {
   const router = useRouter();
   const label = isNew ? 'Crear' : 'Guardar';
   return (

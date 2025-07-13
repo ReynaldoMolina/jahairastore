@@ -61,7 +61,7 @@ export function ExpenseForm({ isNew, expense, searchParams, selectData }) {
         value={isNew ? concepto : expense.Concepto}
       />
       <FormError isPending={isNew} state={state} />
-      <FormButtons link="/gastos" isNew={isNew} isPending={isPending} />
+      <FormButtons isNew={isNew} isPending={isPending} />
     </FormContainer>
   );
 }

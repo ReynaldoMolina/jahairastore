@@ -73,7 +73,7 @@ export function ClientForm({ isNew, client }) {
       />
       {!isNew && <ClientOptions client={client} />}
       <FormError isPending={isPending} state={state} />
-      <FormButtons link={'/clientes'} isNew={isNew} isPending={isPending} />
+      <FormButtons isNew={isNew} isPending={isPending} />
     </FormContainer>
   );
 }

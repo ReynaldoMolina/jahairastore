@@ -72,7 +72,7 @@ export function ProviderForm({ isNew, provider }) {
         required={false}
       />
       <FormError isPending={isPending} state={state} />
-      <FormButtons link={'/proveedores'} isNew={isNew} isPending={isPending} />
+      <FormButtons isNew={isNew} isPending={isPending} />
     </FormContainer>
   );
 }
