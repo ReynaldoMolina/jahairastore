@@ -5,6 +5,7 @@ import {
   FormButtons,
   FormContainer,
   FormError,
+  FormId,
   FormInput,
 } from '../forms/FormInputs/formInputs';
 import { updateSettings } from '@/app/lib/actions';
@@ -15,6 +16,7 @@ export function SettingsForm({ data }) {
   });
   return (
     <FormContainer action={formAction}>
+      <FormId holder="Configuración" />
       <FormInput
         name="Nombre_empresa"
         holder="Nombre del negocio"

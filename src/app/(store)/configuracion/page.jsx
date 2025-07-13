@@ -11,7 +11,6 @@ export default async function Page() {
 
   return (
     <>
-      <ListTitle title="Configuración" />
       <SettingsForm data={data} />
     </>
   );
