@@ -3,16 +3,19 @@ export const dynamic = 'force-dynamic';
 import Logo from '@/app/ui/icons/logo.svg';
 import { getBusinessInfo } from '../lib/data';
 import { SettingsButton } from '../ui/settings/SettingsButton';
+import { isDemo } from '@/middleware';
 
 export default async function Page() {
   const data = await getBusinessInfo();
 
   return (
     <section className="flex flex-col justify-center items-end grow">
-      <div className="flex gap-1 items-center justify-between w-full">
-        <h1 className="font-bold pl-2">{data.Nombre_empresa}</h1>
-        <SettingsButton />
-      </div>
+      {!isDemo && (
+        <div className="flex gap-1 items-center justify-between w-full">
+          <h1 className="font-bold pl-2">{data.Nombre_empresa}</h1>
+          <SettingsButton />
+        </div>
+      )}
       <div className="flex flex-col justify-center items-center w-full grow">
         <Logo className="size-40" />
         <div className="flex flex-col gap-3">

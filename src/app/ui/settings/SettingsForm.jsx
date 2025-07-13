@@ -14,6 +14,7 @@ export function SettingsForm({ data }) {
   const [state, formAction, isPending] = useActionState(updateSettings, {
     message: '',
   });
+
   return (
     <FormContainer action={formAction}>
       <FormId holder="Configuración" />
