@@ -4,7 +4,7 @@ import Logo from '@/app/ui/icons/logo.svg';
 import { getBusinessInfo } from '../lib/data';
 
 export default async function Page() {
-  const data = await getBusinessInfo();
+  const data = await getBusinessInfo(1);
 
   return (
     <section className="flex flex-col justify-center items-center grow">
