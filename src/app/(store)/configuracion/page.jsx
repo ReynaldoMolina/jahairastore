@@ -1,5 +1,4 @@
 import { SettingsForm } from '@/app/ui/settings/SettingsForm';
-import { ListTitle } from '@/app/ui/lists/lists';
 import { getBusinessInfo } from '@/app/lib/data';
 
 export const metadata = {
