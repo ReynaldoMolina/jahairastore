@@ -43,7 +43,7 @@ export default async function Sales({ searchParams }) {
                 label="Saldo"
                 color="red"
                 nio={true}
-                ping={register.Saldo > 0.001}
+                ping={register.Saldo > 0}
               />
               <ListDetail
                 detail={register.TotalVenta - register.TotalCompra}

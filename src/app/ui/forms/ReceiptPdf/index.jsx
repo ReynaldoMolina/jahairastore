@@ -138,9 +138,7 @@ export default function ReceiptPdf({ register, formName }) {
                 <Text style={styles.saldoLabel}>Saldo:</Text>
                 <Text style={styles.saldo}>
                   {currency}
-                  {isPedido
-                    ? formatNumber(register.Saldo)
-                    : formatNumber(generalTotal - register.Abono)}
+                  {formatNumber(register.Saldo)}
                 </Text>
               </View>
               {isPedido && (

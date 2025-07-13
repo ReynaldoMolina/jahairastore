@@ -190,8 +190,6 @@ export function ExpensesListTotal({ data }) {
 }
 
 export function SaleListTotal({ data }) {
-  console.log(data);
-
   const totals = data.reduce(
     (acc, item) => {
       acc.TotalVenta += item.TotalVenta;

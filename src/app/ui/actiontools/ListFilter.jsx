@@ -8,8 +8,8 @@ export function ListFilter({ showState = false, stateLabel, searchParams }) {
   const limitParam = searchParams?.limit;
   const stateParam = searchParams?.state;
   const [filter, setFilter] = useState({
-    limit: limitParam || 10,
-    state: stateParam || false,
+    limit: Number(limitParam) || 10,
+    state: Boolean(stateParam) || false,
   });
 
   return (

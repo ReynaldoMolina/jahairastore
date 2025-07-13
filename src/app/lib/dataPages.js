@@ -268,8 +268,8 @@ export async function getSalesPages(query, state, limit) {
         state
           ? sql`AND
         (
-          COALESCE(VentaTotalesVenta."TotalVenta", 0)::numeric - COALESCE("Ventas"."Abono", 0)::numeric
-        )::numeric > 0`
+          COALESCE(ROUND(("Ventas"."Saldo")::numeric, 2)::float, 0)::numeric
+        ) > 0`
           : sql``
       }
     `;

@@ -488,7 +488,6 @@ export async function getReceiptPdf(id) {
       WHERE
         "Recibos"."Id" = ${id}
     `;
-    console.log(order);
 
     const orderId = order[0].Id_pedido;
 
@@ -523,6 +522,7 @@ export async function getSalePdf(id) {
         "Ventas"."Id",
         TO_CHAR("Ventas"."Fecha", 'DD/MM/YYYY') AS "Fecha",
         "Ventas"."Abono",
+        ROUND("Ventas"."Saldo"::numeric, 2)::float AS "Saldo",
         "Ventas"."Credito",
         "Ventas"."Id_cliente",
         "Clientes"."Nombre",
@@ -759,7 +759,7 @@ export async function getSales(searchParams) {
         TO_CHAR("Ventas"."Fecha", 'YYYY-MM-DD') AS "Fecha",
         COALESCE(VentaTotalesVenta."TotalVenta", 0) AS "TotalVenta",
         COALESCE(VentaTotalesCompra."TotalCompra", 0) AS "TotalCompra",
-        COALESCE(VentaTotalesVenta."TotalVenta", 0) - ROUND(("Ventas"."Abono")::numeric, 2)::numeric AS "Saldo"
+        ROUND(("Ventas"."Saldo")::numeric, 2)::float AS "Saldo"
 
       FROM
         "Ventas"
@@ -779,8 +779,8 @@ export async function getSales(searchParams) {
         state
           ? sql`AND
         (
-          COALESCE(VentaTotalesVenta."TotalVenta", 0)::numeric - COALESCE("Ventas"."Abono", 0)::numeric
-        )::numeric > 0`
+          COALESCE(ROUND(("Ventas"."Saldo")::numeric, 2)::float, 0)::numeric
+        ) > 0`
           : sql``
       }
 

@@ -17,8 +17,6 @@ import { ReceiptListHeader } from './ListHeader';
 export default async function Receipts({ searchParams }) {
   const { data, query, totalPages } = await getReceipts(searchParams);
 
-  console.log(query, totalPages);
-
   if (data.length === 0) return <EmptyList query={query} />;
 
   return (
