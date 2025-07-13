@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 
 import { RegisterForm } from '@/app/ui/forms/RegisterForm';
 import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';
-import { getSaleById, getSaleDetailById } from '@/app/lib/data';
+import { getSaleById, getSaleDetailById, getSalePdf } from '@/app/lib/data';
 import { getClientsSelect } from '@/app/lib/data';
 
 export async function generateMetadata(props) {
@@ -18,12 +18,14 @@ export default async function Page(props) {
   const saleId = params.id;
   const sale = await getSaleById(saleId);
   const saledetail = await getSaleDetailById(saleId);
+  const salePdf = await getSalePdf(saleId);
   const selectData = await getClientsSelect();
 
   return (
     <RegisterForm
       isNew={false}
       register={sale}
+      registerPdf={salePdf}
       registerId={saleId}
       detailList={saledetail}
       convert={true}

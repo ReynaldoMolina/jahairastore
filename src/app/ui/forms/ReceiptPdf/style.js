@@ -2,13 +2,13 @@ import { StyleSheet } from '@react-pdf/renderer';
 
 const font = {
   fontSize: 15,
-  fontFamily: 'Times-Roman'
-}
+  fontFamily: 'Times-Roman',
+};
 const flxCenter = {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-}
+};
 
 const styles = StyleSheet.create({
   document: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   page: {
     display: 'flex',
     backgroundColor: 'white',
-    maxWidth: 500
+    maxWidth: 500,
   },
   section: {
     display: 'flex',
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
   logoimg: {
     height: 110,
-    width: 110
+    width: 110,
   },
   title: {
     ...flxCenter,
@@ -52,32 +52,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     fontSize: 10,
-    height: 50
+    height: 50,
   },
   orderInfoContainer: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   orderInfo: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 7
+    gap: 7,
   },
   orderInfo2: {
     display: 'flex',
     flexDirection: 'column',
     gap: 10,
-    marginRight: 50
+    marginRight: 50,
   },
   orderInfoLabel: {
     ...font,
     width: 62,
-    fontFamily: 'Times-Bold'
+    fontFamily: 'Times-Bold',
   },
   orderInfoLabel2: {
     ...font,
     width: 55,
-    fontFamily: 'Times-Bold'
+    fontFamily: 'Times-Bold',
   },
   orderInfoText: {
     ...font,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    margin: '10px 0'
+    margin: '10px 0',
   },
   tableHeader: {
     display: 'flex',
@@ -112,13 +112,13 @@ const styles = StyleSheet.create({
     justifyContent: 'left',
     fontSize: 12,
     width: '100%',
-    lineHeight: 1.3
+    lineHeight: 1.3,
   },
   tableRowData: {
     display: 'flex',
     fontSize: 12,
     textAlign: 'right',
-    width: 90,
+    width: 110,
     justifyContent: 'flex-end',
     fontFamily: 'Times-Roman',
   },
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: 12,
     textAlign: 'right',
-    width: 90,
+    width: 110,
     justifyContent: 'flex-end',
     fontFamily: 'Times-Bold',
   },
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     padding: '5px 3px',
     backgroundColor: '#f3f3f3',
     borderTop: '1px solid gray',
-    fontFamily: 'Times-Bold'
+    fontFamily: 'Times-Bold',
   },
   tableSaldo: {
     ...font,
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   orderSaldoContainer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   saldoLabel: {
     ...font,
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   saldo: {
     ...font,
     textAlign: 'right',
-    width: 50
+    width: 90,
   },
   note: {
     ...font,
@@ -195,11 +195,11 @@ const styles = StyleSheet.create({
     width: '100%',
     fontSize: 8,
     color: 'gray',
-    flexGrow: 1
+    flexGrow: 1,
   },
   footerGap: {
     display: 'flex',
-    flexGrow: 1
+    flexGrow: 1,
   },
   footer: {
     ...flxCenter,
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     width: '100%',
     color: 'gray',
-  }
+  },
 });
 
 export { styles };

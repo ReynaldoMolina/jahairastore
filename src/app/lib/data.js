@@ -471,21 +471,24 @@ export async function getOrderDetailById(id) {
 
 export async function getReceiptPdf(id) {
   try {
+    const businessInfo = await getBusinessInfo(1);
+
     const order = await sql`
       SELECT
         "Recibos"."Id",
         "Recibos"."Id_pedido",
-        TO_CHAR("Recibos"."Fecha", 'YYYY-MM-DD') AS "Fecha",
+        TO_CHAR("Recibos"."Fecha", 'DD/MM/YYYY') AS "Fecha",
         "Recibos"."Abono",
         "Recibos"."Saldo",
         "Recibos"."Id_cliente",
         "Clientes"."Nombre",
         "Clientes"."Apellido"
       FROM "Recibos"
-      JOIN "Clientes" ON "Recibos"."Id_cliente" = "Clientes"."Id"
+        JOIN "Clientes" ON "Recibos"."Id_cliente" = "Clientes"."Id"
       WHERE
         "Recibos"."Id" = ${id}
     `;
+    console.log(order);
 
     const orderId = order[0].Id_pedido;
 
@@ -499,15 +502,55 @@ export async function getReceiptPdf(id) {
       WHERE "Id_pedido" = ${orderId}
     `;
 
-    const data = {
+    return {
+      ...businessInfo,
       ...order[0],
       detail: orderdetail,
     };
-
-    return data;
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo obtener el recibo');
+  }
+}
+
+export async function getSalePdf(id) {
+  try {
+    const businessInfo = await getBusinessInfo(1);
+
+    const sale = await sql`
+      SELECT
+        "Ventas"."Id",
+        TO_CHAR("Ventas"."Fecha", 'DD/MM/YYYY') AS "Fecha",
+        "Ventas"."Abono",
+        "Ventas"."Credito",
+        "Ventas"."Id_cliente",
+        "Clientes"."Nombre",
+        "Clientes"."Apellido"
+      FROM "Ventas"
+        JOIN "Clientes" ON "Ventas"."Id_cliente" = "Clientes"."Id"
+      WHERE
+        "Ventas"."Id" = ${id}
+    `;
+
+    const saledetail = await sql`
+      SELECT
+        "VentasDetalles"."Precio_venta",
+        "VentasDetalles"."Cantidad",
+        "VentasDetalles"."Cambio_dolar",
+        "Productos"."Nombre"
+      FROM "VentasDetalles"
+        JOIN "Productos" ON "VentasDetalles"."Id_producto" = "Productos"."Id"
+      WHERE "Id_venta" = ${id}
+    `;
+
+    return {
+      ...businessInfo,
+      ...sale[0],
+      detail: saledetail,
+    };
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudo obtener la venta');
   }
 }
 
@@ -695,14 +738,14 @@ export async function getSales(searchParams) {
         VentaTotalesVenta AS (
           SELECT
             "Id_venta",
-            SUM("Precio_venta" * "Cantidad" * "Cambio_dolar") AS "TotalVenta"
+            ROUND(SUM("Precio_venta" * "Cantidad" * "Cambio_dolar")::numeric, 2)::float AS "TotalVenta"
           FROM "VentasDetalles"
           GROUP BY "Id_venta"
         ),
         VentaTotalesCompra AS (
           SELECT
             "Id_venta",
-            SUM("Precio_compra" * "Cantidad" * "Cambio_dolar") AS "TotalCompra"
+            ROUND(SUM("Precio_compra" * "Cantidad" * "Cambio_dolar")::numeric, 2)::float AS "TotalCompra"
           FROM "VentasDetalles"
           GROUP BY "Id_venta"
         )
@@ -710,11 +753,11 @@ export async function getSales(searchParams) {
       SELECT
         "Ventas"."Id",
         "Clientes"."Nombre" || ' ' || "Clientes"."Apellido" AS "NombreCliente",
-        "Ventas"."Abono",
+        ROUND(("Ventas"."Abono"::numeric), 2)::float AS "Abono",
         TO_CHAR("Ventas"."Fecha", 'YYYY-MM-DD') AS "Fecha",
         COALESCE(VentaTotalesVenta."TotalVenta", 0) AS "TotalVenta",
         COALESCE(VentaTotalesCompra."TotalCompra", 0) AS "TotalCompra",
-        COALESCE(VentaTotalesVenta."TotalVenta", 0) - "Ventas"."Abono" AS "Saldo"
+        COALESCE(VentaTotalesVenta."TotalVenta", 0) - ROUND(("Ventas"."Abono")::numeric, 2)::numeric AS "Saldo"
 
       FROM
         "Ventas"
@@ -735,7 +778,7 @@ export async function getSales(searchParams) {
           ? sql`AND
         (
           COALESCE(VentaTotalesVenta."TotalVenta", 0)::numeric - COALESCE("Ventas"."Abono", 0)::numeric
-        )::numeric > 0.01`
+        )::numeric > 0`
           : sql``
       }
 
@@ -887,7 +930,7 @@ export async function getInventory(searchParams) {
   }
 }
 
-export async function getBusinessData() {
+export async function getBusinessInfo(id) {
   try {
     const data = await sql`
       SELECT 
@@ -895,7 +938,7 @@ export async function getBusinessData() {
         "Eslogan",
         "Mensaje"
       FROM "Configuracion"
-      WHERE "Id" = ${1}
+      WHERE "Id" = ${id}
     `;
     return data[0];
   } catch (error) {

@@ -1,10 +1,10 @@
 export const dynamic = 'force-dynamic';
 
 import Logo from '@/app/ui/icons/logo.svg';
-import { getBusinessData } from '../lib/data';
+import { getBusinessInfo } from '../lib/data';
 
 export default async function Page() {
-  const data = await getBusinessData();
+  const data = await getBusinessInfo();
 
   return (
     <section className="flex flex-col justify-center items-center grow">

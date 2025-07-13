@@ -11,7 +11,7 @@ import {
 } from '@/app/ui/forms/FormInputs/formInputs';
 import { FormSelect } from '@/app/ui/forms/FormInputs/formInputs';
 import { useActionState } from 'react';
-import { ProductPrices } from './ProductForm/ProductFormInputs';
+import { ProductPrices } from './FormInputs/ProductFormInputs';
 import { createProduct, updateProduct } from '@/app/lib/actions';
 
 export function ProductForm({ isNew, product, providersData, categoriesData }) {

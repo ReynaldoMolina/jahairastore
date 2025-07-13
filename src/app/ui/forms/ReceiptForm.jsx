@@ -11,8 +11,8 @@ import {
   FormSelect,
 } from '@/app/ui/forms/FormInputs/formInputs';
 import { useActionState, useState } from 'react';
-import { ReceiptPayment } from './Receipts/ReceiptPayment';
-import { ReceiptOptions } from '@/app/ui/forms/Receipts/ReceiptOptions';
+import { ReceiptPayment } from './FormInputs/ReceiptPayment';
+import { ReceiptOptions } from '@/app/ui/forms/Options/ReceiptOptions';
 import { createReceipt, updateReceipt } from '@/app/lib/actions';
 
 export function ReceiptForm({
@@ -75,7 +75,9 @@ export function ReceiptForm({
         required={false}
       />
 
-      {!isNew && !isAbonoChanged && <ReceiptOptions receipt={receiptpdf} />}
+      {!isNew && !isAbonoChanged && (
+        <ReceiptOptions register={receiptpdf} formName="pedidos" />
+      )}
 
       <FormError isPending={isPending} state={state} />
       <FormButtons link="/recibos" isNew={isNew} isPending={isPending} />

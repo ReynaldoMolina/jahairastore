@@ -23,7 +23,7 @@ import {
 } from '@/app/lib/actions';
 import { useActionState } from 'react';
 import { FormSubtotals } from './RegisterForm/RegisterSubtotals';
-import { RegisterFormOptions } from './RegisterForm/RegisterFormOptions';
+import { RegisterFormOptions } from './Options/RegisterFormOptions';
 
 const FormContext = createContext();
 export function useFormContext() {
@@ -35,6 +35,7 @@ export function RegisterForm({
   children,
   isNew,
   register,
+  registerPdf = {},
   registerId = '',
   detailList = [],
   convert = false,
@@ -129,7 +130,7 @@ export function RegisterForm({
 
         <FormDetail />
 
-        {!isNew && <RegisterFormOptions />}
+        {!isNew && <RegisterFormOptions registerPdf={registerPdf} />}
 
         <FormError isPending={isPending} state={state} />
 

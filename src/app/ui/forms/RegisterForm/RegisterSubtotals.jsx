@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FormSpan } from '../FormInputs/formInputs';
 import { useFormContext } from '../RegisterForm';
-import { SalePayment } from '../SaleForm/SalePayment';
+import { SalePayment } from '../FormInputs/SalePayment';
 
 export function FormSubtotals({ credit }) {
   const { formName } = useFormContext();
