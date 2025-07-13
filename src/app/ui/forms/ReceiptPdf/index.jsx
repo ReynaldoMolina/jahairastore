@@ -143,7 +143,9 @@ export default function ReceiptPdf({ register, formName }) {
                     : formatNumber(generalTotal - register.Abono)}
                 </Text>
               </View>
-              <Text style={styles.note}>*El total no incluye el envío</Text>
+              {isPedido && (
+                <Text style={styles.note}>*El total no incluye el envío</Text>
+              )}
             </View>
 
             <View style={styles.footerGap}></View>
