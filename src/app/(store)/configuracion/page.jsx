@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { SettingsForm } from '@/app/ui/settings/SettingsForm';
 import { getBusinessInfo } from '@/app/lib/data';
 
