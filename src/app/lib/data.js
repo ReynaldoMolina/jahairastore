@@ -500,6 +500,7 @@ export async function getReceiptPdf(id) {
       FROM "PedidosDetalles"
         JOIN "Productos" ON "PedidosDetalles"."Id_producto" = "Productos"."Id"
       WHERE "Id_pedido" = ${orderId}
+      ORDER BY "Productos"."Nombre" ASC
     `;
 
     return {
@@ -541,6 +542,7 @@ export async function getSalePdf(id) {
       FROM "VentasDetalles"
         JOIN "Productos" ON "VentasDetalles"."Id_producto" = "Productos"."Id"
       WHERE "Id_venta" = ${id}
+      ORDER BY "Productos"."Nombre" ASC
     `;
 
     return {
