@@ -1,34 +1,20 @@
 export const dynamic = 'force-dynamic';
 
-import Logo from '@/app/ui/icons/logo.svg';
-import { getBusinessInfo } from '../lib/data';
-import { SettingsButton } from '../ui/settings/SettingsButton';
-import { isDemo } from '@/middleware';
+import { getBusinessInfo, getTotalsDashboard } from '../lib/data';
+import { Dashboard } from '../ui/dashboard/Dashboard';
 
-export default async function Page() {
-  const data = await getBusinessInfo();
+export default async function Page(props) {
+  const searchParams = await props.searchParams;
+  const startParam = searchParams?.start;
+  const endParam = searchParams?.end;
+  const businessInfo = await getBusinessInfo();
+  const data = await getTotalsDashboard(startParam, endParam);
 
   return (
-    <section className="flex flex-col justify-center items-end grow">
-      {!isDemo && (
-        <div className="flex gap-1 items-center justify-between w-full">
-          <h1 className="font-bold pl-2">{data.Nombre_empresa}</h1>
-          <SettingsButton />
-        </div>
-      )}
-      <div className="flex flex-col justify-center items-center w-full grow">
-        <Logo className="size-40" />
-        <div className="flex flex-col gap-3">
-          <h1 className="text-center text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-sky-500">
-            {data.Eslogan}
-          </h1>
-          {data.Mensaje && (
-            <h2 className="text-center text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-sky-500">
-              {data.Mensaje}
-            </h2>
-          )}
-        </div>
-      </div>
-    </section>
+    <Dashboard
+      businessInfo={businessInfo}
+      searchParams={searchParams}
+      data={data}
+    />
   );
 }

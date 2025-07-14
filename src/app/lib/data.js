@@ -11,6 +11,7 @@ import {
   getSalesPages,
   getProductsInventarioPages,
 } from './dataPages';
+import { getCurrentMonth } from './getDate';
 
 const registerOptions = {
   categorias: {
@@ -946,5 +947,101 @@ export async function getBusinessInfo(id = 1) {
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo obtener la información del negocio');
+  }
+}
+
+export async function getTotalsDashboard(startParam, endParam) {
+  const { firstDay, lastDay } = getCurrentMonth();
+  const start = startParam ? startParam : firstDay;
+  const end = endParam ? endParam : lastDay;
+  const cambioDolar = 37;
+  const dateFragment = sql`BETWEEN ${start} AND ${end}`;
+
+  try {
+    const salesContado = await sql`
+      SELECT
+        COALESCE(ROUND(SUM("VentasDetalles"."Precio_venta" * "Cantidad" * "Cambio_dolar")::numeric, 2), 0)::float AS "VentasAlContado"
+      FROM "VentasDetalles"
+      LEFT JOIN "Ventas" ON "VentasDetalles"."Id_venta" = "Ventas"."Id"
+      WHERE "Ventas"."Credito" = false
+        AND "Ventas"."Fecha" ${dateFragment}
+    `;
+
+    const salesCreditoAbonos = await sql`
+      SELECT
+        COALESCE(ROUND(SUM("Abono")::numeric, 2), 0)::float AS "VentasCreditoAbonos"
+      FROM "Ventas"
+      WHERE "Credito" = true
+        AND "Fecha" ${dateFragment}
+    `;
+
+    const ordersAbonos = await sql`
+      SELECT
+        COALESCE(ROUND(SUM("Abono" * ${cambioDolar})::numeric, 2), 0)::float AS "PedidosAbonos"
+      FROM "Recibos"
+      WHERE "Recibos"."Fecha" ${dateFragment}
+    `;
+
+    const salesPurchases = await sql`
+      SELECT
+        COALESCE(ROUND(SUM("ComprasDetalles"."Precio_compra" * "Cantidad" * "Cambio_dolar")::numeric, 2), 0)::float AS "ComprasInventario"
+      FROM "ComprasDetalles"
+      LEFT JOIN "Compras" ON "ComprasDetalles"."Id_compra" = "Compras"."Id"
+      WHERE "Compras"."Fecha" ${dateFragment}
+    `;
+
+    const salesExpenses = await sql`
+      SELECT
+        COALESCE(ROUND(SUM("Gasto" * "Cambio_dolar")::numeric, 2), 0)::float AS "ComprasGastos"
+      FROM "Egresos"
+      WHERE "Fecha" ${dateFragment}
+    `;
+
+    const ordersCosts = await sql`
+      SELECT
+        COALESCE(ROUND(SUM("PedidosDetalles"."Precio_compra" * "Cantidad" * ${cambioDolar})::numeric, 2), 0)::float AS "PedidosCostos"
+      FROM "PedidosDetalles"
+        LEFT JOIN "Pedidos" ON "PedidosDetalles"."Id_pedido" = "Pedidos"."Id"
+      WHERE "Pedidos"."Fecha" ${dateFragment}
+    `;
+
+    const totalSales = await sql`
+      SELECT
+        COALESCE(ROUND(SUM("VentasDetalles"."Precio_venta" * "Cantidad" * "Cambio_dolar")::numeric, 2), 0)::float AS "VentaTotal"
+      FROM "VentasDetalles"
+      LEFT JOIN "Ventas" ON "VentasDetalles"."Id_venta" = "Ventas"."Id"
+      WHERE "Ventas"."Fecha" ${dateFragment}
+    `;
+
+    const totalOrders = await sql`
+      SELECT
+        COALESCE(ROUND(SUM("PedidosDetalles"."Precio_venta" * "Cantidad" * ${cambioDolar})::numeric, 2), 0)::float AS "PedidosTotal"
+      FROM "PedidosDetalles"
+        LEFT JOIN "Pedidos" ON "PedidosDetalles"."Id_pedido" = "Pedidos"."Id"
+      WHERE "Pedidos"."Fecha" ${dateFragment}
+    `;
+
+    const salesCosts = await sql`
+      SELECT
+        COALESCE(ROUND(SUM("VentasDetalles"."Precio_compra" * "Cantidad" * "Cambio_dolar")::numeric, 2), 0)::float AS "VentaCostoTotal"
+      FROM "VentasDetalles"
+      LEFT JOIN "Ventas" ON "VentasDetalles"."Id_venta" = "Ventas"."Id"
+      WHERE "Ventas"."Fecha" ${dateFragment}
+    `;
+
+    return {
+      ...salesContado[0],
+      ...salesCreditoAbonos[0],
+      ...ordersAbonos[0],
+      ...salesPurchases[0],
+      ...salesExpenses[0],
+      ...ordersCosts[0],
+      ...totalSales[0],
+      ...totalOrders[0],
+      ...salesCosts[0],
+    };
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudieron obtener los totales.');
   }
 }
