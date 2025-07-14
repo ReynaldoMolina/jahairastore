@@ -1,5 +1,6 @@
 'use client';
 
+import { isDemo } from '@/middleware';
 import { BusinessInfo } from './BusinessInfo';
 import { DashBoardHeader } from './DashboardHeader';
 import { DateSelector } from './DateSelector';
@@ -20,7 +21,7 @@ export function Dashboard({ businessInfo, searchParams, data }) {
             </div>
             <DateSelector searchParams={searchParams} />
           </div>
-          <CashFlowReport data={data} />
+          {!isDemo && <CashFlowReport data={data} />}
           <AccountingReport data={data} />
         </section>
       </section>

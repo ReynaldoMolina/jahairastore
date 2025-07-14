@@ -1,6 +1,7 @@
 import { formatNumber } from '@/app/lib/formatNumber';
 import MoneyIcon from '@/app/ui/icons/money.svg';
 import FinancesIcon from '@/app/ui/icons/finances.svg';
+import { isDemo } from '@/middleware';
 
 function Report({ children, title }) {
   const icon =
@@ -250,12 +251,14 @@ export function AccountingReport({ data }) {
               </td>
               <td className="py-1.5 text-right">{formatNumber(profit)}</td>
             </tr>
-            <tr className="text-xs font-bold">
-              <td className="py-1.5 text-left">10% para inversor (total)</td>
-              <td className="py-1.5 text-right">
-                {formatNumber(profit * 0.1)}
-              </td>
-            </tr>
+            {!isDemo && (
+              <tr className="text-xs font-bold">
+                <td className="py-1.5 text-left">10% para inversor (total)</td>
+                <td className="py-1.5 text-right">
+                  {formatNumber(profit * 0.1)}
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
