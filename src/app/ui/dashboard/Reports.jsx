@@ -1,32 +1,29 @@
 import { formatNumber } from '@/app/lib/formatNumber';
-import SaleIcon from '@/app/ui/sidemenu/SideMenuIcon/pos.svg';
-import OrderIcon from '@/app/ui/sidemenu/SideMenuIcon/orders.svg';
+import MoneyIcon from '@/app/ui/icons/money.svg';
+import FinancesIcon from '@/app/ui/icons/finances.svg';
 
 function Report({ children, title }) {
-  const icons = {
-    Pedidos: <OrderIcon className="size-4" />,
-    Ventas: <SaleIcon className="size-4" />,
-  };
+  const icon =
+    title === 'Flujo de efectivo' ? (
+      <MoneyIcon className="size-5" />
+    ) : (
+      <FinancesIcon className="size-5" />
+    );
+
+  const bgColor =
+    title === 'Flujo de efectivo'
+      ? 'bg-green-200 dark:bg-green-900'
+      : 'bg-blue-200 dark:bg-blue-900';
+
   return (
-    <div className="flex flex-col gap-3 justify-center items-center w-full p-3 rounded-lg border border-neutral-200 dark:border-neutral-600 flex-wrap">
-      <div className="flex items-center gap-2 py-1 w-full">
-        {icons[title]}
+    <div className="flex flex-col gap-3 justify-center items-center w-full p-5 rounded-lg bg-white dark:bg-neutral-900">
+      <div
+        className={`flex items-center gap-2 py-3 px-2 w-full rounded-md ${bgColor}`}
+      >
+        {icon}
         <span className="font-bold">{title}</span>
       </div>
       <div className="flex gap-7 flex-col w-full">{children}</div>
-    </div>
-  );
-}
-
-function PanelSpan({ label, value, borderBottom }) {
-  return (
-    <div
-      className={`flex justify-between w-full gap-1 py-1 ${
-        borderBottom && 'border-b border-b-neutral-500'
-      }`}
-    >
-      <p className="text-xs opacity-60 text-center">{label}</p>
-      <span className="text-xs font-semibold">C${formatNumber(value)}</span>
     </div>
   );
 }
@@ -138,7 +135,7 @@ export function CashFlowReport({ data }) {
               </td>
               <td className="py-1.5 text-right">{formatNumber(profit)}</td>
             </tr>
-            <tr className="text-xs">
+            <tr className="text-xs font-bold">
               <td className="py-1.5 text-left">10% para inversor</td>
               <td className="py-1.5 text-right">
                 {formatNumber(profit * 0.1)}
@@ -161,7 +158,7 @@ export function AccountingReport({ data }) {
     <Report title="Informe Contable">
       <div className="flex flex-col gap-3">
         <p className="font-bold text-xs bg-neutral-100 dark:bg-neutral-800 py-1">
-          Ingresos totales
+          Ingresos devengados
         </p>
         <table className="w-full">
           <thead>
@@ -188,7 +185,7 @@ export function AccountingReport({ data }) {
           </tbody>
           <tfoot>
             <tr className="text-xs font-semibold border-t border-neutral-300 dark:border-neutral-600">
-              <td className="py-1.5 text-left">Total ingresos totales</td>
+              <td className="py-1.5 text-left">Total ingresos devengados</td>
               <td className="py-1.5 text-right">{formatNumber(totalIncome)}</td>
             </tr>
           </tfoot>
@@ -230,7 +227,9 @@ export function AccountingReport({ data }) {
           </tbody>
           <tfoot>
             <tr className="text-xs font-semibold border-t border-neutral-300 dark:border-neutral-600">
-              <td className="py-1.5 text-left">Total costos y gastos</td>
+              <td className="py-1.5 text-left">
+                Total costos y gastos devengados
+              </td>
               <td className="py-1.5 text-right">
                 {formatNumber(totalExpenses)}
               </td>
@@ -247,11 +246,11 @@ export function AccountingReport({ data }) {
           <tbody>
             <tr className="text-xs">
               <td className="py-1.5 text-left">
-                Ingresos totales - Costos y gastos
+                Ingresos devengados - Costos y gastos
               </td>
               <td className="py-1.5 text-right">{formatNumber(profit)}</td>
             </tr>
-            <tr className="text-xs">
+            <tr className="text-xs font-bold">
               <td className="py-1.5 text-left">10% para inversor (total)</td>
               <td className="py-1.5 text-right">
                 {formatNumber(profit * 0.1)}
