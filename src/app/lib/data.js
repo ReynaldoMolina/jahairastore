@@ -17,17 +17,17 @@ const registerOptions = {
   categorias: {
     tableName: 'Categorias',
     selectColumns: ['Id', 'Nombre'],
-    searchColumns: ['Nombre'],
+    searchColumns: ['Id', 'Nombre'],
   },
   proveedores: {
     tableName: 'Proveedores',
     selectColumns: ['Id', 'Nombre_empresa', 'Telefono'],
-    searchColumns: ['Nombre_empresa'],
+    searchColumns: ['Id', 'Nombre_empresa'],
   },
   clientes: {
     tableName: 'Clientes',
     selectColumns: ['Id', 'Nombre', 'Apellido', 'Telefono'],
-    searchColumns: ['Nombre', 'Apellido'],
+    searchColumns: ['Id', 'Nombre', 'Apellido'],
   },
 };
 
@@ -221,7 +221,8 @@ export async function getProducts(
         (
           "Id"::text || ' ' ||
           "Nombre" || ' ' ||
-          "Fecha"::text
+          "Fecha"::text || ' ' ||
+          "Id_shein"
         ) ILIKE ${`%${query}%`}
       )
       ${ShowAll ? sql`` : sql`AND "Inventario" = ${inventario}`}
@@ -718,7 +719,8 @@ export async function getExpenses(searchParams) {
         "Egresos"."Id_compra"::text || ' ' ||
         "Proveedores"."Nombre_empresa" || ' ' ||
         "Egresos"."Id"::text || ' ' ||
-        "Egresos"."Fecha"::text
+        "Egresos"."Fecha"::text || ' ' ||
+        "Egresos"."Concepto"
       ) ILIKE ${`%${query}%`}
 
       ORDER BY "Egresos"."Id" DESC
@@ -906,7 +908,8 @@ export async function getInventory(searchParams) {
       (
         (
           "Productos"."Id"::text || ' ' ||
-          "Productos"."Nombre"
+          "Productos"."Nombre" || ' ' ||
+          "Productos"."Id_shein"
         ) ILIKE ${`%${query}%`}
       )
         AND "Productos"."Inventario" = true
