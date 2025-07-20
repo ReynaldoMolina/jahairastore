@@ -28,16 +28,15 @@ export function formatDate(isoDateStr, locale = 'es-NI') {
   const input = new Date(year, month - 1, day);
 
   const dayStr = input.getDate();
-  const monthStr = input
-    .toLocaleString(locale, { month: 'long' })
-    .substring(0, 3);
+  let monthStr = input.toLocaleString(locale, { month: 'long' });
   const yearStr = input.getFullYear();
 
   const currentYear = new Date().getFullYear();
 
   if (currentYear === yearStr) {
     return `${dayStr} ${monthStr}`;
+  } else {
+    monthStr = monthStr.substring(0, 3);
+    return `${dayStr} ${monthStr} ${yearStr}`;
   }
-
-  return `${dayStr} ${monthStr} ${yearStr}`;
 }
