@@ -37,14 +37,14 @@ export async function getRegisters(listName, searchParams) {
 
   const whereFragment = options.searchColumns.flatMap((col, i) => [
     i ? sql` || ' ' || ` : sql``,
-    sql`${sql(col)}`,
+    sql`unaccent(${sql(col)}::text)`,
   ]);
 
   try {
     const data = await sql`
       SELECT ${sql(options.selectColumns)}
       FROM ${sql(options.tableName)}
-      WHERE (${whereFragment}) ILIKE ${`%${query}%`}
+      WHERE (${whereFragment}) ILIKE unaccent(${`%${query}%`})
       ORDER BY "Id" DESC
       ${limitFragment}
     `;
@@ -163,9 +163,9 @@ export async function getReceipts(searchParams) {
         "Recibos"."Fecha"::text || ' ' ||
         "Recibos"."Id"::text || ' ' ||
         "Recibos"."Id_pedido"::text || ' ' ||
-        "Clientes"."Nombre" || ' ' ||
-        "Clientes"."Apellido"
-      ) ILIKE ${`%${query}%`}
+        unaccent("Clientes"."Apellido") || ' ' ||
+        unaccent("Clientes"."Nombre")
+      ) ILIKE unaccent(${`%${query}%`})
       ORDER BY "Recibos"."Id" DESC
       ${limitFragment}
     `;
@@ -221,10 +221,10 @@ export async function getProducts(
       WHERE (
         (
           "Id"::text || ' ' ||
-          "Nombre" || ' ' ||
+          unaccent("Nombre") || ' ' ||
           "Fecha"::text || ' ' ||
           "Id_shein"
-        ) ILIKE ${`%${query}%`}
+        ) ILIKE unaccent(${`%${query}%`})
       )
       ${ShowAll ? sql`` : sql`AND "Inventario" = ${inventario}`}
 
@@ -383,10 +383,10 @@ export async function getOrders(searchParams) {
       (
         (
           "Pedidos"."Id"::text || ' ' ||
-          "Clientes"."Nombre" || ' ' ||
-          "Clientes"."Apellido" || ' ' ||
+          unaccent("Clientes"."Nombre") || ' ' ||
+          unaccent("Clientes"."Apellido") || ' ' ||
           TO_CHAR("Pedidos"."Fecha", 'YYYY-MM-DD')
-        ) ILIKE ${`%${query}%`}
+        ) ILIKE unaccent(${`%${query}%`})
       )
 
       ${
@@ -606,9 +606,9 @@ export async function getPurchases(searchParams) {
       WHERE
       (
         "Compras"."Id"::text || ' ' ||
-        "Proveedores"."Nombre_empresa" || ' ' ||
+        unaccent("Proveedores"."Nombre_empresa") || ' ' ||
         TO_CHAR("Compras"."Fecha", 'YYYY-MM-DD')
-      ) ILIKE ${`%${query}%`}
+      ) ILIKE unaccent(${`%${query}%`})
 
       ORDER BY "Compras"."Id" DESC
 
@@ -719,11 +719,11 @@ export async function getExpenses(searchParams) {
 
       WHERE (
         "Egresos"."Id_compra"::text || ' ' ||
-        "Proveedores"."Nombre_empresa" || ' ' ||
+        unaccent("Proveedores"."Nombre_empresa") || ' ' ||
         "Egresos"."Id"::text || ' ' ||
         "Egresos"."Fecha"::text || ' ' ||
-        "Egresos"."Concepto"
-      ) ILIKE ${`%${query}%`}
+        unaccent("Egresos"."Concepto")
+      ) ILIKE unaccent(${`%${query}%`})
 
       ORDER BY "Egresos"."Id" DESC
       ${limitFragment}
@@ -775,10 +775,10 @@ export async function getSales(searchParams) {
       WHERE
       (
         "Ventas"."Id"::text || ' ' ||
-        "Clientes"."Nombre" || ' ' ||
-        "Clientes"."Apellido" || ' ' ||
+        unaccent("Clientes"."Nombre") || ' ' ||
+        unaccent("Clientes"."Apellido") || ' ' ||
         TO_CHAR("Ventas"."Fecha", 'YYYY-MM-DD')
-      ) ILIKE ${`%${query}%`}
+      ) ILIKE unaccent(${`%${query}%`})
 
       ${
         state
@@ -911,9 +911,9 @@ export async function getInventory(searchParams) {
       (
         (
           "Productos"."Id"::text || ' ' ||
-          "Productos"."Nombre" || ' ' ||
+          unaccent("Productos"."Nombre") || ' ' ||
           "Productos"."Id_shein"
-        ) ILIKE ${`%${query}%`}
+        ) ILIKE unaccent(${`%${query}%`})
       )
         AND "Productos"."Inventario" = true
 

@@ -5,7 +5,7 @@ export async function getRegisterPages(query, whereFragment, limit, options) {
     const data = await sql`
       SELECT COUNT(*)
       FROM ${sql(options.tableName)}
-      WHERE (${whereFragment}) ILIKE ${`%${query}%`}
+      WHERE (${whereFragment}) ILIKE unaccent(${`%${query}%`})
     `;
     return Math.ceil(Number(data[0].count) / limit) || 1;
   } catch (error) {
@@ -26,9 +26,9 @@ export async function getReceiptsPages(query, limit) {
         "Recibos"."Fecha"::text || ' ' ||
         "Recibos"."Id"::text || ' ' ||
         "Recibos"."Id_pedido"::text || ' ' ||
-        "Clientes"."Nombre" || ' ' ||
-        "Clientes"."Apellido"
-      ) ILIKE ${`%${query}%`}
+        unaccent("Clientes"."Nombre") || ' ' ||
+        unaccent("Clientes"."Apellido")
+      ) ILIKE unaccent(${`%${query}%`})
     `;
     return Math.ceil(Number(data[0].count) / limit) || 1;
   } catch (error) {
@@ -67,9 +67,9 @@ export async function getPurchasesPages(query, limit) {
       WHERE
       (
         "Compras"."Id"::text || ' ' ||
-        "Proveedores"."Nombre_empresa" || ' ' ||
+        unaccent("Proveedores"."Nombre_empresa") || ' ' ||
         TO_CHAR("Compras"."Fecha", 'YYYY-MM-DD')
-      ) ILIKE ${`%${query}%`}
+      ) ILIKE unaccent(${`%${query}%`})
     `;
 
     return Math.ceil(Number(data[0].count) / limit) || 1;
@@ -109,10 +109,10 @@ export async function getOrdersPages(query, state, limit) {
       (
         (
           "Pedidos"."Id"::text || ' ' ||
-          "Clientes"."Nombre" || ' ' ||
-          "Clientes"."Apellido" || ' ' ||
+          unaccent("Clientes"."Nombre") || ' ' ||
+          unaccent("Clientes"."Apellido") || ' ' ||
           TO_CHAR("Pedidos"."Fecha", 'YYYY-MM-DD')
-        ) ILIKE ${`%${query}%`}
+        ) ILIKE unaccent(${`%${query}%`})
       )
 
       ${
@@ -140,10 +140,11 @@ export async function getExpensesPages(query, limit) {
       JOIN "Proveedores" ON "Egresos"."Id_proveedor" = "Proveedores"."Id"
       WHERE (
         "Egresos"."Id_compra"::text || ' ' ||
-        "Proveedores"."Nombre_empresa" || ' ' ||
+        unaccent("Proveedores"."Nombre_empresa") || ' ' ||
         "Egresos"."Id"::text || ' ' ||
-        "Egresos"."Fecha"::text
-      ) ILIKE ${`%${query}%`}
+        "Egresos"."Fecha"::text || ' ' ||
+        unaccent("Egresos"."Concepto")
+      ) ILIKE unaccent(${`%${query}%`})
     `;
     return Math.ceil(Number(data[0].count) / limit) || 1;
   } catch (error) {
@@ -164,9 +165,9 @@ export async function getProductsPages(
       WHERE (
         (
           "Id"::text || ' ' ||
-          "Nombre" || ' ' ||
+          unaccent("Nombre") || ' ' ||
           "Fecha"::text
-        ) ILIKE ${`%${query}%`}
+        ) ILIKE unaccent(${`%${query}%`})
       )
       ${showAll ? sql`` : sql`AND "Inventario" = ${inventario}`}
     `;
@@ -207,8 +208,8 @@ export async function getInventoryPages(query, state, limit) {
       (
         (
           "Productos"."Id"::text || ' ' ||
-          "Productos"."Nombre"
-        ) ILIKE ${`%${query}%`}
+          unaccent("Productos"."Nombre")
+        ) ILIKE unaccent(${`%${query}%`})
       )
         AND "Productos"."Inventario" = true
 
@@ -259,10 +260,10 @@ export async function getSalesPages(query, state, limit) {
       WHERE
       (
         "Ventas"."Id"::text || ' ' ||
-        "Clientes"."Nombre" || ' ' ||
-        "Clientes"."Apellido" || ' ' ||
+        unaccent("Clientes"."Nombre") || ' ' ||
+        unaccent("Clientes"."Apellido") || ' ' ||
         TO_CHAR("Ventas"."Fecha", 'YYYY-MM-DD')
-      ) ILIKE ${`%${query}%`}
+      ) ILIKE unaccent(${`%${query}%`})
 
       ${
         state
@@ -310,7 +311,7 @@ export async function getProductsInventarioPages(query, limit) {
           "Id"::text || ' ' ||
           "Nombre" || ' ' ||
           "Fecha"::text
-        ) ILIKE ${`%${query}%`}
+        ) ILIKE unaccent(${`%${query}%`})
       )
         AND "Inventario" = true
         
