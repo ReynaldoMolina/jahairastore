@@ -47,6 +47,11 @@ export default async function ProductSearchList({
               </ListInfo>
               <ListInfoDetail>
                 <ListDetail
+                  detail={product.Id_shein || '-'}
+                  label="Id externo"
+                  number={false}
+                />
+                <ListDetail
                   detail={priceToShow}
                   label="Precio"
                   color={price === 'venta' ? 'green' : 'red'}
@@ -60,7 +65,7 @@ export default async function ProductSearchList({
                     color="gray"
                   />
                 )}
-                <CardDetail label="Añadir">
+                <CardDetail label="Seleccionar">
                   <AddProduct product={product} convert={inventario} />
                 </CardDetail>
               </ListInfoDetail>

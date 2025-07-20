@@ -30,6 +30,11 @@ export default async function Inventory({ searchParams }) {
             </ListInfo>
             <ListInfoDetail>
               <ListDetail
+                detail={register.Id_shein || '-'}
+                label="Id externo"
+                number={false}
+              />
+              <ListDetail
                 detail={register.Existencias}
                 label="Disponibles"
                 color="gray"

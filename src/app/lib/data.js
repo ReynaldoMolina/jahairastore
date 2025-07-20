@@ -212,6 +212,7 @@ export async function getProducts(
       SELECT
         "Id",
         "Nombre",
+        "Id_shein",
         "Precio_compra",
         "Precio_venta",
         "Precio_venta" - "Precio_compra" AS "Ganancia",
@@ -267,6 +268,7 @@ export async function getProductsInventario(searchParams, showAll) {
       SELECT
         "Id",
         "Nombre",
+        "Id_shein",
         "Precio_compra",
         "Precio_venta",
         "Cambio_dolar",
@@ -888,6 +890,7 @@ export async function getInventory(searchParams) {
       SELECT
         "Productos"."Id",
         "Productos"."Nombre",
+        "Productos"."Id_shein",
         "Productos"."Precio_venta" * "Productos"."Cambio_dolar" AS "Precio_venta",
         "Productos"."Precio_compra" * "Productos"."Cambio_dolar" AS "Precio_compra",
         COALESCE(ComprasTotalesCantidad."TotalCompraCantidad", 0) AS "TotalCompraCantidad",

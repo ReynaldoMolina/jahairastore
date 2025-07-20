@@ -42,7 +42,7 @@ export function ProductForm({ isNew, product, providersData, categoriesData }) {
       <FormDiv>
         <FormInput
           name="Id_shein"
-          holder="Id producto"
+          holder="Id externo"
           value={isNew ? '' : product.Id_shein}
           required={false}
         />

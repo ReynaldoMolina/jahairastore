@@ -30,7 +30,12 @@ export default async function Products({ searchParams }) {
               <ListName name={register.Nombre} />
             </ListInfo>
             <ListInfoDetail>
-              <ListDate date={register.Fecha} />
+              {/* <ListDate date={register.Fecha} /> */}
+              <ListDetail
+                detail={register.Id_shein || '-'}
+                label="Id externo"
+                number={false}
+              />
               <ListDetail
                 detail={register.Precio_venta}
                 label="Precio venta"

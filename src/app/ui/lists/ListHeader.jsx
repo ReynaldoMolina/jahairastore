@@ -160,6 +160,7 @@ export function InventoryListHeader() {
         <ListName name="PRODUCTO" />
       </ListInfo>
       <ListInfoDetail>
+        <ListDetail detail="ID EXTERNO" number={false} />
         <ListDetail detail="DISPONIBLES" number={false} />
         <ListDetail detail="PRECIO" number={false} />
         <ListDetail detail="GANANCIA" number={false} />
@@ -176,7 +177,8 @@ export function ProductListHeader() {
         <ListName name="PRODUCTO" />
       </ListInfo>
       <ListInfoDetail>
-        <ListDate />
+        {/* <ListDate /> */}
+        <ListDetail detail="ID EXTERNO" number={false} />
         <ListDetail detail="VENTA" number={false} />
         <ListDetail detail="COMPRA" number={false} />
         <ListDetail detail="GANANCIA" number={false} />
@@ -193,6 +195,7 @@ export function ProductSearchListHeader({ inventario }) {
         <ListName name="PRODUCTO" />
       </ListInfo>
       <ListInfoDetail>
+        <ListDetail detail="ID EXTERNO" number={false} />
         <ListDetail detail="PRECIO" number={false} />
         {inventario && <ListDetail detail="DISPONIBLES" number={false} />}
         <div className="h-3 min-w-7"></div>
