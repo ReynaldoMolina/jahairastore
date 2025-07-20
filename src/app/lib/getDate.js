@@ -33,5 +33,11 @@ export function formatDate(isoDateStr, locale = 'es-NI') {
     .substring(0, 3);
   const yearStr = input.getFullYear();
 
+  const currentYear = new Date().getFullYear();
+
+  if (currentYear === yearStr) {
+    return `${dayStr} ${monthStr}`;
+  }
+
   return `${dayStr} ${monthStr} ${yearStr}`;
 }
