@@ -4,11 +4,13 @@ import { useState } from 'react';
 import { bgColors } from '../bgcolors';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
+const ITEMS_PER_PAGE = 20;
+
 export function ListFilter({ showState = false, stateLabel, searchParams }) {
   const limitParam = searchParams?.limit;
   const stateParam = searchParams?.state;
   const [filter, setFilter] = useState({
-    limit: Number(limitParam) || 10,
+    limit: Number(limitParam) || ITEMS_PER_PAGE,
     state: Boolean(stateParam) || false,
   });
 
@@ -33,7 +35,7 @@ function useSearchUtils() {
 
   const updateURL = (key, value) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (value === false || value === 10 || value === null) {
+    if (value === false || value === ITEMS_PER_PAGE || value === null) {
       params.delete(key);
     } else {
       params.set(key, value);
@@ -47,12 +49,12 @@ function useSearchUtils() {
 
 function FilterLimit({ filter, setFilter }) {
   const { updateURL } = useSearchUtils();
-  const options = [10, 20, 50, 100, 1];
+  const options = [20, 50, 100, 1];
 
   function handleChange(e) {
     const newLimit = Number(e.target.value);
     setFilter((prev) => ({ ...prev, limit: newLimit }));
-    updateURL('limit', newLimit === 10 ? null : newLimit);
+    updateURL('limit', newLimit === ITEMS_PER_PAGE ? null : newLimit);
   }
 
   return (

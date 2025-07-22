@@ -1,5 +1,5 @@
 import { sql } from '@/app/lib/db';
-export const ITEMS_PER_PAGE = 10;
+export const ITEMS_PER_PAGE = 20;
 
 export function getUrlParams(searchParams) {
   const query = searchParams?.query || '';
