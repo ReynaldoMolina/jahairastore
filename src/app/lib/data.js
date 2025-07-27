@@ -281,9 +281,9 @@ export async function getProductsInventario(searchParams, showAll) {
       WHERE (
         (
           "Id"::text || ' ' ||
-          "Nombre" || ' ' ||
+          unaccent("Nombre") || ' ' ||
           "Fecha"::text
-        ) ILIKE ${`%${query}%`}
+        ) ILIKE unaccent(${`%${query}%`})
       )
         AND "Inventario" = true
 

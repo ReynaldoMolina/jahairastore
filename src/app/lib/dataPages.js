@@ -309,7 +309,7 @@ export async function getProductsInventarioPages(query, limit) {
       WHERE (
         (
           "Id"::text || ' ' ||
-          "Nombre" || ' ' ||
+          unaccent("Nombre") || ' ' ||
           "Fecha"::text
         ) ILIKE unaccent(${`%${query}%`})
       )
