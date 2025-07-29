@@ -23,7 +23,7 @@ export function SettingsForm({ data }) {
   });
 
   return (
-    <>
+    <main className="flex flex-col gap-4 items-center">
       <FormContainer action={formAction}>
         <FormId holder="Ajustes" />
         <FormInput
@@ -37,18 +37,17 @@ export function SettingsForm({ data }) {
           holder="Mensaje personalizado"
           value={data.Mensaje || ''}
         />
-        <SettingsLinks />
         <FormError isPending={isPending} state={state} />
         <FormButtons isNew={false} isPending={isPending} />
       </FormContainer>
-      {!isDemo && <LogoutForm />}
-    </>
+      <SettingsLinks />
+    </main>
   );
 }
 
 function SettingsLinks() {
   return (
-    <div className="flex flex-col gap-4 w-full md:justify-center">
+    <section className="flex flex-col gap-4 w-full md:justify-center max-w-3xl">
       <div className="flex gap-4">
         <FormOption label="Proveedores" href="/proveedores">
           <ProvidersIcon className="size-5" />
@@ -65,7 +64,8 @@ function SettingsLinks() {
           <ReceiptsIcon className="size-5" />
         </FormOption>
       </div>
-    </div>
+      {!isDemo && <LogoutForm />}
+    </section>
   );
 }
 

@@ -14,7 +14,7 @@ export default function LogoutForm() {
   return (
     <form action={formAction} className="w-full h-full max-w-3xl">
       <button
-        className={`flex w-full justify-center items-center rounded-lg gap-2 p-2 py-3 md:py-4 text-xs text-center bg-red-200 shadow dark:bg-red-800/70 ${
+        className={`flex w-full justify-center items-center rounded-lg gap-2 p-2 py-3 text-xs text-center bg-red-200 shadow dark:bg-red-800/70 ${
           isPending
             ? 'cursor-not-allowed'
             : 'cursor-pointer hover:bg-red-300 dark:hover:bg-red-700/70'
