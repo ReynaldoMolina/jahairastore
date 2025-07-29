@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { isDemo } from '@/middleware';
 
 export const metadata = {
-  title: 'Configuración',
+  title: 'Ajustes',
 };
 
 export default async function Page() {

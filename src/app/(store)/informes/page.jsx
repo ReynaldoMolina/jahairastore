@@ -1,6 +1,10 @@
 import { getTotalsDashboard } from '@/app/lib/data';
 import { Dashboard } from '@/app/ui/reports/Dashboard';
 
+export const metadata = {
+  title: 'Informes',
+};
+
 export default async function Page(props) {
   const searchParams = await props.searchParams;
   const startParam = searchParams?.start;
