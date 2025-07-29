@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation';
 import { isDemo } from '@/middleware';
 import { FormId } from '@/app/ui/forms/FormInputs/formInputs';
 import LogoutForm from '@/app/ui/login/LogoutForm';
@@ -15,16 +14,14 @@ export const metadata = {
 };
 
 export default async function Page() {
-  if (isDemo) {
-    notFound();
-  }
-
   return (
-    <main className="flex gap-5 flex-col rounded-xl p-3 shadow bg-neutral-900 max-w-3xl mx-auto w-full">
+    <main className="flex gap-5 flex-col rounded-xl p-2 md:p-7 shadow bg-neutral-900 max-w-3xl mx-auto w-full">
       <FormId holder="Ajustes" />
-      <SettingsItem label="Infomación del negocio" href="/ajustes/info">
-        <StoreIcon className="size-5" />
-      </SettingsItem>
+      {!isDemo && (
+        <SettingsItem label="Infomación del negocio" href="/ajustes/info">
+          <StoreIcon className="size-5" />
+        </SettingsItem>
+      )}
       <SettingsSection title="Administrar">
         <SettingsItem label="Categorías" href="/categorias">
           <CategoriesIcon className="size-5" />

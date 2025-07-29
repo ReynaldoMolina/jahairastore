@@ -29,6 +29,7 @@ export function SettingsForm({ data }) {
           name="Mensaje"
           holder="Mensaje personalizado"
           value={data.Mensaje || ''}
+          required={false}
         />
         <FormError isPending={isPending} state={state} />
         <FormButtons isNew={false} isPending={isPending} />

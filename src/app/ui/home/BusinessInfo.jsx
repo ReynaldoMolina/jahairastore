@@ -1,3 +1,4 @@
+import { isDemo } from '@/middleware';
 import Logo from '@/app/ui/icons/logo.svg';
 
 export function BusinessInfo({ businessInfo }) {
@@ -12,11 +13,9 @@ export function BusinessInfo({ businessInfo }) {
         <h1 className="text-center text-lg md:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-sky-500 md:text-left">
           {businessInfo.Eslogan}
         </h1>
-        {businessInfo.Mensaje && (
-          <h2 className="text-center text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-sky-500 md:text-left">
-            {businessInfo.Mensaje}
-          </h2>
-        )}
+        <h2 className="text-center text-sm font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-sky-500 md:text-left">
+          {isDemo ? 'DEMO' : businessInfo.Mensaje || '¡Bienvenido!'}
+        </h2>
       </div>
     </section>
   );
