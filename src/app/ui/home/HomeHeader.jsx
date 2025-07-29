@@ -1,7 +1,7 @@
 import { isDemo } from '@/middleware';
 import { SettingsButton } from '../settings/SettingsButton';
 
-export function DashBoardHeader({ businessInfo }) {
+export function HomeHeader({ businessInfo }) {
   if (isDemo) return;
 
   return (

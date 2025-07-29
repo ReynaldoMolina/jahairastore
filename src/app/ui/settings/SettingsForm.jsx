@@ -9,6 +9,8 @@ import {
   FormInput,
 } from '../forms/FormInputs/formInputs';
 import { updateSettings } from '@/app/lib/actions';
+import { isDemo } from '@/middleware';
+import LogoutForm from '../login/LogoutForm';
 import Link from 'next/link';
 import ProvidersIcon from '@/app/ui/sidemenu/SideMenuIcon/providers.svg';
 import CategoriesIcon from '@/app/ui/sidemenu/SideMenuIcon/categories.svg';
@@ -21,23 +23,26 @@ export function SettingsForm({ data }) {
   });
 
   return (
-    <FormContainer action={formAction}>
-      <FormId holder="Ajustes" />
-      <FormInput
-        name="Nombre_empresa"
-        holder="Nombre del negocio"
-        value={data.Nombre_empresa || ''}
-      />
-      <FormInput name="Eslogan" holder="Eslogan" value={data.Eslogan || ''} />
-      <FormInput
-        name="Mensaje"
-        holder="Mensaje personalizado"
-        value={data.Mensaje || ''}
-      />
-      <SettingsLinks />
-      <FormError isPending={isPending} state={state} />
-      <FormButtons isNew={false} isPending={isPending} />
-    </FormContainer>
+    <>
+      <FormContainer action={formAction}>
+        <FormId holder="Ajustes" />
+        <FormInput
+          name="Nombre_empresa"
+          holder="Nombre del negocio"
+          value={data.Nombre_empresa || ''}
+        />
+        <FormInput name="Eslogan" holder="Eslogan" value={data.Eslogan || ''} />
+        <FormInput
+          name="Mensaje"
+          holder="Mensaje personalizado"
+          value={data.Mensaje || ''}
+        />
+        <SettingsLinks />
+        <FormError isPending={isPending} state={state} />
+        <FormButtons isNew={false} isPending={isPending} />
+      </FormContainer>
+      {!isDemo && <LogoutForm />}
+    </>
   );
 }
 

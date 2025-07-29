@@ -1,20 +1,9 @@
 export const dynamic = 'force-dynamic';
 
-import { getBusinessInfo, getTotalsDashboard } from '../lib/data';
-import { Dashboard } from '../ui/dashboard/Dashboard';
+import { getBusinessInfo } from '../lib/data';
+import { Home } from '../ui/home/Home';
 
-export default async function Page(props) {
-  const searchParams = await props.searchParams;
-  const startParam = searchParams?.start;
-  const endParam = searchParams?.end;
+export default async function Page() {
   const businessInfo = await getBusinessInfo();
-  const data = await getTotalsDashboard(startParam, endParam);
-
-  return (
-    <Dashboard
-      businessInfo={businessInfo}
-      searchParams={searchParams}
-      data={data}
-    />
-  );
+  return <Home businessInfo={businessInfo} />;
 }

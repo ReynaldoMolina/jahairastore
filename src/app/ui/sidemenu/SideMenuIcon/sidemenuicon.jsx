@@ -10,6 +10,7 @@ import Expenses from './expenses.svg';
 import Sales from './pos.svg';
 import Inventory from './inventory.svg';
 import Settings from '@/app/ui/icons/settings.svg';
+import Reports from './reports.svg';
 
 const style = 'size-5';
 
@@ -26,6 +27,7 @@ const icons = {
   Ventas: <Sales className={style} />,
   Inventario: <Inventory className={style} />,
   Ajustes: <Settings className={style} />,
+  Informes: <Reports className={style} />,
 };
 
 export default function SideMenuIcon({ name }) {

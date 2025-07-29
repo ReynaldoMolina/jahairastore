@@ -12,7 +12,7 @@ export function FormContainer({ children, action, wider = false }) {
   return (
     <form
       action={action}
-      className={`flex flex-col bg-white dark:bg-neutral-900 rounded-lg md:shadow-md gap-5 md:gap-7 mx-auto ${maxWidth} p-2 md:p-7 w-full h-fit shadow`}
+      className={`flex flex-col bg-white dark:bg-neutral-900 rounded-xl md:shadow-md gap-5 md:gap-7 mx-auto ${maxWidth} p-2 md:p-7 w-full h-fit shadow`}
     >
       {children}
     </form>

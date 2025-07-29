@@ -12,21 +12,21 @@ export default function LogoutForm() {
   );
 
   return (
-    <form action={formAction} className="w-full h-full">
+    <form action={formAction} className="w-full h-full max-w-3xl">
       <button
-        className={`flex w-full min-w-17 justify-center items-center rounded-lg gap-1 p-2 md:py-4 text-xs text-center ${
+        className={`flex w-full justify-center items-center rounded-lg gap-2 p-2 py-3 md:py-4 text-xs text-center bg-red-200 shadow dark:bg-red-800/70 ${
           isPending
             ? 'cursor-not-allowed'
-            : 'cursor-pointer hover:bg-red-100 dark:hover:bg-red-900/70'
+            : 'cursor-pointer hover:bg-red-300 dark:hover:bg-red-700/70'
         }`}
         disabled={isPending}
       >
         {isPending ? (
           <LoadingIcon />
         ) : (
-          <div className="flex flex-col gap-1 justify-center md:justify-start items-center text-red-700 dark:text-red-300">
-            <Logout className="size-5 text-red-700 dark:text-red-300" />
-            Salir
+          <div className="flex gap-2 justify-center md:justify-start items-center font-bold text-sm">
+            <Logout className="size-6" />
+            Cerrar sesión
           </div>
         )}
       </button>
