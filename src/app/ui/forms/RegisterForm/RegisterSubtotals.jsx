@@ -81,7 +81,7 @@ function PurchaseSubtotals() {
   );
 }
 
-function SaleSubtotals({ isNew, credit }) {
+function SaleSubtotals({ credit }) {
   const { formTotals, formAbono } = useFormContext();
   const [isCredit, setIsCredit] = useState(credit);
   const abono = formAbono;

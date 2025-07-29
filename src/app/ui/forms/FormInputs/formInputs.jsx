@@ -24,7 +24,7 @@ export function FormDiv({ children, flexCol = true }) {
     <div
       className={`flex ${
         flexCol && 'flex-col md:flex-row'
-      } w-full items-end gap-3 md:gap-5`}
+      } w-full items-end gap-3 md:gap-5 justify-center`}
     >
       {children}
     </div>
@@ -157,18 +157,20 @@ export function FormDate({ date }) {
 
 export function FormCheck({ name, holder, value, setValue }) {
   return (
-    <div className="flex flex-col gap-1 w-full">
+    <div className="flex flex-col gap-1 justify-center w-full">
       <FormLabel name={name} textCenter={true}>
         {holder}
       </FormLabel>
-      <input
-        name={name}
-        id={name}
-        className="h-9"
-        type="checkbox"
-        checked={value}
-        onChange={() => setValue((state) => !state)}
-      ></input>
+      <div className="flex justify-center">
+        <input
+          name={name}
+          id={name}
+          className="size-9"
+          type="checkbox"
+          checked={value}
+          onChange={() => setValue((state) => !state)}
+        ></input>
+      </div>
     </div>
   );
 }
@@ -227,7 +229,7 @@ export function FormLabel({ children, name, textCenter = false }) {
   return (
     <label
       htmlFor={name}
-      className={`w-full ${textCenter && 'text-center'} text-xs px-3 font-bold`}
+      className={`${textCenter && 'text-center'} text-xs px-3 font-bold`}
     >
       {children}
     </label>
