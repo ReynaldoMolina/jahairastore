@@ -1,4 +1,5 @@
 import { getTotalsDashboard } from '@/app/lib/data';
+import { ListTitle } from '@/app/ui/lists/lists';
 import { Dashboard } from '@/app/ui/reports/Dashboard';
 
 export const metadata = {
@@ -11,5 +12,10 @@ export default async function Page(props) {
   const endParam = searchParams?.end;
   const data = await getTotalsDashboard(startParam, endParam);
 
-  return <Dashboard searchParams={searchParams} data={data} />;
+  return (
+    <>
+      <ListTitle title="Informes" />
+      <Dashboard searchParams={searchParams} data={data} />
+    </>
+  );
 }

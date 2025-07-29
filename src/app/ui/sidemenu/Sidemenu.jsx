@@ -25,7 +25,7 @@ export default function SideMenu() {
 
 function MenuLogo() {
   return (
-    <div className="flex min-w-17 md:min-h-17 justify-center items-center">
+    <div className="hidden md:flex min-w-17 md:min-h-17 justify-center items-center">
       <LogoMinimal className="size-12 p-2" />
     </div>
   );

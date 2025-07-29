@@ -12,7 +12,7 @@ export function Dashboard({ data, searchParams }) {
         <div className="flex flex-col md:flex-row md:justify-between md:items-center w-full gap-5 bg-white dark:bg-neutral-900 p-3 rounded-lg">
           <div className="flex gap-2 items-center">
             <OverviewIcon className="size-5" />
-            <h1 className="font-bold">Informes</h1>
+            <h1 className="font-bold text-sm">Rango de fechas</h1>
           </div>
           <DateSelector searchParams={searchParams} />
         </div>
