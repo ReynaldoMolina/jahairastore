@@ -12,7 +12,7 @@ export function FormContainer({ children, action, wider = false }) {
   return (
     <form
       action={action}
-      className={`flex flex-col bg-white dark:bg-neutral-900 rounded-lg md:shadow-md gap-5 md:gap-7 mx-auto ${maxWidth} px-2 py-4 md:p-7 w-full h-fit shadow`}
+      className={`flex flex-col bg-white dark:bg-neutral-900 rounded-lg md:shadow-md gap-5 md:gap-7 mx-auto ${maxWidth} p-2 md:p-7 w-full h-fit shadow`}
     >
       {children}
     </form>
@@ -204,7 +204,7 @@ export function FormId({ holder, value = '' }) {
     <span
       name="id"
       id="id"
-      className="flex bg-sky-200 dark:bg-sky-900 font-semibold justify-center items-center rounded-lg text-sm h-9 px-3 w-full"
+      className="flex font-bold text-xl items-center w-full p-2 md:p-0"
     >
       {holder} {value}
     </span>

@@ -25,7 +25,7 @@ const icons = {
   Gastos: <Expenses className={style} />,
   Ventas: <Sales className={style} />,
   Inventario: <Inventory className={style} />,
-  Configuración: <Settings className={style} />,
+  Ajustes: <Settings className={style} />,
 };
 
 export default function SideMenuIcon({ name }) {

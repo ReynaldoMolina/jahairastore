@@ -78,9 +78,9 @@ export const menuOptions = [
   // },
   {
     id: 11,
-    name: 'Configuración',
-    path: '/configuracion',
-    url: '/configuracion',
-    divider: false,
+    name: 'Ajustes',
+    path: '/ajustes',
+    url: '/ajustes',
+    divider: true,
   },
 ];

@@ -22,7 +22,7 @@ export function SettingsForm({ data }) {
 
   return (
     <FormContainer action={formAction}>
-      <FormId holder="Configuración" />
+      <FormId holder="Ajustes" />
       <FormInput
         name="Nombre_empresa"
         holder="Nombre del negocio"
