@@ -7,7 +7,6 @@ import LogoMinimal from '@/app/ui/icons/logominimal.svg';
 export default function SideMenu() {
   return (
     <nav className="flex items-center md:flex-col overflow-y-scroll gap-1 p-1 md:p-2 sticky bottom-0 md:top-0 bg-white dark:bg-neutral-800 z-20 w-screen md:min-w-25 md:w-25 md:max-h-screen order-2 md:order-0 overscroll-contain border-t md:border-t-0 md:border-r border-neutral-300 dark:border-neutral-600">
-      <MenuLogo />
       {menuOptions.map((option) => (
         <div
           key={option.id}
@@ -20,13 +19,5 @@ export default function SideMenu() {
         </div>
       ))}
     </nav>
-  );
-}
-
-function MenuLogo() {
-  return (
-    <div className="hidden md:flex min-w-17 md:min-h-17 justify-center items-center">
-      <LogoMinimal className="size-12 p-2" />
-    </div>
   );
 }
