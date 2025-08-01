@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 export function MenuItem({ option }) {
   const pathname = usePathname();
   const isActive =
-    option.path === '/' ? pathname === '/' : pathname.includes(option.path);
+    option.url === '/' ? pathname === '/' : pathname.includes(option.url);
 
   return (
     <Link

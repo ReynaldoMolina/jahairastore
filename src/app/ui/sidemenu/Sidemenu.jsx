@@ -2,7 +2,6 @@
 
 import { menuOptions } from '@/app/lib/menuOptions';
 import { MenuItem } from './MenuItem';
-import LogoMinimal from '@/app/ui/icons/logominimal.svg';
 
 export default function SideMenu() {
   return (
