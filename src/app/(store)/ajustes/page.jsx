@@ -15,7 +15,7 @@ export const metadata = {
 
 export default async function Page() {
   return (
-    <main className="flex gap-5 flex-col rounded-xl p-2 md:p-7 shadow bg-neutral-900 max-w-3xl mx-auto w-full">
+    <main className="flex gap-5 flex-col rounded-xl p-2 md:p-7 shadow bg-white dark:bg-neutral-900 max-w-3xl mx-auto w-full">
       <FormId holder="Ajustes" />
       {!isDemo && (
         <SettingsItem label="Infomación del negocio" href="/ajustes/info">
