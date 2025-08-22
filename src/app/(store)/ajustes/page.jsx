@@ -31,9 +31,9 @@ export default async function Page() {
         </SettingsItem>
       </SettingsSection>
       <SettingsSection title="Registros sin usar">
-        <SettingsItem label="Pedidos" href="/pedidos">
+        {/* <SettingsItem label="Pedidos" href="/pedidos">
           <OrdersIcon className="size-5" />
-        </SettingsItem>
+        </SettingsItem> */}
         <SettingsItem label="Recibos" href="/recibos">
           <ReceiptsIcon className="size-5" />
         </SettingsItem>
