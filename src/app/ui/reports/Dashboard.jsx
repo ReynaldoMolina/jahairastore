@@ -16,7 +16,7 @@ export function Dashboard({ data, searchParams }) {
           </div>
           <DateSelector searchParams={searchParams} />
         </div>
-        <OrdersOnlyReport data={data} />
+        {!isDemo && <OrdersOnlyReport data={data} />}
         {!isDemo && <CashFlowReport data={data} />}
         <AccountingReport data={data} />
       </section>
