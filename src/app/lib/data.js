@@ -1003,9 +1003,9 @@ export async function getTotalsDashboard(startParam, endParam) {
       WHERE "Fecha" ${dateFragment}
     `;
 
-    const ordersCosts = await sql`
+    const ordersCostsInDollars = await sql`
       SELECT
-        COALESCE(ROUND(SUM("PedidosDetalles"."Precio_compra" * "Cantidad" * ${cambioDolar})::numeric, 2), 0)::float AS "PedidosCostos"
+        COALESCE(ROUND(SUM("PedidosDetalles"."Precio_compra" * "Cantidad")::numeric, 2), 0)::float AS "PedidosCostosEnDolares"
       FROM "PedidosDetalles"
         LEFT JOIN "Pedidos" ON "PedidosDetalles"."Id_pedido" = "Pedidos"."Id"
       WHERE "Pedidos"."Fecha" ${dateFragment}
@@ -1019,9 +1019,9 @@ export async function getTotalsDashboard(startParam, endParam) {
       WHERE "Ventas"."Fecha" ${dateFragment}
     `;
 
-    const totalOrders = await sql`
+    const totalOrdersInDollars = await sql`
       SELECT
-        COALESCE(ROUND(SUM("PedidosDetalles"."Precio_venta" * "Cantidad" * ${cambioDolar})::numeric, 2), 0)::float AS "PedidosTotal"
+        COALESCE(ROUND(SUM("PedidosDetalles"."Precio_venta" * "Cantidad")::numeric, 2), 0)::float AS "PedidosTotalEnDolares"
       FROM "PedidosDetalles"
         LEFT JOIN "Pedidos" ON "PedidosDetalles"."Id_pedido" = "Pedidos"."Id"
       WHERE "Pedidos"."Fecha" ${dateFragment}
@@ -1036,14 +1036,16 @@ export async function getTotalsDashboard(startParam, endParam) {
     `;
 
     return {
+      ...ordersCostsInDollars[0],
+      ...totalOrdersInDollars[0],
       ...salesContado[0],
       ...salesCreditoAbonos[0],
       ...ordersAbonos[0],
       ...salesPurchases[0],
       ...salesExpenses[0],
-      ...ordersCosts[0],
+      PedidosCostos: (ordersCostsInDollars[0].PedidosCostosEnDolares * cambioDolar),
       ...totalSales[0],
-      ...totalOrders[0],
+      PedidosTotal: (totalOrdersInDollars[0].PedidosTotalEnDolares * cambioDolar),
       ...salesCosts[0],
     };
   } catch (error) {
