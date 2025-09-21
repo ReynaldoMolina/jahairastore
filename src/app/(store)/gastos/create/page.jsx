@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
-import { ExpenseForm } from '@/app/ui/forms/ExpenseForm';
-import { getProvidersSelect } from '@/app/lib/data';
+import { ExpenseForm } from '@/components/forms/ExpenseForm';
+import { getProvidersSelect } from '@/fetch-data/data';
 
 export const metadata = {
   title: 'Crear gasto',

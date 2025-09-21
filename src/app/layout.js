@@ -1,4 +1,4 @@
-import { inter } from '@/app/ui/fonts';
+import { inter } from '@/components/fonts';
 import '@/app/globals.css';
 
 export const metadata = {

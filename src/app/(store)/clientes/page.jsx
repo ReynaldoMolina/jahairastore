@@ -1,7 +1,7 @@
-import Clients from '@/app/ui/lists/Clients';
-import SearchInput from '@/app/ui/actiontools/SearchInput';
-import { ListFilter } from '@/app/ui/actiontools/ListFilter';
-import { ListTitle } from '@/app/ui/lists/lists';
+import Clients from '@/components/lists/Clients';
+import SearchInput from '@/components/actiontools/SearchInput';
+import { ListFilter } from '@/components/actiontools/ListFilter';
+import { ListTitle } from '@/components/lists/lists';
 
 export const metadata = {
   title: 'Clientes',

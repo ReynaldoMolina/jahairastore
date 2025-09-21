@@ -1,6 +1,6 @@
-import { getTotalsDashboard } from '@/app/lib/data';
-import { ListTitle } from '@/app/ui/lists/lists';
-import { Dashboard } from '@/app/ui/reports/Dashboard';
+import { getTotalsDashboard } from '@/fetch-data/data';
+import { ListTitle } from '@/components/lists/lists';
+import { Dashboard } from '@/components/reports/Dashboard';
 
 export const metadata = {
   title: 'Informes',

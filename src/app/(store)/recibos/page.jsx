@@ -1,7 +1,7 @@
-import { ListTitle } from '@/app/ui/lists/lists';
-import SearchInput from '@/app/ui/actiontools/SearchInput';
-import { ListFilter } from '@/app/ui/actiontools/ListFilter';
-import Receipts from '@/app/ui/lists/Receipts';
+import { ListTitle } from '@/components/lists/lists';
+import SearchInput from '@/components/actiontools/SearchInput';
+import { ListFilter } from '@/components/actiontools/ListFilter';
+import Receipts from '@/components/lists/Receipts';
 
 export const metadata = {
   title: 'Recibos',

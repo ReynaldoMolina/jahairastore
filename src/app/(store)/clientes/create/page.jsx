@@ -1,4 +1,4 @@
-import { ClientForm } from '@/app/ui/forms/ClientForm';
+import { ClientForm } from '@/components/forms/ClientForm';
 
 export const metadata = {
   title: 'Crear cliente',

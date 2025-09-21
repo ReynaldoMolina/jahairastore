@@ -1,7 +1,7 @@
-import { ListTitle } from '@/app/ui/lists/lists';
-import SearchInput from '@/app/ui/actiontools/SearchInput';
-import { ListFilter } from '@/app/ui/actiontools/ListFilter';
-import Orders from '@/app/ui/lists/Orders';
+import { ListTitle } from '@/components/lists/lists';
+import SearchInput from '@/components/actiontools/SearchInput';
+import { ListFilter } from '@/components/actiontools/ListFilter';
+import Orders from '@/components/lists/Orders';
 
 export const metadata = {
   title: 'Pedidos',

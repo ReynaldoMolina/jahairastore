@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
-import { ProductForm } from '@/app/ui/forms/ProductForm';
-import { getProvidersSelect, getCategoriesSelect } from '@/app/lib/data';
+import { ProductForm } from '@/components/forms/ProductForm';
+import { getProvidersSelect, getCategoriesSelect } from '@/fetch-data/data';
 
 export const metadata = {
   title: 'Crear producto',

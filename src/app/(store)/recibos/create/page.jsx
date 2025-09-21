@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
-import { ReceiptForm } from '@/app/ui/forms/ReceiptForm';
-import { getClientsSelect } from '@/app/lib/data';
+import { ReceiptForm } from '@/components/forms/ReceiptForm';
+import { getClientsSelect } from '@/fetch-data/data';
 
 export const metadata = {
   title: 'Crear recibo',

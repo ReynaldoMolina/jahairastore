@@ -1,11 +1,11 @@
 export const dynamic = 'force-dynamic';
 
-import { ReceiptForm } from '@/app/ui/forms/ReceiptForm';
+import { ReceiptForm } from '@/components/forms/ReceiptForm';
 import {
   getClientsSelect,
   getReceiptById,
   getReceiptPdf,
-} from '@/app/lib/data';
+} from '@/fetch-data/data';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata(props) {

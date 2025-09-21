@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import LoginForm from '../ui/login/LoginForm';
+import LoginForm from '../../components/login/LoginForm';
 
 export const metadata = {
   title: 'Iniciar sesión'

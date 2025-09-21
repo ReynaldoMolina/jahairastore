@@ -1,4 +1,4 @@
-import SideMenu from '@/app/ui/sidemenu/Sidemenu';
+import SideMenu from '@/components/sidemenu/Sidemenu';
 import '@/app/globals.css';
 
 export default function Layout({ children }) {

@@ -1,4 +1,4 @@
-import { CategoryForm } from '@/app/ui/forms/CategoryForm';
+import { CategoryForm } from '@/components/forms/CategoryForm';
 
 export const metadata = {
   title: 'Crear categoría',

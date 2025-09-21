@@ -1,7 +1,7 @@
-import { ListTitle } from '@/app/ui/lists/lists';
-import SearchInput from '@/app/ui/actiontools/SearchInput';
-import { ListFilter } from '@/app/ui/actiontools/ListFilter';
-import Inventory from '@/app/ui/lists/Inventory';
+import { ListTitle } from '@/components/lists/lists';
+import SearchInput from '@/components/actiontools/SearchInput';
+import { ListFilter } from '@/components/actiontools/ListFilter';
+import Inventory from '@/components/lists/Inventory';
 
 export const metadata = {
   title: 'Inventario',

@@ -1,9 +1,9 @@
 export const dynamic = 'force-dynamic';
 
-import { ExpenseForm } from '@/app/ui/forms/ExpenseForm';
-import { getExpenseById } from '@/app/lib/data';
+import { ExpenseForm } from '@/components/forms/ExpenseForm';
+import { getExpenseById } from '@/fetch-data/data';
 import { notFound } from 'next/navigation';
-import { getProvidersSelect } from '@/app/lib/data';
+import { getProvidersSelect } from '@/fetch-data/data';
 
 export async function generateMetadata(props) {
   const { id } = await props.params;

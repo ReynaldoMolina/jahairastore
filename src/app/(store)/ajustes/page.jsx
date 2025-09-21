@@ -1,6 +1,6 @@
 import { isDemo } from '@/middleware';
-import { FormId } from '@/app/ui/forms/FormInputs/formInputs';
-import LogoutForm from '@/app/ui/login/LogoutForm';
+import { FormId } from '@/components/forms/FormInputs/formInputs';
+import LogoutForm from '@/components/login/LogoutForm';
 import Link from 'next/link';
 import ProvidersIcon from '@/app/ui/sidemenu/SideMenuIcon/providers.svg';
 import CategoriesIcon from '@/app/ui/sidemenu/SideMenuIcon/categories.svg';
