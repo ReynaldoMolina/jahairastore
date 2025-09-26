@@ -1,35 +1,22 @@
-import { FormSelect, FormId } from "@/app/ui/forms/formInputs";
-import { FormCreate, FormButtons, FormInfo, ProductSearch } from "@/app/ui/forms/RegisterForm";
-import ProductSearchList from "@/app/ui/registerForm/ProductSearchList";
-import FormDetail from "@/app/ui/registerForm/FormDetail";
-import { createSale } from "@/app/lib/actions";
-import { SalePayment } from "@/app/ui/saleForm/SalePayment";
+export const dynamic = 'force-dynamic';
+
+import { getClientsSelect } from '@/fetch-data/data';
+import { RegisterForm } from '@/components/forms/RegisterForm';
+import ProductSearchList from '@/components/forms/RegisterForm/ProductList/ProductSearchList';
 
 export const metadata = {
-  title: 'Crear venta'
-}
- 
+  title: 'Crear venta',
+};
+
 export default async function Page(props) {
+  const selectData = await getClientsSelect();
   const searchParams = await props.searchParams;
 
   return (
-    <section className="flex grow overflow-y-scroll h-0">
-      <FormCreate createRegister={createSale}>
-        <FormId holder="Crear venta" />
-        <FormInfo date="" register="sales">
-          <FormSelect value={0} name="Id_cliente" label="Cliente" />
-        </FormInfo>
-
-        <SalePayment />
-
-        <ProductSearch open={true}>
-          <ProductSearchList searchParams={searchParams} inventario={true} />
-        </ProductSearch>
-
-        <FormDetail convert={true} price="venta" showLeft={true} overrideLeft={false} />
-
-        <FormButtons link={'/ventas'} label={'Crear'} />
-      </FormCreate>
-    </section>
+    <>
+      <RegisterForm isNew={true} selectData={selectData} formName="ventas">
+        <ProductSearchList searchParams={searchParams} inventario={true} />
+      </RegisterForm>
+    </>
   );
 }

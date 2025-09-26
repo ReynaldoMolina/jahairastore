@@ -1,16 +1,15 @@
-import { FormId, FormSelect } from "@/app/ui/forms/formInputs";
-import { FormEdit, FormButtons, FormInfo, ProductSearch } from "@/app/ui/forms/RegisterForm";
-import ProductSearchList from "@/app/ui/registerForm/ProductSearchList";
-import FormDetail from "@/app/ui/registerForm/FormDetail";
-import { getSaleById, getSaleDetailById } from "@/app/lib/data";
-import { updateSale } from "@/app/lib/actions";
-import { SalePayment } from "@/app/ui/saleForm/SalePayment";
- 
+export const dynamic = 'force-dynamic';
+
+import { RegisterForm } from '@/components/forms/RegisterForm';
+import ProductSearchList from '@/components/forms/RegisterForm/ProductList/ProductSearchList';
+import { getSaleById, getSaleDetailById, getSalePdf } from '@/fetch-data/data';
+import { getClientsSelect } from '@/fetch-data/data';
+
 export async function generateMetadata(props) {
   const { id } = await props.params;
   return {
-    title: `Venta ${id}`
-  }
+    title: `Venta ${id}`,
+  };
 }
 
 export default async function Page(props) {
@@ -19,32 +18,23 @@ export default async function Page(props) {
   const saleId = params.id;
   const sale = await getSaleById(saleId);
   const saledetail = await getSaleDetailById(saleId);
+  const salePdf = await getSalePdf(saleId);
+  const selectData = await getClientsSelect();
 
   return (
-    <section className="flex grow overflow-y-scroll h-0">
-      <FormEdit 
-        updateRegister={updateSale}
-        registerId={saleId}
-        detailList={saledetail}
-        convert={true}
-        allowEmpty={true}
-        abono={sale.Abono}
-      >
-        <FormId holder="Venta" value={saleId} />
-        <FormInfo date={sale.Fecha} register="sales">
-          <FormSelect value={sale.Id_cliente} name="Id_cliente" label="Cliente" />
-        </FormInfo>
-
-        <SalePayment credito={sale.Credito} />
-
-        <ProductSearch open={false}>
-          <ProductSearchList searchParams={searchParams} inventario={true} />
-        </ProductSearch>
-
-        <FormDetail convert={true} showLeft={true} overrideLeft={false} />
-
-        <FormButtons link={'/ventas'} label={'Guardar'} />
-      </FormEdit>
-    </section>
+    <RegisterForm
+      isNew={false}
+      register={sale}
+      registerPdf={salePdf}
+      registerId={saleId}
+      detailList={saledetail}
+      convert={true}
+      allowEmpty={true}
+      abono={sale.Abono}
+      selectData={selectData}
+      formName="ventas"
+    >
+      <ProductSearchList searchParams={searchParams} inventario={true} />
+    </RegisterForm>
   );
 }

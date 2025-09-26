@@ -1,17 +1,15 @@
-import { FormId, FormSelect } from "@/app/ui/forms/formInputs";
-import { FormEdit, FormButtons, FormInfo, ProductSearch } from "@/app/ui/forms/RegisterForm";
-import ProductSearchList from "@/app/ui/registerForm/ProductSearchList";
-import FormDetail from "@/app/ui/registerForm/FormDetail";
-import { getOrderById, getOrderDetailById } from "@/app/lib/data";
-import { OrderOptions } from "@/app/ui/registerForm/OrderOptions";
-import { Restante } from "@/app/ui/registerForm/Restante";
-import { updateOrder } from "@/app/lib/actions";
- 
+export const dynamic = 'force-dynamic';
+
+import { RegisterForm } from '@/components/forms/RegisterForm';
+import ProductSearchList from '@/components/forms/RegisterForm/ProductList/ProductSearchList';
+import { getOrderById, getOrderDetailById } from '@/fetch-data/data';
+import { getClientsSelect } from '@/fetch-data/data';
+
 export async function generateMetadata(props) {
   const { id } = await props.params;
   return {
-    title: `Pedido ${id}`
-  }
+    title: `Pedido ${id}`,
+  };
 }
 
 export default async function Page(props) {
@@ -19,26 +17,20 @@ export default async function Page(props) {
   const params = await props.params;
   const orderId = params.id;
   const order = await getOrderById(orderId);
-  const orderdetail = await getOrderDetailById(orderId);  
+  const orderdetail = await getOrderDetailById(orderId);
+  const selectData = await getClientsSelect();
 
   return (
-    <section className="flex grow overflow-y-scroll h-0">
-      <FormEdit updateRegister={updateOrder} registerId={orderId} detailList={orderdetail}>
-        <FormId holder="Pedido" value={orderId} />
-        
-        <FormInfo date={order.Fecha} value={order.TotalAbono} register="orders">
-          <FormSelect value={order.Id_cliente} name="Id_cliente" label="Cliente" />
-        </FormInfo>
-
-        <ProductSearch open={false}>
-          <ProductSearchList searchParams={searchParams} />
-        </ProductSearch>
-
-        <FormDetail />
-        <Restante order={order} />
-        <OrderOptions order={order} />
-        <FormButtons link={'/pedidos?query=debe'} label={'Guardar'} />
-      </FormEdit>
-    </section>
+    <RegisterForm
+      isNew={false}
+      register={order}
+      registerId={orderId}
+      detailList={orderdetail}
+      abono={order.TotalAbono}
+      selectData={selectData}
+      formName="pedidos"
+    >
+      <ProductSearchList searchParams={searchParams} />
+    </RegisterForm>
   );
 }

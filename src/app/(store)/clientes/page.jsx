@@ -1,21 +1,21 @@
-import Clients from "@/app/ui/lists/Clients";
-import NewRegister from "@/app/ui/actiontools/NewRegister";
-import SearchInput from "@/app/ui/actiontools/SearchInput";
+import Clients from '@/components/lists/Clients';
+import SearchInput from '@/components/actiontools/SearchInput';
+import { ListFilter } from '@/components/actiontools/ListFilter';
+import { ListTitle } from '@/components/lists/lists';
 
 export const metadata = {
-  title: 'Clientes'
-}
+  title: 'Clientes',
+};
 
 export default async function Page(props) {
   const searchParams = await props.searchParams;
-  const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
 
   return (
     <>
+      <ListTitle title="Clientes" />
       <SearchInput />
-      <Clients query={query} currentPage={currentPage} />
-      <NewRegister />
+      <ListFilter searchParams={searchParams} />
+      <Clients searchParams={searchParams} />
     </>
   );
-};
+}

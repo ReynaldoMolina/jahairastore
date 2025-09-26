@@ -1,20 +1,21 @@
-import ActionTools from "@/app/ui/actiontools/NewRegister";
-import SearchInput from "@/app/ui/actiontools/SearchInput";
-import Receipts from "@/app/ui/lists/Receipts";
+import { ListTitle } from '@/components/lists/lists';
+import SearchInput from '@/components/actiontools/SearchInput';
+import { ListFilter } from '@/components/actiontools/ListFilter';
+import Receipts from '@/components/lists/Receipts';
 
 export const metadata = {
-  title: 'Recibos'
-}
+  title: 'Recibos',
+};
 
 export default async function Page(props) {
   const searchParams = await props.searchParams;
-  const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
 
   return (
     <>
-      <SearchInput />
-      <Receipts query={query} currentPage={currentPage} />
+      <ListTitle title="Recibos" />
+      <SearchInput allowNew={false} showState={false} />
+      <ListFilter searchParams={searchParams} />
+      <Receipts searchParams={searchParams} />
     </>
   );
-};
+}

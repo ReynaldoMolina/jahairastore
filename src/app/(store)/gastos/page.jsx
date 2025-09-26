@@ -1,19 +1,21 @@
-import SearchInput from "@/app/ui/actiontools/SearchInput";
-import Expenses from "@/app/ui/lists/Expenses";
+import { ListTitle } from '@/components/lists/lists';
+import SearchInput from '@/components/actiontools/SearchInput';
+import { ListFilter } from '@/components/actiontools/ListFilter';
+import Expenses from '@/components/lists/Expenses';
 
 export const metadata = {
-  title: 'Gastos'
-}
+  title: 'Gastos',
+};
 
 export default async function Page(props) {
   const searchParams = await props.searchParams;
-  const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
 
   return (
     <>
-      <SearchInput />
-      <Expenses query={query} currentPage={currentPage} />
+      <ListTitle title="Gastos" />
+      <SearchInput allowNew={false} />
+      <ListFilter searchParams={searchParams} />
+      <Expenses searchParams={searchParams} />
     </>
   );
-};
+}

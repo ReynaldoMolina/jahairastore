@@ -1,15 +1,15 @@
-import { ClientEdit } from '@/app/ui/forms/ClientForm';
-import { getClientById } from '@/app/lib/data';
+import { ClientForm } from '@/components/forms/ClientForm';
+import { getClientById } from '@/fetch-data/data';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata(props) {
   const { id } = await props.params;
 
   return {
-    title: `Cliente ${id}`
-  }
+    title: `Cliente ${id}`,
+  };
 }
- 
+
 export default async function Page(props) {
   const params = await props.params;
   const id = params.id;
@@ -18,8 +18,6 @@ export default async function Page(props) {
   if (!data) {
     notFound();
   }
- 
-  return (
-    <ClientEdit client={data} />
-  );
+
+  return <ClientForm isNew={false} client={data} />;
 }

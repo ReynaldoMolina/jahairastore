@@ -1,21 +1,21 @@
-import NewRegister from "@/app/ui/actiontools/NewRegister";
-import SearchInput from "@/app/ui/actiontools/SearchInput";
-import Categories from "@/app/ui/lists/Categories";
+import { ListFilter } from '@/components/actiontools/ListFilter';
+import SearchInput from '@/components/actiontools/SearchInput';
+import Categories from '@/components/lists/Categories';
+import { ListTitle } from '@/components/lists/lists';
 
 export const metadata = {
-  title: 'Categorías'
-}
+  title: 'Categorías',
+};
 
 export default async function Page(props) {
   const searchParams = await props.searchParams;
-  const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
 
   return (
     <>
-      <SearchInput />
-      <Categories query={query} currentPage={currentPage} />
-      <NewRegister />
+      <ListTitle title="Categorías" />
+      <SearchInput showFilter={false} />
+      <ListFilter searchParams={searchParams} />
+      <Categories searchParams={searchParams} />
     </>
   );
-};
+}
