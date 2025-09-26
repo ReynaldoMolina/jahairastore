@@ -3,7 +3,7 @@ import Credentials from 'next-auth/providers/credentials';
 import { authConfig } from './auth.config';
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
-import { sql } from '@/fetch-data/db';
+import { sql } from '@/app/lib/db';
 
 async function getUser(username) {
   try {

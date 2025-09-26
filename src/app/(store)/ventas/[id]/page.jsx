@@ -1,9 +1,9 @@
 export const dynamic = 'force-dynamic';
 
-import { RegisterForm } from '@/components/forms/RegisterForm';
-import ProductSearchList from '@/components/forms/RegisterForm/ProductList/ProductSearchList';
-import { getSaleById, getSaleDetailById, getSalePdf } from '@/fetch-data/data';
-import { getClientsSelect } from '@/fetch-data/data';
+import { RegisterForm } from '@/app/ui/forms/RegisterForm';
+import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';
+import { getSaleById, getSaleDetailById, getSalePdf } from '@/app/lib/data';
+import { getClientsSelect } from '@/app/lib/data';
 
 export async function generateMetadata(props) {
   const { id } = await props.params;

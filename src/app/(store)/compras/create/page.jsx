@@ -1,8 +1,8 @@
 export const dynamic = 'force-dynamic';
 
-import { RegisterForm } from '@/components/forms/RegisterForm';
-import ProductSearchList from '@/components/forms/RegisterForm/ProductList/ProductSearchList';
-import { getProvidersSelect } from '@/fetch-data/data';
+import { RegisterForm } from '@/app/ui/forms/RegisterForm';
+import ProductSearchList from '@/app/ui/forms/RegisterForm/ProductList/ProductSearchList';
+import { getProvidersSelect } from '@/app/lib/data';
 
 export const metadata = {
   title: 'Crear compra',

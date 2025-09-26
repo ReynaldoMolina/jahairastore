@@ -1,4 +1,4 @@
-import { ProviderForm } from '@/components/forms/ProviderForm';
+import { ProviderForm } from '@/app/ui/forms/ProviderForm';
 
 export const metadata = {
   title: 'Crear proveedor',

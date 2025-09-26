@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
-import { SettingsForm } from '@/components/settings/SettingsForm';
-import { getBusinessInfo } from '@/fetch-data/data';
+import { SettingsForm } from '@/app/ui/settings/SettingsForm';
+import { getBusinessInfo } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 import { isDemo } from '@/middleware';
 

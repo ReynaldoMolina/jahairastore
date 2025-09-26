@@ -1,5 +1,5 @@
-import { ClientForm } from '@/components/forms/ClientForm';
-import { getClientById } from '@/fetch-data/data';
+import { ClientForm } from '@/app/ui/forms/ClientForm';
+import { getClientById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata(props) {

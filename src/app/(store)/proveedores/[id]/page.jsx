@@ -1,5 +1,5 @@
-import { ProviderForm } from '@/components/forms/ProviderForm';
-import { getProviderById } from '@/fetch-data/data';
+import { ProviderForm } from '@/app/ui/forms/ProviderForm';
+import { getProviderById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata(props) {

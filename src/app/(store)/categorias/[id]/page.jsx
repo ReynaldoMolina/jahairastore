@@ -1,5 +1,5 @@
-import { CategoryForm } from '@/components/forms/CategoryForm';
-import { getCategoryById } from '@/fetch-data/data';
+import { CategoryForm } from '@/app/ui/forms/CategoryForm';
+import { getCategoryById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata(props) {
