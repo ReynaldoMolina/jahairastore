@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { bgColors } from '../bgcolors';
-import { formatDate } from '@/app/lib/getDate';
-import { formatNumber } from '@/app/lib/formatNumber';
+import React from 'react';
+import { boolean } from 'drizzle-orm/gel-core';
+import { formatNumber } from '@/fetch-data/format-number';
+import { formatDate } from '@/utils/formatters';
 
-export function List({ children }) {
+export function List({ children }: { children: React.ReactNode }) {
   return (
     <section className="flex flex-col gap-2 md:gap-0 rounded-lg overflow-hidden pb-1 md:pb-0">
       {children}
@@ -11,14 +13,20 @@ export function List({ children }) {
   );
 }
 
-export function ListTitle({ title }) {
+export function ListTitle({ title }: { title: string }) {
   return <h1 className="font-bold text-xl">{title}</h1>;
 }
 
 const listCardSClassName =
   'flex flex-col md:flex-row items-start p-4 gap-3 hover:bg-sky-100 dark:hover:bg-neutral-800 md:border-t first-of-type:border-t-0 border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg md:rounded-none shadow md:shadow-none';
 
-export function ListCard({ children, href }) {
+export function ListCard({
+  children,
+  href,
+}: {
+  children: React.ReactNode;
+  href: string;
+}) {
   return (
     <Link href={href} className={listCardSClassName}>
       {children}
@@ -26,11 +34,11 @@ export function ListCard({ children, href }) {
   );
 }
 
-export function ProductSearchCard({ children }) {
+export function ProductSearchCard({ children }: { children: React.ReactNode }) {
   return <div className={listCardSClassName}>{children}</div>;
 }
 
-export function ListHeader({ children }) {
+export function ListHeader({ children }: { children: React.ReactNode }) {
   return (
     <div className="hidden md:flex px-4 py-3 md:justify-between items-center gap-3 border-b-2 border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900">
       {children}
@@ -42,12 +50,21 @@ export function ListBlankSpace() {
   return <div className="mb-13 md:hidden"></div>;
 }
 
-export function ListFooter({ children }) {
+export function ListFooter({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col md:flex-row px-4 py-3 md:border-t-3 border-double border-neutral-300 dark:border-neutral-700 md:justify-between items-start gap-3 bg-white dark:bg-neutral-900 rounded-lg md:rounded-none shadow md:shadow-none">
       {children}
     </div>
   );
+}
+
+interface ListDetailProps {
+  detail: 'string';
+  label: string;
+  color: 'none';
+  number: boolean;
+  nio: boolean;
+  ping: boolean;
 }
 
 export function ListDetail({
@@ -57,7 +74,7 @@ export function ListDetail({
   number = true,
   nio = false,
   ping = false,
-}) {
+}: ListDetailProps) {
   const value = number ? formatNumber(detail) : detail;
   const bgColor = bgColors[color];
   const currency = nio ? 'C$ ' : '$ ';
