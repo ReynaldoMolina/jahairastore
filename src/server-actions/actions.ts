@@ -12,7 +12,7 @@ import {
   getExpenseFormData,
   getSaleFormData,
   getSettingsFormData,
-} from '@/fetch-data/getFormData';
+} from '@/fetch-data/get-form-data';
 import {
   createRecord,
   createRecordDetail,

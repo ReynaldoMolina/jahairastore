@@ -1,4 +1,4 @@
-import { db } from '@/db';
+import { db } from '@/database';
 import { getUrlParams } from './filter';
 import {
   getPurchasesPages,
@@ -13,7 +13,7 @@ import {
 } from './data-pages';
 import { getCurrentMonth } from '../utils/get-current-date';
 import { BusinessInfoType } from '@/types/types';
-import { configuracion } from '@/db/schema';
+import { configuracion } from '@/database/schema';
 import { eq } from 'drizzle-orm';
 
 const registerOptions = {

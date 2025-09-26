@@ -2,8 +2,8 @@ import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
-import { db } from './db';
-import { usuarios } from './db/schema';
+import { db } from './database';
+import { usuarios } from './database/schema';
 import { eq } from 'drizzle-orm'
 import { authConfig } from './auth.config';
 

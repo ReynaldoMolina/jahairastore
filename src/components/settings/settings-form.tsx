@@ -7,7 +7,7 @@ import {
   FormId,
   FormError,
   FormInput,
-} from '../forms/FormInputs/formInputs';
+} from '../forms/form-inputs/form-inputs';
 import { updateSettings } from '@/server-actions/actions';
 import { BusinessInfoType } from '@/types/types';
 
