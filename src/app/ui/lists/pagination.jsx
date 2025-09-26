@@ -3,9 +3,9 @@
 import Link from "next/link";
 import clsx from "clsx";
 import { usePathname, useSearchParams } from "next/navigation";
-import generatePagination from "@/app/lib/generatePagination";
-import ArrowLeftIcon from '@/app/ui/icons/arrow-left.svg';
-import ArrowRightIcon from '@/app/ui/icons/arrow-right.svg';
+import generatePagination from "@/utils/generatePagination";
+import { ChevronRight } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 
 export function Pagination({ totalPages }) {
   if (totalPages === 0) return;
@@ -93,9 +93,9 @@ function PaginationArrow({ href, direction, isDisabled }) {
 
   const icon =
     direction === 'left' ? (
-      <ArrowLeftIcon className="w-4" />
+      <ChevronRight className="w-4" />
     ) : (
-      <ArrowRightIcon className="w-4" />
+      <ChevronLeft className="w-4" />
     );
 
   return isDisabled ? (
