@@ -20,6 +20,10 @@ import {
   updateDetailRecords,
   updateRecord,
 } from '@/server-actions/actions-utils';
+import { db } from '@/database';
+import { configuracion } from '@/database/schema';
+import { eq } from 'drizzle-orm';
+import { BusinessInfoType } from '@/types/types';
 
 export async function authenticate(prevState, formData) {
   try {
@@ -333,13 +337,12 @@ export async function updateSale(
   await goBackTo('/ventas');
 }
 
-export async function updateSettings(prevState, formData) {
+export async function updateSettings(prevState, data: BusinessInfoType) {
   try {
     const id = 1;
-    const data = getSettingsFormData(formData);
-    await updateRecord({ tableName: 'Configuracion', data, id });
+    await db.update(configuracion).set(data).where(eq(configuracion.id, id));
   } catch (error) {
     return error;
   }
-  await goBackTo('/');
+  await goBackTo('/ajustes');
 }

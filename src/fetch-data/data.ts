@@ -944,13 +944,16 @@ export async function getInventory(searchParams) {
 
 export async function getBusinessInfo(id = 1): Promise<BusinessInfoType> {
   const selectFields = {
-    nombre_empresa: configuracion.nombre_empresa,
-    eslogan: configuracion.eslogan,
-    mensaje: configuracion.mensaje
-  }
+    nombre_empresa: configuracion.nombre_empresa ?? '',
+    eslogan: configuracion.eslogan ?? '',
+    mensaje: configuracion.mensaje ?? '',
+  };
 
   try {
-    const data = await db.select(selectFields).from(configuracion).where(eq(configuracion.id, id))
+    const data = await db
+      .select(selectFields)
+      .from(configuracion)
+      .where(eq(configuracion.id, id));
     return data[0];
   } catch (error) {
     console.error(error);
@@ -1045,9 +1048,10 @@ export async function getTotalsDashboard(startParam, endParam) {
       ...ordersAbonos[0],
       ...salesPurchases[0],
       ...salesExpenses[0],
-      PedidosCostos: (ordersCostsInDollars[0].PedidosCostosEnDolares * cambioDolar),
+      PedidosCostos:
+        ordersCostsInDollars[0].PedidosCostosEnDolares * cambioDolar,
       ...totalSales[0],
-      PedidosTotal: (totalOrdersInDollars[0].PedidosTotalEnDolares * cambioDolar),
+      PedidosTotal: totalOrdersInDollars[0].PedidosTotalEnDolares * cambioDolar,
       ...salesCosts[0],
     };
   } catch (error) {

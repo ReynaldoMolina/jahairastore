@@ -3,6 +3,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { bgColors } from '@/components/bgcolors';
+import { CardFooter } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import LoadingIcon from '@/components/loading-icon';
 
 export function FormContainer({ children, action, wider = false }) {
   const maxWidth = wider ? '' : 'max-w-3xl';
@@ -172,29 +175,32 @@ export function FormCheck({ name, holder, value, setValue }) {
   );
 }
 
-export function FormButtons({ isNew, isPending }) {
+interface FormButtonsProps {
+  isNew: boolean;
+  isPending: boolean;
+}
+
+export function FormButtons({ isNew, isPending }: FormButtonsProps) {
   const router = useRouter();
   const label = isNew ? 'Crear' : 'Guardar';
+
   return (
-    <div className="flex w-full justify-center gap-4">
-      <button
+    <CardFooter className="gap-3 justify-center border-t">
+      <Button
+        variant="secondary"
         type="button"
-        className="flex items-center justify-center rounded-lg font-bold cursor-pointer h-10 w-full sm:w-50 bg-red-500 text-sm text-white hover:bg-red-600"
+        className="w-full max-w-50 bg-red-500 text-white hover:bg-red-600"
         onClick={() => router.back()}
       >
         Cancelar
-      </button>
-      <button
-        type="submit"
-        value="Save"
+      </Button>
+      <Button
         disabled={isPending}
-        className={`flex items-center justify-center rounded-lg font-bold ${
-          isPending ? 'cursor-not-allowed' : 'cursor-pointer'
-        } h-10 w-full sm:w-50 bg-green-600 hover:bg-green-700 text-sm text-white`}
+        className="w-full max-w-50 bg-green-600 hover:bg-green-700 text-white"
       >
         {isPending ? <LoadingIcon /> : label}
-      </button>
-    </div>
+      </Button>
+    </CardFooter>
   );
 }
 

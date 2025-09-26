@@ -37,7 +37,6 @@ export default function LoginForm() {
     startTransition(() => {
       formAction(values);
     });
-    console.log(values);
   }
 
   return (
@@ -69,7 +68,7 @@ export default function LoginForm() {
               />
 
               <Button
-                className="w-full bg-blue-600 hover:bg-blue-700"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
                 id="login-button"
                 disabled={isPending}
               >
