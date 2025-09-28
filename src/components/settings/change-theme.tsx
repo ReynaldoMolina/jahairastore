@@ -9,7 +9,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-import { Sun, Moon, Monitor, ChevronDown } from 'lucide-react';
+import { Sun, Moon, Monitor, ChevronDown, SunMoon } from 'lucide-react';
 import { Button } from '../ui/button';
 
 export function ChangeTheme() {
@@ -23,6 +23,7 @@ export function ChangeTheme() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="secondary" className="justify-start">
+            <SunMoon />
             Cambiar tema ({label})
             <ChevronDown className="ml-auto" />
           </Button>

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { bgColors } from '../bgcolors';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { SearchParamsProps } from '@/types/types';
 import {
@@ -24,7 +23,7 @@ import { ITEMS_PER_PAGE } from '@/fetch-data/build-limit-offset';
 
 interface ListFilterProps {
   showState?: boolean;
-  stateLabel: string;
+  stateLabel: 'Con saldo' | 'Disponibles';
   searchParams: SearchParamsProps;
 }
 
@@ -33,45 +32,23 @@ export function ListFilter({
   stateLabel,
   searchParams,
 }: ListFilterProps) {
-  const limitParam = searchParams?.limit;
-  const stateParam = searchParams?.state;
-  const [filter, setFilter] = useState({
-    limit: Number(limitParam) || ITEMS_PER_PAGE,
-    state: Boolean(stateParam) || false,
-  });
-
   return (
-    <>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline">
-            <Filter />
-            Filtrar
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuGroup>
-            {showState && (
-              <DropdownMenuItem>
-                {stateLabel}
-                <Switch checked />
-              </DropdownMenuItem>
-            )}
-            <FilterLimit searchParams={searchParams} />
-          </DropdownMenuGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
-      <div className="flex justify-end gap-4">
-        {showState && (
-          <FilterState
-            filter={filter}
-            setFilter={setFilter}
-            stateLabel={stateLabel}
-          />
-        )}
-        {/* <FilterLimit filter={filter} setFilter={setFilter} /> */}
-      </div>
-    </>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">
+          <Filter />
+          Filtrar
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuGroup>
+          {showState && (
+            <FilterState searchParams={searchParams} stateLabel={stateLabel} />
+          )}
+          <FilterLimit searchParams={searchParams} />
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
@@ -82,7 +59,7 @@ export function useUpdateSearchParams() {
 
   const updateSearchParams = (
     key: string,
-    value: string | number | false | null
+    value: string | number | boolean | null
   ) => {
     const params = new URLSearchParams(searchParams.toString());
 
@@ -151,29 +128,33 @@ function FilterLimit({ searchParams }: { searchParams: SearchParamsProps }) {
   );
 }
 
-function FilterState({ filter, setFilter, stateLabel = 'Con saldo' }) {
-  const { updateURL } = useSearchUtils();
+function FilterState({
+  searchParams,
+  stateLabel,
+}: {
+  searchParams: SearchParamsProps;
+  stateLabel: 'Con saldo' | 'Disponibles';
+}) {
+  const stateParam = searchParams?.state;
+  const [state, setState] = useState(Boolean(stateParam) || false);
+
+  const { updateSearchParams } = useUpdateSearchParams();
 
   function handleChange() {
-    const newState = !filter.state;
-    setFilter((prev) => ({ ...prev, state: newState }));
-    updateURL('state', newState || null);
+    const newState = !state;
+    setState((prev) => !prev);
+    updateSearchParams('state', newState);
   }
 
   return (
-    <FilterDiv>
-      <label htmlFor="filter-state">{stateLabel}:</label>
-      <input
-        type="checkbox"
-        name="filter-state"
+    <DropdownMenuItem>
+      <label htmlFor="filter-state">{stateLabel}</label>
+      <Switch
         id="filter-state"
-        checked={filter.state}
-        onChange={handleChange}
+        checked={state}
+        onCheckedChange={handleChange}
+        className="ml-auto"
       />
-    </FilterDiv>
+    </DropdownMenuItem>
   );
-}
-
-function FilterDiv({ children }) {
-  return <div className="flex items-center gap-1 text-xs">{children}</div>;
 }

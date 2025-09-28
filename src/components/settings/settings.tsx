@@ -24,15 +24,15 @@ export function Settings() {
       <CardContent className="space-y-5">
         {!isDemo && (
           <SettingsLink label="Infomación del negocio" href="/ajustes/info">
-            <Store className="size-5" />
+            <Store />
           </SettingsLink>
         )}
         <SettingsSection title="Administrar">
           <SettingsLink label="Categorías" href="/categorias">
-            <Shapes className="size-5" />
+            <Shapes />
           </SettingsLink>
           <SettingsLink label="Proveedores" href="/proveedores">
-            <Users className="size-5" />
+            <Users />
           </SettingsLink>
         </SettingsSection>
         <ChangeTheme />

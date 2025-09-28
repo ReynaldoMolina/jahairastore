@@ -19,7 +19,7 @@ export default function LogoutForm() {
           <LoadingIcon />
         ) : (
           <>
-            <LogOut className="size-5" />
+            <LogOut />
             Cerrar sesión
           </>
         )}

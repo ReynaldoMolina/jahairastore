@@ -14,9 +14,9 @@ export default function ActionBar({
   children,
 }: SearchInputProps) {
   return (
-    <div className="inline-flex gap-1">
+    <div className="inline-flex gap-2">
       <SearchInput />
-      <div className="inline-flex gap-1 ml-auto">
+      <div className="inline-flex ml-auto gap-1">
         {children}
         {allowNew && <NewRegister />}
       </div>
