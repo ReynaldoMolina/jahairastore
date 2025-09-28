@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 
 export const metadata = {
   title: 'Ajustes',
@@ -37,11 +38,7 @@ export default async function Page() {
             <Users className="size-5" />
           </SettingsLink>
         </SettingsSection>
-        <SettingsSection title="Registros sin usar">
-          <SettingsLink label="Recibos" href="/recibos">
-            <Receipt className="size-5" />
-          </SettingsLink>
-        </SettingsSection>
+        <Separator />
         {!isDemo && <LogoutForm />}
       </CardContent>
     </Card>

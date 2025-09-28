@@ -1,4 +1,4 @@
-import { MenuOption } from "@/types/types";
+import { MenuOption } from '@/types/types';
 
 export const menuOptions: MenuOption[] = [
   {
@@ -35,28 +35,34 @@ export const menuOptions: MenuOption[] = [
     id: 5,
     name: 'Pedidos',
     url: '/pedidos',
-    divider: true,
+    divider: false,
   },
   {
     id: 6,
+    name: 'Recibos',
+    url: '/recibos',
+    divider: true,
+  },
+  {
+    id: 7,
     name: 'Compras',
     url: '/compras',
     divider: false,
   },
   {
-    id: 7,
+    id: 8,
     name: 'Gastos',
     url: '/gastos',
     divider: true,
   },
   {
-    id: 8,
+    id: 9,
     name: 'Clientes',
     url: '/clientes',
     divider: false,
   },
   {
-    id: 9,
+    id: 10,
     name: 'Ajustes',
     url: '/ajustes',
     divider: false,
