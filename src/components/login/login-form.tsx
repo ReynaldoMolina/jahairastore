@@ -1,7 +1,6 @@
 'use client';
 
 import LoginInput from '@/components/login/login-input';
-import Logo from '@/components/icons/logo.svg';
 import { startTransition, useActionState } from 'react';
 import { authenticate } from '@/server-actions/actions';
 import { useSearchParams } from 'next/navigation';

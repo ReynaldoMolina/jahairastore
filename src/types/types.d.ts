@@ -13,6 +13,13 @@ export type MenuOptionsNames =
   | 'Ajustes'
   | 'Informes';
 
+export interface PageProps {
+  params: {
+    id: string;
+  };
+  searchParams?: SearchParamsProps;
+}
+
 export interface SearchParamsProps {
   search?: string;
   state?: string;
@@ -43,4 +50,9 @@ export interface LoginUserType {
   username: string;
   password: string;
   redirectTo: string;
+}
+
+export interface CategoryFormType {
+  id?: number;
+  categoria: string | null;
 }

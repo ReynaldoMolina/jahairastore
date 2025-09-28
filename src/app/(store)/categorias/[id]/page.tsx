@@ -1,8 +1,9 @@
 import { CategoryForm } from '@/components/forms/category';
-import { getCategoryById } from '@/fetch-data/data';
+import { getCategoryById } from '@/fetch-data/categories';
+import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 
-export async function generateMetadata(props) {
+export async function generateMetadata(props: PageProps) {
   const { id } = await props.params;
 
   return {
@@ -10,9 +11,9 @@ export async function generateMetadata(props) {
   };
 }
 
-export default async function Page(props) {
+export default async function Page(props: PageProps) {
   const params = await props.params;
-  const id = params.id;
+  const id = Number(params.id);
   const data = await getCategoryById(id);
 
   if (!data) {

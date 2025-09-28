@@ -3,7 +3,7 @@ import { buildFilterBySearch } from './build-filter-by-search';
 import { buildLimitOffset } from './build-limit-offset';
 import { SearchParamsProps } from '@/types/types';
 import { db } from '@/database';
-import { count, SQL } from 'drizzle-orm';
+import { count, SQL, eq } from 'drizzle-orm';
 
 export async function getCategories(searchParams: SearchParamsProps) {
   const { search, filterBySearch } = buildFilterBySearch(searchParams, [
@@ -42,6 +42,21 @@ async function getCategoriesPages(
       .where(filterBySearch);
 
     return Math.ceil(Number(data) / limit) || 1;
+  } catch (error) {
+    console.error(error);
+    throw new Error(
+      'No se pudo obtener la cantidad de páginas, por favor intenta de nuevo.'
+    );
+  }
+}
+
+export async function getCategoryById(id: number) {
+  try {
+    const [data] = await db
+      .select()
+      .from(categorias)
+      .where(eq(categorias.id, id));
+    return data;
   } catch (error) {
     console.error(error);
     throw new Error(
