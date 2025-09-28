@@ -6,7 +6,17 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
 const ITEMS_PER_PAGE = 20;
 
-export function ListFilter({ showState = false, stateLabel, searchParams }) {
+interface ListFilterProps {
+  showState?: boolean;
+  stateLabel: string;
+  searchParams: string | {};
+}
+
+export function ListFilter({
+  showState = false,
+  stateLabel,
+  searchParams,
+}: ListFilterProps) {
   const limitParam = searchParams?.limit;
   const stateParam = searchParams?.state;
   const [filter, setFilter] = useState({

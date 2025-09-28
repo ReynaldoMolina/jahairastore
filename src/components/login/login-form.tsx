@@ -12,7 +12,13 @@ import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { loginSchema } from '../forms/schemas/form-schemas';
 import { Form } from '../ui/form';
-import { Card, CardContent } from '../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../ui/card';
 import { Button } from '../ui/button';
 
 export default function LoginForm() {
@@ -40,15 +46,21 @@ export default function LoginForm() {
   }
 
   return (
-    <main className="flex items-center bg-neutral-800 h-screen px-3">
+    <main className="flex items-center bg-background h-screen px-3">
       <Form {...form}>
-        <Card className="mx-auto max-w-xs">
+        <Card className="mx-auto max-w-sm w-full">
+          <CardHeader>
+            <CardTitle>Bienvenido</CardTitle>
+            <CardDescription>
+              Ingresa tu usuario para iniciar sesión en tu cuenta
+            </CardDescription>
+          </CardHeader>
           <CardContent>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="flex flex-col gap-6 p-4 mb-0"
+              className="flex flex-col gap-6"
             >
-              <Logo className="size-20 mx-auto" />
+              {/* <Logo className="size-20 mx-auto" /> */}
               <LoginInput
                 control={form.control}
                 name="username"
@@ -58,6 +70,7 @@ export default function LoginForm() {
                 control={form.control}
                 name="password"
                 label="Contraseña"
+                placeholder=""
                 type="password"
               />
               <LoginInput
@@ -67,11 +80,7 @@ export default function LoginForm() {
                 hidden
               />
 
-              <Button
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                id="login-button"
-                disabled={isPending}
-              >
+              <Button className="w-full" id="login-button" disabled={isPending}>
                 {isPending ? <LoadingIcon /> : 'Iniciar sesión'}
               </Button>
               {!isPending && (

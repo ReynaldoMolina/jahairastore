@@ -25,22 +25,22 @@ export default async function Page() {
       </CardHeader>
       <CardContent className="space-y-5">
         {!isDemo && (
-          <SettingsItem label="Infomación del negocio" href="/ajustes/info">
+          <SettingsLink label="Infomación del negocio" href="/ajustes/info">
             <Store className="size-5" />
-          </SettingsItem>
+          </SettingsLink>
         )}
         <SettingsSection title="Administrar">
-          <SettingsItem label="Categorías" href="/categorias">
+          <SettingsLink label="Categorías" href="/categorias">
             <Shapes className="size-5" />
-          </SettingsItem>
-          <SettingsItem label="Proveedores" href="/proveedores">
+          </SettingsLink>
+          <SettingsLink label="Proveedores" href="/proveedores">
             <Users className="size-5" />
-          </SettingsItem>
+          </SettingsLink>
         </SettingsSection>
         <SettingsSection title="Registros sin usar">
-          <SettingsItem label="Recibos" href="/recibos">
+          <SettingsLink label="Recibos" href="/recibos">
             <Receipt className="size-5" />
-          </SettingsItem>
+          </SettingsLink>
         </SettingsSection>
         {!isDemo && <LogoutForm />}
       </CardContent>
@@ -68,7 +68,7 @@ interface SettingsItemProps {
   href: string;
 }
 
-function SettingsItem({ label, children, href }: SettingsItemProps) {
+function SettingsLink({ label, children, href }: SettingsItemProps) {
   return (
     <Button variant="secondary" asChild>
       <Link href={href} className="flex gap-2 w-full items-center">

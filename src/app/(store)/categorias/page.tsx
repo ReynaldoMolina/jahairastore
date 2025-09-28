@@ -7,14 +7,19 @@ export const metadata = {
   title: 'Categorías',
 };
 
-export default async function Page(props) {
+interface PageProps {
+  params?: string;
+  searchParams?: string;
+}
+
+export default async function Page(props: PageProps) {
   const searchParams = await props.searchParams;
 
   return (
     <>
       <ListTitle title="Categorías" />
-      <SearchInput showFilter={false} />
-      <ListFilter searchParams={searchParams} />
+      <SearchInput />
+      <ListFilter searchParams={searchParams ?? {}} stateLabel="Estado" />
       <Categories searchParams={searchParams} />
     </>
   );
