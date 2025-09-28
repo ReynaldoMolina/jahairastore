@@ -185,19 +185,11 @@ export function FormButtons({ isNew, isPending }: FormButtonsProps) {
   const label = isNew ? 'Crear' : 'Guardar';
 
   return (
-    <CardFooter className="gap-3 justify-center border-t">
-      <Button
-        variant="secondary"
-        type="button"
-        className="w-full max-w-50 bg-red-500 text-white hover:bg-red-600"
-        onClick={() => router.back()}
-      >
+    <CardFooter className="gap-3 justify-end border-t">
+      <Button variant="secondary" type="button" onClick={() => router.back()}>
         Cancelar
       </Button>
-      <Button
-        disabled={isPending}
-        className="w-full max-w-50 bg-green-600 hover:bg-green-700 text-white"
-      >
+      <Button className="min-w-25" disabled={isPending}>
         {isPending ? <LoadingIcon /> : label}
       </Button>
     </CardFooter>

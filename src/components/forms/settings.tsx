@@ -54,7 +54,10 @@ export function SettingsForm({ businessInfo }: SettingsFormProps) {
         <Card className="w-full mx-auto max-w-xl">
           <CardHeader className="border-b">
             <CardTitle>Información del negocio</CardTitle>
-            <CardDescription>Edita la información del negocio</CardDescription>
+            <CardDescription>
+              Edita la información del negocio, haz click en guardar cuando
+              estés listo.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form
