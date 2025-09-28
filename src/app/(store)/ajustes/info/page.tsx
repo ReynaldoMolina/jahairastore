@@ -6,7 +6,7 @@ import { isDemo } from '@/middleware';
 import { SettingsForm } from '@/components/forms/settings';
 
 export const metadata = {
-  title: 'Ajustes',
+  title: 'Ajustes - Información del negocio',
 };
 
 export default async function Page() {
@@ -16,9 +16,5 @@ export default async function Page() {
 
   const businessInfo = await getBusinessInfo();
 
-  return (
-    <>
-      <SettingsForm businessInfo={businessInfo} />
-    </>
-  );
+  return <SettingsForm businessInfo={businessInfo} />;
 }
