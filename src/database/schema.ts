@@ -14,10 +14,7 @@ export const clientes = pgTable('clientes', {
   apellido: text().notNull(),
   telefono: text(),
   municipio: text(),
-  departamento: text(),
-  pais: text(),
   direccion: text(),
-  id_usuario: integer().references(() => usuarios.id),
 });
 
 export const compras = pgTable('compras', {

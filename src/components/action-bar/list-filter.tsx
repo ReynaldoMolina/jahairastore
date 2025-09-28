@@ -22,10 +22,11 @@ import { Button } from '../ui/button';
 import { Filter } from 'lucide-react';
 import { Switch } from '../ui/switch';
 import { ITEMS_PER_PAGE } from '@/fetch-data/build-limit-offset';
+import { Label } from '../ui/label';
 
 interface ListFilterProps {
   showState?: boolean;
-  stateLabel: 'Con saldo' | 'Disponibles';
+  stateLabel?: 'Con saldo' | 'Disponibles';
   searchParams: SearchParamsProps;
 }
 
@@ -39,7 +40,7 @@ export function ListFilter({
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
           <Filter />
-          Filtrar
+          <span className="hidden sm:static">Filtrar</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
@@ -134,10 +135,10 @@ function FilterLimit({ searchParams }: { searchParams: SearchParamsProps }) {
 
 function FilterState({
   searchParams,
-  stateLabel,
+  stateLabel = 'Con saldo',
 }: {
   searchParams: SearchParamsProps;
-  stateLabel: 'Con saldo' | 'Disponibles';
+  stateLabel?: 'Con saldo' | 'Disponibles';
 }) {
   const stateParam = searchParams?.state;
   const [state, setState] = useState(Boolean(stateParam) || false);
@@ -152,7 +153,7 @@ function FilterState({
 
   return (
     <DropdownMenuItem>
-      <label htmlFor="filter-state">{stateLabel}</label>
+      <Label htmlFor="filter-state">{stateLabel}</Label>
       <Switch
         id="filter-state"
         checked={state}

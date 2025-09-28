@@ -1,4 +1,7 @@
-export default function generatePagination(currentPage, totalPages) {
+export default function generatePagination(
+  currentPage: number,
+  totalPages: number
+) {
   // If the total number of pages is 7 or less,
   // display all pages without any ellipsis.
   if (totalPages <= 7) {
@@ -29,4 +32,4 @@ export default function generatePagination(currentPage, totalPages) {
     '...',
     totalPages,
   ];
-};
+}

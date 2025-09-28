@@ -1,20 +1,22 @@
 import Clients from '@/components/lists/clients';
-import SearchInput from '@/components/action-bar/search-input';
 import { ListFilter } from '@/components/action-bar/list-filter';
 import { ListTitle } from '@/components/lists/lists';
+import { PageProps } from '@/types/types';
+import ActionBar from '@/components/action-bar/action-bar';
 
 export const metadata = {
   title: 'Clientes',
 };
 
-export default async function Page(props) {
-  const searchParams = await props.searchParams;
+export default async function Page(props: PageProps) {
+  const searchParams = (await props.searchParams) ?? {};
 
   return (
     <>
       <ListTitle title="Clientes" />
-      <SearchInput />
-      <ListFilter searchParams={searchParams} />
+      <ActionBar>
+        <ListFilter searchParams={searchParams} />
+      </ActionBar>
       <Clients searchParams={searchParams} />
     </>
   );

@@ -1,5 +1,4 @@
-import { getRegisters } from '@/app/lib/data';
-import { Pagination } from './Pagination';
+import { PaginationComponent } from './pagination';
 import {
   List,
   ListCard,
@@ -12,32 +11,35 @@ import {
 } from '@/components/lists/lists';
 import EmptyList from '@/components/lists/empty-list';
 import { ClientListHeader } from './list-header';
+import { SearchParamsProps } from '@/types/types';
+import { getClients } from '@/fetch-data/clients';
 
-export default async function Clients({ searchParams }) {
-  const { data, query, totalPages } = await getRegisters(
-    'clientes',
-    searchParams
-  );
+export default async function Clients({
+  searchParams,
+}: {
+  searchParams: SearchParamsProps;
+}) {
+  const { data, totalPages } = await getClients(searchParams);
 
-  if (data.length === 0) return <EmptyList query={query} />;
+  if (data.length === 0) return <EmptyList />;
 
   return (
     <>
       <List>
         <ClientListHeader />
         {data.map((register) => (
-          <ListCard key={register.Id} href={`/clientes/${register.Id}`}>
+          <ListCard key={register.id} href={`/clientes/${register.id}`}>
             <ListInfo>
-              <ListId id={register.Id} label="ID CLIENTE" />
-              <ListName name={`${register.Nombre} ${register.Apellido}`} />
+              <ListId id={register.id} label="ID CLIENTE" />
+              <ListName name={`${register.nombre} ${register.apellido}`} />
             </ListInfo>
             <ListInfoDetail>
-              <ListPhone phone={register.Telefono} />
+              <ListPhone phone={register.telefono ?? ''} />
             </ListInfoDetail>
           </ListCard>
         ))}
       </List>
-      <Pagination totalPages={totalPages} />
+      <PaginationComponent totalPages={totalPages} />
       <ListBlankSpace />
     </>
   );

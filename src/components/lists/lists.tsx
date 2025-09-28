@@ -1,13 +1,12 @@
 import Link from 'next/link';
 import { bgColors } from '../bgcolors';
 import React from 'react';
-import { boolean } from 'drizzle-orm/gel-core';
 import { formatNumber } from '@/fetch-data/format-number';
 import { formatDate } from '@/utils/formatters';
 
 export function List({ children }: { children: React.ReactNode }) {
   return (
-    <section className="flex flex-col gap-2 md:gap-0 rounded-lg overflow-hidden pb-1 md:pb-0">
+    <section className="flex flex-col gap-2 md:gap-0 rounded-md overflow-hidden pb-1 md:pb-0 md:border">
       {children}
     </section>
   );
@@ -18,7 +17,7 @@ export function ListTitle({ title }: { title: string }) {
 }
 
 const listCardSClassName =
-  'flex flex-col md:flex-row items-start p-4 gap-3 hover:bg-sky-100 dark:hover:bg-neutral-800 md:border-t first-of-type:border-t-0 border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg md:rounded-none shadow md:shadow-none';
+  'flex flex-col md:flex-row items-start p-4 gap-3 hover:bg-muted border md:border-0 md:border-t md:first-of-type:border-t-0 bg-background rounded-md md:rounded-none shadow md:shadow-none';
 
 export function ListCard({
   children,
@@ -40,7 +39,7 @@ export function ProductSearchCard({ children }: { children: React.ReactNode }) {
 
 export function ListHeader({ children }: { children: React.ReactNode }) {
   return (
-    <div className="hidden md:flex px-4 py-3 md:justify-between items-center gap-3 border-b-2 border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900">
+    <div className="hidden md:flex px-4 py-2 md:justify-between items-center gap-3 border-b bg-secondary">
       {children}
     </div>
   );
@@ -126,14 +125,20 @@ export function ListDescription({ detail }) {
   );
 }
 
-export function ListId({ id, label = '', color = 'mdsky' }) {
+interface ListIdProps {
+  id: number | string;
+  label?: string;
+  color?: string;
+}
+
+export function ListId({ id, label = '', color = 'mdsky' }: ListIdProps) {
   const bgColor = bgColors[color];
   return (
     <div className="flex order-2 md:order-first items-center gap-1">
-      <span className="md:hidden text-xs">{label}:</span>
+      <span className="md:hidden text-xs text-muted-foreground">{label}:</span>
       <span
         className={`md:p-1 rounded-full ${bgColor} ${
-          color === 'mdsky' && 'md:text-black'
+          color === 'mdsky' && 'text-muted-foreground md:text-black'
         } md:text-center min-w-15 text-xs`}
       >
         {id}
@@ -146,8 +151,7 @@ export function ListInfo({ children, hideBorder = false }) {
   return (
     <div
       className={`flex flex-col md:flex-row w-full items-start grow gap-1 md:gap-4 pb-2 md:pb-0 ${
-        !hideBorder &&
-        'border-b md:border-b-0 border-neutral-300 dark:border-neutral-700'
+        !hideBorder && 'border-b md:border-b-0'
       }`}
     >
       {children}
@@ -163,22 +167,18 @@ export function ListInfoDetail({ children }) {
   );
 }
 
-export function ListName({ name }) {
-  return (
-    <span className="py-1 text-sm font-bold md:text-xs md:font-medium">
-      {name}
-    </span>
-  );
+export function ListName({ name }: { name: string }) {
+  return <span className="py-1 text-sm md:text-xs md:font-medium">{name}</span>;
 }
 
-export function ListPhone({ phone }) {
+export function ListPhone({ phone }: { phone: string }) {
   return (
     <div className="flex w-full justify-between items-center gap-1 relative">
-      <span className="md:hidden text-neutral-500 dark:text-neutral-400 text-xs min-w-18">
+      <span className="md:hidden text-muted-foreground text-xs min-w-18">
         Teléfono:
       </span>
       <span className="w-25 min-w-25 text-right text-xs md:py-1">
-        {phone === '' ? '-' : phone}
+        {phone ? phone : '-'}
       </span>
     </div>
   );

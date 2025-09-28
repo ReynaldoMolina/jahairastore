@@ -11,7 +11,7 @@ export default function NewRegister() {
     <Button asChild>
       <Link href={`${pathname}/create`}>
         <Plus />
-        Nuevo
+        <span className="hidden sm:block">Nuevo</span>
       </Link>
     </Button>
   );

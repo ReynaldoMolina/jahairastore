@@ -2,78 +2,105 @@
 
 import {
   FormButtons,
-  FormContainer,
-  FormDiv,
   FormError,
-  FormId,
-  FormInput,
 } from '@/components/forms/form-inputs/form-inputs';
-import { useActionState } from 'react';
-import { ClientOptions } from '@/components/forms/options/FormOptions';
-import { createClient, updateClient } from '@/app/lib/actions';
+import { createClient, updateClient } from '@/server-actions/clients';
+import { ClientFormType } from '@/types/types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { startTransition, useActionState } from 'react';
+import { useForm } from 'react-hook-form';
+import z from 'zod';
+import { clientSchema } from './schemas/form-schemas';
+import { Form } from '../ui/form';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../ui/card';
+import FormInput from './form-inputs/form-input';
+import FormTextArea from './form-inputs/form-text-area';
+import { FormSelect } from './form-inputs/form-select';
 
-export function ClientForm({ isNew, client }) {
-  const action = isNew ? createClient : updateClient.bind(null, client.Id);
+interface ClientFormProps {
+  isNew: boolean;
+  client?: ClientFormType;
+}
+
+export function ClientForm({ isNew, client }: ClientFormProps) {
+  const form = useForm<z.infer<typeof clientSchema>>({
+    resolver: zodResolver(clientSchema),
+    defaultValues: client
+      ? {
+          nombre: client.nombre ?? '',
+          apellido: client.apellido ?? '',
+          telefono: client.telefono ?? '',
+          municipio: client.municipio ?? '',
+          direccion: client.direccion ?? '',
+        }
+      : {
+          nombre: '',
+          apellido: '',
+          telefono: '+505 ',
+          municipio: '',
+          direccion: '',
+        },
+  });
+
+  const action = isNew ? createClient : updateClient.bind(null, client?.id);
   const [state, formAction, isPending] = useActionState(action, {
     message: '',
   });
 
+  function onSubmit(values: z.infer<typeof clientSchema>) {
+    startTransition(() => {
+      formAction(values);
+    });
+  }
+
   return (
-    <FormContainer action={formAction}>
-      <FormId
-        holder={isNew ? 'Crear cliente' : 'Cliente'}
-        value={isNew ? '' : client.Id}
-      />
-      <FormDiv>
-        <FormInput
-          name="Nombre"
-          holder="Nombre"
-          value={isNew ? '' : client.Nombre}
-          focus={isNew}
-        />
-        <FormInput
-          name="Apellido"
-          holder="Apellido"
-          value={isNew ? '' : client.Apellido}
-        />
-      </FormDiv>
-      <FormDiv>
-        <FormInput
-          name="Telefono"
-          holder="Telefono"
-          value={isNew ? '+505 ' : client.Telefono || '+505 '}
-          required={false}
-        />
-        <FormInput
-          name="Pais"
-          holder="País"
-          value={isNew ? 'Nicaragua' : client.Pais}
-          required={false}
-        />
-      </FormDiv>
-      <FormDiv>
-        <FormInput
-          name="Departamento"
-          holder="Departamento"
-          value={isNew ? '' : client.Departamento}
-          required={false}
-        />
-        <FormInput
-          name="Municipio"
-          holder="Municipio"
-          value={isNew ? '' : client.Municipio}
-          required={false}
-        />
-      </FormDiv>
-      <FormInput
-        name="Direccion"
-        holder="Dirección"
-        value={isNew ? '' : client.Direccion}
-        required={false}
-      />
-      {!isNew && <ClientOptions client={client} />}
-      <FormError isPending={isPending} state={state} />
-      <FormButtons isNew={isNew} isPending={isPending} />
-    </FormContainer>
+    <Form {...form}>
+      <Card className="mx-auto max-w-xl w-full">
+        <CardHeader className="border-b">
+          <CardTitle>Editar cliente</CardTitle>
+          <CardDescription>
+            Edita la información del cliente, haz click en guardar cuando estés
+            listo.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-6"
+          >
+            <FormInput control={form.control} name="nombre" label="Nombre" />
+            <FormInput
+              control={form.control}
+              name="apellido"
+              label="Apellido"
+            />
+            <FormInput
+              control={form.control}
+              name="telefono"
+              label="Teléfono"
+            />
+            <FormSelect
+              control={form.control}
+              name="municipio"
+              label="Municipio"
+              options={[{ value: 'León', label: 'León' }]}
+            />
+            <FormTextArea
+              control={form.control}
+              name="direccion"
+              label="Dirección"
+            />
+            <FormError isPending={isPending} state={state} />
+            <FormButtons isNew={false} isPending={isPending} />
+          </form>
+        </CardContent>
+      </Card>
+    </Form>
   );
 }

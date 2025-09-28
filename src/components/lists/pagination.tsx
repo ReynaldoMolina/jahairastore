@@ -6,8 +6,16 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import generatePagination from '@/utils/generate-pagination';
 import { ChevronRight } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '../ui/pagination';
 
-export function Pagination({ totalPages }) {
+export function PaginationComponent({ totalPages }: { totalPages: number }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -16,47 +24,72 @@ export function Pagination({ totalPages }) {
   const currentPage = Number(searchParams.get('page')) || 1;
   const allPages = generatePagination(currentPage, totalPages);
 
-  const createPageURL = (pageNumber) => {
+  function createPageURL(pageNumber: number) {
     const params = new URLSearchParams(searchParams);
     params.set('page', pageNumber.toString());
     return `${pathname}?${params.toString()}`;
-  };
+  }
 
   return (
-    <div className="inline-flex justify-center items-center overflow-scroll min-h-8">
-      <PaginationArrow
-        direction="left"
-        href={createPageURL(currentPage - 1)}
-        isDisabled={currentPage <= 1}
-      />
+    <>
+      <Pagination>
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious href={createPageURL(currentPage - 1)} />
+          </PaginationItem>
+          {allPages.map((page, index) => {
+            return (
+              <PaginationItem key={`${page}-${index}`}>
+                <PaginationLink
+                  href={createPageURL(Number(page))}
+                  isActive={currentPage === page}
+                >
+                  {page}
+                </PaginationLink>
+              </PaginationItem>
+            );
+          })}
+          <PaginationItem>
+            <PaginationNext href={createPageURL(currentPage + 1)} />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
 
-      <div className="flex gap-1">
-        {allPages.map((page, index) => {
-          let position;
+      {/* <div className="inline-flex justify-center items-center overflow-scroll min-h-8">
+        <PaginationArrow
+          direction="left"
+          href={createPageURL(currentPage - 1)}
+          isDisabled={currentPage <= 1}
+        />
 
-          if (index === 0) position = 'first';
-          if (index === allPages.length - 1) position = 'last';
-          if (allPages.length === 1) position = 'single';
-          if (page === '...') position = 'middle';
+        <div className="flex gap-1">
+          {allPages.map((page, index) => {
+            let position;
 
-          return (
-            <PaginationNumber
-              key={`${page}-${index}`}
-              href={createPageURL(page)}
-              page={page}
-              position={position}
-              isActive={currentPage === page}
-            />
-          );
-        })}
-      </div>
+            if (index === 0) position = 'first';
+            if (index === allPages.length - 1) position = 'last';
+            if (allPages.length === 1) position = 'single';
+            if (page === '...') position = 'middle';
 
-      <PaginationArrow
-        direction="right"
-        href={createPageURL(currentPage + 1)}
-        isDisabled={currentPage >= totalPages}
-      />
-    </div>
+            return (
+              <PaginationNumber
+                key={`${page}-${index}`}
+                href={createPageURL(page)}
+                page={page}
+                position={position}
+                isActive={currentPage === page}
+              />
+            );
+          })}
+        </div>
+
+        <PaginationArrow
+          direction="right"
+          href={createPageURL(currentPage + 1)}
+          isDisabled={currentPage >= totalPages}
+        />
+      </div> */}
+    </>
   );
 }
 
@@ -90,9 +123,9 @@ function PaginationArrow({ href, direction, isDisabled }) {
 
   const icon =
     direction === 'left' ? (
-      <ChevronRight className="w-4" />
-    ) : (
       <ChevronLeft className="w-4" />
+    ) : (
+      <ChevronRight className="w-4" />
     );
 
   return isDisabled ? (

@@ -15,3 +15,11 @@ export const settingsSchema = z.object({
 export const categorySchema = z.object({
   categoria: z.string().min(1, 'Requerido'),
 });
+
+export const clientSchema = z.object({
+  nombre: z.string().min(1, 'Requerido'),
+  apellido: z.string().min(1, 'Requerido'),
+  telefono: z.string().min(1, 'Requerido'),
+  municipio: z.string().min(1, 'Requerido'),
+  direccion: z.string().nullable(),
+});

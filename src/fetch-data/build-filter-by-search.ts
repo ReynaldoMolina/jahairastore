@@ -13,5 +13,5 @@ export function buildFilterBySearch(
     ...searchFields.map((field) => ilike(field, `%${search}%`))
   );
 
-  return { search, filterBySearch };
+  return { filterBySearch };
 }

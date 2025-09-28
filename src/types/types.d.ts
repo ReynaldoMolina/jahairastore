@@ -56,3 +56,17 @@ export interface CategoryFormType {
   id?: number;
   categoria: string | null;
 }
+
+export interface ClientFormType {
+  id?: number;
+  nombre: string | null;
+  apellido: string | null;
+  telefono: string | null;
+  municipio: string | null;
+  direccion: string | null;
+}
+
+export type SelectOptions = {
+  value: string;
+  label: string;
+};
