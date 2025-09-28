@@ -18,7 +18,7 @@ export const metadata = {
 
 export default async function Page() {
   return (
-    <Card className="max-w-lg mx-auto w-full">
+    <Card className="max-w-xl mx-auto w-full">
       <CardHeader>
         <CardTitle>Ajustes</CardTitle>
         <CardDescription>Realiza ajustes en la app</CardDescription>
