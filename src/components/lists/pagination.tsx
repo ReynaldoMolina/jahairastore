@@ -8,10 +8,11 @@ import { ChevronRight } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
 
 export function Pagination({ totalPages }) {
-  if (totalPages === 0) return;
-
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  if (totalPages === 0) return;
+
   const currentPage = Number(searchParams.get('page')) || 1;
   const allPages = generatePagination(currentPage, totalPages);
 

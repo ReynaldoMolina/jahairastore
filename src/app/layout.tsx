@@ -1,7 +1,7 @@
 import { inter } from '@/components/fonts';
-import '@/app/globals.css';
 import React from 'react';
 import { ThemeProvider } from '@/components/theme-provider';
+import '@/app/globals.css';
 
 export const metadata = {
   title: {

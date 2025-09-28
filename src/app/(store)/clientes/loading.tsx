@@ -1,7 +1,5 @@
-import LoadingIcon from "@/components/loading/LoadingIcon";
+import LoadingIcon from '@/components/loading-icon';
 
 export default function Loading() {
-  return (
-    <LoadingIcon />
-  );
+  return <LoadingIcon />;
 }

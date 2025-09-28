@@ -14,7 +14,7 @@ export function List({ children }: { children: React.ReactNode }) {
 }
 
 export function ListTitle({ title }: { title: string }) {
-  return <h1 className="font-bold text-xl">{title}</h1>;
+  return <span className="font-bold">{title}</span>;
 }
 
 const listCardSClassName =

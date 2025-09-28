@@ -1,10 +1,19 @@
-export async function getRegisterPages(query, whereFragment, limit, options) {
+import { db } from '@/database';
+import { categorias } from '@/database/schema';
+import { GetPagesType } from '@/types/types';
+import { count, SQL } from 'drizzle-orm';
+
+export async function getCategoriesPages({
+  search,
+  filterBySearch,
+  limit,
+}: GetPagesType) {
   try {
-    const data = await sql`
-      SELECT COUNT(*)
-      FROM ${sql(options.tableName)}
-      WHERE (${whereFragment}) ILIKE unaccent(${`%${query}%`})
-    `;
+    const data = db
+      .select({ count: count() })
+      .from(categorias)
+      .where(filterBySearch);
+
     return Math.ceil(Number(data[0].count) / limit) || 1;
   } catch (error) {
     console.error(error);

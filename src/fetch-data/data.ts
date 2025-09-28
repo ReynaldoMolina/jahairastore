@@ -1,5 +1,5 @@
 import { db } from '@/database';
-import { getUrlParams } from './filter';
+import { getUrlParams } from './build-filter-by-state';
 import {
   getPurchasesPages,
   getRegisterPages,

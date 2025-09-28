@@ -1,4 +1,3 @@
-import { getRegisters } from '@/app/lib/data';
 import {
   List,
   ListCard,
@@ -9,25 +8,28 @@ import {
 } from '@/components/lists/lists';
 import EmptyList from '@/components/lists/empty-list';
 import { CategoryListHeader } from './list-header';
-import { Pagination } from '@/components/lists/Pagination';
+import { getCategories } from '@/fetch-data/categories';
+import { SearchParamsProps } from '@/types/types';
+import { Pagination } from './pagination';
 
-export default async function Categories({ searchParams }) {
-  const { data, query, totalPages } = await getRegisters(
-    'categorias',
-    searchParams
-  );
+export default async function Categories({
+  searchParams,
+}: {
+  searchParams: SearchParamsProps;
+}) {
+  const { data, search, totalPages } = await getCategories(searchParams);
 
-  if (data.length === 0) return <EmptyList query={query} />;
+  if (data.length === 0) return <EmptyList search={search} />;
 
   return (
     <>
       <List>
         <CategoryListHeader />
-        {data.map((register) => (
-          <ListCard key={register.Id} href={`/categorias/${register.Id}`}>
+        {data.map((e) => (
+          <ListCard key={e.id} href={`/categorias/${e.id}`}>
             <ListInfo hideBorder={true}>
-              <ListId id={register.Id} label="ID CATEGORIA" />
-              <ListName name={register.Nombre} />
+              <ListId id={e.id} label="ID CATEGORIA" />
+              <ListName name={e.categoria} />
             </ListInfo>
           </ListCard>
         ))}

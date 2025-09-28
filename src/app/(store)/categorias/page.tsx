@@ -1,7 +1,8 @@
-import { ListFilter } from '@/components/actiontools/list-filter';
-import SearchInput from '@/components/actiontools/search-input';
+import ActionBar from '@/components/action-bar/action-bar';
+import { ListFilter } from '@/components/action-bar/list-filter';
 import Categories from '@/components/lists/categories';
 import { ListTitle } from '@/components/lists/lists';
+import { SearchParamsProps } from '@/types/types';
 
 export const metadata = {
   title: 'Categorías',
@@ -9,17 +10,18 @@ export const metadata = {
 
 interface PageProps {
   params?: string;
-  searchParams?: string;
+  searchParams?: SearchParamsProps;
 }
 
 export default async function Page(props: PageProps) {
-  const searchParams = await props.searchParams;
+  const searchParams = (await props.searchParams) ?? {};
 
   return (
     <>
       <ListTitle title="Categorías" />
-      <SearchInput />
-      <ListFilter searchParams={searchParams ?? {}} stateLabel="Estado" />
+      <ActionBar>
+        <ListFilter searchParams={searchParams} stateLabel="Estado" />
+      </ActionBar>
       <Categories searchParams={searchParams} />
     </>
   );

@@ -13,6 +13,19 @@ export type MenuOptionsNames =
   | 'Ajustes'
   | 'Informes';
 
+export interface SearchParamsProps {
+  search?: string;
+  state?: string;
+  limit?: string;
+  page?: string;
+}
+
+export interface GetPagesType {
+  search: string;
+  filterBySearch: SQL<unknown> | undefined;
+  limit: number;
+}
+
 export interface BusinessInfoType {
   nombre_empresa: string | null;
   eslogan: string | null;
