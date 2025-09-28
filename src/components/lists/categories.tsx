@@ -10,16 +10,16 @@ import EmptyList from '@/components/lists/empty-list';
 import { CategoryListHeader } from './list-header';
 import { getCategories } from '@/fetch-data/categories';
 import { SearchParamsProps } from '@/types/types';
-import { Pagination } from './pagination';
+import { PaginationComponent } from './pagination';
 
 export default async function Categories({
   searchParams,
 }: {
   searchParams: SearchParamsProps;
 }) {
-  const { data, search, totalPages } = await getCategories(searchParams);
+  const { data, totalPages } = await getCategories(searchParams);
 
-  if (data.length === 0) return <EmptyList search={search} />;
+  if (data.length === 0) return <EmptyList />;
 
   return (
     <>
@@ -34,7 +34,7 @@ export default async function Categories({
           </ListCard>
         ))}
       </List>
-      <Pagination totalPages={totalPages} />
+      <PaginationComponent totalPages={totalPages} />
       <ListBlankSpace />
     </>
   );

@@ -6,7 +6,7 @@ import { db } from '@/database';
 import { count, SQL, eq } from 'drizzle-orm';
 
 export async function getCategories(searchParams: SearchParamsProps) {
-  const { search, filterBySearch } = buildFilterBySearch(searchParams, [
+  const { filterBySearch } = buildFilterBySearch(searchParams, [
     categorias.categoria,
   ]);
 
@@ -22,7 +22,7 @@ export async function getCategories(searchParams: SearchParamsProps) {
 
     const totalPages = await getCategoriesPages(filterBySearch, limit ?? 0);
 
-    return { data, search, totalPages };
+    return { data, totalPages };
   } catch (error) {
     console.error(error);
     throw new Error(

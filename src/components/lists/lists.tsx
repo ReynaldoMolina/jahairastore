@@ -17,7 +17,7 @@ export function ListTitle({ title }: { title: string }) {
 }
 
 const listCardSClassName =
-  'flex flex-col md:flex-row items-start p-4 gap-3 hover:bg-muted border md:border-0 md:border-t md:first-of-type:border-t-0 bg-background rounded-md md:rounded-none shadow md:shadow-none';
+  'flex flex-col md:flex-row items-start p-4 gap-3 hover:bg-muted border md:border-0 md:border-t md:first-of-type:border-t-0 bg-card rounded-md md:rounded-none shadow md:shadow-none';
 
 export function ListCard({
   children,
@@ -58,12 +58,12 @@ export function ListFooter({ children }: { children: React.ReactNode }) {
 }
 
 interface ListDetailProps {
-  detail: 'string';
+  detail: number | string;
   label: string;
-  color: 'none';
-  number: boolean;
-  nio: boolean;
-  ping: boolean;
+  color?: string;
+  number?: boolean;
+  nio?: boolean;
+  ping?: boolean;
 }
 
 export function ListDetail({

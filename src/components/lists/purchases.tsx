@@ -1,4 +1,3 @@
-import { getPurchases } from '@/app/lib/data';
 import {
   List,
   ListCard,
@@ -10,46 +9,48 @@ import {
   ListDetail,
   ListBlankSpace,
 } from '@/components/lists/lists';
-import { Pagination } from '@/components/lists/Pagination';
 import EmptyList from '@/components/lists/empty-list';
 import { PurchaseListTotal } from './list-total';
 import { PurchaseListHeader } from './list-header';
+import { PaginationComponent } from './pagination';
+import { SearchParamsProps } from '@/types/types';
+import { getPurchases } from '@/fetch-data/purchases';
 
-export default async function Purchases({ searchParams }) {
-  const { data, query, totalPages } = await getPurchases(searchParams);
+export default async function Purchases({
+  searchParams,
+}: {
+  searchParams: SearchParamsProps;
+}) {
+  const { data, totalPages } = await getPurchases(searchParams);
 
-  if (data.length === 0) return <EmptyList query={query} />;
+  if (data.length === 0) return <EmptyList />;
 
   return (
     <>
       <List>
         <PurchaseListHeader />
-        {data.map((register) => (
-          <ListCard key={register.Id} href={`/compras/${register.Id}`}>
+        {data.map((e) => (
+          <ListCard key={e.id} href={`/compras/${e.id}`}>
             <ListInfo>
-              <ListId id={register.Id} label="ID COMPRA" />
-              <ListName name={register.Nombre_empresa} />
+              <ListId id={e.id} label="ID COMPRA" />
+              <ListName name={e.proveedor ?? ''} />
             </ListInfo>
             <ListInfoDetail>
-              <ListDate date={register.Fecha} />
+              <ListDate date={e.fecha} />
               <ListDetail
-                detail={register.TotalCompraCompra}
+                detail={e.total_compra}
                 label="Total compra"
                 color="gray"
                 nio={true}
               />
               <ListDetail
-                detail={register.TotalGasto}
+                detail={e.total_gastos}
                 label="Gastos"
                 color="red"
                 nio={true}
               />
               <ListDetail
-                detail={
-                  register.TotalCompraVenta -
-                  register.TotalCompraCompra -
-                  register.TotalGasto
-                }
+                detail={e.ganancia}
                 label="Ganancia"
                 color="blue"
                 nio={true}
@@ -59,7 +60,7 @@ export default async function Purchases({ searchParams }) {
         ))}
         <PurchaseListTotal data={data} />
       </List>
-      <Pagination totalPages={totalPages} />
+      <PaginationComponent totalPages={totalPages} />
       <ListBlankSpace />
     </>
   );

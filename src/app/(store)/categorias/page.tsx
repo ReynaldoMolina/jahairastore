@@ -20,7 +20,7 @@ export default async function Page(props: PageProps) {
     <>
       <ListTitle title="Categorías" />
       <ActionBar>
-        <ListFilter searchParams={searchParams} stateLabel="Con saldo" />
+        <ListFilter searchParams={searchParams} />
       </ActionBar>
       <Categories searchParams={searchParams} />
     </>
