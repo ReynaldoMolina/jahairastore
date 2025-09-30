@@ -3,6 +3,9 @@ import { ListFilter } from '@/components/action-bar/list-filter';
 import { ListTitle } from '@/components/lists/lists';
 import { PageProps } from '@/types/types';
 import ActionBar from '@/components/action-bar/action-bar';
+import { DataTable } from '@/components/data-table';
+import { columns } from './columns';
+import { getClients } from '@/fetch-data/clients';
 
 export const metadata = {
   title: 'Clientes',
@@ -10,6 +13,7 @@ export const metadata = {
 
 export default async function Page(props: PageProps) {
   const searchParams = (await props.searchParams) ?? {};
+  const { data } = await getClients(searchParams);
 
   return (
     <>
@@ -17,7 +21,7 @@ export default async function Page(props: PageProps) {
       <ActionBar>
         <ListFilter searchParams={searchParams} />
       </ActionBar>
-      <Clients searchParams={searchParams} />
+      <DataTable columns={columns} data={data} />
     </>
   );
 }

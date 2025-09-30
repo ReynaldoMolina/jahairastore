@@ -1,6 +1,6 @@
 'use client';
 
-import { CategoryFormType } from '@/types/types';
+import { ActionType, CategoryFormType } from '@/types/types';
 import { startTransition, useActionState } from 'react';
 import { createCategory, updateCategory } from '@/server-actions/categories';
 import { useForm } from 'react-hook-form';
@@ -17,13 +17,14 @@ import {
 } from '../ui/card';
 import FormInput from './form-inputs/form-input';
 import { FormButtons, FormError } from './form-inputs/form-inputs';
+import { getFormLabels } from '@/utils/get-form-labels';
 
 interface CategoryFormProps {
-  isNew: boolean;
+  action: ActionType;
   category?: CategoryFormType;
 }
 
-export function CategoryForm({ isNew, category }: CategoryFormProps) {
+export function CategoryForm({ action, category }: CategoryFormProps) {
   const form = useForm<z.infer<typeof categorySchema>>({
     resolver: zodResolver(categorySchema),
     defaultValues: category
@@ -35,10 +36,11 @@ export function CategoryForm({ isNew, category }: CategoryFormProps) {
         },
   });
 
-  const action = isNew
-    ? createCategory
-    : updateCategory.bind(null, category?.id);
-  const [state, formAction, isPending] = useActionState(action, {
+  const newAction =
+    action === 'create'
+      ? createCategory
+      : updateCategory.bind(null, category?.id);
+  const [state, formAction, isPending] = useActionState(newAction, {
     message: '',
   });
 
@@ -48,14 +50,16 @@ export function CategoryForm({ isNew, category }: CategoryFormProps) {
     });
   }
 
+  const { cardTitle, cardAction, cardButton } = getFormLabels(action, 'f');
+
   return (
     <Form {...form}>
       <Card className="mx-auto max-w-xl w-full">
         <CardHeader className="border-b">
-          <CardTitle>Editar categoría</CardTitle>
+          <CardTitle>{cardTitle} categoría</CardTitle>
           <CardDescription>
-            Edita la información de la categoría, haz click en guardar cuando
-            estés listo.
+            {cardAction} la información de la categoría, haz click en{' '}
+            {cardButton} cuando estés listo.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -69,7 +73,7 @@ export function CategoryForm({ isNew, category }: CategoryFormProps) {
               label="Categoría"
             />
             <FormError isPending={isPending} state={state} />
-            <FormButtons isNew={false} isPending={isPending} />
+            <FormButtons action={action} isPending={isPending} />
           </form>
         </CardContent>
       </Card>

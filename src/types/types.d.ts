@@ -13,6 +13,10 @@ export type MenuOptionsNames =
   | 'Ajustes'
   | 'Informes';
 
+export type ActionType = 'create' | 'edit';
+
+export type FormNounType = 'f' | 'm';
+
 export interface PageProps {
   params: {
     id: string;

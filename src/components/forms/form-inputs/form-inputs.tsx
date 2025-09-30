@@ -6,6 +6,7 @@ import { bgColors } from '@/components/bgcolors';
 import { CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import LoadingIcon from '@/components/loading-icon';
+import { ActionType } from '@/types/types';
 
 export function FormContainer({ children, action, wider = false }) {
   const maxWidth = wider ? '' : 'max-w-3xl';
@@ -176,13 +177,13 @@ export function FormCheck({ name, holder, value, setValue }) {
 }
 
 interface FormButtonsProps {
-  isNew: boolean;
+  action: ActionType;
   isPending: boolean;
 }
 
-export function FormButtons({ isNew, isPending }: FormButtonsProps) {
+export function FormButtons({ action, isPending }: FormButtonsProps) {
   const router = useRouter();
-  const label = isNew ? 'Crear' : 'Guardar';
+  const label = action === 'create' ? 'Crear' : 'Guardar';
 
   return (
     <CardFooter className="gap-3 justify-end border-t">

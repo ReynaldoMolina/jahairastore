@@ -17,6 +17,7 @@ import {
   CardTitle,
 } from '../ui/card';
 import FormInput from './form-inputs/form-input';
+import FormTextArea from './form-inputs/form-text-area';
 
 interface SettingsFormProps {
   businessInfo: BusinessInfoType;
@@ -51,7 +52,7 @@ export function SettingsForm({ businessInfo }: SettingsFormProps) {
   return (
     <main className="flex flex-col gap-4 items-center">
       <Form {...form}>
-        <Card className="w-full mx-auto max-w-xl">
+        <Card className="w-full mx-auto max-w-2xl">
           <CardHeader className="border-b">
             <CardTitle>Información del negocio</CardTitle>
             <CardDescription>
@@ -74,13 +75,13 @@ export function SettingsForm({ businessInfo }: SettingsFormProps) {
                 name="eslogan"
                 label="Eslogan"
               />
-              <FormInput
+              <FormTextArea
                 control={form.control}
                 name="mensaje"
                 label="Mensaje"
               />
               <FormError isPending={isPending} state={state} />
-              <FormButtons isNew={false} isPending={isPending} />
+              <FormButtons action="edit" isPending={isPending} />
             </form>
           </CardContent>
         </Card>

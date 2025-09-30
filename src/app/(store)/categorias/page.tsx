@@ -1,8 +1,10 @@
 import ActionBar from '@/components/action-bar/action-bar';
 import { ListFilter } from '@/components/action-bar/list-filter';
-import Categories from '@/components/lists/categories';
+import { DataTable } from '@/components/data-table';
 import { ListTitle } from '@/components/lists/lists';
+import { getCategories } from '@/fetch-data/categories';
 import { SearchParamsProps } from '@/types/types';
+import { columns } from './columns';
 
 export const metadata = {
   title: 'Categorías',
@@ -15,6 +17,7 @@ interface PageProps {
 
 export default async function Page(props: PageProps) {
   const searchParams = (await props.searchParams) ?? {};
+  const { data } = await getCategories(searchParams);
 
   return (
     <>
@@ -22,7 +25,7 @@ export default async function Page(props: PageProps) {
       <ActionBar>
         <ListFilter searchParams={searchParams} />
       </ActionBar>
-      <Categories searchParams={searchParams} />
+      <DataTable columns={columns} data={data} />
     </>
   );
 }

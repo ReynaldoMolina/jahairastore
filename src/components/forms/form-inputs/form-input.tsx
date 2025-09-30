@@ -32,7 +32,7 @@ export default function FormInput<T extends FieldValues>({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem hidden={hidden}>
+        <FormItem hidden={hidden} className="w-full">
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <Input

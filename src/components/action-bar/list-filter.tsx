@@ -40,7 +40,7 @@ export function ListFilter({
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
           <Filter />
-          <span className="hidden sm:static">Filtrar</span>
+          <span className="hidden sm:block">Filtrar</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>

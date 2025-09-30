@@ -16,7 +16,7 @@ import { ChangeTheme } from '@/components/settings/change-theme';
 
 export function Settings() {
   return (
-    <Card className="max-w-xl mx-auto w-full">
+    <Card className="max-w-2xl mx-auto w-full">
       <CardHeader>
         <CardTitle>Ajustes</CardTitle>
         <CardDescription>Realiza ajustes en la app</CardDescription>

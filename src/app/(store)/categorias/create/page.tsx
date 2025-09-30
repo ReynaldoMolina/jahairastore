@@ -5,5 +5,5 @@ export const metadata = {
 };
 
 export default async function Page() {
-  return <CategoryForm isNew={true} />;
+  return <CategoryForm action="create" />;
 }

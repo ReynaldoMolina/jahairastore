@@ -9,6 +9,8 @@ export async function getClients(searchParams: SearchParamsProps) {
   const { filterBySearch } = buildFilterBySearch(searchParams, [
     clientes.nombre,
     clientes.apellido,
+    clientes.telefono,
+    clientes.municipio,
   ]);
 
   const { limit, offset } = buildLimitOffset(searchParams);

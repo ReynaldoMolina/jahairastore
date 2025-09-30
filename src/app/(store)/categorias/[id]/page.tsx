@@ -20,5 +20,5 @@ export default async function Page(props: PageProps) {
     notFound();
   }
 
-  return <CategoryForm isNew={false} category={data} />;
+  return <CategoryForm action="edit" category={data} />;
 }

@@ -20,5 +20,5 @@ export default async function Page(props: PageProps) {
     notFound();
   }
 
-  return <ClientForm isNew={false} client={data} />;
+  return <ClientForm action="edit" client={data} />;
 }
