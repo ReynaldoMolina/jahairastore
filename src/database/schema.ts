@@ -56,7 +56,7 @@ export const egresos = pgTable('egresos', {
     .references(() => proveedores.id),
   fecha: date().notNull(),
   gasto: real().notNull(),
-  concepto: text().notNull(),
+  concepto: text(),
   cambio_dolar: real().notNull(),
 });
 

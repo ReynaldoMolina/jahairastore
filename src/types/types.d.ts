@@ -79,6 +79,17 @@ export interface ProviderFormType {
   direccion: string | null;
 }
 
+export interface ExpenseFormType {
+  id?: number;
+  id_compra: number | null;
+  id_proveedor: number | null;
+  nombre_empresa: string | null;
+  fecha: string | null;
+  gasto: number | null;
+  concepto: string | null;
+  cambio_dolar: number | null;
+}
+
 export type SelectOptions = {
   value: string;
   label: string;

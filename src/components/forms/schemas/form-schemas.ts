@@ -31,3 +31,12 @@ export const providerSchema = z.object({
   municipio: z.string().min(1, 'Requerido'),
   direccion: z.string().nullable(),
 });
+
+export const expenseSchema = z.object({
+  id_compra: z.number().min(1, 'Requerido'),
+  id_proveedor: z.number().min(1, 'Requerido'),
+  fecha: z.string().min(1, 'Requerido'),
+  gasto: z.number().min(0.01, 'Requerido'),
+  concepto: z.string().nullable(),
+  cambio_dolar: z.number().min(1, 'Requerido'),
+});

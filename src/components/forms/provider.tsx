@@ -55,6 +55,7 @@ export function ProviderForm({ action, provider }: ProviderFormProps) {
     action === 'create'
       ? createProvider
       : updateProvider.bind(null, provider?.id);
+
   const [state, formAction, isPending] = useActionState(newAction, {
     message: '',
   });
