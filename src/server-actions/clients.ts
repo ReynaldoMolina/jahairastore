@@ -3,7 +3,7 @@
 import { ClientFormType } from '@/types/types';
 import { goBackTo } from './actions-utils';
 import { db } from '@/database';
-import { categorias, clientes } from '@/database/schema';
+import { clientes } from '@/database/schema';
 import { eq } from 'drizzle-orm';
 
 export async function createClient(prevState, values: ClientFormType) {

@@ -5,5 +5,5 @@ export const metadata = {
 };
 
 export default async function Page() {
-  return <ProviderForm isNew={true} />;
+  return <ProviderForm action="create" />;
 }

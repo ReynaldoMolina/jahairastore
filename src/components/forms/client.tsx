@@ -24,6 +24,7 @@ import FormTextArea from './form-inputs/form-text-area';
 import { FormSelect } from './form-inputs/form-select';
 import { getFormLabels } from '@/utils/get-form-labels';
 import FormInputGroup from './form-inputs/form-input-group';
+import { municipios } from '@/utils/municipios';
 
 interface ClientFormProps {
   action: ActionType;
@@ -62,17 +63,14 @@ export function ClientForm({ action, client }: ClientFormProps) {
     });
   }
 
-  const { cardTitle, cardAction, cardButton } = getFormLabels(action, 'm');
+  const { cardTitle, cardDescription } = getFormLabels(action, 'm', 'cliente');
 
   return (
     <Form {...form}>
       <Card className="mx-auto max-w-2xl w-full">
         <CardHeader className="border-b">
-          <CardTitle>{cardTitle} cliente</CardTitle>
-          <CardDescription>
-            {cardAction} la información del cliente, haz click en {cardButton}{' '}
-            cuando estés listo.
-          </CardDescription>
+          <CardTitle>{cardTitle}</CardTitle>
+          <CardDescription>{cardDescription}</CardDescription>
         </CardHeader>
         <CardContent>
           <form
@@ -97,10 +95,7 @@ export function ClientForm({ action, client }: ClientFormProps) {
                 control={form.control}
                 name="municipio"
                 label="Municipio"
-                options={[
-                  { value: 'León', label: 'León' },
-                  { value: 'Acoyapa', label: 'Acoyapa' },
-                ]}
+                options={municipios}
               />
             </FormInputGroup>
             <FormTextArea

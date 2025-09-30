@@ -89,9 +89,7 @@ export const proveedores = pgTable('proveedores', {
   nombre_empresa: text().notNull(),
   nombre_contacto: text(),
   telefono: text(),
-  departamento: text(),
   municipio: text(),
-  pais: text(),
   direccion: text(),
 });
 

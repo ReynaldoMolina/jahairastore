@@ -70,6 +70,15 @@ export interface ClientFormType {
   direccion: string | null;
 }
 
+export interface ProviderFormType {
+  id?: number;
+  nombre_empresa: string | null;
+  nombre_contacto: string | null;
+  telefono: string | null;
+  municipio: string | null;
+  direccion: string | null;
+}
+
 export type SelectOptions = {
   value: string;
   label: string;

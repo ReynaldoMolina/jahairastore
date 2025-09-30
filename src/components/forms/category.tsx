@@ -50,17 +50,18 @@ export function CategoryForm({ action, category }: CategoryFormProps) {
     });
   }
 
-  const { cardTitle, cardAction, cardButton } = getFormLabels(action, 'f');
+  const { cardTitle, cardDescription } = getFormLabels(
+    action,
+    'f',
+    'categoría'
+  );
 
   return (
     <Form {...form}>
       <Card className="mx-auto max-w-xl w-full">
         <CardHeader className="border-b">
-          <CardTitle>{cardTitle} categoría</CardTitle>
-          <CardDescription>
-            {cardAction} la información de la categoría, haz click en{' '}
-            {cardButton} cuando estés listo.
-          </CardDescription>
+          <CardTitle>{cardTitle}</CardTitle>
+          <CardDescription>{cardDescription}</CardDescription>
         </CardHeader>
         <CardContent>
           <form

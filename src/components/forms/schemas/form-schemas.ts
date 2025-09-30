@@ -19,7 +19,15 @@ export const categorySchema = z.object({
 export const clientSchema = z.object({
   nombre: z.string().min(1, 'Requerido'),
   apellido: z.string().min(1, 'Requerido'),
-  telefono: z.string().min(1, 'Requerido'),
+  telefono: z.string().nullable(),
+  municipio: z.string().min(1, 'Requerido'),
+  direccion: z.string().nullable(),
+});
+
+export const providerSchema = z.object({
+  nombre_empresa: z.string().min(1, 'Requerido'),
+  nombre_contacto: z.string().nullable(),
+  telefono: z.string().nullable(),
   municipio: z.string().min(1, 'Requerido'),
   direccion: z.string().nullable(),
 });

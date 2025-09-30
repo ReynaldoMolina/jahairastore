@@ -1,14 +1,14 @@
-import { categorias } from '@/database/schema';
+import { proveedores } from '@/database/schema';
 import { buildFilterBySearch } from './build-filter-by-search';
 import { buildLimitOffset } from './build-limit-offset';
 import { SearchParamsProps } from '@/types/types';
 import { db } from '@/database';
-import { count, SQL, eq } from 'drizzle-orm';
+import { eq, asc } from 'drizzle-orm';
 import { getPages } from './get-pages';
 
-export async function getCategories(searchParams: SearchParamsProps) {
+export async function getProviders(searchParams: SearchParamsProps) {
   const { filterBySearch } = buildFilterBySearch(searchParams, [
-    categorias.categoria,
+    proveedores.nombre_empresa,
   ]);
 
   const { limit, offset } = buildLimitOffset(searchParams);
@@ -16,12 +16,13 @@ export async function getCategories(searchParams: SearchParamsProps) {
   try {
     const data = await db
       .select()
-      .from(categorias)
+      .from(proveedores)
       .where(filterBySearch)
+      .orderBy(asc(proveedores.id))
       .limit(limit ?? 10000)
       .offset(offset ?? 0);
 
-    const totalPages = await getPages(categorias, filterBySearch, limit ?? 0);
+    const totalPages = await getPages(proveedores, filterBySearch, limit ?? 0);
 
     return { data, totalPages };
   } catch (error) {
@@ -32,12 +33,12 @@ export async function getCategories(searchParams: SearchParamsProps) {
   }
 }
 
-export async function getCategoryById(id: number) {
+export async function getProviderById(id: number) {
   try {
     const [data] = await db
       .select()
-      .from(categorias)
-      .where(eq(categorias.id, id));
+      .from(proveedores)
+      .where(eq(proveedores.id, id));
     return data;
   } catch (error) {
     console.error(error);
