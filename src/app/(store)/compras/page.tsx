@@ -1,8 +1,10 @@
 import ActionBar from '@/components/action-bar/action-bar';
 import { ListFilter } from '@/components/action-bar/list-filter';
+import { DataTable } from '@/components/data-table';
 import { ListTitle } from '@/components/lists/lists';
-import Purchases from '@/components/lists/purchases';
 import { PageProps } from '@/types/types';
+import { columns } from './columns';
+import { getPurchases } from '@/fetch-data/purchases';
 
 export const metadata = {
   title: 'Compras',
@@ -10,6 +12,7 @@ export const metadata = {
 
 export default async function Page(props: PageProps) {
   const searchParams = (await props.searchParams) ?? {};
+  const { data } = await getPurchases(searchParams);
 
   return (
     <>
@@ -17,7 +20,7 @@ export default async function Page(props: PageProps) {
       <ActionBar>
         <ListFilter searchParams={searchParams} />
       </ActionBar>
-      <Purchases searchParams={searchParams} />
+      <DataTable columns={columns} data={data} />
     </>
   );
 }

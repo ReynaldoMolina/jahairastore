@@ -90,6 +90,42 @@ export interface ExpenseFormType {
   cambio_dolar: number | null;
 }
 
+export interface PurchaseTableType {
+  id?: number;
+  nombre_empresa: string | null;
+  fecha: string | null;
+  total_compra: number | null;
+  total_gasto: number | null;
+  ganancia: number | null;
+}
+
+export interface PurchaseFormType {
+  id?: number;
+  id_proveedor: number | null;
+  fecha: string | null;
+}
+
+export interface ProductsTableType {
+  id: number;
+  nombre: string | null;
+  id_externo: string | null;
+  precio_venta: number | null;
+  precio_compra: number | null;
+  ganancia: number | null;
+}
+
+export interface ProductsFormType {
+  id?: number;
+  id_proveedor: number | null;
+  nombre: string | null;
+  precio_compra: number | null;
+  precio_venta: number | null;
+  id_categoria: number | null;
+  fecha: string | null;
+  id_externo: string | null;
+  inventario: boolean | null;
+}
+
 export type SelectOptions = {
   value: string;
   label: string;

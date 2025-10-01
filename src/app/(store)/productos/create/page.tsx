@@ -1,21 +1,18 @@
 export const dynamic = 'force-dynamic';
 
 import { ProductForm } from '@/components/forms/product';
-import { getProvidersSelect, getCategoriesSelect } from '@/fetch-data/data';
+import { getCategoriesSelect } from '@/fetch-data/categories';
+import { getProvidersSelect } from '@/fetch-data/providers';
 
 export const metadata = {
   title: 'Crear producto',
 };
 
 export default async function Page() {
-  const providersData = await getProvidersSelect();
-  const categoriesData = await getCategoriesSelect();
+  const providers = await getProvidersSelect();
+  const categories = await getCategoriesSelect();
 
   return (
-    <ProductForm
-      isNew={true}
-      providersData={providersData}
-      categoriesData={categoriesData}
-    />
+    <ProductForm action="create" selectOptions={{ providers, categories }} />
   );
 }

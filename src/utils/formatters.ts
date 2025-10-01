@@ -14,7 +14,11 @@ export function formatDate(date: string | null | undefined) {
   return format(newDate, 'dd/MMM/yyyy', { locale: es });
 }
 
-export const formatNumber = new Intl.NumberFormat('es-NI', {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-}).format;
+export function formatNumber(value: number, locale = 'es-NI') {
+  const formatter = new Intl.NumberFormat(locale, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
+  return formatter.format(value);
+}

@@ -1,21 +1,26 @@
 import { ListTitle } from '@/components/lists/lists';
-import SearchInput from '@/components/action-bar/search-input';
 import { ListFilter } from '@/components/action-bar/list-filter';
-import Products from '@/components/lists/Products';
+import { PageProps } from '@/types/types';
+import ActionBar from '@/components/action-bar/action-bar';
+import { DataTable } from '@/components/data-table';
+import { columns } from './columns';
+import { getProducts } from '@/fetch-data/products';
 
 export const metadata = {
   title: 'Productos',
 };
 
-export default async function Page(props) {
-  const searchParams = await props.searchParams;
+export default async function Page(props: PageProps) {
+  const searchParams = (await props.searchParams) ?? {};
+  const { data } = await getProducts(searchParams);
 
   return (
     <>
       <ListTitle title="Productos" />
-      <SearchInput />
-      <ListFilter searchParams={searchParams} />
-      <Products searchParams={searchParams} />
+      <ActionBar>
+        <ListFilter searchParams={searchParams} />
+      </ActionBar>
+      <DataTable columns={columns} data={data} />
     </>
   );
 }

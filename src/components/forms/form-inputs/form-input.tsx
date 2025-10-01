@@ -40,11 +40,7 @@ export default function FormInput<T extends FieldValues>({
               placeholder={placeholder ?? label}
               {...field}
               value={field.value ?? ''}
-              onChange={(e) =>
-                field.onChange(
-                  type === 'number' ? Number(e.target.value) : e.target.value
-                )
-              }
+              onChange={(e) => field.onChange(e.target.value)}
               disabled={disabled}
               autoComplete="off"
             />

@@ -151,14 +151,13 @@ export const productos = pgTable('productos', {
     .notNull()
     .references(() => proveedores.id),
   nombre: text().notNull(),
-  descripcion: text(),
   precio_compra: real().notNull(),
   precio_venta: real().notNull(),
   id_categoria: integer()
     .notNull()
     .references(() => categorias.id),
   fecha: date().notNull(),
-  id_shein: text(),
+  id_externo: text(),
   inventario: boolean().notNull(),
   cambio_dolar: real(),
 });

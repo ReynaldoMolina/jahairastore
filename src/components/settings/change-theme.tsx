@@ -15,16 +15,13 @@ import { Button } from '../ui/button';
 export function ChangeTheme() {
   const { setTheme, theme } = useTheme();
 
-  const label =
-    theme === 'system' ? 'Sistema' : theme === 'light' ? 'Claro' : 'Oscuro';
-
   return (
     <SettingsSection title="Tema">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="secondary" className="justify-start">
             <SunMoon />
-            Cambiar tema ({label})
+            Cambiar tema
             <ChevronDown className="ml-auto" />
           </Button>
         </DropdownMenuTrigger>

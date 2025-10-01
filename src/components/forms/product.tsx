@@ -2,76 +2,172 @@
 
 import {
   FormButtons,
-  FormContainer,
-  FormDate,
-  FormDiv,
   FormError,
-  FormId,
-  FormInput,
 } from '@/components/forms/form-inputs/form-inputs';
-import { FormSelect } from '@/components/forms/form-inputs/form-inputs';
-import { useActionState } from 'react';
-import { ProductPrices } from './form-inputs/product-form-inputs';
-import { createProduct, updateProduct } from '@/app/lib/actions';
+import { startTransition, useActionState } from 'react';
+import { ActionType, ProductsFormType, SelectOptions } from '@/types/types';
+import { useForm, useWatch } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { productSchema } from './schemas/form-schemas';
+import z from 'zod';
+import { Form, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../ui/card';
+import FormInputGroup from './form-inputs/form-input-group';
+import FormTextArea from './form-inputs/form-text-area';
+import { getFormLabels } from '@/utils/get-form-labels';
+import FormInput from './form-inputs/form-input';
+import { DatePicker } from '../date-picker';
+import FormCombobox from './form-inputs/form-combo-box';
+import { getCurrentDate } from '@/utils/get-current-date';
+import FormCheckBox from './form-inputs/form-checkbox';
+import FormInputReadOnly from './form-inputs/form-input-readonly';
+import { createProduct, updateProduct } from '@/server-actions/products';
 
-export function ProductForm({ isNew, product, providersData, categoriesData }) {
-  const action = isNew ? createProduct : updateProduct.bind(null, product.Id);
-  const [state, formAction, isPending] = useActionState(action, {
+interface ProductFormProps {
+  action: ActionType;
+  product?: ProductsFormType;
+  selectOptions: {
+    providers: SelectOptions[];
+    categories: SelectOptions[];
+  };
+}
+
+export function ProductForm({
+  action,
+  product,
+  selectOptions,
+}: ProductFormProps) {
+  const currentDate = getCurrentDate();
+
+  const form = useForm<z.infer<typeof productSchema>>({
+    resolver: zodResolver(productSchema),
+    defaultValues: product
+      ? {
+          id_proveedor: product.id_proveedor ?? undefined,
+          nombre: product.nombre ?? '',
+          precio_compra: product.precio_compra ?? 0,
+          precio_venta: product.precio_venta ?? 0,
+          id_categoria: product.id_categoria ?? undefined,
+          fecha: product.fecha ?? '',
+          id_externo: product.id_externo ?? null,
+          inventario: product.inventario ?? false,
+        }
+      : {
+          id_proveedor: 1,
+          nombre: '',
+          precio_compra: 0,
+          precio_venta: 0,
+          id_categoria: 1,
+          fecha: currentDate,
+          id_externo: null,
+          inventario: false,
+        },
+  });
+
+  const newAction =
+    action === 'create' ? createProduct : updateProduct.bind(null, product?.id);
+
+  const [state, formAction, isPending] = useActionState(newAction, {
     message: '',
   });
 
-  const newProduct = {
-    Precio_venta: '',
-    Precio_compra: '',
-    Inventario: false,
-    Cambio_dolar: null,
-  };
+  function onSubmit(values: z.infer<typeof productSchema>) {
+    startTransition(() => {
+      formAction(values);
+    });
+  }
+
+  const { cardTitle, cardDescription } = getFormLabels(action, 'm', 'producto');
+
+  const [inventario, precioVenta, precioCompra] = useWatch({
+    control: form.control,
+    name: ['inventario', 'precio_venta', 'precio_compra'],
+  });
 
   return (
-    <FormContainer action={formAction}>
-      <FormId
-        holder={isNew ? 'Crear producto' : 'Producto'}
-        value={isNew ? '' : product.Id}
-      />
-      <FormInput
-        name="Nombre"
-        holder="Nombre"
-        value={isNew ? '' : product.Nombre}
-        focus={isNew}
-      />
-      <FormDiv>
-        <FormInput
-          name="Id_shein"
-          holder="Id externo"
-          value={isNew ? '' : product.Id_shein}
-          required={false}
-        />
-        <FormDate date={isNew ? '' : product.Fecha} />
-      </FormDiv>
-      <FormDiv flexCol={false}>
-        <FormSelect
-          value={isNew ? '' : product.Id_proveedor}
-          name="Id_proveedor"
-          data={providersData}
-        />
-        <FormSelect
-          value={isNew ? '' : product.Id_categoria}
-          name="Id_categoria"
-          data={categoriesData}
-        />
-      </FormDiv>
-      <FormInput
-        name="Descripcion"
-        holder="Descripción"
-        value={isNew ? '' : product.Descripcion}
-        required={false}
-      />
-
-      <ProductPrices isNew={isNew} product={isNew ? newProduct : product} />
-
-      <FormError isPending={isPending} state={state} />
-
-      <FormButtons isNew={isNew} isPending={isPending} />
-    </FormContainer>
+    <Form {...form}>
+      <Card className="mx-auto max-w-2xl w-full">
+        <CardHeader className="border-b">
+          <CardTitle>{cardTitle}</CardTitle>
+          <CardDescription>{cardDescription}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-6"
+          >
+            <FormTextArea
+              control={form.control}
+              name="nombre"
+              label="Nombre producto"
+            />
+            <FormCheckBox
+              control={form.control}
+              name="inventario"
+              label="Agregar al inventario"
+            />
+            <FormInputGroup>
+              <FormInput
+                control={form.control}
+                name="precio_compra"
+                label="Precio compra"
+                type="number"
+              />
+              <FormInput
+                control={form.control}
+                name="precio_venta"
+                label="Precio venta"
+                type="number"
+              />
+              <FormInputReadOnly
+                label="Ganancia"
+                type="number"
+                value={Number(precioVenta) - Number(precioCompra)}
+              />
+            </FormInputGroup>
+            <FormInputGroup>
+              <FormInput
+                control={form.control}
+                name="id_externo"
+                label="Id externo"
+              />
+              <FormField
+                control={form.control}
+                name="fecha"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Fecha agregado</FormLabel>
+                    <DatePicker field={field} />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </FormInputGroup>
+            <FormInputGroup>
+              <FormCombobox
+                form={form}
+                name="id_proveedor"
+                label="Proveedor"
+                options={selectOptions.providers}
+              />
+              <FormCombobox
+                form={form}
+                name="id_categoria"
+                label="Categoría"
+                options={selectOptions.categories}
+              />
+            </FormInputGroup>
+            <FormError isPending={isPending} state={state} />
+            <FormButtons action={action} isPending={isPending} />
+          </form>
+        </CardContent>
+      </Card>
+    </Form>
   );
 }

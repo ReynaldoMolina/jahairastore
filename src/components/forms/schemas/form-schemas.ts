@@ -40,3 +40,19 @@ export const expenseSchema = z.object({
   concepto: z.string().nullable(),
   cambio_dolar: z.number().min(1, 'Requerido'),
 });
+
+export const purchaseSchema = z.object({
+  id_proveedor: z.number().min(1, 'Requerido'),
+  fecha: z.string().min(1, 'Requerido'),
+});
+
+export const productSchema = z.object({
+  nombre: z.string().min(1, 'Requerido'),
+  id_proveedor: z.number().min(1, 'Requerido'),
+  precio_compra: z.coerce.number().min(0.01, 'Requerido'),
+  precio_venta: z.coerce.number().min(0.01, 'Requerido'),
+  id_categoria: z.number().min(1, 'Requerido'),
+  fecha: z.string().min(1, 'Requerido'),
+  id_externo: z.string().nullable(),
+  inventario: z.boolean(),
+});

@@ -3,7 +3,7 @@ import { buildFilterBySearch } from './build-filter-by-search';
 import { buildLimitOffset } from './build-limit-offset';
 import { SearchParamsProps } from '@/types/types';
 import { db } from '@/database';
-import { eq, asc } from 'drizzle-orm';
+import { eq, asc, sql } from 'drizzle-orm';
 import { getPages } from './get-pages';
 
 export async function getProviders(searchParams: SearchParamsProps) {
@@ -45,5 +45,20 @@ export async function getProviderById(id: number) {
     throw new Error(
       'No se pudo obtener el registro, por favor intenta de nuevo.'
     );
+  }
+}
+
+export async function getProvidersSelect() {
+  try {
+    const data = await db
+      .select({
+        value: sql<string>`CAST(${proveedores.id} AS TEXT)`,
+        label: proveedores.nombre_empresa,
+      })
+      .from(proveedores)
+      .orderBy(asc(proveedores.nombre_empresa));
+    return data;
+  } catch (error) {
+    throw new Error('No se pudieron obtener los proveedores');
   }
 }

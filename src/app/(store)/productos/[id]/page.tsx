@@ -1,11 +1,13 @@
 export const dynamic = 'force-dynamic';
 
 import { ProductForm } from '@/components/forms/product';
-import { getProductById } from '@/fetch-data/data';
 import { notFound } from 'next/navigation';
-import { getProvidersSelect, getCategoriesSelect } from '@/fetch-data/data';
+import { PageProps } from '@/types/types';
+import { getProvidersSelect } from '@/fetch-data/providers';
+import { getCategoriesSelect } from '@/fetch-data/categories';
+import { getProductById } from '@/fetch-data/products';
 
-export async function generateMetadata(props) {
+export async function generateMetadata(props: PageProps) {
   const { id } = await props.params;
 
   return {
@@ -13,12 +15,11 @@ export async function generateMetadata(props) {
   };
 }
 
-export default async function Page(props) {
-  const params = await props.params;
-  const id = params.id;
-  const data = await getProductById(id);
-  const providersData = await getProvidersSelect();
-  const categoriesData = await getCategoriesSelect();
+export default async function Page(props: PageProps) {
+  const { id } = await props.params;
+  const data = await getProductById(Number(id));
+  const providers = await getProvidersSelect();
+  const categories = await getCategoriesSelect();
 
   if (!data) {
     notFound();
@@ -26,10 +27,9 @@ export default async function Page(props) {
 
   return (
     <ProductForm
-      isNew={false}
+      action="edit"
       product={data}
-      providersData={providersData}
-      categoriesData={categoriesData}
+      selectOptions={{ providers, categories }}
     />
   );
 }
