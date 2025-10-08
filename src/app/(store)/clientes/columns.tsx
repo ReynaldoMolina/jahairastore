@@ -3,12 +3,12 @@
 import { DefaultCell } from '@/components/table/default-cell';
 import { EditCell } from '@/components/table/edit-cell';
 import { IdCell } from '@/components/table/id-cell';
-import { ClientFormType } from '@/types/types';
+import { ClienteTableType } from '@/types/types';
 import { ColumnDef } from '@tanstack/react-table';
 
-export const columns: ColumnDef<ClientFormType>[] = [
+export const columns: ColumnDef<ClienteTableType>[] = [
   {
-    id: 'actions',
+    id: 'edit',
     header: 'Editar',
     cell: ({ row }) => <EditCell href={`/clientes/${row.original.id}`} />,
     size: 40,
@@ -30,10 +30,6 @@ export const columns: ColumnDef<ClientFormType>[] = [
     accessorKey: 'telefono',
     header: 'Teléfono',
     cell: DefaultCell,
-  },
-  {
-    accessorKey: 'municipio',
-    header: 'Municipio',
-    cell: DefaultCell,
+    size: 130,
   },
 ];

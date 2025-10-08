@@ -1,6 +1,7 @@
 import { Control, FieldValues, Path } from 'react-hook-form';
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,7 +16,7 @@ type FormCheckBoxProps<T extends FieldValues> = {
   hidden?: boolean;
 };
 
-export default function FormCheckBox<T extends FieldValues>({
+export function FormCheckBox<T extends FieldValues>({
   control,
   name,
   label,

@@ -15,7 +15,7 @@ type TextAreaProps<T extends FieldValues> = {
   placeholder?: string;
 };
 
-export default function FormTextArea<T extends FieldValues>({
+export function FormTextArea<T extends FieldValues>({
   control,
   name,
   label,
@@ -37,7 +37,7 @@ export default function FormTextArea<T extends FieldValues>({
                 el.style.height = 'auto';
                 el.style.height = `${el.scrollHeight}px`;
               }}
-              className="resize-none overflow-hidden"
+              className="resize-y-auto overflow-hidden"
             />
           </FormControl>
           <FormMessage />

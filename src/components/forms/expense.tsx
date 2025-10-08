@@ -13,7 +13,7 @@ import {
   SelectOptions,
 } from '@/types/types';
 import { useForm } from 'react-hook-form';
-import { expenseSchema } from './schemas/form-schemas';
+import { expenseSchema } from './validation/validation-schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 import { getCurrentDate } from '@/utils/get-current-date';

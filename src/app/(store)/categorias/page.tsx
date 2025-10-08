@@ -1,10 +1,11 @@
-import ActionBar from '@/components/action-bar/action-bar';
-import { ListFilter } from '@/components/action-bar/list-filter';
-import { DataTable } from '@/components/data-table';
-import { ListTitle } from '@/components/lists/lists';
-import { getCategories } from '@/fetch-data/categories';
+import { ActionBar } from '@/components/action-bar/action-bar';
+import { FilterButton } from '@/components/action-bar/filter-button';
+import { DataTable } from '@/components/table/data-table';
+import { getCategories } from '@/fetch-data/category';
 import { SearchParamsProps } from '@/types/types';
 import { columns } from './columns';
+import { Header } from '@/components/header';
+import { PageWrapper } from '@/components/page-wrapper';
 
 export const metadata = {
   title: 'Categorías',
@@ -21,11 +22,13 @@ export default async function Page(props: PageProps) {
 
   return (
     <>
-      <ListTitle title="Categorías" />
-      <ActionBar>
-        <ListFilter searchParams={searchParams} />
-      </ActionBar>
-      <DataTable columns={columns} data={data} />
+      <Header title="Categorías" />
+      <PageWrapper>
+        <ActionBar>
+          <FilterButton searchParams={searchParams} />
+        </ActionBar>
+        <DataTable columns={columns} data={data} />
+      </PageWrapper>
     </>
   );
 }

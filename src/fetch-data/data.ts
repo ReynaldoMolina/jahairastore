@@ -1,4 +1,3 @@
-import { db } from '@/database';
 import { getUrlParams } from './build-filter-by-state';
 import {
   getPurchasesPages,
@@ -12,9 +11,6 @@ import {
   getProductsInventarioPages,
 } from './data-pages';
 import { getCurrentMonth } from '../utils/get-current-date';
-import { BusinessInfoType } from '@/types/types';
-import { configuracion } from '@/database/schema';
-import { eq } from 'drizzle-orm';
 
 const registerOptions = {
   categorias: {
@@ -939,25 +935,6 @@ export async function getInventory(searchParams) {
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo obtener el inventario');
-  }
-}
-
-export async function getBusinessInfo(id = 1): Promise<BusinessInfoType> {
-  const selectFields = {
-    nombre_empresa: configuracion.nombre_empresa ?? '',
-    eslogan: configuracion.eslogan ?? '',
-    mensaje: configuracion.mensaje ?? '',
-  };
-
-  try {
-    const data = await db
-      .select(selectFields)
-      .from(configuracion)
-      .where(eq(configuracion.id, id));
-    return data[0];
-  } catch (error) {
-    console.error(error);
-    throw new Error('No se pudo obtener la información del negocio');
   }
 }
 

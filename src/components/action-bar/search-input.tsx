@@ -33,7 +33,7 @@ export default function SearchInput() {
   }, 400);
 
   return (
-    <search className="inline-flex relative items-center w-full md:max-w-60">
+    <search className="inline-flex relative items-center max-w-60">
       <Search className="flex size-4 absolute left-3 text-muted-foreground" />
       <Input
         type="search"

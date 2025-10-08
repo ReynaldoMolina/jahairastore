@@ -8,16 +8,18 @@ type FormInputReadOnlyProps = {
   value: number;
 };
 
-export default function FormInputReadOnly({
+export function FormInputReadOnly({
   label,
   type = 'text',
   value,
 }: FormInputReadOnlyProps) {
+  console.log(formatNumber(value));
+
   return (
     <FormItem className="w-full">
       <FormLabel>{label}</FormLabel>
       <Input
-        type={type}
+        type="text"
         value={type === 'number' ? formatNumber(value) : value}
         disabled
       />

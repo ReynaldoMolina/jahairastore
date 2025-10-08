@@ -1,10 +1,12 @@
 import { ActionType, FormNounType } from '@/types/types';
 
-export function getFormLabels(
-  action: ActionType,
-  noun: FormNounType,
-  formName: string
-) {
+interface GetFormLabels {
+  action: ActionType;
+  noun: FormNounType;
+  formName: string;
+}
+
+export function getFormLabels({ action, noun, formName }: GetFormLabels) {
   const isNew = action === 'create';
 
   const cardTitle = `${

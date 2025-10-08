@@ -1,42 +1,33 @@
 export const dynamic = 'force-dynamic';
 
-import { RegisterForm } from '@/components/forms/register';
-import ProductSearchList from '@/components/forms/register-form/product-list/product-search-list';
-import { getPurchaseById, getPurchaseDetailById } from '@/fetch-data/data';
-import { getProvidersSelect } from '@/fetch-data/data';
+import { PurchasesForm } from '@/components/forms/purchases';
+import { getProductsPurchasesModal } from '@/fetch-data/product';
+import { getProvidersSelect } from '@/fetch-data/provider';
+import { getPurchaseById } from '@/fetch-data/purchase';
+import { getPurchaseDetailsById } from '@/fetch-data/purchase-detail';
+import { PageProps } from '@/types/types';
 
-export async function generateMetadata(props) {
-  const { id } = await props.params;
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
   return {
     title: `Compra ${id}`,
   };
 }
 
-export default async function Page(props) {
-  const searchParams = await props.searchParams;
-  const params = await props.params;
-  const purchaseId = params.id;
-  const purchase = await getPurchaseById(purchaseId);
-  const purchasedetail = await getPurchaseDetailById(purchaseId);
-  const selectData = await getProvidersSelect();
+export default async function Page({ params }: PageProps) {
+  const { id } = await params;
+  const purchase = await getPurchaseById(Number(id));
+  const purchasedetail = await getPurchaseDetailsById(Number(id));
+  const providers = await getProvidersSelect();
+  const products = (await getProductsPurchasesModal()) ?? [];
 
   return (
-    <RegisterForm
-      isNew={false}
-      register={purchase}
-      registerId={purchaseId}
-      detailList={purchasedetail}
-      convert={true}
-      abono={purchase.TotalGasto}
-      selectData={selectData}
-      formName="compras"
-    >
-      <ProductSearchList
-        searchParams={searchParams}
-        showAll={true}
-        inventario={true}
-        price="compra"
-      />
-    </RegisterForm>
+    <PurchasesForm
+      action="edit"
+      purchase={purchase}
+      purchasedetail={purchasedetail}
+      providers={providers}
+      products={products}
+    />
   );
 }

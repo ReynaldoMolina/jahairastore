@@ -3,12 +3,12 @@
 import { DefaultCell } from '@/components/table/default-cell';
 import { EditCell } from '@/components/table/edit-cell';
 import { IdCell } from '@/components/table/id-cell';
-import { ProviderFormType } from '@/types/types';
+import { ProveedorTableType } from '@/types/types';
 import { ColumnDef } from '@tanstack/react-table';
 
-export const columns: ColumnDef<ProviderFormType>[] = [
+export const columns: ColumnDef<ProveedorTableType>[] = [
   {
-    id: 'actions',
+    id: 'edit',
     header: 'Editar',
     cell: ({ row }) => <EditCell href={`/proveedores/${row.original.id}`} />,
     size: 40,
@@ -20,18 +20,14 @@ export const columns: ColumnDef<ProviderFormType>[] = [
     size: 50,
   },
   {
-    accessorKey: 'nombre_empresa',
-    header: 'Nombre empresa',
+    accessorKey: 'nombre',
+    header: 'Nombre',
     cell: DefaultCell,
   },
   {
     accessorKey: 'telefono',
     header: 'Teléfono',
     cell: DefaultCell,
-  },
-  {
-    accessorKey: 'municipio',
-    header: 'Municipio',
-    cell: DefaultCell,
+    size: 200,
   },
 ];

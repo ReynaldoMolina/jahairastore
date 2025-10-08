@@ -1,8 +1,8 @@
 import { ListTitle } from '@/components/lists/lists';
-import { ListFilter } from '@/components/action-bar/list-filter';
+import { ListFilter } from '@/components/action-bar/filter-button';
 import { PageProps } from '@/types/types';
-import ActionBar from '@/components/action-bar/action-bar';
-import { DataTable } from '@/components/data-table';
+import { ActionBar } from '@/components/action-bar/action-bar';
+import { DataTable } from '@/components/table/data-table';
 import { columns } from './columns';
 import { getExpenses } from '@/fetch-data/expenses';
 

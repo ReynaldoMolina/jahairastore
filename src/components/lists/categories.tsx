@@ -8,7 +8,7 @@ import {
 } from '@/components/lists/lists';
 import EmptyList from '@/components/lists/empty-list';
 import { CategoryListHeader } from './list-header';
-import { getCategories } from '@/fetch-data/categories';
+import { getCategories } from '@/fetch-data/category';
 import { SearchParamsProps } from '@/types/types';
 import { PaginationComponent } from './pagination';
 

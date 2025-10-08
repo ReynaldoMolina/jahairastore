@@ -1,9 +1,9 @@
 export const dynamic = 'force-dynamic';
 
 import { Home } from '@/components/home';
-import { getBusinessInfo } from '@/fetch-data/data';
+import { getNegocio } from '@/fetch-data/negocio';
 
 export default async function Page() {
-  const businessInfo = await getBusinessInfo();
-  return <Home businessInfo={businessInfo} />;
+  const negocio = await getNegocio();
+  return <Home negocio={negocio} />;
 }

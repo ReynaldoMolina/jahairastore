@@ -1,6 +1,6 @@
 import { ListTitle } from '@/components/lists/lists';
 import SearchInput from '@/components/action-bar/search-input';
-import { ListFilter } from '@/components/action-bar/list-filter';
+import { ListFilter } from '@/components/action-bar/filter-button';
 import Receipts from '@/components/lists/receipts';
 
 export const metadata = {

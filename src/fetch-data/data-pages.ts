@@ -1,7 +1,7 @@
 import { db } from '@/database';
 import { categorias } from '@/database/schema';
 import { GetPagesType } from '@/types/types';
-import { count, SQL } from 'drizzle-orm';
+import { count } from 'drizzle-orm';
 
 export async function getCategoriesPages({
   search,

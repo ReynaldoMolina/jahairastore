@@ -14,7 +14,7 @@ import { PurchaseListTotal } from './list-total';
 import { PurchaseListHeader } from './list-header';
 import { PaginationComponent } from './pagination';
 import { SearchParamsProps } from '@/types/types';
-import { getPurchases } from '@/fetch-data/purchases';
+import { getPurchases } from '@/fetch-data/purchase';
 
 export default async function Purchases({
   searchParams,

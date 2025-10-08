@@ -1,9 +1,11 @@
 export const dynamic = 'force-dynamic';
 
-import { getBusinessInfo } from '@/fetch-data/data';
+import { getNegocio } from '@/fetch-data/negocio';
 import { notFound } from 'next/navigation';
 import { isDemo } from '@/middleware';
-import { SettingsForm } from '@/components/forms/settings';
+import { EditNegocioForm } from '@/components/forms/negocio/edit';
+import { PageWrapper } from '@/components/page-wrapper';
+import { Header } from '@/components/header';
 
 export const metadata = {
   title: 'Ajustes - Información del negocio',
@@ -14,7 +16,14 @@ export default async function Page() {
     notFound();
   }
 
-  const businessInfo = await getBusinessInfo();
+  const negocio = await getNegocio();
 
-  return <SettingsForm businessInfo={businessInfo} />;
+  return (
+    <>
+      <Header title="Información del negocio" />
+      <PageWrapper>
+        <EditNegocioForm negocio={negocio} />
+      </PageWrapper>
+    </>
+  );
 }

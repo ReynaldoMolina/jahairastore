@@ -12,7 +12,7 @@ import {
 import EmptyList from '@/components/lists/empty-list';
 import { ClientListHeader } from './list-header';
 import { SearchParamsProps } from '@/types/types';
-import { getClients } from '@/fetch-data/clients';
+import { getClients } from '@/fetch-data/client';
 
 export default async function Clients({
   searchParams,

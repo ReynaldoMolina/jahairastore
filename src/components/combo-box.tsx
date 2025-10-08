@@ -29,7 +29,7 @@ import { SelectOptions } from '@/types/types';
 
 interface ComboBoxProps<T extends FieldValues> {
   field: ControllerRenderProps<T, Path<T>>;
-  options: SelectOptions[];
+  options: SelectOptions;
   form: UseFormReturn<T>;
 }
 

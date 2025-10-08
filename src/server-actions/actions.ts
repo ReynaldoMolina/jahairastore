@@ -336,13 +336,3 @@ export async function updateSale(
 
   await goBackTo('/ventas');
 }
-
-export async function updateSettings(prevState, data: BusinessInfoType) {
-  try {
-    const id = 1;
-    await db.update(configuracion).set(data).where(eq(configuracion.id, id));
-  } catch (error) {
-    return error;
-  }
-  await goBackTo('/ajustes');
-}

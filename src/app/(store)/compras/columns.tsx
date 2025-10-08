@@ -12,7 +12,7 @@ export const columns: ColumnDef<PurchaseTableType>[] = [
   {
     id: 'actions',
     header: 'Editar',
-    cell: ({ row }) => <EditCell href={`/clientes/${row.original.id}`} />,
+    cell: ({ row }) => <EditCell href={`/compras/${row.original.id}`} />,
     size: 40,
   },
   {
@@ -22,7 +22,7 @@ export const columns: ColumnDef<PurchaseTableType>[] = [
     size: 50,
   },
   {
-    id: 'nombre_empresa',
+    accessorKey: 'nombre_empresa',
     header: 'Nombre empresa',
     cell: DefaultCell,
   },
@@ -30,20 +30,24 @@ export const columns: ColumnDef<PurchaseTableType>[] = [
     accessorKey: 'fecha',
     header: 'Fecha',
     cell: DateCell,
+    size: 120,
   },
   {
     accessorKey: 'total_compra',
     header: 'Total',
     cell: NumberFloatCell,
+    size: 100,
   },
   {
     accessorKey: 'total_gasto',
     header: 'Gastos',
     cell: NumberFloatCell,
+    size: 100,
   },
   {
     accessorKey: 'ganancia',
     header: 'Ganancia',
     cell: NumberFloatCell,
+    size: 100,
   },
 ];

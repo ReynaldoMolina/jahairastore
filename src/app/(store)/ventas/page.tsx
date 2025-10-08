@@ -1,4 +1,4 @@
-import { ListFilter } from '@/components/action-bar/list-filter';
+import { ListFilter } from '@/components/action-bar/filter-button';
 import SearchInput from '@/components/action-bar/search-input';
 import { ListTitle } from '@/components/lists/lists';
 import Sales from '@/components/lists/sales';

@@ -18,7 +18,7 @@ type FormInputProps<T extends FieldValues> = {
   hidden?: boolean;
 };
 
-export default function FormInput<T extends FieldValues>({
+export function FormInput<T extends FieldValues>({
   control,
   name,
   label,

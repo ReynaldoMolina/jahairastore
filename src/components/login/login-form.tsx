@@ -9,7 +9,7 @@ import { CircleX } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
-import { loginSchema } from '../forms/schemas/form-schemas';
+import { loginSchema } from '../forms/validation/validation-schemas';
 import { Form } from '../ui/form';
 import {
   Card,

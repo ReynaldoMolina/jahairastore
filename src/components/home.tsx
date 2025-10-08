@@ -1,22 +1,22 @@
 import { isDemo } from '@/middleware';
 import Logo from '@/components/icons/logo.svg';
 import Link from 'next/link';
-import { BusinessInfoType } from '@/types/types';
+import { NegocioFormType } from '@/types/types';
 
-export function Home({ businessInfo }: { businessInfo: BusinessInfoType }) {
+export function Home({ negocio }: { negocio: NegocioFormType }) {
   return (
     <main className="flex justify-center items-center w-full grow p-5">
       <section className="flex flex-col md:flex-row items-center gap-6 md:gap-10 p-4 w-full max-w-5xl">
         {/* Text section */}
         <div className="flex flex-col items-center md:items-start md:w-[60%] text-center md:text-left gap-5 order-2 md:order-1">
           <h1 className="w-full text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-purple-500 to-sky-500 bg-clip-text text-transparent">
-            {businessInfo.nombre_empresa}
+            {negocio.nombre}
           </h1>
           <h2 className="w-full text-lg md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-sky-400">
-            {businessInfo.eslogan}
+            {negocio.eslogan}
           </h2>
           <h3 className="w-full text-sm md:text-base font-medium text-emerald-500">
-            {isDemo ? 'DEMO' : businessInfo.mensaje || '¡Bienvenido!'}
+            {isDemo ? 'DEMO' : negocio.mensaje || '¡Bienvenido!'}
           </h3>
 
           {/* CTA Button */}

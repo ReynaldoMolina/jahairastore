@@ -5,8 +5,8 @@ import Link from 'next/link';
 export function EditCell({ href }: { href: string }) {
   return (
     <div className="w-full inline-flex justify-center">
-      <Button variant="outline" size="sm" asChild>
-        <Link href={href}>
+      <Button variant="outline" size="sm" className="h-7" asChild>
+        <Link href={`${href}/editar`}>
           <Pencil />
         </Link>
       </Button>

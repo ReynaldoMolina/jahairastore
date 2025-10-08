@@ -37,6 +37,31 @@ export function NumberFloatCell<TData, TValue>({
   );
 }
 
+interface MoneyCellProps<TData, TValue> extends CellContext<TData, TValue> {
+  precio_en_cordobas?: boolean | null;
+}
+
+export function MoneyCell<TData, TValue>({
+  getValue,
+  precio_en_cordobas = false,
+}: MoneyCellProps<TData, TValue>) {
+  const rawValue = getValue() as number | null;
+  const value = rawValue ?? 0;
+  const isZero = value === 0;
+
+  const currencySymbol = precio_en_cordobas ? 'C$' : '$';
+
+  return (
+    <span
+      className={`${value < 0 && 'text-destructive'} ${
+        isZero && 'text-muted-foreground'
+      } block w-full text-right`}
+    >
+      {currencySymbol} {isZero ? '-' : formatNumber(value)}
+    </span>
+  );
+}
+
 export function NumberCellWithValue({
   value,
   type = 'float',

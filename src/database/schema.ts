@@ -8,7 +8,7 @@ import {
   boolean,
 } from 'drizzle-orm/pg-core';
 
-export const clientes = pgTable('clientes', {
+export const cliente = pgTable('cliente', {
   id: serial().primaryKey().notNull(),
   nombre: text().notNull(),
   apellido: text().notNull(),
@@ -17,147 +17,159 @@ export const clientes = pgTable('clientes', {
   direccion: text(),
 });
 
-export const compras = pgTable('compras', {
+export const compra = pgTable('compra', {
   id: serial().primaryKey().notNull(),
   id_proveedor: integer()
     .notNull()
-    .references(() => proveedores.id),
+    .references(() => proveedor.id),
   fecha: date().notNull(),
 });
 
-export const compras_detalles = pgTable('compras_detalles', {
+export const compra_detalle = pgTable('compra_detalle', {
   id: serial().primaryKey().notNull(),
   id_compra: integer()
     .notNull()
-    .references(() => compras.id),
+    .references(() => compra.id),
   id_producto: integer()
     .notNull()
-    .references(() => productos.id),
-  precio_compra: real().notNull(),
+    .references(() => producto.id),
   cantidad: integer().notNull(),
-  precio_venta: real().notNull(),
+  precio: real().notNull(),
   cambio_dolar: real().notNull(),
+  precio_en_cordobas: boolean().notNull(),
 });
 
-export const configuracion = pgTable('configuracion', {
+export const negocio = pgTable('negocio', {
   id: serial().primaryKey().notNull(),
-  nombre_empresa: text().notNull(),
+  nombre: text().notNull(),
   eslogan: text().notNull(),
   mensaje: text(),
 });
 
-export const egresos = pgTable('egresos', {
+export const ajustes = pgTable('ajustes', {
+  id: serial().primaryKey().notNull(),
+  id_negocio: integer()
+    .notNull()
+    .references(() => negocio.id),
+  cambio_dolar: real().notNull(),
+  envio_aereo: real().notNull(),
+  envio_mar: real().notNull(),
+});
+
+export const gasto = pgTable('gasto', {
   id: serial().primaryKey().notNull(),
   id_compra: integer()
     .notNull()
-    .references(() => compras.id),
+    .references(() => compra.id),
   id_proveedor: integer()
     .notNull()
-    .references(() => proveedores.id),
+    .references(() => proveedor.id),
   fecha: date().notNull(),
-  gasto: real().notNull(),
-  concepto: text(),
+  monto: real().notNull(),
   cambio_dolar: real().notNull(),
+  concepto: text(),
 });
 
-export const pedidos = pgTable('pedidos', {
+export const pedido = pgTable('pedido', {
   id: serial().primaryKey().notNull(),
   id_cliente: integer()
     .notNull()
-    .references(() => clientes.id),
+    .references(() => cliente.id),
   fecha: date().notNull(),
-  peso: real(),
+  peso_libra: real(),
   cambio_dolar: real(),
   precio_libra: real(),
+  tipo_envio: text().notNull(),
 });
 
-export const pedidosDetalles = pgTable('pedidos_detalle', {
+export const pedido_detalle = pgTable('pedido_detalle', {
   id: serial().primaryKey().notNull(),
   id_pedido: integer()
     .notNull()
-    .references(() => pedidos.id),
+    .references(() => pedido.id),
   id_producto: integer()
     .notNull()
-    .references(() => productos.id),
+    .references(() => producto.id),
   precio_venta: real().notNull(),
   precio_compra: real().notNull(),
   cantidad: integer().notNull(),
 });
 
-export const proveedores = pgTable('proveedores', {
+export const proveedor = pgTable('proveedor', {
   id: serial().primaryKey().notNull(),
-  nombre_empresa: text().notNull(),
-  nombre_contacto: text(),
+  nombre: text().notNull(),
   telefono: text(),
   municipio: text(),
   direccion: text(),
 });
 
-export const recibos = pgTable('recibos', {
+export const recibo = pgTable('recibo', {
   id: serial().primaryKey().notNull(),
   id_pedido: integer()
     .notNull()
-    .references(() => pedidos.id),
-  id_cliente: integer()
-    .notNull()
-    .references(() => clientes.id),
+    .references(() => pedido.id),
   fecha: date().notNull(),
   abono: real().notNull(),
   saldo: real().notNull(),
   concepto: text(),
 });
 
-export const usuarios = pgTable('usuarios', {
+export const usuario = pgTable('usuario', {
   id: serial().primaryKey().notNull(),
-  nombre_usuario: text().notNull(),
+  nombre: text().notNull(),
   password: text(),
-  foto_url: text(),
+  image: text(),
   rol: text(),
 });
 
-export const ventas = pgTable('ventas', {
+export const venta = pgTable('venta', {
   id: serial().primaryKey().notNull(),
   id_cliente: integer()
     .notNull()
-    .references(() => clientes.id),
+    .references(() => cliente.id),
   fecha: date().notNull(),
   abono: real().notNull(),
-  credito: boolean().notNull(),
   saldo: real(),
+  tipo_venta: text().notNull(),
 });
 
-export const ventasDetalles = pgTable('ventas_detalle', {
+export const venta_detalle = pgTable('venta_detalle', {
   id: serial().primaryKey().notNull(),
   id_venta: integer()
     .notNull()
-    .references(() => ventas.id),
+    .references(() => venta.id),
   id_producto: integer()
     .notNull()
-    .references(() => productos.id),
+    .references(() => producto.id),
   precio_venta: real().notNull(),
   precio_compra: real().notNull(),
   cantidad: integer().notNull(),
-  cambio_colar: real().notNull(),
+  cambio_dolar: real().notNull(),
 });
 
-export const categorias = pgTable('categorias', {
+export const categoria = pgTable('categoria', {
   id: serial().primaryKey().notNull(),
-  categoria: text().notNull(),
+  nombre: text().notNull(),
 });
 
-export const productos = pgTable('productos', {
+export const municipio = pgTable('municipio', {
+  id: serial().primaryKey().notNull(),
+  nombre: text().notNull(),
+});
+
+export const producto = pgTable('producto', {
   id: serial().primaryKey().notNull(),
   id_proveedor: integer()
     .notNull()
-    .references(() => proveedores.id),
+    .references(() => proveedor.id),
   nombre: text().notNull(),
-  precio_compra: real().notNull(),
-  precio_venta: real().notNull(),
+  precio_compra: real(),
+  precio_venta: real(),
+  cambio_dolar: real(),
+  inventario: boolean().notNull(),
+  precio_en_cordobas: boolean().notNull(),
   id_categoria: integer()
     .notNull()
-    .references(() => categorias.id),
-  fecha: date().notNull(),
+    .references(() => categoria.id),
   id_externo: text(),
-  inventario: boolean().notNull(),
-  cambio_dolar: real(),
 });

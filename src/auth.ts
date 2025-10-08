@@ -3,13 +3,16 @@ import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
 import { db } from './database';
-import { usuarios } from './database/schema';
-import { eq } from 'drizzle-orm'
+import { usuario } from './database/schema';
+import { eq } from 'drizzle-orm';
 import { authConfig } from './auth.config';
 
 async function getUser(username: string) {
   try {
-    const user = await db.select().from(usuarios).where(eq(usuarios.nombre_usuario, username))
+    const user = await db
+      .select()
+      .from(usuario)
+      .where(eq(usuario.nombre, username));
     return user[0];
   } catch (error) {
     console.error('El usuario no existe:', error);
@@ -32,7 +35,10 @@ export const { auth, signIn, signOut } = NextAuth({
           const user = await getUser(username.trim());
 
           if (!user) return null;
-          const passwordsMatch = await bcrypt.compare(password, user.password ?? '');
+          const passwordsMatch = await bcrypt.compare(
+            password,
+            user.password ?? ''
+          );
 
           if (passwordsMatch) return user;
         }

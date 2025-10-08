@@ -19,7 +19,7 @@ export const columns: ColumnDef<CategoryFormType>[] = [
     size: 50,
   },
   {
-    accessorKey: 'categoria',
+    accessorKey: 'nombre',
     header: 'Categoría',
   },
 ];

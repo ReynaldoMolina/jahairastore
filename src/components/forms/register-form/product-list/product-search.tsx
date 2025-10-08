@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ArrowDown from '@/app/ui/icons/arrowdown.svg';
 import SearchInput from '@/components/action-bar/search-input';
 import { bgColors } from '@/components/bgcolors';
-import { ListFilter } from '@/components/action-bar/list-filter';
+import { ListFilter } from '@/components/action-bar/filter-button';
 
 export function ProductSearch({ children, open }) {
   const [isSearchProductOpen, setIsSearchProductOpen] = useState(open);

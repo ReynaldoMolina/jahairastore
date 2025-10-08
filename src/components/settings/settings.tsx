@@ -1,7 +1,14 @@
 import { isDemo } from '@/middleware';
 import Link from 'next/link';
 import LogoutForm from '@/components/login/logout-form';
-import { ChevronRight, Shapes, Store, Users } from 'lucide-react';
+import {
+  ChevronRight,
+  CircleDollarSign,
+  MapPin,
+  Shapes,
+  Store,
+  Users,
+} from 'lucide-react';
 import React from 'react';
 import {
   Card,
@@ -19,20 +26,35 @@ export function Settings() {
     <Card className="max-w-2xl mx-auto w-full">
       <CardHeader>
         <CardTitle>Ajustes</CardTitle>
-        <CardDescription>Realiza ajustes en la app</CardDescription>
+        <CardDescription>
+          Configura tu negocio y personaliza la aplicación según tus
+          necesidades.
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">
-        {!isDemo && (
-          <SettingsLink label="Infomación del negocio" href="/ajustes/info">
-            <Store />
+        <SettingsSection title="General">
+          {!isDemo && (
+            <SettingsLink label="Infomación del negocio" href="/ajustes/info">
+              <Store />
+            </SettingsLink>
+          )}
+          <SettingsLink
+            label="Tipo de cambio y tarifas de envío"
+            href="/ajustes/config"
+          >
+            <CircleDollarSign />
           </SettingsLink>
-        )}
+        </SettingsSection>
+
         <SettingsSection title="Administrar">
           <SettingsLink label="Categorías" href="/categorias">
             <Shapes />
           </SettingsLink>
           <SettingsLink label="Proveedores" href="/proveedores">
             <Users />
+          </SettingsLink>
+          <SettingsLink label="Municipios" href="/municipios">
+            <MapPin />
           </SettingsLink>
         </SettingsSection>
         <ChangeTheme />

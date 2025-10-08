@@ -16,7 +16,7 @@ export function ChangeTheme() {
   const { setTheme, theme } = useTheme();
 
   return (
-    <SettingsSection title="Tema">
+    <SettingsSection title="Aspecto">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="secondary" className="justify-start">
