@@ -1,4 +1,4 @@
-import { format, parse } from 'date-fns';
+import { format, getYear, parse } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 export function formatDateInput(date: Date) {
@@ -10,8 +10,13 @@ export function formatDateInput(date: Date) {
 
 export function formatDate(date: string | null | undefined) {
   if (!date || date === null) return 'Sin fecha';
-  const newDate = parse(date, 'yyyy-MM-dd', new Date());
-  return format(newDate, 'dd/MMM/yyyy', { locale: es });
+
+  const parsed = parse(date, 'yyyy-MM-dd', new Date());
+  const currentYear = new Date().getFullYear();
+  const dateYear = getYear(parsed);
+  const formatString = dateYear === currentYear ? 'dd/MMM' : 'dd/MMM/yyyy';
+
+  return format(parsed, formatString, { locale: es });
 }
 
 export function formatNumber(value: number, locale = 'es-NI') {

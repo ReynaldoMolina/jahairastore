@@ -1,9 +1,4 @@
-import {
-  compras,
-  compras_detalles,
-  egresos,
-  proveedores,
-} from '@/database/schema';
+import { compra, compra_detalle, gasto, proveedor } from '@/database/schema';
 import { buildFilterBySearch } from './build-filter-by-search';
 import { buildLimitOffset } from './build-limit-offset';
 import { SearchParamsProps } from '@/types/types';
@@ -13,7 +8,7 @@ import { getPages } from './get-pages';
 
 export async function getPurchases(searchParams: SearchParamsProps) {
   const { filterBySearch } = buildFilterBySearch(searchParams, [
-    proveedores.nombre_proveedor,
+    proveedor.nombre,
   ]);
 
   const { limit, offset } = buildLimitOffset(searchParams);
@@ -21,61 +16,61 @@ export async function getPurchases(searchParams: SearchParamsProps) {
   try {
     const data = await db
       .select({
-        id: compras.id,
-        nombre_empresa: proveedores.nombre_proveedor,
-        fecha: compras.fecha,
+        id: compra.id,
+        proveedor_nombre: proveedor.nombre,
+        fecha: compra.fecha,
         total_compra: sql<number>`
-          CASE WHEN ${compras_detalles.precio_en_cordobas} = true
+          CASE WHEN ${compra_detalle.precio_en_cordobas} = true
             THEN
-              COALESCE(SUM(${compras_detalles.cantidad} * ${compras_detalles.precio_compra} * ${compras_detalles.cambio_dolar}), 0)
+              COALESCE(SUM(${compra_detalle.cantidad} * ${compra_detalle.precio} * ${compra_detalle.cambio_dolar}), 0)
             ELSE
-              COALESCE(SUM(${compras_detalles.cantidad} * ${compras_detalles.precio_compra}), 0)
-            END
-        `,
-        total_gasto: sql<number>`
-          COALESCE(SUM(${egresos.gasto} * ${egresos.cambio_dolar}), 0)
-        `,
-        ganancia: sql<number>`
-          CASE WHEN ${compras_detalles.precio_en_cordobas} = true
-            THEN
-              COALESCE(SUM(${compras_detalles.cantidad} * ${compras_detalles.precio_venta} * ${compras_detalles.cambio_dolar}), 0) -
-              COALESCE(SUM(${compras_detalles.cantidad} * ${compras_detalles.precio_compra} * ${compras_detalles.cambio_dolar}), 0) -
-              COALESCE(SUM(${egresos.gasto} * ${egresos.cambio_dolar}), 0)
-            ELSE
-              COALESCE(SUM(${compras_detalles.cantidad} * ${compras_detalles.precio_venta}), 0) -
-              COALESCE(SUM(${compras_detalles.cantidad} * ${compras_detalles.precio_compra}), 0) -
-              COALESCE(SUM(${egresos.gasto}), 0)
+              COALESCE(SUM(${compra_detalle.cantidad} * ${compra_detalle.precio}), 0)
           END
         `,
+        total_gasto: sql<number>`
+          COALESCE(SUM(${gasto.monto} * ${gasto.cambio_dolar}), 0)
+        `,
+        total: sql<number>`
+        (
+          CASE 
+            WHEN ${compra_detalle.precio_en_cordobas} = true THEN
+              COALESCE(SUM(${compra_detalle.cantidad} * ${compra_detalle.precio} * ${compra_detalle.cambio_dolar}), 0)
+            ELSE
+              COALESCE(SUM(${compra_detalle.cantidad} * ${compra_detalle.precio}), 0)
+          END
+        )
+        +
+        COALESCE(SUM(${gasto.monto} * ${gasto.cambio_dolar}), 0)
+      `,
       })
-      .from(compras)
-      .leftJoin(proveedores, eq(compras.id_proveedor, proveedores.id))
-      .leftJoin(compras_detalles, eq(compras.id, compras_detalles.id_compra))
-      .leftJoin(egresos, eq(compras.id, egresos.id_compra))
+      .from(compra)
+      .leftJoin(proveedor, eq(compra.id_proveedor, proveedor.id))
+      .leftJoin(compra_detalle, eq(compra.id, compra_detalle.id_compra))
+      .leftJoin(gasto, eq(compra.id, gasto.id_compra))
       .where(filterBySearch)
       .groupBy(
-        compras.id,
-        proveedores.nombre_proveedor,
-        compras.fecha,
-        compras_detalles.precio_en_cordobas
+        compra.id,
+        proveedor.nombre,
+        compra.fecha,
+        compra_detalle.precio_en_cordobas
       )
       .limit(limit ?? 10000)
       .offset(offset ?? 0);
 
-    const totalPages = await getPages(compras, filterBySearch, limit ?? 0);
+    const totalPages = await getPages(compra, filterBySearch, limit ?? 0);
 
     return { data, totalPages };
   } catch (error) {
     console.error(error);
     throw new Error(
-      'No se pudieron obtener las compras, por favor intenta de nuevo.'
+      'No se pudieron obtener las compra, por favor intenta de nuevo.'
     );
   }
 }
 
 export async function getPurchaseById(id: number) {
   try {
-    const [data] = await db.select().from(compras).where(eq(compras.id, id));
+    const [data] = await db.select().from(compra).where(eq(compra.id, id));
     return data;
   } catch (error) {
     console.error(error);

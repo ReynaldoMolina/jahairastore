@@ -5,12 +5,12 @@ import { DefaultCell } from '@/components/table/default-cell';
 import { EditCell } from '@/components/table/edit-cell';
 import { IdCell } from '@/components/table/id-cell';
 import { NumberFloatCell } from '@/components/table/number-cell';
-import { PurchaseTableType } from '@/types/types';
+import { CompraTableType } from '@/types/types';
 import { ColumnDef } from '@tanstack/react-table';
 
-export const columns: ColumnDef<PurchaseTableType>[] = [
+export const columns: ColumnDef<CompraTableType>[] = [
   {
-    id: 'actions',
+    id: 'edit',
     header: 'Editar',
     cell: ({ row }) => <EditCell href={`/compras/${row.original.id}`} />,
     size: 40,
@@ -22,7 +22,7 @@ export const columns: ColumnDef<PurchaseTableType>[] = [
     size: 50,
   },
   {
-    accessorKey: 'nombre_empresa',
+    accessorKey: 'proveedor_nombre',
     header: 'Nombre empresa',
     cell: DefaultCell,
   },
@@ -34,7 +34,7 @@ export const columns: ColumnDef<PurchaseTableType>[] = [
   },
   {
     accessorKey: 'total_compra',
-    header: 'Total',
+    header: 'Compra',
     cell: NumberFloatCell,
     size: 100,
   },
@@ -45,8 +45,8 @@ export const columns: ColumnDef<PurchaseTableType>[] = [
     size: 100,
   },
   {
-    accessorKey: 'ganancia',
-    header: 'Ganancia',
+    accessorKey: 'total',
+    header: 'Total',
     cell: NumberFloatCell,
     size: 100,
   },

@@ -116,11 +116,11 @@ export interface GastoFormType {
 
 export interface CompraTableType {
   id?: number;
-  nombre_empresa: string | null;
+  proveedor_nombre: string | null;
   fecha: string | null;
   total_compra: number | null;
   total_gasto: number | null;
-  ganancia: number | null;
+  total: number | null;
 }
 
 export interface CompraFormType {
