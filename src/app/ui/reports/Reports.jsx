@@ -44,13 +44,13 @@ export function OrdersOnlyReport({ data }) {
         </thead>
         <tbody>
           <tr className="text-xs">
-            <td className="py-1.5 text-left">Ingresos</td>
+            <td className="py-1.5 text-left">(+) Ingresos</td>
             <td className="py-1.5 text-right">
               {formatNumber(data.PedidosTotalEnDolares)}
             </td>
           </tr>
           <tr className="text-xs">
-            <td className="py-1.5 text-left">Costos</td>
+            <td className="py-1.5 text-left">(-) Costos</td>
             <td className="py-1.5 text-right">
               {formatNumber(data.PedidosCostosEnDolares)}
             </td>
