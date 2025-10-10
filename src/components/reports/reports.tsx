@@ -1,7 +1,7 @@
-import { formatNumber } from '@/app/lib/formatNumber';
 import MoneyIcon from '@/app/ui/icons/money.svg';
 import FinancesIcon from '@/app/ui/icons/finances.svg';
 import { isDemo } from '@/middleware';
+import { formatNumber } from '@/utils/formatters';
 
 function Report({ children, title }) {
   const icon =
@@ -22,7 +22,7 @@ function Report({ children, title }) {
         className={`flex items-center gap-2 p-2 w-full rounded-md ${bgColor}`}
       >
         {icon}
-        <span className="font-bold">{title}</span>
+        <span className="font-bold text-sm">{title}</span>
       </div>
       <div className="flex gap-7 flex-col w-full">{children}</div>
     </div>
@@ -30,8 +30,7 @@ function Report({ children, title }) {
 }
 
 export function OrdersOnlyReport({ data }) {
-  const profit =
-    data.PedidosTotalEnDolares - data.PedidosCostosEnDolares;
+  const profit = data.PedidosTotalEnDolares - data.PedidosCostosEnDolares;
 
   return (
     <Report title="Solo pedidos">
@@ -39,20 +38,20 @@ export function OrdersOnlyReport({ data }) {
         <thead>
           <tr className="border-b border-neutral-300 dark:border-neutral-600 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800">
             <th className="py-1.5 text-left">Ingresos y costos de pedidos</th>
-            <th className="py-1.5 text-right">Monto $</th>
+            <th className="py-1.5 text-right">Monto</th>
           </tr>
         </thead>
         <tbody>
           <tr className="text-xs">
-            <td className="py-1.5 text-left">Ingresos</td>
+            <td className="py-1.5 text-left">(+) Ingresos</td>
             <td className="py-1.5 text-right">
-              {formatNumber(data.PedidosTotalEnDolares)}
+              $ {formatNumber(data.PedidosTotalEnDolares)}
             </td>
           </tr>
           <tr className="text-xs">
-            <td className="py-1.5 text-left">Costos</td>
+            <td className="py-1.5 text-left">(-) Costos</td>
             <td className="py-1.5 text-right">
-              {formatNumber(data.PedidosCostosEnDolares)}
+              $ {formatNumber(data.PedidosCostosEnDolares)}
             </td>
           </tr>
         </tbody>
@@ -61,9 +60,61 @@ export function OrdersOnlyReport({ data }) {
             <td className="py-1.5 text-left">Ganancia</td>
             <td className="py-1.5 text-right">$ {formatNumber(profit)}</td>
           </tr>
-          <tr className="text-xs">
+          <tr className="text-base">
             <td className="py-1.5 text-left">10% para inversor</td>
-            <td className="py-1.5 text-right">$ {formatNumber(profit * 0.1)}</td>
+            <td className="py-1.5 text-right">
+              $ {formatNumber(profit * 0.1)}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </Report>
+  );
+}
+
+export function SalesOnlyReport({ data }) {
+  const profit =
+    data.VentasAlContado + data.VentasCreditoAbonos - data.VentaCostoTotal;
+
+  return (
+    <Report title="Solo ventas">
+      <table className="w-full">
+        <thead>
+          <tr className="border-b border-neutral-300 dark:border-neutral-600 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800">
+            <th className="py-1.5 text-left">Ingresos y costos de ventas</th>
+            <th className="py-1.5 text-right">Monto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="text-xs">
+            <td className="py-1.5 text-left">(+) Ventas al contado</td>
+            <td className="py-1.5 text-right">
+              C$ {formatNumber(data.VentasAlContado)}
+            </td>
+          </tr>
+          <tr className="text-xs">
+            <td className="py-1.5 text-left">(+) Ventas al crédito (abonos)</td>
+            <td className="py-1.5 text-right">
+              C$ {formatNumber(data.VentasCreditoAbonos)}
+            </td>
+          </tr>
+          <tr className="text-xs">
+            <td className="py-1.5 text-left">(-) Costos</td>
+            <td className="py-1.5 text-right">
+              C$ {formatNumber(data.VentaCostoTotal)}
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr className="text-xs font-semibold border-t border-neutral-300 dark:border-neutral-600">
+            <td className="py-1.5 text-left">Ganancia</td>
+            <td className="py-1.5 text-right">C$ {formatNumber(profit)}</td>
+          </tr>
+          <tr className="text-base">
+            <td className="py-1.5 text-left">10% para inversor</td>
+            <td className="py-1.5 text-right">
+              C$ {formatNumber(profit * 0.1)}
+            </td>
           </tr>
         </tfoot>
       </table>
