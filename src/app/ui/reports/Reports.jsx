@@ -86,19 +86,19 @@ export function SalesOnlyReport({ data }) {
         </thead>
         <tbody>
           <tr className="text-xs">
-            <td className="py-1.5 text-left">Ventas al contado</td>
+            <td className="py-1.5 text-left">(+) Ventas al contado</td>
             <td className="py-1.5 text-right">
               {formatNumber(data.VentasAlContado)}
             </td>
           </tr>
           <tr className="text-xs">
-            <td className="py-1.5 text-left">Ventas al crédito (abonos)</td>
+            <td className="py-1.5 text-left">(+) Ventas al crédito (abonos)</td>
             <td className="py-1.5 text-right">
               {formatNumber(data.VentasCreditoAbonos)}
             </td>
           </tr>
           <tr className="text-xs">
-            <td className="py-1.5 text-left">Costos</td>
+            <td className="py-1.5 text-left">(-) Costos</td>
             <td className="py-1.5 text-right">
               {formatNumber(data.VentaCostoTotal)}
             </td>
@@ -107,11 +107,11 @@ export function SalesOnlyReport({ data }) {
         <tfoot>
           <tr className="text-xs font-semibold border-t border-neutral-300 dark:border-neutral-600">
             <td className="py-1.5 text-left">Ganancia</td>
-            <td className="py-1.5 text-right">$ {formatNumber(profit)}</td>
+            <td className="py-1.5 text-right">C$ {formatNumber(profit)}</td>
           </tr>
           <tr className="text-xs">
             <td className="py-1.5 text-left">10% para inversor</td>
-            <td className="py-1.5 text-right">$ {formatNumber(profit * 0.1)}</td>
+            <td className="py-1.5 text-right">C$ {formatNumber(profit * 0.1)}</td>
           </tr>
         </tfoot>
       </table>
