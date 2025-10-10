@@ -71,6 +71,54 @@ export function OrdersOnlyReport({ data }) {
   );
 }
 
+export function SalesOnlyReport({ data }) {
+  const profit =
+    data.VentasAlContado + data.VentasCreditoAbonos - data.VentaCostoTotal;
+
+  return (
+    <Report title="Solo ventas">
+      <table className="w-full">
+        <thead>
+          <tr className="border-b border-neutral-300 dark:border-neutral-600 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800">
+            <th className="py-1.5 text-left">Ingresos y costos de ventas</th>
+            <th className="py-1.5 text-right">Monto $</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="text-xs">
+            <td className="py-1.5 text-left">Ventas al contado</td>
+            <td className="py-1.5 text-right">
+              {formatNumber(data.VentasAlContado)}
+            </td>
+          </tr>
+          <tr className="text-xs">
+            <td className="py-1.5 text-left">Ventas al crédito (abonos)</td>
+            <td className="py-1.5 text-right">
+              {formatNumber(data.VentasCreditoAbonos)}
+            </td>
+          </tr>
+          <tr className="text-xs">
+            <td className="py-1.5 text-left">Costos</td>
+            <td className="py-1.5 text-right">
+              {formatNumber(data.VentaCostoTotal)}
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr className="text-xs font-semibold border-t border-neutral-300 dark:border-neutral-600">
+            <td className="py-1.5 text-left">Ganancia</td>
+            <td className="py-1.5 text-right">$ {formatNumber(profit)}</td>
+          </tr>
+          <tr className="text-xs">
+            <td className="py-1.5 text-left">10% para inversor</td>
+            <td className="py-1.5 text-right">$ {formatNumber(profit * 0.1)}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </Report>
+  );
+}
+
 export function CashFlowReport({ data }) {
   const totalIncome =
     data.VentasAlContado + data.VentasCreditoAbonos + data.PedidosAbonos;

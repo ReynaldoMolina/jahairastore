@@ -3,7 +3,7 @@
 import { isDemo } from '@/middleware';
 import { DateSelector } from './DateSelector';
 import OverviewIcon from '@/app/ui/icons/overview.svg';
-import { CashFlowReport, AccountingReport, OrdersOnlyReport } from './Reports';
+import { CashFlowReport, AccountingReport, OrdersOnlyReport, SalesOnlyReport } from './Reports';
 
 export function Dashboard({ data, searchParams }) {
   return (
@@ -16,9 +16,14 @@ export function Dashboard({ data, searchParams }) {
           </div>
           <DateSelector searchParams={searchParams} />
         </div>
-        {!isDemo && <OrdersOnlyReport data={data} />}
-        {!isDemo && <CashFlowReport data={data} />}
-        <AccountingReport data={data} />
+        {!isDemo &&
+          <>
+            <SalesOnlyReport data={data} />
+            <OrdersOnlyReport data={data} />
+            <CashFlowReport data={data} />
+          </>
+        }
+        {isDemo && <AccountingReport data={data} />}
       </section>
     </main>
   );
