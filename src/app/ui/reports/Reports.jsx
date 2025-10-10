@@ -22,7 +22,7 @@ function Report({ children, title }) {
         className={`flex items-center gap-2 p-2 w-full rounded-md ${bgColor}`}
       >
         {icon}
-        <span className="font-bold">{title}</span>
+        <span className="font-bold text-sm">{title}</span>
       </div>
       <div className="flex gap-7 flex-col w-full">{children}</div>
     </div>
@@ -39,20 +39,20 @@ export function OrdersOnlyReport({ data }) {
         <thead>
           <tr className="border-b border-neutral-300 dark:border-neutral-600 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800">
             <th className="py-1.5 text-left">Ingresos y costos de pedidos</th>
-            <th className="py-1.5 text-right">Monto $</th>
+            <th className="py-1.5 text-right">Monto</th>
           </tr>
         </thead>
         <tbody>
           <tr className="text-xs">
             <td className="py-1.5 text-left">(+) Ingresos</td>
             <td className="py-1.5 text-right">
-              {formatNumber(data.PedidosTotalEnDolares)}
+              $ {formatNumber(data.PedidosTotalEnDolares)}
             </td>
           </tr>
           <tr className="text-xs">
             <td className="py-1.5 text-left">(-) Costos</td>
             <td className="py-1.5 text-right">
-              {formatNumber(data.PedidosCostosEnDolares)}
+              $ {formatNumber(data.PedidosCostosEnDolares)}
             </td>
           </tr>
         </tbody>
@@ -61,7 +61,7 @@ export function OrdersOnlyReport({ data }) {
             <td className="py-1.5 text-left">Ganancia</td>
             <td className="py-1.5 text-right">$ {formatNumber(profit)}</td>
           </tr>
-          <tr className="text-xs">
+          <tr className="text-base">
             <td className="py-1.5 text-left">10% para inversor</td>
             <td className="py-1.5 text-right">$ {formatNumber(profit * 0.1)}</td>
           </tr>
@@ -81,26 +81,26 @@ export function SalesOnlyReport({ data }) {
         <thead>
           <tr className="border-b border-neutral-300 dark:border-neutral-600 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800">
             <th className="py-1.5 text-left">Ingresos y costos de ventas</th>
-            <th className="py-1.5 text-right">Monto $</th>
+            <th className="py-1.5 text-right">Monto</th>
           </tr>
         </thead>
         <tbody>
           <tr className="text-xs">
             <td className="py-1.5 text-left">(+) Ventas al contado</td>
             <td className="py-1.5 text-right">
-              {formatNumber(data.VentasAlContado)}
+              C$ {formatNumber(data.VentasAlContado)}
             </td>
           </tr>
           <tr className="text-xs">
             <td className="py-1.5 text-left">(+) Ventas al crédito (abonos)</td>
             <td className="py-1.5 text-right">
-              {formatNumber(data.VentasCreditoAbonos)}
+              C$ {formatNumber(data.VentasCreditoAbonos)}
             </td>
           </tr>
           <tr className="text-xs">
             <td className="py-1.5 text-left">(-) Costos</td>
             <td className="py-1.5 text-right">
-              {formatNumber(data.VentaCostoTotal)}
+              C$ {formatNumber(data.VentaCostoTotal)}
             </td>
           </tr>
         </tbody>
@@ -109,7 +109,7 @@ export function SalesOnlyReport({ data }) {
             <td className="py-1.5 text-left">Ganancia</td>
             <td className="py-1.5 text-right">C$ {formatNumber(profit)}</td>
           </tr>
-          <tr className="text-xs">
+          <tr className="text-base">
             <td className="py-1.5 text-left">10% para inversor</td>
             <td className="py-1.5 text-right">C$ {formatNumber(profit * 0.1)}</td>
           </tr>
