@@ -1,17 +1,17 @@
 'use server';
 
-import { ProductsFormType } from '@/types/types';
+import { ProductoFormType } from '@/types/types';
 import { goBackTo } from './actions-utils';
 import { db } from '@/database';
-import { productos } from '@/database/schema';
+import { producto } from '@/database/schema';
 import { eq } from 'drizzle-orm';
 
 export async function createProduct(
   prevState: unknown,
-  values: ProductsFormType
+  values: ProductoFormType
 ) {
   try {
-    await db.insert(productos).values(values);
+    await db.insert(producto).values(values);
   } catch (error) {
     console.error(error);
     return error;
@@ -22,12 +22,12 @@ export async function createProduct(
 export async function updateProduct(
   id: number | undefined,
   prevState: unknown,
-  values: ProductsFormType
+  values: ProductoFormType
 ) {
   if (!id) return;
 
   try {
-    await db.update(productos).set(values).where(eq(productos.id, id));
+    await db.update(producto).set(values).where(eq(producto.id, id));
   } catch (error) {
     console.error(error);
     return error;

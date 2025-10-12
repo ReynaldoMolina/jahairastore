@@ -4,10 +4,10 @@ import { DefaultCell } from '@/components/table/default-cell';
 import { EditCell } from '@/components/table/edit-cell';
 import { IdCell } from '@/components/table/id-cell';
 import { MoneyCell } from '@/components/table/number-cell';
-import { ProductsTableType } from '@/types/types';
+import { ProductoTableType } from '@/types/types';
 import { ColumnDef } from '@tanstack/react-table';
 
-export const columns: ColumnDef<ProductsTableType>[] = [
+export const columns: ColumnDef<ProductoTableType>[] = [
   {
     id: 'actions',
     header: 'Editar',

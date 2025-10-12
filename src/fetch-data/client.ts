@@ -3,7 +3,7 @@ import { buildFilterBySearch } from './build-filter-by-search';
 import { buildLimitOffset } from './build-limit-offset';
 import { SearchParamsProps } from '@/types/types';
 import { db } from '@/database';
-import { count, SQL, eq, asc } from 'drizzle-orm';
+import { count, SQL, eq, desc } from 'drizzle-orm';
 
 export async function getClients(searchParams: SearchParamsProps) {
   const { filterBySearch } = buildFilterBySearch(searchParams, [
@@ -24,7 +24,7 @@ export async function getClients(searchParams: SearchParamsProps) {
       })
       .from(cliente)
       .where(filterBySearch)
-      .orderBy(asc(cliente.id))
+      .orderBy(desc(cliente.id))
       .limit(limit ?? 10000)
       .offset(offset ?? 0);
 

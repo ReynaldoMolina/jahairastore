@@ -1,6 +1,7 @@
 import { inter } from '@/components/fonts';
 import React from 'react';
 import { ThemeProvider } from '@/components/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
 import '@/app/globals.css';
 
 export const metadata = {
@@ -18,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es-Es" suppressHydrationWarning>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} antialiased min-h-screen`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -26,6 +27,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

@@ -21,6 +21,13 @@ import { FormInputGroup } from '../form-inputs/form-input-group';
 import { FormTextArea } from '../form-inputs/form-text-area';
 import { FormInput } from '../form-inputs/form-input';
 import { FormSelect } from '../form-inputs/form-select';
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from '@/components/ui/field';
 
 type ClienteFormValues = z.infer<typeof clientSchema>;
 
@@ -30,7 +37,6 @@ interface ClientFormProps {
   form: UseFormReturn<ClienteFormValues>;
   onSubmit: (values: ClienteFormValues) => void;
   isPending: boolean;
-  state: unknown;
 }
 
 export function ClientForm({
@@ -39,7 +45,6 @@ export function ClientForm({
   form,
   onSubmit,
   isPending,
-  state,
 }: ClientFormProps) {
   const { cardTitle, cardDescription } = getFormLabels({
     action,
@@ -59,33 +64,47 @@ export function ClientForm({
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-6"
           >
-            <FormInputGroup>
-              <FormInput control={form.control} name="nombre" label="Nombre" />
-              <FormInput
-                control={form.control}
-                name="apellido"
-                label="Apellido"
-              />
-            </FormInputGroup>
-            <FormInputGroup>
-              <FormInput
-                control={form.control}
-                name="telefono"
-                label="Teléfono"
-              />
-              <FormSelect
-                control={form.control}
-                name="municipio"
-                label="Municipio"
-                options={selectOptions.municipios ?? []}
-              />
-            </FormInputGroup>
-            <FormTextArea
-              control={form.control}
-              name="direccion"
-              label="Dirección"
-            />
-            <FormError isPending={isPending} state={state} />
+            <FieldGroup>
+              <FieldSet>
+                <FieldLegend>Datos generales</FieldLegend>
+                <FieldDescription>
+                  Ingresa los datos e información de contacto.
+                </FieldDescription>
+                <FormInput
+                  control={form.control}
+                  name="nombre"
+                  label="Nombre"
+                />
+                <FormInput
+                  control={form.control}
+                  name="apellido"
+                  label="Apellido"
+                />
+                <FormInput
+                  control={form.control}
+                  name="telefono"
+                  label="Teléfono"
+                />
+              </FieldSet>
+              <FieldSeparator />
+              <FieldSet>
+                <FieldLegend>Datos de envío</FieldLegend>
+                <FieldDescription>
+                  Ingresa la ubicación e información de envío.
+                </FieldDescription>
+                <FormSelect
+                  control={form.control}
+                  name="municipio"
+                  label="Municipio"
+                  options={selectOptions.municipios ?? []}
+                />
+                <FormTextArea
+                  control={form.control}
+                  name="direccion"
+                  label="Dirección"
+                />
+              </FieldSet>
+            </FieldGroup>
             <FormButtons action={action} isPending={isPending} />
           </form>
         </CardContent>

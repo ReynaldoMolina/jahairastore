@@ -1,4 +1,4 @@
-import { productos } from '@/database/schema';
+import { producto } from '@/database/schema';
 import { buildFilterBySearch } from './build-filter-by-search';
 import { buildLimitOffset } from './build-limit-offset';
 import { SearchParamsProps } from '@/types/types';
@@ -8,7 +8,7 @@ import { getPages } from './get-pages';
 
 export async function getProducts(searchParams: SearchParamsProps) {
   const { filterBySearch } = buildFilterBySearch(searchParams, [
-    productos.nombre_producto,
+    producto.nombre,
   ]);
 
   const { limit, offset } = buildLimitOffset(searchParams);
@@ -16,37 +16,37 @@ export async function getProducts(searchParams: SearchParamsProps) {
   try {
     const data = await db
       .select({
-        id: productos.id,
-        nombre_producto: productos.nombre_producto,
-        precio_en_cordobas: productos.precio_en_cordobas,
+        id: producto.id,
+        nombre_producto: producto.nombre,
+        precio_en_cordobas: producto.precio_en_cordobas,
         precio_venta: sql<number>`
           CASE
-            WHEN ${productos.precio_en_cordobas} = true THEN (${productos.precio_venta} * ${productos.cambio_dolar})
-            ELSE ${productos.precio_venta}
+            WHEN ${producto.precio_en_cordobas} = true THEN (${producto.precio_venta} * ${producto.cambio_dolar})
+            ELSE ${producto.precio_venta}
           END
         `,
         precio_compra: sql<number>`
           CASE
-            WHEN ${productos.precio_en_cordobas} = true THEN (${productos.precio_compra} * ${productos.cambio_dolar})
-            ELSE ${productos.precio_compra}
+            WHEN ${producto.precio_en_cordobas} = true THEN (${producto.precio_compra} * ${producto.cambio_dolar})
+            ELSE ${producto.precio_compra}
           END
         `,
         ganancia: sql<number>`
           CASE
-            WHEN ${productos.precio_en_cordobas} = true
-              THEN COALESCE(${productos.precio_venta} - ${productos.precio_compra}, 0) * ${productos.cambio_dolar}
+            WHEN ${producto.precio_en_cordobas} = true
+              THEN COALESCE(${producto.precio_venta} - ${producto.precio_compra}, 0) * ${producto.cambio_dolar}
             ELSE
-              COALESCE(${productos.precio_venta} - ${productos.precio_compra}, 0)
+              COALESCE(${producto.precio_venta} - ${producto.precio_compra}, 0)
           END
         `,
       })
-      .from(productos)
+      .from(producto)
       .where(filterBySearch)
-      .orderBy(asc(productos.id))
+      .orderBy(asc(producto.id))
       .limit(limit ?? 10000)
       .offset(offset ?? 0);
 
-    const totalPages = await getPages(productos, filterBySearch, limit ?? 0);
+    const totalPages = await getPages(producto, filterBySearch, limit ?? 0);
 
     return { data, totalPages };
   } catch (error) {
@@ -59,10 +59,7 @@ export async function getProducts(searchParams: SearchParamsProps) {
 
 export async function getProductById(id: number) {
   try {
-    const [data] = await db
-      .select()
-      .from(productos)
-      .where(eq(productos.id, id));
+    const [data] = await db.select().from(producto).where(eq(producto.id, id));
     return data;
   } catch (error) {
     console.error(error);
@@ -76,20 +73,20 @@ export async function getProductsPurchasesModal() {
   try {
     const data = await db
       .select({
-        id: productos.id,
-        nombre_producto: productos.nombre_producto,
+        id: producto.id,
+        nombre_producto: producto.nombre,
         precio_compra: sql<number>`
           CASE
-            WHEN ${productos.precio_en_cordobas} = true THEN (${productos.precio_compra} * ${productos.cambio_dolar})
-            ELSE ${productos.precio_compra}
+            WHEN ${producto.precio_en_cordobas} = true THEN (${producto.precio_compra} * ${producto.cambio_dolar})
+            ELSE ${producto.precio_compra}
           END
         `,
-        precio_en_cordobas: productos.precio_en_cordobas,
+        precio_en_cordobas: producto.precio_en_cordobas,
         // disponibles: 0,
       })
-      .from(productos)
-      .where(eq(productos.inventario, true))
-      .orderBy(asc(productos.id));
+      .from(producto)
+      .where(eq(producto.inventario, true))
+      .orderBy(asc(producto.id));
     return data;
   } catch (error) {
     console.error(error);

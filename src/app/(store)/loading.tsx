@@ -1,5 +1,5 @@
-import LoadingIcon from '@/components/loading-icon';
+import { Spinner } from '@/components/ui/spinner';
 
 export default function Loading() {
-  return <LoadingIcon />;
+  return <Spinner className="m-auto size-6" />;
 }

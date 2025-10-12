@@ -27,8 +27,7 @@ export function Settings() {
       <CardHeader>
         <CardTitle>Ajustes</CardTitle>
         <CardDescription>
-          Configura tu negocio y personaliza la aplicación según tus
-          necesidades.
+          Personaliza la aplicación según tus necesidades.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">

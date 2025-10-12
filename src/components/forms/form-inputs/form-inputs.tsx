@@ -5,8 +5,8 @@ import { useRouter } from 'next/navigation';
 import { bgColors } from '@/components/bgcolors';
 import { CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import LoadingIcon from '@/components/loading-icon';
 import { ActionType } from '@/types/types';
+import { Spinner } from '@/components/ui/spinner';
 
 export function FormContainer({ children, action, wider = false }) {
   const maxWidth = wider ? '' : 'max-w-3xl';
@@ -188,10 +188,10 @@ export function FormButtons({ action, isPending }: FormButtonsProps) {
   return (
     <CardFooter className="gap-3 justify-end border-t">
       <Button variant="secondary" type="button" onClick={() => router.back()}>
-        Cancelar
+        Regresar
       </Button>
       <Button className="min-w-25" disabled={isPending}>
-        {isPending ? <LoadingIcon /> : label}
+        {isPending ? <Spinner /> : label}
       </Button>
     </CardFooter>
   );

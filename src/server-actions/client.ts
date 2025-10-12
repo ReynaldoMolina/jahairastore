@@ -1,10 +1,11 @@
 'use server';
 
 import { ClienteFormType } from '@/types/types';
-import { goBackTo } from './actions-utils';
 import { db } from '@/database';
 import { cliente } from '@/database/schema';
 import { eq } from 'drizzle-orm';
+import { revalidatePath } from 'next/cache';
+import { stateError, stateSuccess } from './state-messages';
 
 interface CreateClient {
   values: ClienteFormType;
@@ -13,11 +14,12 @@ interface CreateClient {
 export async function createClient(prevState: unknown, data: CreateClient) {
   try {
     await db.insert(cliente).values(data.values);
+    revalidatePath('/clientes');
+    return stateSuccess;
   } catch (error) {
     console.error(error);
-    return error;
+    return stateError;
   }
-  await goBackTo('/clientes');
 }
 
 interface UpdateClient {
@@ -33,9 +35,11 @@ export async function updateClient(prevState: unknown, data: UpdateClient) {
       .update(cliente)
       .set(data.values)
       .where(eq(cliente.id, Number(data.id)));
+
+    revalidatePath('/clientes');
+    return stateSuccess;
   } catch (error) {
     console.error(error);
-    return error;
+    return stateError;
   }
-  await goBackTo('/clientes');
 }

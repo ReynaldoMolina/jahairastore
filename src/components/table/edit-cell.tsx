@@ -6,7 +6,7 @@ export function EditCell({ href }: { href: string }) {
   return (
     <div className="w-full inline-flex justify-center">
       <Button variant="outline" size="sm" className="h-7" asChild>
-        <Link href={`${href}/editar`}>
+        <Link href={href}>
           <Pencil />
         </Link>
       </Button>

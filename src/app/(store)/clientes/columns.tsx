@@ -30,6 +30,6 @@ export const columns: ColumnDef<ClienteTableType>[] = [
     accessorKey: 'telefono',
     header: 'Teléfono',
     cell: DefaultCell,
-    size: 130,
+    size: 115,
   },
 ];

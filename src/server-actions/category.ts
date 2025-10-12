@@ -1,10 +1,11 @@
 'use server';
 
 import { CategoryFormType } from '@/types/types';
-import { goBackTo } from './actions-utils';
 import { db } from '@/database';
 import { categoria } from '@/database/schema';
 import { eq } from 'drizzle-orm';
+import { stateError, stateSuccess } from './state-messages';
+import { revalidatePath } from 'next/cache';
 
 export async function createCategory(
   prevState: unknown,
@@ -12,15 +13,17 @@ export async function createCategory(
 ) {
   try {
     await db.insert(categoria).values(values);
+    revalidatePath('categorias');
+
+    return stateSuccess;
   } catch (error) {
     console.error(error);
-    return error;
+    return stateError;
   }
-  await goBackTo('/categorias');
 }
 
 interface UpdateCategory {
-  id: number | undefined;
+  id: number | string | undefined;
   values: CategoryFormType;
 }
 
@@ -31,10 +34,12 @@ export async function updateCategory(prevState: unknown, data: UpdateCategory) {
     await db
       .update(categoria)
       .set(data.values)
-      .where(eq(categoria.id, data.id));
+      .where(eq(categoria.id, Number(data.id)));
+    revalidatePath('categorias');
+
+    return stateSuccess;
   } catch (error) {
     console.error(error);
-    return error;
+    return stateError;
   }
-  await goBackTo('/categorias');
 }

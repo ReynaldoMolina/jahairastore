@@ -3,7 +3,7 @@ import { buildFilterBySearch } from './build-filter-by-search';
 import { buildLimitOffset } from './build-limit-offset';
 import { SearchParamsProps } from '@/types/types';
 import { db } from '@/database';
-import { eq, sql, asc } from 'drizzle-orm';
+import { eq, sql, asc, desc } from 'drizzle-orm';
 import { getPages } from './get-pages';
 
 export async function getCategories(searchParams: SearchParamsProps) {
@@ -18,6 +18,7 @@ export async function getCategories(searchParams: SearchParamsProps) {
       .select()
       .from(categoria)
       .where(filterBySearch)
+      .orderBy(desc(categoria.id))
       .limit(limit ?? 10000)
       .offset(offset ?? 0);
 

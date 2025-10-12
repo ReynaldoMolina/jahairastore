@@ -164,7 +164,7 @@ export interface ProductoPurchaseModalTableType {
   precio_en_cordobas: boolean | null;
 }
 
-export interface ProductFormType {
+export interface ProductoFormType {
   id?: number;
   id_proveedor: number;
   nombre_producto: string;
@@ -184,6 +184,8 @@ export type SelectOptions = {
 };
 
 export interface FormSelectOptions {
+  providers?: SelectOptions[];
+  categories?: SelectOptions[];
   municipios?: SelectOptions[];
 }
 

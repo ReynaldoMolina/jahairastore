@@ -1,6 +1,6 @@
 export const dynamic = 'force-dynamic';
 
-import { ProductForm } from '@/components/forms/product';
+import { ProductoForm } from '@/components/forms/product/form';
 import { getCategoriesSelect } from '@/fetch-data/category';
 import { getCambioDolar } from '@/fetch-data/config';
 import { getProvidersSelect } from '@/fetch-data/provider';
@@ -15,7 +15,7 @@ export default async function Page() {
   const cambioDolar = await getCambioDolar();
 
   return (
-    <ProductForm
+    <ProductoForm
       action="create"
       selectOptions={{ providers, categories }}
       cambioDolarConfig={cambioDolar ?? 1}

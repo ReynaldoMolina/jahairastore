@@ -12,7 +12,7 @@ type FormComboboxProps<T extends FieldValues> = {
   form: UseFormReturn<T>;
   name: Path<T>;
   label: string;
-  options: SelectOptions;
+  options: SelectOptions[];
 };
 
 export function FormCombobox<T extends FieldValues>({

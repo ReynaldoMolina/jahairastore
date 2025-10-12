@@ -4,9 +4,9 @@ import React from 'react';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="flex relative flex-col md:flex-row bg-background min-h-screen">
+    <main className="flex relative flex-col md:flex-row min-h-screen">
       <SideMenu />
-      <div className="flex flex-col flex-1">{children}</div>
+      <div className="flex flex-col w-full flex-1">{children}</div>
     </main>
   );
 }

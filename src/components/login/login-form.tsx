@@ -4,7 +4,6 @@ import LoginInput from '@/components/login/login-input';
 import { startTransition, useActionState } from 'react';
 import { authenticate } from '@/server-actions/actions';
 import { useSearchParams } from 'next/navigation';
-import LoadingIcon from '../loading-icon';
 import { CircleX } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -19,6 +18,7 @@ import {
   CardTitle,
 } from '../ui/card';
 import { Button } from '../ui/button';
+import { Spinner } from '../ui/spinner';
 
 export default function LoginForm() {
   const searchParams = useSearchParams();
@@ -80,7 +80,7 @@ export default function LoginForm() {
               />
 
               <Button className="w-full" id="login-button" disabled={isPending}>
-                {isPending ? <LoadingIcon /> : 'Iniciar sesión'}
+                {isPending ? <Spinner /> : 'Iniciar sesión'}
               </Button>
               {!isPending && (
                 <div

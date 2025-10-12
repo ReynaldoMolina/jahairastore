@@ -2,12 +2,14 @@
 
 import { ClienteFormType, FormSelectOptions } from '@/types/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { startTransition, useActionState } from 'react';
+import { startTransition, useActionState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import { clientSchema } from '../validation/validation-schemas';
 import { updateClient } from '@/server-actions/client';
 import { ClientForm } from './form';
+import { stateDefault } from '@/server-actions/state-messages';
+import { toast } from 'sonner';
 
 interface EditClientFormProps {
   client?: ClienteFormType;
@@ -26,15 +28,24 @@ export function EditClientForm({ client, selectOptions }: EditClientFormProps) {
     },
   });
 
-  const [state, formAction, isPending] = useActionState(updateClient, {
-    message: '',
-  });
+  const [state, formAction, isPending] = useActionState(
+    updateClient,
+    stateDefault
+  );
 
   function onSubmit(values: z.infer<typeof clientSchema>) {
     startTransition(() => {
       formAction({ id: client?.id, values });
     });
   }
+
+  useEffect(() => {
+    if (state?.success) {
+      toast(state.title, {
+        description: state.description,
+      });
+    }
+  }, [state]);
 
   return (
     <ClientForm
@@ -43,7 +54,6 @@ export function EditClientForm({ client, selectOptions }: EditClientFormProps) {
       form={form}
       onSubmit={onSubmit}
       isPending={isPending}
-      state={state}
     />
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { startTransition, useActionState } from 'react';
+import { startTransition, useActionState, useEffect } from 'react';
 import { FormButtons, FormError } from './form-inputs/form-inputs';
 import { Form } from '../ui/form';
 import { useForm } from 'react-hook-form';
@@ -17,13 +17,24 @@ import { FormInput } from './form-inputs/form-input';
 import { ConfigType } from '@/types/types';
 import { configSchema } from './validation/validation-schemas';
 import { updateConfig } from '@/server-actions/config';
-import { FormInputGroup } from './form-inputs/form-input-group';
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from '../ui/field';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import { stateDefault } from '@/server-actions/state-messages';
 
 interface ConfigFormProps {
   config: ConfigType;
 }
 
 export function ConfigForm({ config }: ConfigFormProps) {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof configSchema>>({
     resolver: zodResolver(configSchema),
     defaultValues: {
@@ -34,15 +45,24 @@ export function ConfigForm({ config }: ConfigFormProps) {
     },
   });
 
-  const [state, formAction, isPending] = useActionState(updateConfig, {
-    message: '',
-  });
+  const [state, formAction, isPending] = useActionState(
+    updateConfig,
+    stateDefault
+  );
 
   function onSubmit(values: z.infer<typeof configSchema>) {
     startTransition(() => {
       formAction(values);
     });
   }
+
+  useEffect(() => {
+    if (state.success) {
+      toast(state.title, {
+        description: state.description,
+      });
+    }
+  }, [state]);
 
   return (
     <main className="flex flex-col gap-4 items-center">
@@ -59,31 +79,45 @@ export function ConfigForm({ config }: ConfigFormProps) {
               onSubmit={form.handleSubmit(onSubmit)}
               className="flex flex-col gap-6"
             >
-              <FormInput
-                control={form.control}
-                name="id_negocio"
-                label="Id negocio"
-                disabled
-                hidden
-              />
-              <FormInput
-                control={form.control}
-                name="cambio_dolar"
-                label="Cambio dólar"
-              />
-              <FormInputGroup>
-                <FormInput
-                  control={form.control}
-                  name="envio_aereo"
-                  label="Envío aéreo (dólares x libra)"
-                />
-                <FormInput
-                  control={form.control}
-                  name="envio_mar"
-                  label="Envío marítimo (dólares x libra)"
-                />
-              </FormInputGroup>
-              <FormError isPending={isPending} state={state} />
+              <FieldGroup>
+                <FieldSet>
+                  <FieldLegend>Tasa de cambio</FieldLegend>
+                  <FieldDescription>
+                    Actualiza la tasa de cambio que se aplicará a las nuevas
+                    transacciones.
+                  </FieldDescription>
+                  <FormInput
+                    control={form.control}
+                    name="id_negocio"
+                    label="Id negocio"
+                    disabled
+                    hidden
+                  />
+                  <FormInput
+                    control={form.control}
+                    name="cambio_dolar"
+                    label="Cambio del dólar"
+                  />
+                </FieldSet>
+                <FieldSeparator />
+                <FieldSet>
+                  <FieldLegend>Tarifas de envío</FieldLegend>
+                  <FieldDescription>
+                    Se aplicarán al envío de los nuevos pedidos, el valor es en
+                    dólares por cada libra.
+                  </FieldDescription>
+                  <FormInput
+                    control={form.control}
+                    name="envio_aereo"
+                    label="Envío aéreo"
+                  />
+                  <FormInput
+                    control={form.control}
+                    name="envio_mar"
+                    label="Envío marítimo"
+                  />
+                </FieldSet>
+              </FieldGroup>
               <FormButtons action="edit" isPending={isPending} />
             </form>
           </CardContent>

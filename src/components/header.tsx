@@ -3,6 +3,7 @@
 import { ArrowLeft } from 'lucide-react';
 import { Button } from './ui/button';
 import { useRouter } from 'next/navigation';
+import { Separator } from './ui/separator';
 
 export function Header({ title }: { title: string }) {
   const router = useRouter();
@@ -12,6 +13,7 @@ export function Header({ title }: { title: string }) {
       <Button variant="ghost" size="icon" onClick={() => router.back()}>
         <ArrowLeft className="size-5" />
       </Button>
+      <Separator orientation="vertical" />
       <span className="font-semibold text-sm">{title}</span>
     </header>
   );

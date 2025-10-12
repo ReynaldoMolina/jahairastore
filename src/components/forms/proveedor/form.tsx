@@ -26,8 +26,8 @@ type ProveedorFormValues = z.infer<typeof providerSchema>;
 
 interface ProvedorFormProps {
   action: ActionType;
-  selectOptions: FormSelectOptions;
   form: UseFormReturn<ProveedorFormValues>;
+  selectOptions: FormSelectOptions;
   onSubmit: (values: ProveedorFormValues) => void;
   isPending: boolean;
   state: unknown;

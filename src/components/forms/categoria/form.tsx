@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from '../../ui/card';
 import { FormInput } from '../form-inputs/form-input';
-import { FormButtons, FormError } from '../form-inputs/form-inputs';
+import { FormButtons } from '../form-inputs/form-inputs';
 import { getFormLabels } from '@/utils/get-form-labels';
 import z from 'zod';
 import { categorySchema } from '../validation/validation-schemas';
@@ -23,7 +23,6 @@ interface CategoriaFormProps {
   form: UseFormReturn<CategoriaFormValues>;
   onSubmit: (values: CategoriaFormValues) => void;
   isPending: boolean;
-  state: unknown;
 }
 
 export function CategoriaForm({
@@ -31,7 +30,6 @@ export function CategoriaForm({
   form,
   onSubmit,
   isPending,
-  state,
 }: CategoriaFormProps) {
   const { cardTitle, cardDescription } = getFormLabels({
     action,
@@ -51,8 +49,12 @@ export function CategoriaForm({
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-6"
           >
-            <FormInput control={form.control} name="nombre" label="Categoría" />
-            <FormError isPending={isPending} state={state} />
+            <FormInput
+              control={form.control}
+              name="nombre"
+              label="Categoría"
+              placeholder="Nombre de la categoría"
+            />
             <FormButtons action={action} isPending={isPending} />
           </form>
         </CardContent>

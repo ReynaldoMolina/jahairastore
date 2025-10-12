@@ -5,7 +5,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 export const db = drizzle({
   connection: {
-    connectionString: process.env.DATABASE_URL!,
+    connectionString: process.env.POSTGRES_URL!,
     ssl: isProd ? { rejectUnauthorized: false } : false,
   },
 });

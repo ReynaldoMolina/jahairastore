@@ -1,97 +1,57 @@
 'use client';
 
-import {
-  FormButtons,
-  FormError,
-} from '@/components/forms/form-inputs/form-inputs';
-import { startTransition, useActionState } from 'react';
-import { ActionType, ProductsFormType, SelectOptions } from '@/types/types';
-import { useForm, useWatch } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { productSchema } from './validation/validation-schemas';
+import { FormButtons } from '@/components/forms/form-inputs/form-inputs';
+import { ActionType, FormSelectOptions } from '@/types/types';
+import { UseFormReturn, useWatch } from 'react-hook-form';
 import z from 'zod';
-import { Form, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import { getFormLabels } from '@/utils/get-form-labels';
+import { productSchema } from '../validation/validation-schemas';
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '../ui/card';
-import { FormInputGroup } from './form-inputs/form-input-group';
-import { FormTextArea } from './form-inputs/form-text-area';
-import { getFormLabels } from '@/utils/get-form-labels';
-import { FormInput } from './form-inputs/form-input';
-import { DatePicker } from '../date-picker';
-import { FormCombobox } from './form-inputs/form-combo-box';
-import { getCurrentDate } from '@/utils/get-current-date';
-import { FormCheckBox } from './form-inputs/form-checkbox';
-import { FormInputReadOnly } from './form-inputs/form-input-readonly';
-import { createProduct, updateProduct } from '@/server-actions/products';
-import { FormFieldSet } from './form-inputs/form-field-set';
-import { ProductInput } from './form-inputs/product-input-nio';
+} from '@/components/ui/card';
+import { DatePicker } from '@/components/date-picker';
+import { FormCheckBox } from '../form-inputs/form-checkbox';
+import { FormCombobox } from '../form-inputs/form-combo-box';
+import { FormFieldSet } from '../form-inputs/form-field-set';
+import { FormInputReadOnly } from '../form-inputs/form-input-readonly';
+import { FormTextArea } from '../form-inputs/form-text-area';
+import { ProductInput } from '../form-inputs/product-input-nio';
+import { FormInputGroup } from '../form-inputs/form-input-group';
+import { FormInput } from '../form-inputs/form-input';
+
+type ProveedorFormValues = z.infer<typeof productSchema>;
 
 interface ProductFormProps {
   action: ActionType;
-  product?: ProductsFormType;
-  selectOptions: {
-    providers: SelectOptions;
-    categories: SelectOptions;
-  };
-  cambioDolarConfig: number;
+  form: UseFormReturn<ProveedorFormValues>;
+  selectOptions: FormSelectOptions;
+  onSubmit: (values: ProveedorFormValues) => void;
+  isPending: boolean;
 }
 
-export function ProductForm({
+export function ProductoForm({
   action,
-  product,
+  form,
   selectOptions,
-  cambioDolarConfig,
+  onSubmit,
+  isPending,
 }: ProductFormProps) {
-  const currentDate = getCurrentDate();
-
-  const form = useForm<z.infer<typeof productSchema>>({
-    resolver: zodResolver(productSchema),
-    defaultValues: product
-      ? {
-          id_proveedor: product.id_proveedor ?? undefined,
-          nombre_producto: product.nombre_producto ?? '',
-          precio_compra: product.precio_compra ?? 0,
-          precio_venta: product.precio_venta ?? 0,
-          cambio_dolar: product.cambio_dolar ?? cambioDolarConfig,
-          id_categoria: product.id_categoria ?? undefined,
-          fecha: product.fecha ?? '',
-          id_externo: product.id_externo ?? null,
-          inventario: product.inventario ?? false,
-          precio_en_cordobas: product.precio_en_cordobas ?? false,
-        }
-      : {
-          id_proveedor: 1,
-          nombre_producto: '',
-          precio_compra: 0,
-          precio_venta: 0,
-          cambio_dolar: cambioDolarConfig,
-          id_categoria: 1,
-          fecha: currentDate,
-          id_externo: null,
-          inventario: false,
-          precio_en_cordobas: false,
-        },
+  const { cardTitle, cardDescription } = getFormLabels({
+    action,
+    noun: 'm',
+    formName: 'producto',
   });
-
-  const newAction =
-    action === 'create' ? createProduct : updateProduct.bind(null, product?.id);
-
-  const [state, formAction, isPending] = useActionState(newAction, {
-    message: '',
-  });
-
-  function onSubmit(values: z.infer<typeof productSchema>) {
-    startTransition(() => {
-      formAction(values);
-    });
-  }
-
-  const { cardTitle, cardDescription } = getFormLabels(action, 'm', 'producto');
 
   const [precioEnCordobas, precioVenta, precioCompra, cambioDolar] = useWatch({
     control: form.control,
@@ -207,17 +167,16 @@ export function ProductForm({
                   form={form}
                   name="id_proveedor"
                   label="Proveedor"
-                  options={selectOptions.providers}
+                  options={selectOptions.providers ?? []}
                 />
                 <FormCombobox
                   form={form}
                   name="id_categoria"
                   label="Categoría"
-                  options={selectOptions.categories}
+                  options={selectOptions.categories ?? []}
                 />
               </FormInputGroup>
             </FormFieldSet>
-            <FormError isPending={isPending} state={state} />
             <FormButtons action={action} isPending={isPending} />
           </form>
         </CardContent>
