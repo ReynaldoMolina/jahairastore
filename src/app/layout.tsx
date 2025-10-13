@@ -1,5 +1,8 @@
-import { inter } from '@/app/ui/fonts';
+import React from 'react';
+import { Inter } from 'next/font/google';
 import '@/app/globals.css';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: {
