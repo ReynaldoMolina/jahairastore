@@ -10,8 +10,8 @@ import {
   getInventoryPages,
   getSalesPages,
   getProductsInventarioPages,
-} from './dataPages';
-import { getCurrentMonth } from './getDate';
+} from './data-pages';
+import { getCurrentMonth } from '../lib/get-date';
 
 const registerOptions = {
   categorias: {
