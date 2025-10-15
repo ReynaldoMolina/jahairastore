@@ -4,6 +4,15 @@ import LogoutForm from '@/components/login/logout-form';
 import { FormId } from '@/components/forms/form-inputs/form-inputs';
 import { ChevronRight, Receipt, Shapes, Store, Users } from 'lucide-react';
 import { ChangeTheme } from '@/components/change-theme';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { FieldDescription, FieldGroup, FieldSet } from '@/components/ui/field';
 
 export const metadata = {
   title: 'Ajustes',
@@ -11,32 +20,56 @@ export const metadata = {
 
 export default async function Page() {
   return (
-    <main className="flex gap-5 flex-col rounded-xl p-2 md:p-7 shadow bg-white dark:bg-neutral-900 max-w-3xl mx-auto w-full">
-      <FormId holder="Ajustes" />
-      {!isDemo && (
-        <SettingsItem label="Infomación del negocio" href="/ajustes/info">
-          <Store className="size-5" />
-        </SettingsItem>
-      )}
-      <SettingsSection title="Administrar">
-        <SettingsItem label="Categorías" href="/categorias">
-          <Shapes className="size-5" />
-        </SettingsItem>
-        <SettingsItem label="Proveedores" href="/proveedores">
-          <Users className="size-5" />
-        </SettingsItem>
-      </SettingsSection>
-      <SettingsSection title="Registros sin usar">
-        {/* <SettingsItem label="Pedidos" href="/pedidos">
-          <OrdersIcon className="size-5" />
-        </SettingsItem> */}
-        <SettingsItem label="Recibos" href="/recibos">
-          <Receipt className="size-5" />
-        </SettingsItem>
-      </SettingsSection>
-      <ChangeTheme />
-      {!isDemo && <LogoutForm />}
-    </main>
+    <Card className="m-auto w-full max-w-xl">
+      <CardHeader>
+        <CardTitle>Ajustes</CardTitle>
+        <CardDescription>Realiza ajustes en tu aplicación</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <FieldGroup>
+          {!isDemo && (
+            <FieldSet>
+              <FieldDescription>General</FieldDescription>
+              <Button asChild variant="secondary" className="w-full">
+                <Link href="/ajustes/info">
+                  <div className="inline-flex items-center gap-3">
+                    <Store />
+                    Información del negocio
+                  </div>
+                  <ChevronRight className="ml-auto" />
+                </Link>
+              </Button>
+            </FieldSet>
+          )}
+          <FieldSet>
+            <FieldDescription>Administrar</FieldDescription>
+            <Button asChild variant="secondary" className="w-full">
+              <Link href="/categorias">
+                <div className="inline-flex items-center gap-3">
+                  <Shapes />
+                  Categorías
+                </div>
+                <ChevronRight className="ml-auto" />
+              </Link>
+            </Button>
+            <Button asChild variant="secondary" className="w-full">
+              <Link href="/proveedores">
+                <div className="inline-flex items-center gap-3">
+                  <Users />
+                  Proveedores
+                </div>
+                <ChevronRight className="ml-auto" />
+              </Link>
+            </Button>
+          </FieldSet>
+          <FieldSet>
+            <FieldDescription>Configuración</FieldDescription>
+            <ChangeTheme />
+            {!isDemo && <LogoutForm />}
+          </FieldSet>
+        </FieldGroup>
+      </CardContent>
+    </Card>
   );
 }
 
