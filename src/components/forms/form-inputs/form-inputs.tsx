@@ -6,6 +6,8 @@ import { bgColors } from '@/lib/bg-colors';
 import { formatNumber } from '@/lib/formatters';
 import { getCurrentDate } from '@/lib/get-date';
 import { Spinner } from '@/components/ui/spinner';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export function FormContainer({ children, action, wider = false }) {
   const maxWidth = wider ? '' : 'max-w-3xl';
@@ -43,29 +45,28 @@ export function FormInput({
   const [inputValue, setInputValue] = useState(value);
 
   return (
-    <div className="flex flex-col w-full gap-1">
-      <FormLabel name={name}>
+    <div className="grid w-full items-center gap-3">
+      <Label htmlFor={name}>
         <span>{holder}</span>
         {!required && (
           <span className="font-normal text-xs text-neutral-700 dark:text-neutral-300">
             {' (opcional)'}
           </span>
         )}
-      </FormLabel>
-      <input
+      </Label>
+      <Input
         id={name}
         name={name}
         type={type}
         min={0}
         step="0.01"
-        className={`flex ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
         placeholder={holder}
         autoComplete={autocomplete}
         value={inputValue}
         onChange={(event) => setInputValue(event.target.value)}
         required={required}
         autoFocus={focus}
-      ></input>
+      ></Input>
     </div>
   );
 }

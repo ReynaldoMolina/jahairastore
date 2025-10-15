@@ -7,6 +7,7 @@ import { Spinner } from '../ui/spinner';
 import { authenticate } from '@/server-actions/actions';
 import { LoginInput } from './login-input';
 import { CircleAlert } from 'lucide-react';
+import { Button } from '../ui/button';
 
 export function LoginForm() {
   const searchParams = useSearchParams();
@@ -27,18 +28,20 @@ export function LoginForm() {
         <LoginInput name="password" placeholder="Contraseña" type="password" />
 
         <input type="hidden" name="redirectTo" value={callbackUrl} />
-        <button
-          type="submit"
-          className={`flex w-full h-10 border-none rounded-lg text-white items-center font-semibold justify-center transition ${
-            isPending
-              ? 'cursor-not-allowed bg-blue-600'
-              : 'cursor-pointer bg-blue-500 hover:bg-blue-600'
-          }`}
+        <Button
+          className="w-full text-white bg-blue-500 hover:bg-blue-600"
           id="login-button"
           disabled={isPending}
         >
-          {isPending ? <Spinner /> : 'Iniciar sesión'}
-        </button>
+          {isPending ? (
+            <>
+              <Spinner />
+              Iniciando sesión
+            </>
+          ) : (
+            'Iniciar sesión'
+          )}
+        </Button>
         {!isPending && (
           <div
             className={`flex gap-2 justify-center items-center ${
