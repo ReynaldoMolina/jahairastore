@@ -1,0 +1,169 @@
+'use client';
+
+import { useState, createContext, useContext } from 'react';
+import FormDetail from './register-form/detail-list/form-detail';
+import { useActionState } from 'react';
+import {
+  createSale,
+  updateSale,
+  createOrder,
+  updateOrder,
+  createPurchase,
+  updatePurchase,
+} from '@/server-actions/actions';
+import {
+  FormContainer,
+  FormId,
+  FormDiv,
+  FormSelect,
+  FormDate,
+  FormError,
+  FormButtons,
+} from './form-inputs/form-inputs';
+import { ProductSearch } from './register-form/product-list/product-search';
+import { FormSubtotals } from './register-form/register-subtotals';
+import { calculateTotals } from '@/lib/calculate-totals';
+import { RegisterFormOptions } from './options/register';
+
+const FormContext = createContext(null);
+export function useFormContext() {
+  const context = useContext(FormContext);
+  return context;
+}
+
+interface RegisterForm {
+  children: React.ReactNode;
+  isNew: boolean;
+  register?: any;
+  registerPdf?: any;
+  registerId?: any;
+  detailList?: any;
+  convert?: boolean;
+  allowEmpty?: boolean;
+  abono?: any;
+  selectData: any;
+  formName: string;
+}
+
+export function RegisterForm({
+  children,
+  isNew,
+  register = {},
+  registerPdf = {},
+  registerId = '',
+  detailList = [],
+  convert = false,
+  allowEmpty = false,
+  abono = 0,
+  selectData,
+  formName,
+}: RegisterForm) {
+  const formInfo = {
+    ventas: { create: createSale, update: updateSale, holder: 'Venta' },
+    pedidos: { create: createOrder, update: updateOrder, holder: 'Pedido' },
+    compras: {
+      create: createPurchase,
+      update: updatePurchase,
+      holder: 'Compra',
+    },
+  };
+  const holder = formInfo[formName].holder;
+  const actions = formInfo[formName];
+  const action = isNew ? actions.create : actions.update;
+  const originalList = detailList;
+
+  const [productList, setProductList] = useState(isNew ? [] : detailList);
+  const totals = convert
+    ? calculateTotals(productList, convert)
+    : calculateTotals(productList);
+  const [formTotals, setFormTotals] = useState(totals);
+  const [formAbono, setFormAbono] = useState(abono);
+
+  const [state, formAction, isPending] = useActionState(action, {
+    message: '',
+  });
+
+  // function handleRegister(prevState: any, formData: FormData) {
+  //   if (!allowEmpty && productList.length === 0) {
+  //     alert('Agrega productos a la lista');
+  //     return;
+  //   }
+
+  //   if (isNew) {
+  //     formAction({ formData, productList });
+  //   } else {
+  //     const payload = {
+  //       id: registerId,
+  //       formData,
+  //       productList,
+  //       originalList,
+  //     };
+  //     formAction(payload);
+  //   }
+  // }
+
+  const wrappedAction = async (prevState: any, formData: FormData) => {
+    const plainData = Object.fromEntries(formData.entries());
+    if (isNew) {
+      return action({ formData: plainData, productList });
+    } else {
+      return action({
+        id: registerId,
+        formData: plainData,
+        productList,
+        originalList,
+      });
+    }
+  };
+
+  return (
+    <FormContainer action={wrappedAction} wider={true}>
+      <FormContext.Provider
+        value={{
+          productList,
+          setProductList,
+          formTotals,
+          setFormTotals,
+          formAbono,
+          setFormAbono,
+          formName,
+          register,
+        }}
+      >
+        <FormId
+          holder={isNew ? `Crear ${holder.toLowerCase()}` : holder}
+          value={isNew ? '' : registerId}
+        />
+
+        <FormDiv>
+          <FormSelect
+            value={
+              isNew
+                ? formName === 'ventas'
+                  ? 0
+                  : ''
+                : formName === 'compras'
+                ? register.Id_proveedor
+                : register.Id_cliente
+            }
+            name={formName === 'compras' ? 'Id_proveedor' : 'Id_cliente'}
+            data={selectData}
+          />
+          <FormDate date={isNew ? '' : register.Fecha} />
+        </FormDiv>
+
+        <FormSubtotals credit={isNew ? false : register.Credito} />
+
+        <ProductSearch open={isNew}>{children}</ProductSearch>
+
+        <FormDetail />
+
+        {!isNew && <RegisterFormOptions registerPdf={registerPdf} />}
+
+        <FormError isPending={isPending} state={state} />
+
+        <FormButtons isNew={isNew} isPending={isPending} />
+      </FormContext.Provider>
+    </FormContainer>
+  );
+}
