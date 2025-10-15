@@ -3,6 +3,7 @@ import Link from 'next/link';
 import LogoutForm from '@/components/login/logout-form';
 import { FormId } from '@/components/forms/form-inputs/form-inputs';
 import { ChevronRight, Receipt, Shapes, Store, Users } from 'lucide-react';
+import { ChangeTheme } from '@/components/change-theme';
 
 export const metadata = {
   title: 'Ajustes',
@@ -33,6 +34,7 @@ export default async function Page() {
           <Receipt className="size-5" />
         </SettingsItem>
       </SettingsSection>
+      <ChangeTheme />
       {!isDemo && <LogoutForm />}
     </main>
   );
