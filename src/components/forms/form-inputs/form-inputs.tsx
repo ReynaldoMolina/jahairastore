@@ -214,9 +214,9 @@ export function FormId({ holder, value = '' }) {
 export function FormError({ isPending, state }) {
   return (
     <>
-      {!isPending && state.message?.trim() && (
+      {!isPending && state?.message?.trim() && (
         <p className="text-xs pl-2 text-center italic text-red-400">
-          {state.message}
+          {state.message || ''}
         </p>
       )}
     </>

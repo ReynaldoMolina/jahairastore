@@ -45,6 +45,15 @@ interface RegisterForm {
   formName: string;
 }
 
+type RegisterPayload = {
+  formData: any;
+  productList: any[];
+  id?: string;
+  originalList?: any[];
+};
+
+type RegisterReturn = { message: string };
+
 export function RegisterForm({
   children,
   isNew,
@@ -79,45 +88,35 @@ export function RegisterForm({
   const [formTotals, setFormTotals] = useState(totals);
   const [formAbono, setFormAbono] = useState(abono);
 
-  const [state, formAction, isPending] = useActionState(action, {
+  const [state, _formAction, isPending] = useActionState(action, {
     message: '',
   });
 
-  // function handleRegister(prevState: any, formData: FormData) {
-  //   if (!allowEmpty && productList.length === 0) {
-  //     alert('Agrega productos a la lista');
-  //     return;
-  //   }
+  const formAction = _formAction as unknown as (
+    payload: RegisterPayload
+  ) => any;
 
-  //   if (isNew) {
-  //     formAction({ formData, productList });
-  //   } else {
-  //     const payload = {
-  //       id: registerId,
-  //       formData,
-  //       productList,
-  //       originalList,
-  //     };
-  //     formAction(payload);
-  //   }
-  // }
+  function handleRegister(formData) {
+    if (!allowEmpty && productList.length === 0) {
+      alert('Agrega productos a la lista');
+      return;
+    }
 
-  const wrappedAction = async (prevState: any, formData: FormData) => {
-    const plainData = Object.fromEntries(formData.entries());
     if (isNew) {
-      return action({ formData: plainData, productList });
+      formAction({ formData, productList });
     } else {
-      return action({
+      const payload: RegisterPayload = {
         id: registerId,
-        formData: plainData,
+        formData,
         productList,
         originalList,
-      });
+      };
+      formAction(payload);
     }
-  };
+  }
 
   return (
-    <FormContainer action={wrappedAction} wider={true}>
+    <FormContainer action={handleRegister} wider={true}>
       <FormContext.Provider
         value={{
           productList,
