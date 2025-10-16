@@ -2,8 +2,8 @@ export const dynamic = 'force-dynamic';
 
 import { notFound } from 'next/navigation';
 import { isDemo } from '@/middleware';
-import { getBusinessInfo } from '@/fetch-data/data';
 import { SettingsForm } from '@/components/settings/settings-form';
+import { getBusinessInfo } from '@/fetch-data/settings';
 
 export const metadata = {
   title: 'Ajustes',

@@ -1,0 +1,747 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.Clientes": {
+      "name": "Clientes",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Nombre": {
+          "name": "Nombre",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Apellido": {
+          "name": "Apellido",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Telefono": {
+          "name": "Telefono",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Municipio": {
+          "name": "Municipio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Departamento": {
+          "name": "Departamento",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Pais": {
+          "name": "Pais",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Direccion": {
+          "name": "Direccion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Id_usuario": {
+          "name": "Id_usuario",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Compras": {
+      "name": "Compras",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Id_proveedor": {
+          "name": "Id_proveedor",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Fecha": {
+          "name": "Fecha",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.ComprasDetalles": {
+      "name": "ComprasDetalles",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Id_compra": {
+          "name": "Id_compra",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Id_producto": {
+          "name": "Id_producto",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Precio_compra": {
+          "name": "Precio_compra",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Cantidad": {
+          "name": "Cantidad",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Precio_venta": {
+          "name": "Precio_venta",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Cambio_dolar": {
+          "name": "Cambio_dolar",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Configuracion": {
+      "name": "Configuracion",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Nombre_empresa": {
+          "name": "Nombre_empresa",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Eslogan": {
+          "name": "Eslogan",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Mensaje": {
+          "name": "Mensaje",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Egresos": {
+      "name": "Egresos",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Id_compra": {
+          "name": "Id_compra",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Id_proveedor": {
+          "name": "Id_proveedor",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Fecha": {
+          "name": "Fecha",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Gasto": {
+          "name": "Gasto",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Concepto": {
+          "name": "Concepto",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Cambio_dolar": {
+          "name": "Cambio_dolar",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Pedidos": {
+      "name": "Pedidos",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Id_cliente": {
+          "name": "Id_cliente",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Fecha": {
+          "name": "Fecha",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Peso": {
+          "name": "Peso",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Cambio_dolar": {
+          "name": "Cambio_dolar",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Precio_libra": {
+          "name": "Precio_libra",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.PedidosDetalles": {
+      "name": "PedidosDetalles",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Id_pedido": {
+          "name": "Id_pedido",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Id_producto": {
+          "name": "Id_producto",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Precio_venta": {
+          "name": "Precio_venta",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Precio_compra": {
+          "name": "Precio_compra",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Cantidad": {
+          "name": "Cantidad",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Proveedores": {
+      "name": "Proveedores",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Nombre_empresa": {
+          "name": "Nombre_empresa",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Nombre_contacto": {
+          "name": "Nombre_contacto",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Telefono": {
+          "name": "Telefono",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Departamento": {
+          "name": "Departamento",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Municipio": {
+          "name": "Municipio",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Pais": {
+          "name": "Pais",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Direccion": {
+          "name": "Direccion",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Recibos": {
+      "name": "Recibos",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Id_pedido": {
+          "name": "Id_pedido",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Id_cliente": {
+          "name": "Id_cliente",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Fecha": {
+          "name": "Fecha",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Abono": {
+          "name": "Abono",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Saldo": {
+          "name": "Saldo",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Concepto": {
+          "name": "Concepto",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Usuarios": {
+      "name": "Usuarios",
+      "schema": "",
+      "columns": {
+        "Id_usuario": {
+          "name": "Id_usuario",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Nombre_usuario": {
+          "name": "Nombre_usuario",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Password": {
+          "name": "Password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Foto_url": {
+          "name": "Foto_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Rol": {
+          "name": "Rol",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Ventas": {
+      "name": "Ventas",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Id_cliente": {
+          "name": "Id_cliente",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Fecha": {
+          "name": "Fecha",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Abono": {
+          "name": "Abono",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Credito": {
+          "name": "Credito",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Saldo": {
+          "name": "Saldo",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.VentasDetalles": {
+      "name": "VentasDetalles",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Id_producto": {
+          "name": "Id_producto",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Precio_venta": {
+          "name": "Precio_venta",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Precio_compra": {
+          "name": "Precio_compra",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Cantidad": {
+          "name": "Cantidad",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Cambio_dolar": {
+          "name": "Cambio_dolar",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Id_venta": {
+          "name": "Id_venta",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Categorias": {
+      "name": "Categorias",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Nombre": {
+          "name": "Nombre",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    },
+    "public.Productos": {
+      "name": "Productos",
+      "schema": "",
+      "columns": {
+        "Id": {
+          "name": "Id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Id_proveedor": {
+          "name": "Id_proveedor",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Nombre": {
+          "name": "Nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Descripcion": {
+          "name": "Descripcion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Precio_compra": {
+          "name": "Precio_compra",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Precio_venta": {
+          "name": "Precio_venta",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Id_categoria": {
+          "name": "Id_categoria",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Fecha": {
+          "name": "Fecha",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Id_shein": {
+          "name": "Id_shein",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Inventario": {
+          "name": "Inventario",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Cambio_dolar": {
+          "name": "Cambio_dolar",
+          "type": "double precision",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "Productos_Id_categoria_fkey": {
+          "name": "Productos_Id_categoria_fkey",
+          "tableFrom": "Productos",
+          "tableTo": "Categorias",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "Id_categoria"
+          ],
+          "columnsTo": [
+            "Id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {},
+      "policies": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {}
+  }
+}

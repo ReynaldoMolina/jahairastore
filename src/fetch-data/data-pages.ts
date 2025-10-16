@@ -1,4 +1,4 @@
-import { sql } from '@/database/db';
+import { sql } from '@/database/db-old';
 
 export async function getRegisterPages(query, whereFragment, limit, options) {
   try {

@@ -11,7 +11,7 @@ import {
   getProductsInventarioPages,
 } from './data-pages';
 import { getCurrentMonth } from '../lib/get-date';
-import { sql } from '@/database/db';
+import { sql } from '@/database/db-old';
 
 const registerOptions = {
   categorias: {
@@ -939,22 +939,22 @@ export async function getInventory(searchParams) {
   }
 }
 
-export async function getBusinessInfo(id = 1) {
-  try {
-    const data = await sql`
-      SELECT 
-        "Nombre_empresa",
-        "Eslogan",
-        "Mensaje"
-      FROM "Configuracion"
-      WHERE "Id" = ${id}
-    `;
-    return data[0];
-  } catch (error) {
-    console.error(error);
-    throw new Error('No se pudo obtener la información del negocio');
-  }
-}
+// export async function getBusinessInfo(id = 1) {
+//   try {
+//     const data = await sql`
+//       SELECT
+//         "Nombre_empresa",
+//         "Eslogan",
+//         "Mensaje"
+//       FROM "Configuracion"
+//       WHERE "Id" = ${id}
+//     `;
+//     return data[0];
+//   } catch (error) {
+//     console.error(error);
+//     throw new Error('No se pudo obtener la información del negocio');
+//   }
+// }
 
 export async function getTotalsDashboard(startParam, endParam) {
   const { firstDay, lastDay } = getCurrentMonth();

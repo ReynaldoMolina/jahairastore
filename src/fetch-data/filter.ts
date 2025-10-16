@@ -1,4 +1,4 @@
-import { sql } from '@/database/db';
+import { sql } from '@/database/db-old';
 
 export const ITEMS_PER_PAGE = 20;
 

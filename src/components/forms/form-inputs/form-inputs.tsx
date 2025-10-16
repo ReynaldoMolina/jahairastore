@@ -8,6 +8,9 @@ import { getCurrentDate } from '@/lib/get-date';
 import { Spinner } from '@/components/ui/spinner';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { string } from 'zod';
 
 export function FormContainer({ children, action, wider = false }) {
   const maxWidth = wider ? '' : 'max-w-3xl';
@@ -67,6 +70,43 @@ export function FormInput({
         required={required}
         autoFocus={focus}
       ></Input>
+    </div>
+  );
+}
+
+interface FormTextArea {
+  name: string;
+  value: any;
+  label: string;
+  placeholder?: string;
+  className?: string;
+  required?: boolean;
+}
+
+export function FormTextArea({
+  name,
+  value,
+  label,
+  placeholder,
+  required,
+  className,
+  ...props
+}: FormTextArea) {
+  const [inputValue, setInputValue] = useState(value);
+
+  return (
+    <div className="grid w-full gap-3">
+      <Label htmlFor={name}>{label}</Label>
+      <Textarea
+        id={name}
+        name={name}
+        placeholder={placeholder ? placeholder : label}
+        value={inputValue}
+        onChange={(event) => setInputValue(event.target.value)}
+        required={required}
+        {...props}
+        className={className}
+      />
     </div>
   );
 }
@@ -179,25 +219,15 @@ export function FormButtons({ isNew, isPending }) {
   const router = useRouter();
   const label = isNew ? 'Crear' : 'Guardar';
   return (
-    <div className="flex w-full justify-center gap-4">
-      <button
-        type="button"
-        className="flex items-center justify-center rounded-lg font-bold cursor-pointer h-10 w-full sm:w-50 bg-red-500 text-sm text-white hover:bg-red-600"
-        onClick={() => router.back()}
-      >
+    <>
+      <Button type="button" variant="secondary" onClick={() => router.back()}>
         Cancelar
-      </button>
-      <button
-        type="submit"
-        value="Save"
-        disabled={isPending}
-        className={`flex items-center justify-center rounded-lg font-bold ${
-          isPending ? 'cursor-not-allowed' : 'cursor-pointer'
-        } h-10 w-full sm:w-50 bg-green-600 hover:bg-green-700 text-sm text-white`}
-      >
-        {isPending ? <Spinner /> : label}
-      </button>
-    </div>
+      </Button>
+      <Button disabled={isPending} className="w-30">
+        {isPending && <Spinner />}
+        {label}
+      </Button>
+    </>
   );
 }
 

@@ -1,55 +1,93 @@
 'use client';
 
-import { useActionState } from 'react';
+import { startTransition, useActionState, useEffect } from 'react';
+import { FormButtons } from '../forms/form-inputs/form-inputs';
 import {
-  FormButtons,
-  FormContainer,
-  FormId,
-  FormError,
-  FormInput,
-} from '../forms/form-inputs/form-inputs';
-import { updateSettings } from '@/server-actions/actions';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '../ui/card';
 import { FieldGroup, FieldSet } from '../ui/field';
+import { useForm } from 'react-hook-form';
+import { settingsSchema } from '../forms/validation/settings';
+import z from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormInput } from '../form-elements/form-input';
+import { FormTextArea } from '../form-elements/form-text-area';
+import { SettingsFormType } from '@/types/types';
+import { updateSettings } from '@/server-actions/settings';
+import { stateDefault } from '@/server-actions/stateMessage';
+import { toast } from 'sonner';
 
-export function SettingsForm({ data }) {
-  const [state, formAction, isPending] = useActionState(updateSettings, {
-    message: '',
+interface SettingsForm {
+  data: SettingsFormType;
+}
+
+export function SettingsForm({ data }: SettingsForm) {
+  const form = useForm<z.infer<typeof settingsSchema>>({
+    resolver: zodResolver(settingsSchema),
+    defaultValues: {
+      nombreEmpresa: data.nombreEmpresa,
+      eslogan: data.eslogan,
+      mensaje: data.mensaje ?? '',
+    },
   });
 
+  const [state, formAction, isPending] = useActionState(
+    updateSettings,
+    stateDefault
+  );
+
+  function onSubmit(values: z.infer<typeof settingsSchema>) {
+    startTransition(() => {
+      formAction({ values: values as SettingsFormType });
+    });
+  }
+
+  useEffect(() => {
+    if (state.success === undefined) return;
+
+    if (state.success) {
+      toast.success(state.message);
+    } else {
+      toast.error(state.message);
+    }
+  }, [state]);
+
   return (
-    <main className="flex flex-col gap-4 items-center">
-      <FormContainer action={formAction}>
-        <Card>
-          <CardHeader>
-            <CardTitle>Información del negocio</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <FieldGroup>
-              <FieldSet>
-                <FormInput
-                  name="Nombre_empresa"
-                  holder="Nombre"
-                  value={data.Nombre_empresa || ''}
-                />
-                <FormInput
-                  name="Eslogan"
-                  holder="Eslogan"
-                  value={data.Eslogan || ''}
-                />
-                <FormInput
-                  name="Mensaje"
-                  holder="Mensaje personalizado"
-                  value={data.Mensaje || ''}
-                  required={false}
-                />
-              </FieldSet>
-            </FieldGroup>
-          </CardContent>
-          <FormError isPending={isPending} state={state} />
+    <form
+      onSubmit={form.handleSubmit(onSubmit)}
+      className="max-w-xl w-full m-auto"
+    >
+      <Card>
+        <CardHeader className="border-b">
+          <CardTitle>Información del negocio</CardTitle>
+          <CardDescription>
+            Actualiza la información básica de tu negocio
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <FieldGroup>
+            <FieldSet>
+              <FormInput form={form} name="nombreEmpresa" label="Nombre" />
+              <FormInput form={form} name="eslogan" label="Eslogan" />
+              <FormTextArea
+                form={form}
+                name="mensaje"
+                label="Mensaje"
+                className="h-30"
+                description="Este mensaje aparecerá en la página Inicio."
+              />
+            </FieldSet>
+          </FieldGroup>
+        </CardContent>
+        <CardFooter className="gap-3 justify-end border-t">
           <FormButtons isNew={false} isPending={isPending} />
-        </Card>
-      </FormContainer>
-    </main>
+        </CardFooter>
+      </Card>
+    </form>
   );
 }

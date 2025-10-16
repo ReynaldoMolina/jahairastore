@@ -1,6 +1,6 @@
 'use server';
 
-import { sql } from '@/database/db';
+import { sql } from '@/database/db-old';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
