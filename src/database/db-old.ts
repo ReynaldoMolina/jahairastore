@@ -10,7 +10,7 @@ const SQL_OPTIONS = {
 let sql;
 
 if (!global._sql) {
-  global._sql = postgres(process.env.POSTGRES_URL, SQL_OPTIONS);
+  global._sql = postgres(process.env.DATABASE_URL, SQL_OPTIONS);
 }
 
 sql = global._sql;
