@@ -34,7 +34,7 @@ export function Restante({ order }) {
             saldo
           )}.\nEn total *$${formatNumber(
             ordereRestanteTotal
-          )} en córdobas *C$${formatNumber(ordereRestanteTotalCordobas)}* 🥰`
+          )}* en córdobas *C$${formatNumber(ordereRestanteTotalCordobas)}* 🥰`
         : `En córdobas *C$${formatNumber(ordereRestanteTotalCordobas)}* 🥰`
     }`;
 
@@ -100,7 +100,7 @@ export function Restante({ order }) {
         </div>
         <div className="flex gap-2">
           <FormOption label="Copiar" action={handleCopyToClipboard}>
-            <Copy className="size-5" />
+            <Copy className="size-5 text-black" />
           </FormOption>
           {order.Telefono && (
             <WhatsAppButton
@@ -108,7 +108,7 @@ export function Restante({ order }) {
               phoneNumber={order.Telefono}
               label="Enviar"
             >
-              <MessageCircle className="size-5" />
+              <MessageCircle className="size-5 text-black" />
             </WhatsAppButton>
           )}
         </div>

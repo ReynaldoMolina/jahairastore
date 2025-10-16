@@ -16,7 +16,7 @@ export function ListTitle({ title }) {
 }
 
 const listCardSClassName =
-  'flex flex-col md:flex-row items-start p-4 gap-3 hover:bg-sky-100 dark:hover:bg-neutral-800 md:border-t first-of-type:border-t-0 border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg md:rounded-none shadow md:shadow-none';
+  'flex flex-col md:flex-row items-start p-4 gap-3 hover:bg-sky-100 dark:hover:bg-muted md:border-t first-of-type:border-t-0 border-border bg-card rounded-lg md:rounded-none shadow md:shadow-none';
 
 export function ListCard({ children, href }) {
   return (
@@ -32,7 +32,7 @@ export function ProductSearchCard({ children }) {
 
 export function ListHeader({ children }) {
   return (
-    <div className="hidden md:flex px-4 py-3 md:justify-between items-center gap-3 border-b-2 border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900">
+    <div className="hidden md:flex px-4 py-3 md:justify-between items-center gap-3 border-b-2 border-neutral-300 dark:border-neutral-700 bg-card">
       {children}
     </div>
   );

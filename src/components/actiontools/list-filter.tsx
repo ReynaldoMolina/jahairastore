@@ -6,16 +6,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuPortal,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
-import { Filter } from 'lucide-react';
-import { Label } from '../ui/label';
-import { Switch } from '../ui/switch';
+import { ListFilter as Filter } from 'lucide-react';
+import { Toggle } from '../ui/toggle';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -38,26 +35,16 @@ export function ListFilter({
   });
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline">
-          <Filter />
-          Filtrar
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        {showState && (
-          <DropdownMenuItem>
-            <FilterState
-              filter={filter}
-              setFilter={setFilter}
-              stateLabel={stateLabel}
-            />
-          </DropdownMenuItem>
-        )}
-        <FilterLimit setFilter={setFilter} />
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      {showState && (
+        <FilterState
+          filter={filter}
+          setFilter={setFilter}
+          stateLabel={stateLabel}
+        />
+      )}
+      <FilterLimit setFilter={setFilter} />
+    </>
   );
 }
 
@@ -90,20 +77,23 @@ function FilterLimit({ setFilter }) {
   }
 
   return (
-    <>
-      <DropdownMenuSub>
-        <DropdownMenuSubTrigger>Mostrar</DropdownMenuSubTrigger>
-        <DropdownMenuPortal>
-          <DropdownMenuSubContent>
-            {options.map((value) => (
-              <DropdownMenuItem key={value} onClick={() => handleChange(value)}>
-                {value === 1 ? 'Todo' : value}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuSubContent>
-        </DropdownMenuPortal>
-      </DropdownMenuSub>
-    </>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">
+          <Filter />
+          <span className="hidden sm:block">Mostrar</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>Por página</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {options.map((value) => (
+          <DropdownMenuItem key={value} onClick={() => handleChange(value)}>
+            {value === 1 ? 'Todo' : value}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
@@ -117,9 +107,14 @@ function FilterState({ filter, setFilter, stateLabel = 'Con saldo' }) {
   }
 
   return (
-    <div className="inline-flex gap-3">
-      <Label htmlFor="filter-state">{stateLabel}</Label>
-      <Switch id="filter-state" checked={filter.state} onClick={handleChange} />
-    </div>
+    <Toggle
+      aria-label="Toggle state"
+      variant="outline"
+      onPressedChange={handleChange}
+      pressed={filter.state}
+      className="bg-background data-[state=on]:bg-ring"
+    >
+      {stateLabel}
+    </Toggle>
   );
 }

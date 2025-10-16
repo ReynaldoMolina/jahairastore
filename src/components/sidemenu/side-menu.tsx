@@ -5,7 +5,7 @@ import { menuOptions } from './menu-options';
 
 export default function SideMenu() {
   return (
-    <nav className="flex items-center md:flex-col overflow-y-scroll gap-1 p-1 md:p-2 sticky bottom-0 md:top-0 bg-white dark:bg-neutral-800 z-20 w-screen md:min-w-25 md:w-25 md:max-h-screen order-2 md:order-0 overscroll-contain border-t md:border-t-0 md:border-r border-neutral-300 dark:border-neutral-600">
+    <nav className="flex items-center md:flex-col overflow-y-scroll gap-1 p-1 md:p-2 sticky bottom-0 md:top-0 bg-secondary z-20 w-screen md:min-w-25 md:w-25 md:max-h-screen order-2 md:order-0 overscroll-contain border-t md:border-t-0 md:border-r border-neutral-300 dark:border-neutral-600">
       {menuOptions.map((option) => (
         <div
           key={option.id}
