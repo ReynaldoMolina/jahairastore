@@ -25,8 +25,9 @@ export function ProductSearch({ children, open }) {
 
       {isSearchProductOpen && (
         <>
-          <SearchInput allowNew={false} />
-          <ListFilter />
+          <SearchInput allowNew={false}>
+            <ListFilter />
+          </SearchInput>
           {children}
         </>
       )}
