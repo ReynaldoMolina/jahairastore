@@ -12,6 +12,7 @@ import {
 } from './data-pages';
 import { getCurrentMonth } from '../lib/get-date';
 import { sql } from '@/database/db-old';
+import { getBusinessInfo } from './settings';
 
 const registerOptions = {
   categorias: {

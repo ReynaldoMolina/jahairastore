@@ -1,5 +1,5 @@
 import { Home } from '@/components/home';
-import { getBusinessInfo } from '@/fetch-data/data';
+import { getBusinessInfo } from '@/fetch-data/settings';
 
 export const dynamic = 'force-dynamic';
 
