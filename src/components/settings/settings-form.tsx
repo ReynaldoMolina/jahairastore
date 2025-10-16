@@ -83,15 +83,12 @@ export function SettingsForm({ data }: SettingsForm) {
                 form={form}
                 name="mensaje"
                 label="Mensaje"
-                className="h-30"
                 description="Este mensaje aparecerá en la página Inicio."
               />
             </FieldSet>
           </FieldGroup>
         </CardContent>
-        <CardFooter className="gap-3 justify-end border-t">
-          <FormButtons isNew={false} isPending={isPending} />
-        </CardFooter>
+        <FormButtons isNew={false} isPending={isPending} />
       </Card>
     </form>
   );

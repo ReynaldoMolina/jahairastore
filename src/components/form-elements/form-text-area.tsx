@@ -8,7 +8,6 @@ interface FormInput {
   label: string;
   placeholder?: string;
   description?: string;
-  className?: string;
 }
 
 export function FormTextArea({
@@ -17,7 +16,6 @@ export function FormTextArea({
   label,
   placeholder,
   description,
-  className,
 }: FormInput) {
   return (
     <Controller
@@ -32,7 +30,7 @@ export function FormTextArea({
             aria-invalid={fieldState.invalid}
             placeholder={placeholder ? placeholder : label}
             autoComplete="off"
-            className={className}
+            className="field-sizing-content"
           />
           {description && <FieldDescription>{description}</FieldDescription>}
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

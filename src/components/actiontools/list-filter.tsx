@@ -2,7 +2,20 @@
 
 import { useState } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { bgColors } from '@/lib/bg-colors';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu';
+import { Button } from '../ui/button';
+import { Filter } from 'lucide-react';
+import { Label } from '../ui/label';
+import { Switch } from '../ui/switch';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -25,16 +38,26 @@ export function ListFilter({
   });
 
   return (
-    <div className="flex justify-end gap-4">
-      {showState && (
-        <FilterState
-          filter={filter}
-          setFilter={setFilter}
-          stateLabel={stateLabel}
-        />
-      )}
-      <FilterLimit filter={filter} setFilter={setFilter} />
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">
+          <Filter />
+          Filtrar
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        {showState && (
+          <DropdownMenuItem>
+            <FilterState
+              filter={filter}
+              setFilter={setFilter}
+              stateLabel={stateLabel}
+            />
+          </DropdownMenuItem>
+        )}
+        <FilterLimit setFilter={setFilter} />
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
@@ -57,33 +80,30 @@ function useSearchUtils() {
   return { updateURL };
 }
 
-function FilterLimit({ filter, setFilter }) {
+function FilterLimit({ setFilter }) {
   const { updateURL } = useSearchUtils();
   const options = [20, 50, 100, 1];
 
-  function handleChange(e) {
-    const newLimit = Number(e.target.value);
+  function handleChange(newLimit: number) {
     setFilter((prev) => ({ ...prev, limit: newLimit }));
     updateURL('limit', newLimit === ITEMS_PER_PAGE ? null : newLimit);
   }
 
   return (
-    <FilterDiv>
-      <label htmlFor="filter-limit">Mostrar:</label>
-      <select
-        name="filter-limit"
-        id="filter-limit"
-        className={`text-xs rounded-lg bg-white text-center dark:bg-neutral-800 ${bgColors.borderColor} p-1`}
-        value={filter.limit}
-        onChange={handleChange}
-      >
-        {options.map((value) => (
-          <option key={value} value={value} className="text-sm">
-            {value === 1 ? 'Todo' : value}
-          </option>
-        ))}
-      </select>
-    </FilterDiv>
+    <>
+      <DropdownMenuSub>
+        <DropdownMenuSubTrigger>Mostrar</DropdownMenuSubTrigger>
+        <DropdownMenuPortal>
+          <DropdownMenuSubContent>
+            {options.map((value) => (
+              <DropdownMenuItem key={value} onClick={() => handleChange(value)}>
+                {value === 1 ? 'Todo' : value}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuSubContent>
+        </DropdownMenuPortal>
+      </DropdownMenuSub>
+    </>
   );
 }
 
@@ -97,19 +117,9 @@ function FilterState({ filter, setFilter, stateLabel = 'Con saldo' }) {
   }
 
   return (
-    <FilterDiv>
-      <label htmlFor="filter-state">{stateLabel}:</label>
-      <input
-        type="checkbox"
-        name="filter-state"
-        id="filter-state"
-        checked={filter.state}
-        onChange={handleChange}
-      />
-    </FilterDiv>
+    <div className="inline-flex gap-3">
+      <Label htmlFor="filter-state">{stateLabel}</Label>
+      <Switch id="filter-state" checked={filter.state} onClick={handleChange} />
+    </div>
   );
-}
-
-function FilterDiv({ children }) {
-  return <div className="flex items-center gap-1 text-xs">{children}</div>;
 }

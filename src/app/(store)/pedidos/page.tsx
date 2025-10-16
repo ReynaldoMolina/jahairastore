@@ -13,8 +13,9 @@ export default async function Page(props) {
   return (
     <>
       <ListTitle title="Pedidos" />
-      <SearchInput />
-      <ListFilter showState={true} searchParams={searchParams} />
+      <SearchInput>
+        <ListFilter showState={true} searchParams={searchParams} />
+      </SearchInput>
       <Orders searchParams={searchParams} />
     </>
   );

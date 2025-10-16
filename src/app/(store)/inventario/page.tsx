@@ -13,12 +13,13 @@ export default async function Page(props) {
   return (
     <>
       <ListTitle title="Inventario" />
-      <SearchInput allowNew={false} />
-      <ListFilter
-        showState={true}
-        stateLabel="Disponibles"
-        searchParams={searchParams}
-      />
+      <SearchInput allowNew={false}>
+        <ListFilter
+          showState={true}
+          stateLabel="Disponibles"
+          searchParams={searchParams}
+        />
+      </SearchInput>
       <Inventory searchParams={searchParams} />
     </>
   );

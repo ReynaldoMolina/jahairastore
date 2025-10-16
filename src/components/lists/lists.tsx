@@ -12,7 +12,7 @@ export function List({ children }) {
 }
 
 export function ListTitle({ title }) {
-  return <h1 className="font-bold text-xl">{title}</h1>;
+  return <h1 className="font-bold text-md">{title}</h1>;
 }
 
 const listCardSClassName =

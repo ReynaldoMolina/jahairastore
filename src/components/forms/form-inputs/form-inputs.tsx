@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { string } from 'zod';
+import { CardFooter } from '@/components/ui/card';
 
 export function FormContainer({ children, action, wider = false }) {
   const maxWidth = wider ? '' : 'max-w-3xl';
@@ -219,15 +220,15 @@ export function FormButtons({ isNew, isPending }) {
   const router = useRouter();
   const label = isNew ? 'Crear' : 'Guardar';
   return (
-    <>
+    <CardFooter className="gap-3 justify-end border-t">
       <Button type="button" variant="secondary" onClick={() => router.back()}>
         Cancelar
       </Button>
-      <Button disabled={isPending} className="w-30">
+      <Button disabled={isPending} className="w-25">
         {isPending && <Spinner />}
         {label}
       </Button>
-    </>
+    </CardFooter>
   );
 }
 

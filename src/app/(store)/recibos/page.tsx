@@ -13,8 +13,9 @@ export default async function Page(props) {
   return (
     <>
       <ListTitle title="Recibos" />
-      <SearchInput allowNew={false} />
-      <ListFilter searchParams={searchParams} />
+      <SearchInput allowNew={false}>
+        <ListFilter searchParams={searchParams} />
+      </SearchInput>
       <Receipts searchParams={searchParams} />
     </>
   );
