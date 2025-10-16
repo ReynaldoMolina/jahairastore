@@ -73,7 +73,12 @@ export function SettingsForm({ data }: SettingsForm) {
           <FieldGroup>
             <FieldSet>
               <FormInput form={form} name="nombreEmpresa" label="Nombre" />
-              <FormInput form={form} name="eslogan" label="Eslogan" />
+              <FormInput
+                form={form}
+                name="eslogan"
+                label="Eslogan"
+                description="Aparecerá también en los recibos."
+              />
               <FormTextArea
                 form={form}
                 name="mensaje"
