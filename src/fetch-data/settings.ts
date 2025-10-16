@@ -1,5 +1,3 @@
-'use server';
-
 import { db } from '@/database/db';
 import { configuracion } from '@/database/schema';
 import { SettingsFormType } from '@/types/types';
