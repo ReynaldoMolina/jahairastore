@@ -47,7 +47,7 @@ export async function GET(req: NextRequest) {
           }}
         >
           <img
-            src="http://localhost:3000/store-logo.png"
+            src="https://jahairastore.vercel.app/store-logo.png"
             width="150"
             height="150"
             alt="Logo"
