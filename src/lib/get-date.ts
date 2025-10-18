@@ -23,12 +23,12 @@ export function getCurrentMonth() {
   return { firstDay, lastDay };
 }
 
-export function formatDate(isoDateStr, locale = 'es-NI') {
+export function formatDate(isoDateStr) {
   const [year, month, day] = isoDateStr.split('-').map(Number);
   const input = new Date(year, month - 1, day);
 
   const dayStr = input.getDate();
-  let monthStr = input.toLocaleString(locale, { month: 'long' });
+  let monthStr = input.toLocaleString('es-NI', { month: 'long' });
   const yearStr = input.getFullYear();
 
   const currentYear = new Date().getFullYear();
@@ -39,4 +39,16 @@ export function formatDate(isoDateStr, locale = 'es-NI') {
     monthStr = monthStr.substring(0, 3);
     return `${dayStr} ${monthStr} ${yearStr}`;
   }
+}
+
+export function formatDateShort(isoDateStr) {
+  const [year, month, day] = isoDateStr.split('-').map(Number);
+  const input = new Date(year, month - 1, day);
+
+  const dayStr = input.getDate();
+  let monthStr = input.toLocaleString('es-NI', { month: 'short' });
+  const yearStr = input.getFullYear();
+
+  monthStr = monthStr.substring(0, 3);
+  return `${dayStr}/${monthStr}/${yearStr}`;
 }

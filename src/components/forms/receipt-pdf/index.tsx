@@ -149,10 +149,8 @@ export default function ReceiptPdf({ register, formName }) {
             <View style={styles.footerGap}></View>
 
             <View>
-              <Text
-                style={styles.footer}
-              >{`"${register.Nombre_empresa}:`}</Text>
-              <Text style={styles.footer}>{`${register.Eslogan}"`}</Text>
+              <Text style={styles.footer}>{`"${register.nombreEmpresa}:`}</Text>
+              <Text style={styles.footer}>{`${register.eslogan}"`}</Text>
             </View>
           </View>
         </Page>
