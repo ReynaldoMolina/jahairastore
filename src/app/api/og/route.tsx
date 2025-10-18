@@ -6,11 +6,12 @@ import { formatDateShort } from '@/lib/get-date';
 
 export const runtime = 'nodejs';
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const { id } = await params;
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+
+  const hasRecibo = searchParams.has('recibo');
+  const id = hasRecibo ? searchParams.get('recibo') : undefined;
+
   const register = await getPedidoReceiptPdf(id);
   if (!register) return new Response('Invoice not found', { status: 404 });
 
