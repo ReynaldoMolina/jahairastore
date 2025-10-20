@@ -33,7 +33,7 @@ export default function SearchInput({ children, allowNew }: SearchInput) {
   }, 400);
 
   return (
-    <div className="flex gap-2 justify-between items-center w-full">
+    <div className="flex gap-1 justify-between items-center w-full">
       <InputGroup className="w-full md:max-w-60 bg-background">
         <InputGroupInput
           type="search"
@@ -46,7 +46,7 @@ export default function SearchInput({ children, allowNew }: SearchInput) {
           <Search />
         </InputGroupAddon>
       </InputGroup>
-      <div className="inline-flex gap-2">
+      <div className="inline-flex gap-1">
         {children}
         <NewRegister allowNew={allowNew} />
       </div>

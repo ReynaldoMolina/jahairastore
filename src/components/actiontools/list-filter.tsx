@@ -97,7 +97,7 @@ function FilterLimit({ setFilter }) {
   );
 }
 
-function FilterState({ filter, setFilter, stateLabel = 'Con saldo' }) {
+function FilterState({ filter, setFilter, stateLabel = 'Saldo' }) {
   const { updateURL } = useSearchUtils();
 
   function handleChange() {
@@ -112,7 +112,7 @@ function FilterState({ filter, setFilter, stateLabel = 'Con saldo' }) {
       variant="outline"
       onPressedChange={handleChange}
       pressed={filter.state}
-      className="bg-background data-[state=on]:bg-ring"
+      className="bg-background data-[state=on]:bg-ring text-xs sm:text-sm"
     >
       {stateLabel}
     </Toggle>
