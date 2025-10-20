@@ -11,8 +11,8 @@ export function MenuItem({ option }) {
     <div key={option.id} className="flex md:flex-col items-center gap-1 w-full">
       <Link
         href={option.url}
-        className={`flex flex-col min-w-17 md:w-full justify-center items-center cursor-pointer rounded-lg hover:bg-sky-200 hover:dark:text-background gap-1 p-2 md:py-4 text-xs text-center ${
-          isActive && 'bg-sky-200 dark:text-background'
+        className={`flex flex-col min-w-17 md:w-full justify-center items-center cursor-pointer rounded-lg hover:bg-brand/90 hover:dark:text-background gap-1 p-2 md:py-4 text-xs text-center ${
+          isActive && 'bg-brand dark:text-background'
         }`}
       >
         <SideMenuIcon name={option.name} />

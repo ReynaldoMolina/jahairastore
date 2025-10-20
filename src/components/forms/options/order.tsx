@@ -16,7 +16,7 @@ export function OrderOptions() {
       <Restante order={register} />
       <FormOptionContainer>
         {formTotals.totalSell - register.TotalAbono > 0 && (
-          <div className="flex flex-col md:flex-row gap-3 md:items-center w-full">
+          <div className="flex flex-col gap-3 w-full">
             <FormOption
               label="Pagar 0% (escribir cantidad)"
               href={`/recibos/create?pedido=${register.Id}&cliente=${
@@ -41,10 +41,10 @@ export function OrderOptions() {
         )}
         {register.TotalAbono > 0 && (
           <FormOption
-            label="Recibos"
+            label="Ver recibos de abonos"
             href={`/recibos?query=${register.Id} ${register.NombreCliente}`}
           >
-            <Receipt className="size-5 text-black" />
+            <Receipt className="size-5" />
           </FormOption>
         )}
       </FormOptionContainer>

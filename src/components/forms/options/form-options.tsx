@@ -32,11 +32,7 @@ export function ClientOptions({ client }) {
 }
 
 export function FormOptionContainer({ children }) {
-  return (
-    <div className="flex flex-col w-full md:flex-row gap-3 md:items-center">
-      {children}
-    </div>
-  );
+  return <div className="flex flex-col w-full gap-3">{children}</div>;
 }
 
 export function FormOption({ label, children, href }) {
