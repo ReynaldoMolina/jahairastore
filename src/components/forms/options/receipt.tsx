@@ -3,8 +3,17 @@
 import { useState, useEffect } from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import ReceiptPdf from '../receipt-pdf';
-import { Download } from 'lucide-react';
+import { Download, MessageCircle, ShieldAlertIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from '@/components/ui/item';
+import { toast } from 'sonner';
 
 export function ReceiptOptions({ register, formName }) {
   const [client, setClient] = useState(false);
@@ -19,32 +28,50 @@ export function ReceiptOptions({ register, formName }) {
   };
 
   return (
-    <div className="flex w-full justify-around">
-      <PDFDownloadLink
-        document={<ReceiptPdf register={register} formName={formName} />}
-        fileName={fileNames[formName]}
-      >
-        <ReceiptOption label="Descargar PDF" action={() => null}>
-          <Download className="size-5 text-black" />
-        </ReceiptOption>
-      </PDFDownloadLink>
-      <SendInvoiceButton id={register.Id} numero="50584271813" />
+    <div className="flex flex-col w-full gap-3 mt-3">
+      <Item variant="outline">
+        <ItemMedia variant="icon">
+          <Download />
+        </ItemMedia>
+        <ItemContent>
+          <ItemTitle>Descargar</ItemTitle>
+          <ItemDescription>Descarga el recibo en PDF.</ItemDescription>
+        </ItemContent>
+        <ItemActions>
+          <PDFDownloadLink
+            document={<ReceiptPdf register={register} formName={formName} />}
+            fileName={fileNames[formName]}
+          >
+            <Button size="sm" type="button" variant="outline">
+              Descargar
+            </Button>
+          </PDFDownloadLink>
+        </ItemActions>
+      </Item>
+      <Item variant="outline">
+        <ItemMedia variant="icon">
+          <MessageCircle />
+        </ItemMedia>
+        <ItemContent>
+          <ItemTitle>Enviar por WhatsApp</ItemTitle>
+          <ItemDescription>
+            Envía una imagen del recibo al cliente.
+          </ItemDescription>
+        </ItemContent>
+        <ItemActions>
+          <SendInvoiceButton id={register.Id} numero="50584271813" />
+        </ItemActions>
+      </Item>
     </div>
   );
 }
 
 function ReceiptOption({ label, children, action }) {
   return (
-    <button
-      type="button"
-      className="flex justify-center items-center bg-sky-200 hover:bg-sky-300 rounded-xl py-3 px-4 cursor-pointer shadow-xs gap-2 h-full"
-      onClick={action}
-    >
+    <Button type="button" className="cursor-pointer" onClick={action}>
       {children}
-      <label className="text-xs font-bold text-black cursor-pointer">
-        {label}
-      </label>
-    </button>
+      <label className="text-xs font-bold text-black">{label}</label>
+    </Button>
   );
 }
 
@@ -70,14 +97,20 @@ export default function SendInvoiceButton({
       const data = await res.json();
 
       if (data.messages) {
-        setStatus('✅ Enviado correctamente por WhatsApp');
+        const message = 'Enviado correctamente por WhatsApp.';
+        setStatus(message);
+        toast.success('Enviado', { description: message });
       } else {
         console.error('Error:', data);
-        setStatus('❌ No se pudo enviar el mensaje');
+        const message = 'No se pudo enviar el mensaje.';
+        setStatus(message);
+        toast.error('Error', { description: message });
       }
     } catch (err) {
       console.error(err);
-      setStatus('⚠️ Error de conexión');
+      const message = 'Error de conexión.';
+      setStatus(message);
+      toast.error('Error', { description: message });
     } finally {
       setLoading(false);
     }
@@ -85,8 +118,7 @@ export default function SendInvoiceButton({
 
   return (
     <Button onClick={sendInvoice} disabled={loading} variant="outline">
-      {loading ? 'Enviando...' : 'Enviar por WhatsApp'}
-      {status && <p className="mt-2 text-sm text-gray-600">{status}</p>}
+      {loading ? 'Enviando...' : 'Enviar'}
     </Button>
   );
 }

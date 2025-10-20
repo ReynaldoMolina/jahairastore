@@ -9,7 +9,12 @@ import {
   FormError,
   FormButtons,
   FormInput,
+  FormContainerNew,
+  FormIdNew,
+  FormTextArea,
 } from './form-inputs/form-inputs';
+import { CardContent } from '../ui/card';
+import { FieldGroup, FieldSeparator, FieldSet } from '../ui/field';
 
 interface ProviderForm {
   isNew: boolean;
@@ -25,59 +30,70 @@ export function ProviderForm({ isNew, provider }: ProviderForm) {
   });
 
   return (
-    <FormContainer action={formAction}>
-      <FormId
+    <FormContainerNew action={formAction}>
+      <FormIdNew
         holder={isNew ? 'Crear proveedor' : 'Proveedor'}
         value={isNew ? '' : provider.Id}
       />
-      <FormInput
-        name="Nombre_empresa"
-        holder="Nombre empresa"
-        value={isNew ? '' : provider.Nombre_empresa}
-        focus={isNew}
-      />
-      <FormDiv>
-        <FormInput
-          name="Nombre_contacto"
-          holder="Contacto"
-          value={isNew ? '' : provider.Nombre_contacto}
-          required={false}
-        />
-        <FormInput
-          name="Telefono"
-          holder="Teléfono"
-          value={isNew ? '+505 ' : provider.Telefono || '+505 '}
-          required={false}
-        />
-      </FormDiv>
-      <FormDiv>
-        <FormInput
-          name="Pais"
-          holder="País"
-          value={isNew ? 'Nicaragua' : provider.Pais}
-          required={false}
-        />
-        <FormInput
-          name="Municipio"
-          holder="Municipio"
-          value={isNew ? '' : provider.Municipio}
-          required={false}
-        />
-        <FormInput
-          name="Departamento"
-          holder="Departamento"
-          value={isNew ? '' : provider.Departamento}
-          required={false}
-        />
-      </FormDiv>
-      <FormInput
-        name="Direccion"
-        holder="Dirección"
-        value={isNew ? '' : provider.Direccion}
-        required={false}
-      />
-      <FormError isPending={isPending} state={state} />
+      <CardContent>
+        <FieldGroup>
+          <FieldSet>
+            <FormInput
+              name="Nombre_empresa"
+              holder="Nombre empresa"
+              value={isNew ? '' : provider.Nombre_empresa}
+              focus={isNew}
+            />
+            <FormDiv>
+              <FormInput
+                name="Nombre_contacto"
+                holder="Contacto"
+                value={isNew ? '' : provider.Nombre_contacto}
+                required={false}
+              />
+            </FormDiv>
+          </FieldSet>
+          <FieldSeparator />
+          <FieldSet>
+            <FormDiv flexCol={false}>
+              <FormInput
+                name="Telefono"
+                holder="Teléfono"
+                value={isNew ? '+505 ' : provider.Telefono || '+505 '}
+                required={false}
+              />
+              <FormInput
+                name="Pais"
+                holder="País"
+                value={isNew ? 'Nicaragua' : provider.Pais}
+                required={false}
+              />
+            </FormDiv>
+            <FormDiv flexCol={false}>
+              <FormInput
+                name="Municipio"
+                holder="Municipio"
+                value={isNew ? '' : provider.Municipio}
+                required={false}
+              />
+              <FormInput
+                name="Departamento"
+                holder="Departamento"
+                value={isNew ? '' : provider.Departamento}
+                required={false}
+              />
+            </FormDiv>
+          </FieldSet>
+          <FormTextArea
+            name="Direccion"
+            value={isNew ? '' : provider.Direccion}
+            label="Dirección"
+            required={false}
+          />
+        </FieldGroup>
+        <FormError isPending={isPending} state={state} />
+      </CardContent>
       <FormButtons isNew={isNew} isPending={isPending} />
-    </FormContainer>
+    </FormContainerNew>
   );
 }

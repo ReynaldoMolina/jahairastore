@@ -42,7 +42,7 @@ export default function FormDetail() {
 
   return (
     <div
-      className={`flex flex-col rounded-lg bg-neutral-100 dark:bg-black border ${bgColors.borderColor} px-2 py-3 gap-3`}
+      className={`flex flex-col rounded-lg bg-neutral-100 dark:bg-black border ${bgColors.borderColor} px-2 py-3 gap-3 mb-5`}
     >
       <h2 className="text-sm font-semibold">{`Detalle ${subtitle}`}</h2>
 

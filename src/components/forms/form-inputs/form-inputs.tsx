@@ -10,17 +10,27 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { string } from 'zod';
-import { CardFooter } from '@/components/ui/card';
+import { Card, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
 export function FormContainer({ children, action, wider = false }) {
   const maxWidth = wider ? '' : 'max-w-3xl';
   return (
     <form
       action={action}
-      className={`flex flex-col bg-white dark:bg-neutral-900 rounded-xl md:shadow-md gap-5 md:gap-7 mx-auto ${maxWidth} p-2 md:p-7 w-full h-fit shadow`}
+      className={`flex flex-col bg-white dark:bg-neutral-900 rounded-xl md:shadow-md gap-3 md:gap-7 mx-auto ${maxWidth} p-5 w-full h-fit shadow`}
     >
       {children}
+    </form>
+  );
+}
+
+export function FormContainerNew({ children, action, wider = false }) {
+  const maxWidth = wider ? '' : 'max-w-3xl';
+
+  return (
+    <form action={action} className={cn(maxWidth, 'mx-auto w-full')}>
+      <Card>{children}</Card>
     </form>
   );
 }
@@ -30,7 +40,7 @@ export function FormDiv({ children, flexCol = true }) {
     <div
       className={`flex ${
         flexCol && 'flex-col md:flex-row'
-      } w-full items-end gap-3 md:gap-5 justify-center`}
+      } w-full items-end gap-6 justify-center`}
     >
       {children}
     </div>
@@ -120,26 +130,27 @@ export function FormInputState({
   type = 'text',
   required = false,
   focus = false,
+  disabled = false,
 }) {
   return (
     <div
-      className={`flex flex-col w-full gap-1 ${type === 'hidden' && 'hidden'}`}
+      className={`flex flex-col w-full gap-3 ${type === 'hidden' && 'hidden'}`}
     >
       <FormLabel name={name}>
         <span>{holder}</span>
         {!required && (
-          <span className="font-normal text-xs text-neutral-700 dark:text-neutral-300">
+          <span className="font-normal text-sm text-neutral-700 dark:text-neutral-300">
             {' (opcional)'}
           </span>
         )}
       </FormLabel>
-      <input
+      <Input
         id={name}
         name={name}
         type={type}
         min={0}
         step="0.01"
-        className={`flex ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
+        className={`flex ${bgColors.borderColor} items-center rounded-lg text-sm h-9 px-3 w-full`}
         placeholder={holder}
         autoComplete="off"
         value={value}
@@ -150,7 +161,8 @@ export function FormInputState({
         }}
         required={required}
         autoFocus={focus}
-      ></input>
+        disabled={disabled}
+      ></Input>
     </div>
   );
 }
@@ -166,14 +178,32 @@ export function FormSpan({
   const bgColor = bgColors[color];
 
   return (
-    <div className="flex flex-col w-full gap-1">
+    <div className="flex flex-col w-full gap-3">
       <FormLabel name={name}>{holder}</FormLabel>
       <span
         id={name}
-        className={`flex ${bgColors.borderColor} ${bgColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
+        className={`flex ${bgColors.borderColor} ${bgColor} items-center rounded-lg text-sm h-9 px-3 w-full`}
       >
         {newValue}
       </span>
+    </div>
+  );
+}
+
+export function FormSpanNew({
+  name,
+  holder,
+  value,
+  number = true,
+  color = 'none',
+}) {
+  const newValue = number ? formatNumber(value) : value;
+  const bgColor = bgColors[color];
+
+  return (
+    <div className="flex flex-col w-full gap-3">
+      <Label id={name}>{holder}</Label>
+      <Input id={name} className={bgColor} value={newValue} disabled />
     </div>
   );
 }
@@ -187,13 +217,13 @@ export function FormDate({ date, hidden }: FormDate) {
   const currentDate = getCurrentDate();
 
   return (
-    <div className={`${hidden ? 'hidden' : ''} flex flex-col w-full gap-1`}>
+    <div className={`${hidden ? 'hidden' : ''} flex flex-col w-full gap-3`}>
       <FormLabel name="Fecha">Fecha</FormLabel>
       <input
         id="Fecha"
         name="Fecha"
         type="date"
-        className={`flex ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
+        className={`flex ${bgColors.borderColor} items-center rounded-lg text-sm h-9 px-3 w-full`}
         defaultValue={date ? date : currentDate}
         required
       ></input>
@@ -203,7 +233,7 @@ export function FormDate({ date, hidden }: FormDate) {
 
 export function FormCheck({ name, holder, value, setValue }) {
   return (
-    <div className="flex flex-col gap-1 justify-center w-full">
+    <div className="flex flex-col gap-3 justify-center w-full">
       <FormLabel name={name} textCenter={true}>
         {holder}
       </FormLabel>
@@ -230,8 +260,8 @@ export function FormButtons({ isNew, isPending }) {
         Cancelar
       </Button>
       <Button disabled={isPending} className="w-25">
-        {isPending && <Spinner />}
         {label}
+        {isPending && <Spinner />}
       </Button>
     </CardFooter>
   );
@@ -239,12 +269,19 @@ export function FormButtons({ isNew, isPending }) {
 
 export function FormId({ holder, value = '' }) {
   return (
-    <span
-      id="id"
-      className="flex font-bold text-xl items-center w-full p-2 md:p-0"
-    >
+    <span id="id" className="flex font-bold text-md items-center w-full mb-2">
       {holder} {value}
     </span>
+  );
+}
+
+export function FormIdNew({ holder, value = '' }) {
+  return (
+    <CardHeader className="border-b">
+      <CardTitle>
+        {holder} {value}
+      </CardTitle>
+    </CardHeader>
   );
 }
 
@@ -268,10 +305,7 @@ interface FormLabel {
 
 export function FormLabel({ children, name, textCenter = false }: FormLabel) {
   return (
-    <label
-      htmlFor={name}
-      className={`${textCenter && 'text-center'} text-xs px-3 font-bold`}
-    >
+    <label htmlFor={name} className={`${textCenter && 'text-center'} text-sm`}>
       {children}
     </label>
   );
@@ -282,17 +316,18 @@ export function FormSelect({ value, name, data }) {
     Id_cliente: 'Cliente',
     Id_proveedor: 'Proveedor',
     Id_categoria: 'Categoría',
+    Municipio: 'Municipio',
   };
 
   return (
-    <div className="flex flex-col w-full gap-1">
+    <div className="flex flex-col w-full gap-3">
       <FormLabel name={name}>
-        <span className="font-bold">{labels[name]}</span>
+        <span>{labels[name]}</span>
       </FormLabel>
       <select
         id={name}
         name={name}
-        className={`flex ${bgColors.borderColor} bg-white dark:bg-neutral-900 rounded-lg text-xs h-9 px-3 w-full`}
+        className={`flex ${bgColors.borderColor} bg-white dark:bg-neutral-900 rounded-lg text-sm h-9 px-3 w-full`}
         defaultValue={value}
         required
       >

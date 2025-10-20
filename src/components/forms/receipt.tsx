@@ -11,9 +11,13 @@ import {
   FormError,
   FormButtons,
   FormInput,
+  FormIdNew,
+  FormContainerNew,
 } from './form-inputs/form-inputs';
 import { ReceiptPayment } from './form-inputs/receipt-payment';
 import { ReceiptOptions } from './options/receipt';
+import { CardContent } from '../ui/card';
+import { FieldGroup, FieldSeparator, FieldSet } from '../ui/field';
 
 interface ReceiptForm {
   isNew: boolean;
@@ -50,45 +54,54 @@ export function ReceiptForm({
   }
 
   return (
-    <FormContainer action={formAction}>
-      <FormId
+    <FormContainerNew action={formAction}>
+      <FormIdNew
         holder={isNew ? 'Crear recibo' : 'Recibo'}
         value={isNew ? '' : receipt.Id}
       />
-      <FormDiv>
-        <FormInput
-          name="Id_pedido"
-          holder="Pedido"
-          value={isNew ? pedido : receipt.Id_pedido}
-          type="number"
-        />
-        <FormDate date={isNew ? '' : receipt.Fecha} />
-      </FormDiv>
-      <FormSelect
-        value={isNew ? cliente : receipt.Id_cliente}
-        name="Id_cliente"
-        data={selectData}
-      />
-      <ReceiptPayment
-        saldoInicial={saldoInicial}
-        abono={abono}
-        originalPayment={originalAbono}
-        setIsAbonoChanged={setIsAbonoChanged}
-        isNew={isNew}
-      />
-      <FormInput
-        name="Concepto"
-        holder="Concepto"
-        value={isNew ? '' : receipt.Concepto}
-        required={false}
-      />
+      <CardContent>
+        <FieldGroup>
+          <FieldSet>
+            <FormDiv flexCol={false}>
+              <FormInput
+                name="Id_pedido"
+                holder="Pedido"
+                value={isNew ? pedido : receipt.Id_pedido}
+                type="number"
+              />
+              <FormDate date={isNew ? '' : receipt.Fecha} />
+            </FormDiv>
+          </FieldSet>
+          <FieldSeparator />
+          <FieldSet>
+            <FormSelect
+              value={isNew ? cliente : receipt.Id_cliente}
+              name="Id_cliente"
+              data={selectData}
+            />
+            <ReceiptPayment
+              saldoInicial={saldoInicial}
+              abono={abono}
+              originalPayment={originalAbono}
+              setIsAbonoChanged={setIsAbonoChanged}
+              isNew={isNew}
+            />
+            <FormInput
+              name="Concepto"
+              holder="Concepto"
+              value={isNew ? '' : receipt.Concepto}
+              required={false}
+            />
+          </FieldSet>
+          <FieldSeparator />
+          {!isNew && !isAbonoChanged && (
+            <ReceiptOptions register={receiptpdf} formName="pedidos" />
+          )}
+        </FieldGroup>
 
-      {!isNew && !isAbonoChanged && (
-        <ReceiptOptions register={receiptpdf} formName="pedidos" />
-      )}
-
-      <FormError isPending={isPending} state={state} />
+        <FormError isPending={isPending} state={state} />
+      </CardContent>
       <FormButtons isNew={isNew} isPending={isPending} />
-    </FormContainer>
+    </FormContainerNew>
   );
 }

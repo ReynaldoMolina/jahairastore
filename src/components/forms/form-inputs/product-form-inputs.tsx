@@ -2,7 +2,16 @@
 
 import { bgColors } from '@/lib/bg-colors';
 import { useState } from 'react';
-import { FormDiv, FormCheck, FormSpan, FormLabel } from './form-inputs';
+import {
+  FormDiv,
+  FormCheck,
+  FormSpan,
+  FormLabel,
+  FormSpanNew,
+} from './form-inputs';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { FieldSeparator } from '@/components/ui/field';
 
 export function ProductPrices({ isNew, product }) {
   const [precioNio, setPrecioNio] = useState(
@@ -24,7 +33,7 @@ export function ProductPrices({ isNew, product }) {
     Number(prices.Precio_venta_nio) - Number(prices.Precio_compra_nio) || 0;
 
   return (
-    <div className="flex flex-col gap-6 my-4">
+    <>
       <FormDiv flexCol={false}>
         <FormCheck
           name="Inventario"
@@ -39,14 +48,11 @@ export function ProductPrices({ isNew, product }) {
           setValue={setPrecioNio}
         />
       </FormDiv>
+
+      <FieldSeparator />
+
       {precioNio && (
         <>
-          <FormCambioDolar
-            name="Cambio_dolar"
-            holder="Cambio dólar"
-            value={prices}
-            setValue={setPrices}
-          />
           <FormDiv flexCol={false}>
             <FormInput
               name="Precio_compra_nio"
@@ -66,7 +72,7 @@ export function ProductPrices({ isNew, product }) {
               value2="Precio_venta"
               color="green"
             />
-            <FormSpan
+            <FormSpanNew
               name="Ganancia C$"
               holder="Ganancia C$"
               value={profitNio}
@@ -96,14 +102,20 @@ export function ProductPrices({ isNew, product }) {
           color="green"
           required={true}
         />
-        <FormSpan
+        <FormSpanNew
           name="Ganancia $"
           holder="Ganancia $"
           value={profitDol}
           color="blue"
         />
       </FormDiv>
-    </div>
+      <FormCambioDolar
+        name="Cambio_dolar"
+        holder="Cambio dólar"
+        value={prices}
+        setValue={setPrices}
+      />
+    </>
   );
 }
 
@@ -148,39 +160,37 @@ function FormInput({
   }
 
   return (
-    <div className="flex flex-col w-full gap-1">
-      <FormLabel>{holder}</FormLabel>
-      <input
+    <div className="flex flex-col w-full gap-3">
+      <Label>{holder}</Label>
+      <Input
         id={name}
         name={name}
         type="number"
         min={0}
         step="any"
-        className={`flex ${bgColor} ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
+        className={bgColor}
         placeholder={holder}
         autoComplete="off"
         value={value[name]}
         onChange={(event) => handleChange(event)}
         required={required}
         autoFocus={focus}
-      ></input>
+      ></Input>
     </div>
   );
 }
 
 function FormCambioDolar({ name, holder, value, setValue }) {
   return (
-    <div className="flex flex-col w-full gap-1">
-      <label htmlFor={name} className="w-full text-xs pl-2 font-semibold">
-        {holder}
-      </label>
-      <input
+    <div className="flex flex-col w-full gap-3">
+      <Label htmlFor={name}>{holder}</Label>
+      <Input
         id={name}
         name={name}
         type="number"
         min={0}
         step="0.01"
-        className={`flex ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
+        className="w-full"
         placeholder={holder}
         autoComplete="off"
         value={value[name]}
@@ -194,7 +204,7 @@ function FormCambioDolar({ name, holder, value, setValue }) {
           setValue(newValue);
         }}
         required
-      ></input>
+      ></Input>
     </div>
   );
 }

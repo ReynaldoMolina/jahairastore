@@ -3,29 +3,24 @@
 import { createProduct, updateProduct } from '@/server-actions/actions';
 import { useActionState } from 'react';
 import {
-  FormContainer,
-  FormId,
   FormDiv,
   FormDate,
   FormError,
   FormButtons,
   FormInput,
+  FormContainerNew,
+  FormIdNew,
 } from './form-inputs/form-inputs';
 import { ProductPrices } from './form-inputs/product-form-inputs';
+import { CardContent } from '../ui/card';
+import { FieldGroup, FieldSeparator, FieldSet } from '../ui/field';
 
 interface ProductForm {
   isNew: boolean;
   product?: any;
-  // providersData: any;
-  // categoriesData: any;
 }
 
-export function ProductForm({
-  isNew,
-  product,
-}: // providersData,
-// categoriesData,
-ProductForm) {
+export function ProductForm({ isNew, product }: ProductForm) {
   const action = isNew ? createProduct : updateProduct.bind(null, product.Id);
   const [state, formAction, isPending] = useActionState(action, {
     message: '',
@@ -39,51 +34,44 @@ ProductForm) {
   };
 
   return (
-    <FormContainer action={formAction}>
-      <FormId
+    <FormContainerNew action={formAction}>
+      <FormIdNew
         holder={isNew ? 'Crear producto' : 'Producto'}
         value={isNew ? '' : product.Id}
       />
-      <FormInput
-        name="Nombre"
-        holder="Nombre"
-        value={isNew ? '' : product.Nombre}
-        focus={isNew}
-      />
-
-      <ProductPrices isNew={isNew} product={isNew ? newProduct : product} />
-
-      <FormDiv flexCol={false}>
-        <FormInput
-          name="Id_shein"
-          holder="Id externo"
-          value={isNew ? '' : product.Id_shein}
-          required={false}
-        />
-        <FormDate date={isNew ? '' : product.Fecha} hidden />
-      </FormDiv>
-      {/* <FormDiv flexCol={false}>
-        <FormSelect
-          value={isNew ? '' : product.Id_proveedor}
-          name="Id_proveedor"
-          data={providersData}
-        />
-        <FormSelect
-          value={isNew ? '' : product.Id_categoria}
-          name="Id_categoria"
-          data={categoriesData}
-        />
-      </FormDiv> */}
-      {/* <FormInput
-        name="Descripcion"
-        holder="Descripción"
-        value={isNew ? '' : product.Descripcion}
-        required={false}
-      /> */}
+      <CardContent>
+        <FieldGroup>
+          <FieldSet>
+            <FormInput
+              name="Nombre"
+              holder="Nombre"
+              value={isNew ? '' : product.Nombre}
+              focus={isNew}
+            />
+          </FieldSet>
+          <FieldSet>
+            <ProductPrices
+              isNew={isNew}
+              product={isNew ? newProduct : product}
+            />
+          </FieldSet>
+          <FieldSet>
+            <FormDiv flexCol={false}>
+              <FormInput
+                name="Id_shein"
+                holder="Id externo"
+                value={isNew ? '' : product.Id_shein}
+                required={false}
+              />
+              <FormDate date={isNew ? '' : product.Fecha} hidden />
+            </FormDiv>
+          </FieldSet>
+        </FieldGroup>
+      </CardContent>
 
       <FormError isPending={isPending} state={state} />
 
       <FormButtons isNew={isNew} isPending={isPending} />
-    </FormContainer>
+    </FormContainerNew>
   );
 }

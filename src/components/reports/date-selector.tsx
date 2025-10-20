@@ -13,7 +13,7 @@ export function DateSelector({ searchParams }) {
   });
 
   return (
-    <div className="flex justify-evenly md:justify-normal gap-2 w-full md:w-auto">
+    <div className="flex justify-evenly md:justify-normal gap-3 w-full md:w-auto">
       <DatePicker
         name="start"
         label="Desde el:"
@@ -54,8 +54,8 @@ function DatePicker({ name, label, filter, setFilter }) {
   }
 
   return (
-    <div className="flex w-full flex-col md:flex-row md:items-center gap-1">
-      <label htmlFor={name} className="text-xs px-1 font-bold">
+    <div className="flex w-full flex-col gap-2">
+      <label htmlFor={name} className="text-sm font-bold">
         {label}
       </label>
       <input
@@ -64,7 +64,7 @@ function DatePicker({ name, label, filter, setFilter }) {
         id={name}
         value={filter[name]}
         onChange={handleChange}
-        className={`text-xs w-full rounded-lg p-2 h-9 ${bgColors.borderColor}`}
+        className={`text-sm w-full rounded-lg p-2 h-9 ${bgColors.borderColor}`}
       />
     </div>
   );

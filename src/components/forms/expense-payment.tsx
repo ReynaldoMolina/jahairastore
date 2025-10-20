@@ -3,6 +3,8 @@
 import { bgColors } from '@/lib/bg-colors';
 import { useState } from 'react';
 import { FormDiv, FormInputState } from './form-inputs/form-inputs';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
 
 interface ExpensePayment {
   gasto: number | string;
@@ -73,24 +75,22 @@ export function ExpensePayment({
 
 function PaymentInput({ name, holder, value, setValue, focus = false }) {
   return (
-    <div className="flex flex-col w-full gap-1">
-      <label htmlFor={name} className="w-full text-xs pl-2 font-semibold">
-        {holder}
-      </label>
-      <input
+    <div className="flex flex-col w-full gap-3">
+      <Label htmlFor={name}>{holder}</Label>
+      <Input
         id={name}
         name={name}
         type="number"
         min={0}
         step="any"
-        className={`flex ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
+        className={`flex ${bgColors.borderColor} items-center rounded-lg text-sm h-9 px-3 w-full`}
         placeholder={holder}
         autoComplete="off"
         value={value[name]}
         onChange={(event) => setValue(event.target.value)}
         required={true}
         autoFocus={focus}
-      ></input>
+      ></Input>
     </div>
   );
 }

@@ -19,11 +19,15 @@ import {
   FormDate,
   FormError,
   FormButtons,
+  FormContainerNew,
+  FormIdNew,
 } from './form-inputs/form-inputs';
 import { ProductSearch } from './register-form/product-list/product-search';
 import { FormSubtotals } from './register-form/register-subtotals';
 import { calculateTotals } from '@/lib/calculate-totals';
 import { RegisterFormOptions } from './options/register';
+import { CardContent } from '../ui/card';
+import { FieldGroup, FieldSeparator, FieldSet } from '../ui/field';
 
 const FormContext = createContext(null);
 export function useFormContext() {
@@ -116,7 +120,7 @@ export function RegisterForm({
   }
 
   return (
-    <FormContainer action={handleRegister} wider={true}>
+    <FormContainerNew action={handleRegister} wider={true}>
       <FormContext.Provider
         value={{
           productList,
@@ -129,40 +133,47 @@ export function RegisterForm({
           register,
         }}
       >
-        <FormId
+        <FormIdNew
           holder={isNew ? `Crear ${holder.toLowerCase()}` : holder}
           value={isNew ? '' : registerId}
         />
+        <CardContent>
+          <FieldGroup>
+            <FieldSet>
+              <FormDiv>
+                <FormSelect
+                  value={
+                    isNew
+                      ? formName === 'ventas'
+                        ? 0
+                        : ''
+                      : formName === 'compras'
+                      ? register.Id_proveedor
+                      : register.Id_cliente
+                  }
+                  name={formName === 'compras' ? 'Id_proveedor' : 'Id_cliente'}
+                  data={selectData}
+                />
+                <FormDate date={isNew ? '' : register.Fecha} />
+              </FormDiv>
+            </FieldSet>
+            <FieldSet>
+              <FormSubtotals credit={isNew ? false : register.Credito} />
+            </FieldSet>
+            <FieldSeparator />
+          </FieldGroup>
 
-        <FormDiv>
-          <FormSelect
-            value={
-              isNew
-                ? formName === 'ventas'
-                  ? 0
-                  : ''
-                : formName === 'compras'
-                ? register.Id_proveedor
-                : register.Id_cliente
-            }
-            name={formName === 'compras' ? 'Id_proveedor' : 'Id_cliente'}
-            data={selectData}
-          />
-          <FormDate date={isNew ? '' : register.Fecha} />
-        </FormDiv>
+          <ProductSearch open={isNew}>{children}</ProductSearch>
 
-        <FormSubtotals credit={isNew ? false : register.Credito} />
+          <FormDetail />
 
-        <ProductSearch open={isNew}>{children}</ProductSearch>
+          {!isNew && <RegisterFormOptions registerPdf={registerPdf} />}
 
-        <FormDetail />
-
-        {!isNew && <RegisterFormOptions registerPdf={registerPdf} />}
-
-        <FormError isPending={isPending} state={state} />
+          <FormError isPending={isPending} state={state} />
+        </CardContent>
 
         <FormButtons isNew={isNew} isPending={isPending} />
       </FormContext.Provider>
-    </FormContainer>
+    </FormContainerNew>
   );
 }

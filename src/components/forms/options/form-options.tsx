@@ -1,4 +1,17 @@
-import { Coins, Receipt, ShoppingBag } from 'lucide-react';
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemMedia,
+  ItemTitle,
+} from '@/components/ui/item';
+import {
+  BadgeCheckIcon,
+  ChevronRightIcon,
+  Coins,
+  Receipt,
+  ShoppingBag,
+} from 'lucide-react';
 import Link from 'next/link';
 
 export function ClientOptions({ client }) {
@@ -6,13 +19,13 @@ export function ClientOptions({ client }) {
   return (
     <FormOptionContainer>
       <FormOption label="Ver pedidos" href={`/pedidos?query=${nombreCliente}`}>
-        <ShoppingBag className="size-5 text-black" />
+        <ShoppingBag className="size-5" />
       </FormOption>
       <FormOption label="Ver recibos" href={`/recibos?query=${nombreCliente}`}>
-        <Receipt className="size-5 text-black" />
+        <Receipt className="size-5" />
       </FormOption>
       <FormOption label="Ver ventas" href={`/ventas?query=${nombreCliente}`}>
-        <Coins className="size-5 text-black" />
+        <Coins className="size-5" />
       </FormOption>
     </FormOptionContainer>
   );
@@ -20,20 +33,24 @@ export function ClientOptions({ client }) {
 
 export function FormOptionContainer({ children }) {
   return (
-    <div className="flex justify-around p-2 gap-3 items-end">{children}</div>
+    <div className="flex flex-col w-full md:flex-row gap-3 md:items-center">
+      {children}
+    </div>
   );
 }
 
 export function FormOption({ label, children, href }) {
   return (
-    <Link
-      href={href}
-      className="flex justify-center items-center bg-sky-200 hover:bg-sky-300 rounded-lg py-2 px-3 cursor-pointer shadow-xs gap-2 min-h-9 h-full"
-    >
-      {children}
-      <label className="text-xs font-bold text-black cursor-pointer">
-        {label}
-      </label>
-    </Link>
+    <Item variant="outline" size="sm" asChild>
+      <Link href={href} className="w-full">
+        <ItemMedia>{children}</ItemMedia>
+        <ItemContent>
+          <ItemTitle>{label}</ItemTitle>
+        </ItemContent>
+        <ItemActions>
+          <ChevronRightIcon className="size-4" />
+        </ItemActions>
+      </Link>
+    </Item>
   );
 }

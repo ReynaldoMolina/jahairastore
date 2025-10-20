@@ -1,6 +1,6 @@
 import { calculateTotals } from '@/lib/calculate-totals';
 import { useFormContext } from '../../register';
-import { Trash } from 'lucide-react';
+import { Trash, Trash2 } from 'lucide-react';
 
 export function ChangeQuantity({ product, overrideLeft, convert }) {
   const { productList, setProductList, setFormTotals } = useFormContext();
@@ -77,7 +77,7 @@ function MinusButton({ quantity, icon, action, deleteAction }) {
         type="button"
         onClick={deleteAction}
       >
-        <Trash className="size-4 ml-0.5" />
+        <Trash2 className="size-3.5 ml-0.5" />
       </button>
     );
 

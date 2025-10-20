@@ -32,7 +32,7 @@ export function ProductSearchCard({ children }) {
 
 export function ListHeader({ children }) {
   return (
-    <div className="hidden md:flex px-4 py-3 md:justify-between items-center gap-3 border-b-2 border-neutral-300 dark:border-neutral-700 bg-card">
+    <div className="hidden md:flex px-4 py-3 md:justify-between items-center gap-3 border-b-2 border-border bg-card sticky top-0 z-10">
       {children}
     </div>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { Receipt } from 'lucide-react';
+import { Check, DollarSign, Pencil, Percent, Receipt } from 'lucide-react';
 import { useFormContext } from '../register';
 import { Restante } from '../register-form/restante';
 import { FormOption, FormOptionContainer } from './form-options';
@@ -16,38 +16,35 @@ export function OrderOptions() {
       <Restante order={register} />
       <FormOptionContainer>
         {formTotals.totalSell - register.TotalAbono > 0 && (
-          <div className="flex flex-col md:flex-row gap-1 md:items-center">
-            <p className="text-xs opacity-60 px-1">Pagar</p>
-            <div className="flex gap-1 items-center">
-              <FormOption
-                label="0%"
-                href={`/recibos/create?pedido=${register.Id}&cliente=${
-                  register.Id_cliente
-                }&saldo=${balance}&abono=${0}`}
-              >
-                <p></p>
-              </FormOption>
-              <FormOption
-                label="50%"
-                href={`/recibos/create?pedido=${register.Id}&cliente=${register.Id_cliente}&saldo=${balance}&abono=${half}`}
-              >
-                <p></p>
-              </FormOption>
-              <FormOption
-                label="100%"
-                href={`/recibos/create?pedido=${register.Id}&cliente=${register.Id_cliente}&saldo=${balance}&abono=${balance}`}
-              >
-                <p></p>
-              </FormOption>
-            </div>
+          <div className="flex flex-col md:flex-row gap-3 md:items-center w-full">
+            <FormOption
+              label="Pagar 0% (escribir cantidad)"
+              href={`/recibos/create?pedido=${register.Id}&cliente=${
+                register.Id_cliente
+              }&saldo=${balance}&abono=${0}`}
+            >
+              <Pencil className="size-5" />
+            </FormOption>
+            <FormOption
+              label="Pagar 50% (mitad)"
+              href={`/recibos/create?pedido=${register.Id}&cliente=${register.Id_cliente}&saldo=${balance}&abono=${half}`}
+            >
+              <Percent className="size-5" />
+            </FormOption>
+            <FormOption
+              label="Pagar 100% (cancelar)"
+              href={`/recibos/create?pedido=${register.Id}&cliente=${register.Id_cliente}&saldo=${balance}&abono=${balance}`}
+            >
+              <Check className="size-5" />
+            </FormOption>
           </div>
         )}
         {register.TotalAbono > 0 && (
           <FormOption
-            label="Ver recibos"
+            label="Recibos"
             href={`/recibos?query=${register.Id} ${register.NombreCliente}`}
           >
-            <Receipt className="size-5" />
+            <Receipt className="size-5 text-black" />
           </FormOption>
         )}
       </FormOptionContainer>

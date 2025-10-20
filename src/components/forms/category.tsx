@@ -8,7 +8,11 @@ import {
   FormError,
   FormButtons,
   FormInput,
+  FormIdNew,
+  FormContainerNew,
 } from './form-inputs/form-inputs';
+import { CardContent } from '../ui/card';
+import { FieldGroup } from '../ui/field';
 
 interface CategoryForm {
   isNew: boolean;
@@ -24,19 +28,21 @@ export function CategoryForm({ isNew, category }: CategoryForm) {
   });
 
   return (
-    <FormContainer action={formAction}>
-      <FormId
+    <FormContainerNew action={formAction}>
+      <FormIdNew
         holder={isNew ? 'Crear categoría' : 'Categoría'}
         value={isNew ? '' : category.Id}
       />
-      <FormInput
-        name="Nombre"
-        holder="Nombre"
-        value={isNew ? '' : category.Nombre}
-        focus={isNew}
-      />
-      <FormError isPending={isPending} state={state} />
+      <CardContent>
+        <FormInput
+          name="Nombre"
+          holder="Nombre"
+          value={isNew ? '' : category.Nombre}
+          focus={isNew}
+        />
+        <FormError isPending={isPending} state={state} />
+      </CardContent>
       <FormButtons isNew={isNew} isPending={isPending} />
-    </FormContainer>
+    </FormContainerNew>
   );
 }

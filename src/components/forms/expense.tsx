@@ -12,7 +12,11 @@ import {
   FormError,
   FormButtons,
   FormInput,
+  FormContainerNew,
+  FormIdNew,
 } from './form-inputs/form-inputs';
+import { CardContent } from '../ui/card';
+import { FieldGroup, FieldSeparator, FieldSet } from '../ui/field';
 
 interface ExpenseForm {
   isNew: boolean;
@@ -43,37 +47,46 @@ export function ExpenseForm({
   }
 
   return (
-    <FormContainer action={formAction}>
-      <FormId
+    <FormContainerNew action={formAction}>
+      <FormIdNew
         holder={isNew ? 'Crear gasto' : 'Gasto'}
         value={isNew ? '' : expense.Id}
       />
-      <FormDiv>
-        <FormInput
-          name="Id_compra"
-          holder="Compra"
-          value={isNew ? compra : expense.Id_compra}
-          type="number"
-        />
-        <FormDate date={isNew ? '' : expense.Fecha} />
-      </FormDiv>
-      <FormSelect
-        value={isNew ? proveedor : expense.Id_proveedor}
-        name="Id_proveedor"
-        data={selectData}
-      />
-      <ExpensePayment
-        gasto={isNew ? '' : expense.Gasto * expense.Cambio_dolar}
-        cambioDolar={isNew ? 37 : expense.Cambio_dolar}
-        isNew={isNew}
-      />
-      <FormInput
-        name="Concepto"
-        holder="Concepto"
-        value={isNew ? concepto : expense.Concepto}
-      />
-      <FormError isPending={isNew} state={state} />
+      <CardContent>
+        <FieldGroup>
+          <FieldSet>
+            <FormDiv flexCol={false}>
+              <FormInput
+                name="Id_compra"
+                holder="Compra"
+                value={isNew ? compra : expense.Id_compra}
+                type="number"
+              />
+              <FormDate date={isNew ? '' : expense.Fecha} />
+            </FormDiv>
+            <FormSelect
+              value={isNew ? proveedor : expense.Id_proveedor}
+              name="Id_proveedor"
+              data={selectData}
+            />
+          </FieldSet>
+          <FieldSeparator />
+          <FieldSet>
+            <ExpensePayment
+              gasto={isNew ? '' : expense.Gasto * expense.Cambio_dolar}
+              cambioDolar={isNew ? 37 : expense.Cambio_dolar}
+              isNew={isNew}
+            />
+            <FormInput
+              name="Concepto"
+              holder="Concepto"
+              value={isNew ? concepto : expense.Concepto}
+            />
+          </FieldSet>
+        </FieldGroup>
+        <FormError isPending={isNew} state={state} />
+      </CardContent>
       <FormButtons isNew={isNew} isPending={isPending} />
-    </FormContainer>
+    </FormContainerNew>
   );
 }

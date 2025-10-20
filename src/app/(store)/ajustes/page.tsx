@@ -1,7 +1,13 @@
 import { isDemo } from '@/middleware';
 import Link from 'next/link';
 import LogoutForm from '@/components/login/logout-form';
-import { ChevronRight, Shapes, Store, Users } from 'lucide-react';
+import {
+  ChevronRight,
+  ChevronRightIcon,
+  Shapes,
+  Store,
+  Users,
+} from 'lucide-react';
 import { ChangeTheme } from '@/components/change-theme';
 import {
   Card,
@@ -11,7 +17,20 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { FieldDescription, FieldGroup, FieldSet } from '@/components/ui/field';
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldSeparator,
+  FieldSet,
+} from '@/components/ui/field';
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from '@/components/ui/item';
 
 export const metadata = {
   title: 'Ajustes',
@@ -19,7 +38,7 @@ export const metadata = {
 
 export default async function Page() {
   return (
-    <Card className="m-auto w-full max-w-xl">
+    <Card className="mx-auto w-full max-w-xl">
       <CardHeader className="border-b">
         <CardTitle>Ajustes</CardTitle>
         <CardDescription>Realiza ajustes en tu aplicación</CardDescription>
@@ -27,45 +46,66 @@ export default async function Page() {
       <CardContent>
         <FieldGroup>
           {!isDemo && (
-            <FieldSet>
-              <FieldDescription>General</FieldDescription>
-              <Button asChild variant="secondary" className="w-full">
+            <>
+              <Item asChild variant="outline">
                 <Link href="/ajustes/info">
-                  <div className="inline-flex items-center gap-3">
+                  <ItemMedia variant="icon">
                     <Store />
-                    Información del negocio
-                  </div>
-                  <ChevronRight className="ml-auto" />
+                  </ItemMedia>
+                  <ItemContent>
+                    <ItemTitle>Información del negocio</ItemTitle>
+                    <ItemDescription>
+                      Actualiza los datos de tu negocio.
+                    </ItemDescription>
+                  </ItemContent>
+                  <ItemActions>
+                    <ChevronRightIcon className="size-4" />
+                  </ItemActions>
                 </Link>
-              </Button>
-            </FieldSet>
+              </Item>
+            </>
           )}
           <FieldSet>
-            <FieldDescription>Administrar</FieldDescription>
-            <Button asChild variant="secondary" className="w-full">
+            <Item asChild variant="outline">
               <Link href="/categorias">
-                <div className="inline-flex items-center gap-3">
+                <ItemMedia variant="icon">
                   <Shapes />
-                  Categorías
-                </div>
-                <ChevronRight className="ml-auto" />
+                </ItemMedia>
+                <ItemContent>
+                  <ItemTitle>Categorías</ItemTitle>
+                  <ItemDescription>
+                    Administra las categorías de los productos.
+                  </ItemDescription>
+                </ItemContent>
+                <ItemActions>
+                  <ChevronRightIcon className="size-4" />
+                </ItemActions>
               </Link>
-            </Button>
-            <Button asChild variant="secondary" className="w-full">
+            </Item>
+            <Item asChild variant="outline">
               <Link href="/proveedores">
-                <div className="inline-flex items-center gap-3">
+                <ItemMedia variant="icon">
                   <Users />
-                  Proveedores
-                </div>
-                <ChevronRight className="ml-auto" />
+                </ItemMedia>
+                <ItemContent>
+                  <ItemTitle>Proveedores</ItemTitle>
+                  <ItemDescription>
+                    Administra los proveedores de tus productos.
+                  </ItemDescription>
+                </ItemContent>
+                <ItemActions>
+                  <ChevronRightIcon className="size-4" />
+                </ItemActions>
               </Link>
-            </Button>
+            </Item>
           </FieldSet>
+          <FieldSeparator />
           <FieldSet>
             <FieldDescription>Tema</FieldDescription>
             <ChangeTheme />
-            {!isDemo && <LogoutForm />}
           </FieldSet>
+          <FieldSeparator />
+          {!isDemo && <LogoutForm />}
         </FieldGroup>
       </CardContent>
     </Card>

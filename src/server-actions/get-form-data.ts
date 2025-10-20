@@ -7,8 +7,8 @@ export function getClientFormData(formData) {
     Apellido: formData.get('Apellido').trim(),
     Telefono,
     Municipio: formData.get('Municipio').trim(),
-    Departamento: formData.get('Departamento').trim(),
-    Pais: formData.get('Pais').trim(),
+    // Departamento: formData.get('Departamento').trim(),
+    // Pais: formData.get('Pais').trim(),
     Direccion: formData.get('Direccion').trim(),
   };
 }

@@ -49,6 +49,7 @@ export function ReceiptPayment({
           value={saldo}
           setValue={setSaldo}
           required={true}
+          disabled
         />
       </FormDiv>
     </>

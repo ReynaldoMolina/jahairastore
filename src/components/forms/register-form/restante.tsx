@@ -50,10 +50,10 @@ export function Restante({ order }) {
 
   return (
     <section
-      className={`flex flex-col gap-3 bg-white dark:bg-neutral-900 rounded-lg p-2 ${bgColors.borderColor}`}
+      className={`flex flex-col gap-3 bg-muted dark:bg-black rounded-lg p-2 ${bgColors.borderColor}`}
     >
-      <p className="text-sm font-semibold px-2">Por cobrar</p>
-      <div className="flex flex-col gap-3 items-center">
+      <p className="text-sm font-semibold">Por cobrar</p>
+      <div className="flex flex-col gap-3 items-center bg-card rounded-lg p-2">
         <div className="flex gap-1 md:gap-3 w-full items-end">
           <FormInput
             name="Peso"
@@ -119,7 +119,7 @@ export function Restante({ order }) {
 
 function FormInput({ name, holder, value, setValue }) {
   return (
-    <div className="flex flex-col w-full gap-1">
+    <div className="flex flex-col w-full gap-3">
       <FormLabel name={name}>
         <span>{holder}</span>
       </FormLabel>

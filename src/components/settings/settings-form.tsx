@@ -60,7 +60,7 @@ export function SettingsForm({ data }: SettingsForm) {
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
-      className="max-w-xl w-full m-auto"
+      className="max-w-xl w-full mx-auto"
     >
       <Card>
         <CardHeader className="border-b">
