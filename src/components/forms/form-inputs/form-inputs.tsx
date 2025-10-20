@@ -178,11 +178,16 @@ export function FormSpan({
   );
 }
 
-export function FormDate({ date }) {
+interface FormDate {
+  date: string;
+  hidden?: boolean;
+}
+
+export function FormDate({ date, hidden }: FormDate) {
   const currentDate = getCurrentDate();
 
   return (
-    <div className="flex flex-col w-full gap-1">
+    <div className={`${hidden ? 'hidden' : ''} flex flex-col w-full gap-1`}>
       <FormLabel name="Fecha">Fecha</FormLabel>
       <input
         id="Fecha"
