@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export function List({ children }) {
   return (
-    <section className="flex flex-col gap-2 md:gap-0 rounded-lg overflow-hidden pb-1 md:pb-0">
+    <section className="flex flex-col gap-2 md:gap-0 rounded-lg overflow-hidden pb-1 md:pb-0 h-[71vh] md:h-[75vh] overflow-y-auto">
       {children}
     </section>
   );
@@ -36,10 +36,6 @@ export function ListHeader({ children }) {
       {children}
     </div>
   );
-}
-
-export function ListBlankSpace() {
-  return <div className="mb-13 md:hidden"></div>;
 }
 
 export function ListFooter({ children }) {

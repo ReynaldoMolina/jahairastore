@@ -2,7 +2,6 @@ import { getSales } from '@/fetch-data/data';
 import EmptyList from './empty-list';
 import {
   List,
-  ListBlankSpace,
   ListCard,
   ListDate,
   ListDetail,
@@ -57,7 +56,6 @@ export default async function Sales({ searchParams }) {
         <SaleListTotal data={data} />
       </List>
       <Pagination totalPages={totalPages} />
-      <ListBlankSpace />
     </>
   );
 }

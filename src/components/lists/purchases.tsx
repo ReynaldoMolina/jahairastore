@@ -10,7 +10,6 @@ import {
   ListInfoDetail,
   ListDate,
   ListDetail,
-  ListBlankSpace,
   List,
 } from './lists';
 import { Pagination } from './pagination';
@@ -60,7 +59,6 @@ export default async function Purchases({ searchParams }) {
         <PurchaseListTotal data={data} />
       </List>
       <Pagination totalPages={totalPages} />
-      <ListBlankSpace />
     </>
   );
 }

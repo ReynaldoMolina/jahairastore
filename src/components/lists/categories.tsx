@@ -1,14 +1,7 @@
 import { getRegisters } from '@/fetch-data/data';
 import EmptyList from './empty-list';
 import { CategoryListHeader } from './list-header';
-import {
-  ListCard,
-  ListInfo,
-  ListId,
-  ListName,
-  ListBlankSpace,
-  List,
-} from './lists';
+import { ListCard, ListInfo, ListId, ListName, List } from './lists';
 import { Pagination } from './pagination';
 
 export default async function Categories({ searchParams }) {
@@ -33,7 +26,6 @@ export default async function Categories({ searchParams }) {
         ))}
       </List>
       <Pagination totalPages={totalPages} />
-      <ListBlankSpace />
     </>
   );
 }

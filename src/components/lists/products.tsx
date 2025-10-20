@@ -8,7 +8,6 @@ import {
   ListName,
   ListInfoDetail,
   ListDetail,
-  ListBlankSpace,
   List,
 } from './lists';
 import { Pagination } from './pagination';
@@ -55,7 +54,6 @@ export default async function Products({ searchParams }) {
         ))}
       </List>
       <Pagination totalPages={totalPages} />
-      <ListBlankSpace />
     </>
   );
 }

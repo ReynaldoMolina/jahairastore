@@ -34,7 +34,7 @@ export default function SearchInput({ children, allowNew }: SearchInput) {
 
   return (
     <div className="flex gap-2 justify-between items-center w-full">
-      <InputGroup className="max-w-60 bg-background">
+      <InputGroup className="w-full md:max-w-60 bg-background">
         <InputGroupInput
           type="search"
           placeholder="Buscar"

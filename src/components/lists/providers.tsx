@@ -2,7 +2,6 @@ import { getRegisters } from '@/fetch-data/data';
 import EmptyList from './empty-list';
 import {
   List,
-  ListBlankSpace,
   ListCard,
   ListId,
   ListInfo,
@@ -38,7 +37,6 @@ export default async function Providers({ searchParams }) {
         ))}
       </List>
       <Pagination totalPages={totalPages} />
-      <ListBlankSpace />
     </>
   );
 }

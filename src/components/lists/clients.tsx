@@ -3,7 +3,6 @@ import { ClientListHeader } from './list-header';
 import EmptyList from './empty-list';
 import {
   List,
-  ListBlankSpace,
   ListCard,
   ListId,
   ListInfo,
@@ -38,7 +37,6 @@ export default async function Clients({ searchParams }) {
         ))}
       </List>
       <Pagination totalPages={totalPages} />
-      <ListBlankSpace />
     </>
   );
 }
