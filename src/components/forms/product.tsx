@@ -7,7 +7,6 @@ import {
   FormId,
   FormDiv,
   FormDate,
-  FormSelect,
   FormError,
   FormButtons,
   FormInput,
@@ -17,16 +16,16 @@ import { ProductPrices } from './form-inputs/product-form-inputs';
 interface ProductForm {
   isNew: boolean;
   product?: any;
-  providersData: any;
-  categoriesData: any;
+  // providersData: any;
+  // categoriesData: any;
 }
 
 export function ProductForm({
   isNew,
   product,
-  providersData,
-  categoriesData,
-}: ProductForm) {
+}: // providersData,
+// categoriesData,
+ProductForm) {
   const action = isNew ? createProduct : updateProduct.bind(null, product.Id);
   const [state, formAction, isPending] = useActionState(action, {
     message: '',
@@ -51,16 +50,19 @@ export function ProductForm({
         value={isNew ? '' : product.Nombre}
         focus={isNew}
       />
-      <FormDiv>
+
+      <ProductPrices isNew={isNew} product={isNew ? newProduct : product} />
+
+      <FormDiv flexCol={false}>
         <FormInput
           name="Id_shein"
           holder="Id externo"
           value={isNew ? '' : product.Id_shein}
           required={false}
         />
-        <FormDate date={isNew ? '' : product.Fecha} />
+        <FormDate date={isNew ? '' : product.Fecha} hidden />
       </FormDiv>
-      <FormDiv flexCol={false}>
+      {/* <FormDiv flexCol={false}>
         <FormSelect
           value={isNew ? '' : product.Id_proveedor}
           name="Id_proveedor"
@@ -71,15 +73,13 @@ export function ProductForm({
           name="Id_categoria"
           data={categoriesData}
         />
-      </FormDiv>
-      <FormInput
+      </FormDiv> */}
+      {/* <FormInput
         name="Descripcion"
         holder="Descripción"
         value={isNew ? '' : product.Descripcion}
         required={false}
-      />
-
-      <ProductPrices isNew={isNew} product={isNew ? newProduct : product} />
+      /> */}
 
       <FormError isPending={isPending} state={state} />
 

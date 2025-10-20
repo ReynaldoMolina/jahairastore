@@ -41,12 +41,12 @@ export function getReceiptFormData(formData) {
 
 export function getProductFormData(formData) {
   return {
-    Id_proveedor: Number(formData.get('Id_proveedor')),
+    // Id_proveedor: Number(formData.get('Id_proveedor')),
     Nombre: formData.get('Nombre').trim(),
-    Descripcion: formData.get('Descripcion').trim(),
+    // Descripcion: formData.get('Descripcion').trim(),
     Precio_compra: Number(formData.get('Precio_compra')),
     Precio_venta: Number(formData.get('Precio_venta')),
-    Id_categoria: Number(formData.get('Id_categoria')),
+    // Id_categoria: Number(formData.get('Id_categoria')),
     Fecha: formData.get('Fecha'),
     Id_shein: formData.get('Id_shein').trim(),
     Inventario: formData.get('Inventario') === 'on' ? true : false,
