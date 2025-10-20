@@ -97,7 +97,7 @@ function FilterLimit({ setFilter }) {
   );
 }
 
-function FilterState({ filter, setFilter, stateLabel = 'Saldo' }) {
+function FilterState({ filter, setFilter, stateLabel = 'Con saldo' }) {
   const { updateURL } = useSearchUtils();
 
   function handleChange() {

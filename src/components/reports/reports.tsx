@@ -1,26 +1,38 @@
 import { formatNumber } from '@/lib/formatters';
 import { isDemo } from '@/middleware';
-import { CircleDollarSign, Coins } from 'lucide-react';
+import { CircleDollarSign, Coins, ShoppingBag } from 'lucide-react';
 
-function Report({ children, title }) {
-  const icon =
-    title === 'Flujo de efectivo' ? (
-      <CircleDollarSign className="size-5" />
-    ) : (
-      <Coins className="size-5" />
-    );
+interface Report {
+  children: React.ReactNode;
+  title:
+    | 'Solo ventas'
+    | 'Solo pedidos'
+    | 'Flujo de efectivo'
+    | 'Informe contable';
+}
 
-  const bgColor =
-    title === 'Flujo de efectivo'
-      ? 'bg-green-200 dark:bg-green-900'
-      : 'bg-blue-200 dark:bg-blue-900';
+function Report({ children, title }: Report) {
+  const reportConfig = {
+    'Solo ventas': {
+      icon: <Coins className="size-5" />,
+      bgColor: 'bg-green-200 dark:bg-green-900',
+    },
+    'Solo pedidos': {
+      icon: <ShoppingBag className="size-5" />,
+      bgColor: 'bg-blue-200 dark:bg-blue-900',
+    },
+    'Flujo de efectivo': {
+      icon: <CircleDollarSign className="size-5" />,
+      bgColor: 'bg-yellow-200 dark:bg-yellow-900',
+    },
+  };
 
   return (
     <div className="flex flex-col gap-3 justify-center items-center w-full p-5 rounded-lg bg-white dark:bg-neutral-900">
       <div
-        className={`flex items-center gap-2 p-2 w-full rounded-md ${bgColor}`}
+        className={`flex items-center gap-2 p-2 w-full rounded-md ${reportConfig[title].bgColor}`}
       >
-        {icon}
+        {reportConfig[title].icon}
         <span className="font-bold text-sm">{title}</span>
       </div>
       <div className="flex gap-7 flex-col w-full">{children}</div>
@@ -36,7 +48,7 @@ export function OrdersOnlyReport({ data }) {
       <table className="w-full">
         <thead>
           <tr className="border-b border-neutral-300 dark:border-neutral-600 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800">
-            <th className="py-1.5 text-left">Ingresos y costos de pedidos</th>
+            <th className="py-1.5 text-left">Ingresos y costos</th>
             <th className="py-1.5 text-right">Monto</th>
           </tr>
         </thead>
@@ -59,7 +71,7 @@ export function OrdersOnlyReport({ data }) {
             <td className="py-1.5 text-left">Ganancia</td>
             <td className="py-1.5 text-right">$ {formatNumber(profit)}</td>
           </tr>
-          <tr className="text-base">
+          <tr className="text-xs text-blue-800 dark:text-blue-300">
             <td className="py-1.5 text-left">10% para inversor</td>
             <td className="py-1.5 text-right">
               $ {formatNumber(profit * 0.1)}
@@ -80,7 +92,7 @@ export function SalesOnlyReport({ data }) {
       <table className="w-full">
         <thead>
           <tr className="border-b border-neutral-300 dark:border-neutral-600 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800">
-            <th className="py-1.5 text-left">Ingresos y costos de ventas</th>
+            <th className="py-1.5 text-left">Ingresos y costos</th>
             <th className="py-1.5 text-right">Monto</th>
           </tr>
         </thead>
@@ -109,7 +121,7 @@ export function SalesOnlyReport({ data }) {
             <td className="py-1.5 text-left">Ganancia</td>
             <td className="py-1.5 text-right">C$ {formatNumber(profit)}</td>
           </tr>
-          <tr className="text-base">
+          <tr className="text-xs text-blue-800 dark:text-blue-300">
             <td className="py-1.5 text-left">10% para inversor</td>
             <td className="py-1.5 text-right">
               C$ {formatNumber(profit * 0.1)}
@@ -216,7 +228,7 @@ export function CashFlowReport({ data }) {
             </td>
             <td className="py-1.5 text-right">{formatNumber(profit)}</td>
           </tr>
-          <tr className="text-xs">
+          <tr className="text-xs text-blue-800 dark:text-blue-300">
             <td className="py-1.5 text-left">10% para inversor</td>
             <td className="py-1.5 text-right">{formatNumber(profit * 0.1)}</td>
           </tr>
@@ -233,7 +245,7 @@ export function AccountingReport({ data }) {
   const profit = totalIncome - totalExpenses;
 
   return (
-    <Report title="Informe Contable">
+    <Report title="Informe contable">
       <table className="w-full">
         <thead>
           <tr className="border-b border-neutral-300 dark:border-neutral-600 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800">
@@ -315,7 +327,7 @@ export function AccountingReport({ data }) {
             <td className="py-1.5 text-right">{formatNumber(profit)}</td>
           </tr>
           {!isDemo && (
-            <tr className="text-xs">
+            <tr className="text-xs text-blue-800 dark:text-blue-300">
               <td className="py-1.5 text-left">10% para inversor</td>
               <td className="py-1.5 text-right">
                 {formatNumber(profit * 0.1)}

@@ -62,8 +62,8 @@ export default async function Orders({ searchParams }) {
           );
         })}
         <OrderListTotal data={data} />
-        <Pagination totalPages={totalPages} />
       </List>
+      <Pagination totalPages={totalPages} />
     </>
   );
 }

@@ -16,13 +16,13 @@ export function DateSelector({ searchParams }) {
     <div className="flex justify-evenly md:justify-normal gap-2 w-full md:w-auto">
       <DatePicker
         name="start"
-        label="Inicio"
+        label="Desde el:"
         filter={filter}
         setFilter={setFilter}
       />
       <DatePicker
         name="end"
-        label="Fin"
+        label="Hasta el:"
         filter={filter}
         setFilter={setFilter}
       />
@@ -56,7 +56,7 @@ function DatePicker({ name, label, filter, setFilter }) {
   return (
     <div className="flex w-full flex-col md:flex-row md:items-center gap-1">
       <label htmlFor={name} className="text-xs px-1 font-bold">
-        {label}:
+        {label}
       </label>
       <input
         type="date"

@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export function List({ children }) {
   return (
-    <section className="flex flex-col gap-2 md:gap-0 rounded-lg overflow-hidden pb-1 md:pb-0 h-[71vh] md:h-[75vh] overflow-y-auto">
+    <section className="flex flex-col gap-2 md:gap-0 rounded-lg overflow-hidden flex-1 overflow-y-auto">
       {children}
     </section>
   );
