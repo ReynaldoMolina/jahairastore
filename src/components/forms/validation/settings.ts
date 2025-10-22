@@ -4,4 +4,5 @@ export const settingsSchema = z.object({
   nombreEmpresa: z.string().trim().min(1, 'Requerido'),
   eslogan: z.string().trim().min(1, 'Requerido'),
   mensaje: z.string().trim().nullable(),
+  porHacer: z.string().trim().nullable(),
 });

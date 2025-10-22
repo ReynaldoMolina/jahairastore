@@ -12,12 +12,15 @@ export function Home({ businessInfo }: { businessInfo: SettingsFormType }) {
           <h1 className="w-full text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-purple-500 to-sky-500 bg-clip-text text-transparent">
             {businessInfo.nombreEmpresa}
           </h1>
-          <h2 className="w-full text-lg md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-sky-400">
+          <p className="w-full text-lg md:text-2xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-sky-400">
             {businessInfo.eslogan}
-          </h2>
-          <h3 className="w-full text-sm md:text-base font-medium text-emerald-500">
+          </p>
+          <p className="w-full text-sm md:text-base font-medium text-emerald-500">
             {isDemo ? 'DEMO' : businessInfo.mensaje || '¡Bienvenido!'}
-          </h3>
+          </p>
+          <p className="w-full text-xs md:text-sm text-muted-foreground whitespace-pre-line">
+            {isDemo ? 'DEMO' : businessInfo.porHacer || ''}
+          </p>
 
           {/* CTA Button */}
           <Link

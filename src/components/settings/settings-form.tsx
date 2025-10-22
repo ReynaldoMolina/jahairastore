@@ -79,11 +79,17 @@ export function SettingsForm({ data }: SettingsForm) {
                 label="Eslogan"
                 description="Aparecerá también en los recibos."
               />
-              <FormTextArea
+              <FormInput
                 form={form}
                 name="mensaje"
                 label="Mensaje"
                 description="Este mensaje aparecerá en la página Inicio."
+              />
+              <FormTextArea
+                form={form}
+                name="porHacer"
+                label="Por hacer"
+                description="Mejoras, arreglos de errores, etc., puedes escribirlo aquí."
               />
             </FieldSet>
           </FieldGroup>

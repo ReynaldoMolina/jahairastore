@@ -2,6 +2,7 @@ export interface SettingsFormType {
   nombreEmpresa: string;
   eslogan: string;
   mensaje: string | null;
+  porHacer: string | null;
 }
 
 export interface ServerStatus {
