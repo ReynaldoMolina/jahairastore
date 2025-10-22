@@ -2,6 +2,12 @@ import { isDemo } from '@/middleware';
 import Link from 'next/link';
 import Logo from '@/components/icons/logo.svg';
 import { SettingsFormType } from '@/types/types';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from './ui/accordion';
 
 export function Home({ businessInfo }: { businessInfo: SettingsFormType }) {
   return (
@@ -18,17 +24,36 @@ export function Home({ businessInfo }: { businessInfo: SettingsFormType }) {
           <p className="w-full text-sm md:text-base font-medium text-emerald-500">
             {isDemo ? 'DEMO' : businessInfo.mensaje || '¡Bienvenido!'}
           </p>
-          <p className="w-full text-xs md:text-sm text-muted-foreground whitespace-pre-line">
-            {isDemo ? 'DEMO' : businessInfo.porHacer || ''}
-          </p>
 
           {/* CTA Button */}
-          <Link
-            href="/ventas/create"
-            className="mt-5 px-6 py-3 w-fit bg-gradient-to-r from-purple-600 to-sky-500 text-white font-semibold rounded-full shadow hover:scale-105 transition"
-          >
-            Crear venta
-          </Link>
+          <div className="inline-flex gap-3">
+            <Link
+              href="/ventas/create"
+              className="mt-5 px-6 py-3 w-fit bg-gradient-to-r from-purple-600 to-sky-500 text-white font-semibold rounded-full shadow hover:scale-105 transition"
+            >
+              Crear venta
+            </Link>
+            <Link
+              href="/pedidos/create"
+              className="mt-5 px-6 py-3 w-fit bg-gradient-to-r from-purple-600 to-sky-500 text-white font-semibold rounded-full shadow hover:scale-105 transition"
+            >
+              Crear pedido
+            </Link>
+          </div>
+          {!isDemo && (
+            <Accordion type="single" collapsible className="w-full">
+              <AccordionItem value="item-1">
+                <AccordionTrigger>
+                  Ver lista de cosas por arreglar
+                </AccordionTrigger>
+                <AccordionContent className="flex flex-col gap-4 text-balance">
+                  <p className="whitespace-pre-line text-muted-foreground">
+                    {businessInfo.porHacer}
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          )}
         </div>
         {/* Logo section */}
         <div className="md:w-[40%] flex justify-center order-1 md:order-2">
