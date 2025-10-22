@@ -48,7 +48,7 @@ export function Home({ businessInfo }: { businessInfo: SettingsFormType }) {
                 </AccordionTrigger>
                 <AccordionContent className="flex flex-col gap-4 text-balance">
                   <p className="whitespace-pre-line text-muted-foreground">
-                    {businessInfo.porHacer}
+                    {businessInfo.porHacer ?? ''}
                   </p>
                 </AccordionContent>
               </AccordionItem>
