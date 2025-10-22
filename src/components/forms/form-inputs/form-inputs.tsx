@@ -40,7 +40,7 @@ export function FormDiv({ children, flexCol = true }) {
     <div
       className={`flex ${
         flexCol && 'flex-col md:flex-row'
-      } w-full items-end gap-6 justify-center`}
+      } w-full items-end gap-1 md:gap-6 justify-center`}
     >
       {children}
     </div>

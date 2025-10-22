@@ -59,28 +59,25 @@ export function ReceiptOptions({ register, formName }) {
           </ItemDescription>
         </ItemContent>
         <ItemActions>
-          <SendInvoiceButton id={register.Id} numero="50584271813" />
+          <SendInvoiceButton
+            reciboId={register.Id}
+            numero="50584271813"
+            cliente="Reynaldo"
+          />
         </ItemActions>
       </Item>
     </div>
   );
 }
 
-function ReceiptOption({ label, children, action }) {
-  return (
-    <Button type="button" className="cursor-pointer" onClick={action}>
-      {children}
-      <label className="text-xs font-bold text-black">{label}</label>
-    </Button>
-  );
-}
-
 export default function SendInvoiceButton({
-  id,
+  reciboId,
   numero,
+  cliente,
 }: {
-  id: number;
+  reciboId: number;
   numero: string;
+  cliente: string;
 }) {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
@@ -90,8 +87,14 @@ export default function SendInvoiceButton({
       setLoading(true);
       setStatus(null);
 
-      const res = await fetch(`/api/og/pedido?recibo=${id}&numero=${numero}`, {
+      const res = await fetch(`/api/whatsapp/pedido`, {
         method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phoneNumber: numero,
+          nombreCliente: cliente,
+          reciboId,
+        }),
       });
 
       const data = await res.json();
