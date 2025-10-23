@@ -28,6 +28,7 @@ import { calculateTotals } from '@/lib/calculate-totals';
 import { RegisterFormOptions } from './options/register';
 import { CardContent } from '../ui/card';
 import { FieldGroup, FieldSeparator, FieldSet } from '../ui/field';
+import { Separator } from '../ui/separator';
 
 const FormContext = createContext(null);
 export function useFormContext() {
@@ -136,6 +137,7 @@ export function RegisterForm({
         <FormIdNew
           holder={isNew ? `Crear ${holder.toLowerCase()}` : holder}
           value={isNew ? '' : registerId}
+          description="Visualiza o edita la información de la venta."
         />
         <CardContent>
           <FieldGroup>
@@ -166,6 +168,8 @@ export function RegisterForm({
           <ProductSearch open={isNew}>{children}</ProductSearch>
 
           <FormDetail />
+
+          <Separator className="mb-5" />
 
           {!isNew && <RegisterFormOptions registerPdf={registerPdf} />}
 

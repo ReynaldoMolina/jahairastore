@@ -9,3 +9,9 @@ export interface ServerStatus {
   success: boolean | undefined;
   message: string;
 }
+
+export interface SearchParamsProps {
+  query?: string;
+  orderBy?: string;
+  direction?: SortOrder;
+}

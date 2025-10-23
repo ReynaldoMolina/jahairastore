@@ -34,7 +34,7 @@ export function ReceiptOptions({ register, formName }) {
           <Download />
         </ItemMedia>
         <ItemContent>
-          <ItemTitle>Descargar</ItemTitle>
+          <ItemTitle>Descargar recibo</ItemTitle>
           <ItemDescription>Descarga el recibo en PDF.</ItemDescription>
         </ItemContent>
         <ItemActions>
@@ -53,9 +53,9 @@ export function ReceiptOptions({ register, formName }) {
           <MessageCircle />
         </ItemMedia>
         <ItemContent>
-          <ItemTitle>Enviar por WhatsApp</ItemTitle>
+          <ItemTitle>Enviar recibo</ItemTitle>
           <ItemDescription>
-            Envía una imagen del recibo al cliente.
+            Envía el recibo por WhatsApp. (Función en fase de prueba)
           </ItemDescription>
         </ItemContent>
         <ItemActions>
@@ -99,21 +99,21 @@ export default function SendInvoiceButton({
 
       const data = await res.json();
 
-      if (data.messages) {
-        const message = 'Enviado correctamente por WhatsApp.';
-        setStatus(message);
-        toast.success('Enviado', { description: message });
+      if (data.success) {
+        const description = 'Recibo enviado correctamente.';
+        setStatus(description);
+        toast.success('Enviado', { description });
       } else {
         console.error('Error:', data);
-        const message = 'No se pudo enviar el mensaje.';
-        setStatus(message);
-        toast.error('Error', { description: message });
+        const description = 'No se pudo enviar el recibo.';
+        setStatus(description);
+        toast.error('Error', { description });
       }
     } catch (err) {
       console.error(err);
-      const message = 'Error de conexión.';
-      setStatus(message);
-      toast.error('Error', { description: message });
+      const description = 'Error de conexión.';
+      setStatus(description);
+      toast.error('Error', { description });
     } finally {
       setLoading(false);
     }

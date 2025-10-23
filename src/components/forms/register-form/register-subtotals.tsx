@@ -16,7 +16,7 @@ export function FormSubtotals({ credit }) {
 }
 
 function SubtotalsDiv({ children }) {
-  return <div className="flex w-full items-end gap-3">{children}</div>;
+  return <div className="flex w-full items-end gap-1 sm:gap-3">{children}</div>;
 }
 
 function OrderSubtotals() {

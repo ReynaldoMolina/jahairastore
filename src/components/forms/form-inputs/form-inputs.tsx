@@ -10,7 +10,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
 export function FormContainer({ children, action, wider = false }) {
@@ -40,7 +46,7 @@ export function FormDiv({ children, flexCol = true }) {
     <div
       className={`flex ${
         flexCol && 'flex-col md:flex-row'
-      } w-full items-end gap-1 md:gap-6 justify-center`}
+      } w-full items-end gap-5 justify-center`}
     >
       {children}
     </div>
@@ -275,12 +281,19 @@ export function FormId({ holder, value = '' }) {
   );
 }
 
-export function FormIdNew({ holder, value = '' }) {
+interface FormIdNew {
+  holder: string;
+  value?: string;
+  description?: string;
+}
+
+export function FormIdNew({ holder, value, description }: FormIdNew) {
   return (
     <CardHeader className="border-b">
       <CardTitle>
-        {holder} {value}
+        {holder} {value ? value : null}
       </CardTitle>
+      <CardDescription>{description ? description : null}</CardDescription>
     </CardHeader>
   );
 }

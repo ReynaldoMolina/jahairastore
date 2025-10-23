@@ -1,19 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-
   try {
-    const reciboId = searchParams.get('recibo');
-    const phoneNumber = searchParams.get('numero');
-    const nombreCliente = searchParams.get('cliente');
+    const { phoneNumber, nombreCliente, reciboId } = await req.json();
 
-    // if (!phoneNumber || !nombreCliente || !reciboId) {
-    //   return NextResponse.json(
-    //     { error: 'Faltan campos: phoneNumber, nombreCliente o reciboId' },
-    //     { status: 400 }
-    //   );
-    // }
+    if (!phoneNumber || !nombreCliente || !reciboId) {
+      return NextResponse.json(
+        { error: 'Faltan campos: phoneNumber, nombreCliente o reciboId' },
+        { status: 400 }
+      );
+    }
 
     const WHATSAPP_TOKEN = process.env.WHATSAPP_ACCESS_TOKEN!;
     const PHONE_NUMBER_ID = process.env.PHONE_NUMBER_ID!;
@@ -33,32 +29,32 @@ export async function POST(req: NextRequest) {
           to: phoneNumber,
           type: 'template',
           template: {
-            name: 'hello_world',
+            name: 'recibo',
             language: {
-              code: 'en_US',
+              code: 'es',
             },
-            // components: [
-            //   {
-            //     type: 'header',
-            //     parameters: [
-            //       {
-            //         type: 'image',
-            //         image: {
-            //           link: imageUrl,
-            //         },
-            //       },
-            //     ],
-            //   },
-            //   {
-            //     type: 'body',
-            //     parameters: [
-            //       {
-            //         type: 'text',
-            //         text: nombreCliente, // esto va en {{1}}
-            //       },
-            //     ],
-            //   },
-            // ],
+            components: [
+              {
+                type: 'header',
+                parameters: [
+                  {
+                    type: 'image',
+                    image: {
+                      link: imageUrl,
+                    },
+                  },
+                ],
+              },
+              // {
+              //   type: 'body',
+              //   parameters: [
+              //     {
+              //       type: 'number',
+              //       text: nombreCliente, // esto va en {{1}}
+              //     },
+              //   ],
+              // },
+            ],
           },
         }),
       }

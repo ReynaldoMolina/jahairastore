@@ -385,8 +385,7 @@ export async function getOrders(searchParams) {
         (
           "Pedidos"."Id"::text || ' ' ||
           unaccent("Clientes"."Nombre") || ' ' ||
-          unaccent("Clientes"."Apellido") || ' ' ||
-          TO_CHAR("Pedidos"."Fecha", 'YYYY-MM-DD')
+          unaccent("Clientes"."Apellido")
         ) ILIKE unaccent(${`%${query}%`})
       )
 
