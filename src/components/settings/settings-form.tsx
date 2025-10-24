@@ -33,6 +33,7 @@ export function SettingsForm({ data }: SettingsForm) {
       nombreEmpresa: data.nombreEmpresa,
       eslogan: data.eslogan,
       mensaje: data.mensaje ?? '',
+      porHacer: data.porHacer,
     },
   });
 
