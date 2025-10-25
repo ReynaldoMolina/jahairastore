@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { SideMenuIcon } from './side-menu-icon';
 
 export function MenuItem({ option }) {
   const pathname = usePathname();
@@ -8,14 +7,16 @@ export function MenuItem({ option }) {
     option.url === '/' ? pathname === '/' : pathname.includes(option.url);
 
   return (
-    <div key={option.id} className="flex md:flex-col items-center gap-1 w-full">
+    <div key={option.id} className="flex md:flex-col items-center w-full gap-1">
       <Link
         href={option.url}
-        className={`flex flex-col min-w-17 md:w-full justify-center items-center cursor-pointer rounded-lg hover:bg-brand/90 hover:dark:text-background gap-1 p-2 md:py-4 text-xs text-center ${
-          isActive && 'bg-brand dark:text-background'
+        className={`flex flex-col min-w-17 md:w-full justify-center items-center cursor-pointer rounded-lg gap-1 p-2 md:py-4 text-xs ${
+          isActive
+            ? 'bg-brand hover:bg-brand/90 dark:text-background'
+            : 'hover:bg-sidebar-accent'
         }`}
       >
-        <SideMenuIcon name={option.name} />
+        <option.icon className="size-5" />
         {option.name}
       </Link>
       {option.divider && (
