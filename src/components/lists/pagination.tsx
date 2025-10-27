@@ -51,7 +51,7 @@ export function Pagination({ totalPages }: { totalPages: number }) {
           disabled={currentPage >= totalPages}
         />
       </div>
-      <FilterLimit searchParams={searchParams} disabled={totalPages <= 1} />
+      <FilterLimit searchParams={searchParams} />
     </div>
   );
 }

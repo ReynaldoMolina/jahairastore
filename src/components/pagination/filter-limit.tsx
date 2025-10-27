@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from '../ui/select';
 
-export function FilterLimit({ searchParams, disabled = false }) {
+export function FilterLimit({ searchParams }) {
   const limitParam = searchParams?.limit;
 
   const { updateURL } = useSearchUtils();
@@ -22,7 +22,7 @@ export function FilterLimit({ searchParams, disabled = false }) {
   }
 
   return (
-    <Select value={limitParam} onValueChange={handleChange} disabled={disabled}>
+    <Select value={limitParam} onValueChange={handleChange}>
       <SelectTrigger size="sm">
         <SelectValue placeholder="20" />
       </SelectTrigger>
