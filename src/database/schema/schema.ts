@@ -153,3 +153,9 @@ export const productos = pgTable(
       .onDelete('set null'),
   ]
 );
+
+// only in demo mode
+// export const urls = pgTable('Urls', {
+//   id: text().primaryKey().notNull(),
+//   url: text(),
+// });
