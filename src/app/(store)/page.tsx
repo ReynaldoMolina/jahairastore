@@ -1,3 +1,4 @@
+import { checkAuthorization } from '@/authorization/check-authorization';
 import { Home } from '@/components/home';
 import { SiteHeader } from '@/components/site-header';
 import { getBusinessInfo } from '@/fetch-data/settings';
@@ -9,6 +10,8 @@ export const metadata = {
 };
 
 export default async function Page() {
+  await checkAuthorization();
+
   const businessInfo = await getBusinessInfo();
   return (
     <>
