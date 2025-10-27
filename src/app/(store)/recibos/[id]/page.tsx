@@ -1,6 +1,9 @@
 export const dynamic = 'force-dynamic';
 
+import { checkAuthorization } from '@/authorization/check-authorization';
 import { ReceiptForm } from '@/components/forms/receipt';
+import { PageWrapper } from '@/components/page-wrapper';
+import { SiteHeader } from '@/components/site-header';
 import {
   getClientsSelect,
   getReceiptById,
@@ -17,6 +20,8 @@ export async function generateMetadata(props) {
 }
 
 export default async function Page(props) {
+  await checkAuthorization();
+
   const params = await props.params;
   const id = params.id;
   const receipt = await getReceiptById(id);
@@ -28,11 +33,16 @@ export default async function Page(props) {
   }
 
   return (
-    <ReceiptForm
-      isNew={false}
-      receipt={receipt}
-      receiptpdf={receiptpdf}
-      selectData={selectData}
-    />
+    <>
+      <SiteHeader title={`Recibo ${id}`} />
+      <PageWrapper>
+        <ReceiptForm
+          isNew={false}
+          receipt={receipt}
+          receiptpdf={receiptpdf}
+          selectData={selectData}
+        />
+      </PageWrapper>
+    </>
   );
 }

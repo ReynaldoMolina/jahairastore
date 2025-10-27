@@ -2,19 +2,10 @@
 
 import { useState } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
-import { Button } from '../ui/button';
-import { ListFilter as Filter } from 'lucide-react';
 import { Toggle } from '../ui/toggle';
+import { SearchParamsProps } from '@/types/types';
 
-const ITEMS_PER_PAGE = 20;
+export const ITEMS_PER_PAGE = 20;
 
 interface ListFilter {
   showState?: boolean;
@@ -27,28 +18,16 @@ export function ListFilter({
   stateLabel,
   searchParams,
 }: ListFilter) {
-  const limitParam = searchParams?.limit;
-  const stateParam = searchParams?.state;
-  const [filter, setFilter] = useState({
-    limit: Number(limitParam) || ITEMS_PER_PAGE,
-    state: Boolean(stateParam) || false,
-  });
-
   return (
     <>
       {showState && (
-        <FilterState
-          filter={filter}
-          setFilter={setFilter}
-          stateLabel={stateLabel}
-        />
+        <FilterState searchParams={searchParams} stateLabel={stateLabel} />
       )}
-      <FilterLimit setFilter={setFilter} />
     </>
   );
 }
 
-function useSearchUtils() {
+export function useSearchUtils() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -67,42 +46,19 @@ function useSearchUtils() {
   return { updateURL };
 }
 
-function FilterLimit({ setFilter }) {
-  const { updateURL } = useSearchUtils();
-  const options = [20, 50, 100, 1];
-
-  function handleChange(newLimit: number) {
-    setFilter((prev) => ({ ...prev, limit: newLimit }));
-    updateURL('limit', newLimit === ITEMS_PER_PAGE ? null : newLimit);
-  }
-
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline">
-          <Filter />
-          <span className="hidden sm:block">Mostrar</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>Por página</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        {options.map((value) => (
-          <DropdownMenuItem key={value} onClick={() => handleChange(value)}>
-            {value === 1 ? 'Todo' : value}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
+interface FilterState {
+  searchParams: SearchParamsProps;
+  stateLabel?: string;
 }
 
-function FilterState({ filter, setFilter, stateLabel = 'Con saldo' }) {
+function FilterState({ searchParams, stateLabel = 'Con saldo' }: FilterState) {
+  const stateParam = searchParams?.state;
+  const [listState, setListState] = useState(Boolean(stateParam) || false);
   const { updateURL } = useSearchUtils();
 
   function handleChange() {
-    const newState = !filter.state;
-    setFilter((prev) => ({ ...prev, state: newState }));
+    const newState = !listState;
+    setListState(newState);
     updateURL('state', newState || null);
   }
 
@@ -111,7 +67,7 @@ function FilterState({ filter, setFilter, stateLabel = 'Con saldo' }) {
       aria-label="Toggle state"
       variant="outline"
       onPressedChange={handleChange}
-      pressed={filter.state}
+      pressed={listState}
       className="bg-background data-[state=on]:bg-ring text-xs sm:text-sm"
     >
       {stateLabel}

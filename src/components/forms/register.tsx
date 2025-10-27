@@ -12,8 +12,6 @@ import {
   updatePurchase,
 } from '@/server-actions/actions';
 import {
-  FormContainer,
-  FormId,
   FormDiv,
   FormSelect,
   FormDate,
@@ -134,11 +132,6 @@ export function RegisterForm({
           register,
         }}
       >
-        <FormIdNew
-          holder={isNew ? `Crear ${holder.toLowerCase()}` : holder}
-          value={isNew ? '' : registerId}
-          description="Visualiza o edita la información de la venta."
-        />
         <CardContent>
           <FieldGroup>
             <FieldSet>
@@ -159,9 +152,9 @@ export function RegisterForm({
                 <FormDate date={isNew ? '' : register.Fecha} />
               </FormDiv>
             </FieldSet>
-            <FieldSet>
+            {/* <FieldSet>
               <FormSubtotals credit={isNew ? false : register.Credito} />
-            </FieldSet>
+            </FieldSet> */}
             <FieldSeparator />
           </FieldGroup>
 
@@ -169,9 +162,13 @@ export function RegisterForm({
 
           <FormDetail />
 
-          <Separator className="mb-5" />
+          {!isNew && (
+            <>
+              <Separator className="mb-5" />
 
-          {!isNew && <RegisterFormOptions registerPdf={registerPdf} />}
+              <RegisterFormOptions registerPdf={registerPdf} />
+            </>
+          )}
 
           <FormError isPending={isPending} state={state} />
         </CardContent>

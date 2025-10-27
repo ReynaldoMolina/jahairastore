@@ -1,22 +1,28 @@
+import { checkAuthorization } from '@/authorization/check-authorization';
 import { ListFilter } from '@/components/actiontools/list-filter';
 import SearchInput from '@/components/actiontools/search-input';
 import Categories from '@/components/lists/categories';
-import { ListTitle } from '@/components/lists/lists';
+import { PageWrapper } from '@/components/page-wrapper';
+import { SiteHeader } from '@/components/site-header';
 
 export const metadata = {
   title: 'Categorías',
 };
 
 export default async function Page(props) {
+  await checkAuthorization();
+
   const searchParams = await props.searchParams;
 
   return (
     <>
-      <ListTitle title="Categorías" />
-      <SearchInput>
-        <ListFilter searchParams={searchParams} />
-      </SearchInput>
-      <Categories searchParams={searchParams} />
+      <SiteHeader title="Categorías" dontShowBackButton />
+      <PageWrapper>
+        <SearchInput>
+          <ListFilter searchParams={searchParams} />
+        </SearchInput>
+        <Categories searchParams={searchParams} />
+      </PageWrapper>
     </>
   );
 }

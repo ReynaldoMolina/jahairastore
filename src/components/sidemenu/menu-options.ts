@@ -22,8 +22,8 @@ export const menuOptions = [
   },
   {
     id: 1,
-    name: 'Informes',
-    url: '/informes',
+    name: 'Dashboard',
+    url: '/dashboard',
     divider: true,
     icon: ChartNoAxesCombined,
   },

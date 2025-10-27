@@ -35,10 +35,6 @@ export function ProductForm({ isNew, product }: ProductForm) {
 
   return (
     <FormContainerNew action={formAction}>
-      <FormIdNew
-        holder={isNew ? 'Crear producto' : 'Producto'}
-        value={isNew ? '' : product.Id}
-      />
       <CardContent>
         <FieldGroup>
           <FieldSet>

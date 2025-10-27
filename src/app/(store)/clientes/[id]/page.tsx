@@ -1,4 +1,7 @@
+import { checkAuthorization } from '@/authorization/check-authorization';
 import { ClientForm } from '@/components/forms/client';
+import { PageWrapper } from '@/components/page-wrapper';
+import { SiteHeader } from '@/components/site-header';
 import { getClientById } from '@/fetch-data/data';
 import { notFound } from 'next/navigation';
 
@@ -11,6 +14,8 @@ export async function generateMetadata(props) {
 }
 
 export default async function Page(props) {
+  await checkAuthorization();
+
   const params = await props.params;
   const id = params.id;
   const data = await getClientById(id);
@@ -19,5 +24,12 @@ export default async function Page(props) {
     notFound();
   }
 
-  return <ClientForm isNew={false} client={data} />;
+  return (
+    <>
+      <SiteHeader title={`Cliente ${id}`} />
+      <PageWrapper>
+        <ClientForm isNew={false} client={data} />
+      </PageWrapper>
+    </>
+  );
 }

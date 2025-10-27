@@ -48,10 +48,6 @@ export function ExpenseForm({
 
   return (
     <FormContainerNew action={formAction}>
-      <FormIdNew
-        holder={isNew ? 'Crear gasto' : 'Gasto'}
-        value={isNew ? '' : expense.Id}
-      />
       <CardContent>
         <FieldGroup>
           <FieldSet>

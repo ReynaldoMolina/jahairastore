@@ -1,7 +1,5 @@
 'use server';
 
-import { signIn, signOut } from '@/auth';
-import { AuthError } from 'next-auth';
 import {
   getClientFormData,
   getProviderFormData,
@@ -20,26 +18,6 @@ import {
   updateDetailRecords,
   updateRecord,
 } from '@/server-actions/actions-utils';
-
-export async function authenticate(prevState, formData) {
-  try {
-    await signIn('credentials', formData);
-  } catch (error) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case 'CredentialsSignin':
-          return 'Datos incorrectos';
-        default:
-          return `Algo salió mal, ${error.message}`;
-      }
-    }
-    throw error;
-  }
-}
-
-export async function handleLogout() {
-  await signOut({ redirectTo: '/' });
-}
 
 export async function createClient(prevState, formData) {
   try {

@@ -1,15 +1,16 @@
 'use client';
 
-import { Search } from 'lucide-react';
+import { Search, X } from 'lucide-react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 import NewRegister from './new-register';
 import {
   InputGroup,
   InputGroupAddon,
+  InputGroupButton,
   InputGroupInput,
 } from '../ui/input-group';
-import React from 'react';
+import React, { useState } from 'react';
 
 interface SearchInput {
   children: React.ReactNode;
@@ -20,6 +21,9 @@ export default function SearchInput({ children, allowNew }: SearchInput) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+
+  const queryParam = searchParams.get('query') || '';
+  const [searchValue, setSearchValue] = useState(queryParam);
 
   const handleSearch = useDebouncedCallback((term) => {
     const params = new URLSearchParams(searchParams);
@@ -33,20 +37,36 @@ export default function SearchInput({ children, allowNew }: SearchInput) {
   }, 400);
 
   return (
-    <div className="flex gap-2 justify-between items-center w-full">
+    <div className="flex gap-1 sm:gap-2 justify-between items-center w-full">
       <InputGroup className="w-full sm:max-w-60 bg-background">
         <InputGroupInput
           type="search"
           placeholder="Buscar"
           autoComplete="off"
-          defaultValue={searchParams.get('query')?.toString()}
-          onChange={(event) => handleSearch(event.target.value)}
+          value={searchValue}
+          onChange={(event) => {
+            const term = event.target.value;
+            setSearchValue(term);
+            handleSearch(term);
+          }}
         />
+        <InputGroupAddon align="inline-end">
+          <InputGroupButton
+            size="icon-xs"
+            onClick={() => {
+              setSearchValue('');
+              handleSearch('');
+            }}
+            disabled={!searchValue}
+          >
+            <X />
+          </InputGroupButton>
+        </InputGroupAddon>
         <InputGroupAddon>
           <Search />
         </InputGroupAddon>
       </InputGroup>
-      <div className="inline-flex gap-2">
+      <div className="inline-flex gap-1 sm:gap-2">
         {children}
         <NewRegister allowNew={allowNew} />
       </div>

@@ -1,4 +1,7 @@
+import { checkAuthorization } from '@/authorization/check-authorization';
 import { ProductForm } from '@/components/forms/product';
+import { PageWrapper } from '@/components/page-wrapper';
+import { SiteHeader } from '@/components/site-header';
 
 export const dynamic = 'force-dynamic';
 
@@ -7,14 +10,14 @@ export const metadata = {
 };
 
 export default async function Page() {
-  // const providersData = await getProvidersSelect();
-  // const categoriesData = await getCategoriesSelect();
+  await checkAuthorization();
 
   return (
-    <ProductForm
-      isNew={true}
-      // providersData={providersData}
-      // categoriesData={categoriesData}
-    />
+    <>
+      <SiteHeader title="Crear producto" />
+      <PageWrapper>
+        <ProductForm isNew={true} />
+      </PageWrapper>
+    </>
   );
 }

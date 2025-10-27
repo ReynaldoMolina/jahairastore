@@ -55,10 +55,6 @@ export function ReceiptForm({
 
   return (
     <FormContainerNew action={formAction}>
-      <FormIdNew
-        holder={isNew ? 'Crear recibo' : 'Recibo'}
-        value={isNew ? '' : receipt.Id}
-      />
       <CardContent>
         <FieldGroup>
           <FieldSet>
@@ -72,7 +68,6 @@ export function ReceiptForm({
               <FormDate date={isNew ? '' : receipt.Fecha} />
             </FormDiv>
           </FieldSet>
-          <FieldSeparator />
           <FieldSet>
             <FormSelect
               value={isNew ? cliente : receipt.Id_cliente}

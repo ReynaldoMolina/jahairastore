@@ -8,6 +8,7 @@ import {
   doublePrecision,
   boolean,
   foreignKey,
+  timestamp,
 } from 'drizzle-orm/pg-core';
 
 export const clientes = pgTable('Clientes', {

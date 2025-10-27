@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/database/db';
-import { configuracion } from '@/database/schema';
+import { configuracion } from '@/database/schema/schema';
 import { ServerStatus, SettingsFormType } from '@/types/types';
 import { eq } from 'drizzle-orm';
 import { stateUpdateError, stateUpdateSuccess } from './stateMessage';

@@ -31,10 +31,6 @@ export function ProviderForm({ isNew, provider }: ProviderForm) {
 
   return (
     <FormContainerNew action={formAction}>
-      <FormIdNew
-        holder={isNew ? 'Crear proveedor' : 'Proveedor'}
-        value={isNew ? '' : provider.Id}
-      />
       <CardContent>
         <FieldGroup>
           <FieldSet>

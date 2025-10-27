@@ -1,15 +1,27 @@
-import NextAuth from 'next-auth';
-import { authConfig } from './auth.config';
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
+import { getSessionCookie } from 'better-auth/cookies';
+import { getServerSession } from './authorization/get-server-session';
 
 export const isDemo = process.env.NEXT_PUBLIC_APP_MODE === 'demo';
 
-export default function middleware(req) {
-  if (isDemo) {
+const publicRoutes = ['/auth/login'];
+
+export async function middleware(request: NextRequest) {
+  if (isDemo) return NextResponse.next();
+
+  const { pathname } = new URL(request.url);
+
+  if (publicRoutes.includes(pathname)) {
     return NextResponse.next();
   }
 
-  return NextAuth(authConfig).auth(req);
+  const sessionCookie = getSessionCookie(request);
+
+  if (!sessionCookie) {
+    return NextResponse.redirect(new URL('/auth/login', request.url));
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {

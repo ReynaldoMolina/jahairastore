@@ -1,12 +1,11 @@
 'use client';
 
-import { startTransition, useActionState, useEffect } from 'react';
+import { startTransition, useActionState } from 'react';
 import { FormButtons } from '../forms/form-inputs/form-inputs';
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '../ui/card';
@@ -20,7 +19,7 @@ import { FormTextArea } from '../form-elements/form-text-area';
 import { SettingsFormType } from '@/types/types';
 import { updateSettings } from '@/server-actions/settings';
 import { stateDefault } from '@/server-actions/stateMessage';
-import { toast } from 'sonner';
+import { useServerActionFeedback } from '../use-server-status';
 
 interface SettingsForm {
   data: SettingsFormType;
@@ -48,15 +47,7 @@ export function SettingsForm({ data }: SettingsForm) {
     });
   }
 
-  useEffect(() => {
-    if (state.success === undefined) return;
-
-    if (state.success) {
-      toast.success(state.message);
-    } else {
-      toast.error(state.message);
-    }
-  }, [state]);
+  useServerActionFeedback(state);
 
   return (
     <form

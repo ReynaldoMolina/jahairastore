@@ -5,7 +5,7 @@ import {
   pedidosDetalles,
   productos,
   recibos,
-} from '@/database/schema';
+} from '@/database/schema/schema';
 import { asc, eq } from 'drizzle-orm';
 
 export interface ReciboPedidoDetalle {

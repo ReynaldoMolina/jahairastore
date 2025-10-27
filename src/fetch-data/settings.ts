@@ -1,5 +1,5 @@
 import { db } from '@/database/db';
-import { configuracion } from '@/database/schema';
+import { configuracion } from '@/database/schema/schema';
 import { SettingsFormType } from '@/types/types';
 import { eq } from 'drizzle-orm';
 

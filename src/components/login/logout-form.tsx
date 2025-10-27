@@ -3,14 +3,24 @@
 import { useActionState } from 'react';
 import { LogOut } from 'lucide-react';
 import { Spinner } from '../ui/spinner';
-import { handleLogout } from '@/server-actions/actions';
 import { Button } from '../ui/button';
+import { authClient } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
 
 export default function LogoutForm() {
-  const [state, formAction, isPending] = useActionState(
-    handleLogout,
-    undefined
-  );
+  const router = useRouter();
+
+  async function logOut() {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push('login');
+        },
+      },
+    });
+  }
+
+  const [state, formAction, isPending] = useActionState(logOut, undefined);
 
   return (
     <form action={formAction} className="w-full h-full max-w-3xl">

@@ -1,5 +1,8 @@
+import { checkAuthorization } from '@/authorization/check-authorization';
 import { RegisterForm } from '@/components/forms/register';
 import ProductSearchList from '@/components/forms/register-form/product-list/product-search-list';
+import { PageWrapper } from '@/components/page-wrapper';
+import { SiteHeader } from '@/components/site-header';
 import {
   getProvidersSelect,
   getPurchaseById,
@@ -16,6 +19,8 @@ export async function generateMetadata(props) {
 }
 
 export default async function Page(props) {
+  await checkAuthorization();
+
   const searchParams = await props.searchParams;
   const params = await props.params;
   const purchaseId = params.id;
@@ -24,22 +29,27 @@ export default async function Page(props) {
   const selectData = await getProvidersSelect();
 
   return (
-    <RegisterForm
-      isNew={false}
-      register={purchase}
-      registerId={purchaseId}
-      detailList={purchasedetail}
-      convert={true}
-      abono={purchase.TotalGasto}
-      selectData={selectData}
-      formName="compras"
-    >
-      <ProductSearchList
-        searchParams={searchParams}
-        showAll={true}
-        inventario={true}
-        price="compra"
-      />
-    </RegisterForm>
+    <>
+      <SiteHeader title={`Compra ${purchaseId}`} />
+      <PageWrapper>
+        <RegisterForm
+          isNew={false}
+          register={purchase}
+          registerId={purchaseId}
+          detailList={purchasedetail}
+          convert={true}
+          abono={purchase.TotalGasto}
+          selectData={selectData}
+          formName="compras"
+        >
+          <ProductSearchList
+            searchParams={searchParams}
+            showAll={true}
+            inventario={true}
+            price="compra"
+          />
+        </RegisterForm>
+      </PageWrapper>
+    </>
   );
 }

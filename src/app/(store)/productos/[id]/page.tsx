@@ -1,6 +1,9 @@
 export const dynamic = 'force-dynamic';
 
+import { checkAuthorization } from '@/authorization/check-authorization';
 import { ProductForm } from '@/components/forms/product';
+import { PageWrapper } from '@/components/page-wrapper';
+import { SiteHeader } from '@/components/site-header';
 import { getProductById } from '@/fetch-data/data';
 import { notFound } from 'next/navigation';
 
@@ -13,22 +16,22 @@ export async function generateMetadata(props) {
 }
 
 export default async function Page(props) {
+  await checkAuthorization();
+
   const params = await props.params;
   const id = params.id;
   const data = await getProductById(id);
-  // const providersData = await getProvidersSelect();
-  // const categoriesData = await getCategoriesSelect();
 
   if (!data) {
     notFound();
   }
 
   return (
-    <ProductForm
-      isNew={false}
-      product={data}
-      // providersData={providersData}
-      // categoriesData={categoriesData}
-    />
+    <>
+      <SiteHeader title={`Producto ${id}`} />
+      <PageWrapper>
+        <ProductForm isNew={false} product={data} />
+      </PageWrapper>
+    </>
   );
 }

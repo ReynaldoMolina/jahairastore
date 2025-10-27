@@ -3,16 +3,12 @@
 import { createCategory, updateCategory } from '@/server-actions/actions';
 import { useActionState } from 'react';
 import {
-  FormContainer,
-  FormId,
   FormError,
   FormButtons,
   FormInput,
-  FormIdNew,
   FormContainerNew,
 } from './form-inputs/form-inputs';
 import { CardContent } from '../ui/card';
-import { FieldGroup } from '../ui/field';
 
 interface CategoryForm {
   isNew: boolean;
@@ -29,10 +25,6 @@ export function CategoryForm({ isNew, category }: CategoryForm) {
 
   return (
     <FormContainerNew action={formAction}>
-      <FormIdNew
-        holder={isNew ? 'Crear categoría' : 'Categoría'}
-        value={isNew ? '' : category.Id}
-      />
       <CardContent>
         <FormInput
           name="Nombre"

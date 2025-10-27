@@ -7,11 +7,20 @@ export interface SettingsFormType {
 
 export interface ServerStatus {
   success: boolean | undefined;
-  message: string;
+  title: string;
+  description?: string;
+  returningId?: string | number;
 }
 
 export interface SearchParamsProps {
   query?: string;
   orderBy?: string;
+  limit?: string;
+  state?: string;
   direction?: SortOrder;
+}
+
+export interface LoginFormType {
+  username: string;
+  password: string;
 }

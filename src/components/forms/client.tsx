@@ -8,11 +8,10 @@ import {
   FormButtons,
   FormInput,
   FormContainerNew,
-  FormIdNew,
   FormTextArea,
 } from './form-inputs/form-inputs';
 import { ClientOptions } from './options/form-options';
-import { FieldGroup, FieldLegend, FieldSeparator, FieldSet } from '../ui/field';
+import { FieldGroup, FieldSeparator, FieldSet } from '../ui/field';
 import { CardContent } from '../ui/card';
 import {
   Select,
@@ -51,10 +50,6 @@ export function ClientForm({ isNew, client }: ClientForm) {
 
   return (
     <FormContainerNew action={formAction}>
-      <FormIdNew
-        holder={isNew ? 'Crear cliente' : 'Cliente'}
-        value={isNew ? '' : client.Id}
-      />
       <CardContent>
         <FieldGroup>
           <FieldSet>
@@ -78,40 +73,8 @@ export function ClientForm({ isNew, client }: ClientForm) {
               required={false}
             />
           </FieldSet>
-          {/* <FormDiv>
-            <FormInput
-              name="Pais"
-              holder="País"
-              value={isNew ? 'Nicaragua' : client.Pais}
-              required={false}
-            />
-          </FormDiv> */}
           <FieldSet>
             <FormDiv>
-              {/* <FormInput
-              name="Departamento"
-              holder="Departamento"
-              value={isNew ? '' : client.Departamento}
-              required={false}
-            /> */}
-              {/* <FormSelect
-                name="Municipio"
-                value={client.Municipio}
-                data={[
-                  {
-                    Id: 'León',
-                    Nombre: 'León',
-                  },
-                  {
-                    Id: 'Managua',
-                    Nombre: 'Managua',
-                  },
-                  {
-                    Id: 'Acoyapa',
-                    Nombre: 'Acoyapa',
-                  },
-                ]}
-              /> */}
               <div className="space-y-3 w-full">
                 <Label htmlFor="Municipio">Municipio</Label>
                 <Select
@@ -138,11 +101,14 @@ export function ClientForm({ isNew, client }: ClientForm) {
               required={false}
             />
           </FieldSet>
-          <FieldSeparator />
-          <FieldSet>
-            <FieldLegend>Opciones</FieldLegend>
-            {!isNew && <ClientOptions client={client} />}
-          </FieldSet>
+          {!isNew && (
+            <>
+              <FieldSeparator />
+              <FieldSet>
+                <ClientOptions client={client} />
+              </FieldSet>
+            </>
+          )}
         </FieldGroup>
         <FormError isPending={isPending} state={state} />
       </CardContent>

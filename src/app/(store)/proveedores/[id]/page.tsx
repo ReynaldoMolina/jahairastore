@@ -1,4 +1,7 @@
+import { checkAuthorization } from '@/authorization/check-authorization';
 import { ProviderForm } from '@/components/forms/provider';
+import { PageWrapper } from '@/components/page-wrapper';
+import { SiteHeader } from '@/components/site-header';
 import { getProviderById } from '@/fetch-data/data';
 import { notFound } from 'next/navigation';
 
@@ -11,6 +14,8 @@ export async function generateMetadata(props) {
 }
 
 export default async function Page(props) {
+  await checkAuthorization();
+
   const params = await props.params;
   const id = params.id;
   const data = await getProviderById(id);
@@ -19,5 +24,12 @@ export default async function Page(props) {
     notFound();
   }
 
-  return <ProviderForm isNew={false} provider={data} />;
+  return (
+    <>
+      <SiteHeader title={`Proveedor ${id}`} />
+      <PageWrapper>
+        <ProviderForm isNew={false} provider={data} />;
+      </PageWrapper>
+    </>
+  );
 }
