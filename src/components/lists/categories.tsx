@@ -13,19 +13,17 @@ export default async function Categories({ searchParams }) {
   if (data.length === 0) return <EmptyList query={query} />;
 
   return (
-    <>
-      <List>
-        <CategoryListHeader />
-        {data.map((register) => (
-          <ListCard key={register.Id} href={`/categorias/${register.Id}`}>
-            <ListInfo hideBorder={true}>
-              <ListId id={register.Id} label="ID CATEGORIA" />
-              <ListName name={register.Nombre} />
-            </ListInfo>
-          </ListCard>
-        ))}
-      </List>
+    <List>
+      <CategoryListHeader />
+      {data.map((register) => (
+        <ListCard key={register.Id} href={`/categorias/${register.Id}`}>
+          <ListInfo hideBorder={true}>
+            <ListId id={register.Id} label="ID CATEGORIA" />
+            <ListName name={register.Nombre} />
+          </ListInfo>
+        </ListCard>
+      ))}
       <Pagination totalPages={totalPages} />
-    </>
+    </List>
   );
 }

@@ -55,7 +55,7 @@ function DatePicker({ name, label, filter, setFilter }) {
 
   return (
     <div className="flex w-full flex-col gap-2">
-      <label htmlFor={name} className="text-sm font-bold">
+      <label htmlFor={name} className="text-xs font-bold">
         {label}
       </label>
       <input
@@ -64,7 +64,7 @@ function DatePicker({ name, label, filter, setFilter }) {
         id={name}
         value={filter[name]}
         onChange={handleChange}
-        className={`text-sm w-full rounded-lg p-2 h-9 ${bgColors.borderColor}`}
+        className={`text-xs w-full rounded-lg p-2 h-9 ${bgColors.borderColor}`}
       />
     </div>
   );

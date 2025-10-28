@@ -68,7 +68,7 @@ function FilterState({ searchParams, stateLabel = 'Con saldo' }: FilterState) {
       variant="outline"
       onPressedChange={handleChange}
       pressed={listState}
-      className="bg-background data-[state=on]:bg-ring text-xs sm:text-sm"
+      className="bg-background data-[state=on]:bg-ring/40 text-xs"
     >
       {stateLabel}
     </Toggle>

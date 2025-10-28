@@ -17,14 +17,14 @@ export function SiteHeader({ title, dontShowBackButton = false }: SiteHeader) {
   const { user } = getClientSession();
 
   return (
-    <header className="inline-flex font-bold text-md h-11 items-center border-b shrink-0 px-3 gap-2">
+    <header className="inline-flex font-semibold text-sm h-10 items-center border-b shrink-0 px-3 gap-2">
       {!dontShowBackButton && (
         <Button variant="ghost" size="icon" onClick={() => router.back()}>
           <ArrowLeft className="size-5" />
         </Button>
       )}
       {title ? title : 'Title'}
-      <Avatar className="ml-auto">
+      <Avatar className="ml-auto size-7">
         <AvatarImage src={user?.image} alt="Avatar" />
         <AvatarFallback className="text-xs">JS</AvatarFallback>
       </Avatar>

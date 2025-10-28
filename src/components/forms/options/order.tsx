@@ -16,26 +16,26 @@ export function OrderOptions() {
       <Restante order={register} />
       <FormOptionContainer>
         {formTotals.totalSell - register.TotalAbono > 0 && (
-          <div className="flex flex-col gap-3 w-full">
+          <div className="flex flex-col sm:flex-row gap-3 w-full">
             <FormOption
-              label="Pagar 0% (escribir cantidad)"
+              label="Pagar 0%"
               href={`/recibos/create?pedido=${register.Id}&cliente=${
                 register.Id_cliente
               }&saldo=${balance}&abono=${0}`}
             >
-              <Pencil className="size-5" />
+              <Pencil className="size-4" />
             </FormOption>
             <FormOption
-              label="Pagar 50% (mitad)"
+              label="Pagar 50%"
               href={`/recibos/create?pedido=${register.Id}&cliente=${register.Id_cliente}&saldo=${balance}&abono=${half}`}
             >
-              <Percent className="size-5" />
+              <Percent className="size-4" />
             </FormOption>
             <FormOption
-              label="Pagar 100% (cancelar)"
+              label="Pagar 100%"
               href={`/recibos/create?pedido=${register.Id}&cliente=${register.Id_cliente}&saldo=${balance}&abono=${balance}`}
             >
-              <Check className="size-5" />
+              <Check className="size-4" />
             </FormOption>
           </div>
         )}
@@ -44,7 +44,7 @@ export function OrderOptions() {
             label="Ver recibos de abonos"
             href={`/recibos?query=${register.Id} ${register.NombreCliente}`}
           >
-            <Receipt className="size-5" />
+            <Receipt className="size-4" />
           </FormOption>
         )}
       </FormOptionContainer>

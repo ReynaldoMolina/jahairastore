@@ -20,45 +20,43 @@ export default async function Purchases({ searchParams }) {
   if (data.length === 0) return <EmptyList query={query} />;
 
   return (
-    <>
-      <List>
-        <PurchaseListHeader />
-        {data.map((register) => (
-          <ListCard key={register.Id} href={`/compras/${register.Id}`}>
-            <ListInfo>
-              <ListId id={register.Id} label="ID COMPRA" />
-              <ListName name={register.Nombre_empresa} />
-            </ListInfo>
-            <ListInfoDetail>
-              <ListDate date={register.Fecha} />
-              <ListDetail
-                detail={register.TotalCompraCompra}
-                label="Total compra"
-                color="gray"
-                nio={true}
-              />
-              <ListDetail
-                detail={register.TotalGasto}
-                label="Gastos"
-                color="red"
-                nio={true}
-              />
-              <ListDetail
-                detail={
-                  register.TotalCompraVenta -
-                  register.TotalCompraCompra -
-                  register.TotalGasto
-                }
-                label="Ganancia"
-                color="blue"
-                nio={true}
-              />
-            </ListInfoDetail>
-          </ListCard>
-        ))}
-        <PurchaseListTotal data={data} />
-      </List>
+    <List>
+      <PurchaseListHeader />
+      {data.map((register) => (
+        <ListCard key={register.Id} href={`/compras/${register.Id}`}>
+          <ListInfo>
+            <ListId id={register.Id} label="ID COMPRA" />
+            <ListName name={register.Nombre_empresa} />
+          </ListInfo>
+          <ListInfoDetail>
+            <ListDate date={register.Fecha} />
+            <ListDetail
+              detail={register.TotalCompraCompra}
+              label="Total compra"
+              color="gray"
+              nio={true}
+            />
+            <ListDetail
+              detail={register.TotalGasto}
+              label="Gastos"
+              color="red"
+              nio={true}
+            />
+            <ListDetail
+              detail={
+                register.TotalCompraVenta -
+                register.TotalCompraCompra -
+                register.TotalGasto
+              }
+              label="Ganancia"
+              color="blue"
+              nio={true}
+            />
+          </ListInfoDetail>
+        </ListCard>
+      ))}
+      <PurchaseListTotal data={data} />
       <Pagination totalPages={totalPages} />
-    </>
+    </List>
   );
 }

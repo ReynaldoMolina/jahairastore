@@ -38,7 +38,7 @@ export default function SearchInput({ children, allowNew }: SearchInput) {
 
   return (
     <div className="flex gap-1 sm:gap-2 justify-between items-center w-full">
-      <InputGroup className="w-full sm:max-w-60 bg-background">
+      <InputGroup className="max-w-60 bg-background">
         <InputGroupInput
           type="search"
           placeholder="Buscar"
@@ -50,18 +50,20 @@ export default function SearchInput({ children, allowNew }: SearchInput) {
             handleSearch(term);
           }}
         />
-        <InputGroupAddon align="inline-end">
-          <InputGroupButton
-            size="icon-xs"
-            onClick={() => {
-              setSearchValue('');
-              handleSearch('');
-            }}
-            disabled={!searchValue}
-          >
-            <X />
-          </InputGroupButton>
-        </InputGroupAddon>
+        {searchValue && (
+          <InputGroupAddon align="inline-end">
+            <InputGroupButton
+              size="icon-xs"
+              onClick={() => {
+                setSearchValue('');
+                handleSearch('');
+              }}
+              disabled={!searchValue}
+            >
+              <X />
+            </InputGroupButton>
+          </InputGroupAddon>
+        )}
         <InputGroupAddon>
           <Search />
         </InputGroupAddon>

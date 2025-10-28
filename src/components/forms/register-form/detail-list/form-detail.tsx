@@ -2,7 +2,6 @@
 
 import { RegisterDetailListHeader } from '@/components/lists/list-header';
 import { RegisterListTotal } from '@/components/lists/list-total';
-import { bgColors } from '@/lib/bg-colors';
 import { useFormContext } from '../../register';
 import { ProductCard } from './product-card';
 import { List } from '@/components/lists/lists';
@@ -31,21 +30,10 @@ export default function FormDetail() {
     },
   };
 
-  const subtitleOptions = {
-    ventas: 'de la venta',
-    compras: 'de la compra',
-    pedidos: 'del pedido',
-  };
-
   const options = registerOptions[formName];
-  const subtitle = subtitleOptions[formName];
 
   return (
-    <div
-      className={`flex flex-col rounded-lg bg-neutral-100 dark:bg-black border ${bgColors.borderColor} px-2 py-3 gap-3 mb-5`}
-    >
-      <h2 className="text-sm font-semibold">{`Detalle ${subtitle}`}</h2>
-
+    <div className={`flex flex-col rounded-lg gap-3 mb-5 md:border`}>
       {productList.length === 0 ? (
         <ProductCardEmpty />
       ) : (

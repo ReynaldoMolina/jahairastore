@@ -3,22 +3,34 @@
 import { CalendarDays } from 'lucide-react';
 import { DateSelector } from './date-selector';
 import { SalesOnlyReport, OrdersOnlyReport, CashFlowReport } from './reports';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../ui/card';
 
 export function Dashboard({ data, searchParams }) {
   return (
     <main className="flex flex-col flex-1 w-full md:max-w-3xl gap-3 mx-auto">
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center w-full gap-5 bg-white dark:bg-neutral-900 p-3 rounded-lg">
-        <div className="flex gap-2 items-center">
-          <CalendarDays className="size-5" />
-          <h1 className="font-bold text-sm">Filtrar por fechas</h1>
-        </div>
-        <DateSelector searchParams={searchParams} />
-      </div>
-      <div className="flex flex-col gap-3">
-        <SalesOnlyReport data={data} />
-        <OrdersOnlyReport data={data} />
-        <CashFlowReport data={data} />
-      </div>
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle className="inline-flex flex-row gap-2">
+            <CalendarDays className="size-4" />
+            Filtrar por fechas
+          </CardTitle>
+          <CardDescription>
+            Selecciona las fechas para generar los informes.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <DateSelector searchParams={searchParams} />
+        </CardContent>
+      </Card>
+      <SalesOnlyReport data={data} />
+      <OrdersOnlyReport data={data} />
+      <CashFlowReport data={data} />
       {/* {isDemo && <AccountingReport data={data} />} */}
     </main>
   );

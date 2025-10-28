@@ -9,15 +9,15 @@ export function ProductSearch({ children, open }) {
 
   return (
     <section
-      className={`flex flex-col gap-4 bg-neutral-100 dark:bg-black ${bgColors.borderColor} rounded-lg p-2 my-6`}
+      className={`flex flex-col gap-4 bg-neutral-100 dark:bg-black border rounded-lg p-2 my-6`}
     >
       <div
         className="flex items-center justify-between gap-1 cursor-pointer"
         onClick={() => setIsSearchProductOpen((state) => !state)}
       >
-        <p className="text-sm font-semibold">Agregar productos</p>
+        <p className="text-xs font-semibold">Agregar productos</p>
         <ChevronDown
-          className={`rounded-md w-10 h-6=9 bg-white dark:bg-neutral-700 ${
+          className={`rounded-md w-9 h-5 bg-white dark:bg-neutral-700 ${
             isSearchProductOpen ? 'rotate-180' : 'rotate-0'
           }`}
         />

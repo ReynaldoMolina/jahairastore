@@ -19,45 +19,43 @@ export default async function Inventory({ searchParams }) {
   if (data.length === 0) return <EmptyList query={query} />;
 
   return (
-    <>
-      <List>
-        <InventoryListHeader />
-        {data.map((register) => (
-          <ListCard href={`/productos/${register.Id}`} key={register.Id}>
-            <ListInfo>
-              <ListId id={register.Id} label="ID PRODUCTO" />
-              <ListName name={register.Nombre} />
-            </ListInfo>
-            <ListInfoDetail>
-              <ListDetail
-                detail={register.Id_shein || '-'}
-                label="Id externo"
-                number={false}
-              />
-              <ListDetail
-                detail={register.Existencias}
-                label="Disponibles"
-                color="gray"
-                number={false}
-              />
-              <ListDetail
-                detail={register.Precio_venta}
-                label="Precio"
-                color="green"
-                nio={true}
-              />
-              <ListDetail
-                detail={register.Ganancia}
-                label="Ganancia"
-                color="blue"
-                nio={true}
-              />
-            </ListInfoDetail>
-          </ListCard>
-        ))}
-        <InventoryListTotal data={data} />
-      </List>
+    <List>
+      <InventoryListHeader />
+      {data.map((register) => (
+        <ListCard href={`/productos/${register.Id}`} key={register.Id}>
+          <ListInfo>
+            <ListId id={register.Id} label="ID PRODUCTO" />
+            <ListName name={register.Nombre} />
+          </ListInfo>
+          <ListInfoDetail>
+            <ListDetail
+              detail={register.Id_shein || '-'}
+              label="Id externo"
+              number={false}
+            />
+            <ListDetail
+              detail={register.Existencias}
+              label="Disponibles"
+              color="gray"
+              number={false}
+            />
+            <ListDetail
+              detail={register.Precio_venta}
+              label="Precio"
+              color="green"
+              nio={true}
+            />
+            <ListDetail
+              detail={register.Ganancia}
+              label="Ganancia"
+              color="blue"
+              nio={true}
+            />
+          </ListInfoDetail>
+        </ListCard>
+      ))}
+      <InventoryListTotal data={data} />
       <Pagination totalPages={totalPages} />
-    </>
+    </List>
   );
 }

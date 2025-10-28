@@ -21,22 +21,20 @@ export default async function Clients({ searchParams }) {
   if (data.length === 0) return <EmptyList query={query} />;
 
   return (
-    <>
-      <List>
-        <ClientListHeader />
-        {data.map((register) => (
-          <ListCard key={register.Id} href={`/clientes/${register.Id}`}>
-            <ListInfo>
-              <ListId id={register.Id} label="ID CLIENTE" />
-              <ListName name={`${register.Nombre} ${register.Apellido}`} />
-            </ListInfo>
-            <ListInfoDetail>
-              <ListPhone phone={register.Telefono} />
-            </ListInfoDetail>
-          </ListCard>
-        ))}
-      </List>
+    <List>
+      <ClientListHeader />
+      {data.map((register) => (
+        <ListCard key={register.Id} href={`/clientes/${register.Id}`}>
+          <ListInfo>
+            <ListId id={register.Id} label="ID CLIENTE" />
+            <ListName name={`${register.Nombre} ${register.Apellido}`} />
+          </ListInfo>
+          <ListInfoDetail>
+            <ListPhone phone={register.Telefono} />
+          </ListInfoDetail>
+        </ListCard>
+      ))}
       <Pagination totalPages={totalPages} />
-    </>
+    </List>
   );
 }

@@ -229,7 +229,7 @@ export function FormDate({ date, hidden }: FormDate) {
         id="Fecha"
         name="Fecha"
         type="date"
-        className={`flex ${bgColors.borderColor} items-center rounded-lg text-sm h-9 px-3 w-full`}
+        className={`flex border items-center rounded-lg text-xs h-9 px-3 w-full`}
         defaultValue={date ? date : currentDate}
         required
       ></input>
@@ -318,7 +318,7 @@ interface FormLabel {
 
 export function FormLabel({ children, name, textCenter = false }: FormLabel) {
   return (
-    <label htmlFor={name} className={`${textCenter && 'text-center'} text-sm`}>
+    <label htmlFor={name} className={`${textCenter && 'text-center'} text-xs`}>
       {children}
     </label>
   );
@@ -340,7 +340,7 @@ export function FormSelect({ value, name, data }) {
       <select
         id={name}
         name={name}
-        className={`flex ${bgColors.borderColor} bg-white dark:bg-neutral-900 rounded-lg text-sm h-9 px-3 w-full`}
+        className="flex rounded-lg text-xs h-9 px-3 w-full border"
         defaultValue={value}
         required
       >

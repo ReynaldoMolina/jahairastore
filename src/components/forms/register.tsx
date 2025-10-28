@@ -27,6 +27,7 @@ import { RegisterFormOptions } from './options/register';
 import { CardContent } from '../ui/card';
 import { FieldGroup, FieldSeparator, FieldSet } from '../ui/field';
 import { Separator } from '../ui/separator';
+import { ProductSearchDialog } from './register-form/product-list/product-search-dialog';
 
 const FormContext = createContext(null);
 export function useFormContext() {
@@ -71,15 +72,13 @@ export function RegisterForm({
   formName,
 }: RegisterForm) {
   const formInfo = {
-    ventas: { create: createSale, update: updateSale, holder: 'Venta' },
-    pedidos: { create: createOrder, update: updateOrder, holder: 'Pedido' },
+    ventas: { create: createSale, update: updateSale },
+    pedidos: { create: createOrder, update: updateOrder },
     compras: {
       create: createPurchase,
       update: updatePurchase,
-      holder: 'Compra',
     },
   };
-  const holder = formInfo[formName].holder;
   const actions = formInfo[formName];
   const action = isNew ? actions.create : actions.update;
   const originalList = detailList;
@@ -155,10 +154,9 @@ export function RegisterForm({
             {/* <FieldSet>
               <FormSubtotals credit={isNew ? false : register.Credito} />
             </FieldSet> */}
-            <FieldSeparator />
           </FieldGroup>
 
-          <ProductSearch open={isNew}>{children}</ProductSearch>
+          <ProductSearchDialog>{children}</ProductSearchDialog>
 
           <FormDetail />
 

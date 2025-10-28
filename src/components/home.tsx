@@ -10,11 +10,11 @@ export function Home({ businessInfo }: { businessInfo: SettingsFormType }) {
     <main className="m-auto p-5 grid md:grid-cols-2 gap-5">
       {/* Text section */}
       <div className="flex flex-col items-center md:justify-center md:items-start gap-5 order-2 md:order-1">
-        <h1 className="text-3xl font-extrabold bg-gradient-to-r from-purple-500 to-sky-500 bg-clip-text text-transparent">
+        <h1 className="text-2xl font-extrabold bg-gradient-to-r from-purple-500 to-sky-500 bg-clip-text text-transparent">
           {businessInfo.nombreEmpresa}
         </h1>
-        <p className="text-sm text-muted-foreground">{businessInfo.eslogan}</p>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-xs text-muted-foreground">{businessInfo.eslogan}</p>
+        <p className="text-xs text-muted-foreground">
           {isDemo ? 'DEMO' : businessInfo.mensaje || '¡Bienvenido!'}
         </p>
 

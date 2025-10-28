@@ -54,10 +54,10 @@ export function OrderListHeader() {
     <ListHeader>
       <ListInfo>
         <ListId id="ID" color="none" />
-        <ListName name="CLIENTE" />
+        <ListName name="CLIENTE" muted />
       </ListInfo>
       <ListInfoDetail>
-        <ListDate />
+        <ListDate muted />
         <ListDetail detail="TOTAL" color="none" number={false} />
         <ListDetail detail="ABONO" color="none" number={false} />
         <ListDetail detail="SALDO" color="none" number={false} />

@@ -54,9 +54,7 @@ export function ReceiptOptions({ register, formName }) {
         </ItemMedia>
         <ItemContent>
           <ItemTitle>Enviar recibo</ItemTitle>
-          <ItemDescription>
-            Envía el recibo por WhatsApp. (Función en fase de prueba)
-          </ItemDescription>
+          <ItemDescription>Envía el recibo por WhatsApp.</ItemDescription>
         </ItemContent>
         <ItemActions>
           <SendInvoiceButton

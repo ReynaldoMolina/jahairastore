@@ -12,7 +12,7 @@ export function MenuItem({ option }) {
         href={option.url}
         className={`flex flex-col md:flex-row min-w-17 md:w-full justify-center md:justify-start items-center cursor-pointer rounded-lg md:rounded-md gap-1 md:gap-2 p-2 md:py-2 text-xs ${
           isActive
-            ? 'bg-brand hover:bg-brand/90 dark:text-background font-semibold'
+            ? 'bg-brand hover:bg-brand/90 dark:text-background'
             : 'hover:bg-sidebar-accent'
         }`}
       >

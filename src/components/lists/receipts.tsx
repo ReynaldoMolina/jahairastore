@@ -20,30 +20,28 @@ export default async function Receipts({ searchParams }) {
   if (data.length === 0) return <EmptyList query={query} />;
 
   return (
-    <>
-      <List>
-        <ReceiptListHeader />
-        {data.map((register) => (
-          <ListCard key={register.Id} href={`/recibos/${register.Id}`}>
-            <ListInfo>
-              <ListId id={register.Id} label="ID RECIBO" />
-              <ListName name={register.NombreCliente} />
-            </ListInfo>
-            <ListInfoDetail>
-              <ListDate date={register.Fecha} />
-              <ListDetail
-                detail={register.Id_pedido}
-                label="Id pedido"
-                color="gray"
-                number={false}
-              />
-              <ListDetail detail={register.Abono} label="Abono" color="green" />
-            </ListInfoDetail>
-          </ListCard>
-        ))}
-        <ReceiptListTotal data={data} />
-      </List>
+    <List>
+      <ReceiptListHeader />
+      {data.map((register) => (
+        <ListCard key={register.Id} href={`/recibos/${register.Id}`}>
+          <ListInfo>
+            <ListId id={register.Id} label="ID RECIBO" />
+            <ListName name={register.NombreCliente} />
+          </ListInfo>
+          <ListInfoDetail>
+            <ListDate date={register.Fecha} />
+            <ListDetail
+              detail={register.Id_pedido}
+              label="Id pedido"
+              color="gray"
+              number={false}
+            />
+            <ListDetail detail={register.Abono} label="Abono" color="green" />
+          </ListInfoDetail>
+        </ListCard>
+      ))}
+      <ReceiptListTotal data={data} />
       <Pagination totalPages={totalPages} />
-    </>
+    </List>
   );
 }

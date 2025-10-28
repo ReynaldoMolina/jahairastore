@@ -4,8 +4,9 @@ import { useState } from 'react';
 import { useFormContext } from '../register';
 import { formatNumber } from '@/lib/formatters';
 import { FormLabel } from '../form-inputs/form-inputs';
-import { bgColors } from '@/lib/bg-colors';
 import { Copy, MessageCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export function Restante({ order }) {
   const { formTotals } = useFormContext();
@@ -49,69 +50,64 @@ export function Restante({ order }) {
   };
 
   return (
-    <section
-      className={`flex flex-col gap-3 bg-muted dark:bg-black rounded-lg p-2 ${bgColors.borderColor}`}
-    >
-      <p className="text-sm font-semibold">Por cobrar</p>
-      <div className="flex flex-col gap-3 items-center bg-card rounded-lg p-2">
-        <div className="flex gap-1 md:gap-3 w-full items-end">
-          <FormInput
-            name="Peso"
-            holder="Peso"
-            value={restante}
-            setValue={setRestante}
-          />
-          <FormInput
-            name="Cambio_dolar"
-            holder="Cambio USD"
-            value={restante}
-            setValue={setRestante}
-          />
-          <FormInput
-            name="Precio_libra"
-            holder="Precio libra"
-            value={restante}
-            setValue={setRestante}
-          />
-        </div>
-        <div className="flex flex-col p-2 rounded-lg bg-green-200 dark:bg-green-800 w-full shadow">
-          <p className="text-xs text-center">{`Hola ${order.Nombre}, ya está tu pedido listo para entregar 🥰.`}</p>
-          <p className="text-xs text-center">{`El paquete pesó ${formatNumber(
-            orderPeso
-          )} libras, en dólares $${formatNumber(orderEnvio)}.`}</p>
+    <section className={`flex flex-col gap-3 items-center`}>
+      <div className="flex gap-1 md:gap-3 w-full items-end">
+        <FormInput
+          name="Peso"
+          holder="Peso"
+          value={restante}
+          setValue={setRestante}
+        />
+        <FormInput
+          name="Cambio_dolar"
+          holder="Cambio USD"
+          value={restante}
+          setValue={setRestante}
+        />
+        <FormInput
+          name="Precio_libra"
+          holder="Precio libra"
+          value={restante}
+          setValue={setRestante}
+        />
+      </div>
+      <div className="flex flex-col p-2 rounded-lg bg-green-200 dark:bg-green-800 w-full shadow">
+        <p className="text-xs text-center">{`Hola ${order.Nombre}, ya está tu pedido listo para entregar 🥰.`}</p>
+        <p className="text-xs text-center">{`El paquete pesó ${formatNumber(
+          orderPeso
+        )} libras, en dólares $${formatNumber(orderEnvio)}.`}</p>
 
-          {saldo > 0 && (
-            <p className="text-xs text-center">{`El restante es de $${formatNumber(
-              saldo
-            )}.`}</p>
-          )}
+        {saldo > 0 && (
+          <p className="text-xs text-center">{`El restante es de $${formatNumber(
+            saldo
+          )}.`}</p>
+        )}
 
-          {saldo > 0 ? (
-            <p className="text-xs text-center">{`En total $${formatNumber(
-              ordereRestanteTotal
-            )}, en córdobas C$${formatNumber(
-              ordereRestanteTotalCordobas
-            )} 🥰`}</p>
-          ) : (
-            <p className="text-xs text-center">{`En córdobas C$${formatNumber(
-              ordereRestanteTotalCordobas
-            )} 🥰`}</p>
-          )}
-        </div>
-        <div className="flex gap-2">
-          <FormOption label="Copiar" action={handleCopyToClipboard}>
-            <Copy className="size-5 text-black" />
-          </FormOption>
-          {order.Telefono && (
-            <WhatsAppButton
-              message={message}
-              phoneNumber={order.Telefono}
-              label="Enviar"
-            >
-              <MessageCircle className="size-5 text-black" />
-            </WhatsAppButton>
-          )}
-        </div>
+        {saldo > 0 ? (
+          <p className="text-xs text-center">{`En total $${formatNumber(
+            ordereRestanteTotal
+          )}, en córdobas C$${formatNumber(
+            ordereRestanteTotalCordobas
+          )} 🥰`}</p>
+        ) : (
+          <p className="text-xs text-center">{`En córdobas C$${formatNumber(
+            ordereRestanteTotalCordobas
+          )} 🥰`}</p>
+        )}
+      </div>
+      <div className="flex gap-2">
+        <FormOption label="Copiar" action={handleCopyToClipboard}>
+          <Copy />
+        </FormOption>
+        {order.Telefono && (
+          <WhatsAppButton
+            message={message}
+            phoneNumber={order.Telefono}
+            label="Enviar"
+          >
+            <MessageCircle className="size-4 text-black" />
+          </WhatsAppButton>
+        )}
       </div>
     </section>
   );
@@ -129,7 +125,7 @@ function FormInput({ name, holder, value, setValue }) {
         type="number"
         min={0}
         step="0.001"
-        className={`flex ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
+        className="flex border items-center rounded-lg text-xs h-9 px-3 w-full"
         placeholder={holder}
         autoComplete="off"
         value={value[name]}
@@ -148,16 +144,10 @@ function FormInput({ name, holder, value, setValue }) {
 
 function FormOption({ label, children, action }) {
   return (
-    <button
-      className="flex justify-center items-center bg-sky-200 hover:bg-sky-300 transition rounded-lg py-2 px-3 cursor-pointer shadow-xs gap-2 h-full"
-      type="button"
-      onClick={action}
-    >
+    <Button type="button" onClick={action}>
       {children}
-      <label className="text-xs font-bold text-black cursor-pointer">
-        {label}
-      </label>
-    </button>
+      {label}
+    </Button>
   );
 }
 
@@ -167,16 +157,11 @@ function WhatsAppButton({ children, message, phoneNumber, label }) {
   const whatsAppUrl = `https://api.whatsapp.com/send?phone=${formattedPhoneNumber}&text=${encodedMessage}`;
 
   return (
-    <a
-      href={whatsAppUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex justify-center items-center bg-sky-200 rounded-lg p-2 cursor-pointer shadow-xs gap-2"
-    >
-      {children}
-      <label className="text-xs font-semibold text-black cursor-pointer">
-        {label}
-      </label>
-    </a>
+    <Button type="button" asChild>
+      <Link href={whatsAppUrl} target="_blank" rel="noopener noreferrer">
+        {children}
+        <label className="text-xs text-black">{label}</label>
+      </Link>
+    </Button>
   );
 }
