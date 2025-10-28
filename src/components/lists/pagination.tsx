@@ -26,9 +26,9 @@ export function Pagination({ totalPages }: { totalPages: number }) {
   };
 
   return (
-    <div className="inline-flex justify-center items-center overflow-scroll min-h-10 gap-3">
-      <span className="text-muted-foreground text-xs">{`Pág. ${currentPage} de ${totalPages}`}</span>
-      <div className="inline-flex gap-1 sm:gap-2">
+    <div className="inline-flex justify-center items-center overflow-auto min-h-10 gap-3">
+      <span className="text-muted-foreground text-xs">{`${currentPage} de ${totalPages}`}</span>
+      <div className="inline-flex gap-1">
         <PaginationArrow
           direction="left last"
           href={createPageURL(1)}

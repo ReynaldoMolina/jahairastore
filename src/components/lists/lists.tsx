@@ -11,10 +11,6 @@ export function List({ children }) {
   );
 }
 
-export function ListTitle({ title }) {
-  return <h1 className="font-bold text-md">{title}</h1>;
-}
-
 const listCardSClassName =
   'flex flex-col md:flex-row items-start p-4 gap-3 hover:bg-sky-100 dark:hover:bg-muted md:border-t first-of-type:border-t-0 border-border bg-card rounded-lg md:rounded-none shadow md:shadow-none';
 
@@ -108,7 +104,7 @@ export function ListDescription({ detail }) {
 export function ListId({ id, label = '', color = 'mdsky' }) {
   const bgColor = bgColors[color];
   return (
-    <div className="flex order-2 md:order-first items-center gap-1">
+    <div className="flex order-2 md:order-first items-center gap-1 text-muted-foreground">
       <span className="md:hidden text-xs">{label}:</span>
       <span
         className={`md:p-1 rounded-full ${bgColor} ${
@@ -143,11 +139,7 @@ export function ListInfoDetail({ children }) {
 }
 
 export function ListName({ name }) {
-  return (
-    <span className="py-1 text-sm font-bold md:text-xs md:font-medium">
-      {name}
-    </span>
-  );
+  return <span className="py-1 text-sm md:text-xs">{name}</span>;
 }
 
 export function ListPhone({ phone }) {

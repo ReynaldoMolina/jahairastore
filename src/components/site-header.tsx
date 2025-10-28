@@ -17,7 +17,7 @@ export function SiteHeader({ title, dontShowBackButton = false }: SiteHeader) {
   const { user } = getClientSession();
 
   return (
-    <header className="inline-flex font-bold text-md h-12 items-center border-b shrink-0 px-3 gap-2">
+    <header className="inline-flex font-bold text-md h-11 items-center border-b shrink-0 px-3 gap-2">
       {!dontShowBackButton && (
         <Button variant="ghost" size="icon" onClick={() => router.back()}>
           <ArrowLeft className="size-5" />

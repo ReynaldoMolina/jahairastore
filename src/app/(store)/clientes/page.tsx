@@ -2,7 +2,6 @@ import { checkAuthorization } from '@/authorization/check-authorization';
 import { ListFilter } from '@/components/actiontools/list-filter';
 import SearchInput from '@/components/actiontools/search-input';
 import Clients from '@/components/lists/clients';
-import { ListTitle } from '@/components/lists/lists';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
 
