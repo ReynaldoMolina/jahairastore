@@ -156,9 +156,9 @@ export function RegisterForm({
                 <FormDate date={isNew ? '' : register.Fecha} />
               </FormDiv>
             </FieldSet>
-            {/* <FieldSet>
+            <FieldSet>
               <FormSubtotals credit={isNew ? false : register.Credito} />
-            </FieldSet> */}
+            </FieldSet>
           </FieldGroup>
 
           <ProductSearchDialog>{children}</ProductSearchDialog>
