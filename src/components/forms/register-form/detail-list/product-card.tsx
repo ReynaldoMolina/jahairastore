@@ -17,7 +17,7 @@ export function ProductCard({ product, convert, price, overrideLeft }) {
   const ganancia = subtotalVenta - subtotalCompra;
 
   return (
-    <div className="flex flex-col md:flex-row items-start p-4 gap-3 border md:border-0 md:border-t first-of-type:border-t-0 border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 rounded-lg md:rounded-none">
+    <div className="flex flex-col md:flex-row items-start p-2 gap-2 border md:border-0 md:border-t first-of-type:border-t-0 rounded-lg md:rounded-none shadow-xs md:shadow-none">
       <CardInfo>
         <ListId id={product.Id_producto} label="ID PRODUCTO" />
         <ListName name={product.Nombre} />

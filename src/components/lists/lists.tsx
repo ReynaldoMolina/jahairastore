@@ -12,7 +12,7 @@ export function List({ children }) {
 }
 
 const listCardSClassName =
-  'flex flex-col md:flex-row items-start p-4 gap-3 hover:bg-sky-100 dark:hover:bg-muted md:border-t md:first-of-type:border-t-0 border-border bg-card rounded-lg md:rounded-none border md:border-0';
+  'flex flex-col md:flex-row items-start p-3 md:p-2 gap-2 hover:bg-sky-100 dark:hover:bg-muted md:border-t md:first-of-type:border-t-0 border-border bg-card rounded-lg md:rounded-none border md:border-0 shadow-xs md:shadow-none';
 
 export function ListCard({ children, href }) {
   return (
@@ -28,7 +28,7 @@ export function ProductSearchCard({ children }) {
 
 export function ListHeader({ children }) {
   return (
-    <div className="hidden md:flex px-4 py-3 md:justify-between items-center gap-3 border-b-2 border-border bg-secondary sticky top-0 z-10">
+    <div className="hidden md:flex p-2 md:justify-between items-center gap-3 border-b-2 border-border bg-secondary sticky top-0 z-10">
       {children}
     </div>
   );
@@ -36,7 +36,7 @@ export function ListHeader({ children }) {
 
 export function ListFooter({ children }) {
   return (
-    <div className="flex flex-col md:flex-row px-4 py-3 md:border-t-3 border-double md:justify-between items-start gap-3 bg-secondary rounded-lg md:rounded-none shadow md:shadow-none border md:border-0 md:rounded-b-lg">
+    <div className="flex flex-col md:flex-row p-2 md:border-t-3 border-double md:justify-between items-start gap-3 bg-secondary rounded-lg md:rounded-none shadow md:shadow-none border md:border-0 md:rounded-b-lg">
       {children}
     </div>
   );
@@ -75,7 +75,7 @@ export function ListDetail({
   );
 }
 
-export function ListDate({ date = '', muted = false }) {
+export function ListDate({ date = '' }) {
   const newDate = date !== '' ? formatDate(date) : 'FECHA';
 
   return (
@@ -83,13 +83,7 @@ export function ListDate({ date = '', muted = false }) {
       <span className="md:hidden text-muted-foreground text-xs min-w-18">
         Fecha:
       </span>
-      <span
-        className={`${
-          muted ? 'text-muted-foreground' : 'text-foreground'
-        } py-1 px-2 text-xs min-w-25 text-right`}
-      >
-        {newDate}
-      </span>
+      <span className="py-1 px-2 text-xs min-w-25 text-right">{newDate}</span>
     </div>
   );
 }
@@ -107,10 +101,10 @@ export function ListDescription({ detail }) {
   );
 }
 
-export function ListId({ id, label = '', color = 'mdsky' }) {
+export function ListId({ id, label = 'ID', color = 'mdsky' }) {
   const bgColor = bgColors[color];
   return (
-    <div className="flex order-2 md:order-first items-center gap-1 text-muted-foreground">
+    <div className="flex order-2 md:order-first items-center gap-1">
       <span className="md:hidden text-xs">{label}:</span>
       <span
         className={`md:p-1 rounded-full ${bgColor} ${
@@ -143,21 +137,8 @@ export function ListInfoDetail({ children }) {
   );
 }
 
-interface ListName {
-  name: string;
-  muted?: boolean;
-}
-
-export function ListName({ name, muted = false }) {
-  return (
-    <span
-      className={`${
-        muted ? 'text-muted-foreground' : 'text-foreground'
-      } py-1 text-xs`}
-    >
-      {name}
-    </span>
-  );
+export function ListName({ name }) {
+  return <span className="py-1 text-xs">{name}</span>;
 }
 
 export function ListPhone({ phone }) {

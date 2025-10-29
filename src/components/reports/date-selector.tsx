@@ -54,8 +54,8 @@ function DatePicker({ name, label, filter, setFilter }) {
   }
 
   return (
-    <div className="flex w-full flex-col gap-2">
-      <label htmlFor={name} className="text-xs font-bold">
+    <div className="flex w-full flex-col gap-3">
+      <label htmlFor={name} className="text-xs">
         {label}
       </label>
       <input

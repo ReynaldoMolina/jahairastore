@@ -21,6 +21,7 @@ import {
 import { SiteHeader } from '@/components/site-header';
 import { PageWrapper } from '@/components/page-wrapper';
 import { checkAuthorization } from '@/authorization/check-authorization';
+import { FormIdNew } from '@/components/forms/form-inputs/form-inputs';
 
 export const metadata = {
   title: 'Ajustes',
@@ -34,6 +35,10 @@ export default async function Page() {
       <SiteHeader title="Ajustes" dontShowBackButton />
       <PageWrapper>
         <Card className="mx-auto w-full max-w-xl">
+          <FormIdNew
+            holder="Ajustes"
+            description="Modifica los valores de la aplicación."
+          />
           <CardContent>
             <FieldGroup>
               {!isDemo && (

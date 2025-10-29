@@ -18,7 +18,7 @@ export default async function Categories({ searchParams }) {
       {data.map((register) => (
         <ListCard key={register.Id} href={`/categorias/${register.Id}`}>
           <ListInfo hideBorder={true}>
-            <ListId id={register.Id} label="ID CATEGORIA" />
+            <ListId id={register.Id} />
             <ListName name={register.Nombre} />
           </ListInfo>
         </ListCard>

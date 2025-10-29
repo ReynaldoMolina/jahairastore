@@ -4,8 +4,6 @@ import { createExpense, updateExpense } from '@/server-actions/actions';
 import { useActionState } from 'react';
 import { ExpensePayment } from './expense-payment';
 import {
-  FormContainer,
-  FormId,
   FormDiv,
   FormDate,
   FormSelect,
@@ -48,6 +46,10 @@ export function ExpenseForm({
 
   return (
     <FormContainerNew action={formAction}>
+      <FormIdNew
+        holder={isNew ? 'Crear gasto' : `Gasto ${expense.Id}`}
+        description="Ingresa la información del gasto."
+      />
       <CardContent>
         <FieldGroup>
           <FieldSet>

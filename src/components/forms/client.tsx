@@ -9,6 +9,7 @@ import {
   FormInput,
   FormContainerNew,
   FormTextArea,
+  FormIdNew,
 } from './form-inputs/form-inputs';
 import { ClientOptions } from './options/form-options';
 import { FieldGroup, FieldSeparator, FieldSet } from '../ui/field';
@@ -50,6 +51,10 @@ export function ClientForm({ isNew, client }: ClientForm) {
 
   return (
     <FormContainerNew action={formAction}>
+      <FormIdNew
+        holder={isNew ? 'Crear cliente' : `Cliente ${client.Id}`}
+        description="Ingresa la información del cliente."
+      />
       <CardContent>
         <FieldGroup>
           <FieldSet>

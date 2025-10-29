@@ -25,7 +25,7 @@ export default async function Page() {
     <>
       <SiteHeader title="Ajustes" />
       <PageWrapper>
-        <SettingsForm data={data} />;
+        <SettingsForm data={data} />
       </PageWrapper>
     </>
   );

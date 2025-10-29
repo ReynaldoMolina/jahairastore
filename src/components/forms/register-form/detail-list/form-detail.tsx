@@ -61,8 +61,8 @@ export default function FormDetail() {
 
 function ProductCardEmpty() {
   return (
-    <p className="flex items-center justify-center text-sm bg-white dark:bg-neutral-800 rounded-lg px-4 py-5 shadow-xs text-neutral-500 dark:text-neutral-400">
-      No hay productos en el detalle
+    <p className="flex items-center justify-center text-xs border rounded-lg px-4 py-5 text-muted-foreground">
+      No hay productos en el detalle.
     </p>
   );
 }

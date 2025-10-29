@@ -15,7 +15,7 @@ export default function NewRegister({ allowNew = true }) {
     <Button asChild disabled={!allowNew}>
       <Link href={href}>
         <Plus />
-        <span className="hidden sm:block">Nuevo</span>
+        Nuevo
       </Link>
     </Button>
   );

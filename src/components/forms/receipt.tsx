@@ -3,8 +3,6 @@
 import { createReceipt, updateReceipt } from '@/server-actions/actions';
 import { useActionState, useState } from 'react';
 import {
-  FormContainer,
-  FormId,
   FormDiv,
   FormDate,
   FormSelect,
@@ -55,6 +53,10 @@ export function ReceiptForm({
 
   return (
     <FormContainerNew action={formAction}>
+      <FormIdNew
+        holder={isNew ? 'Crear recibo' : `Recibo ${receipt.Id}`}
+        description="Ingresa la información del recibo."
+      />
       <CardContent>
         <FieldGroup>
           <FieldSet>

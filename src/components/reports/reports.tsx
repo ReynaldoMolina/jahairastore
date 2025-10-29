@@ -32,20 +32,13 @@ function Report({ children, title }: Report) {
     <Card>
       <CardHeader>
         <CardTitle
-          className={`${reportConfig[title].bgColor} inline-flex flex-row gap-2 p-1.5 rounded`}
+          className={`${reportConfig[title].bgColor} inline-flex flex-row gap-2 p-1.5 rounded items-center text-xs`}
         >
           {reportConfig[title].icon}
           {title}
         </CardTitle>
       </CardHeader>
       <CardContent>{children}</CardContent>
-      {/* <div
-        className={`flex items-center gap-2 p-2 w-full rounded-md ${reportConfig[title].bgColor}`}
-      >
-        {reportConfig[title].icon}
-        <span className="font-bold text-xs">{title}</span>
-      </div>
-      <div className="flex gap-7 flex-col w-full">{children}</div> */}
     </Card>
   );
 }

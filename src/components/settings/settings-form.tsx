@@ -1,7 +1,7 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import { FormButtons } from '../forms/form-inputs/form-inputs';
+import { FormButtons, FormIdNew } from '../forms/form-inputs/form-inputs';
 import {
   Card,
   CardContent,
@@ -55,12 +55,10 @@ export function SettingsForm({ data }: SettingsForm) {
       className="max-w-xl w-full mx-auto"
     >
       <Card>
-        <CardHeader className="border-b">
-          <CardTitle>Información del negocio</CardTitle>
-          <CardDescription>
-            Actualiza la información básica de tu negocio
-          </CardDescription>
-        </CardHeader>
+        <FormIdNew
+          holder="Información del negocio"
+          description="Actualiza la información básica de tu negocio."
+        />
         <CardContent>
           <FieldGroup>
             <FieldSet>

@@ -34,16 +34,18 @@ export function ProductPrices({ isNew, product }) {
 
   return (
     <>
-      <FormDiv flexCol={false}>
+      <FormDiv>
         <FormCheck
           name="Inventario"
           holder="¿Agregar al inventario?"
+          description="Se agregará a las listas de ventas y compras."
           value={inventario}
           setValue={setInventario}
         />
         <FormCheck
           name="Precio_nio"
           holder="¿Precio en córdobas?"
+          description="Se mostrará el precio en córdobas en las listas."
           value={precioNio}
           setValue={setPrecioNio}
         />

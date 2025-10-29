@@ -26,7 +26,7 @@ export default async function Providers({ searchParams }) {
       {data.map((register) => (
         <ListCard key={register.Id} href={`/proveedores/${register.Id}`}>
           <ListInfo>
-            <ListId id={register.Id} label="ID PROVEEDOR" />
+            <ListId id={register.Id} />
             <ListName name={register.Nombre_empresa} />
           </ListInfo>
           <ListInfoDetail>

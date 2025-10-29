@@ -26,7 +26,7 @@ export default async function Expenses({ searchParams }) {
       {data.map((register) => (
         <ListCard key={register.Id} href={`/gastos/${register.Id}`}>
           <ListInfo>
-            <ListId id={register.Id} label="ID GASTO" />
+            <ListId id={register.Id} />
             <ListName name={register.Nombre_empresa} />
           </ListInfo>
           <ListInfoDetail>

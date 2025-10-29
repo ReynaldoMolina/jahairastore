@@ -26,7 +26,7 @@ export default async function Clients({ searchParams }) {
       {data.map((register) => (
         <ListCard key={register.Id} href={`/clientes/${register.Id}`}>
           <ListInfo>
-            <ListId id={register.Id} label="ID CLIENTE" />
+            <ListId id={register.Id} />
             <ListName name={`${register.Nombre} ${register.Apellido}`} />
           </ListInfo>
           <ListInfoDetail>

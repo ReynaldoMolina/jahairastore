@@ -13,7 +13,7 @@ import {
 } from './form-inputs/form-inputs';
 import { ProductPrices } from './form-inputs/product-form-inputs';
 import { CardContent } from '../ui/card';
-import { FieldGroup, FieldSeparator, FieldSet } from '../ui/field';
+import { FieldGroup, FieldSet } from '../ui/field';
 
 interface ProductForm {
   isNew: boolean;
@@ -35,6 +35,10 @@ export function ProductForm({ isNew, product }: ProductForm) {
 
   return (
     <FormContainerNew action={formAction}>
+      <FormIdNew
+        holder={isNew ? 'Crear producto' : `Producto ${product.Id}`}
+        description="Ingresa la información del producto."
+      />
       <CardContent>
         <FieldGroup>
           <FieldSet>

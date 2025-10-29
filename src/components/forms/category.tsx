@@ -7,6 +7,7 @@ import {
   FormButtons,
   FormInput,
   FormContainerNew,
+  FormIdNew,
 } from './form-inputs/form-inputs';
 import { CardContent } from '../ui/card';
 
@@ -25,6 +26,10 @@ export function CategoryForm({ isNew, category }: CategoryForm) {
 
   return (
     <FormContainerNew action={formAction}>
+      <FormIdNew
+        holder={isNew ? 'Crear categoría' : `Categoría ${category.Id}`}
+        description="Ingresa la información de la categoría."
+      />
       <CardContent>
         <FormInput
           name="Nombre"

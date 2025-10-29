@@ -18,6 +18,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { ArrowLeft } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export function FormContainer({ children, action, wider = false }) {
   const maxWidth = wider ? '' : 'max-w-3xl';
@@ -145,7 +147,7 @@ export function FormInputState({
       <FormLabel name={name}>
         <span>{holder}</span>
         {!required && (
-          <span className="font-normal text-sm text-neutral-700 dark:text-neutral-300">
+          <span className="font-normal text-xs text-neutral-700 dark:text-neutral-300">
             {' (opcional)'}
           </span>
         )}
@@ -156,7 +158,7 @@ export function FormInputState({
         type={type}
         min={0}
         step="0.01"
-        className={`flex ${bgColors.borderColor} items-center rounded-lg text-sm h-9 px-3 w-full`}
+        className={`flex ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
         placeholder={holder}
         autoComplete="off"
         value={value}
@@ -188,7 +190,7 @@ export function FormSpan({
       <FormLabel name={name}>{holder}</FormLabel>
       <span
         id={name}
-        className={`flex ${bgColors.borderColor} ${bgColor} items-center rounded-lg text-sm h-9 px-3 w-full`}
+        className={`flex ${bgColors.borderColor} ${bgColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
       >
         {newValue}
       </span>
@@ -237,7 +239,21 @@ export function FormDate({ date, hidden }: FormDate) {
   );
 }
 
-export function FormCheck({ name, holder, value, setValue }) {
+export function FormCheck({ name, holder, description, value, setValue }) {
+  return (
+    <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950 w-full">
+      <Checkbox
+        name={name}
+        checked={value}
+        onCheckedChange={() => setValue((state) => !state)}
+        className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
+      />
+      <div className="grid gap-1.5 font-normal">
+        <p className="text-xs leading-none font-medium">{holder}</p>
+        <p className="text-muted-foreground text-xs">{description}</p>
+      </div>
+    </Label>
+  );
   return (
     <div className="flex flex-col gap-3 justify-center w-full">
       <FormLabel name={name} textCenter={true}>
@@ -265,7 +281,7 @@ export function FormButtons({ isNew, isPending }) {
       <Button type="button" variant="secondary" onClick={() => router.back()}>
         Cancelar
       </Button>
-      <Button disabled={isPending} className="w-25">
+      <Button disabled={isPending} className="w-22">
         {label}
         {isPending && <Spinner />}
       </Button>
@@ -288,12 +304,24 @@ interface FormIdNew {
 }
 
 export function FormIdNew({ holder, value, description }: FormIdNew) {
+  const router = useRouter();
+
   return (
-    <CardHeader className="border-b">
-      <CardTitle>
-        {holder} {value ? value : null}
-      </CardTitle>
-      <CardDescription>{description ? description : null}</CardDescription>
+    <CardHeader className="border-b inline-flex gap-2">
+      <Button
+        type="button"
+        variant="outline"
+        size="icon-sm"
+        onClick={() => router.back()}
+      >
+        <ArrowLeft />
+      </Button>
+      <div className="flex flex-col gap-2">
+        <CardTitle>
+          {holder} {value ? value : null}
+        </CardTitle>
+        <CardDescription>{description ? description : null}</CardDescription>
+      </div>
     </CardHeader>
   );
 }

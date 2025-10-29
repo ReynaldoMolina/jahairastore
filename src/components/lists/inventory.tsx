@@ -24,7 +24,7 @@ export default async function Inventory({ searchParams }) {
       {data.map((register) => (
         <ListCard href={`/productos/${register.Id}`} key={register.Id}>
           <ListInfo>
-            <ListId id={register.Id} label="ID PRODUCTO" />
+            <ListId id={register.Id} />
             <ListName name={register.Nombre} />
           </ListInfo>
           <ListInfoDetail>

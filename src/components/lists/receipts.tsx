@@ -25,7 +25,7 @@ export default async function Receipts({ searchParams }) {
       {data.map((register) => (
         <ListCard key={register.Id} href={`/recibos/${register.Id}`}>
           <ListInfo>
-            <ListId id={register.Id} label="ID RECIBO" />
+            <ListId id={register.Id} />
             <ListName name={register.NombreCliente} />
           </ListInfo>
           <ListInfoDetail>

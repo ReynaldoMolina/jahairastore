@@ -3,8 +3,6 @@
 import { createProvider, updateProvider } from '@/server-actions/actions';
 import { useActionState } from 'react';
 import {
-  FormContainer,
-  FormId,
   FormDiv,
   FormError,
   FormButtons,
@@ -31,6 +29,10 @@ export function ProviderForm({ isNew, provider }: ProviderForm) {
 
   return (
     <FormContainerNew action={formAction}>
+      <FormIdNew
+        holder={isNew ? 'Crear proveedor' : `Proveedor ${provider.Id}`}
+        description="Ingresa la información del proveedor."
+      />
       <CardContent>
         <FieldGroup>
           <FieldSet>

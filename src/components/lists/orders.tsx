@@ -28,7 +28,7 @@ export default async function Orders({ searchParams }) {
         return (
           <ListCard key={register.Id} href={`/pedidos/${register.Id}`}>
             <ListInfo>
-              <ListId id={register.Id} label="ID PEDIDO" />
+              <ListId id={register.Id} />
               <ListName name={register.NombreCliente} />
             </ListInfo>
             <ListInfoDetail>

@@ -17,17 +17,17 @@ export function ProductSearchDialog({ children }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="w-full">
+      <DialogTrigger className="w-full" asChild>
         <Button className="w-full my-5" type="button" variant="outline">
           <Plus />
           Agregar productos
         </Button>
       </DialogTrigger>
-      <DialogContent className="min-w-[90vw] md:max-w-lg">
+      <DialogContent className="min-w-dvw md:min-w-[80dvw]">
         <DialogHeader>
           <DialogTitle>Agregar productos</DialogTitle>
           <DialogDescription>
-            Selecciona los productos y luego cierra la ventana.
+            Selecciona los productos y luego cierra este cuadro de diálogo.
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col max-h-[80dvh] min-h-[80dvh] overflow-y-auto gap-3 w-full">
