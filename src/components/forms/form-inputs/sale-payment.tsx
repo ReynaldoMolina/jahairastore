@@ -21,6 +21,7 @@ export function SalePayment({ isCredit, setIsCredit }) {
       <FormCheck
         name="Credito"
         holder="¿Al crédito?"
+        description="Marcar venta como crédito."
         value={isCredit}
         setValue={setIsCredit}
       />
