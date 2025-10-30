@@ -16,7 +16,7 @@ export function Dashboard({ data, searchParams }) {
     <main className="flex flex-col flex-1 w-full md:max-w-xl gap-3 mx-auto">
       <Card className="w-full">
         <CardHeader>
-          <CardTitle className="inline-flex flex-row gap-2">
+          <CardTitle className="inline-flex items-center flex-row gap-2">
             <CalendarDays className="size-4" />
             Filtrar por fechas
           </CardTitle>

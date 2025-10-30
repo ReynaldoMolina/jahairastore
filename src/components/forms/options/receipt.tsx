@@ -73,14 +73,14 @@ export default function SendInvoiceButton({
   numero,
   cliente,
 }: {
-  reciboId: number;
+  reciboId: string | number;
   numero: string;
   cliente: string;
 }) {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
 
-  const sendInvoice = async () => {
+  async function sendInvoice() {
     try {
       setLoading(true);
       setStatus(null);
@@ -89,9 +89,9 @@ export default function SendInvoiceButton({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          reciboId,
           phoneNumber: numero,
           nombreCliente: cliente,
-          reciboId,
         }),
       });
 
@@ -115,7 +115,7 @@ export default function SendInvoiceButton({
     } finally {
       setLoading(false);
     }
-  };
+  }
 
   return (
     <Button onClick={sendInvoice} disabled={loading} variant="outline">

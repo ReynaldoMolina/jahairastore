@@ -23,7 +23,7 @@ export function getCurrentMonth() {
   return { firstDay, lastDay };
 }
 
-export function formatDate(isoDateStr) {
+export function formatDate(isoDateStr: string) {
   const [year, month, day] = isoDateStr.split('-').map(Number);
   const input = new Date(year, month - 1, day);
 
@@ -51,4 +51,12 @@ export function formatDateShort(isoDateStr) {
 
   monthStr = monthStr.substring(0, 3);
   return `${dayStr}/${monthStr}/${yearStr}`;
+}
+
+export function dateIsoToDate(date: string) {
+  return date ? new Date(`${date}T00:00:00`) : undefined;
+}
+
+export function dateToIso(date?: Date) {
+  return date ? date.toISOString().split('T')[0] : undefined;
 }

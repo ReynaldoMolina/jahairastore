@@ -1,26 +1,28 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { getCurrentMonth } from '@/lib/get-date';
-import { bgColors } from '@/lib/bg-colors';
+import { dateIsoToDate, getCurrentMonth } from '@/lib/get-date';
+import { DatePicker } from '../date-picker';
 
 export function DateSelector({ searchParams }) {
   const { firstDay, lastDay } = getCurrentMonth();
-  const startParam = searchParams?.start;
-  const endParam = searchParams?.end;
+
+  const startParam: string = searchParams?.start;
+  const endParam: string = searchParams?.end;
+
   const [filter, setFilter] = useState({
     start: startParam || firstDay,
     end: endParam || lastDay,
   });
 
   return (
-    <div className="flex justify-evenly md:justify-normal gap-3 w-full md:w-auto">
-      <DatePicker
+    <div className="flex flex-col sm:flex-row gap-5 w-full">
+      <DatePickerForm
         name="start"
         label="Desde el:"
         filter={filter}
         setFilter={setFilter}
       />
-      <DatePicker
+      <DatePickerForm
         name="end"
         label="Hasta el:"
         filter={filter}
@@ -44,28 +46,38 @@ function useSearchUtils() {
   return { updateURL };
 }
 
-function DatePicker({ name, label, filter, setFilter }) {
+interface DatePickerForm {
+  name: 'start' | 'end';
+  label: string;
+  filter: {
+    start: string;
+    end: string;
+  };
+  setFilter: Dispatch<
+    SetStateAction<{
+      start: string;
+      end: string;
+    }>
+  >;
+}
+
+function DatePickerForm({ name, label, filter, setFilter }: DatePickerForm) {
   const { updateURL } = useSearchUtils();
 
-  function handleChange(e) {
-    const newDate = e.target.value;
-    setFilter({ ...filter, [name]: newDate });
-    updateURL(name, newDate);
+  function handleChange(date: Date) {
+    const formattedDate = date.toISOString().split('T')[0];
+    setFilter({ ...filter, [name]: formattedDate });
+    updateURL(name, formattedDate);
   }
 
+  const dateString = filter[name];
+  const initialDate = dateIsoToDate(dateString);
+
   return (
-    <div className="flex w-full flex-col gap-3">
-      <label htmlFor={name} className="text-xs">
-        {label}
-      </label>
-      <input
-        type="date"
-        name={name}
-        id={name}
-        value={filter[name]}
-        onChange={handleChange}
-        className={`text-xs w-full rounded-lg p-2 h-9 ${bgColors.borderColor}`}
-      />
-    </div>
+    <DatePicker
+      label={label}
+      initialDate={initialDate}
+      handleChange={handleChange}
+    />
   );
 }

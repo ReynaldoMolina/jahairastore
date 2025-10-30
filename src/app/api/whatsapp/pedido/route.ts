@@ -45,15 +45,6 @@ export async function POST(req: NextRequest) {
                   },
                 ],
               },
-              // {
-              //   type: 'body',
-              //   parameters: [
-              //     {
-              //       type: 'number',
-              //       text: nombreCliente, // esto va en {{1}}
-              //     },
-              //   ],
-              // },
             ],
           },
         }),
