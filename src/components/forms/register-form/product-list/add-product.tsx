@@ -2,7 +2,7 @@
 
 import { calculateTotals } from '@/lib/calculate-totals';
 import { useFormContext } from '../../register';
-import { Square, SquareCheck } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 
 export default function AddProduct({ product, convert }) {
   const { productList, setProductList, setFormTotals } = useFormContext();
@@ -30,18 +30,10 @@ export default function AddProduct({ product, convert }) {
   const isInList = productList.some((e) => e.Id_producto === product.Id);
 
   return (
-    <button type="button">
-      {isInList ? (
-        <SquareCheck
-          className="size-7 min-w-7 cursor-pointer"
-          onClick={deleteProduct}
-        />
-      ) : (
-        <Square
-          className="size-7 min-w-7 cursor-pointer"
-          onClick={addProduct}
-        />
-      )}
-    </button>
+    <Checkbox
+      checked={isInList}
+      onCheckedChange={isInList ? deleteProduct : addProduct}
+      className="size-6 md:size-4 border-ring"
+    />
   );
 }
