@@ -1,16 +1,9 @@
 'use client';
 
 import { useState, createContext, useContext } from 'react';
-import FormDetail from './register-form/detail-list/form-detail';
+import FormDetail from '../register-form/detail-list/form-detail';
 import { useActionState } from 'react';
-import {
-  createSale,
-  updateSale,
-  createOrder,
-  updateOrder,
-  createPurchase,
-  updatePurchase,
-} from '@/server-actions/actions';
+import { createSale, updateSale } from '@/server-actions/actions';
 import {
   FormDiv,
   FormSelect,
@@ -19,24 +12,23 @@ import {
   FormButtons,
   FormContainerNew,
   FormIdNew,
-} from './form-inputs/form-inputs';
-import { ProductSearch } from './register-form/product-list/product-search';
-import { FormSubtotals } from './register-form/register-subtotals';
-import { calculateTotals } from '@/lib/calculate-totals';
-import { RegisterFormOptions } from './options/register';
-import { CardContent } from '../ui/card';
-import { FieldGroup, FieldSeparator, FieldSet } from '../ui/field';
-import { Separator } from '../ui/separator';
-import { ProductSearchDialog } from './register-form/product-list/product-search-dialog';
+} from '../form-inputs/form-inputs';
+import { FormSubtotals } from '../register-form/register-subtotals';
+import { calculateTotals2 } from '@/lib/calculate-totals';
+import { RegisterFormOptions } from '../options/register';
+import { CardContent } from '../../ui/card';
+import { FieldGroup, FieldSet } from '../../ui/field';
+import { Separator } from '../../ui/separator';
+import { ProductSearchDialog } from '../register-form/product-list/product-search-dialog';
 import { toast } from 'sonner';
 
-const FormContext = createContext(null);
+const VentaContext = createContext(null);
 export function useFormContext() {
-  const context = useContext(FormContext);
+  const context = useContext(VentaContext);
   return context;
 }
 
-interface RegisterForm {
+interface VentaForm {
   children: React.ReactNode;
   isNew: boolean;
   register?: any;
@@ -50,14 +42,14 @@ interface RegisterForm {
   formName: string;
 }
 
-type RegisterPayload = {
+type VentaPayload = {
   formData: any;
   productList: any[];
   id?: string;
   originalList?: any[];
 };
 
-export function RegisterForm({
+export function VentaForm({
   children,
   isNew,
   register = {},
@@ -69,25 +61,13 @@ export function RegisterForm({
   abono = 0,
   selectData,
   formName,
-}: RegisterForm) {
-  const formInfo = {
-    ventas: { create: createSale, update: updateSale, holder: 'Venta' },
-    pedidos: { create: createOrder, update: updateOrder, holder: 'Pedido' },
-    compras: {
-      create: createPurchase,
-      update: updatePurchase,
-      holder: 'Compra',
-    },
-  };
-  const actions = formInfo[formName];
-  const action = isNew ? actions.create : actions.update;
+}: VentaForm) {
+  const action = isNew ? createSale : updateSale;
   const originalList = detailList;
-  const holder: string = formInfo[formName].holder;
 
   const [productList, setProductList] = useState(isNew ? [] : detailList);
-  const totals = convert
-    ? calculateTotals(productList, convert)
-    : calculateTotals(productList);
+  const totals = calculateTotals2({ list: productList, convert });
+
   const [formTotals, setFormTotals] = useState(totals);
   const [formAbono, setFormAbono] = useState(abono);
 
@@ -95,20 +75,18 @@ export function RegisterForm({
     message: '',
   });
 
-  const formAction = _formAction as unknown as (
-    payload: RegisterPayload
-  ) => any;
+  const formAction = _formAction as unknown as (payload: VentaPayload) => any;
 
   function handleRegister(formData) {
     if (!allowEmpty && productList.length === 0) {
-      toast.warning('Agrega productos a la lista.');
+      toast.warning('Agrega productos a la lista');
       return;
     }
 
     if (isNew) {
       formAction({ formData, productList });
     } else {
-      const payload: RegisterPayload = {
+      const payload: VentaPayload = {
         id: registerId,
         formData,
         productList,
@@ -120,7 +98,7 @@ export function RegisterForm({
 
   return (
     <FormContainerNew action={handleRegister} wider={true}>
-      <FormContext.Provider
+      <VentaContext.Provider
         value={{
           productList,
           setProductList,
@@ -133,7 +111,7 @@ export function RegisterForm({
         }}
       >
         <FormIdNew
-          holder={isNew ? `Crear ${holder.toLowerCase()}` : holder}
+          holder={isNew ? 'Crear venta' : 'venta'}
           value={registerId}
           description="Actualiza la información del registro."
         />
@@ -178,7 +156,7 @@ export function RegisterForm({
         </CardContent>
 
         <FormButtons isNew={isNew} isPending={isPending} />
-      </FormContext.Provider>
+      </VentaContext.Provider>
     </FormContainerNew>
   );
 }

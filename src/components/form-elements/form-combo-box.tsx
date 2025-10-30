@@ -42,7 +42,7 @@ const frameworks = [
   },
 ];
 
-export function Combobox() {
+export function FormCombobox() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState('');
 

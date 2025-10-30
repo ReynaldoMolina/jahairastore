@@ -17,7 +17,7 @@ export function SalePayment({ isCredit, setIsCredit }) {
   }, [isCredit, formTotals.totalSell, formAbono, setFormAbono]);
 
   return (
-    <FormDiv flexCol={false}>
+    <FormDiv>
       <FormCheck
         name="Credito"
         holder="¿Al crédito?"
