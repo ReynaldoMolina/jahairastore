@@ -153,9 +153,13 @@ export async function getExpensesPages(query, limit) {
   }
 }
 
-export async function getProductsPages(query, limit) {
+export async function getProductsPages(
+  query,
+  limit,
+  inventario = false,
+  showAll = true
+) {
   try {
-    const data2 = await db.select();
     const data = await sql`
       SELECT COUNT(*)
       FROM "Productos"
@@ -166,6 +170,7 @@ export async function getProductsPages(query, limit) {
           "Fecha"::text
         ) ILIKE unaccent(${`%${query}%`})
       )
+      ${showAll ? sql`` : sql`AND "Inventario" = ${inventario}`}
     `;
     return Math.ceil(Number(data[0].count) / limit) || 1;
   } catch (error) {

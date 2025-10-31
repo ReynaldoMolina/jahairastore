@@ -20,7 +20,7 @@ export function SalePayment({ isCredit, setIsCredit }) {
     <FormDiv>
       <FormCheck
         name="Credito"
-        holder="¿Al crédito?"
+        label="¿Al crédito?"
         description="Marcar venta como crédito."
         value={isCredit}
         setValue={setIsCredit}

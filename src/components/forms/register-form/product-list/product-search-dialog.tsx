@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import SearchInput from '@/components/actiontools/search-input';
 import { ListFilter } from '@/components/actiontools/list-filter';
 import { Plus } from 'lucide-react';
 import {
@@ -11,6 +10,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { ActionBar } from '@/components/actiontools/action-bar';
 
 export function ProductSearchDialog({ children }) {
   const [open, setOpen] = useState(false);
@@ -31,9 +31,9 @@ export function ProductSearchDialog({ children }) {
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col max-h-[80dvh] min-h-[80dvh] overflow-y-auto gap-3 w-full">
-          <SearchInput allowNew={false}>
-            <ListFilter />
-          </SearchInput>
+          <ActionBar>
+            <></>
+          </ActionBar>
           {children}
         </div>
       </DialogContent>

@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import SearchInput from '@/components/actiontools/search-input';
-import { bgColors } from '@/lib/bg-colors';
 import { ListFilter } from '@/components/actiontools/list-filter';
 import { ChevronDown } from 'lucide-react';
+import { ActionBar } from '@/components/actiontools/action-bar';
 
 export function ProductSearch({ children, open }) {
   const [isSearchProductOpen, setIsSearchProductOpen] = useState(open);
@@ -25,9 +24,9 @@ export function ProductSearch({ children, open }) {
 
       {isSearchProductOpen && (
         <div className="flex flex-col max-h-[70dvh] overflow-y-auto gap-3">
-          <SearchInput allowNew={false}>
-            <ListFilter />
-          </SearchInput>
+          <ActionBar>
+            <></>
+          </ActionBar>
           {children}
         </div>
       )}

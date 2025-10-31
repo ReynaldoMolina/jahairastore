@@ -1,27 +1,21 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { ListFilter } from '@/components/actiontools/list-filter';
-import SearchInput from '@/components/actiontools/search-input';
 import Providers from '@/components/lists/providers';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
+import { PageProps } from '@/types/types';
 
 export const metadata = {
   title: 'Proveedores',
 };
 
-export default async function Page(props) {
+export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
-
-  const searchParams = await props.searchParams;
 
   return (
     <>
-      <SiteHeader title="Proveedores" dontShowBackButton />
+      <SiteHeader title="Proveedores" showActionBar />
       <PageWrapper>
-        <SearchInput>
-          <ListFilter searchParams={searchParams} />
-        </SearchInput>
-        <Providers searchParams={searchParams} />
+        <Providers searchParams={await searchParams} />
       </PageWrapper>
     </>
   );

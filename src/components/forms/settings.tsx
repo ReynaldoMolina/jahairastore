@@ -1,7 +1,7 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import { FormButtons, FormIdNew } from './form-inputs/form-inputs';
+import { FormButtons } from './form-inputs/form-inputs';
 import { Card, CardContent } from '../ui/card';
 import { FieldGroup, FieldSet } from '../ui/field';
 import { useForm } from 'react-hook-form';
@@ -49,28 +49,28 @@ export function SettingsForm({ data }: SettingsForm) {
       className="max-w-xl w-full mx-auto"
     >
       <Card>
-        <FormIdNew
-          holder="Información del negocio"
-          description="Actualiza la información básica de tu negocio."
-        />
         <CardContent>
           <FieldGroup>
             <FieldSet>
-              <FormInput form={form} name="nombreEmpresa" label="Nombre" />
               <FormInput
-                form={form}
+                control={form.control}
+                name="nombreEmpresa"
+                label="Nombre"
+              />
+              <FormInput
+                control={form.control}
                 name="eslogan"
                 label="Eslogan"
                 description="Aparecerá también en los recibos."
               />
               <FormInput
-                form={form}
+                control={form.control}
                 name="mensaje"
                 label="Mensaje"
                 description="Este mensaje aparecerá en la página Inicio."
               />
               <FormTextArea
-                form={form}
+                control={form.control}
                 name="porHacer"
                 label="Por hacer"
                 description="Mejoras, arreglos de errores, etc., puedes escribirlo aquí."
