@@ -1,6 +1,5 @@
 import { InventoryListTotal } from './list-total';
 import { InventoryListHeader } from './list-header';
-import { getInventory } from '@/fetch-data/data';
 import EmptyList from './empty-list';
 import {
   List,
@@ -12,8 +11,14 @@ import {
   ListName,
 } from './lists';
 import { Pagination } from './pagination';
+import { SearchParamsProps } from '@/types/types';
+import { getInventory } from '@/fetch-data/data';
 
-export default async function Inventory({ searchParams }) {
+export async function Inventory({
+  searchParams,
+}: {
+  searchParams: SearchParamsProps;
+}) {
   const { data, query, totalPages } = await getInventory(searchParams);
 
   if (data.length === 0) return <EmptyList query={query} />;

@@ -15,7 +15,7 @@ export default async function Page() {
   const businessInfo = await getBusinessInfo();
   return (
     <>
-      <SiteHeader title="Inicio" dontShowBackButton />
+      <SiteHeader title="Inicio" />
       <Home businessInfo={businessInfo} />
     </>
   );

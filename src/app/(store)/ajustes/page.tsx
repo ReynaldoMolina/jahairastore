@@ -4,12 +4,7 @@ import LogoutForm from '@/components/login/logout-form';
 import { ChevronRightIcon, Shapes, Store, Users } from 'lucide-react';
 import { ChangeTheme } from '@/components/change-theme';
 import { Card, CardContent } from '@/components/ui/card';
-import {
-  FieldDescription,
-  FieldGroup,
-  FieldSeparator,
-  FieldSet,
-} from '@/components/ui/field';
+import { FieldDescription, FieldGroup, FieldSet } from '@/components/ui/field';
 import {
   Item,
   ItemActions,
@@ -21,7 +16,6 @@ import {
 import { SiteHeader } from '@/components/site-header';
 import { PageWrapper } from '@/components/page-wrapper';
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { FormIdNew } from '@/components/forms/form-inputs/form-inputs';
 
 export const metadata = {
   title: 'Ajustes',
@@ -32,17 +26,13 @@ export default async function Page() {
 
   return (
     <>
-      <SiteHeader title="Ajustes" dontShowBackButton />
+      <SiteHeader title="Ajustes" />
       <PageWrapper>
         <Card className="mx-auto w-full max-w-xl">
-          <FormIdNew
-            holder="Ajustes"
-            description="Modifica los valores de la aplicación."
-          />
           <CardContent>
             <FieldGroup>
-              {!isDemo && (
-                <>
+              <FieldSet className="gap-3">
+                {!isDemo && (
                   <Item asChild variant="outline">
                     <Link href="/ajustes/info">
                       <ItemMedia variant="icon">
@@ -59,9 +49,7 @@ export default async function Page() {
                       </ItemActions>
                     </Link>
                   </Item>
-                </>
-              )}
-              <FieldSet>
+                )}
                 <Item asChild variant="outline">
                   <Link href="/categorias">
                     <ItemMedia variant="icon">
@@ -95,17 +83,11 @@ export default async function Page() {
                   </Link>
                 </Item>
               </FieldSet>
-              <FieldSeparator />
-              <FieldSet>
+              <FieldSet className="gap-3">
                 <FieldDescription>Tema</FieldDescription>
                 <ChangeTheme />
               </FieldSet>
-              {!isDemo && (
-                <>
-                  <FieldSeparator />
-                  <LogoutForm />
-                </>
-              )}
+              {!isDemo && <LogoutForm />}
             </FieldGroup>
           </CardContent>
         </Card>

@@ -1,3 +1,32 @@
+export interface SearchParamsProps {
+  start: string;
+  end: string;
+  page: string;
+}
+
+export interface PageProps {
+  params: Promise<{
+    id: string;
+  }>;
+  searchParams: Promise<SearchParamsProps>;
+}
+
+export interface ProductFormType {
+  id?: number;
+  idProveedor?: number | null;
+  nombre: string;
+  precioEnCordobas: boolean;
+  cambioDolar: number;
+  precioCompra: number;
+  precioVenta: number;
+  descripcion?: string | null;
+  idCategoria?: number | null;
+  fecha: string;
+  idShein?: string | null;
+  inventario: boolean;
+  precioEnCordobas: boolean;
+}
+
 export interface SettingsFormType {
   nombreEmpresa: string;
   eslogan: string;

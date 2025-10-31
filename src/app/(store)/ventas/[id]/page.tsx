@@ -9,36 +9,35 @@ import {
   getSalePdf,
   getClientsSelect,
 } from '@/fetch-data/data';
+import { PageProps } from '@/types/types';
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata(props) {
-  const { id } = await props.params;
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
   return {
     title: `Venta ${id}`,
   };
 }
 
-export default async function Page(props) {
+export default async function Page({ params, searchParams }: PageProps) {
   await checkAuthorization();
 
-  const searchParams = await props.searchParams;
-  const params = await props.params;
-  const saleId = params.id;
-  const sale = await getSaleById(saleId);
-  const saledetail = await getSaleDetailById(saleId);
-  const salePdf = await getSalePdf(saleId);
+  const { id } = await params;
+  const sale = await getSaleById(id);
+  const saledetail = await getSaleDetailById(id);
+  const salePdf = await getSalePdf(id);
   const selectData = await getClientsSelect();
 
   return (
     <>
-      <SiteHeader title={`Venta ${saleId}`} />
+      <SiteHeader title={`Venta ${id}`} />
       <PageWrapper>
         <RegisterForm
           isNew={false}
           register={sale}
           registerPdf={salePdf}
-          registerId={saleId}
+          registerId={id}
           detailList={saledetail}
           convert={true}
           allowEmpty={true}

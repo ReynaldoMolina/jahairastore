@@ -141,6 +141,7 @@ export const productos = pgTable(
     fecha: date('Fecha').notNull(),
     idShein: text('Id_shein'),
     inventario: boolean('Inventario').notNull(),
+    precioEnCordobas: boolean('Precio_en_cordobas').notNull().default(false),
     cambioDolar: doublePrecision('Cambio_dolar'),
   },
   (table) => [

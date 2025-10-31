@@ -1,5 +1,5 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { ProductForm } from '@/components/forms/product';
+import { CreateProductForm } from '@/components/forms/product/create';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
 
@@ -16,7 +16,7 @@ export default async function Page() {
     <>
       <SiteHeader title="Crear producto" />
       <PageWrapper>
-        <ProductForm isNew={true} />
+        <CreateProductForm />
       </PageWrapper>
     </>
   );

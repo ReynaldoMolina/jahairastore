@@ -239,7 +239,21 @@ export function FormDate({ date, hidden }: FormDate) {
   );
 }
 
-export function FormCheck({ name, holder, description, value, setValue }) {
+interface FormCheck {
+  name: string;
+  label: string;
+  description?: string;
+  value: boolean;
+  setValue: any;
+}
+
+export function FormCheck({
+  name,
+  label,
+  description,
+  value,
+  setValue,
+}: FormCheck) {
   return (
     <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950 w-full">
       <Checkbox
@@ -249,27 +263,12 @@ export function FormCheck({ name, holder, description, value, setValue }) {
         className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
       />
       <div className="grid gap-1.5 font-normal">
-        <p className="text-xs leading-none font-medium">{holder}</p>
-        <p className="text-muted-foreground text-xs">{description}</p>
+        <p className="text-xs leading-none font-medium">{label}</p>
+        {description && (
+          <p className="text-muted-foreground text-xs">{description}</p>
+        )}
       </div>
     </Label>
-  );
-  return (
-    <div className="flex flex-col gap-3 justify-center w-full">
-      <FormLabel name={name} textCenter={true}>
-        {holder}
-      </FormLabel>
-      <div className="flex justify-center">
-        <input
-          name={name}
-          id={name}
-          className="size-9"
-          type="checkbox"
-          checked={value}
-          onChange={() => setValue((state) => !state)}
-        ></input>
-      </div>
-    </div>
   );
 }
 

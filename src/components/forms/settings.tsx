@@ -1,17 +1,11 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import { FormButtons, FormIdNew } from '../forms/form-inputs/form-inputs';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '../ui/card';
+import { FormButtons, FormIdNew } from './form-inputs/form-inputs';
+import { Card, CardContent } from '../ui/card';
 import { FieldGroup, FieldSet } from '../ui/field';
 import { useForm } from 'react-hook-form';
-import { settingsSchema } from '../forms/validation/settings';
+import { settingsSchema } from './validation/settings';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormInput } from '../form-elements/form-input';

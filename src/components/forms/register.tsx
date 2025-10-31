@@ -71,18 +71,16 @@ export function RegisterForm({
   formName,
 }: RegisterForm) {
   const formInfo = {
-    ventas: { create: createSale, update: updateSale, holder: 'Venta' },
-    pedidos: { create: createOrder, update: updateOrder, holder: 'Pedido' },
+    ventas: { create: createSale, update: updateSale },
+    pedidos: { create: createOrder, update: updateOrder },
     compras: {
       create: createPurchase,
       update: updatePurchase,
-      holder: 'Compra',
     },
   };
   const actions = formInfo[formName];
   const action = isNew ? actions.create : actions.update;
   const originalList = detailList;
-  const holder: string = formInfo[formName].holder;
 
   const [productList, setProductList] = useState(isNew ? [] : detailList);
   const totals = convert
@@ -132,11 +130,6 @@ export function RegisterForm({
           register,
         }}
       >
-        <FormIdNew
-          holder={isNew ? `Crear ${holder.toLowerCase()}` : holder}
-          value={registerId}
-          description="Actualiza la información del registro."
-        />
         <CardContent>
           <FieldGroup>
             <FieldSet>

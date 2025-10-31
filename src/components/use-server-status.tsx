@@ -42,5 +42,5 @@ export function useServerActionFeedback(
         description: state?.description ?? 'Ocurrió un problema inesperado.',
       });
     }
-  }, [state?.success]);
+  }, [state]);
 }

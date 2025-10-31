@@ -13,6 +13,7 @@ import {
 import { getCurrentMonth } from '../lib/get-date';
 import { sql } from '@/database/db-old';
 import { getBusinessInfo } from './settings';
+import { SearchParamsProps } from '@/types/types';
 
 const registerOptions = {
   categorias: {
@@ -956,12 +957,14 @@ export async function getInventory(searchParams) {
 //   }
 // }
 
-export async function getTotalsDashboard(startParam, endParam) {
+export async function getTotalsDashboard(searchParams: SearchParamsProps) {
+  const { start, end } = searchParams;
   const { firstDay, lastDay } = getCurrentMonth();
-  const start = startParam ? startParam : firstDay;
-  const end = endParam ? endParam : lastDay;
+
+  const startParam = start ? start : firstDay;
+  const endParam = end ? end : lastDay;
   const cambioDolar = 37;
-  const dateFragment = sql`BETWEEN ${start} AND ${end}`;
+  const dateFragment = sql`BETWEEN ${startParam} AND ${endParam}`;
 
   try {
     const salesContado = await sql`

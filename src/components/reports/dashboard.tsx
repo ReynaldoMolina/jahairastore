@@ -13,7 +13,7 @@ import {
 
 export function Dashboard({ data, searchParams }) {
   return (
-    <main className="flex flex-col flex-1 w-full md:max-w-xl gap-3 mx-auto">
+    <main className="flex flex-col flex-1 w-full max-w-xl gap-3 mx-auto">
       <Card className="w-full">
         <CardHeader>
           <CardTitle className="inline-flex items-center flex-row gap-2">

@@ -1,4 +1,4 @@
-import { getProducts } from '@/fetch-data/data';
+import { getProducts } from '@/fetch-data/product';
 import EmptyList from './empty-list';
 import { ProductListHeader } from './list-header';
 import {
@@ -21,30 +21,29 @@ export default async function Products({ searchParams }) {
     <List>
       <ProductListHeader />
       {data.map((register) => (
-        <ListCard key={register.Id} href={`/productos/${register.Id}`}>
+        <ListCard key={register.id} href={`/productos/${register.id}`}>
           <ListInfo>
-            <ListId id={register.Id} />
-            <ListName name={register.Nombre} />
+            <ListId id={register.id} />
+            <ListName name={register.nombre} />
           </ListInfo>
           <ListInfoDetail>
-            {/* <ListDate date={register.Fecha} /> */}
             <ListDetail
-              detail={register.Id_shein || '-'}
+              detail={register.idShein || '-'}
               label="Id externo"
               number={false}
             />
             <ListDetail
-              detail={register.Precio_venta}
+              detail={register.precioVenta}
               label="Precio venta"
               color="green"
             />
             <ListDetail
-              detail={register.Precio_compra}
+              detail={register.precioCompra}
               label="Precio compra"
               color="red"
             />
             <ListDetail
-              detail={register.Ganancia}
+              detail={register.ganancia}
               label="Ganancia"
               color="blue"
             />
