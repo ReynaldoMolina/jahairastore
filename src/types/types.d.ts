@@ -11,6 +11,16 @@ export interface PageProps {
   searchParams: Promise<SearchParamsProps>;
 }
 
+export interface SaleTable {
+  id: number;
+  nombreCliente: string;
+  abono: number;
+  fecha: string;
+  totalVenta: number;
+  totalCompra: number;
+  saldo: number;
+}
+
 export interface ProductFormType {
   id?: number;
   idProveedor?: number | null;

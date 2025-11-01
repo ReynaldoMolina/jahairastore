@@ -1,4 +1,4 @@
-import { getSales } from '@/fetch-data/data';
+import { getSales } from '@/fetch-data/sales';
 import EmptyList from './empty-list';
 import {
   List,
@@ -23,28 +23,30 @@ export default async function Sales({ searchParams }) {
     <List>
       <SaleListHeader />
       {data.map((register) => (
-        <ListCard key={register.Id} href={`/ventas/${register.Id}`}>
+        <ListCard key={register.id} href={`/ventas/${register.id}`}>
           <ListInfo>
-            <ListId id={register.Id} />
-            <ListName name={register.NombreCliente} />
+            <ListId id={register.id} />
+            <ListName name={register.nombreCliente} />
           </ListInfo>
           <ListInfoDetail>
-            <ListDate date={register.Fecha} />
+            <ListDate date={register.fecha} />
             <ListDetail
-              detail={register.TotalVenta}
+              detail={register.totalVenta}
               label="Total venta"
               color="gray"
               nio={true}
             />
             <ListDetail
-              detail={register.Saldo || 0}
+              detail={register.saldo || 0}
               label="Saldo"
               color="red"
               nio={true}
-              ping={register.Saldo > 0}
+              ping={register.saldo > 0}
             />
             <ListDetail
-              detail={register.TotalVenta - register.TotalCompra}
+              detail={
+                Number(register.totalVenta) - Number(register.totalCompra)
+              }
               label="Ganancia"
               color="blue"
               nio={true}

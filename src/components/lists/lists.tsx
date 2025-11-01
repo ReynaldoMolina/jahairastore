@@ -12,7 +12,7 @@ export function List({ children }) {
 }
 
 const listCardSClassName =
-  'flex flex-col md:flex-row items-start p-3 md:p-2 gap-2 hover:bg-sky-100 dark:hover:bg-muted md:border-t md:first-of-type:border-t-0 border-border bg-card rounded-lg md:rounded-none border md:border-0 shadow-xs md:shadow-none';
+  'flex flex-col md:flex-row items-start p-3 md:p-2 gap-2 hover:bg-muted md:border-t md:first-of-type:border-t-0 border-border bg-card rounded-lg md:rounded-none border md:border-0 shadow-xs md:shadow-none';
 
 export function ListCard({ children, href }) {
   return (

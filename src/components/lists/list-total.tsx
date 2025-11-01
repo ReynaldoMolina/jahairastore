@@ -1,3 +1,4 @@
+import { SaleTable } from '@/types/types';
 import {
   ListFooter,
   ListInfo,
@@ -189,17 +190,21 @@ export function ExpensesListTotal({ data }) {
   );
 }
 
-export function SaleListTotal({ data }) {
+interface SaleListTotal {
+  data: SaleTable[];
+}
+
+export function SaleListTotal({ data }: SaleListTotal) {
   const totals = data.reduce(
     (acc, item) => {
-      acc.TotalVenta += item.TotalVenta;
-      acc.TotalCompra += item.TotalCompra;
-      acc.totalAbono += item.Abono;
+      acc.totalVenta += item.totalVenta;
+      acc.totalCompra += item.totalCompra;
+      acc.totalAbono += item.abono;
       return acc;
     },
     {
-      TotalVenta: 0,
-      TotalCompra: 0,
+      totalVenta: 0,
+      totalCompra: 0,
       totalAbono: 0,
     }
   );
@@ -212,19 +217,19 @@ export function SaleListTotal({ data }) {
       </ListInfo>
       <ListInfoDetail>
         <ListDetail
-          detail={totals.TotalVenta}
+          detail={totals.totalVenta}
           label="Total ventas"
           color="gray"
           nio={true}
         />
         <ListDetail
-          detail={totals.TotalVenta - totals.totalAbono}
+          detail={totals.totalVenta - totals.totalAbono}
           label="Saldo"
           color="red"
           nio={true}
         />
         <ListDetail
-          detail={totals.TotalVenta - totals.TotalCompra}
+          detail={totals.totalVenta - totals.totalCompra}
           label="Ganancia"
           color="blue"
           nio={true}
