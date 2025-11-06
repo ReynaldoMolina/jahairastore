@@ -1,6 +1,5 @@
 'use client';
 
-import { bgColors } from '@/lib/bg-colors';
 import { useState } from 'react';
 import { FormDiv, FormInputState } from './form-inputs/form-inputs';
 import { Input } from '../ui/input';
@@ -83,7 +82,7 @@ function PaymentInput({ name, holder, value, setValue, focus = false }) {
         type="number"
         min={0}
         step="any"
-        className={`flex ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
+        className="flex border-input items-center rounded-lg text-xs h-9 px-3 w-full"
         placeholder={holder}
         autoComplete="off"
         value={value[name]}

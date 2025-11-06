@@ -111,6 +111,7 @@ export const ventas = pgTable('Ventas', {
   abono: doublePrecision('Abono').notNull(),
   credito: boolean('Credito').notNull(),
   saldo: doublePrecision('Saldo'),
+  cambioDolar: doublePrecision('Cambio_dolar'),
 });
 
 export const ventasDetalles = pgTable('VentasDetalles', {

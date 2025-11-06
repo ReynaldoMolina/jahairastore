@@ -2,35 +2,20 @@
 
 import { Search, X } from 'lucide-react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { DebouncedState, useDebouncedCallback } from 'use-debounce';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { Button } from '../ui/button';
+import { useState } from 'react';
+import { useDebouncedCallback } from 'use-debounce';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
 } from '../ui/input-group';
-import React, { useState } from 'react';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { Button } from '../ui/button';
 
 export function SearchButton() {
   const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-
-  const queryParam = searchParams.get('query') || '';
-  const [searchValue, setSearchValue] = useState(queryParam);
-
-  const handleSearch = useDebouncedCallback((term) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('page', '1');
-    if (term) {
-      params.set('query', term);
-    } else {
-      params.delete('query');
-    }
-    replace(`${pathname}?${params.toString()}`, { scroll: false });
-  }, 400);
+  const queryParam = searchParams.get('query');
 
   return (
     <Popover>
@@ -43,36 +28,59 @@ export function SearchButton() {
         </Button>
       </PopoverTrigger>
       <PopoverContent>
-        <InputGroup>
-          <InputGroupInput
-            type="search"
-            placeholder="Buscar"
-            autoComplete="off"
-            className="h-9"
-            value={searchValue}
-            onChange={(event) => {
-              const term = event.target.value;
-              setSearchValue(term);
-              handleSearch(term);
-            }}
-          />
-          <InputGroupAddon align="inline-end">
-            <InputGroupButton
-              size="icon-xs"
-              onClick={() => {
-                setSearchValue('');
-                handleSearch('');
-              }}
-              disabled={!searchValue}
-            >
-              <X />
-            </InputGroupButton>
-          </InputGroupAddon>
-          <InputGroupAddon>
-            <Search />
-          </InputGroupAddon>
-        </InputGroup>
+        <SearchInput />
       </PopoverContent>
     </Popover>
+  );
+}
+
+export function SearchInput() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  const queryParam = searchParams.get('query') || '';
+  const [searchValue, setSearchValue] = useState(queryParam);
+
+  const handleSearch = useDebouncedCallback((term: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set('page', '1');
+
+    if (term) params.set('query', term);
+    else params.delete('query');
+
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }, 400);
+
+  return (
+    <InputGroup className="max-w-60 h-8">
+      <InputGroupInput
+        type="search"
+        placeholder="Buscar"
+        autoComplete="off"
+        className="h-8"
+        value={searchValue}
+        onChange={(event) => {
+          const term = event.target.value;
+          setSearchValue(term);
+          handleSearch(term);
+        }}
+      />
+      <InputGroupAddon align="inline-end">
+        <InputGroupButton
+          size="icon-xs"
+          onClick={() => {
+            setSearchValue('');
+            handleSearch('');
+          }}
+          disabled={!searchValue}
+        >
+          <X />
+        </InputGroupButton>
+      </InputGroupAddon>
+      <InputGroupAddon>
+        <Search />
+      </InputGroupAddon>
+    </InputGroup>
   );
 }

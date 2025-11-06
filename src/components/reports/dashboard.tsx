@@ -24,13 +24,13 @@ export function Dashboard({ data, searchParams }) {
             Selecciona las fechas para generar los informes.
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="inline-flex gap-3 sm:gap-5 w-full">
           <DateSelector searchParams={searchParams} />
         </CardContent>
       </Card>
       <SalesOnlyReport data={data} />
       <OrdersOnlyReport data={data} />
-      <CashFlowReport data={data} />
+      {/* <CashFlowReport data={data} /> */}
       {/* {isDemo && <AccountingReport data={data} />} */}
     </main>
   );

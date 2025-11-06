@@ -1,23 +1,29 @@
 import { Page, Text, View, Document, Image } from '@react-pdf/renderer';
 import { styles } from './style';
 import { formatNumber } from '@/lib/formatters';
+import { formatDateShort } from '@/lib/get-date';
 
-export default function ReceiptPdf({ register, formName }) {
-  const isPedido = formName === 'pedidos';
+interface ReceiptPdf {
+  register: any;
+  formName: 'pedido' | 'venta';
+}
+
+export default function ReceiptPdf({ register, formName }: ReceiptPdf) {
+  const isPedido = formName === 'pedido';
   const totalQuantity = register.detail.reduce(
-    (sum, item) => sum + item.Cantidad,
+    (sum, item) => sum + item.cantidad,
     0
   );
 
   const generalTotal = register.detail.reduce((sum, item) => {
-    let itemTotal = item.Precio_venta * item.Cantidad;
+    let itemTotal = item.precioVenta * item.cantidad;
     if (!isPedido) {
-      itemTotal *= item.Cambio_dolar;
+      itemTotal *= item.cambioDolar;
     }
     return sum + itemTotal;
   }, 0);
 
-  const nombre = register.Id_cliente === 0 ? '' : ` ${register.Nombre}`;
+  const nombre = register.idCliente === 1 ? '' : ` ${register.nombreCliente}`;
   const currency = isPedido ? '$' : 'C$';
 
   return (
@@ -39,23 +45,25 @@ export default function ReceiptPdf({ register, formName }) {
                   <Text style={styles.orderInfoLabel}>Nombre:</Text>
                   <Text
                     style={styles.orderInfoText}
-                  >{`${register.Nombre} ${register.Apellido}`}</Text>
+                  >{`${register.nombreCliente} ${register.apellidoCliente}`}</Text>
                 </View>
                 <View style={styles.orderInfoContainer}>
                   <Text style={styles.orderInfoLabel}>Fecha:</Text>
-                  <Text style={styles.orderInfoText}>{register.Fecha}</Text>
+                  <Text style={styles.orderInfoText}>
+                    {formatDateShort(register.fecha)}
+                  </Text>
                 </View>
               </View>
               {isPedido && (
                 <View style={styles.orderInfo2}>
                   <View style={styles.orderInfoContainer}>
                     <Text style={styles.orderInfoLabel2}>Recibo:</Text>
-                    <Text style={styles.orderInfoText}>{register.Id}</Text>
+                    <Text style={styles.orderInfoText}>{register.id}</Text>
                   </View>
                   <View style={styles.orderInfoContainer}>
                     <Text style={styles.orderInfoLabel2}>Pedido:</Text>
                     <Text style={styles.orderInfoText}>
-                      {register.Id_pedido}
+                      {register.idPedido}
                     </Text>
                   </View>
                 </View>
@@ -64,12 +72,12 @@ export default function ReceiptPdf({ register, formName }) {
                 <View style={styles.orderInfo2}>
                   <View style={styles.orderInfoContainer}>
                     <Text style={styles.orderInfoLabel2}>Venta:</Text>
-                    <Text style={styles.orderInfoText}>{register.Id}</Text>
+                    <Text style={styles.orderInfoText}>{register.id}</Text>
                   </View>
                   <View style={styles.orderInfoContainer}>
                     <Text style={styles.orderInfoLabel2}>Tipo:</Text>
                     <Text style={styles.orderInfoText}>
-                      {register.Credito === true ? 'Crédito' : 'Contado'}
+                      {register.credito === true ? 'Crédito' : 'Contado'}
                     </Text>
                   </View>
                 </View>
@@ -87,27 +95,25 @@ export default function ReceiptPdf({ register, formName }) {
                 let precio,
                   subtotal = '';
                 if (isPedido) {
-                  precio = formatNumber(detail.Precio_venta);
-                  subtotal = formatNumber(
-                    detail.Precio_venta * detail.Cantidad
-                  );
+                  precio = formatNumber(detail.precioVenta);
+                  subtotal = formatNumber(detail.precioVenta * detail.cantidad);
                 } else {
                   precio = formatNumber(
-                    detail.Precio_venta * detail.Cambio_dolar
+                    detail.precioVenta * detail.cambioDolar
                   );
                   subtotal = formatNumber(
-                    detail.Precio_venta * detail.Cantidad * detail.Cambio_dolar
+                    detail.precioVenta * detail.cantidad * detail.cambioDolar
                   );
                 }
 
                 return (
-                  <View key={detail.Id_detalle} style={styles.tableRow}>
-                    <Text style={styles.tableRowName}>{detail.Nombre}</Text>
+                  <View key={detail.id} style={styles.tableRow}>
+                    <Text style={styles.tableRowName}>{detail.nombre}</Text>
                     <Text style={styles.tableRowData}>
                       {currency}
                       {precio}
                     </Text>
-                    <Text style={styles.tableRowCant}>{detail.Cantidad}</Text>
+                    <Text style={styles.tableRowCant}>{detail.cantidad}</Text>
                     <Text style={styles.tableRowData}>
                       {currency}
                       {subtotal}
@@ -131,14 +137,14 @@ export default function ReceiptPdf({ register, formName }) {
                 <Text style={styles.saldoLabel}>Abono:</Text>
                 <Text style={styles.saldo}>
                   {currency}
-                  {formatNumber(register.Abono)}
+                  {formatNumber(register.abono)}
                 </Text>
               </View>
               <View style={styles.orderSaldoContainer}>
                 <Text style={styles.saldoLabel}>Saldo:</Text>
                 <Text style={styles.saldo}>
                   {currency}
-                  {formatNumber(register.Saldo)}
+                  {formatNumber(register.saldo)}
                 </Text>
               </View>
               {isPedido && (

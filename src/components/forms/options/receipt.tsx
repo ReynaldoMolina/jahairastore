@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import ReceiptPdf from '../receipt-pdf';
-import { Download, MessageCircle, ShieldAlertIcon } from 'lucide-react';
+import { Download, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Item,

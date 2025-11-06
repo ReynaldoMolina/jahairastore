@@ -36,7 +36,7 @@ export function ListHeader({ children }) {
 
 export function ListFooter({ children }) {
   return (
-    <div className="flex flex-col md:flex-row p-2 md:border-t-3 border-double md:justify-between items-start gap-3 bg-secondary rounded-lg md:rounded-none shadow md:shadow-none border md:border-0 md:rounded-b-lg">
+    <div className="flex flex-col md:flex-row p-6 md:p-2 md:border-t-3 border-double md:justify-between items-start gap-3 bg-secondary rounded-lg md:rounded-none shadow md:shadow-none border md:border-0 md:rounded-b-lg">
       {children}
     </div>
   );

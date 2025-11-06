@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { Toggle } from '../ui/toggle';
-import { SearchParamsProps } from '@/types/types';
 import { PackageCheck, Wallet } from 'lucide-react';
 
 export const ITEMS_PER_PAGE = 20;
@@ -12,11 +11,10 @@ type ListName = 'pedidos' | 'ventas' | 'inventario';
 
 interface ListFilter {
   listName: ListName;
-  searchParams?: any;
 }
 
-export function ListFilter({ listName, searchParams }: ListFilter) {
-  return <FilterState searchParams={searchParams} listName={listName} />;
+export function ListFilter({ listName }: ListFilter) {
+  return <FilterState listName={listName} />;
 }
 
 export function useSearchUtils() {
@@ -39,12 +37,13 @@ export function useSearchUtils() {
 }
 
 interface FilterState {
-  searchParams: SearchParamsProps;
   listName: ListName;
 }
 
-function FilterState({ searchParams, listName }: FilterState) {
-  const stateParam = searchParams?.state;
+function FilterState({ listName }: FilterState) {
+  const searchParams = useSearchParams();
+  const stateParam = searchParams.get('state') || '';
+
   const [listState, setListState] = useState(Boolean(stateParam) || false);
   const { updateURL } = useSearchUtils();
 
@@ -73,7 +72,7 @@ function FilterState({ searchParams, listName }: FilterState) {
       variant="outline"
       onPressedChange={handleChange}
       pressed={listState}
-      className="bg-background data-[state=on]:bg-ring/30 text-xs"
+      className="bg-background data-[state=on]:bg-ring/30 text-xs shrink-0"
     >
       {icons[listName]}
       <span>{labels[listName]}</span>

@@ -1,16 +1,16 @@
 'use client';
 
-import { FieldGroup, FieldLabel, FieldSet } from '../../ui/field';
+import { FieldGroup, FieldSet } from '../../ui/field';
 import { ProductFormType } from '@/types/types';
 import { FormInput } from '@/components/form-elements/form-input';
 import { UseFormReturn } from 'react-hook-form';
 import { FormCheck } from '@/components/form-elements/form-checkbox';
-import { FormTextArea } from '@/components/form-elements/form-text-area';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
 import { formatNumber } from '@/lib/formatters';
-import { Input } from '@/components/ui/input';
 import { productSchema } from '../validation/product';
 import z from 'zod';
+import { FormInputOnChange } from '@/components/form-elements/form-input-on-change';
+import { FormTextArea } from '@/components/form-elements/form-text-area';
 
 interface ProductForm {
   form: UseFormReturn<z.infer<typeof productSchema>>;
@@ -45,7 +45,7 @@ export function ProductForm({ form }: ProductForm) {
         <FormInput control={form.control} name="fecha" label="Fecha" />
       </FieldSet>
       <FieldSet>
-        <FormInput control={form.control} name="nombre" label="Nombre" />
+        <FormTextArea control={form.control} name="nombre" label="Nombre" />
       </FieldSet>
       <FieldSet>
         <FormCheck
@@ -70,14 +70,14 @@ export function ProductForm({ form }: ProductForm) {
 
       {precioEnCordobas && (
         <FieldSet className="flex-row gap-3 md:gap-6">
-          <FormInputNio
+          <FormInputOnChange
             value={precioCompra * cambioDolar}
             label="Compra C$"
             handleChange={(val) =>
               form.setValue('precioCompra', Number(val) / cambioDolar)
             }
           />
-          <FormInputNio
+          <FormInputOnChange
             value={precioVenta * cambioDolar}
             label="Venta C$"
             handleChange={(val) =>
@@ -100,24 +100,5 @@ export function ProductForm({ form }: ProductForm) {
         <FormInput control={form.control} name="idShein" label="Id externo" />
       </FieldSet>
     </FieldGroup>
-  );
-}
-
-interface FormInputNio {
-  value: number | string;
-  label: string;
-  handleChange: (value: string) => void;
-}
-
-function FormInputNio({ value, label, handleChange }: FormInputNio) {
-  return (
-    <div className="flex flex-col w-full gap-3">
-      <FieldLabel>{label}</FieldLabel>
-      <Input
-        placeholder={label}
-        value={isNaN(Number(value)) ? '' : value}
-        onChange={(e) => handleChange(e.target.value)}
-      />
-    </div>
   );
 }

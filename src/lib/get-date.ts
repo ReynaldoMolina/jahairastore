@@ -41,7 +41,7 @@ export function formatDate(isoDateStr: string) {
   }
 }
 
-export function formatDateShort(isoDateStr) {
+export function formatDateShort(isoDateStr: string) {
   const [year, month, day] = isoDateStr.split('-').map(Number);
   const input = new Date(year, month - 1, day);
 

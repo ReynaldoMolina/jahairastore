@@ -1,4 +1,4 @@
-export function formatNumber(value, locale = 'es-NI') {
+export function formatNumber(value: number, locale = 'es-NI') {
   const formatter = new Intl.NumberFormat(locale, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,

@@ -85,7 +85,7 @@ export function EditProductFormDialog({ product }: EditProductFormDialog) {
               <Button
                 type="button"
                 onClick={form.handleSubmit(onSubmit)}
-                className="w-25"
+                className="w-full md:w-25"
                 disabled={isPending}
               >
                 {isPending ? <Spinner /> : 'Guardar'}

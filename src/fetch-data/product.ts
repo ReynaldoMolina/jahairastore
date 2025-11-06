@@ -1,7 +1,11 @@
 import { db } from '@/database/db';
-import { productos } from '@/database/schema/schema';
+import {
+  comprasDetalles,
+  productos,
+  ventasDetalles,
+} from '@/database/schema/schema';
 import { SearchParamsProps } from '@/types/types';
-import { desc, eq, sql } from 'drizzle-orm';
+import { desc, eq, sql, and } from 'drizzle-orm';
 import { getUrlParams } from './filter';
 import { buildSearchFilter } from './build-by-search';
 
@@ -49,5 +53,70 @@ export async function getProductById(id: number | string) {
     return data;
   } catch (error) {
     throw new Error('No se pudo obtener el producto.');
+  }
+}
+
+export async function getProductsSearchList(searchParams: SearchParamsProps) {
+  const { query, state, limit, offset } = getUrlParams(searchParams);
+
+  const filterBySearch = buildSearchFilter(searchParams, [productos.nombre]);
+
+  const filterByState = state
+    ? sql`(
+      COALESCE("ComprasTotales"."cantidad", 0) - COALESCE("VentasTotales"."cantidad", 0) > 0)`
+    : undefined;
+
+  try {
+    const compras = db
+      .select({
+        idProducto: comprasDetalles.idProducto,
+        cantidad: sql<number>`SUM(${comprasDetalles.cantidad})`.as('cantidad'),
+      })
+      .from(comprasDetalles)
+      .groupBy(comprasDetalles.idProducto)
+      .as('ComprasTotales');
+
+    const ventas = db
+      .select({
+        idProducto: ventasDetalles.idProducto,
+        cantidad: sql<number>`SUM(${ventasDetalles.cantidad})`.as('cantidad'),
+      })
+      .from(ventasDetalles)
+      .groupBy(ventasDetalles.idProducto)
+      .as('VentasTotales');
+
+    const products = await db
+      .select({
+        id: productos.id,
+        nombre: productos.nombre,
+        idShein: productos.idShein,
+        precioCompra: productos.precioCompra,
+        precioVenta: productos.precioVenta,
+        cambioDolar: productos.cambioDolar,
+        existencias: sql<number>`
+          COALESCE("ComprasTotales"."cantidad", 0) - COALESCE("VentasTotales"."cantidad", 0)
+        `,
+      })
+      .from(productos)
+      .leftJoin(compras, eq(compras.idProducto, productos.id))
+      .leftJoin(ventas, eq(ventas.idProducto, productos.id))
+      .where(and(filterBySearch, filterByState))
+      .orderBy(desc(productos.id))
+      .limit(limit)
+      .offset(offset);
+
+    const [{ count }] = await db
+      .select({ count: sql<number>`COUNT(*)` })
+      .from(productos)
+      .leftJoin(compras, eq(compras.idProducto, productos.id))
+      .leftJoin(ventas, eq(ventas.idProducto, productos.id))
+      .where(and(filterBySearch, filterByState));
+
+    const totalPages = Math.ceil(count / limit) || 1;
+
+    return { products, query, totalPages };
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudieron obtener los productos.');
   }
 }

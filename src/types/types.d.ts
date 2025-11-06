@@ -11,6 +11,11 @@ export interface PageProps {
   searchParams: Promise<SearchParamsProps>;
 }
 
+export interface SelectOptions {
+  value: string;
+  label: string;
+}
+
 export interface SaleTable {
   id: number;
   nombreCliente: string;
@@ -19,6 +24,51 @@ export interface SaleTable {
   totalVenta: number;
   totalCompra: number;
   saldo: number;
+}
+
+export interface SaleById {
+  nombreEmpresa: string;
+  eslogan: string;
+  id: number;
+  idCliente: number;
+  nombreCliente: string;
+  apellidoCliente: string;
+  fecha: string;
+  abono: number;
+  credito: boolean;
+  saldo: number;
+  cambioDolar: number;
+  detail: {
+    id: number;
+    idProducto: number;
+    nombre: string;
+    precioVenta: number;
+    precioCompra: number;
+    cantidad: number;
+    cambioDolar: number;
+    idVenta: number;
+  }[];
+}
+
+export interface SaleFormType {
+  id?: number;
+  idCliente: number;
+  fecha: string;
+  abono: number;
+  credito: boolean;
+  saldo: number | null;
+  cambioDolar: number;
+}
+
+export interface SaleDetailType {
+  id?: number;
+  idProducto: number;
+  nombre?: string;
+  precioVenta: number;
+  precioCompra: number;
+  cantidad: number;
+  cambioDolar: number;
+  idVenta: number;
 }
 
 export interface ProductFormType {
@@ -35,6 +85,22 @@ export interface ProductFormType {
   idShein?: string | null;
   inventario: boolean;
   precioEnCordobas: boolean;
+}
+
+export interface ProductSearchProduct {
+  id: number;
+  nombre: string;
+  idShein: string;
+  precioCompra: number;
+  precioVenta: number;
+  cambioDolar: number;
+  existencias: number;
+}
+
+export interface ProductSearchData {
+  products: ProductSearchProduct[];
+  query: string;
+  totalPages: number;
 }
 
 export interface SettingsFormType {

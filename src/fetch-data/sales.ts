@@ -1,6 +1,7 @@
 import { db } from '@/database/db';
 import {
   clientes,
+  configuracion,
   productos,
   ventas,
   ventasDetalles,
@@ -25,6 +26,7 @@ export async function getSales(searchParams: SearchParamsProps) {
         nombreCliente: sql<string>`${clientes.nombre} || ' ' || ${clientes.apellido}`,
         abono: ventas.abono,
         fecha: ventas.fecha,
+        credito: ventas.credito,
         totalVenta: sql<number>`
           COALESCE(ROUND(SUM(${ventasDetalles.precioVenta} * ${ventasDetalles.cantidad} * ${ventasDetalles.cambioDolar})::numeric, 2)::float, 0)
         `,
@@ -80,12 +82,52 @@ export async function getSales(searchParams: SearchParamsProps) {
 
 export async function getSaleById(id: number | string) {
   try {
-    const [data] = await db
-      .select()
-      .from(productos)
-      .where(eq(productos.id, Number(id)));
-    return data;
+    const [businessInfo] = await db
+      .select({
+        nombreEmpresa: configuracion.nombreEmpresa,
+        eslogan: configuracion.eslogan,
+      })
+      .from(configuracion)
+      .where(eq(configuracion.id, Number(1)));
+
+    const [sale] = await db
+      .select({
+        id: ventas.id,
+        idCliente: ventas.idCliente,
+        nombreCliente: clientes.nombre,
+        apellidoCliente: clientes.apellido,
+        fecha: ventas.fecha,
+        abono: ventas.abono,
+        credito: ventas.credito,
+        saldo: ventas.saldo,
+        cambioDolar: ventas.cambioDolar,
+      })
+      .from(ventas)
+      .leftJoin(clientes, eq(ventas.idCliente, clientes.id))
+      .where(eq(ventas.id, Number(id)));
+
+    const detail = await db
+      .select({
+        id: ventasDetalles.id,
+        idProducto: ventasDetalles.idProducto,
+        nombre: productos.nombre,
+        precioVenta: ventasDetalles.precioVenta,
+        precioCompra: ventasDetalles.precioCompra,
+        cantidad: ventasDetalles.cantidad,
+        cambioDolar: ventasDetalles.cambioDolar,
+        idVenta: ventasDetalles.idVenta,
+      })
+      .from(ventasDetalles)
+      .leftJoin(productos, eq(ventasDetalles.idProducto, productos.id))
+      .where(eq(ventasDetalles.idVenta, Number(id)))
+      .orderBy(desc(ventasDetalles.id));
+
+    return {
+      ...businessInfo,
+      ...sale,
+      detail,
+    };
   } catch (error) {
-    throw new Error('No se pudo obtener el producto.');
+    throw new Error('No se pudo obtener la venta.');
   }
 }

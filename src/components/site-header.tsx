@@ -10,6 +10,7 @@ interface SiteHeader {
   children?: React.ReactNode;
   showActionBar?: boolean;
   hideNewButton?: boolean;
+  hideBackButton?: boolean;
 }
 
 export function SiteHeader({
@@ -17,14 +18,17 @@ export function SiteHeader({
   children,
   showActionBar = false,
   hideNewButton,
+  hideBackButton,
 }: SiteHeader) {
   const router = useRouter();
 
   return (
-    <header className="inline-flex font-semibold text-sm h-10 items-center border-b shrink-0 px-3 gap-1">
-      <Button variant="ghost" size="icon" onClick={() => router.back()}>
-        <ArrowLeft className="size-4.5" />
-      </Button>
+    <header className="inline-flex font-semibold text-xs h-10 items-center border-b shrink-0 px-3 gap-1">
+      {!hideBackButton && (
+        <Button variant="ghost" size="icon" onClick={() => router.back()}>
+          <ArrowLeft className="size-4.5" />
+        </Button>
+      )}
       {title ? title : 'Title'}
       {showActionBar && (
         <ActionBar hideNewButton={hideNewButton}>{children}</ActionBar>

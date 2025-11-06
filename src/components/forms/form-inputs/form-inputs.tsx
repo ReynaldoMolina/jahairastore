@@ -158,7 +158,7 @@ export function FormInputState({
         type={type}
         min={0}
         step="0.01"
-        className={`flex ${bgColors.borderColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
+        className="flex border-input items-center rounded-lg text-xs h-9 px-3 w-full"
         placeholder={holder}
         autoComplete="off"
         value={value}
@@ -190,7 +190,7 @@ export function FormSpan({
       <FormLabel name={name}>{holder}</FormLabel>
       <span
         id={name}
-        className={`flex ${bgColors.borderColor} ${bgColor} items-center rounded-lg text-xs h-9 px-3 w-full`}
+        className={`flex ${bgColor} border-input items-center rounded-lg text-xs h-9 px-3 w-full`}
       >
         {newValue}
       </span>

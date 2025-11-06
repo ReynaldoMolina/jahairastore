@@ -84,7 +84,7 @@ export function CreateProductFormDialog() {
               <Button
                 type="button"
                 onClick={form.handleSubmit(onSubmit)}
-                className="w-25"
+                className="w-full sm:w-25"
                 disabled={isPending}
               >
                 {isPending ? <Spinner /> : 'Guardar'}

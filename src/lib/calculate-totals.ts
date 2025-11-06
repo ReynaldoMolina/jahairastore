@@ -12,16 +12,16 @@ export function calculateTotals2({ list, convert = false }: CalculateTotals) {
 
   for (const element of list) {
     totalSell +=
-      element.Cantidad *
-      element.Precio_venta *
-      (convert ? element.Cambio_dolar : 1);
+      element.cantidad *
+      element.precioVenta *
+      (convert ? element.cambioDolar : 1);
 
     totalCost +=
-      element.Cantidad *
-      element.Precio_compra *
-      (convert ? element.Cambio_dolar : 1);
+      element.cantidad *
+      element.precioCompra *
+      (convert ? element.cambioDolar : 1);
 
-    quantity += element.Cantidad;
+    quantity += element.cantidad;
   }
 
   let profit = totalSell - totalCost;

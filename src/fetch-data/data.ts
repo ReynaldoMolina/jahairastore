@@ -940,23 +940,6 @@ export async function getInventory(searchParams) {
   }
 }
 
-// export async function getBusinessInfo(id = 1) {
-//   try {
-//     const data = await sql`
-//       SELECT
-//         "Nombre_empresa",
-//         "Eslogan",
-//         "Mensaje"
-//       FROM "Configuracion"
-//       WHERE "Id" = ${id}
-//     `;
-//     return data[0];
-//   } catch (error) {
-//     console.error(error);
-//     throw new Error('No se pudo obtener la información del negocio');
-//   }
-// }
-
 export async function getTotalsDashboard(searchParams: SearchParamsProps) {
   const { start, end } = searchParams;
   const { firstDay, lastDay } = getCurrentMonth();
@@ -969,7 +952,7 @@ export async function getTotalsDashboard(searchParams: SearchParamsProps) {
   try {
     const salesContado = await sql`
       SELECT
-        COALESCE(ROUND(SUM("VentasDetalles"."Precio_venta" * "Cantidad" * "Cambio_dolar")::numeric, 2), 0)::float AS "VentasAlContado"
+        COALESCE(ROUND(SUM("VentasDetalles"."Precio_venta" * "VentasDetalles"."Cantidad" * "VentasDetalles"."Cambio_dolar")::numeric, 2), 0)::float AS "VentasAlContado"
       FROM "VentasDetalles"
       LEFT JOIN "Ventas" ON "VentasDetalles"."Id_venta" = "Ventas"."Id"
       WHERE "Ventas"."Credito" = false
@@ -1016,7 +999,7 @@ export async function getTotalsDashboard(searchParams: SearchParamsProps) {
 
     const totalSales = await sql`
       SELECT
-        COALESCE(ROUND(SUM("VentasDetalles"."Precio_venta" * "Cantidad" * "Cambio_dolar")::numeric, 2), 0)::float AS "VentaTotal"
+        COALESCE(ROUND(SUM("VentasDetalles"."Precio_venta" * "VentasDetalles"."Cantidad" * "VentasDetalles"."Cambio_dolar")::numeric, 2), 0)::float AS "VentaTotal"
       FROM "VentasDetalles"
       LEFT JOIN "Ventas" ON "VentasDetalles"."Id_venta" = "Ventas"."Id"
       WHERE "Ventas"."Fecha" ${dateFragment}
@@ -1032,7 +1015,7 @@ export async function getTotalsDashboard(searchParams: SearchParamsProps) {
 
     const salesCosts = await sql`
       SELECT
-        COALESCE(ROUND(SUM("VentasDetalles"."Precio_compra" * "Cantidad" * "Cambio_dolar")::numeric, 2), 0)::float AS "VentaCostoTotal"
+        COALESCE(ROUND(SUM("VentasDetalles"."Precio_compra" * "VentasDetalles"."Cantidad" * "VentasDetalles"."Cambio_dolar")::numeric, 2), 0)::float AS "VentaCostoTotal"
       FROM "VentasDetalles"
       LEFT JOIN "Ventas" ON "VentasDetalles"."Id_venta" = "Ventas"."Id"
       WHERE "Ventas"."Fecha" ${dateFragment}

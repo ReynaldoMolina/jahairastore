@@ -15,7 +15,7 @@ export function DateSelector({ searchParams }) {
   });
 
   return (
-    <div className="flex flex-col sm:flex-row gap-5 w-full">
+    <>
       <DatePickerForm
         name="start"
         label="Desde el:"
@@ -28,7 +28,7 @@ export function DateSelector({ searchParams }) {
         filter={filter}
         setFilter={setFilter}
       />
-    </div>
+    </>
   );
 }
 

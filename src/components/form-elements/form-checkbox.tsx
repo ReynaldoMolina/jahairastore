@@ -9,6 +9,7 @@ interface FormCheckbox<T extends FieldValues> {
   name: Path<T>;
   label: string;
   description?: string;
+  onCheckedExtra?: () => void;
 }
 
 export function FormCheck<T extends FieldValues>({
@@ -16,6 +17,7 @@ export function FormCheck<T extends FieldValues>({
   name,
   label,
   description,
+  onCheckedExtra,
 }: FormCheckbox<T>) {
   return (
     <Controller
@@ -23,11 +25,14 @@ export function FormCheck<T extends FieldValues>({
       control={control}
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
-          <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 w-full">
+          <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950">
             <Checkbox
               id={field.name}
               checked={!!field.value}
-              onCheckedChange={field.onChange}
+              onCheckedChange={(checked) => {
+                field.onChange(checked);
+                onCheckedExtra?.();
+              }}
               ref={field.ref}
               className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
             />

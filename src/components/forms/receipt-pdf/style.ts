@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   logoimg: {
-    height: 110,
-    width: 110,
+    height: 80,
+    width: 80,
   },
   title: {
     display: 'flex',

@@ -1,5 +1,11 @@
 import { z } from 'zod';
 
+export const zNumber = () =>
+  z.preprocess(
+    (value) => (value === '' ? null : Number(value)),
+    z.number({ invalid_type_error: 'Debe ser un número' })
+  ) as unknown as z.ZodNumber;
+
 export const zNumberMin = () =>
   z.preprocess(
     (value) => (value === '' ? null : Number(value)),
