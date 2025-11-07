@@ -1,65 +1,79 @@
-import { Trash2 } from 'lucide-react';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '../ui/select';
-import { cn } from '@/lib/utils';
+import { Minus, Plus } from 'lucide-react';
+import { Button } from '../ui/button';
+import { ButtonGroup } from '../ui/button-group';
+import { Input } from '../ui/input';
+import { ProductSearchProduct, SaleDetailType } from '@/types/types';
+import { Dispatch, SetStateAction } from 'react';
 
-interface ChangeQuantity {
-  handleChangeQty: (value: number | string) => void;
-  existencias: number;
-  className?: string;
+interface ChangeQuantityProps {
+  setSelectedProducts: Dispatch<SetStateAction<SaleDetailType[]>>;
+  product: ProductSearchProduct & { cantidad?: number };
 }
 
 export function ChangeQuantityCard({
-  handleChangeQty,
-  existencias,
-  className,
-}: ChangeQuantity) {
+  setSelectedProducts,
+  product,
+}: ChangeQuantityProps) {
   return (
     <div className="flex justify-between w-full items-center gap-3">
       <span className="text-muted-foreground text-xs">Cantidad</span>
       <ChangeQuantity
-        handleChangeQty={handleChangeQty}
-        existencias={existencias}
-        className={className}
+        setSelectedProducts={setSelectedProducts}
+        product={product}
       />
     </div>
   );
 }
 
 export function ChangeQuantity({
-  handleChangeQty,
-  existencias,
-  className,
-}: ChangeQuantity) {
+  setSelectedProducts,
+  product,
+}: ChangeQuantityProps) {
+  const cantidad = product.cantidad ?? 1;
+
+  function handleChange(delta: number) {
+    setSelectedProducts((prev) =>
+      prev.map((p) =>
+        p.idProducto === product.id
+          ? {
+              ...p,
+              cantidad: Math.max(
+                1,
+                Math.min(p.cantidad + delta, product.existencias)
+              ),
+            }
+          : p
+      )
+    );
+  }
+
   return (
-    <Select
-      defaultValue={'1'}
-      onValueChange={(value) => handleChangeQty(value)}
-    >
-      <SelectTrigger
-        className={cn(
-          'w-full max-w-25 md:max-w-fit max-h-6 rounded-full bg-card',
-          className
-        )}
+    <ButtonGroup>
+      <Button
+        variant="outline"
+        size="icon-sm"
+        className="size-6 rounded-full"
+        onClick={() => handleChange(-1)}
+        disabled={cantidad <= 1}
       >
-        <SelectValue placeholder="Seleccionar" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          {Array.from({ length: existencias }, (_, i) => (
-            <SelectItem key={i + 1} value={`${i + 1}`}>
-              {i + 1}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+        <Minus className="size-3" />
+      </Button>
+
+      <Input
+        readOnly
+        value={cantidad}
+        className="h-6 w-13.5 md:w-10 text-center bg-background text-xs"
+      />
+
+      <Button
+        variant="outline"
+        size="icon-sm"
+        className="size-6 rounded-full"
+        onClick={() => handleChange(1)}
+        disabled={cantidad >= product.existencias}
+      >
+        <Plus className="size-3" />
+      </Button>
+    </ButtonGroup>
   );
 }

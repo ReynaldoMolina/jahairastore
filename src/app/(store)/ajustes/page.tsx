@@ -50,7 +50,7 @@ export default async function Page() {
                     </Link>
                   </Item>
                 )}
-                <Item asChild variant="outline">
+                {/* <Item asChild variant="outline">
                   <Link href="/categorias">
                     <ItemMedia variant="icon">
                       <Shapes />
@@ -65,7 +65,7 @@ export default async function Page() {
                       <ChevronRightIcon className="size-4" />
                     </ItemActions>
                   </Link>
-                </Item>
+                </Item> */}
                 <Item asChild variant="outline">
                   <Link href="/proveedores">
                     <ItemMedia variant="icon">

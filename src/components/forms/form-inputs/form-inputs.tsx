@@ -276,13 +276,17 @@ export function FormButtons({ isNew, isPending }) {
   const router = useRouter();
   const label = isNew ? 'Crear' : 'Guardar';
   return (
-    <CardFooter className="gap-3 justify-end border-t">
-      <Button type="button" variant="secondary" onClick={() => router.back()}>
+    <CardFooter className="gap-3 flex-col-reverse md:flex-row md:justify-end border-t">
+      <Button
+        type="button"
+        variant="secondary"
+        onClick={() => router.back()}
+        className="w-full md:w-fit"
+      >
         Cancelar
       </Button>
-      <Button disabled={isPending} className="w-22">
-        {label}
-        {isPending && <Spinner />}
+      <Button disabled={isPending} className="w-full md:w-fit">
+        {isPending ? <Spinner /> : label}
       </Button>
     </CardFooter>
   );

@@ -106,7 +106,7 @@ export function Orders({ data, query, totalPages }: Orders) {
             </Link>
           );
         })}
-        <Card className="py-4 gap-4">
+        <Card className="py-4 gap-4 bg-muted">
           <CardHeader className="border-b [.border-b]:pb-4">
             <CardTitle>Total</CardTitle>
             <CardDescription className="inline-flex gap-3 items-center">

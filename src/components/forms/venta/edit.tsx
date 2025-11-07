@@ -58,7 +58,7 @@ export function EditSaleForm({
   useServerActionFeedback(state, { refresh: true });
 
   return (
-    <Tabs defaultValue="info">
+    <Tabs defaultValue="productos">
       <TabsList className="w-full sm:w-fit">
         <TabsTrigger value="info">Información</TabsTrigger>
         <TabsTrigger value="productos">Lista de productos</TabsTrigger>

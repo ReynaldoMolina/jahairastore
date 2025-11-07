@@ -139,7 +139,7 @@ export function Sales({ data, query, totalPages }) {
             <TableRow
               key={register.id}
               onClick={() => router.push(`/ventas/${register.id}`)}
-              className="hover:cursor-pointer hover:bg-brand/30 dark:hover:bg-muted/50"
+              className="hover:cursor-pointer"
             >
               <TableCell>
                 <Badge className="bg-brand text-black">{register.id}</Badge>

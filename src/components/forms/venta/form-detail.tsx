@@ -63,14 +63,6 @@ export function FormDetail({ productData, sale }: FormDetail) {
     });
   }
 
-  function handleChangeQuantity(idProducto: number | string, newQty: number) {
-    setSelectedProducts((prev) =>
-      prev.map((p) =>
-        p.idProducto === idProducto ? { ...p, cantidad: Number(newQty) } : p
-      )
-    );
-  }
-
   return (
     <>
       <ProductSearch
@@ -85,8 +77,8 @@ export function FormDetail({ productData, sale }: FormDetail) {
           priceToShow="precioVenta"
           sale={sale}
           selectedProducts={selectedProducts}
+          setSelectedProducts={setSelectedProducts}
           handleCheckedChange={handleCheckedChange}
-          handleChangeQuantity={handleChangeQuantity}
         />
       </ProductSearch>
       <SaleDetail productList={sale.detail} handleDelete={handleDelete} />

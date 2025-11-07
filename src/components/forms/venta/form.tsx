@@ -55,7 +55,9 @@ export function VentaForm({
           name="credito"
           label="¿Al crédito?"
           description="Marcar como venta al crédito."
-          onCheckedExtra={() => form.setValue('saldo', 0)}
+          onCheckedExtra={() =>
+            form.setValue('saldo', !credito ? totalSell - abono : 0)
+          }
         />
         {credito && !isNew && (
           <>

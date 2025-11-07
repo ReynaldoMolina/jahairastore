@@ -1,7 +1,7 @@
 'use client';
 
 import { calculateTotals2 } from '@/lib/calculate-totals';
-import { ProductSearchData, SaleDetailType } from '@/types/types';
+import { SaleDetailType } from '@/types/types';
 import {
   Card,
   CardAction,
@@ -78,7 +78,7 @@ export function SaleDetail({ productList, handleDelete }: SaleDetail) {
                   <DeleteButton handleDelete={() => handleDelete(product.id)} />
                 </CardAction>
               </CardHeader>
-              <CardContent className="space-y-1">
+              <CardContent>
                 <CardItem
                   value={String(product.cantidad)}
                   label="Cantidad"
@@ -112,7 +112,7 @@ export function SaleDetail({ productList, handleDelete }: SaleDetail) {
               <Badge variant="outline">Cantidad: {formTotals.quantity}</Badge>
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-1">
+          <CardContent>
             <CardItem
               value={formTotals.totalSell}
               label="Subtotal"

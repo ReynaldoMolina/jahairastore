@@ -12,7 +12,7 @@ import {
 } from '../ui/card';
 import { Checkbox } from '../ui/checkbox';
 import { CardItem, ListItem } from '../lists/list-elements/list-item';
-import { useMemo } from 'react';
+import { Dispatch, SetStateAction, useMemo } from 'react';
 import { Badge } from '../ui/badge';
 import { TableContainer } from '../tables/table';
 import {
@@ -24,15 +24,15 @@ import {
 } from '../ui/table';
 import { formatNumber } from '@/lib/formatters';
 import { bgColors } from '@/lib/bg-colors';
-import { ChangeQuantityCard } from './form-change-quantity';
+import { ChangeQuantity, ChangeQuantityCard } from './form-change-quantity';
 
 interface ProductSearchList {
   productData: ProductSearchData;
   priceToShow: 'precioVenta' | 'precioCompra';
   sale: SaleById;
   selectedProducts: SaleDetailType[];
+  setSelectedProducts: Dispatch<SetStateAction<SaleDetailType[]>>;
   handleCheckedChange: (product: SaleDetailType) => void;
-  handleChangeQuantity: (idProducto: number, newQty: number | string) => void;
 }
 
 export default function ProductSearchList({
@@ -40,8 +40,8 @@ export default function ProductSearchList({
   priceToShow,
   sale,
   selectedProducts,
+  setSelectedProducts,
   handleCheckedChange,
-  handleChangeQuantity,
 }: ProductSearchList) {
   const isMobile = useIsMobile();
 
@@ -118,16 +118,18 @@ export default function ProductSearchList({
                     className="justify-center"
                   />
                 )}
-                {isSoldOut || isAlreadyAdded
-                  ? null
-                  : isSelected && (
-                      <ChangeQuantityCard
-                        handleChangeQty={(newQty) =>
-                          handleChangeQuantity(p.id, newQty)
-                        }
-                        existencias={p.existencias}
-                      />
-                    )}
+                {isSelected && (
+                  <ChangeQuantityCard
+                    setSelectedProducts={setSelectedProducts}
+                    product={{
+                      ...p,
+                      cantidad:
+                        selectedProducts.find(
+                          (prod) => prod.idProducto === p.id
+                        )?.cantidad || 1,
+                    }}
+                  />
+                )}
               </CardContent>
             </Card>
           );
@@ -146,8 +148,9 @@ export default function ProductSearchList({
             </TableHead>
             <TableHead className="text-center">Id</TableHead>
             <TableHead>Producto</TableHead>
-            <TableHead>Precio</TableHead>
+            <TableHead>Cantidad</TableHead>
             <TableHead>Disponibles</TableHead>
+            <TableHead>Precio</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -196,11 +199,18 @@ export default function ProductSearchList({
                   {product.nombre}
                 </TableCell>
                 <TableCell>
-                  <ListItem
-                    value={formatNumber(price)}
-                    color="green"
-                    showPriceInNio
-                  />
+                  {isSelected && (
+                    <ChangeQuantity
+                      setSelectedProducts={setSelectedProducts}
+                      product={{
+                        ...product,
+                        cantidad:
+                          selectedProducts.find(
+                            (prod) => prod.idProducto === product.id
+                          )?.cantidad || 1,
+                      }}
+                    />
+                  )}
                 </TableCell>
                 <TableCell>
                   {product.existencias <= 0 ? (
@@ -215,6 +225,13 @@ export default function ProductSearchList({
                       className="justify-center"
                     />
                   )}
+                </TableCell>
+                <TableCell>
+                  <ListItem
+                    value={formatNumber(price)}
+                    color="green"
+                    showPriceInNio
+                  />
                 </TableCell>
               </TableRow>
             );

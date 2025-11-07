@@ -37,7 +37,7 @@ export const menuOptions = [
   {
     id: 3,
     name: 'Inventario',
-    url: '/inventario?state=true',
+    url: '/inventario',
     divider: false,
     icon: Warehouse,
   },
