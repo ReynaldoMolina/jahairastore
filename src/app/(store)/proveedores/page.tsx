@@ -1,7 +1,8 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import Providers from '@/components/lists/providers';
+import { Providers } from '@/components/lists/providers';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
+import { getProveedores } from '@/fetch-data/providers';
 import { PageProps } from '@/types/types';
 
 export const metadata = {
@@ -11,11 +12,13 @@ export const metadata = {
 export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
 
+  const { data, query, totalPages } = await getProveedores(await searchParams);
+
   return (
     <>
       <SiteHeader title="Proveedores" showActionBar />
       <PageWrapper>
-        <Providers searchParams={await searchParams} />
+        <Providers data={data} query={query} totalPages={totalPages} />
       </PageWrapper>
     </>
   );

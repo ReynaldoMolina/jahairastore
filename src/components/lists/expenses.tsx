@@ -4,7 +4,7 @@ import EmptyList from './empty-list';
 import { Pagination } from './pagination';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useRouter } from 'next/navigation';
-import { TableContainer } from '../tables/table';
+import { TableContainer } from './table';
 import {
   Card,
   CardHeader,
@@ -20,10 +20,10 @@ import {
   TableCell,
   TableFooter,
 } from '../ui/table';
-import { CardItem, ListItem } from './list-elements/list-item';
+import { CardItem, ListItem } from './list-item';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
-import { formatDate } from '@/lib/get-date';
+import { formatDate } from '@/lib/formatters';
 
 interface Expenses {
   data: {
@@ -125,8 +125,8 @@ export function Expenses({ data, query, totalPages }: Expenses) {
             return (
               <TableRow
                 key={register.id}
-                className="cursor-pointer"
-                onClick={() => router.push(`/recibos/${register.id}`)}
+                className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
+                onClick={() => router.push(`/gastos/${register.id}`)}
               >
                 <TableCell>
                   <Badge className="bg-brand text-black font-normal">

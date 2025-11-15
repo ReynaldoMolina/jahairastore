@@ -44,3 +44,39 @@ export async function getExpenses(searchParams: SearchParamsProps) {
     throw new Error('No se pudieron obtener los gastos');
   }
 }
+
+export async function getExpenseById(id: number | string) {
+  try {
+    const [data] = await db
+      .select({
+        id: egresos.id,
+        idCompra: egresos.idCompra,
+        idProveedor: egresos.idProveedor,
+        nombreEmpresa: proveedores.nombreEmpresa,
+        fecha: egresos.fecha,
+        gasto: egresos.gasto,
+        concepto: egresos.concepto,
+        cambioDolar: egresos.cambioDolar,
+      })
+      .from(egresos)
+      .leftJoin(proveedores, eq(egresos.idProveedor, proveedores.id))
+      .where(eq(egresos.id, Number(id)));
+    return data;
+  } catch (error) {
+    throw new Error('No se pudo obtener el gasto.');
+  }
+}
+
+export async function getExpenseProviderById(id: number | string) {
+  try {
+    const [data] = await db
+      .select({
+        nombreEmpresa: proveedores.nombreEmpresa,
+      })
+      .from(proveedores)
+      .where(eq(proveedores.id, Number(id)));
+    return data;
+  } catch (error) {
+    throw new Error('No se pudo obtener el proveedor del gasto.');
+  }
+}

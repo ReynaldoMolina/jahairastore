@@ -8,7 +8,6 @@ import {
   doublePrecision,
   boolean,
   foreignKey,
-  timestamp,
 } from 'drizzle-orm/pg-core';
 
 export const clientes = pgTable('Clientes', {
@@ -45,6 +44,9 @@ export const configuracion = pgTable('Configuracion', {
   eslogan: text('Eslogan').notNull(),
   mensaje: text('Mensaje'),
   porHacer: text('Por_hacer'),
+  cambioDolar: doublePrecision('Cambio_dolar'),
+  envioMaritimo: doublePrecision('Envio_maritimo'),
+  envioAereo: doublePrecision('Envio_aereo'),
 });
 
 export const egresos = pgTable('Egresos', {
@@ -64,12 +66,14 @@ export const pedidos = pgTable('Pedidos', {
   peso: doublePrecision('Peso'),
   cambioDolar: doublePrecision('Cambio_dolar'),
   precioLibra: doublePrecision('Precio_libra'),
+  tipoEnvio: text('Tipo_envio'),
 });
 
 export const pedidosDetalles = pgTable('PedidosDetalles', {
   id: serial('Id').primaryKey().notNull(),
   idPedido: integer('Id_pedido').notNull(),
-  idProducto: integer('Id_producto').notNull(),
+  // idProducto: integer('Id_producto').notNull(),
+  nombreProducto: text('Nombre_producto'),
   precioVenta: doublePrecision('Precio_venta').notNull(),
   precioCompra: doublePrecision('Precio_compra').notNull(),
   cantidad: integer('Cantidad').notNull(),

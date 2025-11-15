@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { NewButton } from './new-register';
-import { SearchButton } from './search-input';
+import { SearchInput } from './search-input';
 
 interface ActionBar {
   children: React.ReactNode;
@@ -12,8 +12,9 @@ interface ActionBar {
 export function ActionBar({ children, hideNewButton = false }: ActionBar) {
   return (
     <div className="flex gap-1 items-center ml-auto">
+      {/* <SearchButton /> */}
+      <SearchInput />
       {children}
-      <SearchButton />
       {!hideNewButton && <NewButton />}
     </div>
   );

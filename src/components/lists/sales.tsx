@@ -2,7 +2,7 @@
 
 import EmptyList from './empty-list';
 import { Pagination } from './pagination';
-import { TableContainer } from '../tables/table';
+import { TableContainer } from './table';
 import {
   TableBody,
   TableCell,
@@ -11,8 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from '../ui/table';
-import { formatDate } from '@/lib/get-date';
-import { formatNumber } from '@/lib/formatters';
+import { formatNumber, formatDate } from '@/lib/formatters';
 import { useIsMobile } from '@/hooks/use-mobile';
 import {
   Card,
@@ -22,7 +21,7 @@ import {
   CardTitle,
 } from '../ui/card';
 import { Badge } from '../ui/badge';
-import { CardItem, ListItem } from './list-elements/list-item';
+import { CardItem, ListItem } from './list-item';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -34,15 +33,15 @@ export function Sales({ data, query, totalPages }) {
 
   const totals = data.reduce(
     (acc, item) => {
-      acc.totalVenta += item.totalVenta;
-      acc.totalCompra += item.totalCompra;
-      acc.totalAbono += item.abono;
+      acc.total += item.total;
+      acc.saldo += item.saldo;
+      acc.ganancia += item.ganancia;
       return acc;
     },
     {
-      totalVenta: 0,
-      totalCompra: 0,
-      totalAbono: 0,
+      total: 0,
+      saldo: 0,
+      ganancia: 0,
     }
   );
 
@@ -66,7 +65,7 @@ export function Sales({ data, query, totalPages }) {
               </CardHeader>
               <CardContent>
                 <CardItem
-                  value={register.totalVenta}
+                  value={register.total}
                   label="Total"
                   color="neutral"
                   showPriceInNio
@@ -79,7 +78,7 @@ export function Sales({ data, query, totalPages }) {
                   showPing={register.saldo > 0.01}
                 />
                 <CardItem
-                  value={register.totalVenta - register.totalCompra}
+                  value={register.ganancia}
                   label="Ganancia"
                   color="blue"
                   showPriceInNio
@@ -97,19 +96,19 @@ export function Sales({ data, query, totalPages }) {
           </CardHeader>
           <CardContent>
             <CardItem
-              value={totals.totalVenta}
+              value={totals.total}
               label="Total"
               color="neutral"
               showPriceInNio
             />
             <CardItem
-              value={totals.totalVenta - totals.totalAbono}
+              value={totals.saldo}
               label="Saldo"
               color="red"
               showPriceInNio
             />
             <CardItem
-              value={totals.totalVenta - totals.totalCompra}
+              value={totals.ganancia}
               label="Ganancia"
               color="blue"
               showPriceInNio
@@ -139,7 +138,7 @@ export function Sales({ data, query, totalPages }) {
             <TableRow
               key={register.id}
               onClick={() => router.push(`/ventas/${register.id}`)}
-              className="hover:cursor-pointer"
+              className="hover:cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
             >
               <TableCell>
                 <Badge className="bg-brand text-black">{register.id}</Badge>
@@ -153,7 +152,7 @@ export function Sales({ data, query, totalPages }) {
               <TableCell>{formatDate(register.fecha)}</TableCell>
               <TableCell>
                 <ListItem
-                  value={formatNumber(register.totalVenta)}
+                  value={formatNumber(register.total)}
                   color="neutral"
                   showPriceInNio
                 />
@@ -168,9 +167,7 @@ export function Sales({ data, query, totalPages }) {
               </TableCell>
               <TableCell>
                 <ListItem
-                  value={formatNumber(
-                    Number(register.totalVenta) - Number(register.totalCompra)
-                  )}
+                  value={formatNumber(Number(register.ganancia))}
                   color="blue"
                   showPriceInNio
                 />
@@ -188,23 +185,21 @@ export function Sales({ data, query, totalPages }) {
             <TableCell></TableCell>
             <TableCell className="text-right">
               <ListItem
-                value={formatNumber(totals.totalVenta)}
+                value={formatNumber(totals.total)}
                 color="neutral"
                 showPriceInNio
               />
             </TableCell>
             <TableCell className="text-right">
               <ListItem
-                value={formatNumber(totals.totalAbono)}
+                value={formatNumber(totals.saldo)}
                 color="red"
                 showPriceInNio
               />
             </TableCell>
             <TableCell className="text-right">
               <ListItem
-                value={formatNumber(
-                  Number(totals.totalVenta) - Number(totals.totalCompra)
-                )}
+                value={formatNumber(Number(totals.ganancia))}
                 color="blue"
                 showPriceInNio
               />

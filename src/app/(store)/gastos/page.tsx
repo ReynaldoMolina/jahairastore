@@ -16,7 +16,7 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
-      <SiteHeader title="Gastos" showActionBar />
+      <SiteHeader title="Gastos" showActionBar hideNewButton />
       <PageWrapper>
         <Expenses data={data} query={query} totalPages={totalPages} />
       </PageWrapper>

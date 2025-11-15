@@ -1,26 +1,26 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { ClientForm } from '@/components/forms/client';
+import { EditClientForm } from '@/components/forms/client/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
-import { getClientById } from '@/fetch-data/data';
+import { getClientById } from '@/fetch-data/clients';
+import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 
-export async function generateMetadata(props) {
-  const { id } = await props.params;
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
 
   return {
     title: `Cliente ${id}`,
   };
 }
 
-export default async function Page(props) {
+export default async function Page({ params }: PageProps) {
   await checkAuthorization();
 
-  const params = await props.params;
-  const id = params.id;
-  const data = await getClientById(id);
+  const { id } = await params;
+  const client = await getClientById(id);
 
-  if (!data) {
+  if (!client) {
     notFound();
   }
 
@@ -28,7 +28,7 @@ export default async function Page(props) {
     <>
       <SiteHeader title={`Cliente ${id}`} />
       <PageWrapper>
-        <ClientForm isNew={false} client={data} />
+        <EditClientForm client={client} />
       </PageWrapper>
     </>
   );

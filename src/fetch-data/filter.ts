@@ -1,4 +1,3 @@
-import { sql } from '@/database/db-old';
 import { SearchParamsProps } from '@/types/types';
 
 export const ITEMS_PER_PAGE = 20;
@@ -17,10 +16,7 @@ export function getUrlParams(searchParams: SearchParamsProps) {
     : limitNum;
 
   const offset = limit ? (pageNum - 1) * limit : undefined;
-
-  const limitFragment = limit ? sql`LIMIT ${limit} OFFSET ${offset}` : sql``;
-
   const state = stateParam ? true : false;
 
-  return { query, state, limit, offset, limitFragment };
+  return { query, state, limit, offset };
 }

@@ -1,11 +1,20 @@
 import z from 'zod';
-import { zNumberMin, zNumber, zNumberNullable } from './zod-helper';
+import { zNumberMin, zNumber, zNumberMinZero } from './zod-helper';
 
 export const saleSchema = z.object({
   idCliente: zNumber(),
   fecha: z.string().min(1, 'Requerido'),
-  abono: zNumberNullable(),
+  abono: zNumberMinZero(),
   credito: z.boolean(),
   cambioDolar: zNumberMin(),
-  saldo: zNumberNullable(),
+  saldo: zNumberMinZero(),
+});
+
+export const saleDetailSchema = z.object({
+  idProducto: zNumberMin(),
+  precioVenta: zNumberMin(),
+  precioCompra: zNumberMin(),
+  cantidad: zNumberMin(),
+  cambioDolar: zNumberMin(),
+  idVenta: zNumberMin(),
 });

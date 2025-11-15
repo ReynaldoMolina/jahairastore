@@ -2,7 +2,7 @@ import { checkAuthorization } from '@/authorization/check-authorization';
 import { PageWrapper } from '@/components/page-wrapper';
 import { Dashboard } from '@/components/reports/dashboard';
 import { SiteHeader } from '@/components/site-header';
-import { getTotalsDashboard } from '@/fetch-data/data';
+import { getTotalsDashboard } from '@/fetch-data/dashboard';
 import { PageProps } from '@/types/types';
 
 export const metadata = {

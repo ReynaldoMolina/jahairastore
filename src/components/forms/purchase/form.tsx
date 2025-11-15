@@ -1,0 +1,71 @@
+'use client';
+
+import { FieldGroup, FieldSet } from '../../ui/field';
+import { UseFormReturn } from 'react-hook-form';
+import z from 'zod';
+import { PurchaseById, SelectOptions } from '@/types/types';
+import { FormComboBox } from '@/components/form-elements/form-combo-box';
+import { FormDatePicker } from '@/components/form-elements/form-date-picker';
+import { calculateTotals } from '@/lib/calculate-totals';
+import { purchaseSchema } from '../validation/purchase';
+import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
+import { formatNumber } from '@/lib/formatters';
+import { bgColors } from '@/lib/bg-colors';
+
+interface PurchaseForm {
+  form: UseFormReturn<z.infer<typeof purchaseSchema>>;
+  selectOptions: SelectOptions[];
+  purchase?: PurchaseById;
+  isNew?: boolean;
+}
+
+export function PurchaseForm({
+  form,
+  selectOptions,
+  purchase,
+  isNew = false,
+}: PurchaseForm) {
+  let totalCost = 0;
+  if (!isNew) {
+    const totals = calculateTotals({
+      list: purchase.detail,
+      convert: true,
+    });
+    totalCost = totals.totalCost;
+  }
+
+  return (
+    <FieldGroup>
+      <FieldSet>
+        <FormComboBox
+          control={form.control}
+          name="idProveedor"
+          selectOptions={selectOptions}
+          label="Proveedor"
+        />
+        <FormDatePicker control={form.control} label="Fecha" name="fecha" />
+      </FieldSet>
+      {!isNew && (
+        <>
+          <FieldSet className="flex-row gap-3">
+            <FormInputReadOnly
+              value={`C$ ${formatNumber(totalCost)}`}
+              label="Subtotal"
+              className={bgColors.neutral}
+            />
+            <FormInputReadOnly
+              value={`C$ ${formatNumber(purchase.gastos)}`}
+              label="Gastos"
+              className={bgColors.red}
+            />
+            <FormInputReadOnly
+              value={`C$ ${formatNumber(totalCost + purchase.gastos)}`}
+              label="Total compra"
+              className={bgColors.blue}
+            />
+          </FieldSet>
+        </>
+      )}
+    </FieldGroup>
+  );
+}

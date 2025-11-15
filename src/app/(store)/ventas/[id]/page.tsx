@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditSaleForm } from '@/components/forms/venta/edit';
+import { EditSaleForm } from '@/components/forms/sale/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
 import { getClientsSelect } from '@/fetch-data/clients';

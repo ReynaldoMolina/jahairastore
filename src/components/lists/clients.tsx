@@ -2,14 +2,8 @@
 
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useRouter } from 'next/navigation';
-import { TableContainer } from '../tables/table';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from '../ui/card';
+import { TableContainer } from './table';
+import { Card, CardHeader, CardTitle, CardDescription } from '../ui/card';
 import {
   TableHeader,
   TableRow,
@@ -19,7 +13,6 @@ import {
   TableFooter,
 } from '../ui/table';
 import EmptyList from './empty-list';
-import { CardItem } from './list-elements/list-item';
 import { Pagination } from './pagination';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
@@ -94,7 +87,7 @@ export function Clients({ data, query, totalPages }: Clients) {
             return (
               <TableRow
                 key={register.id}
-                className="cursor-pointer"
+                className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
                 onClick={() => router.push(`/clientes/${register.id}`)}
               >
                 <TableCell>
@@ -105,7 +98,7 @@ export function Clients({ data, query, totalPages }: Clients) {
                 <TableCell className="w-full whitespace-normal">
                   {register.nombre}
                 </TableCell>
-                <TableCell>{register.telefono || '-'}</TableCell>
+                <TableCell>{register.telefono}</TableCell>
               </TableRow>
             );
           })}

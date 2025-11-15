@@ -1,6 +1,6 @@
 'use client';
 
-import { TableContainer } from '../tables/table';
+import { TableContainer } from './table';
 import {
   Card,
   CardHeader,
@@ -16,7 +16,7 @@ import {
   TableCell,
 } from '../ui/table';
 import EmptyList from './empty-list';
-import { CardItem, ListItem } from './list-elements/list-item';
+import { CardItem, ListItem } from './list-item';
 import { Pagination } from './pagination';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useRouter } from 'next/navigation';
@@ -28,6 +28,8 @@ interface Products {
     id: number;
     nombre: string;
     idShein: string;
+    precioEnCordobas: boolean;
+    cambioDolar: number;
     precioCompra: number;
     precioVenta: number;
     ganancia: number;
@@ -62,22 +64,34 @@ export function Products({ data, query, totalPages }: Products) {
                 </CardHeader>
                 <CardContent>
                   <CardItem
-                    value={register.precioVenta}
+                    value={
+                      register.precioEnCordobas
+                        ? register.precioVenta * register.cambioDolar
+                        : register.precioVenta
+                    }
                     label="Venta"
                     color="green"
-                    showPriceInNio
+                    showPriceInNio={register.precioEnCordobas}
                   />
                   <CardItem
-                    value={register.precioCompra}
+                    value={
+                      register.precioEnCordobas
+                        ? register.precioCompra * register.cambioDolar
+                        : register.precioCompra
+                    }
                     label="Compra"
                     color="red"
-                    showPriceInNio
+                    showPriceInNio={register.precioEnCordobas}
                   />
                   <CardItem
-                    value={register.ganancia}
+                    value={
+                      register.precioEnCordobas
+                        ? register.ganancia * register.cambioDolar
+                        : register.ganancia
+                    }
                     label="Ganancia"
                     color="blue"
-                    showPriceInNio
+                    showPriceInNio={register.precioEnCordobas}
                   />
                 </CardContent>
               </Card>
@@ -106,7 +120,7 @@ export function Products({ data, query, totalPages }: Products) {
             return (
               <TableRow
                 key={register.id}
-                className="cursor-pointer"
+                className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
                 onClick={() => router.push(`/productos/${register.id}`)}
               >
                 <TableCell>
@@ -117,26 +131,38 @@ export function Products({ data, query, totalPages }: Products) {
                 <TableCell className="w-full whitespace-normal">
                   {register.nombre}
                 </TableCell>
-                <TableCell>{register.idShein || '-'}</TableCell>
+                <TableCell>{register.idShein}</TableCell>
                 <TableCell>
                   <ListItem
-                    value={register.precioVenta}
+                    value={
+                      register.precioEnCordobas
+                        ? register.precioVenta * register.cambioDolar
+                        : register.precioVenta
+                    }
                     color="green"
-                    showPriceInNio
+                    showPriceInNio={register.precioEnCordobas}
                   />
                 </TableCell>
                 <TableCell>
                   <ListItem
-                    value={register.precioCompra}
+                    value={
+                      register.precioEnCordobas
+                        ? register.precioCompra * register.cambioDolar
+                        : register.precioCompra
+                    }
                     color="red"
-                    showPriceInNio
+                    showPriceInNio={register.precioEnCordobas}
                   />
                 </TableCell>
                 <TableCell>
                   <ListItem
-                    value={register.ganancia}
+                    value={
+                      register.precioEnCordobas
+                        ? register.ganancia * register.cambioDolar
+                        : register.ganancia
+                    }
                     color="blue"
-                    showPriceInNio
+                    showPriceInNio={register.precioEnCordobas}
                   />
                 </TableCell>
               </TableRow>

@@ -19,7 +19,7 @@ export async function getOrders(searchParams: SearchParamsProps) {
   ]);
 
   const filterByState = state
-    ? sql`AND ROUND(
+    ? sql`ROUND(
       COALESCE("Ventas"."total", 0)::numeric -
       COALESCE("Abonos"."total", 0)::numeric,
       2
@@ -95,5 +95,50 @@ export async function getOrders(searchParams: SearchParamsProps) {
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener los pedidos');
+  }
+}
+
+export async function getOrderById(id: number | string) {
+  try {
+    const abonos = db
+      .select({
+        idPedido: recibos.idPedido,
+        total: sql<number>`SUM(${recibos.abono})`.as('total'),
+      })
+      .from(recibos)
+      .groupBy(recibos.idPedido)
+      .as('Abonos');
+
+    const [order] = await db
+      .select({
+        id: pedidos.id,
+        idCliente: pedidos.idCliente,
+        fecha: pedidos.fecha,
+        nombreCliente: clientes.nombre,
+        telefono: clientes.telefono,
+        peso: pedidos.peso,
+        cambioDolar: pedidos.cambioDolar,
+        precioLibra: pedidos.precioLibra,
+        tipoEnvio: pedidos.tipoEnvio,
+        abonos: sql<number>`COALESCE("Abonos"."total", 0)`,
+      })
+      .from(pedidos)
+      .leftJoin(clientes, eq(pedidos.idCliente, clientes.id))
+      .leftJoin(abonos, eq(pedidos.id, abonos.idPedido))
+      .where(eq(pedidos.id, Number(id)));
+
+    const detail = await db
+      .select()
+      .from(pedidosDetalles)
+      .where(eq(pedidosDetalles.idPedido, Number(id)))
+      .orderBy(desc(pedidosDetalles.id));
+
+    return {
+      ...order,
+      detail,
+    };
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudo obtener el pedido.');
   }
 }

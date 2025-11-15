@@ -1,41 +1,46 @@
 import { formatNumber } from '@/lib/formatters';
-import { isDemo } from '@/middleware';
 import { CircleDollarSign, Coins, ShoppingBag } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../ui/card';
+import { DashboardData } from '@/types/types';
 
 interface Report {
   children: React.ReactNode;
-  title:
-    | 'Solo ventas'
-    | 'Solo pedidos'
-    | 'Flujo de efectivo'
-    | 'Informe contable';
+  name: 'ventas' | 'pedidos' | 'flujoEfectivo' | 'informeContable';
 }
 
-function Report({ children, title }: Report) {
+function Report({ children, name }: Report) {
   const reportConfig = {
-    'Solo ventas': {
+    ventas: {
       icon: <Coins className="size-4" />,
       bgColor: 'bg-green-200 dark:bg-green-900',
+      title: 'Solo ventas',
     },
-    'Solo pedidos': {
+    pedidos: {
       icon: <ShoppingBag className="size-4" />,
       bgColor: 'bg-blue-200 dark:bg-blue-900',
+      title: 'Solo pedidos',
     },
-    'Flujo de efectivo': {
+    flujoEfectivo: {
       icon: <CircleDollarSign className="size-4" />,
       bgColor: 'bg-yellow-200 dark:bg-yellow-900',
+      title: 'Flujo de efectivo',
     },
   };
 
   return (
-    <Card>
+    <Card className="gap-3">
       <CardHeader>
         <CardTitle
-          className={`${reportConfig[title].bgColor} inline-flex flex-row gap-2 p-1.5 rounded items-center text-xs`}
+          className={`${reportConfig[name].bgColor} inline-flex gap-2 p-1.5 rounded items-center text-xs`}
         >
-          {reportConfig[title].icon}
-          {title}
+          {reportConfig[name].icon}
+          {reportConfig[name].title}
         </CardTitle>
       </CardHeader>
       <CardContent>{children}</CardContent>
@@ -43,11 +48,15 @@ function Report({ children, title }: Report) {
   );
 }
 
-export function OrdersOnlyReport({ data }) {
-  const profit = data.PedidosTotalEnDolares - data.PedidosCostosEnDolares;
+interface ReportData {
+  data: DashboardData;
+}
+
+export function OrdersOnlyReport({ data }: ReportData) {
+  const profit = data.totalOrdersInDollars - data.ordersCostsInDollars;
 
   return (
-    <Report title="Solo pedidos">
+    <Report name="pedidos">
       <table className="w-full">
         <thead>
           <tr className="border-b border-neutral-300 dark:border-neutral-600 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800">
@@ -59,13 +68,13 @@ export function OrdersOnlyReport({ data }) {
           <tr className="text-xs">
             <td className="py-1.5 text-left">(+) Ingresos</td>
             <td className="py-1.5 text-right">
-              $ {formatNumber(data.PedidosTotalEnDolares)}
+              $ {formatNumber(data.totalOrdersInDollars)}
             </td>
           </tr>
           <tr className="text-xs">
             <td className="py-1.5 text-left">(-) Costos</td>
             <td className="py-1.5 text-right">
-              $ {formatNumber(data.PedidosCostosEnDolares)}
+              $ {formatNumber(data.ordersCostsInDollars)}
             </td>
           </tr>
         </tbody>
@@ -86,12 +95,11 @@ export function OrdersOnlyReport({ data }) {
   );
 }
 
-export function SalesOnlyReport({ data }) {
-  const profit =
-    data.VentasAlContado + data.VentasCreditoAbonos - data.VentaCostoTotal;
+export function SalesOnlyReport({ data }: ReportData) {
+  const profit = data.salesContado + data.salesCreditAbonos - data.salesCosts;
 
   return (
-    <Report title="Solo ventas">
+    <Report name="ventas">
       <table className="w-full">
         <thead>
           <tr className="border-b border-neutral-300 dark:border-neutral-600 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800">
@@ -103,19 +111,19 @@ export function SalesOnlyReport({ data }) {
           <tr className="text-xs">
             <td className="py-1.5 text-left">(+) Al contado</td>
             <td className="py-1.5 text-right">
-              C$ {formatNumber(data.VentasAlContado)}
+              C$ {formatNumber(data.salesContado)}
             </td>
           </tr>
           <tr className="text-xs">
             <td className="py-1.5 text-left">(+) Al crédito (abonos)</td>
             <td className="py-1.5 text-right">
-              C$ {formatNumber(data.VentasCreditoAbonos)}
+              C$ {formatNumber(data.salesCreditAbonos)}
             </td>
           </tr>
           <tr className="text-xs">
             <td className="py-1.5 text-left">(-) Costos</td>
             <td className="py-1.5 text-right">
-              C$ {formatNumber(data.VentaCostoTotal)}
+              C$ {formatNumber(data.salesCosts)}
             </td>
           </tr>
         </tbody>
@@ -136,15 +144,15 @@ export function SalesOnlyReport({ data }) {
   );
 }
 
-export function CashFlowReport({ data }) {
+export function CashFlowReport({ data }: ReportData) {
   const totalIncome =
-    data.VentasAlContado + data.VentasCreditoAbonos + data.PedidosAbonos;
+    data.salesContado + data.salesCreditAbonos + data.ordersAbonos;
   const totalExpenses =
-    data.ComprasInventario + data.ComprasGastos + data.PedidosCostos;
+    data.comprasInventario + data.comprasGastos + data.ordersCosts;
   const profit = totalIncome - totalExpenses;
 
   return (
-    <Report title="Flujo de efectivo">
+    <Report name="flujoEfectivo">
       <table className="w-full">
         <thead>
           <tr className="border-b border-neutral-300 dark:border-neutral-600 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800">
@@ -156,19 +164,19 @@ export function CashFlowReport({ data }) {
           <tr className="text-xs">
             <td className="py-1.5 text-left">Ventas al contado</td>
             <td className="py-1.5 text-right">
-              {formatNumber(data.VentasAlContado)}
+              {formatNumber(data.salesContado)}
             </td>
           </tr>
           <tr className="text-xs">
             <td className="py-1.5 text-left">Abonos de ventas al crédito</td>
             <td className="py-1.5 text-right">
-              {formatNumber(data.VentasCreditoAbonos)}
+              {formatNumber(data.salesCreditAbonos)}
             </td>
           </tr>
           <tr className="text-xs">
             <td className="py-1.5 text-left">Abonos de pedidos</td>
             <td className="py-1.5 text-right">
-              {formatNumber(data.PedidosAbonos)}
+              {formatNumber(data.ordersAbonos)}
             </td>
           </tr>
         </tbody>
@@ -193,19 +201,19 @@ export function CashFlowReport({ data }) {
               {'Compras (productos inventario)'}
             </td>
             <td className="py-1.5 text-right">
-              {formatNumber(data.ComprasInventario)}
+              {formatNumber(data.comprasInventario)}
             </td>
           </tr>
           <tr className="text-xs">
             <td className="py-1.5 text-left">{'Gastos asociados a compras'}</td>
             <td className="py-1.5 text-right">
-              {formatNumber(data.ComprasGastos)}
+              {formatNumber(data.comprasGastos)}
             </td>
           </tr>
           <tr className="text-xs">
             <td className="py-1.5 text-left">Costos de pedidos</td>
             <td className="py-1.5 text-right">
-              {formatNumber(data.PedidosCostos)}
+              {formatNumber(data.ordersCosts)}
             </td>
           </tr>
         </tbody>
@@ -235,108 +243,6 @@ export function CashFlowReport({ data }) {
             <td className="py-1.5 text-left">10% para inversor</td>
             <td className="py-1.5 text-right">{formatNumber(profit * 0.1)}</td>
           </tr>
-        </tbody>
-      </table>
-    </Report>
-  );
-}
-
-export function AccountingReport({ data }) {
-  const totalIncome = data.VentaTotal + data.PedidosTotal;
-  const totalExpenses =
-    data.VentaCostoTotal + data.ComprasGastos + data.PedidosCostos;
-  const profit = totalIncome - totalExpenses;
-
-  return (
-    <Report title="Informe contable">
-      <table className="w-full">
-        <thead>
-          <tr className="border-b border-neutral-300 dark:border-neutral-600 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800">
-            <th className="py-1.5 text-left">Ingresos devengados</th>
-            <th className="py-1.5 text-right">Monto C$</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="text-xs">
-            <td className="py-1.5 text-left">
-              {'Total ventas (contado + crédito)'}
-            </td>
-            <td className="py-1.5 text-right">
-              {formatNumber(data.VentaTotal)}
-            </td>
-          </tr>
-          <tr className="text-xs">
-            <td className="py-1.5 text-left">Total pedidos</td>
-            <td className="py-1.5 text-right">
-              {formatNumber(data.PedidosTotal)}
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr className="text-xs font-semibold border-t border-neutral-300 dark:border-neutral-600">
-            <td className="py-1.5 text-left">Total</td>
-            <td className="py-1.5 text-right">{formatNumber(totalIncome)}</td>
-          </tr>
-        </tfoot>
-      </table>
-      {/* Gastos */}
-      <table className="w-full">
-        <thead>
-          <tr className="border-b border-neutral-300 dark:border-neutral-600 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800">
-            <th className="py-1.5 text-left">Costos y Gastos</th>
-            <th className="py-1.5 text-right">Monto C$</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="text-xs">
-            <td className="py-1.5 text-left">Costos de ventas</td>
-            <td className="py-1.5 text-right">
-              {formatNumber(data.VentaCostoTotal)}
-            </td>
-          </tr>
-          <tr className="text-xs">
-            <td className="py-1.5 text-left">{'Gastos asociados a compras'}</td>
-            <td className="py-1.5 text-right">
-              {formatNumber(data.ComprasGastos)}
-            </td>
-          </tr>
-          <tr className="text-xs">
-            <td className="py-1.5 text-left">Costos de pedidos</td>
-            <td className="py-1.5 text-right">
-              {formatNumber(data.PedidosCostos)}
-            </td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr className="text-xs font-semibold border-t border-neutral-300 dark:border-neutral-600">
-            <td className="py-1.5 text-left">Total</td>
-            <td className="py-1.5 text-right">{formatNumber(totalExpenses)}</td>
-          </tr>
-        </tfoot>
-      </table>
-      {/* Ganancia */}
-      <table className="w-full">
-        <thead>
-          <tr className="border-b border-neutral-300 dark:border-neutral-600 text-xs font-semibold bg-neutral-100 dark:bg-neutral-800">
-            <th className="py-1.5 text-left">Utilidad</th>
-            <th className="py-1.5 text-right">Monto C$</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="text-xs">
-            <td className="py-1.5 text-left">
-              Ingresos devengados - Costos y gastos
-            </td>
-            <td className="py-1.5 text-right">{formatNumber(profit)}</td>
-          </tr>
-          {!isDemo && (
-            <tr className="text-xs text-blue-800 dark:text-blue-300">
-              <td className="py-1.5 text-left">10% para inversor</td>
-              <td className="py-1.5 text-right">
-                {formatNumber(profit * 0.1)}
-              </td>
-            </tr>
-          )}
         </tbody>
       </table>
     </Report>

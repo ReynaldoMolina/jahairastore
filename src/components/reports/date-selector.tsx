@@ -1,9 +1,15 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { dateIsoToDate, getCurrentMonth } from '@/lib/get-date';
+import { getCurrentMonth } from '@/lib/get-date';
+import { dateIsoToDate } from '@/lib/formatters';
 import { DatePicker } from '../date-picker';
+import { SearchParamsProps } from '@/types/types';
 
-export function DateSelector({ searchParams }) {
+interface DateSelector {
+  searchParams: SearchParamsProps;
+}
+
+export function DateSelector({ searchParams }: DateSelector) {
   const { firstDay, lastDay } = getCurrentMonth();
 
   const startParam: string = searchParams?.start;

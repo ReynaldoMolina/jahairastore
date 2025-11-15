@@ -10,7 +10,7 @@ export function NewButton() {
 
   return (
     <Button size="sm" asChild>
-      <Link href={`${pathname}/create`}>
+      <Link href={`${pathname}/crear`}>
         <Plus />
         <span className="hidden sm:block">Nuevo</span>
       </Link>

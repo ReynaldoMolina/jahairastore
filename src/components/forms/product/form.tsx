@@ -2,7 +2,6 @@
 
 import { FieldGroup, FieldSet } from '../../ui/field';
 import { ProductFormType } from '@/types/types';
-import { FormInput } from '@/components/form-elements/form-input';
 import { UseFormReturn } from 'react-hook-form';
 import { FormCheck } from '@/components/form-elements/form-checkbox';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
@@ -11,6 +10,7 @@ import { productSchema } from '../validation/product';
 import z from 'zod';
 import { FormInputOnChange } from '@/components/form-elements/form-input-on-change';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
+import { FormInput } from '@/components/form-elements/form-input';
 
 interface ProductForm {
   form: UseFormReturn<z.infer<typeof productSchema>>;
@@ -62,31 +62,46 @@ export function ProductForm({ form }: ProductForm) {
         <FormInput
           control={form.control}
           name="precioCompra"
-          label="Compra $"
+          label="Compra"
+          textAddon="$"
         />
-        <FormInput control={form.control} name="precioVenta" label="Venta $" />
-        <FormInputReadOnly value={formatNumber(ganancia)} label="Ganancia $" />
+        <FormInput
+          control={form.control}
+          name="precioVenta"
+          label="Venta"
+          textAddon="$"
+        />
+        <FormInputReadOnly
+          value={formatNumber(ganancia)}
+          label="Ganancia"
+          textAddon="$"
+        />
       </FieldSet>
 
       {precioEnCordobas && (
         <FieldSet className="flex-row gap-3 md:gap-6">
           <FormInputOnChange
-            value={precioCompra * cambioDolar}
-            label="Compra C$"
+            value={
+              isNaN(Number(precioCompra)) ? '' : precioCompra * cambioDolar
+            }
+            label="Compra"
             handleChange={(val) =>
               form.setValue('precioCompra', Number(val) / cambioDolar)
             }
+            textAddon="C$"
           />
           <FormInputOnChange
-            value={precioVenta * cambioDolar}
-            label="Venta C$"
+            value={isNaN(Number(precioVenta)) ? '' : precioVenta * cambioDolar}
+            label="Venta"
             handleChange={(val) =>
               form.setValue('precioVenta', Number(val) / cambioDolar)
             }
+            textAddon="C$"
           />
           <FormInputReadOnly
             value={formatNumber(gananciaEnCordobas)}
-            label="Ganancia C$"
+            label="Ganancia"
+            textAddon="C$"
           />
         </FieldSet>
       )}
@@ -95,9 +110,14 @@ export function ProductForm({ form }: ProductForm) {
         <FormInput
           control={form.control}
           name="cambioDolar"
-          label="Cambio dólar"
+          label="Cambio USD"
         />
-        <FormInput control={form.control} name="idShein" label="Id externo" />
+        <FormInput
+          control={form.control}
+          name="idShein"
+          label="Id externo"
+          tooltipAddon="Id del proveedor o código de barra"
+        />
       </FieldSet>
     </FieldGroup>
   );

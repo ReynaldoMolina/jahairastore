@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
-import { TableContainer } from '../tables/table';
+import { TableContainer } from './table';
 import {
   TableHeader,
   TableRow,
@@ -21,9 +21,9 @@ import {
   TableCell,
   TableFooter,
 } from '../ui/table';
-import { CardItem, ListItem } from './list-elements/list-item';
+import { CardItem, ListItem } from './list-item';
 import { Badge } from '../ui/badge';
-import { formatDate } from '@/lib/get-date';
+import { formatDate } from '@/lib/formatters';
 
 interface Orders {
   data: {
@@ -136,8 +136,8 @@ export function Orders({ data, query, totalPages }: Orders) {
           <TableRow>
             <TableHead className="text-center">Id</TableHead>
             <TableHead className="w-full">Cliente</TableHead>
-            <TableHead>Total</TableHead>
             <TableHead>Fecha</TableHead>
+            <TableHead>Total</TableHead>
             <TableHead>Abonos</TableHead>
             <TableHead>Saldo</TableHead>
             <TableHead>Ganancia</TableHead>
@@ -148,7 +148,7 @@ export function Orders({ data, query, totalPages }: Orders) {
             return (
               <TableRow
                 key={register.id}
-                className="cursor-pointer"
+                className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
                 onClick={() => router.push(`/pedidos/${register.id}`)}
               >
                 <TableCell>
@@ -167,7 +167,11 @@ export function Orders({ data, query, totalPages }: Orders) {
                   <ListItem value={register.abonos} color="green" />
                 </TableCell>
                 <TableCell>
-                  <ListItem value={register.saldo} color="red" />
+                  <ListItem
+                    value={register.saldo}
+                    color="red"
+                    showPing={register.saldo > 0.01}
+                  />
                 </TableCell>
                 <TableCell>
                   <ListItem value={register.ganancia} color="blue" />
@@ -190,7 +194,11 @@ export function Orders({ data, query, totalPages }: Orders) {
               <ListItem value={totals.abonos} color="green" />
             </TableCell>
             <TableCell>
-              <ListItem value={totals.saldo} color="red" />
+              <ListItem
+                value={totals.saldo}
+                color="red"
+                showPing={totals.saldo > 0.01}
+              />
             </TableCell>
             <TableCell>
               <ListItem value={totals.ganancia} color="blue" />

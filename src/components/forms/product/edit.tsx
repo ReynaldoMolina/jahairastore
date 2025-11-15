@@ -7,7 +7,7 @@ import { updateProduct } from '@/server-actions/product';
 import { ProductFormType } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useServerActionFeedback } from '@/components/use-server-status';
+import { useServerActionFeedback } from '@/hooks/use-server-status';
 import { ProductForm } from './form';
 import { FormCardFooter } from '@/components/form-elements/form-footer';
 import { Form } from '@/components/ui/form';

@@ -17,7 +17,7 @@ export function FormCardFooter({
   const router = useRouter();
 
   return (
-    <CardFooter className="border-t justify-end gap-3 flex-col-reverse sm:flex-row">
+    <CardFooter className="justify-end gap-3 flex-col-reverse sm:flex-row">
       <Button
         type="button"
         variant="secondary"

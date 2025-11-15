@@ -1,7 +1,7 @@
 import { db } from '@/database/db';
 import { clientes } from '@/database/schema/schema';
 import { SearchParamsProps } from '@/types/types';
-import { sql, asc, desc } from 'drizzle-orm';
+import { sql, asc, desc, eq } from 'drizzle-orm';
 import { getUrlParams } from './filter';
 import { buildSearchFilter } from './build-by-search';
 
@@ -36,6 +36,18 @@ export async function getClients(searchParams: SearchParamsProps) {
     return { data, query, totalPages };
   } catch (error) {
     throw new Error('No se pudieron obtener los clientes.');
+  }
+}
+
+export async function getClientById(id: number | string) {
+  try {
+    const [data] = await db
+      .select()
+      .from(clientes)
+      .where(eq(clientes.id, Number(id)));
+    return data;
+  } catch (error) {
+    throw new Error('No se pudo obtener el cliente.');
   }
 }
 

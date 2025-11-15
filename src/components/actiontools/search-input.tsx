@@ -58,7 +58,7 @@ export function SearchInput() {
         type="search"
         placeholder="Buscar"
         autoComplete="off"
-        className="h-8"
+        className="h-8 w-full max-w-20 sm:max-w-30 font-normal"
         value={searchValue}
         onChange={(event) => {
           const term = event.target.value;

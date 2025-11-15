@@ -2,11 +2,32 @@ export interface SearchParamsProps {
   start: string;
   end: string;
   page: string;
+  pedido: string;
+  cliente: string;
+  saldo: string;
+  abono: string;
+  compra: string;
+  proveedor: string;
+  concepto: string;
+}
+
+export interface DashboardData {
+  salesCosts: number;
+  pedidosTotal: number;
+  ordersCosts: number;
+  comprasGastos: number;
+  comprasInventario: number;
+  ordersAbonos: number;
+  salesCreditAbonos: number;
+  salesContado: number;
+  totalOrdersInDollars: number;
+  ordersCostsInDollars: number;
 }
 
 export interface PageProps {
   params: Promise<{
     id: string;
+    id_detalle: string;
   }>;
   searchParams: Promise<SearchParamsProps>;
 }
@@ -33,6 +54,7 @@ export interface SaleById {
   idCliente: number;
   nombreCliente: string;
   apellidoCliente: string;
+  telefono: string;
   fecha: string;
   abono: number;
   credito: boolean;
@@ -63,12 +85,14 @@ export interface SaleFormType {
 export interface SaleDetailType {
   id?: number;
   idProducto: number;
-  nombre?: string;
+  nombreProducto?: string;
   precioVenta: number;
   precioCompra: number;
   cantidad: number;
   cambioDolar: number;
   idVenta: number;
+  existencias?: number;
+  precioEnCordobas?: boolean;
 }
 
 export interface ProductFormType {
@@ -95,6 +119,7 @@ export interface ProductSearchProduct {
   precioVenta: number;
   cambioDolar: number;
   existencias: number;
+  precioEnCordobas: boolean;
 }
 
 export interface ProductSearchData {
@@ -103,11 +128,169 @@ export interface ProductSearchData {
   totalPages: number;
 }
 
+export interface OrderFormType {
+  id?: number;
+  idCliente: number;
+  fecha: string;
+  peso: number | null;
+  cambioDolar: number;
+  precioLibra: number | null;
+}
+
+export interface OrderById {
+  id: number;
+  idCliente: number;
+  fecha: string;
+  nombreCliente: string;
+  telefono: string;
+  peso: number;
+  cambioDolar: number;
+  precioLibra: number;
+  tipoEnvio: string;
+  abonos: number;
+  detail: {
+    id: number;
+    idPedido: number;
+    nombreProducto: string;
+    precioVenta: number;
+    precioCompra: number;
+    cantidad: number;
+  }[];
+}
+
+export interface OrderDetailType {
+  id?: number;
+  idPedido: number;
+  nombreProducto: string;
+  precioVenta: number;
+  precioCompra: number;
+  cantidad: number;
+}
+
+export interface ReceiptFormType {
+  id?: number;
+  idPedido: number;
+  idCliente: number;
+  fecha: string;
+  abono: number;
+  saldo: number;
+  concepto: string;
+}
+
+export interface ReceiptById {
+  id: number;
+  idPedido: number;
+  idCliente: number;
+  nombreCliente: string;
+  apellidoCliente: string;
+  telefono: string;
+  fecha: string;
+  abono: number;
+  saldo: number;
+  concepto: string;
+}
+
+export interface PurchaseFormType {
+  id?: number;
+  idProveedor: number;
+  fecha: string;
+}
+
+export interface PurchaseDetailType {
+  id?: number;
+  idProducto: number;
+  nombreProducto?: string;
+  precioVenta: number;
+  precioCompra: number;
+  cantidad: number;
+  cambioDolar: number;
+  idCompra: number;
+  existencias?: number;
+  precioEnCordobas?: boolean;
+}
+
+export interface PurchaseById {
+  id: number;
+  idProveedor: number;
+  nombreEmpresa: string;
+  fecha: string;
+  gastos: number;
+  detail: {
+    id: number;
+    idCompra: number;
+    idProducto: number;
+    nombreProducto: string;
+    precioVenta: number;
+    precioCompra: number;
+    cantidad: number;
+    cambioDolar: number;
+  }[];
+}
+
+export interface ExpenseFormType {
+  id?: number;
+  idCompra: number;
+  idProveedor: number;
+  fecha: string;
+  gasto: number;
+  concepto: string;
+  cambioDolar: number;
+}
+
+export interface ExpenseById {
+  id: number;
+  idCompra: number;
+  idProveedor: number;
+  nombreEmpresa: string;
+  fecha: string;
+  gasto: number;
+  concepto: string;
+  cambioDolar: number;
+}
+
+export interface ClientById {
+  id?: number;
+  nombre: string;
+  apellido: string;
+  telefono: string | null;
+  municipio: string | null;
+  departamento: string | null;
+  pais: string | null;
+  direccion: string | null;
+  idUsuario: number | null;
+}
+
+export interface ProviderById {
+  id?: number;
+  nombreEmpresa: string;
+  nombreContacto: string | null;
+  telefono: string | null;
+  municipio: string | null;
+  departamento: string | null;
+  pais: string | null;
+  direccion: string | null;
+}
+
+export interface BusinessInfoType {
+  nombreEmpresa: string;
+  eslogan: string;
+  mensaje?: string;
+}
+
 export interface SettingsFormType {
   nombreEmpresa: string;
   eslogan: string;
   mensaje: string | null;
   porHacer: string | null;
+  cambioDolar: number | null;
+  envioMaritimo: number | null;
+  envioAereo: number | null;
+}
+
+export interface SettingsCambioDolarType {
+  cambioDolar?: number | null;
+  envioMaritimo?: number | null;
+  envioAereo?: number | null;
 }
 
 export interface ServerStatus {

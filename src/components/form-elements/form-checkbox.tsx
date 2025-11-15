@@ -1,15 +1,14 @@
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 import { Checkbox } from '../ui/checkbox';
 import { Label } from '../ui/label';
-import { Input } from '../ui/input';
-import { Field, FieldDescription, FieldError, FieldLabel } from '../ui/field';
+import { Field, FieldError } from '../ui/field';
 
 interface FormCheckbox<T extends FieldValues> {
   control: Control<T>;
   name: Path<T>;
   label: string;
   description?: string;
-  onCheckedExtra?: () => void;
+  onCheckedExtra?: (checked: boolean) => void;
 }
 
 export function FormCheck<T extends FieldValues>({
@@ -31,7 +30,7 @@ export function FormCheck<T extends FieldValues>({
               checked={!!field.value}
               onCheckedChange={(checked) => {
                 field.onChange(checked);
-                onCheckedExtra?.();
+                onCheckedExtra?.(!!checked);
               }}
               ref={field.ref}
               className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"

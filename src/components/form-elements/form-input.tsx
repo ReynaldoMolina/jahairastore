@@ -1,15 +1,27 @@
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 import { Field, FieldDescription, FieldError, FieldLabel } from '../ui/field';
-import { Input } from '../ui/input';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from '../ui/input-group';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
+import { HelpCircle } from 'lucide-react';
 
-interface FormInput<T extends FieldValues> {
+interface FormInputGroupText<T extends FieldValues> {
   control: Control<T>;
   name: Path<T>;
   label: string;
+  textAddon?: string;
+  tooltipAddon?: string;
   placeholder?: string;
   description?: string;
   disabled?: boolean;
   hidden?: boolean;
+  className?: string;
+  readOnly?: boolean;
   onChangeExtra?: (value: string | number) => void;
 }
 
@@ -17,12 +29,16 @@ export function FormInput<T extends FieldValues>({
   control,
   name,
   label,
+  textAddon,
+  tooltipAddon,
   placeholder,
   description,
   disabled,
   hidden,
+  className,
+  readOnly,
   onChangeExtra,
-}: FormInput<T>) {
+}: FormInputGroupText<T>) {
   return (
     <Controller
       name={name}
@@ -34,18 +50,46 @@ export function FormInput<T extends FieldValues>({
           className={hidden ? 'hidden' : ''}
         >
           <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
-          <Input
-            {...field}
-            onChange={(e) => {
-              const value = e.target.value;
-              field.onChange(value);
-              onChangeExtra?.(value);
-            }}
-            id={field.name}
-            aria-invalid={fieldState.invalid}
-            placeholder={placeholder ? placeholder : label}
-            autoComplete="off"
-          />
+          <InputGroup className={className}>
+            {textAddon && (
+              <InputGroupAddon>
+                <InputGroupText>{textAddon}</InputGroupText>
+              </InputGroupAddon>
+            )}
+
+            {tooltipAddon && (
+              <InputGroupAddon align="inline-end">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <InputGroupButton
+                      variant="ghost"
+                      aria-label="Info"
+                      size="icon-xs"
+                    >
+                      <HelpCircle />
+                    </InputGroupButton>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{tooltipAddon}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </InputGroupAddon>
+            )}
+            <InputGroupInput
+              {...field}
+              onChange={(e) => {
+                const value = e.target.value;
+                field.onChange(value);
+                onChangeExtra?.(value);
+              }}
+              id={field.name}
+              aria-invalid={fieldState.invalid}
+              placeholder={placeholder ? placeholder : label}
+              autoComplete="off"
+              readOnly={readOnly}
+              className={readOnly ? 'opacity-50' : ''}
+            />
+          </InputGroup>
           {description && <FieldDescription>{description}</FieldDescription>}
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
         </Field>

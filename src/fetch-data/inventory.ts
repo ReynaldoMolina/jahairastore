@@ -5,7 +5,7 @@ import {
   productos,
   ventasDetalles,
 } from '@/database/schema/schema';
-import { sql, eq, and } from 'drizzle-orm';
+import { sql, eq, and, desc } from 'drizzle-orm';
 import { buildSearchFilter } from './build-by-search';
 import { SearchParamsProps } from '@/types/types';
 
@@ -45,9 +45,10 @@ export async function getInventory(searchParams: SearchParamsProps) {
         precioVenta: productos.precioVenta,
         precioCompra: productos.precioCompra,
         cambioDolar: productos.cambioDolar,
+        precioEnCordobas: productos.precioEnCordobas,
         existencias: sql<number>`
-          COALESCE("Compras"."cantidad", 0)
-          - COALESCE("Ventas"."cantidad", 0)
+          (COALESCE("Compras"."cantidad", 0)
+          - COALESCE("Ventas"."cantidad", 0))::integer
         `,
         ganancia: sql<number>`
           (
@@ -59,7 +60,7 @@ export async function getInventory(searchParams: SearchParamsProps) {
       .leftJoin(compras, eq(productos.id, compras.idProducto))
       .leftJoin(ventas, eq(productos.id, ventas.idProducto))
       .where(and(filterBySearch, filterByState))
-      .orderBy(productos.nombre)
+      .orderBy(desc(productos.id))
       .limit(limit)
       .offset(offset);
 

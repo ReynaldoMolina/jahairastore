@@ -5,7 +5,7 @@ import EmptyList from './empty-list';
 import { Pagination } from './pagination';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { TableContainer } from '../tables/table';
+import { TableContainer } from './table';
 import {
   Card,
   CardHeader,
@@ -21,9 +21,9 @@ import {
   TableCell,
   TableFooter,
 } from '../ui/table';
-import { CardItem, ListItem } from './list-elements/list-item';
+import { CardItem, ListItem } from './list-item';
 import { Badge } from '../ui/badge';
-import { formatDate } from '@/lib/get-date';
+import { formatDate } from '@/lib/formatters';
 
 interface Receipts {
   data: {
@@ -120,7 +120,7 @@ export function Receipts({ data, query, totalPages }: Receipts) {
             return (
               <TableRow
                 key={register.id}
-                className="cursor-pointer"
+                className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
                 onClick={() => router.push(`/recibos/${register.id}`)}
               >
                 <TableCell>

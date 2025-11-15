@@ -1,4 +1,3 @@
-import { AppSidebar } from '@/components/app-sidebar';
 import SideMenu from '@/components/sidemenu/side-menu';
 
 export default function Layout({ children }) {

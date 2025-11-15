@@ -11,8 +11,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { dateToIso, formatDate } from '@/lib/get-date';
 import { es } from 'date-fns/locale';
+import { dateToIso, formatDate } from '@/lib/formatters';
 
 interface DatePicker {
   label: string;

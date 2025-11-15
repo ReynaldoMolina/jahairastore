@@ -2,7 +2,7 @@
 
 import { CalendarDays } from 'lucide-react';
 import { DateSelector } from './date-selector';
-import { SalesOnlyReport, OrdersOnlyReport, CashFlowReport } from './reports';
+import { SalesOnlyReport, OrdersOnlyReport } from './reports';
 import {
   Card,
   CardContent,
@@ -10,8 +10,14 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
+import { DashboardData, SearchParamsProps } from '@/types/types';
 
-export function Dashboard({ data, searchParams }) {
+interface Dashboard {
+  data: DashboardData;
+  searchParams: SearchParamsProps;
+}
+
+export function Dashboard({ data, searchParams }: Dashboard) {
   return (
     <main className="flex flex-col flex-1 w-full max-w-xl gap-3 mx-auto">
       <Card className="w-full">
@@ -31,7 +37,6 @@ export function Dashboard({ data, searchParams }) {
       <SalesOnlyReport data={data} />
       <OrdersOnlyReport data={data} />
       {/* <CashFlowReport data={data} /> */}
-      {/* {isDemo && <AccountingReport data={data} />} */}
     </main>
   );
 }

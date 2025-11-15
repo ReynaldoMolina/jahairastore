@@ -1,12 +1,12 @@
 'use client';
 
-import { startTransition, useActionState } from 'react';
+import { startTransition, useActionState, useEffect, useState } from 'react';
 import * as z from 'zod';
 import { createProduct } from '@/server-actions/product';
 import { ProductFormType } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useServerActionFeedback } from '@/components/use-server-status';
+import { useServerActionFeedback } from '@/hooks/use-server-status';
 import { ProductForm } from './form';
 import { Form } from '@/components/ui/form';
 import { productSchema } from '../validation/product';
@@ -23,9 +23,19 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { Spinner } from '@/components/ui/spinner';
 import { getCurrentDate } from '@/lib/get-date';
+import { FieldSet } from '@/components/ui/field';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 
-export function CreateProductFormDialog() {
+interface CreateProductFormDialog {
+  cambioDolar: number;
+}
+
+export function CreateProductFormDialog({
+  cambioDolar,
+}: CreateProductFormDialog) {
   const currentDate = getCurrentDate();
+  const [createMultiple, setCreateMultiple] = useState(false);
 
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
@@ -39,7 +49,7 @@ export function CreateProductFormDialog() {
       fecha: currentDate,
       idShein: null,
       inventario: false,
-      cambioDolar: 37,
+      cambioDolar: cambioDolar,
       precioEnCordobas: false,
     },
   });
@@ -54,11 +64,14 @@ export function CreateProductFormDialog() {
   function onSubmit(values: z.infer<typeof productSchema>) {
     startTransition(() => {
       formAction({ values: values as ProductFormType });
-      router.refresh();
     });
   }
 
-  useServerActionFeedback(state);
+  useServerActionFeedback(state, { refresh: true, back: !createMultiple });
+
+  useEffect(() => {
+    if (state.success && createMultiple) form.reset();
+  }, [state]);
 
   return (
     <Form {...form}>
@@ -68,7 +81,7 @@ export function CreateProductFormDialog() {
       >
         <Dialog open={true} onOpenChange={() => router.back()}>
           <DialogContent className="w-full sm:max-w-xl max-h-[95dvh] overflow-y-auto">
-            <DialogHeader className="border-b pb-6">
+            <DialogHeader>
               <DialogTitle>Crear producto</DialogTitle>
               <DialogDescription>
                 Agrega la información del producto.
@@ -77,7 +90,22 @@ export function CreateProductFormDialog() {
 
             <ProductForm form={form} />
 
-            <DialogFooter className="border-t pt-6">
+            <FieldSet>
+              <Label className="hover:bg-accent/50 flex items-center gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950">
+                <Checkbox
+                  checked={!!createMultiple}
+                  onCheckedChange={() => setCreateMultiple((prev) => !prev)}
+                  className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
+                />
+                <div className="grid gap-1.5 font-normal">
+                  <p className="text-xs leading-none">
+                    Agregar varios productos
+                  </p>
+                </div>
+              </Label>
+            </FieldSet>
+
+            <DialogFooter>
               <DialogClose asChild>
                 <Button variant="outline">Cancelar</Button>
               </DialogClose>

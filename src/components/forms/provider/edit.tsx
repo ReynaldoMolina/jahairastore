@@ -1,0 +1,63 @@
+'use client';
+
+import { startTransition, useActionState } from 'react';
+import { Card, CardContent } from '../../ui/card';
+import * as z from 'zod';
+import { ProviderById } from '@/types/types';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useServerActionFeedback } from '@/hooks/use-server-status';
+import { FormCardFooter } from '@/components/form-elements/form-footer';
+import { Form } from '@/components/ui/form';
+import { stateDefault } from '@/server-actions/stateMessage';
+import { providerSchema } from '../validation/provider';
+import { updateProvider } from '@/server-actions/provider';
+import { ProviderForm } from './form';
+
+interface EditProviderForm {
+  provider: ProviderById;
+}
+
+export function EditProviderForm({ provider }: EditProviderForm) {
+  const form = useForm<z.infer<typeof providerSchema>>({
+    resolver: zodResolver(providerSchema),
+    defaultValues: {
+      nombreEmpresa: provider.nombreEmpresa,
+      nombreContacto: provider.nombreContacto,
+      telefono: provider.telefono || '+505 ',
+      municipio: provider.municipio,
+      departamento: provider.departamento,
+      pais: provider.pais,
+      direccion: provider.direccion,
+    },
+  });
+
+  const [state, formAction, isPending] = useActionState(
+    updateProvider,
+    stateDefault
+  );
+
+  function onSubmit(values: z.infer<typeof providerSchema>) {
+    startTransition(() => {
+      formAction({ id: provider.id, values: values as ProviderById });
+    });
+  }
+
+  useServerActionFeedback(state, { refresh: true });
+
+  return (
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="max-w-xl w-full mx-auto"
+      >
+        <Card>
+          <CardContent className="space-y-6">
+            <ProviderForm form={form} />
+          </CardContent>
+          <FormCardFooter isPending={isPending} />
+        </Card>
+      </form>
+    </Form>
+  );
+}

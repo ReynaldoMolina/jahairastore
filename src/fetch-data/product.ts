@@ -20,9 +20,11 @@ export async function getProducts(searchParams: SearchParamsProps) {
         id: productos.id,
         nombre: productos.nombre,
         idShein: productos.idShein,
+        precioEnCordobas: productos.precioEnCordobas,
+        cambioDolar: productos.cambioDolar,
         precioCompra: productos.precioCompra,
         precioVenta: productos.precioVenta,
-        ganancia: productos.precioVenta,
+        ganancia: sql<number>`${productos.precioVenta} - ${productos.precioCompra}`,
       })
       .from(productos)
       .where(filterBySearch)
@@ -94,8 +96,9 @@ export async function getProductsSearchList(searchParams: SearchParamsProps) {
         precioVenta: productos.precioVenta,
         cambioDolar: productos.cambioDolar,
         existencias: sql<number>`
-          COALESCE("ComprasTotales"."cantidad", 0) - COALESCE("VentasTotales"."cantidad", 0)
+          (COALESCE("ComprasTotales"."cantidad", 0) - COALESCE("VentasTotales"."cantidad", 0))::integer
         `,
+        precioEnCordobas: productos.precioEnCordobas,
       })
       .from(productos)
       .leftJoin(compras, eq(compras.idProducto, productos.id))

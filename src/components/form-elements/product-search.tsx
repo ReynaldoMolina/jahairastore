@@ -37,7 +37,7 @@ export function ProductSearch({
       <DialogTrigger className="w-full" asChild>
         <Button className="w-full md:w-fit" type="button" variant="outline">
           <Plus />
-          Agregar productos
+          Agregar producto
         </Button>
       </DialogTrigger>
       <DialogContent className="min-w-dvw lg:min-w-[80dvw] max-h-dvh overflow-y-auto px-3 md:px-6">
@@ -60,6 +60,7 @@ export function ProductSearch({
           </DialogClose>
           <Button
             type="button"
+            className="min-w-20"
             onClick={handleAddProducts}
             disabled={disableAddButton || isPending}
           >

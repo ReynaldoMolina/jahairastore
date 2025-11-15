@@ -11,10 +11,10 @@ import {
   CardDescription,
   CardContent,
 } from '../ui/card';
-import { CardItem, ListItem } from './list-elements/list-item';
+import { CardItem, ListItem } from './list-item';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
-import { TableContainer } from '../tables/table';
+import { TableContainer } from './table';
 import {
   TableBody,
   TableCell,
@@ -33,6 +33,7 @@ interface Inventory {
     precioVenta: number;
     precioCompra: number;
     cambioDolar: number;
+    precioEnCordobas: boolean;
     existencias: number;
     ganancia: number;
   }[];
@@ -49,7 +50,7 @@ export function Inventory({ data, query, totalPages }: Inventory) {
   const totals = data.reduce(
     (acc, item) => {
       acc.existencias += Number(item.existencias);
-      acc.ganancia += item.ganancia;
+      acc.ganancia += item.ganancia * item.cambioDolar;
       return acc;
     },
     {
@@ -68,13 +69,27 @@ export function Inventory({ data, query, totalPages }: Inventory) {
             <Link key={register.id} href={`/productos/${register.id}`}>
               <Card className="py-4 gap-4">
                 <CardHeader className="border-b [.border-b]:pb-4">
-                  <CardTitle>{register.nombre}</CardTitle>
+                  <CardTitle
+                    className={
+                      isSoldOut ? 'line-through text-muted-foreground' : ''
+                    }
+                  >
+                    {register.nombre}
+                  </CardTitle>
                   <CardDescription className="inline-flex gap-3 items-center">
-                    <Badge className="bg-brand text-black font-normal">
+                    <Badge
+                      className={`${
+                        isSoldOut ? 'bg-brand/50' : 'bg-brand'
+                      } text-black`}
+                    >
                       {register.id}
                     </Badge>
                     <Badge variant="secondary" className={bgColors.green}>
-                      C$ {formatNumber(register.precioVenta)}
+                      {register.precioEnCordobas
+                        ? `C$ ${formatNumber(
+                            register.precioVenta * register.cambioDolar
+                          )}`
+                        : `$ ${formatNumber(register.precioVenta)}`}
                     </Badge>
                   </CardDescription>
                 </CardHeader>
@@ -90,7 +105,7 @@ export function Inventory({ data, query, totalPages }: Inventory) {
                     </div>
                   ) : (
                     <CardItem
-                      value={register.existencias}
+                      value={String(register.existencias)}
                       label="Disponibles"
                       color="neutral"
                       hideCurrency
@@ -98,10 +113,14 @@ export function Inventory({ data, query, totalPages }: Inventory) {
                     />
                   )}
                   <CardItem
-                    value={register.ganancia}
+                    value={
+                      register.precioEnCordobas
+                        ? register.ganancia * register.cambioDolar
+                        : register.ganancia
+                    }
                     label="Ganancia"
                     color="blue"
-                    showPriceInNio
+                    showPriceInNio={register.precioEnCordobas}
                   />
                 </CardContent>
               </Card>
@@ -154,25 +173,31 @@ export function Inventory({ data, query, totalPages }: Inventory) {
             return (
               <TableRow
                 key={register.id}
-                className="cursor-pointer"
+                className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
                 onClick={() => router.push(`/productos/${register.id}`)}
               >
                 <TableCell>
-                  <Badge className="bg-brand text-black font-normal">
+                  <Badge
+                    className={`${
+                      isSoldOut ? 'bg-brand/50' : 'bg-brand'
+                    } text-black`}
+                  >
                     {register.id}
                   </Badge>
                 </TableCell>
-                <TableCell className="w-full whitespace-normal">
+                <TableCell
+                  className={`${
+                    isSoldOut ? 'line-through text-muted-foreground' : ''
+                  } w-full whitespace-normal`}
+                >
                   {register.nombre}
                 </TableCell>
                 <TableCell>
                   {isSoldOut ? (
-                    <Badge variant="destructive" className="min-w-25">
-                      Agotado
-                    </Badge>
+                    <Badge variant="destructive">Agotado</Badge>
                   ) : (
                     <ListItem
-                      value={register.existencias}
+                      value={String(register.existencias)}
                       color="neutral"
                       hideCurrency
                       className="justify-center"
@@ -181,16 +206,24 @@ export function Inventory({ data, query, totalPages }: Inventory) {
                 </TableCell>
                 <TableCell>
                   <ListItem
-                    value={register.precioVenta}
+                    value={
+                      register.precioEnCordobas
+                        ? register.precioVenta * register.cambioDolar
+                        : register.precioVenta
+                    }
                     color="green"
-                    showPriceInNio
+                    showPriceInNio={register.precioEnCordobas}
                   />
                 </TableCell>
                 <TableCell>
                   <ListItem
-                    value={register.ganancia}
+                    value={
+                      register.precioEnCordobas
+                        ? register.ganancia * register.cambioDolar
+                        : register.ganancia
+                    }
                     color="blue"
-                    showPriceInNio
+                    showPriceInNio={register.precioEnCordobas}
                   />
                 </TableCell>
               </TableRow>

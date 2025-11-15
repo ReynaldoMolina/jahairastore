@@ -7,14 +7,18 @@ import { createProduct } from '@/server-actions/product';
 import { ProductFormType } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useServerActionFeedback } from '@/components/use-server-status';
+import { useServerActionFeedback } from '@/hooks/use-server-status';
 import { ProductForm } from './form';
 import { FormCardFooter } from '@/components/form-elements/form-footer';
 import { Form } from '@/components/ui/form';
 import { productSchema } from '../validation/product';
 import { getCurrentDate } from '@/lib/get-date';
 
-export function CreateProductForm() {
+interface CreateProductForm {
+  cambioDolar: number;
+}
+
+export function CreateProductForm({ cambioDolar }: CreateProductForm) {
   const currentDate = getCurrentDate();
 
   const form = useForm<z.infer<typeof productSchema>>({
@@ -29,7 +33,7 @@ export function CreateProductForm() {
       fecha: currentDate,
       idShein: null,
       inventario: false,
-      cambioDolar: 37,
+      cambioDolar: cambioDolar,
       precioEnCordobas: false,
     },
   });

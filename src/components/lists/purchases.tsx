@@ -2,7 +2,7 @@
 
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useRouter } from 'next/navigation';
-import { TableContainer } from '../tables/table';
+import { TableContainer } from './table';
 import {
   Card,
   CardHeader,
@@ -19,18 +19,18 @@ import {
   TableFooter,
 } from '../ui/table';
 import EmptyList from './empty-list';
-import { CardItem, ListItem } from './list-elements/list-item';
+import { CardItem, ListItem } from './list-item';
 import { Pagination } from './pagination';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
-import { formatDate } from '@/lib/get-date';
+import { formatDate } from '@/lib/formatters';
 
 interface Purchases {
   data: {
     id: number;
     nombreProveedor: string;
     fecha: string;
-    totalCompra: number;
+    total: number;
     gastos: number;
     ganancia: number;
   }[];
@@ -46,13 +46,13 @@ export function Purchases({ data, query, totalPages }: Purchases) {
 
   const totals = data.reduce(
     (acc, item) => {
-      acc.compra += item.totalCompra;
+      acc.total += item.total;
       acc.gastos += item.gastos;
       acc.ganancia += item.ganancia;
       return acc;
     },
     {
-      compra: 0,
+      total: 0,
       gastos: 0,
       ganancia: 0,
     }
@@ -63,7 +63,7 @@ export function Purchases({ data, query, totalPages }: Purchases) {
       <>
         {data.map((register) => {
           return (
-            <Link key={register.id} href={`/recibos/${register.id}`}>
+            <Link key={register.id} href={`/compras/${register.id}`}>
               <Card className="py-4 gap-4">
                 <CardHeader className="border-b [.border-b]:pb-4">
                   <CardTitle>{register.nombreProveedor}</CardTitle>
@@ -78,7 +78,7 @@ export function Purchases({ data, query, totalPages }: Purchases) {
                 </CardHeader>
                 <CardContent>
                   <CardItem
-                    value={register.totalCompra}
+                    value={register.total}
                     label="Total compra"
                     color="neutral"
                     showPriceInNio
@@ -111,7 +111,7 @@ export function Purchases({ data, query, totalPages }: Purchases) {
           </CardHeader>
           <CardContent>
             <CardItem
-              value={totals.compra}
+              value={totals.total}
               label="Total compra"
               color="neutral"
               showPriceInNio
@@ -152,8 +152,8 @@ export function Purchases({ data, query, totalPages }: Purchases) {
             return (
               <TableRow
                 key={register.id}
-                className="cursor-pointer"
-                onClick={() => router.push(`/recibos/${register.id}`)}
+                className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
+                onClick={() => router.push(`/compras/${register.id}`)}
               >
                 <TableCell>
                   <Badge className="bg-brand text-black font-normal">
@@ -166,7 +166,7 @@ export function Purchases({ data, query, totalPages }: Purchases) {
                 <TableCell>{formatDate(register.fecha)}</TableCell>
                 <TableCell>
                   <ListItem
-                    value={register.totalCompra}
+                    value={register.total}
                     color="neutral"
                     showPriceInNio
                   />
@@ -199,7 +199,7 @@ export function Purchases({ data, query, totalPages }: Purchases) {
             <TableCell className="w-full whitespace-normal">Total</TableCell>
             <TableCell></TableCell>
             <TableCell>
-              <ListItem value={totals.compra} color="neutral" showPriceInNio />
+              <ListItem value={totals.total} color="neutral" showPriceInNio />
             </TableCell>
             <TableCell>
               <ListItem value={totals.gastos} color="red" showPriceInNio />

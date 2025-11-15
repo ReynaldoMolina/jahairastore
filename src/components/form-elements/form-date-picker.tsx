@@ -1,13 +1,12 @@
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 import { Field, FieldDescription, FieldError, FieldLabel } from '../ui/field';
-import { Input } from '../ui/input';
-import { DatePicker } from '../date-picker';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { useState } from 'react';
 import { Button } from '../ui/button';
-import { dateIsoToDate, dateToIso, formatDate } from '@/lib/get-date';
+import { dateIsoToDate, dateToIso, formatDate } from '@/lib/formatters';
 import { ChevronDownIcon } from 'lucide-react';
 import { Calendar } from '../ui/calendar';
+import { es } from 'date-fns/locale';
 
 interface FormDatePicker<T extends FieldValues> {
   control: Control<T>;
@@ -55,6 +54,7 @@ export function FormDatePicker<T extends FieldValues>({
                   field.onChange(dateToIso(date));
                   setOpen(false);
                 }}
+                locale={es}
               />
             </PopoverContent>
           </Popover>

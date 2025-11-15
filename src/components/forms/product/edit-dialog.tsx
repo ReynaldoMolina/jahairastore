@@ -6,7 +6,7 @@ import { updateProduct } from '@/server-actions/product';
 import { ProductFormType } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useServerActionFeedback } from '@/components/use-server-status';
+import { useServerActionFeedback } from '@/hooks/use-server-status';
 import { ProductForm } from './form';
 import { Form } from '@/components/ui/form';
 import { productSchema } from '../validation/product';
@@ -22,6 +22,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { Spinner } from '@/components/ui/spinner';
+import { stateDefault } from '@/server-actions/stateMessage';
 
 interface EditProductFormDialog {
   product: ProductFormType;
@@ -45,21 +46,20 @@ export function EditProductFormDialog({ product }: EditProductFormDialog) {
     },
   });
 
-  const [state, formAction, isPending] = useActionState(updateProduct, {
-    success: undefined,
-    title: undefined,
-  });
+  const [state, formAction, isPending] = useActionState(
+    updateProduct,
+    stateDefault
+  );
 
   const router = useRouter();
 
   function onSubmit(values: z.infer<typeof productSchema>) {
     startTransition(() => {
       formAction({ id: product.id, values: values as ProductFormType });
-      router.refresh();
     });
   }
 
-  useServerActionFeedback(state);
+  useServerActionFeedback(state, { refresh: true, back: true });
 
   return (
     <Form {...form}>
@@ -68,8 +68,8 @@ export function EditProductFormDialog({ product }: EditProductFormDialog) {
         className="max-w-xl w-full mx-auto"
       >
         <Dialog open={true} onOpenChange={() => router.back()}>
-          <DialogContent className="w-full sm:max-w-xl max-h-[95dvh] overflow-y-auto">
-            <DialogHeader className="border-b pb-6">
+          <DialogContent className="w-full sm:max-w-xl max-h-[97dvh] overflow-y-auto">
+            <DialogHeader>
               <DialogTitle>Producto {product.id}</DialogTitle>
               <DialogDescription>
                 Edita la información del producto.
@@ -78,7 +78,7 @@ export function EditProductFormDialog({ product }: EditProductFormDialog) {
 
             <ProductForm form={form} />
 
-            <DialogFooter className="border-t pt-6">
+            <DialogFooter>
               <DialogClose asChild>
                 <Button variant="outline">Cancelar</Button>
               </DialogClose>

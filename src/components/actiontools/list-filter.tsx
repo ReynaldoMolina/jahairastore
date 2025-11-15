@@ -54,8 +54,8 @@ function FilterState({ listName }: FilterState) {
   }
 
   const labels = {
-    pedidos: 'Con saldo',
-    ventas: 'Con saldo',
+    pedidos: 'Saldo',
+    ventas: 'Saldo',
     inventario: 'Disponibles',
   };
 
@@ -75,7 +75,7 @@ function FilterState({ listName }: FilterState) {
       className="bg-background data-[state=on]:bg-ring/30 text-xs shrink-0"
     >
       {icons[listName]}
-      <span>{labels[listName]}</span>
+      <span className="hidden md:block">{labels[listName]}</span>
     </Toggle>
   );
 }
