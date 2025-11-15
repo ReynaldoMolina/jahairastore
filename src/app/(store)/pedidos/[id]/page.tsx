@@ -1,48 +1,36 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { RegisterForm } from '@/components/forms/register';
-import ProductSearchList from '@/components/forms/register-form/product-list/product-search-list';
+import { EditOrderForm } from '@/components/forms/order/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
-import {
-  getClientsSelect,
-  getOrderById,
-  getOrderDetailById,
-} from '@/fetch-data/data';
+import { getClientsSelect } from '@/fetch-data/clients';
+import { getOrderById } from '@/fetch-data/orders';
+import { getSettingsEnvioPrices } from '@/fetch-data/settings';
+import { PageProps } from '@/types/types';
 
-export const dynamic = 'force-dynamic';
-
-export async function generateMetadata(props) {
-  const { id } = await props.params;
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
   return {
     title: `Pedido ${id}`,
   };
 }
 
-export default async function Page(props) {
+export default async function Page({ params }: PageProps) {
   await checkAuthorization();
 
-  const searchParams = await props.searchParams;
-  const params = await props.params;
-  const orderId = params.id;
-  const order = await getOrderById(orderId);
-  const orderdetail = await getOrderDetailById(orderId);
-  const selectData = await getClientsSelect();
+  const { id } = await params;
+  const order = await getOrderById(id);
+  const clients = await getClientsSelect();
+  const envioPrices = await getSettingsEnvioPrices();
 
   return (
     <>
-      <SiteHeader title={`Pedido ${orderId}`} />
+      <SiteHeader title={`Pedido ${id} - ${order.nombreCliente}`} />
       <PageWrapper>
-        <RegisterForm
-          isNew={false}
-          register={order}
-          registerId={orderId}
-          detailList={orderdetail}
-          abono={order.TotalAbono}
-          selectData={selectData}
-          formName="pedidos"
-        >
-          <ProductSearchList searchParams={searchParams} />
-        </RegisterForm>
+        <EditOrderForm
+          order={order}
+          selectOptions={clients}
+          envioPrices={envioPrices}
+        />
       </PageWrapper>
     </>
   );

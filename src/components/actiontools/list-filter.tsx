@@ -3,28 +3,18 @@
 import { useState } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { Toggle } from '../ui/toggle';
-import { SearchParamsProps } from '@/types/types';
+import { PackageCheck, Wallet } from 'lucide-react';
 
 export const ITEMS_PER_PAGE = 20;
 
+type ListName = 'pedidos' | 'ventas' | 'inventario';
+
 interface ListFilter {
-  showState?: boolean;
-  stateLabel?: string;
-  searchParams?: any;
+  listName: ListName;
 }
 
-export function ListFilter({
-  showState = false,
-  stateLabel,
-  searchParams,
-}: ListFilter) {
-  return (
-    <>
-      {showState && (
-        <FilterState searchParams={searchParams} stateLabel={stateLabel} />
-      )}
-    </>
-  );
+export function ListFilter({ listName }: ListFilter) {
+  return <FilterState listName={listName} />;
 }
 
 export function useSearchUtils() {
@@ -47,12 +37,13 @@ export function useSearchUtils() {
 }
 
 interface FilterState {
-  searchParams: SearchParamsProps;
-  stateLabel?: string;
+  listName: ListName;
 }
 
-function FilterState({ searchParams, stateLabel = 'Con saldo' }: FilterState) {
-  const stateParam = searchParams?.state;
+function FilterState({ listName }: FilterState) {
+  const searchParams = useSearchParams();
+  const stateParam = searchParams.get('state') || '';
+
   const [listState, setListState] = useState(Boolean(stateParam) || false);
   const { updateURL } = useSearchUtils();
 
@@ -62,15 +53,29 @@ function FilterState({ searchParams, stateLabel = 'Con saldo' }: FilterState) {
     updateURL('state', newState || null);
   }
 
+  const labels = {
+    pedidos: 'Saldo',
+    ventas: 'Saldo',
+    inventario: 'Disponibles',
+  };
+
+  const icons = {
+    pedidos: <Wallet />,
+    ventas: <Wallet />,
+    inventario: <PackageCheck />,
+  };
+
   return (
     <Toggle
       aria-label="Toggle state"
+      size="sm"
       variant="outline"
       onPressedChange={handleChange}
       pressed={listState}
-      className="bg-background data-[state=on]:bg-ring/40 text-xs"
+      className="bg-background data-[state=on]:bg-ring/30 text-xs shrink-0"
     >
-      {stateLabel}
+      {icons[listName]}
+      <span className="hidden md:block">{labels[listName]}</span>
     </Toggle>
   );
 }

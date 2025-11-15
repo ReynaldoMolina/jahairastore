@@ -1,11 +1,11 @@
 import { isDemo } from '@/middleware';
 import Link from 'next/link';
 import Logo from '@/components/icons/logo.svg';
-import { SettingsFormType } from '@/types/types';
+import { BusinessInfoType } from '@/types/types';
 import { Button } from './ui/button';
 import { Coins, ShoppingBag } from 'lucide-react';
 
-export function Home({ businessInfo }: { businessInfo: SettingsFormType }) {
+export function Home({ businessInfo }: { businessInfo: BusinessInfoType }) {
   return (
     <main className="m-auto p-5 grid md:grid-cols-2 gap-5">
       {/* Text section */}
@@ -21,13 +21,13 @@ export function Home({ businessInfo }: { businessInfo: SettingsFormType }) {
         {/* CTA Button */}
         <div className="inline-flex gap-3">
           <Button asChild type="button">
-            <Link href="/ventas/create">
+            <Link href="/ventas/crear">
               <Coins />
               Crear venta
             </Link>
           </Button>
           <Button asChild type="button" variant="secondary">
-            <Link href="/pedidos/create">
+            <Link href="/pedidos/crear">
               <ShoppingBag />
               Crear pedido
             </Link>

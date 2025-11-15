@@ -1,54 +1,38 @@
+// export const dynamic = 'force-dynamic';
+
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { RegisterForm } from '@/components/forms/register';
-import ProductSearchList from '@/components/forms/register-form/product-list/product-search-list';
+import { EditPurchaseForm } from '@/components/forms/purchase/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
-import {
-  getProvidersSelect,
-  getPurchaseById,
-  getPurchaseDetailById,
-} from '@/fetch-data/data';
+import { getProductsSearchList } from '@/fetch-data/product';
+import { getProvidersSelect, getPurchaseById } from '@/fetch-data/purchases';
+import { PageProps } from '@/types/types';
 
-export const dynamic = 'force-dynamic';
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
 
-export async function generateMetadata(props) {
-  const { id } = await props.params;
   return {
     title: `Compra ${id}`,
   };
 }
 
-export default async function Page(props) {
+export default async function Page({ params, searchParams }: PageProps) {
   await checkAuthorization();
 
-  const searchParams = await props.searchParams;
-  const params = await props.params;
-  const purchaseId = params.id;
-  const purchase = await getPurchaseById(purchaseId);
-  const purchasedetail = await getPurchaseDetailById(purchaseId);
-  const selectData = await getProvidersSelect();
+  const { id } = await params;
+  const productData = await getProductsSearchList(await searchParams);
+  const purchase = await getPurchaseById(id);
+  const providers = await getProvidersSelect();
 
   return (
     <>
-      <SiteHeader title={`Compra ${purchaseId}`} />
+      <SiteHeader title={`Compra ${id} - ${purchase.nombreEmpresa}`} />
       <PageWrapper>
-        <RegisterForm
-          isNew={false}
-          register={purchase}
-          registerId={purchaseId}
-          detailList={purchasedetail}
-          convert={true}
-          abono={purchase.TotalGasto}
-          selectData={selectData}
-          formName="compras"
-        >
-          <ProductSearchList
-            searchParams={searchParams}
-            showAll={true}
-            inventario={true}
-            price="compra"
-          />
-        </RegisterForm>
+        <EditPurchaseForm
+          productData={productData}
+          purchase={purchase}
+          selectOptions={providers}
+        />
       </PageWrapper>
     </>
   );

@@ -1,7 +1,17 @@
-export default function EmptyList({ query }) {
+import { Card, CardContent } from '../ui/card';
+
+interface EmptyList {
+  query?: string;
+}
+
+export default function EmptyList({ query }: EmptyList) {
   return (
-    <p className="flex bg-white dark:bg-muted rounded-lg justify-center text-sm p-4 cursor-default shadow-xs dark:shadow-none text-center">
-      {`No hay resultados para "${query}"`}
-    </p>
+    <Card className="w-full">
+      <CardContent>
+        <span className="text-muted-foreground text-xs block w-full text-center">
+          {query ? `No hay resultados para "${query}".` : 'No hay resultados.'}
+        </span>
+      </CardContent>
+    </Card>
   );
 }

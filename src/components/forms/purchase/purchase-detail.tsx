@@ -1,0 +1,286 @@
+'use client';
+
+import { calculateTotals } from '@/lib/calculate-totals';
+import { PurchaseById } from '@/types/types';
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { CardItem, ListItem } from '@/components/lists/list-item';
+import { Badge } from '@/components/ui/badge';
+import { bgColors } from '@/lib/bg-colors';
+import { formatNumber } from '@/lib/formatters';
+import { Button } from '@/components/ui/button';
+import { Trash2 } from 'lucide-react';
+import { TableContainer } from '@/components/lists/table';
+import {
+  TableBody,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { EditDetailButton } from '@/components/form-elements/edit-detail-button';
+import { DeleteDetailButton } from '@/components/form-elements/delete-detail-button';
+
+interface PurchaseDetail {
+  purchase: PurchaseById;
+  handleDelete: (productId: number) => void;
+}
+
+export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
+  const isMobile = useIsMobile();
+
+  const formTotals = calculateTotals({ list: purchase.detail, convert: true });
+
+  if (purchase.detail.length <= 0) return <ProductCardEmpty />;
+
+  if (isMobile)
+    return (
+      <>
+        {purchase.detail.map((detail) => {
+          const { precioVenta, precioCompra, cambioDolar, cantidad } = detail;
+          const subtotalVenta = precioVenta * cambioDolar * cantidad;
+          const subtotalCompra = precioCompra * cambioDolar * cantidad;
+          const ganancia = subtotalVenta - subtotalCompra;
+
+          return (
+            <Card key={detail.id} className="py-4 gap-4">
+              <CardHeader className="border-b [.border-b]:pb-4">
+                <CardTitle>{detail.nombreProducto}</CardTitle>
+                <CardDescription className="inline-flex gap-3">
+                  <Badge className="bg-brand text-black font-normal">
+                    {detail.idProducto}
+                  </Badge>
+                  <Badge variant="secondary" className={bgColors.red}>
+                    C$ {formatNumber(detail.precioCompra * detail.cambioDolar)}
+                  </Badge>
+                </CardDescription>
+                <CardAction className="inline-flex gap-1 items-center">
+                  <EditDetailButton
+                    href={`/compras/${purchase.id}/detalle/${detail.id}`}
+                  />
+                  <DeleteDetailButton
+                    handleDelete={() => handleDelete(detail.id)}
+                  />
+                </CardAction>
+              </CardHeader>
+              <CardContent>
+                <CardItem
+                  value={String(detail.cantidad)}
+                  label="Cantidad"
+                  color="neutral"
+                  hideCurrency
+                  className="justify-center"
+                />
+                <CardItem
+                  value={subtotalCompra}
+                  label="Subtotal"
+                  color="red"
+                  showPriceInNio
+                />
+                <CardItem
+                  value={ganancia}
+                  label="Ganancia"
+                  color="blue"
+                  showPriceInNio
+                />
+              </CardContent>
+            </Card>
+          );
+        })}
+        <Card className="py-4 gap-4 bg-muted">
+          <CardHeader className="border-b [.border-b]:pb-4">
+            <CardTitle>Total</CardTitle>
+            <CardDescription className="inline-flex gap-3">
+              <Badge className="bg-brand text-black">
+                Items: {purchase.detail.length}
+              </Badge>
+              <Badge variant="outline">Cantidad: {formTotals.quantity}</Badge>
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <CardItem
+              value={formTotals.totalCost}
+              label="Subtotal"
+              color="red"
+              showPriceInNio
+            />
+            <CardItem
+              value={formTotals.profit}
+              label="Ganancia"
+              color="blue"
+              showPriceInNio
+            />
+          </CardContent>
+        </Card>
+      </>
+    );
+
+  return (
+    <TableContainer>
+      <TableHeader className="bg-muted sticky top-0 z-10">
+        <TableRow>
+          <TableHead className="text-center">Id</TableHead>
+          <TableHead>Producto</TableHead>
+          <TableHead>Cantidad</TableHead>
+          <TableHead>Precio</TableHead>
+          <TableHead>Subtotal</TableHead>
+          <TableHead>Ganancia</TableHead>
+          <TableHead>Acciones</TableHead>
+        </TableRow>
+      </TableHeader>
+
+      <TableBody>
+        {purchase.detail.map((detail) => {
+          const { precioVenta, precioCompra, cambioDolar, cantidad } = detail;
+          const subtotalVenta = precioVenta * cambioDolar * cantidad;
+          const subtotalCompra = precioCompra * cambioDolar * cantidad;
+          const ganancia = subtotalVenta - subtotalCompra;
+
+          return (
+            <TableRow
+              key={detail.id}
+              className="hover:bg-brand/30 dark:hover:bg-brand/20"
+            >
+              <TableCell>
+                <Badge className="bg-brand text-black font-normal">
+                  {detail.idProducto}
+                </Badge>
+              </TableCell>
+              <TableCell className="w-full whitespace-normal">
+                {detail.nombreProducto}
+              </TableCell>
+              <TableCell>
+                <ListItem
+                  value={String(detail.cantidad)}
+                  color="neutral"
+                  hideCurrency
+                  className="justify-center"
+                />
+              </TableCell>
+              <TableCell>
+                <ListItem
+                  value={detail.precioCompra * detail.cambioDolar}
+                  color="red"
+                  showPriceInNio
+                />
+              </TableCell>
+              <TableCell>
+                <ListItem
+                  value={subtotalCompra}
+                  showPriceInNio
+                  color="neutral"
+                />
+              </TableCell>
+              <TableCell>
+                <ListItem value={ganancia} showPriceInNio color="blue" />
+              </TableCell>
+              <TableCell className="inline-flex gap-1 items-center">
+                <EditDetailButton
+                  href={`/compras/${purchase.id}/detalle/${detail.id}`}
+                />
+                <DeleteButton handleDelete={() => handleDelete(detail.id)} />
+              </TableCell>
+            </TableRow>
+          );
+        })}
+      </TableBody>
+      <TableFooter className="bg-muted">
+        <TableRow>
+          <TableCell>
+            <Badge variant="outline">{purchase.detail.length}</Badge>
+          </TableCell>
+          <TableCell>Total</TableCell>
+          <TableCell className="text-center">
+            <ListItem
+              value={String(formTotals.quantity)}
+              color="neutral"
+              hideCurrency
+              className="justify-center"
+            />
+          </TableCell>
+          <TableCell>
+            <ListItem
+              value="-"
+              color="red"
+              hideCurrency
+              className="justify-center"
+            />
+          </TableCell>
+          <TableCell>
+            <ListItem
+              value={formTotals.totalCost}
+              color="neutral"
+              showPriceInNio
+            />
+          </TableCell>
+          <TableCell>
+            <ListItem value={formTotals.profit} showPriceInNio color="blue" />
+          </TableCell>
+          <TableCell></TableCell>
+        </TableRow>
+      </TableFooter>
+    </TableContainer>
+  );
+}
+
+function ProductCardEmpty() {
+  return (
+    <Card>
+      <CardContent>
+        <span className="block text-xs text-muted-foreground text-center">
+          No hay productos en la lista.
+        </span>
+      </CardContent>
+    </Card>
+  );
+}
+
+interface DeleteButton {
+  handleDelete: () => void;
+}
+
+function DeleteButton({ handleDelete }: DeleteButton) {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="destructive" size="icon-sm" className="size-6">
+          <Trash2 className="size-3.5" />
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Esta acción no se puede deshacer. Se va a quitar el producto de la
+            lista.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+          <AlertDialogAction onClick={handleDelete}>
+            Quitar producto
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}

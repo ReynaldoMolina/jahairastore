@@ -10,7 +10,7 @@ export default function SideMenu() {
         Menú
       </span>
       {menuOptions.map((option) => (
-        <MenuItem key={option.id} option={option} />
+        <MenuItem key={option.name} option={option} />
       ))}
     </nav>
   );

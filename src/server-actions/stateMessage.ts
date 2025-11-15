@@ -24,3 +24,13 @@ export const stateUpdateError: ServerStatus = {
   success: false,
   title: 'Error al guardar los cambios.',
 };
+
+export const stateDeleteSuccess: ServerStatus = {
+  success: true,
+  title: 'Se eliminó el registro.',
+};
+
+export const stateDeleteError: ServerStatus = {
+  success: false,
+  title: 'Error al eliminar registro.',
+};

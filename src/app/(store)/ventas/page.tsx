@@ -1,27 +1,27 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { ListFilter } from '@/components/actiontools/list-filter';
-import SearchInput from '@/components/actiontools/search-input';
-import Sales from '@/components/lists/sales';
+import { Sales } from '@/components/lists/sales';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
+import { getSales } from '@/fetch-data/sales';
+import { PageProps } from '@/types/types';
 
 export const metadata = {
   title: 'Ventas',
 };
 
-export default async function Page(props) {
+export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
 
-  const searchParams = await props.searchParams;
+  const { data, query, totalPages } = await getSales(await searchParams);
 
   return (
     <>
-      <SiteHeader title="Ventas" dontShowBackButton />
+      <SiteHeader title="Ventas" showActionBar>
+        <ListFilter listName="ventas" />
+      </SiteHeader>
       <PageWrapper>
-        <SearchInput>
-          <ListFilter showState={true} searchParams={searchParams} />
-        </SearchInput>
-        <Sales searchParams={searchParams} />
+        <Sales data={data} query={query} totalPages={totalPages} />
       </PageWrapper>
     </>
   );

@@ -1,27 +1,24 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { ListFilter } from '@/components/actiontools/list-filter';
-import SearchInput from '@/components/actiontools/search-input';
-import Clients from '@/components/lists/clients';
+import { Clients } from '@/components/lists/clients';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
+import { getClients } from '@/fetch-data/clients';
+import { PageProps } from '@/types/types';
 
 export const metadata = {
   title: 'Clientes',
 };
 
-export default async function Page(props) {
+export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
 
-  const searchParams = await props.searchParams;
+  const { data, query, totalPages } = await getClients(await searchParams);
 
   return (
     <>
-      <SiteHeader title="Clientes" dontShowBackButton />
+      <SiteHeader title="Clientes" showActionBar />
       <PageWrapper>
-        <SearchInput>
-          <ListFilter searchParams={searchParams} />
-        </SearchInput>
-        <Clients searchParams={searchParams} />
+        <Clients data={data} query={query} totalPages={totalPages} />
       </PageWrapper>
     </>
   );

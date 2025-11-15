@@ -3,32 +3,36 @@
 import { useRouter } from 'next/navigation';
 import { Button } from './ui/button';
 import { ArrowLeft } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { getClientSession } from '@/authorization/get-client-session';
-import Image from 'next/image';
+import { ActionBar } from './actiontools/action-bar';
 
 interface SiteHeader {
   title: string;
-  dontShowBackButton?: boolean;
+  children?: React.ReactNode;
+  showActionBar?: boolean;
+  hideNewButton?: boolean;
+  hideBackButton?: boolean;
 }
 
-export function SiteHeader({ title, dontShowBackButton = false }: SiteHeader) {
-  return null;
-  // const router = useRouter();
-  // const { user } = getClientSession();
+export function SiteHeader({
+  title,
+  children,
+  showActionBar = false,
+  hideNewButton,
+  hideBackButton,
+}: SiteHeader) {
+  const router = useRouter();
 
-  // return (
-  //   <header className="inline-flex font-semibold text-sm h-10 items-center border-b shrink-0 px-3 gap-2">
-  //     {!dontShowBackButton && (
-  //       <Button variant="ghost" size="icon" onClick={() => router.back()}>
-  //         <ArrowLeft className="size-5" />
-  //       </Button>
-  //     )}
-  //     {title ? title : 'Title'}
-  //     <Avatar className="ml-auto size-7">
-  //       <AvatarImage src={user?.image} alt="Avatar" />
-  //       <AvatarFallback className="text-xs">JS</AvatarFallback>
-  //     </Avatar>
-  //   </header>
-  // );
+  return (
+    <header className="inline-flex font-semibold text-xs h-10 items-center border-b shrink-0 px-3 gap-1">
+      {!hideBackButton && (
+        <Button variant="ghost" size="icon" onClick={() => router.back()}>
+          <ArrowLeft className="size-4.5" />
+        </Button>
+      )}
+      {title ? title : 'Title'}
+      {showActionBar && (
+        <ActionBar hideNewButton={hideNewButton}>{children}</ActionBar>
+      )}
+    </header>
+  );
 }

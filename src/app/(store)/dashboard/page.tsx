@@ -2,25 +2,23 @@ import { checkAuthorization } from '@/authorization/check-authorization';
 import { PageWrapper } from '@/components/page-wrapper';
 import { Dashboard } from '@/components/reports/dashboard';
 import { SiteHeader } from '@/components/site-header';
-import { getTotalsDashboard } from '@/fetch-data/data';
+import { getTotalsDashboard } from '@/fetch-data/dashboard';
+import { PageProps } from '@/types/types';
 
 export const metadata = {
   title: 'Dashboard',
 };
 
-export default async function Page(props) {
+export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
 
-  const searchParams = await props.searchParams;
-  const startParam = searchParams?.start;
-  const endParam = searchParams?.end;
-  const data = await getTotalsDashboard(startParam, endParam);
+  const data = await getTotalsDashboard(await searchParams);
 
   return (
     <>
-      <SiteHeader title="Dashboard" dontShowBackButton />
+      <SiteHeader title="Dashboard" />
       <PageWrapper>
-        <Dashboard searchParams={searchParams} data={data} />
+        <Dashboard searchParams={await searchParams} data={data} />
       </PageWrapper>
     </>
   );

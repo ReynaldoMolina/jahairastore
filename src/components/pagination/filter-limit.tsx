@@ -22,9 +22,9 @@ export function FilterLimit({ searchParams }) {
   }
 
   return (
-    <Select value={limitParam} onValueChange={handleChange}>
+    <Select value={limitParam} onValueChange={handleChange} defaultValue="20">
       <SelectTrigger size="sm">
-        <SelectValue placeholder="20" />
+        <SelectValue placeholder="Seleccionar" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

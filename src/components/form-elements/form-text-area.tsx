@@ -1,26 +1,26 @@
-import { Controller } from 'react-hook-form';
+import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 import { Field, FieldDescription, FieldError, FieldLabel } from '../ui/field';
 import { Textarea } from '../ui/textarea';
 
-interface FormInput {
-  form: any;
-  name: string;
+interface FormInput<T extends FieldValues> {
+  control: Control<T>;
+  name: Path<T>;
   label: string;
   placeholder?: string;
   description?: string;
 }
 
-export function FormTextArea({
-  form,
+export function FormTextArea<T extends FieldValues>({
+  control,
   name,
   label,
   placeholder,
   description,
-}: FormInput) {
+}: FormInput<T>) {
   return (
     <Controller
       name={name}
-      control={form.control}
+      control={control}
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
           <FieldLabel htmlFor={field.name}>{label}</FieldLabel>

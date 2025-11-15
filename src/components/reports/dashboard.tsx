@@ -2,7 +2,7 @@
 
 import { CalendarDays } from 'lucide-react';
 import { DateSelector } from './date-selector';
-import { SalesOnlyReport, OrdersOnlyReport, CashFlowReport } from './reports';
+import { SalesOnlyReport, OrdersOnlyReport } from './reports';
 import {
   Card,
   CardContent,
@@ -10,10 +10,16 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
+import { DashboardData, SearchParamsProps } from '@/types/types';
 
-export function Dashboard({ data, searchParams }) {
+interface Dashboard {
+  data: DashboardData;
+  searchParams: SearchParamsProps;
+}
+
+export function Dashboard({ data, searchParams }: Dashboard) {
   return (
-    <main className="flex flex-col flex-1 w-full md:max-w-xl gap-3 mx-auto">
+    <main className="flex flex-col flex-1 w-full max-w-xl gap-3 mx-auto">
       <Card className="w-full">
         <CardHeader>
           <CardTitle className="inline-flex items-center flex-row gap-2">
@@ -24,14 +30,13 @@ export function Dashboard({ data, searchParams }) {
             Selecciona las fechas para generar los informes.
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="inline-flex gap-3 sm:gap-5 w-full">
           <DateSelector searchParams={searchParams} />
         </CardContent>
       </Card>
       <SalesOnlyReport data={data} />
       <OrdersOnlyReport data={data} />
-      <CashFlowReport data={data} />
-      {/* {isDemo && <AccountingReport data={data} />} */}
+      {/* <CashFlowReport data={data} /> */}
     </main>
   );
 }

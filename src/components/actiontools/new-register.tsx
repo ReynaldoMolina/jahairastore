@@ -5,17 +5,14 @@ import Link from 'next/link';
 import { Plus } from 'lucide-react';
 import { Button } from '../ui/button';
 
-export default function NewRegister({ allowNew = true }) {
+export function NewButton() {
   const pathname = usePathname();
-  let href = `${pathname}/create`;
-
-  if (!allowNew) return null;
 
   return (
-    <Button asChild disabled={!allowNew}>
-      <Link href={href}>
+    <Button size="sm" asChild>
+      <Link href={`${pathname}/crear`}>
         <Plus />
-        Nuevo
+        <span className="hidden sm:block">Nuevo</span>
       </Link>
     </Button>
   );

@@ -1,27 +1,24 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { ListFilter } from '@/components/actiontools/list-filter';
-import SearchInput from '@/components/actiontools/search-input';
-import Expenses from '@/components/lists/expenses';
+import { Expenses } from '@/components/lists/expenses';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
+import { getExpenses } from '@/fetch-data/expenses';
+import { PageProps } from '@/types/types';
 
 export const metadata = {
   title: 'Gastos',
 };
 
-export default async function Page(props) {
+export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
 
-  const searchParams = await props.searchParams;
+  const { data, query, totalPages } = await getExpenses(await searchParams);
 
   return (
     <>
-      <SiteHeader title="Gastos" dontShowBackButton />
+      <SiteHeader title="Gastos" showActionBar hideNewButton />
       <PageWrapper>
-        <SearchInput allowNew={false}>
-          <ListFilter searchParams={searchParams} />
-        </SearchInput>
-        <Expenses searchParams={searchParams} />
+        <Expenses data={data} query={query} totalPages={totalPages} />
       </PageWrapper>
     </>
   );

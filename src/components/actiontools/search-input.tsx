@@ -2,22 +2,39 @@
 
 import { Search, X } from 'lucide-react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { Button } from '../ui/button';
+import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
-import NewRegister from './new-register';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
 } from '../ui/input-group';
-import React, { useState } from 'react';
 
-interface SearchInput {
-  children: React.ReactNode;
-  allowNew?: boolean;
+export function SearchButton() {
+  const searchParams = useSearchParams();
+  const queryParam = searchParams.get('query');
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline" size="sm">
+          <Search />
+          {queryParam ? (
+            <span className="text-muted-foreground text-xs">1</span>
+          ) : null}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <SearchInput />
+      </PopoverContent>
+    </Popover>
+  );
 }
 
-export default function SearchInput({ children, allowNew }: SearchInput) {
+export function SearchInput() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -25,53 +42,45 @@ export default function SearchInput({ children, allowNew }: SearchInput) {
   const queryParam = searchParams.get('query') || '';
   const [searchValue, setSearchValue] = useState(queryParam);
 
-  const handleSearch = useDebouncedCallback((term) => {
+  const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
     params.set('page', '1');
-    if (term) {
-      params.set('query', term);
-    } else {
-      params.delete('query');
-    }
+
+    if (term) params.set('query', term);
+    else params.delete('query');
+
     replace(`${pathname}?${params.toString()}`, { scroll: false });
   }, 400);
 
   return (
-    <div className="flex gap-1 sm:gap-2 justify-between items-center w-full">
-      <InputGroup className="w-full sm:max-w-60 bg-background">
-        <InputGroupInput
-          type="search"
-          placeholder="Buscar"
-          autoComplete="off"
-          value={searchValue}
-          onChange={(event) => {
-            const term = event.target.value;
-            setSearchValue(term);
-            handleSearch(term);
+    <InputGroup className="max-w-60 h-8">
+      <InputGroupInput
+        type="search"
+        placeholder="Buscar"
+        autoComplete="off"
+        className="h-8 w-full max-w-20 sm:max-w-30 font-normal"
+        value={searchValue}
+        onChange={(event) => {
+          const term = event.target.value;
+          setSearchValue(term);
+          handleSearch(term);
+        }}
+      />
+      <InputGroupAddon align="inline-end">
+        <InputGroupButton
+          size="icon-xs"
+          onClick={() => {
+            setSearchValue('');
+            handleSearch('');
           }}
-        />
-        {searchValue && (
-          <InputGroupAddon align="inline-end">
-            <InputGroupButton
-              size="icon-xs"
-              onClick={() => {
-                setSearchValue('');
-                handleSearch('');
-              }}
-              disabled={!searchValue}
-            >
-              <X />
-            </InputGroupButton>
-          </InputGroupAddon>
-        )}
-        <InputGroupAddon>
-          <Search />
-        </InputGroupAddon>
-      </InputGroup>
-      <div className="inline-flex gap-1 sm:gap-2">
-        {children}
-        <NewRegister allowNew={allowNew} />
-      </div>
-    </div>
+          disabled={!searchValue}
+        >
+          <X />
+        </InputGroupButton>
+      </InputGroupAddon>
+      <InputGroupAddon>
+        <Search />
+      </InputGroupAddon>
+    </InputGroup>
   );
 }

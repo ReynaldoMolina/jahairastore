@@ -1,32 +1,28 @@
-export const dynamic = 'force-dynamic';
-
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { ReceiptForm } from '@/components/forms/receipt';
+import { EditReceiptForm } from '@/components/forms/receipt/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
 import {
-  getClientsSelect,
+  getPedidoReceiptPdf,
   getReceiptById,
-  getReceiptPdf,
-} from '@/fetch-data/data';
+  getReceiptClientById,
+} from '@/fetch-data/receipts';
+import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 
-export async function generateMetadata(props) {
-  const { id } = await props.params;
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
 
   return {
     title: `Recibo ${id}`,
   };
 }
 
-export default async function Page(props) {
+export default async function Page({ params }: PageProps) {
   await checkAuthorization();
 
-  const params = await props.params;
-  const id = params.id;
+  const { id } = await params;
   const receipt = await getReceiptById(id);
-  const receiptpdf = await getReceiptPdf(id);
-  const selectData = await getClientsSelect();
 
   if (!receipt) {
     notFound();
@@ -34,14 +30,9 @@ export default async function Page(props) {
 
   return (
     <>
-      <SiteHeader title={`Recibo ${id}`} />
+      <SiteHeader title={`Recibo ${id} - ${receipt.nombreCliente}`} />
       <PageWrapper>
-        <ReceiptForm
-          isNew={false}
-          receipt={receipt}
-          receiptpdf={receiptpdf}
-          selectData={selectData}
-        />
+        <EditReceiptForm receipt={receipt} />
       </PageWrapper>
     </>
   );
