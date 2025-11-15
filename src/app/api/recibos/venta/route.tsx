@@ -3,6 +3,7 @@ import { NextRequest } from 'next/server';
 import { formatNumber, formatDateShort } from '@/lib/formatters';
 import { getSaleReceiptPdf } from '@/fetch-data/sales';
 import { loadFonts } from '@/lib/load-fonts';
+import { sanitizeFilename } from '@/lib/sanitize-filename';
 
 export const runtime = 'nodejs';
 
@@ -26,7 +27,8 @@ export async function GET(req: NextRequest) {
 
   const { regularFontData, boldFontData } = await loadFonts();
 
-  const filename = `Venta ${idVenta} - ${register.nombreCliente}.png`;
+  const sanitizedClientName = sanitizeFilename(register.nombreCliente);
+  const filename = `venta-${idVenta}-${sanitizedClientName}.png`;
 
   const BASE_FIXED_HEIGHT = 600;
   const ROW_HEIGHT = 30;
