@@ -13,7 +13,7 @@ export function ActionBar({ children, hideNewButton = false }: ActionBar) {
   return (
     <div className="flex gap-1 items-center ml-auto">
       {/* <SearchButton /> */}
-      <SearchInput />
+      <SearchInput className="max-w-30 sm:max-w-40" />
       {children}
       {!hideNewButton && <NewButton />}
     </div>

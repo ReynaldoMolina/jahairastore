@@ -2,8 +2,6 @@
 
 import { Search, X } from 'lucide-react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { Button } from '../ui/button';
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import {
@@ -12,29 +10,13 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from '../ui/input-group';
+import { cn } from '@/lib/utils';
 
-export function SearchButton() {
-  const searchParams = useSearchParams();
-  const queryParam = searchParams.get('query');
-
-  return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button variant="outline" size="sm">
-          <Search />
-          {queryParam ? (
-            <span className="text-muted-foreground text-xs">1</span>
-          ) : null}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent>
-        <SearchInput />
-      </PopoverContent>
-    </Popover>
-  );
+interface SearchInput {
+  className?: string;
 }
 
-export function SearchInput() {
+export function SearchInput({ className }: SearchInput) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -53,12 +35,12 @@ export function SearchInput() {
   }, 400);
 
   return (
-    <InputGroup className="max-w-60 h-8">
+    <InputGroup className={cn('w-full max-w-50 h-8', className)}>
       <InputGroupInput
         type="search"
         placeholder="Buscar"
         autoComplete="off"
-        className="h-8 w-full max-w-20 sm:max-w-30 font-normal"
+        className="h-8 font-normal"
         value={searchValue}
         onChange={(event) => {
           const term = event.target.value;
