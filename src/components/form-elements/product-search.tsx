@@ -49,7 +49,7 @@ export function ProductSearch({
         </DialogHeader>
         <div className="inline-flex justify-between gap-3">
           <SearchInput />
-          <ListFilter listName="inventario" />
+          <ListFilter listName="productos" />
         </div>
         <div className="flex flex-col max-h-[55dvh] md:max-h-[65dvh] overflow-y-auto gap-3 w-full pb-1">
           {children}

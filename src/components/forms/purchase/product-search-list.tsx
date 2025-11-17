@@ -84,7 +84,15 @@ export default function ProductSearchList({
                   {p.nombre}
                 </CardTitle>
                 <CardDescription className="inline-flex gap-3 items-center">
-                  <Badge className="bg-brand text-black">{p.id}</Badge>
+                  <Badge
+                    className={
+                      isSoldOut
+                        ? 'bg-brand/50 text-muted-foreground dark:text-black'
+                        : 'bg-brand text-black'
+                    }
+                  >
+                    {p.id}
+                  </Badge>
                   <Badge variant="secondary" className={bgColors.red}>
                     C$ {formatNumber(price)}
                   </Badge>
@@ -200,7 +208,15 @@ export default function ProductSearchList({
                   />
                 </TableCell>
                 <TableCell>
-                  <Badge className="bg-brand text-black">{product.id}</Badge>
+                  <Badge
+                    className={
+                      isSoldOut
+                        ? 'bg-brand/50 text-muted-foreground dark:text-black'
+                        : 'bg-brand text-black'
+                    }
+                  >
+                    {product.id}
+                  </Badge>
                 </TableCell>
                 <TableCell
                   className={`${

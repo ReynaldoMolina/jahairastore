@@ -32,7 +32,9 @@ interface Products {
     cambioDolar: number;
     precioCompra: number;
     precioVenta: number;
-    ganancia: number;
+    gananciaUnidad: number;
+    existencias: number;
+    gananciaExistencias: number;
   }[];
   query: string;
   totalPages: number;
@@ -48,13 +50,25 @@ export function Products({ data, query, totalPages }: Products) {
     return (
       <>
         {data.map((register) => {
+          const isSoldOut = register.existencias <= 0;
+
           return (
             <Link key={register.id} href={`/productos/${register.id}`}>
               <Card className="py-4 gap-4">
                 <CardHeader className="border-b [.border-b]:pb-4">
-                  <CardTitle>{register.nombre}</CardTitle>
+                  <CardTitle
+                    className={isSoldOut ? 'text-muted-foreground' : ''}
+                  >
+                    {register.nombre}
+                  </CardTitle>
                   <CardDescription className="inline-flex gap-3 items-center">
-                    <Badge className="bg-brand text-black font-normal">
+                    <Badge
+                      className={
+                        isSoldOut
+                          ? 'bg-brand/50 text-muted-foreground dark:text-black'
+                          : 'bg-brand text-black'
+                      }
+                    >
                       {register.id}
                     </Badge>
                     {register.idShein && (
@@ -63,13 +77,31 @@ export function Products({ data, query, totalPages }: Products) {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
+                  {isSoldOut ? (
+                    <div className="inline-flex w-full justify-between">
+                      <span className="text-xs text-muted-foreground">
+                        Disponibles
+                      </span>
+                      <Badge variant="destructive" className="min-w-25">
+                        Agotado
+                      </Badge>
+                    </div>
+                  ) : (
+                    <CardItem
+                      value={String(register.existencias)}
+                      label="Disponibles"
+                      color="neutral"
+                      hideCurrency
+                      className="justify-center"
+                    />
+                  )}
                   <CardItem
                     value={
                       register.precioEnCordobas
                         ? register.precioVenta * register.cambioDolar
                         : register.precioVenta
                     }
-                    label="Venta"
+                    label="Precio venta"
                     color="green"
                     showPriceInNio={register.precioEnCordobas}
                   />
@@ -79,17 +111,27 @@ export function Products({ data, query, totalPages }: Products) {
                         ? register.precioCompra * register.cambioDolar
                         : register.precioCompra
                     }
-                    label="Compra"
+                    label="Precio compra"
                     color="red"
                     showPriceInNio={register.precioEnCordobas}
                   />
                   <CardItem
                     value={
                       register.precioEnCordobas
-                        ? register.ganancia * register.cambioDolar
-                        : register.ganancia
+                        ? register.gananciaUnidad * register.cambioDolar
+                        : register.gananciaUnidad
                     }
-                    label="Ganancia"
+                    label="Ganancia unidad"
+                    color="blue"
+                    showPriceInNio={register.precioEnCordobas}
+                  />
+                  <CardItem
+                    value={
+                      register.precioEnCordobas
+                        ? register.gananciaExistencias * register.cambioDolar
+                        : register.gananciaExistencias
+                    }
+                    label="Ganancia disponibles"
                     color="blue"
                     showPriceInNio={register.precioEnCordobas}
                   />
@@ -110,13 +152,17 @@ export function Products({ data, query, totalPages }: Products) {
             <TableHead className="text-center">Id</TableHead>
             <TableHead className="w-full">Producto</TableHead>
             <TableHead>Id externo</TableHead>
-            <TableHead>Venta</TableHead>
-            <TableHead>Compra</TableHead>
-            <TableHead>Ganancia</TableHead>
+            <TableHead>Disponibles</TableHead>
+            <TableHead>Precio venta</TableHead>
+            <TableHead>Precio compra</TableHead>
+            <TableHead>Ganancia unidad</TableHead>
+            <TableHead>Ganancia disp.</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {data.map((register) => {
+            const isSoldOut = register.existencias <= 0;
+
             return (
               <TableRow
                 key={register.id}
@@ -124,14 +170,36 @@ export function Products({ data, query, totalPages }: Products) {
                 onClick={() => router.push(`/productos/${register.id}`)}
               >
                 <TableCell>
-                  <Badge className="bg-brand text-black font-normal">
+                  <Badge
+                    className={
+                      isSoldOut
+                        ? 'bg-brand/50 text-muted-foreground dark:text-black'
+                        : 'bg-brand text-black'
+                    }
+                  >
                     {register.id}
                   </Badge>
                 </TableCell>
-                <TableCell className="w-full whitespace-normal">
+                <TableCell
+                  className={`${
+                    isSoldOut ? 'text-muted-foreground' : ''
+                  } w-full whitespace-normal`}
+                >
                   {register.nombre}
                 </TableCell>
                 <TableCell>{register.idShein}</TableCell>
+                <TableCell>
+                  {isSoldOut ? (
+                    <Badge variant="destructive">Agotado</Badge>
+                  ) : (
+                    <ListItem
+                      value={String(register.existencias)}
+                      color="neutral"
+                      hideCurrency
+                      className="justify-center"
+                    />
+                  )}
+                </TableCell>
                 <TableCell>
                   <ListItem
                     value={
@@ -158,8 +226,19 @@ export function Products({ data, query, totalPages }: Products) {
                   <ListItem
                     value={
                       register.precioEnCordobas
-                        ? register.ganancia * register.cambioDolar
-                        : register.ganancia
+                        ? register.gananciaUnidad * register.cambioDolar
+                        : register.gananciaUnidad
+                    }
+                    color="blue"
+                    showPriceInNio={register.precioEnCordobas}
+                  />
+                </TableCell>
+                <TableCell>
+                  <ListItem
+                    value={
+                      register.precioEnCordobas
+                        ? register.gananciaExistencias * register.cambioDolar
+                        : register.gananciaExistencias
                     }
                     color="blue"
                     showPriceInNio={register.precioEnCordobas}

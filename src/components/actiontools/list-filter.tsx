@@ -7,7 +7,7 @@ import { PackageCheck, Wallet } from 'lucide-react';
 
 export const ITEMS_PER_PAGE = 20;
 
-type ListName = 'pedidos' | 'ventas' | 'inventario';
+type ListName = 'pedidos' | 'ventas' | 'productos';
 
 interface ListFilter {
   listName: ListName;
@@ -56,13 +56,13 @@ function FilterState({ listName }: FilterState) {
   const labels = {
     pedidos: 'Saldo',
     ventas: 'Saldo',
-    inventario: 'Disponibles',
+    productos: 'Disponibles',
   };
 
   const icons = {
     pedidos: <Wallet />,
     ventas: <Wallet />,
-    inventario: <PackageCheck />,
+    productos: <PackageCheck />,
   };
 
   return (

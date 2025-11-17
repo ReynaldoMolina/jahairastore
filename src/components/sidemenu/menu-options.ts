@@ -33,12 +33,6 @@ export const menuOptions = [
     icon: Coins,
   },
   {
-    name: 'Inventario',
-    url: '/inventario',
-    divider: false,
-    icon: Warehouse,
-  },
-  {
     name: 'Productos',
     url: '/productos',
     divider: true,

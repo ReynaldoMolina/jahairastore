@@ -68,9 +68,7 @@ export function Purchases({ data, query, totalPages }: Purchases) {
                 <CardHeader className="border-b [.border-b]:pb-4">
                   <CardTitle>{register.nombreProveedor}</CardTitle>
                   <CardDescription className="inline-flex gap-3 items-center">
-                    <Badge className="bg-brand text-black font-normal">
-                      {register.id}
-                    </Badge>
+                    <Badge className="bg-brand text-black">{register.id}</Badge>
                     <Badge variant="outline">
                       {formatDate(register.fecha)}
                     </Badge>
@@ -79,19 +77,25 @@ export function Purchases({ data, query, totalPages }: Purchases) {
                 <CardContent>
                   <CardItem
                     value={register.total}
-                    label="Total compra"
+                    label="Subtotal"
                     color="neutral"
                     showPriceInNio
                   />
                   <CardItem
                     value={register.gastos}
                     label="Gastos"
+                    color="amber"
+                    showPriceInNio
+                  />
+                  <CardItem
+                    value={register.total + register.gastos}
+                    label="Total compra"
                     color="red"
                     showPriceInNio
                   />
                   <CardItem
                     value={register.ganancia}
-                    label="Ganancia"
+                    label="Ganancia aprox."
                     color="blue"
                     showPriceInNio
                   />
@@ -104,27 +108,31 @@ export function Purchases({ data, query, totalPages }: Purchases) {
           <CardHeader className="border-b [.border-b]:pb-4">
             <CardTitle>Total</CardTitle>
             <CardDescription className="inline-flex gap-3 items-center">
-              <Badge className="bg-brand text-black font-normal">
-                {data.length}
-              </Badge>
+              <Badge className="bg-brand text-black">{data.length}</Badge>
             </CardDescription>
           </CardHeader>
           <CardContent>
             <CardItem
               value={totals.total}
-              label="Total compra"
+              label="Subtotal"
               color="neutral"
               showPriceInNio
             />
             <CardItem
               value={totals.gastos}
               label="Gastos"
+              color="amber"
+              showPriceInNio
+            />
+            <CardItem
+              value={totals.total + totals.gastos}
+              label="Total compra"
               color="red"
               showPriceInNio
             />
             <CardItem
               value={totals.ganancia}
-              label="Ganancia"
+              label="Ganancia aprox."
               color="blue"
               showPriceInNio
             />
@@ -142,9 +150,10 @@ export function Purchases({ data, query, totalPages }: Purchases) {
             <TableHead className="text-center">Id</TableHead>
             <TableHead className="w-full">Proveedor</TableHead>
             <TableHead>Fecha</TableHead>
-            <TableHead>Total compra</TableHead>
+            <TableHead>Subtotal</TableHead>
             <TableHead>Gastos</TableHead>
-            <TableHead>Ganancia</TableHead>
+            <TableHead>Total compra</TableHead>
+            <TableHead>Ganancia aprox.</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -156,9 +165,7 @@ export function Purchases({ data, query, totalPages }: Purchases) {
                 onClick={() => router.push(`/compras/${register.id}`)}
               >
                 <TableCell>
-                  <Badge className="bg-brand text-black font-normal">
-                    {register.id}
-                  </Badge>
+                  <Badge className="bg-brand text-black">{register.id}</Badge>
                 </TableCell>
                 <TableCell className="w-full whitespace-normal">
                   {register.nombreProveedor}
@@ -174,6 +181,13 @@ export function Purchases({ data, query, totalPages }: Purchases) {
                 <TableCell>
                   <ListItem
                     value={register.gastos}
+                    color="amber"
+                    showPriceInNio
+                  />
+                </TableCell>
+                <TableCell>
+                  <ListItem
+                    value={register.total + register.gastos}
                     color="red"
                     showPriceInNio
                   />
@@ -192,9 +206,7 @@ export function Purchases({ data, query, totalPages }: Purchases) {
         <TableFooter className="bg-muted">
           <TableRow>
             <TableCell>
-              <Badge className="bg-brand text-black font-normal">
-                {data.length}
-              </Badge>
+              <Badge className="bg-brand text-black">{data.length}</Badge>
             </TableCell>
             <TableCell className="w-full whitespace-normal">Total</TableCell>
             <TableCell></TableCell>
@@ -202,7 +214,14 @@ export function Purchases({ data, query, totalPages }: Purchases) {
               <ListItem value={totals.total} color="neutral" showPriceInNio />
             </TableCell>
             <TableCell>
-              <ListItem value={totals.gastos} color="red" showPriceInNio />
+              <ListItem value={totals.gastos} color="amber" showPriceInNio />
+            </TableCell>
+            <TableCell>
+              <ListItem
+                value={totals.total + totals.gastos}
+                color="red"
+                showPriceInNio
+              />
             </TableCell>
             <TableCell>
               <ListItem value={totals.ganancia} color="blue" showPriceInNio />

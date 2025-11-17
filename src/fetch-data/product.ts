@@ -10,11 +10,34 @@ import { getUrlParams } from './filter';
 import { buildSearchFilter } from './build-by-search';
 
 export async function getProducts(searchParams: SearchParamsProps) {
-  const { query, limit, offset } = getUrlParams(searchParams);
+  const { query, state, limit, offset } = getUrlParams(searchParams);
 
   const filterBySearch = buildSearchFilter(searchParams, [productos.nombre]);
 
+  const filterByState = state
+    ? sql`(
+      COALESCE("Compras"."cantidad", 0) - COALESCE("Ventas"."cantidad", 0) > 0)`
+    : undefined;
+
   try {
+    const compras = db
+      .select({
+        idProducto: comprasDetalles.idProducto,
+        cantidad: sql<number>`SUM(${comprasDetalles.cantidad})`.as('cantidad'),
+      })
+      .from(comprasDetalles)
+      .groupBy(comprasDetalles.idProducto)
+      .as('Compras');
+
+    const ventas = db
+      .select({
+        idProducto: ventasDetalles.idProducto,
+        cantidad: sql<number>`SUM(${ventasDetalles.cantidad})`.as('cantidad'),
+      })
+      .from(ventasDetalles)
+      .groupBy(ventasDetalles.idProducto)
+      .as('Ventas');
+
     const data = await db
       .select({
         id: productos.id,
@@ -24,10 +47,21 @@ export async function getProducts(searchParams: SearchParamsProps) {
         cambioDolar: productos.cambioDolar,
         precioCompra: productos.precioCompra,
         precioVenta: productos.precioVenta,
-        ganancia: sql<number>`${productos.precioVenta} - ${productos.precioCompra}`,
+        gananciaUnidad: sql<number>`${productos.precioVenta} - ${productos.precioCompra}`,
+        existencias: sql<number>`
+          (COALESCE("Compras"."cantidad", 0)
+          - COALESCE("Ventas"."cantidad", 0))::integer
+        `,
+        gananciaExistencias: sql<number>`
+          (
+            (COALESCE("Compras"."cantidad", 0) - COALESCE("Ventas"."cantidad", 0))
+            * (${productos.precioVenta} - ${productos.precioCompra})
+          )`,
       })
       .from(productos)
-      .where(filterBySearch)
+      .leftJoin(compras, eq(productos.id, compras.idProducto))
+      .leftJoin(ventas, eq(productos.id, ventas.idProducto))
+      .where(and(filterBySearch, filterByState))
       .limit(limit)
       .offset(offset)
       .orderBy(desc(productos.id));
@@ -35,7 +69,9 @@ export async function getProducts(searchParams: SearchParamsProps) {
     const [{ count }] = await db
       .select({ count: sql<number>`count(*)` })
       .from(productos)
-      .where(filterBySearch);
+      .leftJoin(compras, eq(productos.id, compras.idProducto))
+      .leftJoin(ventas, eq(productos.id, ventas.idProducto))
+      .where(and(filterBySearch, filterByState));
 
     const totalPages = Math.ceil(count / limit) || 1;
 
