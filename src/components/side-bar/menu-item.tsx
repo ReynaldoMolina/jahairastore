@@ -15,7 +15,7 @@ export function MenuItem({ option }: MenuItem) {
   return (
     <Link
       href={option.url}
-      className={`flex flex-col min-w-17 w-full justify-center items-center cursor-pointer rounded-lg gap-1 p-2 text-xs ${
+      className={`flex flex-col justify-center items-center cursor-pointer rounded-lg gap-1 p-2 text-xs ${
         isActive ? 'bg-brand hover:bg-brand dark:text-background' : ''
       }`}
     >
