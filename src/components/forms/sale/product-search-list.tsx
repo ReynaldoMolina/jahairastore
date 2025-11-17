@@ -73,11 +73,7 @@ export default function ProductSearchList({
               } py-4 gap-4`}
             >
               <CardHeader className="border-b [.border-b]:pb-4">
-                <CardTitle
-                  className={
-                    isSoldOut ? 'line-through text-muted-foreground' : ''
-                  }
-                >
+                <CardTitle className={isSoldOut ? 'text-muted-foreground' : ''}>
                   {p.nombre}
                 </CardTitle>
                 <CardDescription className="inline-flex gap-3 items-center">
@@ -217,7 +213,7 @@ export default function ProductSearchList({
                 </TableCell>
                 <TableCell
                   className={`${
-                    isSoldOut ? 'line-through text-muted-foreground' : ''
+                    isSoldOut ? 'text-muted-foreground' : ''
                   } w-full whitespace-normal`}
                 >
                   {product.nombre}

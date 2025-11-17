@@ -70,9 +70,7 @@ export function Inventory({ data, query, totalPages }: Inventory) {
               <Card className="py-4 gap-4">
                 <CardHeader className="border-b [.border-b]:pb-4">
                   <CardTitle
-                    className={
-                      isSoldOut ? 'line-through text-muted-foreground' : ''
-                    }
+                    className={isSoldOut ? 'text-muted-foreground' : ''}
                   >
                     {register.nombre}
                   </CardTitle>
@@ -187,7 +185,7 @@ export function Inventory({ data, query, totalPages }: Inventory) {
                 </TableCell>
                 <TableCell
                   className={`${
-                    isSoldOut ? 'line-through text-muted-foreground' : ''
+                    isSoldOut ? 'text-muted-foreground' : ''
                   } w-full whitespace-normal`}
                 >
                   {register.nombre}

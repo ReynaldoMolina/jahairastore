@@ -80,11 +80,11 @@ export default function ProductSearchList({
               } py-4 gap-4`}
             >
               <CardHeader className="border-b [.border-b]:pb-4">
-                <CardTitle>{p.nombre}</CardTitle>
+                <CardTitle className={isSoldOut ? 'text-muted-foreground' : ''}>
+                  {p.nombre}
+                </CardTitle>
                 <CardDescription className="inline-flex gap-3 items-center">
-                  <Badge className="bg-brand text-black font-normal">
-                    {p.id}
-                  </Badge>
+                  <Badge className="bg-brand text-black">{p.id}</Badge>
                   <Badge variant="secondary" className={bgColors.red}>
                     C$ {formatNumber(price)}
                   </Badge>
@@ -200,11 +200,13 @@ export default function ProductSearchList({
                   />
                 </TableCell>
                 <TableCell>
-                  <Badge className="bg-brand text-black font-normal">
-                    {product.id}
-                  </Badge>
+                  <Badge className="bg-brand text-black">{product.id}</Badge>
                 </TableCell>
-                <TableCell className="w-full whitespace-normal">
+                <TableCell
+                  className={`${
+                    isSoldOut ? 'text-muted-foreground' : ''
+                  } w-full whitespace-normal`}
+                >
                   {product.nombre}
                 </TableCell>
                 <TableCell>
@@ -222,7 +224,7 @@ export default function ProductSearchList({
                   )}
                 </TableCell>
                 <TableCell>
-                  {product.existencias <= 0 ? (
+                  {isSoldOut ? (
                     <Badge variant="destructive">Agotado</Badge>
                   ) : (
                     <ListItem
