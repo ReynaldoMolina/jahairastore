@@ -15,12 +15,14 @@ export function MenuItem({ option }: MenuItem) {
   return (
     <Link
       href={option.url}
-      className={`flex flex-col justify-center items-center cursor-pointer rounded-lg gap-1 p-2 text-xs ${
-        isActive ? 'bg-brand hover:bg-brand dark:text-background' : ''
+      className={`flex flex-col justify-center items-center cursor-pointer rounded-lg gap-1 p-2 min-w-14 shrink-0 ${
+        isActive
+          ? 'bg-brand hover:bg-brand dark:text-background'
+          : 'hover:bg-muted/80'
       }`}
     >
       <option.icon className="size-4" />
-      {option.name}
+      <span className="text-[0.625rem]">{option.name}</span>
     </Link>
   );
 }
