@@ -50,7 +50,7 @@ export function ProductForm({ form }: ProductForm) {
           control={form.control}
           name="precioEnCordobas"
           label="¿Precio en córdobas?"
-          description="Se mostrará el precio en córdobas en las listas."
+          description="Se mostrará el precio en córdobas."
         />
       </FieldSet>
 

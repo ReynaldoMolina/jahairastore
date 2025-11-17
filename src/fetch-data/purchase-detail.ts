@@ -1,4 +1,8 @@
-import { comprasDetalles, productos } from '@/database/schema/schema';
+import {
+  comprasDetalles,
+  productos,
+  ventasDetalles,
+} from '@/database/schema/schema';
 import { eq, sql } from 'drizzle-orm';
 import { db } from '@/database/db';
 
@@ -15,11 +19,11 @@ export async function getPurchaseDetailById(id: number | string) {
 
     const ventas = db
       .select({
-        idProducto: comprasDetalles.idProducto,
-        cantidad: sql<number>`SUM(${comprasDetalles.cantidad})`.as('cantidad'),
+        idProducto: ventasDetalles.idProducto,
+        cantidad: sql<number>`SUM(${ventasDetalles.cantidad})`.as('cantidad'),
       })
-      .from(comprasDetalles)
-      .groupBy(comprasDetalles.idProducto)
+      .from(ventasDetalles)
+      .groupBy(ventasDetalles.idProducto)
       .as('Ventas');
 
     const [detail] = await db

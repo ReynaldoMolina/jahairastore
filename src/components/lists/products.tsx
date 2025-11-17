@@ -56,21 +56,9 @@ export function Products({ data, query, totalPages }: Products) {
             <Link key={register.id} href={`/productos/${register.id}`}>
               <Card className="py-4 gap-4">
                 <CardHeader className="border-b [.border-b]:pb-4">
-                  <CardTitle
-                    className={isSoldOut ? 'text-muted-foreground' : ''}
-                  >
-                    {register.nombre}
-                  </CardTitle>
+                  <CardTitle>{register.nombre}</CardTitle>
                   <CardDescription className="inline-flex gap-3 items-center">
-                    <Badge
-                      className={
-                        isSoldOut
-                          ? 'bg-brand/50 text-muted-foreground dark:text-black'
-                          : 'bg-brand text-black'
-                      }
-                    >
-                      {register.id}
-                    </Badge>
+                    <Badge className="bg-brand text-black">{register.id}</Badge>
                     {register.idShein && (
                       <Badge variant="outline">{register.idShein}</Badge>
                     )}
@@ -101,7 +89,7 @@ export function Products({ data, query, totalPages }: Products) {
                         ? register.precioVenta * register.cambioDolar
                         : register.precioVenta
                     }
-                    label="Precio venta"
+                    label="Venta"
                     color="green"
                     showPriceInNio={register.precioEnCordobas}
                   />
@@ -111,7 +99,7 @@ export function Products({ data, query, totalPages }: Products) {
                         ? register.precioCompra * register.cambioDolar
                         : register.precioCompra
                     }
-                    label="Precio compra"
+                    label="Compra"
                     color="red"
                     showPriceInNio={register.precioEnCordobas}
                   />
@@ -121,7 +109,7 @@ export function Products({ data, query, totalPages }: Products) {
                         ? register.gananciaUnidad * register.cambioDolar
                         : register.gananciaUnidad
                     }
-                    label="Ganancia unidad"
+                    label="Ganancia und."
                     color="blue"
                     showPriceInNio={register.precioEnCordobas}
                   />
@@ -131,7 +119,7 @@ export function Products({ data, query, totalPages }: Products) {
                         ? register.gananciaExistencias * register.cambioDolar
                         : register.gananciaExistencias
                     }
-                    label="Ganancia disponibles"
+                    label="Ganancia disp."
                     color="blue"
                     showPriceInNio={register.precioEnCordobas}
                   />
@@ -153,9 +141,9 @@ export function Products({ data, query, totalPages }: Products) {
             <TableHead className="w-full">Producto</TableHead>
             <TableHead>Id externo</TableHead>
             <TableHead>Disponibles</TableHead>
-            <TableHead>Precio venta</TableHead>
-            <TableHead>Precio compra</TableHead>
-            <TableHead>Ganancia unidad</TableHead>
+            <TableHead>Venta</TableHead>
+            <TableHead>Compra</TableHead>
+            <TableHead>Ganancia und.</TableHead>
             <TableHead>Ganancia disp.</TableHead>
           </TableRow>
         </TableHeader>
@@ -170,21 +158,9 @@ export function Products({ data, query, totalPages }: Products) {
                 onClick={() => router.push(`/productos/${register.id}`)}
               >
                 <TableCell>
-                  <Badge
-                    className={
-                      isSoldOut
-                        ? 'bg-brand/50 text-muted-foreground dark:text-black'
-                        : 'bg-brand text-black'
-                    }
-                  >
-                    {register.id}
-                  </Badge>
+                  <Badge className="bg-brand text-black">{register.id}</Badge>
                 </TableCell>
-                <TableCell
-                  className={`${
-                    isSoldOut ? 'text-muted-foreground' : ''
-                  } w-full whitespace-normal`}
-                >
+                <TableCell className="w-full whitespace-normal">
                   {register.nombre}
                 </TableCell>
                 <TableCell>{register.idShein}</TableCell>

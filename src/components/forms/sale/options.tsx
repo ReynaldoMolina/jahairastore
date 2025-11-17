@@ -69,7 +69,7 @@ export function SaleOptions({ sale }: SaleOptions) {
           <Eye />
         </ItemMedia>
         <ItemContent>
-          <ItemTitle>Ver recibo</ItemTitle>
+          <ItemTitle>Ver</ItemTitle>
           <ItemDescription>Ver el recibo como imagen.</ItemDescription>
         </ItemContent>
         <ItemActions>
@@ -89,7 +89,7 @@ export function SaleOptions({ sale }: SaleOptions) {
           <Copy />
         </ItemMedia>
         <ItemContent>
-          <ItemTitle>Copiar recibo</ItemTitle>
+          <ItemTitle>Copiar</ItemTitle>
           <ItemDescription>Copia el recibo al portapapeles.</ItemDescription>
         </ItemContent>
         <ItemActions>
@@ -150,7 +150,7 @@ function WhatsAppButton({ message, phoneNumber }: WhatsAppButton) {
         <MessageCircle />
       </ItemMedia>
       <ItemContent>
-        <ItemTitle>Enviar mensaje</ItemTitle>
+        <ItemTitle>Enviar</ItemTitle>
         <ItemDescription>
           {phoneNumber
             ? 'Abre la conversación en WhatsApp y pega el recibo.'

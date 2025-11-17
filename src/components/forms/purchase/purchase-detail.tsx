@@ -98,7 +98,7 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
                 />
                 <CardItem
                   value={ganancia}
-                  label="Ganancia"
+                  label="Ganancia aprox."
                   color="blue"
                   showPriceInNio
                 />
@@ -125,7 +125,7 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
             />
             <CardItem
               value={formTotals.profit}
-              label="Ganancia"
+              label="Ganancia aprox."
               color="blue"
               showPriceInNio
             />
@@ -143,7 +143,7 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
           <TableHead>Cantidad</TableHead>
           <TableHead>Precio</TableHead>
           <TableHead>Subtotal</TableHead>
-          <TableHead>Ganancia</TableHead>
+          <TableHead>Ganancia aprox.</TableHead>
           <TableHead>Acciones</TableHead>
         </TableRow>
       </TableHeader>

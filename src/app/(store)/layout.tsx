@@ -1,10 +1,11 @@
-import SideMenu from '@/components/sidemenu/side-menu';
+import { AppSideBar } from '@/components/side-bar/app-side-bar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 
 export default function Layout({ children }) {
   return (
-    <div className="flex flex-col md:flex-row max-h-dvh min-h-dvh">
-      <SideMenu />
+    <SidebarProvider className="flex flex-col md:flex-row max-h-dvh min-h-dvh">
+      <AppSideBar />
       <div className="flex flex-col flex-1 overflow-auto">{children}</div>
-    </div>
+    </SidebarProvider>
   );
 }

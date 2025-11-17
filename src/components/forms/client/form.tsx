@@ -15,7 +15,7 @@ interface ClientForm {
 export function ClientForm({ form }: ClientForm) {
   return (
     <FieldGroup>
-      <FieldSet className="flex-row gap-3 md:gap-6">
+      <FieldSet>
         <FormInput control={form.control} name="nombre" label="Nombre" />
         <FormInput control={form.control} name="apellido" label="Apellido" />
       </FieldSet>

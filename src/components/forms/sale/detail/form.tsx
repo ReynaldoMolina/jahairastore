@@ -101,14 +101,18 @@ export function SaleDetailForm({ form, detail }: SaleDetailForm) {
           value={canAddQuantity ? detail.existencias : 'Agotado'}
           label="Disponibles"
         />
-        <FormInput
-          control={form.control}
-          name="cantidad"
-          label="Cantidad"
-          readOnly
-        />
 
-        <ButtonGroup aria-label="Media controls" className="h-fit">
+        <ButtonGroup
+          aria-label="Media controls"
+          className="h-fit items-end w-full"
+        >
+          <FormInput
+            control={form.control}
+            name="cantidad"
+            label="Cantidad"
+            className="rounded-r-none"
+            readOnly
+          />
           <Button
             variant="outline"
             size="icon"

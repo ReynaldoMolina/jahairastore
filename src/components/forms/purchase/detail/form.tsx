@@ -96,17 +96,21 @@ export function PurchaseDetailForm({ form, detail }: PurchaseDetailForm) {
 
       <FieldSet className="flex-row gap-3 md:gap-6 items-end">
         <FormInputReadOnly
-          value={detail.existencias > 0 ? detail.existencias : 'Agotado'}
+          value={detail.existencias < 1 ? 'Agotado' : detail.existencias}
           label="Disponibles"
         />
-        <FormInput
-          control={form.control}
-          name="cantidad"
-          label="Cantidad"
-          readOnly
-        />
 
-        <ButtonGroup aria-label="Media controls" className="h-fit">
+        <ButtonGroup
+          aria-label="Media controls"
+          className="h-fit items-end w-full"
+        >
+          <FormInput
+            control={form.control}
+            name="cantidad"
+            label="Cantidad"
+            className="rounded-r-none"
+            readOnly
+          />
           <Button
             variant="outline"
             size="icon"

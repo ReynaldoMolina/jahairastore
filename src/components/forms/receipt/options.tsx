@@ -150,7 +150,7 @@ function WhatsAppButton({ message, phoneNumber }: WhatsAppButton) {
         <MessageCircle />
       </ItemMedia>
       <ItemContent>
-        <ItemTitle>Enviar WhatsApp</ItemTitle>
+        <ItemTitle>Enviar</ItemTitle>
         <ItemDescription>
           {phoneNumber
             ? 'Abre la conversación y pega el recibo.'
