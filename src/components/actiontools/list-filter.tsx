@@ -68,11 +68,13 @@ function FilterState({ listName }: FilterState) {
   return (
     <Toggle
       aria-label="Toggle state"
-      size="sm"
       variant="outline"
       onPressedChange={handleChange}
       pressed={listState}
-      className="bg-background data-[state=on]:bg-ring/30 text-xs shrink-0"
+      className="text-xs shrink-0 px-3 dark:bg-input/30 dark:border-input dark:hover:bg-input/50 
+      
+      data-[state=on]:border-blue-600 data-[state=on]:bg-blue-50 dark:data-[state=on]:border-blue-900 dark:data-[state=on]:bg-blue-950
+      "
     >
       {icons[listName]}
       <span className="hidden md:block">{labels[listName]}</span>

@@ -36,9 +36,7 @@ export function ReceiptOptions({ receipt }: ReceiptOptions) {
       await navigator.clipboard.write([
         new ClipboardItem({ [blob.type]: blob }),
       ]);
-      toast.info('Imagen copiada', {
-        description: 'Puedes pegarla en WhatsApp.',
-      });
+      toast.info('Imagen copiada.');
     } catch (err) {
       console.error(err);
       toast.error('Hubo un error al copiar la imagen al portapapeles.');
@@ -72,9 +70,7 @@ export function ReceiptOptions({ receipt }: ReceiptOptions) {
         </ItemMedia>
         <ItemContent>
           <ItemTitle>Ver</ItemTitle>
-          <ItemDescription>
-            Ver el recibo como imagen en una pestaña nueva.
-          </ItemDescription>
+          <ItemDescription>Ver el recibo como imagen.</ItemDescription>
         </ItemContent>
         <ItemActions>
           <Button variant="outline" size="sm" asChild>
@@ -120,7 +116,7 @@ export function ReceiptOptions({ receipt }: ReceiptOptions) {
         </ItemMedia>
         <ItemContent>
           <ItemTitle>Descargar</ItemTitle>
-          <ItemDescription>Descarga el recibo como imagen PNG.</ItemDescription>
+          <ItemDescription>Descarga el recibo como imagen.</ItemDescription>
         </ItemContent>
         <ItemActions>
           <Button
@@ -158,7 +154,7 @@ function WhatsAppButton({ message, phoneNumber }: WhatsAppButton) {
         <ItemDescription>
           {phoneNumber
             ? 'Abre la conversación y pega el recibo.'
-            : 'Necesitas agregar un número de teléfono al cliente.'}
+            : 'Necesitas agregar un número de teléfono.'}
         </ItemDescription>
       </ItemContent>
       <ItemActions>

@@ -1,7 +1,6 @@
 'use client';
 
 import { FieldGroup, FieldSet } from '../../ui/field';
-import { ProductFormType } from '@/types/types';
 import { UseFormReturn } from 'react-hook-form';
 import { FormCheck } from '@/components/form-elements/form-checkbox';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
@@ -14,7 +13,6 @@ import { FormInput } from '@/components/form-elements/form-input';
 
 interface ProductForm {
   form: UseFormReturn<z.infer<typeof productSchema>>;
-  product?: ProductFormType;
 }
 
 export function ProductForm({ form }: ProductForm) {
@@ -106,11 +104,12 @@ export function ProductForm({ form }: ProductForm) {
         </FieldSet>
       )}
 
-      <FieldSet className="flex-row gap-3 md:gap-6">
+      <FieldSet>
         <FormInput
           control={form.control}
           name="cambioDolar"
           label="Cambio USD"
+          textAddon="C$"
         />
         <FormInput
           control={form.control}

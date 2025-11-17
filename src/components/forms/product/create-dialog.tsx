@@ -43,8 +43,8 @@ export function CreateProductFormDialog({
       idProveedor: null,
       nombre: '',
       descripcion: null,
-      precioCompra: undefined,
-      precioVenta: undefined,
+      precioCompra: 0,
+      precioVenta: 0,
       idCategoria: null,
       fecha: currentDate,
       idShein: null,
@@ -99,7 +99,7 @@ export function CreateProductFormDialog({
                 />
                 <div className="grid gap-1.5 font-normal">
                   <p className="text-xs leading-none">
-                    Agregar varios productos
+                    ¿Crear varios productos?
                   </p>
                 </div>
               </Label>

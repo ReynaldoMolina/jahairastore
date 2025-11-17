@@ -63,7 +63,9 @@ export function EditSaleForm({
       <TabsList className="w-full sm:w-fit">
         <TabsTrigger value="info">Información</TabsTrigger>
         <TabsTrigger value="productos">Productos</TabsTrigger>
-        <TabsTrigger value="recibo">Recibo</TabsTrigger>
+        <TabsTrigger value="recibo" disabled={sale.detail.length < 1}>
+          Recibo
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="info">
         <Form {...form}>

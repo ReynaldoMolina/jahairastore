@@ -55,8 +55,10 @@ export function SaleForm({
           label="¿Al crédito?"
           description="Marcar como venta al crédito."
           onCheckedExtra={(checked) => {
-            form.setValue('abono', checked ? sale.abono : totalSell);
-            form.setValue('saldo', checked ? totalSell - sale.abono : 0);
+            if (!isNew) {
+              form.setValue('abono', checked ? sale.abono : totalSell);
+              form.setValue('saldo', checked ? totalSell - sale.abono : 0);
+            }
           }}
         />
         {credito && !isNew && (
@@ -65,6 +67,7 @@ export function SaleForm({
               <FormInputReadOnly
                 value={formatNumber(totalSell)}
                 label="Total"
+                textAddon="C$"
               />
               <FormInput
                 control={form.control}
@@ -76,18 +79,21 @@ export function SaleForm({
                     isNaN(Number(value)) ? 0 : totalSell - Number(value)
                   )
                 }
+                textAddon="C$"
               />
               <FormInput
                 control={form.control}
                 name="saldo"
                 label="Saldo"
                 readOnly
+                textAddon="C$"
               />
             </div>
             <FormInput
               control={form.control}
               name="cambioDolar"
               label="Cambio USD"
+              textAddon="C$"
             />
           </>
         )}

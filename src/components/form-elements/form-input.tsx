@@ -9,6 +9,7 @@ import {
 } from '../ui/input-group';
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 import { HelpCircle } from 'lucide-react';
+import React from 'react';
 
 interface FormInputGroupText<T extends FieldValues> {
   control: Control<T>;

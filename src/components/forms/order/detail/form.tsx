@@ -69,9 +69,17 @@ export function OrderDetailForm({
       </FieldSet>
 
       <FieldSet className="flex-row gap-3 md:gap-6 items-end">
-        <FormInput control={form.control} name="cantidad" label="Cantidad" />
+        <ButtonGroup
+          aria-label="Media controls"
+          className="h-fit items-end w-full"
+        >
+          <FormInput
+            control={form.control}
+            name="cantidad"
+            label="Cantidad"
+            className="rounded-r-none"
+          />
 
-        <ButtonGroup aria-label="Media controls" className="h-fit">
           <Button
             variant="outline"
             size="icon"
@@ -106,7 +114,7 @@ export function OrderDetailForm({
               className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
             />
             <div className="grid gap-1.5 font-normal">
-              <p className="text-xs leading-none">Agregar varios productos</p>
+              <p className="text-xs leading-none">¿Agregar varios productos?</p>
             </div>
           </Label>
         </FieldSet>

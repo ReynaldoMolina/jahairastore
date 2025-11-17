@@ -36,9 +36,7 @@ export function SaleOptions({ sale }: SaleOptions) {
       await navigator.clipboard.write([
         new ClipboardItem({ [blob.type]: blob }),
       ]);
-      toast.info('Imagen copiada', {
-        description: 'Puedes pegarla en WhatsApp.',
-      });
+      toast.info('Imagen copiada.');
     } catch (err) {
       console.error(err);
       toast.error('Hubo un error al copiar la imagen al portapapeles.');
@@ -118,7 +116,7 @@ export function SaleOptions({ sale }: SaleOptions) {
         </ItemMedia>
         <ItemContent>
           <ItemTitle>Descargar</ItemTitle>
-          <ItemDescription>Descarga el recibo como imagen PNG.</ItemDescription>
+          <ItemDescription>Descarga el recibo como imagen.</ItemDescription>
         </ItemContent>
         <ItemActions>
           <Button
@@ -156,7 +154,7 @@ function WhatsAppButton({ message, phoneNumber }: WhatsAppButton) {
         <ItemDescription>
           {phoneNumber
             ? 'Abre la conversación en WhatsApp y pega el recibo.'
-            : 'Necesitas agregar un número de teléfono al cliente.'}
+            : 'Necesitas agregar un número de teléfono.'}
         </ItemDescription>
       </ItemContent>
       <ItemActions>

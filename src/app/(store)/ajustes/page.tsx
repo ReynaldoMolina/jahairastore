@@ -17,7 +17,7 @@ export default async function Page() {
 
   return (
     <>
-      <SiteHeader title="Ajustes" />
+      <SiteHeader title="Ajustes" hideBackButton />
       <PageWrapper>
         <SettingsForm data={data} />
       </PageWrapper>

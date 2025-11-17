@@ -65,7 +65,9 @@ export function EditOrderForm({
         <TabsTrigger value="info">Información</TabsTrigger>
         <TabsTrigger value="productos">Productos</TabsTrigger>
         <TabsTrigger value="envio">Envío</TabsTrigger>
-        <TabsTrigger value="pagar">Pagar</TabsTrigger>
+        <TabsTrigger value="pagar" disabled={order.detail.length < 1}>
+          Pagar
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="info">
         <Form {...form}>
