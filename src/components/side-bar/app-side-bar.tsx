@@ -16,7 +16,7 @@ export function AppSideBar() {
   const isMobile = useIsMobile();
 
   return isMobile ? (
-    <nav className="flex overflow-auto gap-1 p-1 bg-sidebar w-full shrink-0 order-2 border-t border-sidebar-border">
+    <nav className="flex overflow-auto gap-1 p-1 bg-sidebar w-full shrink-0 order-2 border-t border-sidebar-border md:hidden">
       {menuOptions.map((option) => (
         <MenuItem key={option.name} option={option} />
       ))}
