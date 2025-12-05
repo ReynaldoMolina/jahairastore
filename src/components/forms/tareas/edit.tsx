@@ -1,46 +1,42 @@
-'use client';
+'use tarea';
 
 import { startTransition, useActionState } from 'react';
 import { Card, CardContent } from '../../ui/card';
 import * as z from 'zod';
-import { ClientById } from '@/types/types';
+import { TareaById } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useServerActionFeedback } from '@/hooks/use-server-status';
 import { FormCardFooter } from '@/components/form-elements/form-footer';
 import { Form } from '@/components/ui/form';
 import { stateDefault } from '@/server-actions/stateMessage';
-import { clientSchema } from '../validation/client';
-import { updateClient } from '@/server-actions/client';
-import { ClientForm } from './form';
+import { tareaSchema } from '../validation/tarea';
+import { updateTarea } from '@/server-actions/tarea';
+import { TareaForm } from './form';
 
-interface EditClientForm {
-  client: ClientById;
+interface EditTareaForm {
+  tarea: TareaById;
 }
 
-export function EditClientForm({ client }: EditClientForm) {
-  const form = useForm<z.infer<typeof clientSchema>>({
-    resolver: zodResolver(clientSchema),
+export function EditTareaForm({ tarea }: EditTareaForm) {
+  const form = useForm<z.infer<typeof tareaSchema>>({
+    resolver: zodResolver(tareaSchema),
     defaultValues: {
-      nombre: client.nombre,
-      apellido: client.apellido,
-      telefono: client.telefono || '+505 ',
-      municipio: client.municipio,
-      departamento: client.departamento,
-      pais: client.pais,
-      direccion: client.direccion,
-      idUsuario: client.idUsuario,
+      tarea: tarea.tarea,
+      fecha_entrega: tarea.fecha_entrega,
+      prioridad: tarea.prioridad,
+      completado: tarea.completado,
     },
   });
 
   const [state, formAction, isPending] = useActionState(
-    updateClient,
+    updateTarea,
     stateDefault
   );
 
-  function onSubmit(values: z.infer<typeof clientSchema>) {
+  function onSubmit(values: z.infer<typeof tareaSchema>) {
     startTransition(() => {
-      formAction({ id: client.id, values: values as ClientById });
+      formAction({ id: tarea.id, values: values as TareaById });
     });
   }
 
@@ -54,7 +50,7 @@ export function EditClientForm({ client }: EditClientForm) {
       >
         <Card>
           <CardContent className="space-y-6">
-            <ClientForm form={form} />
+            <TareaForm form={form} />
           </CardContent>
           <FormCardFooter isPending={isPending} />
         </Card>

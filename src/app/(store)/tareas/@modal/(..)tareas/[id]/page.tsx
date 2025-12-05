@@ -1,6 +1,6 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditClientFormDialog } from '@/components/forms/client/edit-dialog';
-import { getClientById } from '@/fetch-data/clients';
+import { EditTareaFormDialog } from '@/components/forms/tareas/edit-dialog';
+import { getTareaById } from '@/fetch-data/tareas';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 
@@ -8,7 +8,7 @@ export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
 
   return {
-    title: `Cliente ${id}`,
+    title: `Tarea ${id}`,
   };
 }
 
@@ -16,11 +16,11 @@ export default async function Page({ params }: PageProps) {
   await checkAuthorization();
 
   const { id } = await params;
-  const client = await getClientById(id);
+  const tarea = await getTareaById(id);
 
-  if (!client) {
+  if (!tarea) {
     notFound();
   }
 
-  return <EditClientFormDialog client={client} />;
+  return <EditTareaFormDialog tarea={tarea} />;
 }

@@ -10,14 +10,13 @@ import {
   TableHead,
   TableBody,
   TableCell,
-  TableFooter,
 } from '../ui/table';
 import EmptyList from './empty-list';
 import { Pagination } from './pagination';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
 import { formatDate, formatDateShort } from '@/lib/formatters';
-import { Clock, Info } from 'lucide-react';
+import { Calendar, Check, Clock, Info, X } from 'lucide-react';
 
 interface Tareas {
   data: {
@@ -45,21 +44,46 @@ export function Tareas({ data, query, totalPages }: Tareas) {
             <Link key={register.id} href={`/tareas/${register.id}`}>
               <Card className="py-4 gap-4">
                 <CardHeader>
-                  <CardTitle>{register.tarea}</CardTitle>
+                  <CardTitle
+                    className={
+                      register.completado
+                        ? 'line-through text-muted-foreground'
+                        : ''
+                    }
+                  >
+                    {register.tarea}
+                  </CardTitle>
                   <CardDescription className="inline-flex gap-3 items-center">
                     <Badge className="bg-brand text-black font-normal">
                       {register.id}
                     </Badge>
                     <Badge variant="outline">
-                      <Clock />
+                      <Calendar />
                       {formatDate(register.fecha_entrega)}
                     </Badge>
                     <Badge variant="outline">
                       <Info />
                       {register.prioridad}
                     </Badge>
-                    <Badge variant="outline">
-                      {register.completado ? 'Completado' : 'Pendiente'}
+                    <Badge
+                      variant={register.completado ? 'outline' : 'destructive'}
+                      className={
+                        register.completado
+                          ? 'bg-green-200 dark:bg-green-900'
+                          : ''
+                      }
+                    >
+                      {register.completado ? (
+                        <>
+                          <Check />
+                          Completado
+                        </>
+                      ) : (
+                        <>
+                          <Clock />
+                          Pendiente
+                        </>
+                      )}
                     </Badge>
                   </CardDescription>
                 </CardHeader>
@@ -101,7 +125,7 @@ export function Tareas({ data, query, totalPages }: Tareas) {
                 </TableCell>
                 <TableCell>
                   <Badge variant="outline">
-                    <Clock />
+                    <Calendar />
                     {formatDate(register.fecha_entrega)}
                   </Badge>
                 </TableCell>
@@ -114,8 +138,23 @@ export function Tareas({ data, query, totalPages }: Tareas) {
                 <TableCell>
                   <Badge
                     variant={register.completado ? 'outline' : 'destructive'}
+                    className={
+                      register.completado
+                        ? 'bg-green-200 dark:bg-green-900'
+                        : ''
+                    }
                   >
-                    {register.completado ? 'Completado' : 'Pendiente'}
+                    {register.completado ? (
+                      <>
+                        <Check />
+                        Completado
+                      </>
+                    ) : (
+                      <>
+                        <X />
+                        Pendiente
+                      </>
+                    )}
                   </Badge>
                 </TableCell>
               </TableRow>

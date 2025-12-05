@@ -2,13 +2,11 @@
 
 import { startTransition, useActionState } from 'react';
 import * as z from 'zod';
-import { updateClient } from '@/server-actions/client';
-import { ClientById } from '@/types/types';
+import { TareaById } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useServerActionFeedback } from '@/hooks/use-server-status';
 import { Form } from '@/components/ui/form';
-import { clientSchema } from '../validation/client';
 import {
   Dialog,
   DialogClose,
@@ -22,37 +20,35 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { Spinner } from '@/components/ui/spinner';
 import { stateDefault } from '@/server-actions/stateMessage';
-import { ClientForm } from './form';
+import { TareaForm } from './form';
+import { tareaSchema } from '../validation/tarea';
+import { updateTarea } from '@/server-actions/tarea';
 
-interface EditClientFormDialog {
-  client: ClientById;
+interface EditTareaFormDialog {
+  tarea: TareaById;
 }
 
-export function EditClientFormDialog({ client }: EditClientFormDialog) {
-  const form = useForm<z.infer<typeof clientSchema>>({
-    resolver: zodResolver(clientSchema),
+export function EditTareaFormDialog({ tarea }: EditTareaFormDialog) {
+  const form = useForm<z.infer<typeof tareaSchema>>({
+    resolver: zodResolver(tareaSchema),
     defaultValues: {
-      nombre: client.nombre,
-      apellido: client.apellido,
-      telefono: client.telefono || '+505 ',
-      municipio: client.municipio,
-      departamento: client.departamento,
-      pais: client.pais,
-      direccion: client.direccion,
-      idUsuario: client.idUsuario,
+      tarea: tarea.tarea,
+      fecha_entrega: tarea.fecha_entrega,
+      prioridad: tarea.prioridad,
+      completado: tarea.completado,
     },
   });
 
   const [state, formAction, isPending] = useActionState(
-    updateClient,
+    updateTarea,
     stateDefault
   );
 
   const router = useRouter();
 
-  function onSubmit(values: z.infer<typeof clientSchema>) {
+  function onSubmit(values: z.infer<typeof tareaSchema>) {
     startTransition(() => {
-      formAction({ id: client.id, values: values as ClientById });
+      formAction({ id: tarea.id, values: values as TareaById });
     });
   }
 
@@ -67,15 +63,13 @@ export function EditClientFormDialog({ client }: EditClientFormDialog) {
         <Dialog open={true} onOpenChange={() => router.back()}>
           <DialogContent className="w-full sm:max-w-xl max-h-[97dvh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>
-                {client.nombre} {client.apellido}
-              </DialogTitle>
+              <DialogTitle>Tarea {tarea.id}</DialogTitle>
               <DialogDescription>
-                Edita la información del cliente.
+                Edita la información de la tarea.
               </DialogDescription>
             </DialogHeader>
 
-            <ClientForm form={form} />
+            <TareaForm form={form} />
 
             <DialogFooter>
               <DialogClose asChild>

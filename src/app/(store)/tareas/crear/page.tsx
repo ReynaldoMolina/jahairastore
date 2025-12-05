@@ -1,5 +1,5 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { CreateClientForm } from '@/components/forms/client/create';
+import { CreateTareaForm } from '@/components/forms/tareas/create';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
 
@@ -14,7 +14,7 @@ export default async function Page() {
     <>
       <SiteHeader title="Crear tarea" />
       <PageWrapper>
-        <CreateClientForm />
+        <CreateTareaForm />
       </PageWrapper>
     </>
   );

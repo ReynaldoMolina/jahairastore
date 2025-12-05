@@ -271,6 +271,14 @@ export interface ProviderById {
   direccion: string | null;
 }
 
+export interface TareaById {
+  id?: number;
+  tarea: string;
+  fecha_entrega: string;
+  prioridad: string;
+  completado: boolean;
+}
+
 export interface BusinessInfoType {
   nombreEmpresa: string;
   eslogan: string;
@@ -287,18 +295,11 @@ export interface AppSettingsFormType {
   envioAereo: number | null;
 }
 
-export interface UserSettingsFormType {
-  id: string;
-  menuPosition: MenuPosition;
-}
-
 export interface SettingsCambioDolarType {
   cambioDolar?: number | null;
   envioMaritimo?: number | null;
   envioAereo?: number | null;
 }
-
-export type MenuPosition = 'bottom' | 'left';
 
 export interface ServerStatus {
   success: boolean | undefined;

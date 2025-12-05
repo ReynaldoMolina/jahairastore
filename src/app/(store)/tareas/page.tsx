@@ -1,4 +1,5 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
+import { ListFilter } from '@/components/actiontools/list-filter';
 import { Tareas } from '@/components/lists/tareas';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
@@ -16,7 +17,9 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
-      <SiteHeader title="Tareas" showActionBar hideBackButton />
+      <SiteHeader title="Tareas" showActionBar hideBackButton>
+        <ListFilter listName="tareas" />
+      </SiteHeader>
       <PageWrapper>
         <Tareas data={data} query={query} totalPages={totalPages} />
       </PageWrapper>

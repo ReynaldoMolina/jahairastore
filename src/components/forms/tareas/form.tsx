@@ -8,16 +8,18 @@ import { FormSelect } from '@/components/form-elements/form-select';
 import { tareaSchema } from '../validation/tarea';
 import { FormDatePicker } from '@/components/form-elements/form-date-picker';
 import { FormCheck } from '@/components/form-elements/form-checkbox';
+import { FormTextArea } from '@/components/form-elements/form-text-area';
 
 interface TareaForm {
   form: UseFormReturn<z.infer<typeof tareaSchema>>;
+  isNew?: boolean;
 }
 
-export function TareaForm({ form }: TareaForm) {
+export function TareaForm({ form, isNew = false }: TareaForm) {
   return (
     <FieldGroup>
       <FieldSet>
-        <FormInput control={form.control} name="tarea" label="Nombre" />
+        <FormTextArea control={form.control} name="tarea" label="Tarea" />
         <FormDatePicker
           control={form.control}
           name="fecha_entrega"
@@ -46,11 +48,14 @@ export function TareaForm({ form }: TareaForm) {
             },
           ]}
         />
-        <FormCheck
-          control={form.control}
-          name="completado"
-          label="Completado?"
-        />
+        {!isNew && (
+          <FormCheck
+            control={form.control}
+            name="completado"
+            label="Completado?"
+            description="Marcar tarea como completada."
+          />
+        )}
       </FieldSet>
     </FieldGroup>
   );

@@ -1,28 +1,30 @@
 import { db } from '@/database/db';
 import { tareas } from '@/database/schema/schema';
 import { SearchParamsProps } from '@/types/types';
-import { sql, desc, eq } from 'drizzle-orm';
+import { sql, desc, eq, and } from 'drizzle-orm';
 import { getUrlParams } from './filter';
 import { buildSearchFilter } from './build-by-search';
 
 export async function getTareas(searchParams: SearchParamsProps) {
-  const { query, limit, offset } = getUrlParams(searchParams);
+  const { query, state, limit, offset } = getUrlParams(searchParams);
 
   const filterBySearch = buildSearchFilter(searchParams, [tareas.tarea]);
+
+  const filterByState = state ? sql`"Tareas"."Completado" = false` : undefined;
 
   try {
     const data = await db
       .select()
       .from(tareas)
-      .where(filterBySearch)
-      .orderBy(desc(tareas.id))
+      .where(and(filterBySearch, filterByState))
+      .orderBy(desc(tareas.id), desc(tareas.completado))
       .limit(limit)
       .offset(offset);
 
     const [{ count }] = await db
       .select({ count: sql<number>`COUNT(*)` })
       .from(tareas)
-      .where(filterBySearch);
+      .where(and(filterBySearch, filterByState));
 
     const totalPages = Math.ceil(count / limit) || 1;
 

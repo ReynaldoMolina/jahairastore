@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { Toggle } from '../ui/toggle';
-import { PackageCheck, Wallet } from 'lucide-react';
+import { Clock, PackageCheck, Wallet } from 'lucide-react';
 
 export const ITEMS_PER_PAGE = 20;
 
-type ListName = 'pedidos' | 'ventas' | 'productos';
+type ListName = 'pedidos' | 'ventas' | 'productos' | 'tareas';
 
 interface ListFilter {
   listName: ListName;
@@ -57,12 +57,14 @@ function FilterState({ listName }: FilterState) {
     pedidos: 'Saldo',
     ventas: 'Saldo',
     productos: 'Disponibles',
+    tareas: 'Pendientes',
   };
 
   const icons = {
     pedidos: <Wallet />,
     ventas: <Wallet />,
     productos: <PackageCheck />,
+    tareas: <Clock />,
   };
 
   return (

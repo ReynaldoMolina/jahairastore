@@ -1,56 +1,61 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import { Card, CardContent } from '../../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../../ui/card';
 import * as z from 'zod';
-import { ClientById } from '@/types/types';
+import { ClientById, TareaById } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useServerActionFeedback } from '@/hooks/use-server-status';
 import { FormCardFooter } from '@/components/form-elements/form-footer';
 import { Form } from '@/components/ui/form';
 import { stateDefault } from '@/server-actions/stateMessage';
-import { clientSchema } from '../validation/client';
-import { createClient } from '@/server-actions/client';
-import { ClientForm } from './form';
+import { TareaForm } from './form';
+import { tareaSchema } from '../validation/tarea';
+import { createTarea } from '@/server-actions/tarea';
 
-export function CreateClientForm() {
-  const form = useForm<z.infer<typeof clientSchema>>({
-    resolver: zodResolver(clientSchema),
+export function CreateTareaForm() {
+  const form = useForm<z.infer<typeof tareaSchema>>({
+    resolver: zodResolver(tareaSchema),
     defaultValues: {
-      nombre: '',
-      apellido: '',
-      telefono: '+505 ',
-      municipio: 'León',
-      departamento: null,
-      pais: null,
-      direccion: '',
-      idUsuario: null,
+      tarea: '',
+      fecha_entrega: '',
+      prioridad: '',
+      completado: false,
     },
   });
 
   const [state, formAction, isPending] = useActionState(
-    createClient,
+    createTarea,
     stateDefault
   );
 
-  function onSubmit(values: z.infer<typeof clientSchema>) {
+  function onSubmit(values: z.infer<typeof tareaSchema>) {
     startTransition(() => {
-      formAction({ values: values as ClientById });
+      formAction({ values: values as TareaById });
     });
   }
 
-  useServerActionFeedback(state, { redirectToId: '/clientes' });
+  useServerActionFeedback(state);
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="max-w-xl w-full mx-auto"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card>
+          <CardHeader>
+            <CardTitle className="text-sm">Nueva tarea</CardTitle>
+            <CardDescription>
+              Agrega la información de la tarea.
+            </CardDescription>
+          </CardHeader>
           <CardContent>
-            <ClientForm form={form} />
+            <TareaForm form={form} isNew />
           </CardContent>
           <FormCardFooter isNew={true} isPending={isPending} />
         </Card>

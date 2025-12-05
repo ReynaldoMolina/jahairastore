@@ -1,12 +1,12 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { CreateClientFormDialog } from '@/components/forms/client/create-dialog';
+import { CreateTareaFormDialog } from '@/components/forms/tareas/create-dialog';
 
 export const metadata = {
-  title: 'Crear cliente',
+  title: 'Crear tarea',
 };
 
 export default async function Page() {
   await checkAuthorization();
 
-  return <CreateClientFormDialog />;
+  return <CreateTareaFormDialog />;
 }

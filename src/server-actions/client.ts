@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/database/db';
-import { clientes, proveedores, recibos } from '@/database/schema/schema';
+import { clientes, proveedores } from '@/database/schema/schema';
 import { ClientById, ServerStatus } from '@/types/types';
 import { eq } from 'drizzle-orm';
 import {
