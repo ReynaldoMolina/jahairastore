@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: {
-    template: '%s - Jahaira Store',
+    // template: '%s - Jahaira Store',
     default: 'Jahaira Store',
   },
   description: 'Aplicación de gestión de tienda',
