@@ -1,9 +1,7 @@
 import { db } from '@/database/db';
-import { user } from '@/database/schema/auth-schema';
 import { configuracion } from '@/database/schema/schema';
 import {
   BusinessInfoType,
-  MenuPosition,
   SettingsCambioDolarType,
   AppSettingsFormType,
 } from '@/types/types';
@@ -73,28 +71,5 @@ export async function getSettingsEnvioPrices(
   } catch (error) {
     console.error(error);
     throw new Error('No se pudieron obtener los precios de envíos.');
-  }
-}
-
-interface UserSettingsProps {
-  id: string;
-  menuPosition: MenuPosition;
-}
-
-export async function getUserSettings(
-  id: string = ''
-): Promise<UserSettingsProps | undefined> {
-  try {
-    const [data] = await db
-      .select({
-        id: user.id,
-        menuPosition: user.menuPosition,
-      })
-      .from(user)
-      .where(eq(user.id, id));
-    return data as UserSettingsProps;
-  } catch (error) {
-    console.error(error);
-    throw new Error('No se pudio obtener la configuración del usuario.');
   }
 }
