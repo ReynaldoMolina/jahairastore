@@ -52,7 +52,7 @@ export function TareaForm({ form, isNew = false }: TareaForm) {
           <FormCheck
             control={form.control}
             name="completado"
-            label="Completado?"
+            label="¿Completado?"
             description="Marcar tarea como completada."
           />
         )}

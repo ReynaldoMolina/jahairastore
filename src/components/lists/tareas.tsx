@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { Badge } from '../ui/badge';
 import { formatDate } from '@/lib/formatters';
 import { Calendar, Check, Clock, Info } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface Tareas {
   data: {
@@ -120,7 +121,14 @@ export function Tareas({ data, query, totalPages }: Tareas) {
                     {register.id}
                   </Badge>
                 </TableCell>
-                <TableCell className="w-full whitespace-normal">
+                <TableCell
+                  className={cn(
+                    'w-full whitespace-normal',
+                    register.completado
+                      ? 'line-through text-muted-foreground'
+                      : ''
+                  )}
+                >
                   {register.tarea}
                 </TableCell>
                 <TableCell>
