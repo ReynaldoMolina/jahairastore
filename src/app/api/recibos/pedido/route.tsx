@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
   const filename = `recibo-${idRecibo}-pedido-${register.idPedido}-${sanitizedClientName}.png`;
 
   const BASE_FIXED_HEIGHT = 600;
-  const ROW_HEIGHT = 30;
+  const ROW_HEIGHT = 65;
   const dynamicContentHeight = register.detail.length * ROW_HEIGHT;
   const calculatedHeight = BASE_FIXED_HEIGHT + dynamicContentHeight;
   const finalHeight = Math.max(1000, calculatedHeight);
@@ -103,6 +103,15 @@ export async function GET(req: NextRequest) {
           {register.detail.map((d) => {
             return (
               <div key={d.id} tw="flex py-1.5 px-1 border-b-neutral-200 border">
+                <div tw="flex w-15">
+                  <div tw="flex w-[45px] h-[60px] overflow-hidden rounded">
+                    <img
+                      src={d.imagenUrl}
+                      alt="Image"
+                      tw="w-full h-full object-contain"
+                    />
+                  </div>
+                </div>
                 <div tw="flex-1">{d.nombreProducto}</div>
                 <div tw="flex w-23 justify-end">
                   ${formatNumber(d.precioVenta)}

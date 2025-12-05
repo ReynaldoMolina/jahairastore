@@ -74,6 +74,7 @@ export interface ReciboPedidoDetalle {
   precioVenta: number;
   cantidad: number;
   nombreProducto: string;
+  imagenUrl: string | null;
 }
 
 export interface ReciboPedido {
@@ -117,6 +118,7 @@ export async function getPedidoReceiptPdf(id: number | string | undefined) {
         precioVenta: pedidosDetalles.precioVenta,
         cantidad: pedidosDetalles.cantidad,
         nombreProducto: pedidosDetalles.nombreProducto,
+        imagenUrl: pedidosDetalles.imagenUrl,
       })
       .from(pedidosDetalles)
       .where(eq(pedidosDetalles.idPedido, Number(idPedido)))
