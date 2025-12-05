@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
   const filename = `recibo-${idRecibo}-pedido-${register.idPedido}-${sanitizedClientName}.png`;
 
   const BASE_FIXED_HEIGHT = 600;
-  const ROW_HEIGHT = 65;
+  const ROW_HEIGHT = 30;
   const dynamicContentHeight = register.detail.length * ROW_HEIGHT;
   const calculatedHeight = BASE_FIXED_HEIGHT + dynamicContentHeight;
   const finalHeight = Math.max(1000, calculatedHeight);
