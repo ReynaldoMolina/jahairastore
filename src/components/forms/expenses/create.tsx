@@ -67,8 +67,11 @@ export function CreateExpenseForm({
       <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card>
           <CardHeader>
-            <CardTitle>Nuevo gasto</CardTitle>
-            <CardDescription>Ingresa la información del gasto.</CardDescription>
+            <CardTitle className="text-sm">Nuevo gasto</CardTitle>
+            <CardDescription>
+              Ingresa la información del gasto, da click en crear cuando estés
+              listo.
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <ExpenseForm form={form} nombreEmpresa={nombreEmpresa} />

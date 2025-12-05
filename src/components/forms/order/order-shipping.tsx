@@ -20,7 +20,13 @@ import z from 'zod';
 import { updateOrder } from '@/server-actions/order';
 import { toast } from 'sonner';
 import { FormInput } from '@/components/form-elements/form-input';
-import { Card, CardContent } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { FieldGroup, FieldSet } from '@/components/ui/field';
 import { FormSelect } from '@/components/form-elements/form-select';
 import { FormCardFooter } from '@/components/form-elements/form-footer';
@@ -100,6 +106,12 @@ export function OrderShipping({ order, envioPrices }: OrderShipping) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card className="max-w-xl mx-auto">
+          <CardHeader>
+            <CardTitle className="text-sm">Envío del pedido</CardTitle>
+            <CardDescription>
+              Actualiza los datos de envío del pedido.
+            </CardDescription>
+          </CardHeader>
           <CardContent className="space-y-5">
             <FieldGroup>
               <FieldSet>
@@ -191,6 +203,10 @@ export function OrderShipping({ order, envioPrices }: OrderShipping) {
                 </WhatsAppButton>
               )}
             </div>
+            <CardDescription>
+              Antes de enviar el mensaje por WhatsApp, guarda los cambios para
+              que no los pierdas.
+            </CardDescription>
           </CardContent>
           <FormCardFooter isPending={isPending} />
         </Card>

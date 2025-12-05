@@ -1,7 +1,13 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import { Card, CardContent } from '../../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../../ui/card';
 import * as z from 'zod';
 import { PurchaseFormType, SelectOptions } from '@/types/types';
 import { useForm } from 'react-hook-form';
@@ -47,6 +53,13 @@ export function CreatePurchaseForm({ selectOptions }: CreatePurchaseForm) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card>
+          <CardHeader>
+            <CardTitle className="text-sm">Nueva compra</CardTitle>
+            <CardDescription>
+              Ingresa los datos de la compra, da click en siguiente cuando estés
+              listo.
+            </CardDescription>
+          </CardHeader>
           <CardContent>
             <PurchaseForm form={form} selectOptions={selectOptions} isNew />
           </CardContent>

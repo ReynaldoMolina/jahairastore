@@ -14,7 +14,7 @@ export default async function Page() {
 
   return (
     <>
-      <SiteHeader title="Inicio" showSidebarTrigger hideBackButton />
+      <SiteHeader title="Inicio" hideBackButton />
       <Home businessInfo={businessInfo} />
     </>
   );

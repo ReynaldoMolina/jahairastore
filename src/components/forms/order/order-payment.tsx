@@ -2,9 +2,17 @@
 
 import { Check, Pencil, Percent, Receipt } from 'lucide-react';
 import { OrderById } from '@/types/types';
-import { Card, CardContent } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { calculateTotals } from '@/lib/calculate-totals';
 import { FormOption } from '@/components/form-elements/form-option';
+import { FormDescription } from '@/components/ui/form';
+import { Separator } from '@/components/ui/separator';
 
 interface OrderPayment {
   order: OrderById;
@@ -19,6 +27,10 @@ export function OrderPayment({ order }: OrderPayment) {
 
   return (
     <Card className="max-w-xl">
+      <CardHeader>
+        <CardTitle className="text-sm">Pagar pedido</CardTitle>
+        <CardDescription>Crea recibos para pagar el pedido.</CardDescription>
+      </CardHeader>
       <CardContent className="space-y-3">
         {formTotals.totalSell - order.abonos > 0 && (
           <>
@@ -45,12 +57,15 @@ export function OrderPayment({ order }: OrderPayment) {
           </>
         )}
         {order.abonos > 0 && (
-          <FormOption
-            label="Ver recibos de abonos"
-            href={`/recibos?query=${order.id} ${order.nombreCliente}`}
-          >
-            <Receipt className="size-4" />
-          </FormOption>
+          <>
+            <Separator className="my-6" />
+            <FormOption
+              label="Ver recibos de abonos"
+              href={`/recibos?query=${order.id} ${order.nombreCliente}`}
+            >
+              <Receipt className="size-4" />
+            </FormOption>
+          </>
         )}
       </CardContent>
     </Card>

@@ -75,7 +75,7 @@ export function EditPurchaseForm({
           >
             <Card>
               <CardHeader>
-                <CardTitle>Editar compra</CardTitle>
+                <CardTitle className="text-sm">Editar compra</CardTitle>
                 <CardDescription>
                   Actualiza la información de la compra.
                 </CardDescription>

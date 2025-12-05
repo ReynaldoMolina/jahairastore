@@ -2,7 +2,13 @@
 
 import { BanknoteArrowDown, Truck } from 'lucide-react';
 import { PurchaseById } from '@/types/types';
-import { Card, CardContent } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { FormOption } from '@/components/form-elements/form-option';
 
 interface PurchaseOptions {
@@ -12,6 +18,10 @@ interface PurchaseOptions {
 export function PurchaseOptions({ purchase }: PurchaseOptions) {
   return (
     <Card className="max-w-xl">
+      <CardHeader>
+        <CardTitle className="text-sm">Gastos de la compra</CardTitle>
+        <CardDescription>Selecciona un tipo de gasto.</CardDescription>
+      </CardHeader>
       <CardContent className="space-y-3">
         <FormOption
           label="Agregar envío"

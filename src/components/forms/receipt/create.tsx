@@ -1,7 +1,13 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import { Card, CardContent } from '../../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../../ui/card';
 import * as z from 'zod';
 import { ReceiptFormType, SearchParamsProps } from '@/types/types';
 import { useForm } from 'react-hook-form';
@@ -59,6 +65,10 @@ export function CreateReceiptForm({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card>
+          <CardHeader>
+            <CardTitle className="text-sm">Nuevo recibo</CardTitle>
+            <CardDescription>Ingresa los datos del recibo.</CardDescription>
+          </CardHeader>
           <CardContent>
             <ReceiptForm
               form={form}

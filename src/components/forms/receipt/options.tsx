@@ -108,7 +108,7 @@ export function ReceiptOptions({ receipt }: ReceiptOptions) {
 
       <CardTitle className="mt-8">¿Quieres enviar el recibo?</CardTitle>
       <CardDescription>
-        Primero cópialo al portapepeles, luego abre la conversación de WhatsApp
+        Primero cópialo al portapapeles, luego abre la conversación de WhatsApp
         y pega la imagen.
       </CardDescription>
       <Item variant="outline">

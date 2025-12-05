@@ -26,7 +26,6 @@ export function SiteHeader({
 
   return (
     <header className="inline-flex font-semibold text-xs h-11 items-center border-b shrink-0 px-3 gap-1">
-      <Separator />
       {!hideBackButton && (
         <Button variant="ghost" size="icon-sm" onClick={() => router.back()}>
           <ArrowLeft className="size-4.5" />

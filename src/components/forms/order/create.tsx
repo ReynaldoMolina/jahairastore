@@ -68,9 +68,10 @@ export function CreateOrderForm({
       <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card>
           <CardHeader>
-            <CardTitle>Nuevo pedido</CardTitle>
+            <CardTitle className="text-sm">Nuevo pedido</CardTitle>
             <CardDescription>
-              Ingresa los datos del nuevo pedido
+              Ingresa los datos del pedido, da click en siguiente cundo estés
+              listo.
             </CardDescription>
           </CardHeader>
           <CardContent>

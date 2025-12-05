@@ -66,7 +66,7 @@ export function EditReceiptForm({ receipt }: EditReceiptForm) {
           >
             <Card>
               <CardHeader>
-                <CardTitle>Información del recibo</CardTitle>
+                <CardTitle className="text-sm">Editar recibo</CardTitle>
                 <CardDescription>
                   Actualiza la información del recibo.
                 </CardDescription>
@@ -85,6 +85,10 @@ export function EditReceiptForm({ receipt }: EditReceiptForm) {
       </TabsContent>
       <TabsContent value="enviar">
         <Card className="max-w-xl">
+          <CardHeader>
+            <CardTitle className="text-sm">Enviar recibo</CardTitle>
+            <CardDescription>Administra el recibo del pedido.</CardDescription>
+          </CardHeader>
           <CardContent className="space-y-3">
             <ReceiptOptions receipt={receipt} />
           </CardContent>

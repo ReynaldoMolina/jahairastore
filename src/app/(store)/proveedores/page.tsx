@@ -16,12 +16,7 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
-      <SiteHeader
-        title="Proveedores"
-        showSidebarTrigger
-        showActionBar
-        hideBackButton
-      />
+      <SiteHeader title="Proveedores" showActionBar hideBackButton />
       <PageWrapper>
         <Providers data={data} query={query} totalPages={totalPages} />
       </PageWrapper>

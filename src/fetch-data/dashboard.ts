@@ -18,14 +18,14 @@ export async function getTotalsDashboard(searchParams: SearchParamsProps) {
   const { start, end } = searchParams;
   const { firstDay, lastDay } = getCurrentMonth();
 
-  const cambioDolar = await getSettingsCambioDolar();
+  const cambioDolar = (await getSettingsCambioDolar()) || 37;
   const startParam = start ? start : firstDay;
   const endParam = end ? end : lastDay;
 
   try {
     const [salesContado] = await db
       .select({
-        salesContado: sql<number>`COALESCE(ROUND(SUM((${ventasDetalles.precioVenta} * ${ventasDetalles.cantidad} * ${ventasDetalles.cambioDolar})::numeric), 2), 0)`,
+        salesContado: sql<number>`COALESCE(ROUND(SUM((${ventasDetalles.precioVenta} * ${ventasDetalles.cantidad} * ${ventasDetalles.cambioDolar})::numeric), 2), 0)::float`,
       })
       .from(ventasDetalles)
       .leftJoin(ventas, eq(ventasDetalles.idVenta, ventas.id))

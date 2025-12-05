@@ -1,7 +1,13 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import { Card, CardContent } from '../../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../../ui/card';
 import * as z from 'zod';
 import {
   ProductSearchData,
@@ -74,6 +80,12 @@ export function EditSaleForm({
             className="max-w-xl w-full"
           >
             <Card>
+              <CardHeader>
+                <CardTitle className="text-sm">Editar venta</CardTitle>
+                <CardDescription>
+                  Actualiza la información de la venta.
+                </CardDescription>
+              </CardHeader>
               <CardContent>
                 <SaleForm
                   form={form}
@@ -91,6 +103,10 @@ export function EditSaleForm({
       </TabsContent>
       <TabsContent value="recibo" className="space-y-3">
         <Card className="max-w-xl">
+          <CardHeader>
+            <CardTitle className="text-sm">Recibo de venta</CardTitle>
+            <CardDescription>Administra el recibo de la venta.</CardDescription>
+          </CardHeader>
           <CardContent className="space-y-3">
             <SaleOptions sale={sale} />
           </CardContent>
