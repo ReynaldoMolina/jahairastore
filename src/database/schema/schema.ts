@@ -160,6 +160,14 @@ export const productos = pgTable(
   ]
 );
 
+export const tareas = pgTable('Tareas', {
+  id: serial('Id').primaryKey().notNull(),
+  tarea: varchar('Tarea', { length: 255 }).notNull(),
+  fecha_entrega: date('Fecha_entrega').notNull(),
+  prioridad: varchar('Prioridad', { length: 255 }).notNull(),
+  completado: boolean('Completado').notNull(),
+});
+
 // only in demo mode
 // export const urls = pgTable('Urls', {
 //   id: text().primaryKey().notNull(),

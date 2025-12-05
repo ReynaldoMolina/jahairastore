@@ -1,6 +1,7 @@
 import {
   BanknoteArrowDown,
   ChartNoAxesCombined,
+  ClipboardList,
   Coins,
   Home,
   Package,
@@ -22,6 +23,11 @@ export const menuOptions = [
     name: 'Dashboard',
     url: '/dashboard',
     icon: ChartNoAxesCombined,
+  },
+  {
+    name: 'Tareas',
+    url: '/tareas',
+    icon: ClipboardList,
   },
   {
     name: 'Ventas',
