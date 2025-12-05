@@ -71,7 +71,7 @@ export function EditSaleForm({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="max-w-xl w-full mx-auto"
+            className="max-w-xl w-full"
           >
             <Card>
               <CardContent>
@@ -90,7 +90,7 @@ export function EditSaleForm({
         <FormDetail productData={productData} sale={sale} />
       </TabsContent>
       <TabsContent value="recibo" className="space-y-3">
-        <Card className="max-w-lg mx-auto">
+        <Card className="max-w-xl">
           <CardContent className="space-y-3">
             <SaleOptions sale={sale} />
           </CardContent>

@@ -15,6 +15,7 @@ import { toast } from 'sonner';
 import { Spinner } from '@/components/ui/spinner';
 import { ReceiptById } from '@/types/types';
 import Link from 'next/link';
+import { CardDescription, CardTitle } from '@/components/ui/card';
 
 interface ReceiptOptions {
   receipt: ReceiptById;
@@ -86,6 +87,32 @@ export function ReceiptOptions({ receipt }: ReceiptOptions) {
 
       <Item variant="outline">
         <ItemMedia variant="icon">
+          <Download />
+        </ItemMedia>
+        <ItemContent>
+          <ItemTitle>Descargar</ItemTitle>
+          <ItemDescription>Descarga el recibo como imagen.</ItemDescription>
+        </ItemContent>
+        <ItemActions>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleDownload}
+            disabled={loading !== null}
+            className="min-w-20"
+          >
+            {loading === 'download' ? <Spinner /> : 'Descargar'}
+          </Button>
+        </ItemActions>
+      </Item>
+
+      <CardTitle className="mt-8">¿Quieres enviar el recibo?</CardTitle>
+      <CardDescription>
+        Primero cópialo al portapepeles, luego abre la conversación de WhatsApp
+        y pega la imagen.
+      </CardDescription>
+      <Item variant="outline">
+        <ItemMedia variant="icon">
           <Copy />
         </ItemMedia>
         <ItemContent>
@@ -109,27 +136,6 @@ export function ReceiptOptions({ receipt }: ReceiptOptions) {
         message={`Hola ${receipt.nombreCliente}, aquí está tu recibo.`}
         phoneNumber={receipt.telefono}
       />
-
-      <Item variant="outline">
-        <ItemMedia variant="icon">
-          <Download />
-        </ItemMedia>
-        <ItemContent>
-          <ItemTitle>Descargar</ItemTitle>
-          <ItemDescription>Descarga el recibo como imagen.</ItemDescription>
-        </ItemContent>
-        <ItemActions>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleDownload}
-            disabled={loading !== null}
-            className="min-w-20"
-          >
-            {loading === 'download' ? <Spinner /> : 'Descargar'}
-          </Button>
-        </ItemActions>
-      </Item>
     </>
   );
 }

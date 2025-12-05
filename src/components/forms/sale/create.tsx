@@ -50,10 +50,7 @@ export function CreateSaleForm({ selectOptions, cambioDolar }: CreateSaleForm) {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="max-w-xl w-full mx-auto"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card>
           <CardContent>
             <SaleForm form={form} selectOptions={selectOptions} isNew />

@@ -67,7 +67,9 @@ export function EditClientFormDialog({ client }: EditClientFormDialog) {
         <Dialog open={true} onOpenChange={() => router.back()}>
           <DialogContent className="w-full sm:max-w-xl max-h-[97dvh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Cliente {client.id}</DialogTitle>
+              <DialogTitle>
+                {client.nombre} {client.apellido}
+              </DialogTitle>
               <DialogDescription>
                 Edita la información del cliente.
               </DialogDescription>

@@ -277,7 +277,7 @@ export interface BusinessInfoType {
   mensaje?: string;
 }
 
-export interface SettingsFormType {
+export interface AppSettingsFormType {
   nombreEmpresa: string;
   eslogan: string;
   mensaje: string | null;
@@ -287,11 +287,18 @@ export interface SettingsFormType {
   envioAereo: number | null;
 }
 
+export interface UserSettingsFormType {
+  id: string;
+  menuPosition: MenuPosition;
+}
+
 export interface SettingsCambioDolarType {
   cambioDolar?: number | null;
   envioMaritimo?: number | null;
   envioAereo?: number | null;
 }
+
+export type MenuPosition = 'bottom' | 'left';
 
 export interface ServerStatus {
   success: boolean | undefined;

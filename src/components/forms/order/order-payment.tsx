@@ -18,7 +18,7 @@ export function OrderPayment({ order }: OrderPayment) {
   const half = Math.round((balance / 2) * 100) / 100;
 
   return (
-    <Card className="mx-auto max-w-xl">
+    <Card className="max-w-xl">
       <CardContent className="space-y-3">
         {formTotals.totalSell - order.abonos > 0 && (
           <>

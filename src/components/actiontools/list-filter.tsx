@@ -71,7 +71,7 @@ function FilterState({ listName }: FilterState) {
       variant="outline"
       onPressedChange={handleChange}
       pressed={listState}
-      className="text-xs shrink-0 px-3 dark:bg-input/30 dark:border-input dark:hover:bg-input/50 
+      className="text-xs h-8 shrink-0 px-3 dark:bg-input/30 dark:border-input dark:hover:bg-input/50 
       
       data-[state=on]:border-blue-600 data-[state=on]:bg-blue-50 dark:data-[state=on]:border-blue-900 dark:data-[state=on]:bg-blue-950
       "

@@ -16,7 +16,7 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
-      <SiteHeader title="Dashboard" hideBackButton />
+      <SiteHeader title="Dashboard" showSidebarTrigger hideBackButton />
       <PageWrapper>
         <Dashboard searchParams={await searchParams} data={data} />
       </PageWrapper>

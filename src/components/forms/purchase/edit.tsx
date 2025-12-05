@@ -1,7 +1,13 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import { Card, CardContent } from '../../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../../ui/card';
 import * as z from 'zod';
 import {
   ProductSearchData,
@@ -65,9 +71,15 @@ export function EditPurchaseForm({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="max-w-xl w-full mx-auto"
+            className="max-w-xl w-full"
           >
             <Card>
+              <CardHeader>
+                <CardTitle>Editar compra</CardTitle>
+                <CardDescription>
+                  Actualiza la información de la compra.
+                </CardDescription>
+              </CardHeader>
               <CardContent>
                 <PurchaseForm
                   form={form}

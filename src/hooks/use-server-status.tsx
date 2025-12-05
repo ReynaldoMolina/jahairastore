@@ -10,6 +10,7 @@ interface FeedbackOptions {
   redirectTo?: string;
   redirectToId?: string;
   refresh?: boolean;
+  hardReload?: boolean;
 }
 
 export function useServerActionFeedback(
@@ -32,6 +33,11 @@ export function useServerActionFeedback(
 
       if (options.redirectTo) {
         router.push(options.redirectTo);
+      }
+
+      if (options.hardReload) {
+        window.location.reload();
+        return;
       }
 
       if (options.back && options.refresh) {

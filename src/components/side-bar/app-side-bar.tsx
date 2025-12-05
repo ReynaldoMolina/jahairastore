@@ -11,11 +11,13 @@ import {
   SidebarGroupLabel,
   SidebarMenu,
 } from '../ui/sidebar';
+import { useSettings } from '../settings-provider';
 
 export function AppSideBar() {
   const isMobile = useIsMobile();
+  const { userSettings } = useSettings();
 
-  return isMobile ? (
+  return isMobile && userSettings.menuPosition === 'bottom' ? (
     <nav className="flex overflow-auto gap-1 p-1 bg-sidebar w-full shrink-0 order-2 border-t border-sidebar-border md:hidden">
       {menuOptions.map((option) => (
         <MenuItem key={option.name} option={option} />

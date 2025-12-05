@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { zNumberMin } from './zod-helper';
 
-export const settingsSchema = z.object({
+export const appSettingsSchema = z.object({
   nombreEmpresa: z.string().trim().min(1, 'Requerido'),
   eslogan: z.string().trim().min(1, 'Requerido'),
   mensaje: z.string().trim().nullable(),

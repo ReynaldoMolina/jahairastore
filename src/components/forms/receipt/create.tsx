@@ -57,10 +57,7 @@ export function CreateReceiptForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="max-w-xl w-full mx-auto"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card>
           <CardContent>
             <ReceiptForm

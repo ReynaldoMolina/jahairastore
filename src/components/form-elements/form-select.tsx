@@ -1,6 +1,6 @@
 import { SelectOptions } from '@/types/types';
 import { FieldValues, Control, Path, Controller } from 'react-hook-form';
-import { Field, FieldError, FieldLabel } from '../ui/field';
+import { Field, FieldDescription, FieldError, FieldLabel } from '../ui/field';
 import {
   Select,
   SelectContent,
@@ -14,6 +14,7 @@ type FormSelectType<T extends FieldValues> = {
   name: Path<T>;
   label: string;
   options: SelectOptions[];
+  description?: string;
   onChangeExtra?: (value: string | number) => void;
 };
 
@@ -22,6 +23,7 @@ export function FormSelect<T extends FieldValues>({
   name,
   label,
   options,
+  description,
   onChangeExtra,
 }: FormSelectType<T>) {
   return (
@@ -50,6 +52,7 @@ export function FormSelect<T extends FieldValues>({
             </SelectContent>
           </Select>
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          {description && <FieldDescription>{description}</FieldDescription>}
         </Field>
       )}
     />

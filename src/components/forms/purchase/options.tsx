@@ -11,7 +11,7 @@ interface PurchaseOptions {
 
 export function PurchaseOptions({ purchase }: PurchaseOptions) {
   return (
-    <Card className="max-w-xl mx-auto">
+    <Card className="max-w-xl">
       <CardContent className="space-y-3">
         <FormOption
           label="Agregar envío"

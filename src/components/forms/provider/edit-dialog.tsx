@@ -66,7 +66,7 @@ export function EditProviderFormDialog({ provider }: EditProviderFormDialog) {
         <Dialog open={true} onOpenChange={() => router.back()}>
           <DialogContent className="w-full sm:max-w-xl max-h-[97dvh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Proveedor {provider.id}</DialogTitle>
+              <DialogTitle>{provider.nombreEmpresa}</DialogTitle>
               <DialogDescription>
                 Edita la información del proveedor.
               </DialogDescription>

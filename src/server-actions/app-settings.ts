@@ -2,12 +2,12 @@
 
 import { db } from '@/database/db';
 import { configuracion } from '@/database/schema/schema';
-import { ServerStatus, SettingsFormType } from '@/types/types';
+import { ServerStatus, AppSettingsFormType } from '@/types/types';
 import { eq } from 'drizzle-orm';
 import { stateUpdateError, stateUpdateSuccess } from './stateMessage';
 
 interface UpdateSettings {
-  values: SettingsFormType;
+  values: AppSettingsFormType;
 }
 
 export async function updateSettings(

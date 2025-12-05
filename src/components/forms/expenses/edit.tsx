@@ -1,7 +1,13 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import { Card, CardContent } from '../../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../../ui/card';
 import * as z from 'zod';
 import { ExpenseById, ExpenseFormType } from '@/types/types';
 import { useForm } from 'react-hook-form';
@@ -46,11 +52,14 @@ export function EditExpenseForm({ expense }: EditExpenseForm) {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="max-w-xl w-full mx-auto"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card>
+          <CardHeader>
+            <CardTitle>Editar gasto</CardTitle>
+            <CardDescription>
+              Actualiza la información del gasto.
+            </CardDescription>
+          </CardHeader>
           <CardContent className="space-y-6">
             <ExpenseForm form={form} expense={expense} />
           </CardContent>

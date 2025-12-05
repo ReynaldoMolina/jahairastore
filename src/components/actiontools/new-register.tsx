@@ -9,7 +9,7 @@ export function NewButton() {
   const pathname = usePathname();
 
   return (
-    <Button asChild>
+    <Button asChild size="sm">
       <Link href={`${pathname}/crear`}>
         <Plus />
         <span className="hidden sm:block">Nuevo</span>

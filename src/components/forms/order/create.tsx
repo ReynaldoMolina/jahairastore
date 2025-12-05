@@ -15,7 +15,13 @@ import { getCurrentDate } from '@/lib/get-date';
 import { stateDefault } from '@/server-actions/stateMessage';
 import { orderSchema } from '../validation/order';
 import { createOrder } from '@/server-actions/order';
-import { Card, CardContent } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { FormCardFooter } from '@/components/form-elements/form-footer';
 import { OrderForm } from './form';
 
@@ -59,11 +65,14 @@ export function CreateOrderForm({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="max-w-xl w-full mx-auto"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card>
+          <CardHeader>
+            <CardTitle>Nuevo pedido</CardTitle>
+            <CardDescription>
+              Ingresa los datos del nuevo pedido
+            </CardDescription>
+          </CardHeader>
           <CardContent>
             <OrderForm
               form={form}

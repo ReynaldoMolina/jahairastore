@@ -73,7 +73,7 @@ export function EditOrderForm({
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="max-w-xl w-full mx-auto"
+            className="max-w-xl w-full"
           >
             <Card>
               <CardContent>

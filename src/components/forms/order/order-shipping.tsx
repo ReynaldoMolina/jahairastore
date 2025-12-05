@@ -98,10 +98,7 @@ export function OrderShipping({ order, envioPrices }: OrderShipping) {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="max-w-xl w-full mx-auto"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card className="max-w-xl mx-auto">
           <CardContent className="space-y-5">
             <FieldGroup>

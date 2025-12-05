@@ -9,20 +9,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from './ui/select';
+import { Field, FieldLabel } from './ui/field';
 
 export function ChangeTheme() {
   const { setTheme, theme } = useTheme();
 
   return (
-    <Select value={theme ?? 'system'} onValueChange={setTheme}>
-      <SelectTrigger className="w-full">
-        <SelectValue placeholder="Selecciona un tema" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="light">Claro</SelectItem>
-        <SelectItem value="dark">Oscuro</SelectItem>
-        <SelectItem value="system">Sistema</SelectItem>
-      </SelectContent>
-    </Select>
+    <Field>
+      <FieldLabel>Tema</FieldLabel>
+      <Select value={theme ?? 'system'} onValueChange={setTheme}>
+        <SelectTrigger className="w-full">
+          <SelectValue placeholder="Selecciona un tema" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="light">Claro</SelectItem>
+          <SelectItem value="dark">Oscuro</SelectItem>
+          <SelectItem value="system">Sistema</SelectItem>
+        </SelectContent>
+      </Select>
+    </Field>
   );
 }

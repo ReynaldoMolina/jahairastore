@@ -17,7 +17,12 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
-      <SiteHeader title="Productos" showActionBar hideBackButton>
+      <SiteHeader
+        title="Productos"
+        showSidebarTrigger
+        showActionBar
+        hideBackButton
+      >
         <ListFilter listName="productos" />
       </SiteHeader>
       <PageWrapper>
