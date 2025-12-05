@@ -25,17 +25,8 @@ export default function LogoutForm() {
   return (
     <form action={formAction} className="w-full">
       <Button variant="destructive" disabled={isPending} className="w-full">
-        {isPending ? (
-          <>
-            <Spinner />
-            Cerrando sesión
-          </>
-        ) : (
-          <>
-            <LogOut className="size-5" />
-            Cerrar sesión
-          </>
-        )}
+        {isPending ? <Spinner /> : <LogOut className="size-5" />}
+        Cerrar sesión
       </Button>
     </form>
   );

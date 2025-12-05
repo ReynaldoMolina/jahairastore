@@ -12,7 +12,6 @@ export const user = pgTable('user', {
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
   role: text().notNull().default('none'),
-  menuPosition: text('menu_position').notNull().default('left'),
 });
 
 export const session = pgTable('session', {

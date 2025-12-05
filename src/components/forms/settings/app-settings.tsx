@@ -14,7 +14,7 @@ import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormInput } from '../../form-elements/form-input';
 import { FormTextArea } from '../../form-elements/form-text-area';
-import { AppSettingsFormType, UserSettingsFormType } from '@/types/types';
+import { AppSettingsFormType } from '@/types/types';
 import { updateSettings } from '@/server-actions/app-settings';
 import { stateDefault } from '@/server-actions/stateMessage';
 import { useServerActionFeedback } from '../../../hooks/use-server-status';
@@ -22,24 +22,23 @@ import { FormCardFooter } from '../../form-elements/form-footer';
 import LogoutForm from '../login/logout-form';
 import { isDemo } from '@/middleware';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs';
-import { UserSettingsForm } from './user-settings';
+import { ChangeTheme } from '@/components/change-theme';
 
 interface AppSettingsForm {
-  appData: AppSettingsFormType;
-  userData: UserSettingsFormType;
+  data: AppSettingsFormType;
 }
 
-export function AppSettingsForm({ appData, userData }: AppSettingsForm) {
+export function AppSettingsForm({ data }: AppSettingsForm) {
   const form = useForm<z.infer<typeof appSettingsSchema>>({
     resolver: zodResolver(appSettingsSchema),
     defaultValues: {
-      nombreEmpresa: appData.nombreEmpresa,
-      eslogan: appData.eslogan,
-      mensaje: appData.mensaje ?? '',
-      porHacer: appData.porHacer,
-      cambioDolar: appData.cambioDolar,
-      envioMaritimo: appData.envioMaritimo,
-      envioAereo: appData.envioAereo,
+      nombreEmpresa: data.nombreEmpresa,
+      eslogan: data.eslogan,
+      mensaje: data.mensaje ?? '',
+      porHacer: data.porHacer,
+      cambioDolar: data.cambioDolar,
+      envioMaritimo: data.envioMaritimo,
+      envioAereo: data.envioAereo,
     },
   });
 
@@ -63,18 +62,17 @@ export function AppSettingsForm({ appData, userData }: AppSettingsForm) {
           <TabsTrigger value="negocio">Negocio</TabsTrigger>
           <TabsTrigger value="precios">Precios</TabsTrigger>
           <TabsTrigger value="cuenta">Mi cuenta</TabsTrigger>
-          <TabsTrigger value="logout">Sesión</TabsTrigger>
         </TabsList>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="md:max-w-xl w-full"
-        >
-          <TabsContent value="negocio">
+        <TabsContent value="negocio">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="md:max-w-xl w-full"
+          >
             <Card>
               <CardContent>
                 <FieldGroup>
                   <FieldSet>
-                    <FieldLegend className="appData-[variant=legend]:text-sm font-semibold">
+                    <FieldLegend className="data-[variant=legend]:text-sm font-semibold">
                       Información del negocio
                     </FieldLegend>
                     <FieldDescription>
@@ -108,13 +106,18 @@ export function AppSettingsForm({ appData, userData }: AppSettingsForm) {
               </CardContent>
               <FormCardFooter isPending={isPending} />
             </Card>
-          </TabsContent>
-          <TabsContent value="precios">
+          </form>
+        </TabsContent>
+        <TabsContent value="precios">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="md:max-w-xl w-full"
+          >
             <Card>
               <CardContent>
                 <FieldGroup>
                   <FieldSet>
-                    <FieldLegend className="appData-[variant=legend]:text-sm font-semibold">
+                    <FieldLegend className="data-[variant=legend]:text-sm font-semibold">
                       Precios de envío
                     </FieldLegend>
                     <FieldDescription>
@@ -145,19 +148,27 @@ export function AppSettingsForm({ appData, userData }: AppSettingsForm) {
               </CardContent>
               <FormCardFooter isPending={isPending} />
             </Card>
-          </TabsContent>
-        </form>
-        <TabsContent value="cuenta">
-          <UserSettingsForm userData={userData} />
+          </form>
         </TabsContent>
-        <TabsContent value="logout">
-          {!isDemo && (
-            <Card className="md:max-w-xl w-full">
-              <CardContent>
-                <LogoutForm />
-              </CardContent>
-            </Card>
-          )}
+        <TabsContent value="cuenta">
+          <Card className="w-full md:max-w-xl">
+            <CardContent>
+              <FieldGroup>
+                <FieldSet>
+                  <FieldLegend className="data-[variant=legend]:text-sm font-semibold">
+                    Configuración de cuenta
+                  </FieldLegend>
+                  <FieldDescription>
+                    Haz ajustes a tu cuenta de usuario.
+                  </FieldDescription>
+                </FieldSet>
+                <FieldSet>
+                  <ChangeTheme />
+                  {!isDemo && <LogoutForm />}
+                </FieldSet>
+              </FieldGroup>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>
