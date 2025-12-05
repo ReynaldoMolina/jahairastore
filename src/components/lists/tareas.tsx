@@ -15,8 +15,8 @@ import EmptyList from './empty-list';
 import { Pagination } from './pagination';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
-import { formatDate, formatDateShort } from '@/lib/formatters';
-import { Calendar, Check, Clock, Info, X } from 'lucide-react';
+import { formatDate } from '@/lib/formatters';
+import { Calendar, Check, Clock, Info } from 'lucide-react';
 
 interface Tareas {
   data: {
@@ -76,7 +76,7 @@ export function Tareas({ data, query, totalPages }: Tareas) {
                       {register.completado ? (
                         <>
                           <Check />
-                          Completado
+                          Hecho
                         </>
                       ) : (
                         <>
@@ -147,11 +147,11 @@ export function Tareas({ data, query, totalPages }: Tareas) {
                     {register.completado ? (
                       <>
                         <Check />
-                        Completado
+                        Hecho
                       </>
                     ) : (
                       <>
-                        <X />
+                        <Clock />
                         Pendiente
                       </>
                     )}
