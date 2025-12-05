@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/table';
 import { DeleteDetailButton } from '@/components/form-elements/delete-detail-button';
 import { EditDetailButton } from '@/components/form-elements/edit-detail-button';
+import Image from 'next/image';
 
 interface OrderDetail {
   order: OrderById;
@@ -52,17 +53,21 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
           return (
             <Card key={detail.id} className="py-4 gap-4">
               <CardHeader className="border-b [.border-b]:pb-4">
+                {detail.imagenUrl && (
+                  <Image
+                    src={detail.imagenUrl}
+                    width={100}
+                    height={100}
+                    alt="Thumbnail"
+                    className="rounded text-xs bg-muted"
+                  />
+                )}
                 <CardTitle>{detail.nombreProducto}</CardTitle>
                 <CardDescription className="inline-flex gap-3">
-                  <Badge className="bg-brand text-black font-normal">
-                    {detail.id}
-                  </Badge>
-                  <Badge
-                    variant="secondary"
-                    className={`${bgColors.green} font-normal`}
-                  >
+                  <Badge variant="secondary" className={`${bgColors.green}`}>
                     $ {formatNumber(detail.precioVenta)}
                   </Badge>
+                  <Badge variant="secondary">Cant: {detail.cantidad}</Badge>
                 </CardDescription>
                 <CardAction className="inline-flex gap-1 items-center">
                   <EditDetailButton
@@ -74,13 +79,6 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
                 </CardAction>
               </CardHeader>
               <CardContent>
-                <CardItem
-                  value={String(detail.cantidad)}
-                  label="Cantidad"
-                  color="neutral"
-                  hideCurrency
-                  className="justify-center"
-                />
                 <CardItem
                   value={subtotalVenta}
                   label="Subtotal"
@@ -123,7 +121,7 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
     <TableContainer>
       <TableHeader className="bg-muted sticky top-0 z-10">
         <TableRow>
-          <TableHead className="text-center">Id</TableHead>
+          <TableHead>Imagen</TableHead>
           <TableHead>Producto</TableHead>
           <TableHead>Cantidad</TableHead>
           <TableHead>Precio</TableHead>
@@ -147,7 +145,15 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
               className="hover:bg-brand/30 dark:hover:bg-brand/20"
             >
               <TableCell>
-                <Badge className="bg-brand text-black">{detail.id}</Badge>
+                {detail.imagenUrl && (
+                  <Image
+                    src={detail.imagenUrl}
+                    width={50}
+                    height={50}
+                    alt="Imagen"
+                    className="rounded text-[10px] bg-muted"
+                  />
+                )}
               </TableCell>
               <TableCell className="w-full whitespace-normal">
                 {detail.nombreProducto}

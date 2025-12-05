@@ -38,6 +38,7 @@ export function CreateOrderDetailForm({ orderId }: CreateOrderDetailForm) {
       precioVenta: 0,
       precioCompra: 0,
       cantidad: 1,
+      imagenUrl: '',
     },
   });
 

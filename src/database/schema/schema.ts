@@ -72,11 +72,11 @@ export const pedidos = pgTable('Pedidos', {
 export const pedidosDetalles = pgTable('PedidosDetalles', {
   id: serial('Id').primaryKey().notNull(),
   idPedido: integer('Id_pedido').notNull(),
-  // idProducto: integer('Id_producto').notNull(),
   nombreProducto: text('Nombre_producto'),
   precioVenta: doublePrecision('Precio_venta').notNull(),
   precioCompra: doublePrecision('Precio_compra').notNull(),
   cantidad: integer('Cantidad').notNull(),
+  imagenUrl: text('Imagen_url'),
 });
 
 export const proveedores = pgTable('Proveedores', {

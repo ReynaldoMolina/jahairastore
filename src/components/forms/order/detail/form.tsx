@@ -105,6 +105,8 @@ export function OrderDetailForm({
         </ButtonGroup>
       </FieldSet>
 
+      <FormInput control={form.control} name="imagenUrl" label="Foto (link)" />
+
       {isNew && (
         <FieldSet>
           <Label className="hover:bg-accent/50 flex items-center gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950">

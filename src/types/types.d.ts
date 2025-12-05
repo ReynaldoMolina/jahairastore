@@ -155,6 +155,7 @@ export interface OrderById {
     precioVenta: number;
     precioCompra: number;
     cantidad: number;
+    imagenUrl: string | null;
   }[];
 }
 
@@ -165,6 +166,7 @@ export interface OrderDetailType {
   precioVenta: number;
   precioCompra: number;
   cantidad: number;
+  imagenUrl: string | null;
 }
 
 export interface ReceiptFormType {
