@@ -43,7 +43,6 @@ export const configuracion = pgTable('Configuracion', {
   nombreEmpresa: text('Nombre_empresa').notNull(),
   eslogan: text('Eslogan').notNull(),
   mensaje: text('Mensaje'),
-  porHacer: text('Por_hacer'),
   cambioDolar: doublePrecision('Cambio_dolar'),
   envioMaritimo: doublePrecision('Envio_maritimo'),
   envioAereo: doublePrecision('Envio_aereo'),

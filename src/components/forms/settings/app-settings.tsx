@@ -35,7 +35,6 @@ export function AppSettingsForm({ data }: AppSettingsForm) {
       nombreEmpresa: data.nombreEmpresa,
       eslogan: data.eslogan,
       mensaje: data.mensaje ?? '',
-      porHacer: data.porHacer,
       cambioDolar: data.cambioDolar,
       envioMaritimo: data.envioMaritimo,
       envioAereo: data.envioAereo,
@@ -94,12 +93,6 @@ export function AppSettingsForm({ data }: AppSettingsForm) {
                       name="mensaje"
                       label="Mensaje motivacional"
                       description="Aparecerá en la página de Inicio."
-                    />
-                    <FormTextArea
-                      control={form.control}
-                      name="porHacer"
-                      label="Por hacer"
-                      description="Mejoras, arreglos de errores, etc., puedes escribirlos aquí."
                     />
                   </FieldSet>
                 </FieldGroup>
