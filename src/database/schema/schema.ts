@@ -164,7 +164,7 @@ export const tareas = pgTable('Tareas', {
   tarea: varchar('Tarea', { length: 255 }).notNull(),
   fecha_entrega: date('Fecha_entrega').notNull(),
   prioridad: varchar('Prioridad', { length: 255 }).notNull(),
-  completado: boolean('Completado').notNull(),
+  estado: varchar('Estado', { length: 255 }).notNull(),
 });
 
 // only in demo mode

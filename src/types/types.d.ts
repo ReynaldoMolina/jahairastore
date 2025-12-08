@@ -278,7 +278,7 @@ export interface TareaById {
   tarea: string;
   fecha_entrega: string;
   prioridad: string;
-  completado: boolean;
+  estado: string;
 }
 
 export interface BusinessInfoType {

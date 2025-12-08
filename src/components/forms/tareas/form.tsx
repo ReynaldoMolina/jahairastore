@@ -12,10 +12,9 @@ import { FormTextArea } from '@/components/form-elements/form-text-area';
 
 interface TareaForm {
   form: UseFormReturn<z.infer<typeof tareaSchema>>;
-  isNew?: boolean;
 }
 
-export function TareaForm({ form, isNew = false }: TareaForm) {
+export function TareaForm({ form }: TareaForm) {
   return (
     <FieldGroup>
       <FieldSet>
@@ -48,14 +47,25 @@ export function TareaForm({ form, isNew = false }: TareaForm) {
             },
           ]}
         />
-        {!isNew && (
-          <FormCheck
-            control={form.control}
-            name="completado"
-            label="¿Completado?"
-            description="Marcar tarea como completada."
-          />
-        )}
+        <FormSelect
+          control={form.control}
+          name="estado"
+          label="Estado"
+          options={[
+            {
+              value: 'Pendiente',
+              label: 'Pendiente',
+            },
+            {
+              value: 'En progreso',
+              label: 'En progreso',
+            },
+            {
+              value: 'Hecho',
+              label: 'Hecho',
+            },
+          ]}
+        />
       </FieldSet>
     </FieldGroup>
   );

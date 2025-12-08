@@ -25,7 +25,7 @@ export function EditTareaForm({ tarea }: EditTareaForm) {
       tarea: tarea.tarea,
       fecha_entrega: tarea.fecha_entrega,
       prioridad: tarea.prioridad,
-      completado: tarea.completado,
+      estado: tarea.estado,
     },
   });
 

@@ -27,7 +27,7 @@ export function CreateTareaForm() {
       tarea: '',
       fecha_entrega: '',
       prioridad: '',
-      completado: false,
+      estado: 'Pendiente',
     },
   });
 

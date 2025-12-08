@@ -10,14 +10,16 @@ export async function getTareas(searchParams: SearchParamsProps) {
 
   const filterBySearch = buildSearchFilter(searchParams, [tareas.tarea]);
 
-  const filterByState = state ? sql`"Tareas"."Completado" = false` : undefined;
+  const filterByState = state
+    ? sql`"Tareas"."Estado" = 'Pendiente'`
+    : undefined;
 
   try {
     const data = await db
       .select()
       .from(tareas)
       .where(and(filterBySearch, filterByState))
-      .orderBy(desc(tareas.id), desc(tareas.completado))
+      .orderBy(desc(tareas.id), desc(tareas.prioridad))
       .limit(limit)
       .offset(offset);
 
@@ -30,6 +32,7 @@ export async function getTareas(searchParams: SearchParamsProps) {
 
     return { data, query, totalPages };
   } catch (error) {
+    console.error(error);
     throw new Error('No se pudieron obtener las tareas.');
   }
 }

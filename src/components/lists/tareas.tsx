@@ -16,7 +16,7 @@ import { Pagination } from './pagination';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
 import { formatDate } from '@/lib/formatters';
-import { Calendar, Check, Clock, Info } from 'lucide-react';
+import { Calendar, Check, Clock, Info, Loader } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface Tareas {
@@ -25,7 +25,7 @@ interface Tareas {
     tarea: string;
     fecha_entrega: string;
     prioridad: string;
-    completado: boolean;
+    estado: string;
   }[];
   query: string;
   totalPages: number;
@@ -37,17 +37,35 @@ export function Tareas({ data, query, totalPages }: Tareas) {
 
   if (data.length === 0) return <EmptyList query={query} />;
 
+  const taskStateConfig = {
+    Pendiente: {
+      icon: <Clock className="size-7" />,
+      bgColor: 'bg-red-200 dark:bg-red-900',
+    },
+    'En progreso': {
+      icon: <Loader />,
+      bgColor: 'bg-yellow-200 dark:bg-yellow-900',
+    },
+    Hecho: {
+      icon: <Check />,
+      bgColor: 'bg-green-200 dark:bg-green-900',
+    },
+  };
+
   if (isMobile)
     return (
       <>
         {data.map((register) => {
+          console.log(register.estado);
+          console.log(taskStateConfig[register.estado]);
+
           return (
             <Link key={register.id} href={`/tareas/${register.id}`}>
               <Card className="py-4 gap-4">
                 <CardHeader>
                   <CardTitle
                     className={
-                      register.completado
+                      register.estado === 'Hecho'
                         ? 'line-through text-muted-foreground'
                         : ''
                     }
@@ -67,24 +85,11 @@ export function Tareas({ data, query, totalPages }: Tareas) {
                       {register.prioridad}
                     </Badge>
                     <Badge
-                      variant={register.completado ? 'outline' : 'destructive'}
-                      className={
-                        register.completado
-                          ? 'bg-green-200 dark:bg-green-900'
-                          : ''
-                      }
+                      variant="secondary"
+                      className={taskStateConfig[register.estado].bgColor}
                     >
-                      {register.completado ? (
-                        <>
-                          <Check />
-                          Hecho
-                        </>
-                      ) : (
-                        <>
-                          <Clock />
-                          Pendiente
-                        </>
-                      )}
+                      {taskStateConfig[register.estado].icon}
+                      {register.estado}
                     </Badge>
                   </CardDescription>
                 </CardHeader>
@@ -124,7 +129,7 @@ export function Tareas({ data, query, totalPages }: Tareas) {
                 <TableCell
                   className={cn(
                     'w-full whitespace-normal',
-                    register.completado
+                    register.estado === 'Hecho'
                       ? 'line-through text-muted-foreground'
                       : ''
                   )}
@@ -145,24 +150,11 @@ export function Tareas({ data, query, totalPages }: Tareas) {
                 </TableCell>
                 <TableCell>
                   <Badge
-                    variant={register.completado ? 'outline' : 'destructive'}
-                    className={
-                      register.completado
-                        ? 'bg-green-200 dark:bg-green-900'
-                        : ''
-                    }
+                    variant="secondary"
+                    className={taskStateConfig[register.estado].bgColor}
                   >
-                    {register.completado ? (
-                      <>
-                        <Check />
-                        Hecho
-                      </>
-                    ) : (
-                      <>
-                        <Clock />
-                        Pendiente
-                      </>
-                    )}
+                    {taskStateConfig[register.estado].icon}
+                    {register.estado}
                   </Badge>
                 </TableCell>
               </TableRow>

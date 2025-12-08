@@ -31,7 +31,7 @@ export function CreateTareaFormDialog() {
       tarea: '',
       fecha_entrega: '',
       prioridad: '',
-      completado: false,
+      estado: 'Pendiente',
     },
   });
 
