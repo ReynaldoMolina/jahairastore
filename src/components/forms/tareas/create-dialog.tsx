@@ -62,7 +62,7 @@ export function CreateTareaFormDialog() {
               </DialogDescription>
             </DialogHeader>
 
-            <TareaForm form={form} isNew />
+            <TareaForm form={form} />
 
             <DialogFooter>
               <DialogClose asChild>

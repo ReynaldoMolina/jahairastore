@@ -13,6 +13,11 @@ import { stateDefault } from '@/server-actions/stateMessage';
 import { tareaSchema } from '../validation/tarea';
 import { updateTarea } from '@/server-actions/tarea';
 import { TareaForm } from './form';
+import {
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 interface EditTareaForm {
   tarea: TareaById;
@@ -49,6 +54,12 @@ export function EditTareaForm({ tarea }: EditTareaForm) {
         className="max-w-xl w-full mx-auto"
       >
         <Card>
+          <DialogHeader>
+            <DialogTitle>Editar tarea</DialogTitle>
+            <DialogDescription>
+              Edita la información de la tarea.
+            </DialogDescription>
+          </DialogHeader>
           <CardContent className="space-y-6">
             <TareaForm form={form} />
           </CardContent>

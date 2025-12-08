@@ -63,7 +63,7 @@ export function EditTareaFormDialog({ tarea }: EditTareaFormDialog) {
         <Dialog open={true} onOpenChange={() => router.back()}>
           <DialogContent className="w-full sm:max-w-xl max-h-[97dvh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Tarea {tarea.id}</DialogTitle>
+              <DialogTitle>Editar tarea</DialogTitle>
               <DialogDescription>
                 Edita la información de la tarea.
               </DialogDescription>

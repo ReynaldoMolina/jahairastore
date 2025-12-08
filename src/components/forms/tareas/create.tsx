@@ -55,7 +55,7 @@ export function CreateTareaForm() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <TareaForm form={form} isNew />
+            <TareaForm form={form} />
           </CardContent>
           <FormCardFooter isNew={true} isPending={isPending} />
         </Card>
