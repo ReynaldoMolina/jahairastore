@@ -5,19 +5,35 @@ import { menuOptions } from './menu-options';
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from '../ui/sidebar';
 import Link from 'next/link';
 import Logo from '@/components/icons/logominimal.svg';
+import { NavUser } from './nav-user';
+import { authClient } from '@/lib/auth-client';
+import { useEffect, useState } from 'react';
 
 export function AppSideBar() {
+  const [session, setSession] = useState<any>(null);
+
+  useEffect(() => {
+    authClient.getSession().then(({ data }) => {
+      setSession(data);
+    });
+  }, []);
+
+  const user = session?.user ?? {
+    name: 'Usuario',
+    email: 'usuario@mail.com',
+    image: '/store-logo.png',
+  };
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -32,7 +48,6 @@ export function AppSideBar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Menú</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuOptions.map((option) => (
@@ -42,6 +57,11 @@ export function AppSideBar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <NavUser
+          user={{ name: user.name, email: user.email, avatar: user.image }}
+        />
+      </SidebarFooter>
     </Sidebar>
   );
 }

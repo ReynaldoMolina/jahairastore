@@ -1,33 +1,36 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useTransition } from 'react';
 import { LogOut } from 'lucide-react';
 import { Spinner } from '../../ui/spinner';
-import { Button } from '../../ui/button';
 import { authClient } from '@/lib/auth-client';
 import { useRouter } from 'next/navigation';
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 
 export default function LogoutForm() {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
-  async function logOut() {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push('login');
+  const handleLogout = () => {
+    startTransition(async () => {
+      await authClient.signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            router.push('/login');
+          },
         },
-      },
+      });
     });
-  }
-
-  const [state, formAction, isPending] = useActionState(logOut, undefined);
+  };
 
   return (
-    <form action={formAction} className="w-full">
-      <Button variant="destructive" disabled={isPending} className="w-full">
-        {isPending ? <Spinner /> : <LogOut className="size-5" />}
-        Cerrar sesión
-      </Button>
-    </form>
+    <DropdownMenuItem
+      className="text-xs"
+      disabled={isPending}
+      onClick={handleLogout}
+    >
+      {isPending ? <Spinner /> : <LogOut />}
+      Cerrar sesión
+    </DropdownMenuItem>
   );
 }

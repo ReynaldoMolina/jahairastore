@@ -3,10 +3,9 @@ import {
   ChartNoAxesCombined,
   ClipboardList,
   Coins,
-  Home,
+  // Home,
   Package,
   Receipt,
-  Settings,
   ShoppingBag,
   ShoppingCart,
   User,
@@ -14,11 +13,11 @@ import {
 } from 'lucide-react';
 
 export const menuOptions = [
-  {
-    name: 'Inicio',
-    url: '/',
-    icon: Home,
-  },
+  // {
+  //   name: 'Inicio',
+  //   url: '/',
+  //   icon: Home,
+  // },
   {
     name: 'Dashboard',
     url: '/dashboard',
@@ -68,11 +67,6 @@ export const menuOptions = [
     name: 'Proveedores',
     url: '/proveedores',
     icon: Users,
-  },
-  {
-    name: 'Ajustes',
-    url: '/ajustes',
-    icon: Settings,
   },
 ];
 

@@ -60,7 +60,6 @@ export function AppSettingsForm({ data }: AppSettingsForm) {
         <TabsList className="w-full md:w-fit">
           <TabsTrigger value="negocio">Negocio</TabsTrigger>
           <TabsTrigger value="precios">Precios</TabsTrigger>
-          <TabsTrigger value="cuenta">Mi cuenta</TabsTrigger>
         </TabsList>
         <TabsContent value="negocio">
           <form
@@ -143,6 +142,7 @@ export function AppSettingsForm({ data }: AppSettingsForm) {
             </Card>
           </form>
         </TabsContent>
+
         <TabsContent value="cuenta">
           <Card className="w-full md:max-w-xl">
             <CardContent>

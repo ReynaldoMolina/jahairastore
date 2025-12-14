@@ -4,7 +4,8 @@ import { cookies } from 'next/headers';
 
 export default async function Layout({ children }) {
   const cookieStore = await cookies();
-  const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
+  const sidebarState = cookieStore.get('sidebar_state')?.value;
+  const defaultOpen = sidebarState ? sidebarState === 'true' : true;
 
   return (
     <SidebarProvider
