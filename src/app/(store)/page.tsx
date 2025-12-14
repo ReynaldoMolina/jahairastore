@@ -4,7 +4,7 @@ import { SiteHeader } from '@/components/site-header';
 import { getBusinessInfo } from '@/fetch-data/settings';
 
 export const metadata = {
-  title: 'Inicio',
+  title: 'Jahaira Store',
 };
 
 export default async function Page() {
@@ -14,7 +14,7 @@ export default async function Page() {
 
   return (
     <>
-      <SiteHeader title="Inicio" hideBackButton />
+      <SiteHeader title="Jahaira Store" hideBackButton />
       <Home businessInfo={businessInfo} />
     </>
   );

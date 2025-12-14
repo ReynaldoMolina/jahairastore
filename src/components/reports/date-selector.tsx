@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { getCurrentMonth } from '@/lib/get-date';
 import { dateIsoToDate } from '@/lib/formatters';
 import { DatePicker } from '../date-picker';
 import { SearchParamsProps } from '@/types/types';
+import { useSearchUtils } from '@/hooks/use-search-utils';
 
 interface DateSelector {
   searchParams: SearchParamsProps;
@@ -36,20 +36,6 @@ export function DateSelector({ searchParams }: DateSelector) {
       />
     </>
   );
-}
-
-function useSearchUtils() {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-
-  const updateURL = (key, value) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set(key, value);
-    replace(`${pathname}?${params.toString()}`, { scroll: false });
-  };
-
-  return { updateURL };
 }
 
 interface DatePickerForm {

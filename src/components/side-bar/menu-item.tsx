@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar';
 import { MenuOption } from './menu-options';
+import { cn } from '@/lib/utils';
 
 interface MenuItem {
   option: MenuOption;
@@ -15,14 +16,19 @@ export function MenuItem({ option }: MenuItem) {
   return (
     <Link
       href={option.url}
-      className={`flex flex-col justify-center items-center cursor-pointer rounded-lg gap-1 p-2 min-w-14 shrink-0 ${
-        isActive
-          ? 'bg-brand hover:bg-brand dark:text-background'
-          : 'hover:bg-muted/80'
-      }`}
+      className="flex flex-col justify-center items-center cursor-pointer rounded-lg gap-1 p-2 min-w-17 shrink-0 hover:bg-muted/80"
     >
-      <option.icon className="size-4" />
-      <span className="text-[0.625rem]">{option.name}</span>
+      <div
+        className={cn(
+          'inline-flex rounded-full p-1 w-10 justify-center',
+          isActive ? 'bg-brand dark:text-background' : ''
+        )}
+      >
+        <option.icon className="size-4" />
+      </div>
+      <span className={cn('text-[0.625rem]', isActive ? 'font-bold' : '')}>
+        {option.name}
+      </span>
     </Link>
   );
 }

@@ -1,7 +1,6 @@
 'use client';
 
-import { useIsMobile } from '@/hooks/use-mobile';
-import { MenuItem, MenuItemDesktop } from './menu-item';
+import { MenuItemDesktop } from './menu-item';
 import { menuOptions } from './menu-options';
 import {
   Sidebar,
@@ -9,20 +8,27 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
 } from '../ui/sidebar';
+import Link from 'next/link';
+import Logo from '@/components/icons/logominimal.svg';
 
 export function AppSideBar() {
-  const isMobile = useIsMobile();
-
-  return isMobile ? (
-    <nav className="flex overflow-auto gap-1 p-1 bg-sidebar w-full shrink-0 order-2 border-t border-sidebar-border md:hidden">
-      {menuOptions.map((option) => (
-        <MenuItem key={option.name} option={option} />
-      ))}
-    </nav>
-  ) : (
+  return (
     <Sidebar>
+      <SidebarHeader>
+        <SidebarMenuItem>
+          <SidebarMenuButton asChild>
+            <Link href="/" className="font-bold">
+              <Logo />
+              Jahaira Store
+            </Link>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Menú</SidebarGroupLabel>
