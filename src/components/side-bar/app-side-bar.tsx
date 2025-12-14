@@ -1,6 +1,6 @@
 'use client';
 
-import { MenuItemDesktop } from './menu-item';
+import { MenuItem } from './menu-item';
 import { menuOptions } from './menu-options';
 import {
   Sidebar,
@@ -12,6 +12,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '../ui/sidebar';
 import Link from 'next/link';
 import Logo from '@/components/icons/logominimal.svg';
@@ -35,7 +36,7 @@ export function AppSideBar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {menuOptions.map((option) => (
-                <MenuItemDesktop key={option.name} option={option} />
+                <MenuItem key={option.name} option={option} />
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
