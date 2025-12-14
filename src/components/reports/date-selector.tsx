@@ -15,7 +15,8 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { Button } from '../ui/button';
-import { CalendarDays } from 'lucide-react';
+import { Calendar } from 'lucide-react';
+import { ToggleGroupItem } from '../ui/toggle-group';
 
 interface DateSelector {
   searchParams: SearchParamsProps;
@@ -35,7 +36,10 @@ export function DateSelector({ searchParams }: DateSelector) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Elegir rango</Button>
+        <ToggleGroupItem value="6">
+          <Calendar className="size-3" />
+          Elegir rango
+        </ToggleGroupItem>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

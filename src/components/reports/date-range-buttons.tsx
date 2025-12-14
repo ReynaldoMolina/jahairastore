@@ -1,7 +1,5 @@
 'use client';
 
-import { Button } from '../ui/button';
-import { ButtonGroup } from '../ui/button-group';
 import { SearchParamsProps } from '@/types/types';
 import { useSearchUtils } from '@/hooks/use-search-utils';
 import {
@@ -12,6 +10,7 @@ import {
   today,
 } from '@/lib/get-date';
 import { DateSelector } from './date-selector';
+import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
 
 export function DateRangeButtons({
   searchParams,
@@ -43,9 +42,13 @@ export function DateRangeButtons({
   }
 
   return (
-    <ButtonGroup className="overflow-auto w-full">
-      <Button
-        variant="outline"
+    <ToggleGroup
+      type="single"
+      variant="outline"
+      className="overflow-auto w-full"
+    >
+      <ToggleGroupItem
+        value="1"
         className={
           isActive(
             startParam,
@@ -59,10 +62,10 @@ export function DateRangeButtons({
         onClick={() => applyRange(ranges.month.start, ranges.month.end)}
       >
         Este mes
-      </Button>
+      </ToggleGroupItem>
 
-      <Button
-        variant="outline"
+      <ToggleGroupItem
+        value="2"
         className={
           isActive(startParam, endParam, ranges.week.start, ranges.week.end)
             ? 'bg-muted dark:bg-muted'
@@ -71,10 +74,10 @@ export function DateRangeButtons({
         onClick={() => applyRange(ranges.week.start, ranges.week.end)}
       >
         Esta semana
-      </Button>
+      </ToggleGroupItem>
 
-      <Button
-        variant="outline"
+      <ToggleGroupItem
+        value="3"
         className={
           isActive(
             startParam,
@@ -88,10 +91,10 @@ export function DateRangeButtons({
         onClick={() => applyRange(ranges.lastMonth.start, ranges.lastMonth.end)}
       >
         Mes pasado
-      </Button>
+      </ToggleGroupItem>
 
-      <Button
-        variant="outline"
+      <ToggleGroupItem
+        value="4"
         className={
           isActive(startParam, endParam, ranges.year.start, ranges.year.end)
             ? 'bg-muted dark:bg-muted'
@@ -100,10 +103,10 @@ export function DateRangeButtons({
         onClick={() => applyRange(ranges.year.start, ranges.year.end)}
       >
         Este año
-      </Button>
+      </ToggleGroupItem>
 
-      <Button
-        variant="outline"
+      <ToggleGroupItem
+        value="5"
         className={
           isActive(startParam, endParam, ranges.today.start, ranges.today.end)
             ? 'bg-muted dark:bg-muted'
@@ -112,9 +115,9 @@ export function DateRangeButtons({
         onClick={() => applyRange(ranges.today.start, ranges.today.end)}
       >
         Hoy
-      </Button>
+      </ToggleGroupItem>
 
       <DateSelector searchParams={searchParams} />
-    </ButtonGroup>
+    </ToggleGroup>
   );
 }
