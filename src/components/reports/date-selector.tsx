@@ -4,6 +4,18 @@ import { dateIsoToDate } from '@/lib/formatters';
 import { DatePicker } from '../date-picker';
 import { SearchParamsProps } from '@/types/types';
 import { useSearchUtils } from '@/hooks/use-search-utils';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '../ui/dialog';
+import { Button } from '../ui/button';
+import { CalendarDays } from 'lucide-react';
 
 interface DateSelector {
   searchParams: SearchParamsProps;
@@ -21,20 +33,38 @@ export function DateSelector({ searchParams }: DateSelector) {
   });
 
   return (
-    <>
-      <DatePickerForm
-        name="start"
-        label="Desde el:"
-        filter={filter}
-        setFilter={setFilter}
-      />
-      <DatePickerForm
-        name="end"
-        label="Hasta el:"
-        filter={filter}
-        setFilter={setFilter}
-      />
-    </>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">Elegir rango</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Elegir rango de fechas</DialogTitle>
+          <DialogDescription>
+            Selecciona las fechas para generar los informes.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="inline-flex flex-col md:flex-row gap-6">
+          <DatePickerForm
+            name="start"
+            label="Desde el:"
+            filter={filter}
+            setFilter={setFilter}
+          />
+          <DatePickerForm
+            name="end"
+            label="Hasta el:"
+            filter={filter}
+            setFilter={setFilter}
+          />
+        </div>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button>Aceptar</Button>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -54,12 +84,14 @@ interface DatePickerForm {
 }
 
 function DatePickerForm({ name, label, filter, setFilter }: DatePickerForm) {
-  const { updateURL } = useSearchUtils();
+  const { updateParams } = useSearchUtils();
 
   function handleChange(date: Date) {
     const formattedDate = date.toISOString().split('T')[0];
     setFilter({ ...filter, [name]: formattedDate });
-    updateURL(name, formattedDate);
+    updateParams({
+      [name]: formattedDate,
+    });
   }
 
   const dateString = filter[name];

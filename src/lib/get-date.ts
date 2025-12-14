@@ -1,3 +1,53 @@
+import {
+  startOfWeek,
+  endOfWeek,
+  startOfMonth,
+  endOfMonth,
+  startOfYear,
+  endOfYear,
+  subMonths,
+  format,
+} from 'date-fns';
+
+const fmt = (date: Date) => format(date, 'yyyy-MM-dd');
+
+export const today = () => {
+  const d = new Date();
+  return { start: fmt(d), end: fmt(d) };
+};
+
+export const thisWeek = () => {
+  const now = new Date();
+  return {
+    start: fmt(startOfWeek(now, { weekStartsOn: 1 })),
+    end: fmt(endOfWeek(now, { weekStartsOn: 1 })),
+  };
+};
+
+export const thisMonth = () => {
+  const now = new Date();
+  return {
+    start: fmt(startOfMonth(now)),
+    end: fmt(endOfMonth(now)),
+  };
+};
+
+export const lastMonth = () => {
+  const now = subMonths(new Date(), 1);
+  return {
+    start: fmt(startOfMonth(now)),
+    end: fmt(endOfMonth(now)),
+  };
+};
+
+export const thisYear = () => {
+  const now = new Date();
+  return {
+    start: fmt(startOfYear(now)),
+    end: fmt(endOfYear(now)),
+  };
+};
+
 export function getCurrentDate() {
   const now = new Date();
   const year = now.getFullYear();

@@ -1,39 +1,120 @@
-import { MoreHorizontal } from 'lucide-react';
+'use client';
+
 import { Button } from '../ui/button';
 import { ButtonGroup } from '../ui/button-group';
 import { SearchParamsProps } from '@/types/types';
-import { getCurrentMonth } from '@/lib/get-date';
-import { useState } from 'react';
 import { useSearchUtils } from '@/hooks/use-search-utils';
-import { dateIsoToDate } from '@/lib/formatters';
+import {
+  lastMonth,
+  thisMonth,
+  thisWeek,
+  thisYear,
+  today,
+} from '@/lib/get-date';
+import { DateSelector } from './date-selector';
 
-interface DateRangeButtons {
+export function DateRangeButtons({
+  searchParams,
+}: {
   searchParams: SearchParamsProps;
-}
+}) {
+  const { updateParams } = useSearchUtils();
 
-export function DateRangeButtons({ searchParams }: DateRangeButtons) {
-  const { firstDay, lastDay } = getCurrentMonth();
+  const startParam = searchParams?.start;
+  const endParam = searchParams?.end;
 
-  const startParam: string = searchParams?.start;
-  const endParam: string = searchParams?.end;
+  function applyRange(start: string, end: string) {
+    updateParams({
+      start,
+      end,
+    });
+  }
 
-  const { updateURL } = useSearchUtils();
+  const ranges = {
+    today: today(),
+    week: thisWeek(),
+    month: thisMonth(),
+    lastMonth: lastMonth(),
+    year: thisYear(),
+  };
 
-  function handleChange(startDate: string, endDate: string) {
-    updateURL('start', startDate);
-    updateURL('end', endDate);
+  function isActive(start?: string, end?: string, a?: string, b?: string) {
+    return start === a && end === b;
   }
 
   return (
     <ButtonGroup className="overflow-auto w-full">
-      <Button variant="outline" onClick={() => handleChange(firstDay, lastDay)}>
+      <Button
+        variant="outline"
+        className={
+          isActive(
+            startParam,
+            endParam,
+            ranges.month.start,
+            ranges.month.end
+          ) || !startParam
+            ? 'bg-muted dark:bg-muted'
+            : ''
+        }
+        onClick={() => applyRange(ranges.month.start, ranges.month.end)}
+      >
         Este mes
       </Button>
-      <Button variant="outline">Esta semana</Button>
-      <Button variant="outline">Mes pasado</Button>
-      <Button variant="outline">Este año</Button>
-      <Button variant="outline">Hoy</Button>
-      <Button variant="outline">Rango</Button>
+
+      <Button
+        variant="outline"
+        className={
+          isActive(startParam, endParam, ranges.week.start, ranges.week.end)
+            ? 'bg-muted dark:bg-muted'
+            : ''
+        }
+        onClick={() => applyRange(ranges.week.start, ranges.week.end)}
+      >
+        Esta semana
+      </Button>
+
+      <Button
+        variant="outline"
+        className={
+          isActive(
+            startParam,
+            endParam,
+            ranges.lastMonth.start,
+            ranges.lastMonth.end
+          )
+            ? 'bg-muted dark:bg-muted'
+            : ''
+        }
+        onClick={() => applyRange(ranges.lastMonth.start, ranges.lastMonth.end)}
+      >
+        Mes pasado
+      </Button>
+
+      <Button
+        variant="outline"
+        className={
+          isActive(startParam, endParam, ranges.year.start, ranges.year.end)
+            ? 'bg-muted dark:bg-muted'
+            : ''
+        }
+        onClick={() => applyRange(ranges.year.start, ranges.year.end)}
+      >
+        Este año
+      </Button>
+
+      <Button
+        variant="outline"
+        className={
+          isActive(startParam, endParam, ranges.today.start, ranges.today.end)
+            ? 'bg-muted dark:bg-muted'
+            : ''
+        }
+        onClick={() => applyRange(ranges.today.start, ranges.today.end)}
+      >
+        Hoy
+      </Button>
+
+      <DateSelector searchParams={searchParams} />
     </ButtonGroup>
   );
 }

@@ -10,13 +10,13 @@ export function Home({ businessInfo }: { businessInfo: BusinessInfoType }) {
     <main className="m-auto p-5 grid md:grid-cols-2 gap-5">
       {/* Text section */}
       <div className="flex flex-col items-center md:justify-center md:items-start gap-5 order-2 md:order-1">
-        <h1 className="text-2xl font-extrabold bg-gradient-to-r from-purple-500 to-sky-500 bg-clip-text text-transparent text-center">
+        <h1 className="text-2xl font-extrabold bg-gradient-to-r from-purple-500 to-sky-500 bg-clip-text text-transparent text-center md:text-left">
           {businessInfo.nombreEmpresa}
         </h1>
-        <p className="text-xs text-muted-foreground text-center">
+        <p className="text-xs text-muted-foreground text-center md:text-left">
           {businessInfo.eslogan}
         </p>
-        <p className="text-xs text-muted-foreground text-center">
+        <p className="text-xs text-muted-foreground text-center md:text-left">
           {isDemo ? 'DEMO' : businessInfo.mensaje || '¡Bienvenido!'}
         </p>
 
@@ -39,7 +39,7 @@ export function Home({ businessInfo }: { businessInfo: BusinessInfoType }) {
 
       {/* Logo section */}
       <div className="flex justify-center order-1 md:order-2">
-        <div className="bg-muted rounded-full p-7">
+        <div className="bg-muted rounded-full p-7 aspect-square flex items-center justify-center">
           <Logo className="size-30" />
         </div>
       </div>

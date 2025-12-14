@@ -1,15 +1,24 @@
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+'use client';
+
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export function useSearchUtils() {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
 
-  const updateURL = (key, value) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set(key, value);
-    replace(`${pathname}?${params.toString()}`, { scroll: false });
-  };
+  function updateParams(params: Record<string, string | undefined>) {
+    const current = new URLSearchParams(searchParams.toString());
 
-  return { updateURL };
+    Object.entries(params).forEach(([key, value]) => {
+      if (value === undefined) {
+        current.delete(key);
+      } else {
+        current.set(key, value);
+      }
+    });
+
+    router.push(`?${current.toString()}`, { scroll: false });
+  }
+
+  return { updateParams };
 }
