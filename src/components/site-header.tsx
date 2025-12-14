@@ -5,7 +5,6 @@ import { Button } from './ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { ActionBar } from './actiontools/action-bar';
 import { SidebarTrigger } from './ui/sidebar';
-import { Separator } from './ui/separator';
 
 interface SiteHeader {
   title: string;
@@ -33,7 +32,7 @@ export function SiteHeader({
       ) : (
         <SidebarTrigger className="size-8" />
       )}
-      <span>{title ? title : 'Title'}</span>
+      <span>{title}</span>
       {showActionBar && (
         <ActionBar hideNewButton={hideNewButton}>{children}</ActionBar>
       )}
