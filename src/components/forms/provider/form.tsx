@@ -60,6 +60,7 @@ export function ProviderForm({ form }: ProviderForm) {
           name="direccion"
           label="Dirección"
         />
+        <FormInput control={form.control} name="imagenUrl" label="Foto (url)" />
       </FieldSet>
     </FieldGroup>
   );

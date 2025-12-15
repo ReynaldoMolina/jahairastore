@@ -80,23 +80,26 @@ export function AppSettingsForm({ data }: AppSettingsForm) {
                       control={form.control}
                       name="nombreEmpresa"
                       label="Nombre del negocio"
+                      disabled={isDemo}
                     />
                     <FormInput
                       control={form.control}
                       name="eslogan"
                       label="Eslogan"
                       description="Aparecerá también en los recibos."
+                      disabled={isDemo}
                     />
                     <FormInput
                       control={form.control}
                       name="mensaje"
                       label="Mensaje motivacional"
                       description="Aparecerá en la página de Inicio."
+                      disabled={isDemo}
                     />
                   </FieldSet>
                 </FieldGroup>
               </CardContent>
-              <FormCardFooter isPending={isPending} />
+              {!isDemo && <FormCardFooter isPending={isPending} />}
             </Card>
           </form>
         </TabsContent>

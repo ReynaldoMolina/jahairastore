@@ -1,7 +1,6 @@
 'use client';
 
 import { MoreVertical, Settings } from 'lucide-react';
-
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -20,6 +19,7 @@ import {
 import LogoutForm from '../forms/login/logout-form';
 import Link from 'next/link';
 import { ChangeTheme } from '../change-theme';
+import { isDemo } from '@/middleware';
 
 export function NavUser({
   user,
@@ -71,8 +71,12 @@ export function NavUser({
               </DropdownMenuItem>
               <ChangeTheme />
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <LogoutForm />
+            {!isDemo && (
+              <>
+                <DropdownMenuSeparator />
+                <LogoutForm />
+              </>
+            )}
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
