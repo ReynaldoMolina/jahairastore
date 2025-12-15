@@ -127,7 +127,6 @@ export function Providers({ data, query, totalPages }: Providers) {
               <Badge variant="outline">Conteo: {data.length}</Badge>
             </TableCell>
             <TableCell></TableCell>
-            <TableCell></TableCell>
           </TableRow>
         </TableFooter>
       </TableContainer>
