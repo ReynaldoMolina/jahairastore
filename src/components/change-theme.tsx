@@ -18,7 +18,7 @@ export function ChangeTheme() {
     theme === 'system' ? 'sistema' : theme === 'light' ? 'claro' : 'oscuro';
 
   return (
-    <DropdownMenuItem className="text-xs" onClick={toggleTheme}>
+    <DropdownMenuItem onClick={toggleTheme}>
       {theme === 'system' ? (
         <Monitor />
       ) : theme === 'light' ? (

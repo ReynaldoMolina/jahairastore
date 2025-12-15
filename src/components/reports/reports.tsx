@@ -1,53 +1,22 @@
 import { formatNumber } from '@/lib/formatters';
-import { ArrowDown, ArrowUp, Coins, Equal, ShoppingBag } from 'lucide-react';
+import {
+  ArrowDown,
+  ArrowUp,
+  Coins,
+  Equal,
+  ShoppingBag,
+  TrendingUp,
+} from 'lucide-react';
 import {
   Card,
   CardAction,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from '../ui/card';
 import { DashboardData } from '@/types/types';
 import { Badge } from '../ui/badge';
-
-// interface Report {
-//   children: React.ReactNode;
-//   name: 'ventas' | 'pedidos' | 'flujoEfectivo' | 'informeContable';
-// }
-
-// function Report({ children, name }: Report) {
-//   const reportConfig = {
-//     ventas: {
-//       icon: <Coins className="size-4" />,
-//       bgColor: 'bg-green-200 dark:bg-green-900',
-//       title: 'Solo ventas',
-//     },
-//     pedidos: {
-//       icon: <ShoppingBag className="size-4" />,
-//       bgColor: 'bg-blue-200 dark:bg-blue-900',
-//       title: 'Solo pedidos',
-//     },
-//     flujoEfectivo: {
-//       icon: <CircleDollarSign className="size-4" />,
-//       bgColor: 'bg-yellow-200 dark:bg-yellow-900',
-//       title: 'Flujo de efectivo',
-//     },
-//   };
-
-//   return (
-//     <Card className="gap-3">
-//       <CardHeader>
-//         <CardTitle
-//           className={`${reportConfig[name].bgColor} inline-flex gap-2 p-1.5 rounded items-center text-xs`}
-//         >
-//           {reportConfig[name].icon}
-//           {reportConfig[name].title}
-//         </CardTitle>
-//       </CardHeader>
-//       <CardContent>{children}</CardContent>
-//     </Card>
-//   );
-// }
 
 interface ReportData {
   data: DashboardData;
@@ -58,62 +27,74 @@ export function OrdersOnlyReport({ data }: ReportData) {
 
   return (
     <>
-      <span className="inline-flex items-center gap-2 text-sm text-muted-foreground mt-3">
-        <ShoppingBag className="size-3.5" />
+      <span className="inline-flex items-center gap-2 text-sm mt-6">
+        <ShoppingBag className="size-4" />
         Solo pedidos
       </span>
       <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-3 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs sm:grid-cols-2 lg:grid-cols-4">
         <Card>
-          <CardHeader className="text-green-700 dark:text-green-400">
+          <CardHeader>
             <CardDescription>Ingresos</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            <CardTitle className="text-2xl font-semibold tabular-nums">
               ${formatNumber(data.totalOrdersInDollars)}
             </CardTitle>
             <CardAction>
               <Badge variant="outline">
-                <ArrowUp className="text-green-800 dark:text-green-400" />
+                <ArrowUp />
               </Badge>
             </CardAction>
           </CardHeader>
+          <CardFooter className="text-sm">
+            <div className="text-muted-foreground">Abonos de pedidos</div>
+          </CardFooter>
         </Card>
         <Card>
-          <CardHeader className="text-red-600 dark:text-red-400">
+          <CardHeader>
             <CardDescription>Costos</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            <CardTitle className="text-2xl font-semibold tabular-nums">
               - ${formatNumber(data.ordersCostsInDollars)}
             </CardTitle>
             <CardAction>
               <Badge variant="outline">
-                <ArrowDown className="text-red-600 dark:text-red-400" />
+                <ArrowDown />
               </Badge>
             </CardAction>
           </CardHeader>
+          <CardFooter className="text-sm">
+            <div className="text-muted-foreground">Costos de pedidos</div>
+          </CardFooter>
         </Card>
         <Card>
-          <CardHeader className="text-blue-600 dark:text-blue-400">
+          <CardHeader>
             <CardDescription>Ganancia</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              C${formatNumber(profit)}
+            <CardTitle className="text-2xl font-semibold tabular-nums">
+              ${formatNumber(profit)}
             </CardTitle>
             <CardAction>
               <Badge variant="outline">
-                <Equal className="text-blue-600 dark:text-blue-400" />
+                <Equal />
               </Badge>
             </CardAction>
           </CardHeader>
+          <CardFooter className="text-sm">
+            <div className="text-muted-foreground">Ganancia total</div>
+          </CardFooter>
         </Card>
         <Card>
           <CardHeader className="text-blue-600 dark:text-blue-400">
-            <CardDescription>Ganancia inversor (10%)</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-              C${formatNumber(profit * 0.1)}
+            <CardDescription>Ganancia inversor</CardDescription>
+            <CardTitle className="text-2xl font-semibold tabular-nums">
+              ${formatNumber(profit * 0.1)}
             </CardTitle>
             <CardAction>
               <Badge variant="outline">
-                <Equal className="text-blue-600 dark:text-blue-400" />
+                <Equal />
               </Badge>
             </CardAction>
           </CardHeader>
+          <CardFooter className="text-sm">
+            <div className="text-muted-foreground">10% para inversor</div>
+          </CardFooter>
         </Card>
       </div>
     </>
@@ -125,54 +106,65 @@ export function SalesOnlyReport({ data }: ReportData) {
 
   return (
     <>
-      <span className="inline-flex items-center gap-2 text-sm text-muted-foreground mt-3">
-        <Coins className="size-3.5" />
+      <span className="inline-flex items-center text-sm gap-2 mt-6">
+        <Coins className="size-4" />
         Solo ventas
       </span>
       <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-3 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs sm:grid-cols-2 lg:grid-cols-4">
         <Card>
-          <CardHeader className="text-green-700 dark:text-green-400">
+          <CardHeader>
             <CardDescription>Al contado</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            <CardTitle className="text-2xl font-semibold tabular-nums">
               C${formatNumber(data.salesContado)}
             </CardTitle>
             <CardAction>
               <Badge variant="outline">
-                <ArrowUp className="text-green-700 dark:text-green-400" />
+                <ArrowUp />
               </Badge>
             </CardAction>
           </CardHeader>
+          <CardFooter className="text-sm">
+            <div className="text-muted-foreground">Ventas hechas y pagadas</div>
+          </CardFooter>
         </Card>
         <Card>
-          <CardHeader className="text-green-700 dark:text-green-400">
+          <CardHeader>
             <CardDescription>Al crédito</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            <CardTitle className="text-2xl font-semibold tabular-nums">
               C${formatNumber(data.salesCreditAbonos)}
             </CardTitle>
             <CardAction>
               <Badge variant="outline">
-                <ArrowUp className="text-green-700 dark:text-green-400" />
+                <ArrowUp />
               </Badge>
             </CardAction>
           </CardHeader>
+          <CardFooter className="text-sm">
+            <div className="text-muted-foreground">
+              Abonos de ventas al crédito
+            </div>
+          </CardFooter>
         </Card>
         <Card>
-          <CardHeader className="text-red-600 dark:text-red-400">
+          <CardHeader>
             <CardDescription>Costos</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            <CardTitle className="text-2xl font-semibold tabular-nums">
               - C${formatNumber(data.salesCosts)}
             </CardTitle>
             <CardAction>
               <Badge variant="outline">
-                <ArrowDown className="text-red-600 dark:text-red-400" />
+                <ArrowDown />
               </Badge>
             </CardAction>
           </CardHeader>
+          <CardFooter className="text-sm">
+            <div className="text-muted-foreground">Costos de ventas</div>
+          </CardFooter>
         </Card>
         <Card>
-          <CardHeader className="text-blue-600 dark:text-blue-400">
+          <CardHeader>
             <CardDescription>Ganancia</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            <CardTitle className="text-2xl font-semibold tabular-nums">
               C${formatNumber(profit)}
             </CardTitle>
             <CardAction>
@@ -181,11 +173,14 @@ export function SalesOnlyReport({ data }: ReportData) {
               </Badge>
             </CardAction>
           </CardHeader>
+          <CardFooter className="text-sm">
+            <div className="text-muted-foreground">Ganancia total</div>
+          </CardFooter>
         </Card>
         <Card>
           <CardHeader className="text-blue-600 dark:text-blue-400">
-            <CardDescription>Ganancia inversor (10%)</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            <CardDescription>Ganancia inversor</CardDescription>
+            <CardTitle className="text-2xl font-semibold tabular-nums">
               C${formatNumber(profit * 0.1)}
             </CardTitle>
             <CardAction>
@@ -194,6 +189,9 @@ export function SalesOnlyReport({ data }: ReportData) {
               </Badge>
             </CardAction>
           </CardHeader>
+          <CardFooter className="text-sm">
+            <div className="text-muted-foreground">10% para inversor</div>
+          </CardFooter>
         </Card>
       </div>
     </>

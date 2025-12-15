@@ -23,7 +23,6 @@ export function SearchButton() {
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          size="sm"
           className={
             queryParam
               ? 'border-blue-600 bg-blue-50 hover:bg-blue-50 dark:border-blue-900 dark:bg-blue-950 hover:dark:bg-blue-950'
@@ -63,7 +62,7 @@ export function SearchInput({ className }: SearchInput) {
   }, 400);
 
   return (
-    <InputGroup className={cn('w-full max-w-40 h-8', className)}>
+    <InputGroup className={cn('w-full max-w-40 h-9', className)}>
       <InputGroupInput
         type="search"
         placeholder="Buscar"

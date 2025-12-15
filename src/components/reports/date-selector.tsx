@@ -37,7 +37,7 @@ export function DateSelector({ searchParams }: DateSelector) {
     <Dialog>
       <DialogTrigger asChild>
         <ToggleGroupItem value="6">
-          <Calendar className="size-3" />
+          <Calendar className="size-3.5" />
           Elegir rango
         </ToggleGroupItem>
       </DialogTrigger>

@@ -3,8 +3,6 @@
 import { SalesOnlyReport, OrdersOnlyReport } from './reports';
 import { DashboardData, SearchParamsProps } from '@/types/types';
 import { DateRangeButtons } from './date-range-buttons';
-import { formatDate } from '@/lib/formatters';
-import { thisMonth } from '@/lib/get-date';
 
 interface Dashboard {
   data: DashboardData;

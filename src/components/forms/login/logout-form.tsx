@@ -24,11 +24,7 @@ export default function LogoutForm() {
   };
 
   return (
-    <DropdownMenuItem
-      className="text-xs"
-      disabled={isPending}
-      onClick={handleLogout}
-    >
+    <DropdownMenuItem disabled={isPending} onClick={handleLogout}>
       {isPending ? <Spinner /> : <LogOut />}
       Cerrar sesión
     </DropdownMenuItem>
