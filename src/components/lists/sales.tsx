@@ -91,7 +91,7 @@ export function Sales({ data, query, totalPages }: SalesProps) {
                   </CardDescription>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-1">
+              <CardContent>
                 <CardItem
                   value={register.total}
                   label="Total"
@@ -122,7 +122,7 @@ export function Sales({ data, query, totalPages }: SalesProps) {
               <Badge variant="outline">Conteo: {data.length}</Badge>
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-1">
+          <CardContent>
             <CardItem
               value={totals.total}
               label="Total"

@@ -54,10 +54,6 @@ export function Providers({ data, query, totalPages }: Providers) {
                   <div className="flex flex-col gap-2">
                     <CardTitle>{register.nombreEmpresa}</CardTitle>
                     <CardDescription className="inline-flex gap-3 items-center">
-                      <Badge variant="outline">
-                        <Hash />
-                        {register.id}
-                      </Badge>
                       <Badge
                         variant="outline"
                         className={
@@ -92,7 +88,6 @@ export function Providers({ data, query, totalPages }: Providers) {
         <TableHeader className="bg-muted sticky top-0 z-10">
           <TableRow>
             <TableHead className="w-full">Proveedor</TableHead>
-            <TableHead>Id</TableHead>
             <TableHead>Teléfono</TableHead>
           </TableRow>
         </TableHeader>
@@ -112,12 +107,6 @@ export function Providers({ data, query, totalPages }: Providers) {
                     </AvatarFallback>
                   </Avatar>
                   <span>{register.nombreEmpresa}</span>
-                </TableCell>
-                <TableCell>
-                  <Badge variant="outline" className="w-full">
-                    <Hash />
-                    {register.id}
-                  </Badge>
                 </TableCell>
                 <TableCell>
                   <Badge

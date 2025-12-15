@@ -16,7 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { bgColors } from '@/lib/bg-colors';
 import { formatNumber } from '@/lib/formatters';
 import { Button } from '@/components/ui/button';
-import { Trash2 } from 'lucide-react';
+import { Hash, Trash2 } from 'lucide-react';
 import { TableContainer } from '@/components/lists/table';
 import {
   TableBody,
@@ -66,12 +66,14 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
               <CardHeader className="border-b [.border-b]:pb-4">
                 <CardTitle>{detail.nombreProducto}</CardTitle>
                 <CardDescription className="inline-flex gap-3">
-                  <Badge className="bg-brand text-black font-normal">
+                  <Badge variant="outline">
+                    <Hash />
                     {detail.idProducto}
                   </Badge>
                   <Badge variant="secondary" className={bgColors.red}>
                     C$ {formatNumber(detail.precioCompra * detail.cambioDolar)}
                   </Badge>
+                  <Badge variant="outline">Cant: {detail.cantidad}</Badge>
                 </CardDescription>
                 <CardAction className="inline-flex gap-1 items-center">
                   <EditDetailButton
@@ -83,13 +85,6 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
                 </CardAction>
               </CardHeader>
               <CardContent>
-                <CardItem
-                  value={String(detail.cantidad)}
-                  label="Cantidad"
-                  color="neutral"
-                  hideCurrency
-                  className="justify-center"
-                />
                 <CardItem
                   value={subtotalCompra}
                   label="Subtotal"
@@ -110,9 +105,7 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
           <CardHeader className="border-b [.border-b]:pb-4">
             <CardTitle>Total</CardTitle>
             <CardDescription className="inline-flex gap-3">
-              <Badge className="bg-brand text-black">
-                Items: {purchase.detail.length}
-              </Badge>
+              <Badge variant="outline">Conteo: {purchase.detail.length}</Badge>
               <Badge variant="outline">Cantidad: {formTotals.quantity}</Badge>
             </CardDescription>
           </CardHeader>

@@ -2,7 +2,7 @@
 
 import React, { startTransition, useActionState } from 'react';
 import { formatNumber } from '@/lib/formatters';
-import { Copy, MessageCircle } from 'lucide-react';
+import { Copy, Info, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { calculateTotals } from '@/lib/calculate-totals';
@@ -203,9 +203,10 @@ export function OrderShipping({ order, envioPrices }: OrderShipping) {
                 </WhatsAppButton>
               )}
             </div>
-            <CardDescription>
+            <CardDescription className="inline-flex items-center gap-2 text-xs">
+              <Info className="size-3.5 min-w-3.5" />
               Antes de enviar el mensaje por WhatsApp, guarda los cambios para
-              que no los pierdas.
+              que no perderlos.
             </CardDescription>
           </CardContent>
           <FormCardFooter isPending={isPending} />

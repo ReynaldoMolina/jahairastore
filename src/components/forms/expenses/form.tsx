@@ -27,8 +27,9 @@ export function ExpenseForm({ form, expense, nombreEmpresa }: ExpenseForm) {
         <FormInput
           control={form.control}
           name="idCompra"
-          label="Id compra"
+          label="Compra"
           readOnly
+          textAddon="#"
         />
         <FormDatePicker control={form.control} name="fecha" label="Fecha" />
       </FieldSet>
@@ -38,7 +39,7 @@ export function ExpenseForm({ form, expense, nombreEmpresa }: ExpenseForm) {
           label="Proveedor"
         />
       </FieldSet>
-      <FieldSet className="flex-row gap-3 md:gap-6">
+      <FieldSet className="md:flex-row">
         <FormInput
           control={form.control}
           name="cambioDolar"

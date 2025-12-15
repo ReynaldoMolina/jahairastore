@@ -16,7 +16,7 @@ import { Pagination } from './pagination';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
 import { formatDate } from '@/lib/formatters';
-import { Calendar, Check, Clock, Loader } from 'lucide-react';
+import { Calendar, Check, Clock, Hash, Loader } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface Tareas {
@@ -69,8 +69,12 @@ export function Tareas({ data, query, totalPages }: Tareas) {
                 </CardTitle>
                 <CardDescription className="inline-flex gap-3 items-center">
                   <Badge variant="outline">
+                    <Hash />
+                    {register.id}
+                  </Badge>
+                  <Badge variant="outline">
                     <Calendar />
-                    Entrega {formatDate(register.fecha_entrega)}
+                    {formatDate(register.fecha_entrega)}
                   </Badge>
                   <Badge
                     variant="secondary"
@@ -94,6 +98,7 @@ export function Tareas({ data, query, totalPages }: Tareas) {
         <TableHeader className="bg-muted sticky top-0 z-10">
           <TableRow>
             <TableHead className="w-full">Tarea</TableHead>
+            <TableHead>Id</TableHead>
             <TableHead>Entrega</TableHead>
             <TableHead>Estado</TableHead>
           </TableRow>
@@ -115,6 +120,12 @@ export function Tareas({ data, query, totalPages }: Tareas) {
                   )}
                 >
                   {register.tarea}
+                </TableCell>
+                <TableCell>
+                  <Badge variant="outline">
+                    <Hash />
+                    {register.id}
+                  </Badge>
                 </TableCell>
                 <TableCell>
                   <Badge variant="outline">

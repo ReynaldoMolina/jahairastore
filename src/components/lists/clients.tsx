@@ -74,7 +74,7 @@ export function Clients({ data, query, totalPages }: Clients) {
           <CardHeader>
             <CardTitle>Total</CardTitle>
             <CardDescription className="inline-flex gap-3 items-center">
-              <Badge variant="outline">{data.length}</Badge>
+              <Badge variant="outline">Conteo: {data.length}</Badge>
             </CardDescription>
           </CardHeader>
         </Card>

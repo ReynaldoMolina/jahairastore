@@ -16,9 +16,9 @@ export function Home({ businessInfo }: { businessInfo: BusinessInfoType }) {
         <p className="text-sm text-muted-foreground text-center md:text-left">
           {businessInfo.eslogan}
         </p>
-        <p className="text-sm text-muted-foreground text-center md:text-left">
+        <blockquote className="border-l-2 pl-3 italic text-sm text-muted-foreground text-center md:text-left">
           {isDemo ? 'DEMO' : businessInfo.mensaje || '¡Bienvenido!'}
-        </p>
+        </blockquote>
 
         {/* CTA Button */}
         <div className="inline-flex gap-3">

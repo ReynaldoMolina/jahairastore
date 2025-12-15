@@ -30,6 +30,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ChangeQuantity, ChangeQuantityCard } from './change-quantity';
+import { Hash } from 'lucide-react';
 
 interface ProductSearchList {
   productData: ProductSearchData;
@@ -79,20 +80,25 @@ export default function ProductSearchList({
                   : ''
               } py-4 gap-4`}
             >
-              <CardHeader className="border-b [.border-b]:pb-4">
+              <CardHeader
+                className={isSelected ? 'border-b [.border-b]:pb-4' : ''}
+              >
                 <CardTitle className={isSoldOut ? 'text-muted-foreground' : ''}>
                   {p.nombre}
                 </CardTitle>
                 <CardDescription className="inline-flex gap-3 items-center">
                   <Badge
-                    className={
-                      isSoldOut
-                        ? 'bg-brand/50 text-muted-foreground dark:text-black'
-                        : 'bg-brand text-black'
-                    }
+                    variant="outline"
+                    className={isSoldOut ? 'text-muted-foreground' : ''}
                   >
+                    <Hash />
                     {p.id}
                   </Badge>
+                  {isSoldOut ? (
+                    <Badge variant="destructive">Agotado</Badge>
+                  ) : (
+                    <Badge variant="secondary">Disp: {p.existencias}</Badge>
+                  )}
                   <Badge variant="secondary" className={bgColors.red}>
                     C$ {formatNumber(price)}
                   </Badge>
@@ -115,26 +121,8 @@ export default function ProductSearchList({
                   />
                 </CardAction>
               </CardHeader>
-              <CardContent className="space-y-1">
-                {isSoldOut ? (
-                  <div className="inline-flex w-full justify-between">
-                    <span className="text-xs text-muted-foreground">
-                      Disponibles
-                    </span>
-                    <Badge variant="destructive" className="min-w-25">
-                      Agotado
-                    </Badge>
-                  </div>
-                ) : (
-                  <CardItem
-                    value={String(p.existencias)}
-                    label="Disponibles"
-                    color="neutral"
-                    hideCurrency
-                    className="justify-center"
-                  />
-                )}
-                {isSelected && (
+              {isSelected && (
+                <CardContent>
                   <ChangeQuantityCard
                     setSelectedProducts={setSelectedProducts}
                     product={{
@@ -145,8 +133,8 @@ export default function ProductSearchList({
                         )?.cantidad || 1,
                     }}
                   />
-                )}
-              </CardContent>
+                </CardContent>
+              )}
             </Card>
           );
         })}

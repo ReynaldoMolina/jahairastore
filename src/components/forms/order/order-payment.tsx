@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/card';
 import { calculateTotals } from '@/lib/calculate-totals';
 import { FormOption } from '@/components/form-elements/form-option';
-import { FormDescription } from '@/components/ui/form';
 import { Separator } from '@/components/ui/separator';
 
 interface OrderPayment {
@@ -54,11 +53,11 @@ export function OrderPayment({ order }: OrderPayment) {
             >
               <Check className="size-4" />
             </FormOption>
+            <Separator className="my-6" />
           </>
         )}
         {order.abonos > 0 && (
           <>
-            <Separator className="my-6" />
             <FormOption
               label="Ver recibos de abonos"
               href={`/recibos?query=${order.id} ${order.nombreCliente}`}

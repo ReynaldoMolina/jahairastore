@@ -104,7 +104,7 @@ export function OrderDetailForm({
         </ButtonGroup>
       </FieldSet>
 
-      <FormInput control={form.control} name="imagenUrl" label="Foto (link)" />
+      <FormInput control={form.control} name="imagenUrl" label="Foto (url)" />
 
       {isNew && (
         <FieldSet>

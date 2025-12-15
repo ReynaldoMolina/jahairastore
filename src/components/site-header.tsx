@@ -31,7 +31,7 @@ export function SiteHeader({
           <ArrowLeft className="size-4.5" />
         </Button>
       ) : (
-        <SidebarTrigger className="size-8" />
+        <SidebarTrigger className="size-9" />
       )}
       <span className="font-semibold text-sm ml-1">{title}</span>
       {showActionBar && (

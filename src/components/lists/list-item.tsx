@@ -55,7 +55,7 @@ interface CardItem extends ListItem {
 export function CardItem({ label, ...props }: CardItem) {
   return (
     <div className="inline-flex w-full justify-between gap-2">
-      <span className="text-muted-foreground text-sm">{label}</span>
+      <span className="text-muted-foreground text-xs">{label}</span>
       <ListItem {...props} />
     </div>
   );

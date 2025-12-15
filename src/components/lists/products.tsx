@@ -23,6 +23,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
 import { Hash } from 'lucide-react';
+import { formatNumber } from '@/lib/formatters';
 
 interface Products {
   data: {
@@ -76,22 +77,26 @@ export function Products({ data, query, totalPages }: Products) {
                     >
                       {register.precioEnCordobas ? 'C$ ' : '$ '}
                       {register.precioEnCordobas
-                        ? register.precioVenta * register.cambioDolar
-                        : register.precioVenta}
+                        ? formatNumber(
+                            register.precioVenta * register.cambioDolar
+                          )
+                        : formatNumber(register.precioVenta)}
                     </Badge>
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-1">
-                  <CardItem
-                    value={
-                      register.precioEnCordobas
-                        ? register.gananciaUnidad * register.cambioDolar
-                        : register.gananciaUnidad
-                    }
-                    label="Ganancia"
-                    color="blue"
-                    showPriceInNio={register.precioEnCordobas}
-                  />
+                <CardContent>
+                  {register.existencias > 1 && (
+                    <CardItem
+                      value={
+                        register.precioEnCordobas
+                          ? register.gananciaUnidad * register.cambioDolar
+                          : register.gananciaUnidad
+                      }
+                      label="Ganancia"
+                      color="blue"
+                      showPriceInNio={register.precioEnCordobas}
+                    />
+                  )}
                   <CardItem
                     value={
                       register.precioEnCordobas

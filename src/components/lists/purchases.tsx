@@ -112,25 +112,13 @@ export function Purchases({ data, query, totalPages }: Purchases) {
           <CardHeader className="border-b [.border-b]:pb-4">
             <CardTitle>Total</CardTitle>
             <CardDescription className="inline-flex gap-3 items-center">
-              <Badge className="bg-brand text-black">{data.length}</Badge>
+              <Badge variant="outline">Conteo: {data.length}</Badge>
             </CardDescription>
           </CardHeader>
           <CardContent>
             <CardItem
-              value={totals.total}
-              label="Subtotal"
-              color="neutral"
-              showPriceInNio
-            />
-            <CardItem
-              value={totals.gastos}
-              label="Gastos"
-              color="amber"
-              showPriceInNio
-            />
-            <CardItem
               value={totals.total + totals.gastos}
-              label="Total compra"
+              label="Total"
               color="red"
               showPriceInNio
             />

@@ -121,7 +121,7 @@ export default function ProductSearchList({
                 </CardAction>
               </CardHeader>
               {isSelected && (
-                <CardContent className="space-y-1">
+                <CardContent>
                   <ChangeQuantityCard
                     setSelectedProducts={setSelectedProducts}
                     product={{

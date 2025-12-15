@@ -93,7 +93,7 @@ export function Orders({ data, query, totalPages }: Orders) {
                     </CardDescription>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-1">
+                <CardContent>
                   <CardItem
                     value={register.total}
                     label="Total"
@@ -127,7 +127,7 @@ export function Orders({ data, query, totalPages }: Orders) {
               <Badge variant="outline">Conteo: {data.length}</Badge>
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-1">
+          <CardContent>
             <CardItem value={totals.total} label="Total" color="neutral" />
             <CardItem value={totals.abonos} label="Abonos" color="green" />
             <CardItem
