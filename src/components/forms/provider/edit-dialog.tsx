@@ -39,6 +39,7 @@ export function EditProviderFormDialog({ provider }: EditProviderFormDialog) {
       departamento: provider.departamento,
       pais: provider.pais,
       direccion: provider.direccion,
+      imagenUrl: provider.imagenUrl || '',
     },
   });
 

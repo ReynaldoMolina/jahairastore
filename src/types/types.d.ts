@@ -272,6 +272,7 @@ export interface ProviderById {
   departamento: string | null;
   pais: string | null;
   direccion: string | null;
+  imagenUrl: string | null;
 }
 
 export interface TareaById {

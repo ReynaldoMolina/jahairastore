@@ -29,6 +29,7 @@ export function EditProviderForm({ provider }: EditProviderForm) {
       departamento: provider.departamento,
       pais: provider.pais,
       direccion: provider.direccion,
+      imagenUrl: provider.imagenUrl || '',
     },
   });
 

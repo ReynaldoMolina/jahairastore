@@ -35,6 +35,7 @@ export function CreateProviderFormDialog() {
       departamento: null,
       pais: null,
       direccion: '',
+      imagenUrl: '',
     },
   });
 
