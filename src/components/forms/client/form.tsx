@@ -47,6 +47,11 @@ export function ClientForm({ form }: ClientForm) {
           name="direccion"
           label="Dirección"
         />
+        <FormInput
+          control={form.control}
+          name="imagenUrl"
+          label="Foto (link)"
+        />
       </FieldSet>
     </FieldGroup>
   );

@@ -1,7 +1,6 @@
 'use client';
 
 import { FieldGroup, FieldSet } from '../../../ui/field';
-import { OrderDetailType } from '@/types/types';
 import { UseFormReturn } from 'react-hook-form';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
 import { formatNumber } from '@/lib/formatters';

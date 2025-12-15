@@ -20,6 +20,7 @@ export const clientes = pgTable('Clientes', {
   pais: text('Pais'),
   direccion: text('Direccion'),
   idUsuario: integer('Id_usuario'),
+  imagenUrl: text('Imagen_url'),
 });
 
 export const compras = pgTable('Compras', {
@@ -168,7 +169,7 @@ export const tareas = pgTable('Tareas', {
 });
 
 // only in demo mode
-// export const urls = pgTable('Urls', {
-//   id: text().primaryKey().notNull(),
-//   url: text(),
-// });
+export const urls = pgTable('Urls', {
+  id: text().primaryKey().notNull(),
+  url: text(),
+});

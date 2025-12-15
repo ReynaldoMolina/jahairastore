@@ -40,6 +40,7 @@ export function EditClientFormDialog({ client }: EditClientFormDialog) {
       pais: client.pais,
       direccion: client.direccion,
       idUsuario: client.idUsuario,
+      imagenUrl: client.imagenUrl,
     },
   });
 

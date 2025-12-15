@@ -260,6 +260,7 @@ export interface ClientById {
   pais: string | null;
   direccion: string | null;
   idUsuario: number | null;
+  imagenUrl: string | null;
 }
 
 export interface ProviderById {

@@ -16,12 +16,15 @@ import EmptyList from './empty-list';
 import { Pagination } from './pagination';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
+import Image from 'next/image';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 interface Clients {
   data: {
     id: number;
     nombre: string;
     telefono: string;
+    imagenUrl: string;
   }[];
   query: string;
   totalPages: number;
@@ -40,21 +43,28 @@ export function Clients({ data, query, totalPages }: Clients) {
           return (
             <Link key={register.id} href={`/clientes/${register.id}`}>
               <Card className="py-4 gap-4">
-                <CardHeader>
-                  <CardTitle>{register.nombre}</CardTitle>
-                  <CardDescription className="inline-flex gap-3 items-center">
-                    <Badge className="bg-brand text-black font-normal">
-                      {register.id}
-                    </Badge>
-                    <Badge
-                      variant="outline"
-                      className={
-                        register.telefono ? '' : 'text-muted-foreground'
-                      }
-                    >
-                      {register.telefono || 'Sin teléfono'}
-                    </Badge>
-                  </CardDescription>
+                <CardHeader className="inline-flex gap-3 px-4">
+                  <Avatar>
+                    <AvatarImage src={register.imagenUrl} alt="@shadcn" />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+
+                  <div className="flex flex-col gap-2">
+                    <CardTitle>{register.nombre}</CardTitle>
+                    <CardDescription className="inline-flex gap-3 items-center">
+                      {/* <Badge className="bg-brand text-black font-normal">
+                        {register.id}
+                      </Badge> */}
+                      <Badge
+                        variant="outline"
+                        className={
+                          register.telefono ? '' : 'text-muted-foreground'
+                        }
+                      >
+                        {register.telefono || 'Sin teléfono'}
+                      </Badge>
+                    </CardDescription>
+                  </div>
                 </CardHeader>
               </Card>
             </Link>

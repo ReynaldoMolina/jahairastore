@@ -26,6 +26,7 @@ export function CreateClientForm() {
       pais: null,
       direccion: '',
       idUsuario: null,
+      imagenUrl: '',
     },
   });
 

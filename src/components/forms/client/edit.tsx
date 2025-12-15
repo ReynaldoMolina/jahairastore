@@ -30,6 +30,7 @@ export function EditClientForm({ client }: EditClientForm) {
       pais: client.pais,
       direccion: client.direccion,
       idUsuario: client.idUsuario,
+      imagenUrl: client.imagenUrl,
     },
   });
 

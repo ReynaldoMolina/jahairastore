@@ -13,4 +13,5 @@ export const clientSchema = z.object({
   pais: z.string().nullable(),
   direccion: z.string().nullable(),
   idUsuario: zNumberNullable(),
+  imagenUrl: z.string().nullable(),
 });

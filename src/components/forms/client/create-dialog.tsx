@@ -36,6 +36,7 @@ export function CreateClientFormDialog() {
       pais: null,
       direccion: '',
       idUsuario: null,
+      imagenUrl: '',
     },
   });
 
