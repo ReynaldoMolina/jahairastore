@@ -18,6 +18,7 @@ export async function getClients(searchParams: SearchParamsProps) {
       .select({
         id: clientes.id,
         nombre: sql<string>`${clientes.nombre} || ' ' || ${clientes.apellido}`,
+        imagenUrl: clientes.imagenUrl,
         telefono: clientes.telefono,
       })
       .from(clientes)

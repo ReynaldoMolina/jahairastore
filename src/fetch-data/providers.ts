@@ -17,6 +17,7 @@ export async function getProveedores(searchParams: SearchParamsProps) {
       .select({
         id: proveedores.id,
         nombreEmpresa: proveedores.nombreEmpresa,
+        imagenUrl: proveedores.imagenUrl,
         telefono: proveedores.telefono,
       })
       .from(proveedores)

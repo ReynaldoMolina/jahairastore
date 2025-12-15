@@ -1,4 +1,4 @@
-'use tarea';
+'use client';
 
 import { startTransition, useActionState } from 'react';
 import { Card, CardContent } from '../../ui/card';

@@ -52,7 +52,7 @@ export function ChangeQuantity({
       <Button
         variant="outline"
         size="icon-sm"
-        className="size-6 rounded-full dark:bg-input"
+        className="size-6 dark:bg-input"
         onClick={() => handleChange(-1)}
         disabled={cantidad <= 1}
       >
@@ -68,7 +68,7 @@ export function ChangeQuantity({
       <Button
         variant="outline"
         size="icon-sm"
-        className="size-6 rounded-full dark:bg-input"
+        className="size-6 dark:bg-input"
         onClick={() => handleChange(1)}
         disabled={cantidad >= product.existencias}
       >

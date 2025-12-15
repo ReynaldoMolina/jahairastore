@@ -149,11 +149,11 @@ export default function ProductSearchList({
             <TableHead className="text-center">
               <Checkbox disabled />
             </TableHead>
-            <TableHead>Id</TableHead>
             <TableHead>Producto</TableHead>
-            <TableHead>Cantidad</TableHead>
-            <TableHead>Disponibles</TableHead>
+            <TableHead>Id</TableHead>
+            <TableHead>Disp.</TableHead>
             <TableHead>Precio</TableHead>
+            <TableHead>Cantidad</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -196,17 +196,6 @@ export default function ProductSearchList({
                     }
                   />
                 </TableCell>
-                <TableCell>
-                  <Badge
-                    className={
-                      isSoldOut
-                        ? 'bg-brand/50 text-muted-foreground dark:text-black'
-                        : 'bg-brand text-black'
-                    }
-                  >
-                    {product.id}
-                  </Badge>
-                </TableCell>
                 <TableCell
                   className={`${
                     isSoldOut ? 'text-muted-foreground' : ''
@@ -215,18 +204,13 @@ export default function ProductSearchList({
                   {product.nombre}
                 </TableCell>
                 <TableCell>
-                  {isSelected && (
-                    <ChangeQuantity
-                      setSelectedProducts={setSelectedProducts}
-                      product={{
-                        ...product,
-                        cantidad:
-                          selectedProducts.find(
-                            (prod) => prod.idProducto === product.id
-                          )?.cantidad || 1,
-                      }}
-                    />
-                  )}
+                  <Badge
+                    variant="outline"
+                    className={isSoldOut ? 'text-muted-foreground' : ''}
+                  >
+                    <Hash />
+                    {product.id}
+                  </Badge>
                 </TableCell>
                 <TableCell>
                   {product.existencias <= 0 ? (
@@ -248,6 +232,20 @@ export default function ProductSearchList({
                     color="green"
                     showPriceInNio={product.precioEnCordobas}
                   />
+                </TableCell>
+                <TableCell>
+                  {isSelected && (
+                    <ChangeQuantity
+                      setSelectedProducts={setSelectedProducts}
+                      product={{
+                        ...product,
+                        cantidad:
+                          selectedProducts.find(
+                            (prod) => prod.idProducto === product.id
+                          )?.cantidad || 1,
+                      }}
+                    />
+                  )}
                 </TableCell>
               </TableRow>
             );

@@ -13,10 +13,10 @@ export function Home({ businessInfo }: { businessInfo: BusinessInfoType }) {
         <h1 className="text-2xl font-extrabold bg-gradient-to-r from-purple-500 to-sky-500 bg-clip-text text-transparent text-center md:text-left">
           {businessInfo.nombreEmpresa}
         </h1>
-        <p className="text-xs text-muted-foreground text-center md:text-left">
+        <p className="text-sm text-muted-foreground text-center md:text-left">
           {businessInfo.eslogan}
         </p>
-        <p className="text-xs text-muted-foreground text-center md:text-left">
+        <p className="text-sm text-muted-foreground text-center md:text-left">
           {isDemo ? 'DEMO' : businessInfo.mensaje || '¡Bienvenido!'}
         </p>
 
