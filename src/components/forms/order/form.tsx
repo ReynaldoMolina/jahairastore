@@ -1,6 +1,12 @@
 'use client';
 
-import { FieldGroup, FieldSet } from '../../ui/field';
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import z from 'zod';
 import {
@@ -58,7 +64,8 @@ export function OrderForm({
       </FieldSet>
       {!isNew && (
         <>
-          <FieldSet className="flex-row gap-3">
+          <FieldSeparator className="md:hidden" />
+          <FieldSet className="md:flex-row">
             <FormInputReadOnly
               value={`$ ${formatNumber(totals.totalSell)}`}
               label="Total"

@@ -66,7 +66,7 @@ export function SaleOptions({ sale }: SaleOptions) {
   return (
     <>
       <Item variant="outline">
-        <ItemMedia variant="icon">
+        <ItemMedia variant="icon" className="hidden sm:flex">
           <Eye />
         </ItemMedia>
         <ItemContent>
@@ -86,7 +86,7 @@ export function SaleOptions({ sale }: SaleOptions) {
       </Item>
 
       <Item variant="outline">
-        <ItemMedia variant="icon">
+        <ItemMedia variant="icon" className="hidden sm:flex">
           <Download />
         </ItemMedia>
         <ItemContent>
@@ -108,12 +108,12 @@ export function SaleOptions({ sale }: SaleOptions) {
 
       <CardTitle className="mt-8">¿Quieres enviar el recibo?</CardTitle>
       <CardDescription>
-        Primero cópialo al portapapeles, luego abre la conversación de WhatsApp
-        y pega la imagen.
+        Cópialo al portapapeles, luego abre la conversación de WhatsApp y pega
+        la imagen.
       </CardDescription>
 
       <Item variant="outline">
-        <ItemMedia variant="icon">
+        <ItemMedia variant="icon" className="hidden sm:flex">
           <Copy />
         </ItemMedia>
         <ItemContent>
@@ -149,11 +149,11 @@ interface WhatsAppButton {
 function WhatsAppButton({ message, phoneNumber }: WhatsAppButton) {
   const encodedMessage = encodeURIComponent(message);
   const formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
-  const whatsAppUrl = `https://api.whatsapp.com/send?phone=${formattedPhoneNumber}&text=${encodedMessage}`;
+  const whatsAppUrl = `https://api.whatsapp.com/send?phone=505${formattedPhoneNumber}&text=${encodedMessage}`;
 
   return (
     <Item variant="outline">
-      <ItemMedia variant="icon">
+      <ItemMedia variant="icon" className="hidden sm:flex">
         <MessageCircle />
       </ItemMedia>
       <ItemContent>

@@ -1,6 +1,6 @@
 'use client';
 
-import { FieldGroup, FieldSet } from '../../ui/field';
+import { FieldGroup, FieldSeparator, FieldSet } from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
@@ -32,6 +32,7 @@ export function ReceiptForm({
           control={form.control}
           name="idPedido"
           label="Id pedido"
+          textAddon="#"
           readOnly
         />
         <FormDatePicker control={form.control} name="fecha" label="Fecha" />
@@ -46,7 +47,10 @@ export function ReceiptForm({
           label="Cliente"
         />
       </FieldSet>
-      <FieldSet className="flex-row gap-3 md:gap-6">
+
+      <FieldSeparator className="md:hidden" />
+
+      <FieldSet className="md:flex-row">
         <FormInputReadOnly
           value={formatNumber(saldoInicial)}
           label="Saldo inicial"
@@ -75,6 +79,9 @@ export function ReceiptForm({
           readOnly
         />
       </FieldSet>
+
+      <FieldSeparator className="md:hidden" />
+
       <FieldSet>
         <FormTextArea control={form.control} name="concepto" label="Concepto" />
       </FieldSet>

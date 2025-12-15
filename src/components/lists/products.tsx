@@ -22,6 +22,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
+import { Hash } from 'lucide-react';
 
 interface Products {
   data: {
@@ -58,58 +59,36 @@ export function Products({ data, query, totalPages }: Products) {
                 <CardHeader className="border-b [.border-b]:pb-4">
                   <CardTitle>{register.nombre}</CardTitle>
                   <CardDescription className="inline-flex gap-3 items-center">
-                    <Badge className="bg-brand text-black">{register.id}</Badge>
-                    {register.idShein && (
-                      <Badge variant="outline">{register.idShein}</Badge>
+                    <Badge variant="outline">
+                      <Hash />
+                      {register.id}
+                    </Badge>
+                    {isSoldOut ? (
+                      <Badge variant="destructive">Agotado</Badge>
+                    ) : (
+                      <Badge variant="secondary">
+                        Disp: {register.existencias}
+                      </Badge>
                     )}
+                    <Badge
+                      variant="secondary"
+                      className="bg-green-100 dark:bg-green-900/30"
+                    >
+                      {register.precioEnCordobas ? 'C$ ' : '$ '}
+                      {register.precioEnCordobas
+                        ? register.precioVenta * register.cambioDolar
+                        : register.precioVenta}
+                    </Badge>
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  {isSoldOut ? (
-                    <div className="inline-flex w-full justify-between">
-                      <span className="text-xs text-muted-foreground">
-                        Disponibles
-                      </span>
-                      <Badge variant="destructive" className="min-w-25">
-                        Agotado
-                      </Badge>
-                    </div>
-                  ) : (
-                    <CardItem
-                      value={String(register.existencias)}
-                      label="Disponibles"
-                      color="neutral"
-                      hideCurrency
-                      className="justify-center"
-                    />
-                  )}
-                  <CardItem
-                    value={
-                      register.precioEnCordobas
-                        ? register.precioVenta * register.cambioDolar
-                        : register.precioVenta
-                    }
-                    label="Venta"
-                    color="green"
-                    showPriceInNio={register.precioEnCordobas}
-                  />
-                  <CardItem
-                    value={
-                      register.precioEnCordobas
-                        ? register.precioCompra * register.cambioDolar
-                        : register.precioCompra
-                    }
-                    label="Compra"
-                    color="red"
-                    showPriceInNio={register.precioEnCordobas}
-                  />
+                <CardContent className="space-y-1">
                   <CardItem
                     value={
                       register.precioEnCordobas
                         ? register.gananciaUnidad * register.cambioDolar
                         : register.gananciaUnidad
                     }
-                    label="Ganancia und."
+                    label="Ganancia"
                     color="blue"
                     showPriceInNio={register.precioEnCordobas}
                   />
@@ -137,13 +116,11 @@ export function Products({ data, query, totalPages }: Products) {
       <TableContainer>
         <TableHeader className="bg-muted sticky top-0 z-10">
           <TableRow>
-            <TableHead className="text-center">Id</TableHead>
             <TableHead className="w-full">Producto</TableHead>
-            <TableHead>Id externo</TableHead>
+            <TableHead>Id</TableHead>
             <TableHead>Disponibles</TableHead>
-            <TableHead>Venta</TableHead>
-            <TableHead>Compra</TableHead>
-            <TableHead>Ganancia und.</TableHead>
+            <TableHead>Precio</TableHead>
+            <TableHead>Ganancia</TableHead>
             <TableHead>Ganancia disp.</TableHead>
           </TableRow>
         </TableHeader>
@@ -157,16 +134,20 @@ export function Products({ data, query, totalPages }: Products) {
                 className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
                 onClick={() => router.push(`/productos/${register.id}`)}
               >
-                <TableCell>
-                  <Badge className="bg-brand text-black">{register.id}</Badge>
-                </TableCell>
                 <TableCell className="w-full whitespace-normal">
                   {register.nombre}
                 </TableCell>
-                <TableCell>{register.idShein}</TableCell>
+                <TableCell>
+                  <Badge variant="outline">
+                    <Hash />
+                    {register.id}
+                  </Badge>
+                </TableCell>
                 <TableCell>
                   {isSoldOut ? (
-                    <Badge variant="destructive">Agotado</Badge>
+                    <Badge variant="destructive" className="w-full">
+                      Agotado
+                    </Badge>
                   ) : (
                     <ListItem
                       value={String(register.existencias)}
@@ -184,17 +165,6 @@ export function Products({ data, query, totalPages }: Products) {
                         : register.precioVenta
                     }
                     color="green"
-                    showPriceInNio={register.precioEnCordobas}
-                  />
-                </TableCell>
-                <TableCell>
-                  <ListItem
-                    value={
-                      register.precioEnCordobas
-                        ? register.precioCompra * register.cambioDolar
-                        : register.precioCompra
-                    }
-                    color="red"
                     showPriceInNio={register.precioEnCordobas}
                   />
                 </TableCell>

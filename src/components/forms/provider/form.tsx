@@ -28,7 +28,12 @@ export function ProviderForm({ form }: ProviderForm) {
         />
       </FieldSet>
       <FieldSet className="flex-row gap-3 md:gap-6">
-        <FormInput control={form.control} name="telefono" label="Teléfono" />
+        <FormInput
+          control={form.control}
+          name="telefono"
+          label="Teléfono"
+          textAddon="+505"
+        />
         <FormSelect
           control={form.control}
           name="municipio"

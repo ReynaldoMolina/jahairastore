@@ -1,8 +1,8 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditClientForm } from '@/components/forms/client/edit';
+import { EditTareaForm } from '@/components/forms/tareas/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
-import { getClientById } from '@/fetch-data/clients';
+import { getTareaById } from '@/fetch-data/tareas';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 
@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
 
   return {
-    title: `Cliente ${id}`,
+    title: `Tarea ${id}`,
   };
 }
 
@@ -18,17 +18,17 @@ export default async function Page({ params }: PageProps) {
   await checkAuthorization();
 
   const { id } = await params;
-  const client = await getClientById(id);
+  const tarea = await getTareaById(id);
 
-  if (!client) {
+  if (!tarea) {
     notFound();
   }
 
   return (
     <>
-      <SiteHeader title={`Cliente ${id}`} />
+      <SiteHeader title={`Tarea ${id}`} />
       <PageWrapper>
-        <EditClientForm client={client} />
+        <EditTareaForm tarea={tarea} />
       </PageWrapper>
     </>
   );

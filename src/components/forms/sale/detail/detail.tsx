@@ -62,10 +62,9 @@ export function EditSaleDetailDialog({ detail }: EditSaleDetailDialog) {
         <Dialog open={true} onOpenChange={() => router.back()}>
           <DialogContent className="sm:max-w-120 max-h-[97dvh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Editar detalle {detail.id}</DialogTitle>
+              <DialogTitle>Editar producto</DialogTitle>
               <DialogDescription>
-                Actualiza la información del producto, haz click en guardar
-                cuando estés listo.
+                Actualiza la información del producto.
               </DialogDescription>
             </DialogHeader>
 

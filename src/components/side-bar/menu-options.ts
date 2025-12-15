@@ -13,20 +13,10 @@ import {
 } from 'lucide-react';
 
 export const menuOptions = [
-  // {
-  //   name: 'Inicio',
-  //   url: '/',
-  //   icon: Home,
-  // },
   {
     name: 'Dashboard',
     url: '/dashboard',
     icon: ChartNoAxesCombined,
-  },
-  {
-    name: 'Tareas',
-    url: '/tareas',
-    icon: ClipboardList,
   },
   {
     name: 'Ventas',
@@ -67,6 +57,11 @@ export const menuOptions = [
     name: 'Proveedores',
     url: '/proveedores',
     icon: Users,
+  },
+  {
+    name: 'Tareas',
+    url: '/tareas',
+    icon: ClipboardList,
   },
 ];
 

@@ -16,7 +16,7 @@ import { Pagination } from './pagination';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
 import { formatDate } from '@/lib/formatters';
-import { Calendar, Check, Clock, Info, Loader } from 'lucide-react';
+import { Calendar, Check, Clock, Loader } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface Tareas {
@@ -24,7 +24,6 @@ interface Tareas {
     id: number;
     tarea: string;
     fecha_entrega: string;
-    prioridad: string;
     estado: string;
   }[];
   query: string;
@@ -55,48 +54,36 @@ export function Tareas({ data, query, totalPages }: Tareas) {
   if (isMobile)
     return (
       <>
-        {data.map((register) => {
-          console.log(register.estado);
-          console.log(taskStateConfig[register.estado]);
-
-          return (
-            <Link key={register.id} href={`/tareas/${register.id}`}>
-              <Card className="py-4 gap-4">
-                <CardHeader>
-                  <CardTitle
-                    className={
-                      register.estado === 'Hecho'
-                        ? 'line-through text-muted-foreground'
-                        : ''
-                    }
+        {data.map((register) => (
+          <Link key={register.id} href={`/tareas/${register.id}`}>
+            <Card className="py-4 gap-4">
+              <CardHeader>
+                <CardTitle
+                  className={
+                    register.estado === 'Hecho'
+                      ? 'line-through text-muted-foreground'
+                      : ''
+                  }
+                >
+                  {register.tarea}
+                </CardTitle>
+                <CardDescription className="inline-flex gap-3 items-center">
+                  <Badge variant="outline">
+                    <Calendar />
+                    Entrega {formatDate(register.fecha_entrega)}
+                  </Badge>
+                  <Badge
+                    variant="secondary"
+                    className={taskStateConfig[register.estado].bgColor}
                   >
-                    {register.tarea}
-                  </CardTitle>
-                  <CardDescription className="inline-flex gap-3 items-center">
-                    <Badge className="bg-brand text-black font-normal">
-                      {register.id}
-                    </Badge>
-                    <Badge variant="outline">
-                      <Calendar />
-                      {formatDate(register.fecha_entrega)}
-                    </Badge>
-                    <Badge variant="outline">
-                      <Info />
-                      {register.prioridad}
-                    </Badge>
-                    <Badge
-                      variant="secondary"
-                      className={taskStateConfig[register.estado].bgColor}
-                    >
-                      {taskStateConfig[register.estado].icon}
-                      {register.estado}
-                    </Badge>
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            </Link>
-          );
-        })}
+                    {taskStateConfig[register.estado].icon}
+                    {register.estado}
+                  </Badge>
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </Link>
+        ))}
         <Pagination totalPages={totalPages} />
       </>
     );
@@ -106,10 +93,8 @@ export function Tareas({ data, query, totalPages }: Tareas) {
       <TableContainer>
         <TableHeader className="bg-muted sticky top-0 z-10">
           <TableRow>
-            <TableHead className="text-center">Id</TableHead>
             <TableHead className="w-full">Tarea</TableHead>
-            <TableHead>Fecha entrega</TableHead>
-            <TableHead>Prioridad</TableHead>
+            <TableHead>Entrega</TableHead>
             <TableHead>Estado</TableHead>
           </TableRow>
         </TableHeader>
@@ -121,11 +106,6 @@ export function Tareas({ data, query, totalPages }: Tareas) {
                 className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
                 onClick={() => router.push(`/tareas/${register.id}`)}
               >
-                <TableCell>
-                  <Badge className="bg-brand text-black font-normal">
-                    {register.id}
-                  </Badge>
-                </TableCell>
                 <TableCell
                   className={cn(
                     'w-full whitespace-normal',
@@ -140,12 +120,6 @@ export function Tareas({ data, query, totalPages }: Tareas) {
                   <Badge variant="outline">
                     <Calendar />
                     {formatDate(register.fecha_entrega)}
-                  </Badge>
-                </TableCell>
-                <TableCell>
-                  <Badge variant="outline">
-                    <Info />
-                    {register.prioridad}
                   </Badge>
                 </TableCell>
                 <TableCell>

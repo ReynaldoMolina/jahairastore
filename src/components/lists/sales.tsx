@@ -24,8 +24,26 @@ import { Badge } from '../ui/badge';
 import { CardItem, ListItem } from './list-item';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Calendar, Hash } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
-export function Sales({ data, query, totalPages }) {
+interface SalesProps {
+  data: {
+    id: number;
+    nombreCliente: string;
+    imagenUrl: string | null;
+    abono: number;
+    fecha: string;
+    credito: boolean;
+    total: number;
+    saldo: number;
+    ganancia: number;
+  }[];
+  query: string;
+  totalPages: number;
+}
+
+export function Sales({ data, query, totalPages }: SalesProps) {
   const isMobile = useIsMobile();
   const router = useRouter();
 
@@ -51,19 +69,29 @@ export function Sales({ data, query, totalPages }) {
         {data.map((register) => (
           <Link key={register.id} href={`/ventas/${register.id}`}>
             <Card className="py-4 gap-4">
-              <CardHeader className="border-b [.border-b]:pb-4">
-                <CardTitle>{register.nombreCliente}</CardTitle>
-                <CardDescription className="inline-flex gap-3 items-center">
-                  <Badge className="bg-brand text-black">{register.id}</Badge>
-                  <Badge variant="outline">{formatDate(register.fecha)}</Badge>
-                  {register.credito ? (
-                    <Badge variant="outline">Crédito</Badge>
-                  ) : (
-                    ''
-                  )}
-                </CardDescription>
+              <CardHeader className="border-b [.border-b]:pb-4 inline-flex gap-3 px-4">
+                <Avatar>
+                  <AvatarImage src={register.imagenUrl} alt="@shadcn" />
+                  <AvatarFallback>
+                    {register.nombreCliente.substring(0, 1)}
+                  </AvatarFallback>
+                </Avatar>
+
+                <div className="flex flex-col gap-2">
+                  <CardTitle>{register.nombreCliente}</CardTitle>
+                  <CardDescription className="inline-flex gap-3 items-center">
+                    <Badge variant="outline">
+                      <Hash />
+                      {register.id}
+                    </Badge>
+                    <Badge variant="outline">
+                      <Calendar />
+                      {formatDate(register.fecha)}
+                    </Badge>
+                  </CardDescription>
+                </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-1">
                 <CardItem
                   value={register.total}
                   label="Total"
@@ -94,7 +122,7 @@ export function Sales({ data, query, totalPages }) {
               <Badge variant="outline">Conteo: {data.length}</Badge>
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-1">
             <CardItem
               value={totals.total}
               label="Total"
@@ -124,9 +152,8 @@ export function Sales({ data, query, totalPages }) {
       <TableContainer>
         <TableHeader className="bg-muted sticky top-0 z-10">
           <TableRow>
-            <TableHead className="text-center">Id</TableHead>
             <TableHead>Cliente</TableHead>
-            <TableHead></TableHead>
+            <TableHead>Id</TableHead>
             <TableHead>Fecha</TableHead>
             <TableHead>Total</TableHead>
             <TableHead>Saldo</TableHead>
@@ -140,16 +167,29 @@ export function Sales({ data, query, totalPages }) {
               onClick={() => router.push(`/ventas/${register.id}`)}
               className="hover:cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
             >
-              <TableCell>
-                <Badge className="bg-brand text-black">{register.id}</Badge>
-              </TableCell>
               <TableCell className="w-full whitespace-normal">
-                {register.nombreCliente}
+                <div className="inline-flex items-center gap-3">
+                  <Avatar>
+                    <AvatarImage src={register.imagenUrl} alt="@shadcn" />
+                    <AvatarFallback>
+                      {register.nombreCliente.substring(0, 1)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span>{register.nombreCliente}</span>
+                </div>
               </TableCell>
-              <TableCell className="inline-flex w-full justify-center">
-                {register.credito && <Badge variant="outline">Crédito</Badge>}
+              <TableCell>
+                <Badge variant="outline" className="w-full">
+                  <Hash />
+                  {register.id}
+                </Badge>
               </TableCell>
-              <TableCell>{formatDate(register.fecha)}</TableCell>
+              <TableCell>
+                <Badge variant="outline">
+                  <Calendar />
+                  {formatDate(register.fecha)}
+                </Badge>
+              </TableCell>
               <TableCell>
                 <ListItem
                   value={formatNumber(register.total)}
@@ -178,9 +218,8 @@ export function Sales({ data, query, totalPages }) {
         <TableFooter className="bg-muted">
           <TableRow>
             <TableCell>
-              <Badge variant="outline">{data.length}</Badge>
+              <Badge variant="outline">Conteo: {data.length}</Badge>
             </TableCell>
-            <TableCell>Total</TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
             <TableCell className="text-right">

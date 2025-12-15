@@ -19,8 +19,13 @@ export function ClientForm({ form }: ClientForm) {
         <FormInput control={form.control} name="nombre" label="Nombre" />
         <FormInput control={form.control} name="apellido" label="Apellido" />
       </FieldSet>
-      <FieldSet className="flex-row gap-3 md:gap-6">
-        <FormInput control={form.control} name="telefono" label="Teléfono" />
+      <FieldSet className="md:flex-row">
+        <FormInput
+          control={form.control}
+          name="telefono"
+          label="Teléfono"
+          textAddon="+505"
+        />
         <FormSelect
           control={form.control}
           name="municipio"
@@ -47,11 +52,7 @@ export function ClientForm({ form }: ClientForm) {
           name="direccion"
           label="Dirección"
         />
-        <FormInput
-          control={form.control}
-          name="imagenUrl"
-          label="Foto (link)"
-        />
+        <FormInput control={form.control} name="imagenUrl" label="Foto (url)" />
       </FieldSet>
     </FieldGroup>
   );

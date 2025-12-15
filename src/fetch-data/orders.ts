@@ -64,6 +64,7 @@ export async function getOrders(searchParams: SearchParamsProps) {
       .select({
         id: pedidos.id,
         nombreCliente: sql<string>`${clientes.nombre} || ' ' || ${clientes.apellido}`,
+        imagenUrl: clientes.imagenUrl,
         fecha: pedidos.fecha,
         total: sql<number>`COALESCE("Ventas"."total", 0)`,
         abonos: sql<number>`COALESCE("Abonos"."total", 0)`,

@@ -22,6 +22,7 @@ export async function getReceipts(searchParams: SearchParamsProps) {
         fecha: recibos.fecha,
         abono: recibos.abono,
         nombreCliente: sql<string>`${clientes.nombre} || ' ' || ${clientes.apellido}`,
+        imagenUrl: clientes.imagenUrl,
       })
       .from(recibos)
       .leftJoin(clientes, eq(recibos.idCliente, clientes.id))

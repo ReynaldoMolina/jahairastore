@@ -16,11 +16,14 @@ import {
   TableFooter,
 } from '../ui/table';
 import { Badge } from '../ui/badge';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Hash, Phone } from 'lucide-react';
 
 interface Providers {
   data: {
     id: number;
     nombreEmpresa: string;
+    imagenUrl: string | null;
     telefono: string;
   }[];
   query: string;
@@ -40,21 +43,32 @@ export function Providers({ data, query, totalPages }: Providers) {
           return (
             <Link key={register.id} href={`/proveedores/${register.id}`}>
               <Card className="py-4 gap-4">
-                <CardHeader>
-                  <CardTitle>{register.nombreEmpresa}</CardTitle>
-                  <CardDescription className="inline-flex gap-3 items-center">
-                    <Badge className="bg-brand text-black font-normal">
-                      {register.id}
-                    </Badge>
-                    <Badge
-                      variant="outline"
-                      className={
-                        register.telefono ? '' : 'text-muted-foreground'
-                      }
-                    >
-                      {register.telefono || 'Sin teléfono'}
-                    </Badge>
-                  </CardDescription>
+                <CardHeader className="inline-flex gap-3 px-4">
+                  <Avatar>
+                    <AvatarImage src={register.imagenUrl} alt="@shadcn" />
+                    <AvatarFallback>
+                      {register.nombreEmpresa.substring(0, 1)}
+                    </AvatarFallback>
+                  </Avatar>
+
+                  <div className="flex flex-col gap-2">
+                    <CardTitle>{register.nombreEmpresa}</CardTitle>
+                    <CardDescription className="inline-flex gap-3 items-center">
+                      <Badge variant="outline">
+                        <Hash />
+                        {register.id}
+                      </Badge>
+                      <Badge
+                        variant="outline"
+                        className={
+                          register.telefono ? '' : 'text-muted-foreground'
+                        }
+                      >
+                        <Phone />
+                        {register.telefono || 'Sin teléfono'}
+                      </Badge>
+                    </CardDescription>
+                  </div>
                 </CardHeader>
               </Card>
             </Link>
@@ -64,7 +78,7 @@ export function Providers({ data, query, totalPages }: Providers) {
           <CardHeader>
             <CardTitle>Total</CardTitle>
             <CardDescription className="inline-flex gap-3 items-center">
-              <Badge variant="outline">{data.length}</Badge>
+              <Badge variant="outline">Conteo: {data.length}</Badge>
             </CardDescription>
           </CardHeader>
         </Card>
@@ -77,8 +91,8 @@ export function Providers({ data, query, totalPages }: Providers) {
       <TableContainer>
         <TableHeader className="bg-muted sticky top-0 z-10">
           <TableRow>
-            <TableHead className="text-center">Id</TableHead>
-            <TableHead className="w-full">Cliente</TableHead>
+            <TableHead className="w-full">Proveedor</TableHead>
+            <TableHead>Id</TableHead>
             <TableHead>Teléfono</TableHead>
           </TableRow>
         </TableHeader>
@@ -90,15 +104,30 @@ export function Providers({ data, query, totalPages }: Providers) {
                 className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
                 onClick={() => router.push(`/proveedores/${register.id}`)}
               >
+                <TableCell className="inline-flex items-center gap-2 w-full whitespace-normal">
+                  <Avatar>
+                    <AvatarImage src={register.imagenUrl} alt="@shadcn" />
+                    <AvatarFallback>
+                      {register.nombreEmpresa.substring(0, 1)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <span>{register.nombreEmpresa}</span>
+                </TableCell>
                 <TableCell>
-                  <Badge className="bg-brand text-black font-normal">
+                  <Badge variant="outline" className="w-full">
+                    <Hash />
                     {register.id}
                   </Badge>
                 </TableCell>
-                <TableCell className="w-full whitespace-normal">
-                  {register.nombreEmpresa}
+                <TableCell>
+                  <Badge
+                    variant="outline"
+                    className={register.telefono ? '' : 'text-muted-foreground'}
+                  >
+                    <Phone />
+                    {register.telefono || 'Sin teléfono'}
+                  </Badge>
                 </TableCell>
-                <TableCell>{register.telefono}</TableCell>
               </TableRow>
             );
           })}
@@ -106,9 +135,9 @@ export function Providers({ data, query, totalPages }: Providers) {
         <TableFooter className="bg-muted">
           <TableRow>
             <TableCell>
-              <Badge variant="outline">{data.length}</Badge>
+              <Badge variant="outline">Conteo: {data.length}</Badge>
             </TableCell>
-            <TableCell>Total</TableCell>
+            <TableCell></TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableFooter>

@@ -26,6 +26,7 @@ import {
 import { ChangeQuantityCard, ChangeQuantity } from './change-quantity';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Hash } from 'lucide-react';
 
 interface ProductSearchList {
   productData: ProductSearchData;
@@ -72,20 +73,29 @@ export default function ProductSearchList({
                   : ''
               } py-4 gap-4`}
             >
-              <CardHeader className="border-b [.border-b]:pb-4">
+              <CardHeader
+                className={isSelected ? 'border-b [.border-b]:pb-4' : ''}
+              >
                 <CardTitle className={isSoldOut ? 'text-muted-foreground' : ''}>
                   {p.nombre}
                 </CardTitle>
                 <CardDescription className="inline-flex gap-3 items-center">
                   <Badge
+                    variant="outline"
                     className={
                       isSoldOut
                         ? 'bg-brand/50 text-muted-foreground dark:text-black'
-                        : 'bg-brand text-black'
+                        : ''
                     }
                   >
+                    <Hash />
                     {p.id}
                   </Badge>
+                  {isSoldOut ? (
+                    <Badge variant="destructive">Agotado</Badge>
+                  ) : (
+                    <Badge variant="secondary">Disp: {p.existencias}</Badge>
+                  )}
                   <Badge variant="secondary" className={bgColors.green}>
                     {`${p.precioEnCordobas ? 'C$' : '$'} ${formatNumber(
                       price
@@ -110,26 +120,8 @@ export default function ProductSearchList({
                   />
                 </CardAction>
               </CardHeader>
-              <CardContent className="space-y-1">
-                {isSoldOut ? (
-                  <div className="inline-flex w-full justify-between">
-                    <span className="text-xs text-muted-foreground">
-                      Disponibles
-                    </span>
-                    <Badge variant="destructive" className="min-w-25">
-                      Agotado
-                    </Badge>
-                  </div>
-                ) : (
-                  <CardItem
-                    value={String(p.existencias)}
-                    label="Disponibles"
-                    color="neutral"
-                    hideCurrency
-                    className="justify-center"
-                  />
-                )}
-                {isSelected && (
+              {isSelected && (
+                <CardContent className="space-y-1">
                   <ChangeQuantityCard
                     setSelectedProducts={setSelectedProducts}
                     product={{
@@ -140,8 +132,8 @@ export default function ProductSearchList({
                         )?.cantidad || 1,
                     }}
                   />
-                )}
-              </CardContent>
+                </CardContent>
+              )}
             </Card>
           );
         })}
@@ -238,7 +230,9 @@ export default function ProductSearchList({
                 </TableCell>
                 <TableCell>
                   {product.existencias <= 0 ? (
-                    <Badge variant="destructive">Agotado</Badge>
+                    <Badge variant="destructive" className="w-full">
+                      Agotado
+                    </Badge>
                   ) : (
                     <ListItem
                       value={String(product.existencias)}

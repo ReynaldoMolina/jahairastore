@@ -34,7 +34,6 @@ export function EditTareaFormDialog({ tarea }: EditTareaFormDialog) {
     defaultValues: {
       tarea: tarea.tarea,
       fecha_entrega: tarea.fecha_entrega,
-      prioridad: tarea.prioridad,
       estado: tarea.estado,
     },
   });

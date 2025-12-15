@@ -16,7 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { bgColors } from '@/lib/bg-colors';
 import { formatNumber } from '@/lib/formatters';
 import { Button } from '@/components/ui/button';
-import { Trash2 } from 'lucide-react';
+import { Hash, Trash2 } from 'lucide-react';
 import { TableContainer } from '@/components/lists/table';
 import {
   TableBody,
@@ -66,15 +66,14 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
               <CardHeader className="border-b [.border-b]:pb-4">
                 <CardTitle>{detail.nombre}</CardTitle>
                 <CardDescription className="inline-flex gap-3">
-                  <Badge className="bg-brand text-black font-normal">
+                  <Badge variant="outline">
+                    <Hash />
                     {detail.idProducto}
                   </Badge>
-                  <Badge
-                    variant="secondary"
-                    className={`${bgColors.green} font-normal`}
-                  >
+                  <Badge variant="secondary" className={`${bgColors.green}`}>
                     C$ {formatNumber(detail.precioVenta * detail.cambioDolar)}
                   </Badge>
+                  <Badge variant="secondary">Cant: {detail.cantidad}</Badge>
                 </CardDescription>
                 <CardAction className="inline-flex gap-1 items-center">
                   <EditDetailButton
@@ -85,14 +84,7 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
                   />
                 </CardAction>
               </CardHeader>
-              <CardContent>
-                <CardItem
-                  value={String(detail.cantidad)}
-                  label="Cantidad"
-                  color="neutral"
-                  hideCurrency
-                  className="justify-center"
-                />
+              <CardContent className="space-y-1">
                 <CardItem
                   value={subtotalVenta}
                   label="Subtotal"
@@ -113,13 +105,11 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
           <CardHeader className="border-b [.border-b]:pb-4">
             <CardTitle>Total</CardTitle>
             <CardDescription className="inline-flex gap-3">
-              <Badge className="bg-brand text-black">
-                Items: {sale.detail.length}
-              </Badge>
-              <Badge variant="outline">Cantidad: {formTotals.quantity}</Badge>
+              <Badge variant="outline">Conteo: {sale.detail.length}</Badge>
+              <Badge variant="outline">Cant: {formTotals.quantity}</Badge>
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-1">
             <CardItem
               value={formTotals.totalSell}
               label="Subtotal"
@@ -141,9 +131,9 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
     <TableContainer>
       <TableHeader className="bg-muted sticky top-0 z-10">
         <TableRow>
-          <TableHead className="text-center">Id</TableHead>
           <TableHead>Producto</TableHead>
-          <TableHead>Cantidad</TableHead>
+          <TableHead>Id</TableHead>
+          <TableHead>Cant</TableHead>
           <TableHead>Precio</TableHead>
           <TableHead>Subtotal</TableHead>
           <TableHead>Ganancia</TableHead>
@@ -163,13 +153,14 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
               key={detail.id}
               className="hover:bg-brand/30 dark:hover:bg-brand/20"
             >
-              <TableCell>
-                <Badge className="bg-brand text-black font-normal">
-                  {detail.idProducto}
-                </Badge>
-              </TableCell>
               <TableCell className="w-full whitespace-normal">
                 {detail.nombre}
+              </TableCell>
+              <TableCell>
+                <Badge variant="outline">
+                  <Hash />
+                  {detail.idProducto}
+                </Badge>
               </TableCell>
               <TableCell>
                 <ListItem
@@ -209,9 +200,9 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
       <TableFooter className="bg-muted">
         <TableRow>
           <TableCell>
-            <Badge variant="outline">{sale.detail.length}</Badge>
+            <Badge variant="outline">Conteo: {sale.detail.length}</Badge>
           </TableCell>
-          <TableCell>Total</TableCell>
+          <TableCell></TableCell>
           <TableCell className="text-center">
             <ListItem
               value={String(formTotals.quantity)}

@@ -1,6 +1,6 @@
 'use client';
 
-import { FieldGroup, FieldSet } from '../../ui/field';
+import { FieldGroup, FieldSeparator, FieldSet } from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import { FormCheck } from '@/components/form-elements/form-checkbox';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
@@ -54,9 +54,7 @@ export function ProductForm({ form }: ProductForm) {
         />
       </FieldSet>
 
-      <FieldSet
-        className={precioEnCordobas ? 'hidden' : 'gap-3 md:gap-6 flex-row'}
-      >
+      <FieldSet className={precioEnCordobas ? 'hidden' : 'md:flex-row'}>
         <FormInput
           control={form.control}
           name="precioCompra"
@@ -77,7 +75,7 @@ export function ProductForm({ form }: ProductForm) {
       </FieldSet>
 
       {precioEnCordobas && (
-        <FieldSet className="flex-row gap-3 md:gap-6">
+        <FieldSet className="md:flex-row">
           <FormInputOnChange
             value={
               isNaN(Number(precioCompra)) ? '' : precioCompra * cambioDolar
@@ -104,6 +102,7 @@ export function ProductForm({ form }: ProductForm) {
         </FieldSet>
       )}
 
+      <FieldSeparator />
       <FieldSet>
         <FormInput
           control={form.control}

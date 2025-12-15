@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from '../../ui/card';
 import * as z from 'zod';
-import { ClientById, TareaById } from '@/types/types';
+import { TareaById } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useServerActionFeedback } from '@/hooks/use-server-status';
@@ -26,7 +26,6 @@ export function CreateTareaForm() {
     defaultValues: {
       tarea: '',
       fecha_entrega: '',
-      prioridad: '',
       estado: 'Pendiente',
     },
   });
@@ -49,7 +48,7 @@ export function CreateTareaForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card>
           <CardHeader>
-            <CardTitle className="text-sm">Nueva tarea</CardTitle>
+            <CardTitle>Nueva tarea</CardTitle>
             <CardDescription>
               Agrega la información de la tarea.
             </CardDescription>

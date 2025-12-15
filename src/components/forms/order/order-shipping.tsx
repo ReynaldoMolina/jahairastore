@@ -224,7 +224,7 @@ interface WhatsAppButton {
 function WhatsAppButton({ children, message, phoneNumber }: WhatsAppButton) {
   const encodedMessage = encodeURIComponent(message);
   const formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
-  const whatsAppUrl = `https://api.whatsapp.com/send?phone=${formattedPhoneNumber}&text=${encodedMessage}`;
+  const whatsAppUrl = `https://api.whatsapp.com/send?phone=505${formattedPhoneNumber}&text=${encodedMessage}`;
 
   return (
     <Button type="button" variant="outline" asChild>

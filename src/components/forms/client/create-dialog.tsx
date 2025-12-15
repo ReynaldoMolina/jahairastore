@@ -30,7 +30,7 @@ export function CreateClientFormDialog() {
     defaultValues: {
       nombre: '',
       apellido: '',
-      telefono: '+505 ',
+      telefono: '',
       municipio: 'León',
       departamento: null,
       pais: null,

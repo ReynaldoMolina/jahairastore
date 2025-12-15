@@ -98,7 +98,7 @@ export function CreateProductFormDialog({
                   className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
                 />
                 <div className="grid gap-1.5 font-normal">
-                  <p className="text-xs leading-none">
+                  <p className="text-sm leading-none">
                     ¿Crear varios productos?
                   </p>
                 </div>

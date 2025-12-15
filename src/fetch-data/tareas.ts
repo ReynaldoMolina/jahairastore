@@ -19,7 +19,7 @@ export async function getTareas(searchParams: SearchParamsProps) {
       .select()
       .from(tareas)
       .where(and(filterBySearch, filterByState))
-      .orderBy(desc(tareas.id), desc(tareas.prioridad))
+      .orderBy(desc(tareas.id))
       .limit(limit)
       .offset(offset);
 

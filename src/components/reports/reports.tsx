@@ -1,12 +1,5 @@
 import { formatNumber } from '@/lib/formatters';
-import {
-  ArrowDown,
-  ArrowUp,
-  Coins,
-  Equal,
-  ShoppingBag,
-  TrendingUp,
-} from 'lucide-react';
+import { ArrowDown, ArrowUp, Coins, Equal, ShoppingBag } from 'lucide-react';
 import {
   Card,
   CardAction,
@@ -20,85 +13,6 @@ import { Badge } from '../ui/badge';
 
 interface ReportData {
   data: DashboardData;
-}
-
-export function OrdersOnlyReport({ data }: ReportData) {
-  const profit = data.totalOrdersInDollars - data.ordersCostsInDollars;
-
-  return (
-    <>
-      <span className="inline-flex items-center gap-2 text-sm mt-6">
-        <ShoppingBag className="size-4" />
-        Solo pedidos
-      </span>
-      <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-3 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs sm:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader>
-            <CardDescription>Ingresos</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
-              ${formatNumber(data.totalOrdersInDollars)}
-            </CardTitle>
-            <CardAction>
-              <Badge variant="outline">
-                <ArrowUp />
-              </Badge>
-            </CardAction>
-          </CardHeader>
-          <CardFooter className="text-sm">
-            <div className="text-muted-foreground">Abonos de pedidos</div>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardDescription>Costos</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
-              - ${formatNumber(data.ordersCostsInDollars)}
-            </CardTitle>
-            <CardAction>
-              <Badge variant="outline">
-                <ArrowDown />
-              </Badge>
-            </CardAction>
-          </CardHeader>
-          <CardFooter className="text-sm">
-            <div className="text-muted-foreground">Costos de pedidos</div>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardDescription>Ganancia</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
-              ${formatNumber(profit)}
-            </CardTitle>
-            <CardAction>
-              <Badge variant="outline">
-                <Equal />
-              </Badge>
-            </CardAction>
-          </CardHeader>
-          <CardFooter className="text-sm">
-            <div className="text-muted-foreground">Ganancia total</div>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader className="text-blue-600 dark:text-blue-400">
-            <CardDescription>Ganancia inversor</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
-              ${formatNumber(profit * 0.1)}
-            </CardTitle>
-            <CardAction>
-              <Badge variant="outline">
-                <Equal />
-              </Badge>
-            </CardAction>
-          </CardHeader>
-          <CardFooter className="text-sm">
-            <div className="text-muted-foreground">10% para inversor</div>
-          </CardFooter>
-        </Card>
-      </div>
-    </>
-  );
 }
 
 export function SalesOnlyReport({ data }: ReportData) {
@@ -149,7 +63,7 @@ export function SalesOnlyReport({ data }: ReportData) {
           <CardHeader>
             <CardDescription>Costos</CardDescription>
             <CardTitle className="text-2xl font-semibold tabular-nums">
-              - C${formatNumber(data.salesCosts)}
+              C${formatNumber(data.salesCosts)}
             </CardTitle>
             <CardAction>
               <Badge variant="outline">
@@ -182,6 +96,85 @@ export function SalesOnlyReport({ data }: ReportData) {
             <CardDescription>Ganancia inversor</CardDescription>
             <CardTitle className="text-2xl font-semibold tabular-nums">
               C${formatNumber(profit * 0.1)}
+            </CardTitle>
+            <CardAction>
+              <Badge variant="outline">
+                <Equal />
+              </Badge>
+            </CardAction>
+          </CardHeader>
+          <CardFooter className="text-sm">
+            <div className="text-muted-foreground">10% para inversor</div>
+          </CardFooter>
+        </Card>
+      </div>
+    </>
+  );
+}
+
+export function OrdersOnlyReport({ data }: ReportData) {
+  const profit = data.totalOrdersInDollars - data.ordersCostsInDollars;
+
+  return (
+    <>
+      <span className="inline-flex items-center gap-2 text-sm mt-6">
+        <ShoppingBag className="size-4" />
+        Solo pedidos
+      </span>
+      <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-3 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs sm:grid-cols-2 lg:grid-cols-4">
+        <Card>
+          <CardHeader>
+            <CardDescription>Ingresos</CardDescription>
+            <CardTitle className="text-2xl font-semibold tabular-nums">
+              ${formatNumber(data.totalOrdersInDollars)}
+            </CardTitle>
+            <CardAction>
+              <Badge variant="outline">
+                <ArrowUp />
+              </Badge>
+            </CardAction>
+          </CardHeader>
+          <CardFooter className="text-sm">
+            <div className="text-muted-foreground">Abonos de pedidos</div>
+          </CardFooter>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardDescription>Costos</CardDescription>
+            <CardTitle className="text-2xl font-semibold tabular-nums">
+              ${formatNumber(data.ordersCostsInDollars)}
+            </CardTitle>
+            <CardAction>
+              <Badge variant="outline">
+                <ArrowDown />
+              </Badge>
+            </CardAction>
+          </CardHeader>
+          <CardFooter className="text-sm">
+            <div className="text-muted-foreground">Costos de pedidos</div>
+          </CardFooter>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardDescription>Ganancia</CardDescription>
+            <CardTitle className="text-2xl font-semibold tabular-nums">
+              ${formatNumber(profit)}
+            </CardTitle>
+            <CardAction>
+              <Badge variant="outline">
+                <Equal />
+              </Badge>
+            </CardAction>
+          </CardHeader>
+          <CardFooter className="text-sm">
+            <div className="text-muted-foreground">Ganancia total</div>
+          </CardFooter>
+        </Card>
+        <Card>
+          <CardHeader className="text-blue-600 dark:text-blue-400">
+            <CardDescription>Ganancia inversor</CardDescription>
+            <CardTitle className="text-2xl font-semibold tabular-nums">
+              ${formatNumber(profit * 0.1)}
             </CardTitle>
             <CardAction>
               <Badge variant="outline">

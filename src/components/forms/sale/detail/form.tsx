@@ -48,9 +48,7 @@ export function SaleDetailForm({ form, detail }: SaleDetailForm) {
           label="Nombre producto"
         />
       </FieldSet>
-      <FieldSet
-        className={precioEnCordobas ? 'hidden' : 'gap-3 md:gap-6 flex-row'}
-      >
+      <FieldSet className={precioEnCordobas ? 'hidden' : 'md:flex-row'}>
         <FormInput
           control={form.control}
           name="precioCompra"
@@ -71,7 +69,7 @@ export function SaleDetailForm({ form, detail }: SaleDetailForm) {
       </FieldSet>
 
       {precioEnCordobas && (
-        <FieldSet className="flex-row gap-3 md:gap-6">
+        <FieldSet className="md:flex-row">
           <FormInputOnChange
             value={precioCompra * cambioDolar}
             label="Compra"

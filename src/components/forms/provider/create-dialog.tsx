@@ -30,7 +30,7 @@ export function CreateProviderFormDialog() {
     defaultValues: {
       nombreEmpresa: '',
       nombreContacto: '',
-      telefono: '+505 ',
+      telefono: '',
       municipio: 'León',
       departamento: null,
       pais: null,

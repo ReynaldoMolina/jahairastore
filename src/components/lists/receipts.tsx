@@ -24,6 +24,8 @@ import {
 import { CardItem, ListItem } from './list-item';
 import { Badge } from '../ui/badge';
 import { formatDate } from '@/lib/formatters';
+import { Calendar, Hash, ShoppingBag } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 interface Receipts {
   data: {
@@ -32,6 +34,7 @@ interface Receipts {
     fecha: string;
     abono: number;
     nombreCliente: string;
+    imagenUrl: string | null;
   }[];
   query: string;
   totalPages: number;
@@ -60,24 +63,33 @@ export function Receipts({ data, query, totalPages }: Receipts) {
           return (
             <Link key={register.id} href={`/recibos/${register.id}`}>
               <Card className="py-4 gap-4">
-                <CardHeader className="border-b [.border-b]:pb-4">
-                  <CardTitle>{register.nombreCliente}</CardTitle>
-                  <CardDescription className="inline-flex gap-3 items-center">
-                    <Badge className="bg-brand text-black font-normal">
-                      {register.id}
-                    </Badge>
-                    <Badge variant="outline">
-                      {formatDate(register.fecha)}
-                    </Badge>
-                  </CardDescription>
+                <CardHeader className="border-b [.border-b]:pb-4 inline-flex gap-3 px-4">
+                  <Avatar>
+                    <AvatarImage src={register.imagenUrl} alt="@shadcn" />
+                    <AvatarFallback>
+                      {register.nombreCliente.substring(0, 1)}
+                    </AvatarFallback>
+                  </Avatar>
+
+                  <div className="flex flex-col gap-2">
+                    <CardTitle>{register.nombreCliente}</CardTitle>
+                    <CardDescription className="inline-flex gap-3 items-center">
+                      <Badge variant="outline">
+                        <Hash />
+                        {register.id}
+                      </Badge>
+                      <Badge variant="outline">
+                        <Calendar />
+                        {formatDate(register.fecha)}
+                      </Badge>
+                      <Badge variant="outline">
+                        <ShoppingBag />
+                        {register.idPedido}
+                      </Badge>
+                    </CardDescription>
+                  </div>
                 </CardHeader>
                 <CardContent>
-                  <CardItem
-                    value={String(register.idPedido)}
-                    label="Id pedido"
-                    color="neutral"
-                    hideCurrency
-                  />
                   <CardItem
                     value={register.abono}
                     label="Abono"
@@ -92,7 +104,7 @@ export function Receipts({ data, query, totalPages }: Receipts) {
           <CardHeader className="border-b [.border-b]:pb-4">
             <CardTitle>Total</CardTitle>
             <CardDescription className="inline-flex gap-3 items-center">
-              <Badge variant="outline">{data.length}</Badge>
+              <Badge variant="outline">Conteo: {data.length}</Badge>
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -108,10 +120,10 @@ export function Receipts({ data, query, totalPages }: Receipts) {
       <TableContainer>
         <TableHeader className="bg-muted sticky top-0 z-10">
           <TableRow>
-            <TableHead className="text-center">Id</TableHead>
             <TableHead className="w-full">Cliente</TableHead>
+            <TableHead>Id</TableHead>
             <TableHead>Fecha</TableHead>
-            <TableHead>Id pedido</TableHead>
+            <TableHead>Pedido</TableHead>
             <TableHead>Abono</TableHead>
           </TableRow>
         </TableHeader>
@@ -123,21 +135,34 @@ export function Receipts({ data, query, totalPages }: Receipts) {
                 className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
                 onClick={() => router.push(`/recibos/${register.id}`)}
               >
+                <TableCell className="w-full whitespace-normal">
+                  <div className="inline-flex items-center gap-3">
+                    <Avatar>
+                      <AvatarImage src={register.imagenUrl} alt="@shadcn" />
+                      <AvatarFallback>
+                        {register.nombreCliente.substring(0, 1)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span>{register.nombreCliente}</span>
+                  </div>
+                </TableCell>
                 <TableCell>
-                  <Badge className="bg-brand text-black font-normal">
+                  <Badge variant="outline" className="w-full">
+                    <Hash />
                     {register.id}
                   </Badge>
                 </TableCell>
-                <TableCell className="w-full whitespace-normal">
-                  {register.nombreCliente}
-                </TableCell>
-                <TableCell>{formatDate(register.fecha)}</TableCell>
                 <TableCell>
-                  <ListItem
-                    value={String(register.idPedido)}
-                    color="neutral"
-                    hideCurrency
-                  />
+                  <Badge variant="outline">
+                    <Calendar />
+                    {formatDate(register.fecha)}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  <Badge variant="outline">
+                    <ShoppingBag />
+                    {register.idPedido}
+                  </Badge>
                 </TableCell>
                 <TableCell>
                   <ListItem value={register.abono} color="green" />

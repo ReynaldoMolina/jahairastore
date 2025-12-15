@@ -23,14 +23,14 @@ export function FilterLimit({ searchParams }) {
 
   return (
     <Select value={limitParam} onValueChange={handleChange} defaultValue="20">
-      <SelectTrigger size="sm">
+      <SelectTrigger size="sm" className="text-xs">
         <SelectValue placeholder="Seleccionar" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Por página</SelectLabel>
           {options.map((value) => (
-            <SelectItem key={value} value={String(value)}>
+            <SelectItem key={value} value={String(value)} className="text-xs">
               {value === 1 ? 'Todo' : value}
             </SelectItem>
           ))}

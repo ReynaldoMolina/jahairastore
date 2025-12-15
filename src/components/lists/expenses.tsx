@@ -24,12 +24,15 @@ import { CardItem, ListItem } from './list-item';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
 import { formatDate } from '@/lib/formatters';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Calendar, Hash, ShoppingCart } from 'lucide-react';
 
 interface Expenses {
   data: {
     id: number;
     idCompra: number;
     nombreProveedor: string;
+    imagenUrl: string | null;
     fecha: string;
     gasto: number;
     concepto: string;
@@ -62,16 +65,31 @@ export function Expenses({ data, query, totalPages }: Expenses) {
           return (
             <Link key={register.id} href={`/gastos/${register.id}`}>
               <Card className="py-4 gap-4">
-                <CardHeader className="border-b [.border-b]:pb-4">
-                  <CardTitle>{register.nombreProveedor}</CardTitle>
-                  <CardDescription className="inline-flex gap-3 items-center">
-                    <Badge className="bg-brand text-black font-normal">
-                      {register.id}
-                    </Badge>
-                    <Badge variant="outline">
-                      {formatDate(register.fecha)}
-                    </Badge>
-                  </CardDescription>
+                <CardHeader className="border-b [.border-b]:pb-4 inline-flex gap-3 px-4">
+                  <Avatar>
+                    <AvatarImage src={register.imagenUrl} alt="@shadcn" />
+                    <AvatarFallback>
+                      {register.nombreProveedor.substring(0, 1)}
+                    </AvatarFallback>
+                  </Avatar>
+
+                  <div className="flex flex-col gap-2">
+                    <CardTitle>{register.nombreProveedor}</CardTitle>
+                    <CardDescription className="inline-flex gap-3 items-center">
+                      <Badge variant="outline">
+                        <Hash />
+                        {register.id}
+                      </Badge>
+                      <Badge variant="outline">
+                        <Calendar />
+                        {formatDate(register.fecha)}
+                      </Badge>
+                      <Badge variant="outline">
+                        <ShoppingCart />
+                        {register.idCompra}
+                      </Badge>
+                    </CardDescription>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   <CardItem
@@ -80,12 +98,6 @@ export function Expenses({ data, query, totalPages }: Expenses) {
                     color="none"
                     hideCurrency
                     className="bg-transparent"
-                  />
-                  <CardItem
-                    value={String(register.idCompra)}
-                    label="Id compra"
-                    color="neutral"
-                    hideCurrency
                   />
                   <CardItem value={register.gasto} label="Gasto" color="red" />
                 </CardContent>
@@ -97,7 +109,7 @@ export function Expenses({ data, query, totalPages }: Expenses) {
           <CardHeader className="border-b [.border-b]:pb-4">
             <CardTitle>Total</CardTitle>
             <CardDescription className="inline-flex gap-3 items-center">
-              <Badge variant="outline">{data.length}</Badge>
+              <Badge variant="outline">Conteo: {data.length}</Badge>
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -113,10 +125,10 @@ export function Expenses({ data, query, totalPages }: Expenses) {
       <TableContainer>
         <TableHeader className="bg-muted sticky top-0 z-10">
           <TableRow>
-            <TableHead className="text-center">Id</TableHead>
             <TableHead className="w-full">Proveedor</TableHead>
+            <TableHead>Id</TableHead>
             <TableHead>Fecha</TableHead>
-            <TableHead>Id compra</TableHead>
+            <TableHead>Compra</TableHead>
             <TableHead>Gasto</TableHead>
           </TableRow>
         </TableHeader>
@@ -128,21 +140,34 @@ export function Expenses({ data, query, totalPages }: Expenses) {
                 className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
                 onClick={() => router.push(`/gastos/${register.id}`)}
               >
+                <TableCell className="w-full whitespace-normal">
+                  <div className="inline-flex items-center gap-3">
+                    <Avatar>
+                      <AvatarImage src={register.imagenUrl} alt="@shadcn" />
+                      <AvatarFallback>
+                        {register.nombreProveedor.substring(0, 1)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span>{register.nombreProveedor}</span>
+                  </div>
+                </TableCell>
                 <TableCell>
-                  <Badge className="bg-brand text-black font-normal">
+                  <Badge variant="outline" className="w-full">
+                    <Hash />
                     {register.id}
                   </Badge>
                 </TableCell>
-                <TableCell className="w-full whitespace-normal">
-                  {register.nombreProveedor}
-                </TableCell>
-                <TableCell>{formatDate(register.fecha)}</TableCell>
                 <TableCell>
-                  <ListItem
-                    value={String(register.idCompra)}
-                    color="neutral"
-                    hideCurrency
-                  />
+                  <Badge variant="outline">
+                    <Calendar />
+                    {formatDate(register.fecha)}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  <Badge variant="outline">
+                    <ShoppingCart />
+                    {register.idCompra}
+                  </Badge>
                 </TableCell>
                 <TableCell>
                   <ListItem value={register.gasto} color="red" />
@@ -154,9 +179,9 @@ export function Expenses({ data, query, totalPages }: Expenses) {
         <TableFooter className="bg-muted">
           <TableRow>
             <TableCell>
-              <Badge variant="outline">{data.length}</Badge>
+              <Badge variant="outline">Conteo: {data.length}</Badge>
             </TableCell>
-            <TableCell>Total</TableCell>
+            <TableCell></TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
             <TableCell>

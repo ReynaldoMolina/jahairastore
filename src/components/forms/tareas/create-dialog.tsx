@@ -30,7 +30,6 @@ export function CreateTareaFormDialog() {
     defaultValues: {
       tarea: '',
       fecha_entrega: '',
-      prioridad: '',
       estado: 'Pendiente',
     },
   });

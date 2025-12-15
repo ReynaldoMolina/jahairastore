@@ -49,7 +49,7 @@ export function FormComboBox<T extends FieldValues>({
                   role="combobox"
                   disabled={disabled}
                   className={cn(
-                    'w-full justify-between text-xs font-normal truncate overflow-ellipsis',
+                    'w-full justify-between font-normal truncate overflow-ellipsis',
                     !field.value && 'text-muted-foreground'
                   )}
                 >
@@ -67,7 +67,7 @@ export function FormComboBox<T extends FieldValues>({
               <Command className="max-h-50">
                 <CommandInput placeholder="Buscar" className="h-9" />
                 <CommandList>
-                  <CommandEmpty>No hay resultados.</CommandEmpty>
+                  <CommandEmpty>No hay resultados</CommandEmpty>
                   <CommandGroup>
                     {selectOptions.map((option) => (
                       <CommandItem

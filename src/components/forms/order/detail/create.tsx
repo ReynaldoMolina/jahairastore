@@ -77,8 +77,7 @@ export function CreateOrderDetailForm({ orderId }: CreateOrderDetailForm) {
             <DialogHeader>
               <DialogTitle>Agregar producto</DialogTitle>
               <DialogDescription>
-                Agrega la información del producto, haz click en guardar cuando
-                estés listo.
+                Agrega la información del producto.
               </DialogDescription>
             </DialogHeader>
 

@@ -16,8 +16,8 @@ import EmptyList from './empty-list';
 import { Pagination } from './pagination';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
-import Image from 'next/image';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Phone } from 'lucide-react';
 
 interface Clients {
   data: {
@@ -46,21 +46,21 @@ export function Clients({ data, query, totalPages }: Clients) {
                 <CardHeader className="inline-flex gap-3 px-4">
                   <Avatar>
                     <AvatarImage src={register.imagenUrl} alt="@shadcn" />
-                    <AvatarFallback>CN</AvatarFallback>
+                    <AvatarFallback>
+                      {register.nombre.substring(0, 1)}
+                    </AvatarFallback>
                   </Avatar>
 
                   <div className="flex flex-col gap-2">
                     <CardTitle>{register.nombre}</CardTitle>
                     <CardDescription className="inline-flex gap-3 items-center">
-                      {/* <Badge className="bg-brand text-black font-normal">
-                        {register.id}
-                      </Badge> */}
                       <Badge
                         variant="outline"
                         className={
                           register.telefono ? '' : 'text-muted-foreground'
                         }
                       >
+                        <Phone />
                         {register.telefono || 'Sin teléfono'}
                       </Badge>
                     </CardDescription>
@@ -87,38 +87,43 @@ export function Clients({ data, query, totalPages }: Clients) {
       <TableContainer>
         <TableHeader className="bg-muted sticky top-0 z-10">
           <TableRow>
-            <TableHead className="text-center">Id</TableHead>
             <TableHead className="w-full">Cliente</TableHead>
             <TableHead>Teléfono</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((register) => {
-            return (
-              <TableRow
-                key={register.id}
-                className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
-                onClick={() => router.push(`/clientes/${register.id}`)}
-              >
-                <TableCell>
-                  <Badge className="bg-brand text-black font-normal">
-                    {register.id}
-                  </Badge>
-                </TableCell>
-                <TableCell className="w-full whitespace-normal">
-                  {register.nombre}
-                </TableCell>
-                <TableCell>{register.telefono}</TableCell>
-              </TableRow>
-            );
-          })}
+          {data.map((register) => (
+            <TableRow
+              key={register.id}
+              className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
+              onClick={() => router.push(`/clientes/${register.id}`)}
+            >
+              <TableCell className="inline-flex items-center gap-2 w-full whitespace-normal">
+                <Avatar>
+                  <AvatarImage src={register.imagenUrl} alt="@shadcn" />
+                  <AvatarFallback>
+                    {register.nombre.substring(0, 1)}
+                  </AvatarFallback>
+                </Avatar>
+                <span>{register.nombre}</span>
+              </TableCell>
+              <TableCell>
+                <Badge
+                  variant="outline"
+                  className={register.telefono ? '' : 'text-muted-foreground'}
+                >
+                  <Phone />
+                  {register.telefono || 'Sin teléfono'}
+                </Badge>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
         <TableFooter className="bg-muted">
           <TableRow>
             <TableCell>
-              <Badge variant="outline">{data.length}</Badge>
+              <Badge variant="outline">Conteo: {data.length}</Badge>
             </TableCell>
-            <TableCell>Total</TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableFooter>

@@ -78,7 +78,7 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
                   />
                 </CardAction>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-1">
                 <CardItem
                   value={subtotalVenta}
                   label="Subtotal"
@@ -93,19 +93,11 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
           <CardHeader className="border-b [.border-b]:pb-4">
             <CardTitle>Total</CardTitle>
             <CardDescription className="inline-flex gap-3">
-              <Badge className="bg-brand text-black">
-                Items: {order.detail.length}
-              </Badge>
+              <Badge variant="outline">Items: {order.detail.length}</Badge>
+              <Badge variant="outline">Cant: {formTotals.quantity}</Badge>
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <CardItem
-              value={String(formTotals.quantity)}
-              label="Cantidad"
-              color="neutral"
-              hideCurrency
-              className="justify-center"
-            />
+          <CardContent className="space-y-1">
             <CardItem
               value={formTotals.totalSell}
               label="Total"

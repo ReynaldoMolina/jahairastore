@@ -30,7 +30,7 @@ export function ListItem({
       <Badge
         variant="secondary"
         className={cn(
-          'justify-end md:w-full min-w-25 md:min-w-fit',
+          'justify-end md:w-full min-w-27 md:min-w-fit',
           bgColor,
           className
         )}
@@ -40,8 +40,8 @@ export function ListItem({
       </Badge>
       {showPing && (
         <>
-          <span className="flex absolute size-2 bg-destructive rounded-full -right-0.5"></span>
-          <span className="flex absolute size-2 bg-destructive rounded-full -right-0.5 animate-ping"></span>
+          <span className="flex absolute size-2.5 bg-destructive rounded-full -right-0.5"></span>
+          <span className="flex absolute size-2.5 bg-destructive rounded-full -right-0.5 animate-ping"></span>
         </>
       )}
     </div>
@@ -55,7 +55,7 @@ interface CardItem extends ListItem {
 export function CardItem({ label, ...props }: CardItem) {
   return (
     <div className="inline-flex w-full justify-between gap-2">
-      <span className="text-muted-foreground text-xs">{label}</span>
+      <span className="text-muted-foreground text-sm">{label}</span>
       <ListItem {...props} />
     </div>
   );

@@ -82,6 +82,7 @@ export const pedidosDetalles = pgTable('PedidosDetalles', {
 export const proveedores = pgTable('Proveedores', {
   id: serial('Id').primaryKey().notNull(),
   nombreEmpresa: varchar('Nombre_empresa', { length: 255 }).notNull(),
+  imagenUrl: text('Imagen_url'),
   nombreContacto: varchar('Nombre_contacto', { length: 255 }),
   telefono: varchar('Telefono', { length: 255 }),
   departamento: varchar('Departamento', { length: 255 }),
@@ -164,7 +165,6 @@ export const tareas = pgTable('Tareas', {
   id: serial('Id').primaryKey().notNull(),
   tarea: varchar('Tarea', { length: 255 }).notNull(),
   fecha_entrega: date('Fecha_entrega').notNull(),
-  prioridad: varchar('Prioridad', { length: 255 }).notNull(),
   estado: varchar('Estado', { length: 255 }).notNull(),
 });
 

@@ -44,10 +44,10 @@ export function OrderDetailForm({
         <FormTextArea
           control={form.control}
           name="nombreProducto"
-          label="Nombre del producto"
+          label="Nombre"
         />
       </FieldSet>
-      <FieldSet className="gap-3 md:gap-6 flex-row">
+      <FieldSet className="md:flex-row">
         <FormInput
           control={form.control}
           name="precioCompra"
@@ -115,7 +115,7 @@ export function OrderDetailForm({
               className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
             />
             <div className="grid gap-1.5 font-normal">
-              <p className="text-xs leading-none">¿Agregar varios productos?</p>
+              <p className="text-sm leading-none">¿Agregar varios productos?</p>
             </div>
           </Label>
         </FieldSet>

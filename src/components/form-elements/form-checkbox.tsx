@@ -35,10 +35,10 @@ export function FormCheck<T extends FieldValues>({
               ref={field.ref}
               className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
             />
-            <div className="grid gap-1.5 font-normal">
-              <p className="text-xs leading-none font-medium">{label}</p>
+            <div className="grid gap-1.5 font-normal text-sm">
+              <p className="leading-none font-medium">{label}</p>
               {description && (
-                <p className="text-muted-foreground text-xs">{description}</p>
+                <p className="text-muted-foreground">{description}</p>
               )}
             </div>
           </Label>

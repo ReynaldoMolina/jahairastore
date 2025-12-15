@@ -67,12 +67,15 @@ export function EditSaleForm({
   return (
     <Tabs defaultValue="productos">
       <TabsList className="w-full sm:w-fit">
-        <TabsTrigger value="info">Información</TabsTrigger>
         <TabsTrigger value="productos">Productos</TabsTrigger>
+        <TabsTrigger value="info">Información</TabsTrigger>
         <TabsTrigger value="recibo" disabled={sale.detail.length < 1}>
           Recibo
         </TabsTrigger>
       </TabsList>
+      <TabsContent value="productos" className="space-y-3">
+        <FormDetail productData={productData} sale={sale} />
+      </TabsContent>
       <TabsContent value="info">
         <Form {...form}>
           <form
@@ -97,9 +100,6 @@ export function EditSaleForm({
             </Card>
           </form>
         </Form>
-      </TabsContent>
-      <TabsContent value="productos" className="space-y-3">
-        <FormDetail productData={productData} sale={sale} />
       </TabsContent>
       <TabsContent value="recibo" className="space-y-3">
         <Card className="max-w-xl">

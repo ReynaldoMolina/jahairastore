@@ -64,8 +64,7 @@ export function EditOrderDetailDialog({ detail }: EditOrderDetailDialog) {
             <DialogHeader>
               <DialogTitle>Editar producto</DialogTitle>
               <DialogDescription>
-                Actualiza la información del producto, haz click en guardar
-                cuando estés listo.
+                Actualiza la información del producto.
               </DialogDescription>
             </DialogHeader>
 

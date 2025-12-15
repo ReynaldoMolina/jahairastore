@@ -278,7 +278,6 @@ export interface TareaById {
   id?: number;
   tarea: string;
   fecha_entrega: string;
-  prioridad: string;
   estado: string;
 }
 

@@ -18,8 +18,13 @@ import Logo from '@/components/icons/logominimal.svg';
 import { NavUser } from './nav-user';
 import { authClient } from '@/lib/auth-client';
 import { useEffect, useState } from 'react';
+import { BusinessInfoType } from '@/types/types';
 
-export function AppSideBar() {
+interface AppSideBarProps {
+  businessInfo: BusinessInfoType;
+}
+
+export function AppSideBar({ businessInfo }: AppSideBarProps) {
   const [session, setSession] = useState<any>(null);
 
   useEffect(() => {
@@ -38,10 +43,10 @@ export function AppSideBar() {
     <Sidebar>
       <SidebarHeader>
         <SidebarMenuItem>
-          <SidebarMenuButton asChild>
+          <SidebarMenuButton asChild className="min-w-0">
             <Link href="/" className="font-bold">
               <Logo />
-              Jahaira Store
+              <span className="truncate">{businessInfo.nombreEmpresa}</span>
             </Link>
           </SidebarMenuButton>
         </SidebarMenuItem>

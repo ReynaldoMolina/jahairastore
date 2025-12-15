@@ -24,7 +24,7 @@ export function EditClientForm({ client }: EditClientForm) {
     defaultValues: {
       nombre: client.nombre,
       apellido: client.apellido,
-      telefono: client.telefono || '+505 ',
+      telefono: client.telefono || '',
       municipio: client.municipio,
       departamento: client.departamento,
       pais: client.pais,

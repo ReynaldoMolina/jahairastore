@@ -68,13 +68,16 @@ export function EditOrderForm({
   return (
     <Tabs defaultValue="productos">
       <TabsList className="w-full sm:w-fit overflow-x-auto">
-        <TabsTrigger value="info">Información</TabsTrigger>
         <TabsTrigger value="productos">Productos</TabsTrigger>
+        <TabsTrigger value="info">Información</TabsTrigger>
         <TabsTrigger value="envio">Envío</TabsTrigger>
         <TabsTrigger value="pagar" disabled={order.detail.length < 1}>
           Pagar
         </TabsTrigger>
       </TabsList>
+      <TabsContent value="productos" className="space-y-3">
+        <FormDetail order={order} />
+      </TabsContent>
       <TabsContent value="info">
         <Form {...form}>
           <form
@@ -99,9 +102,6 @@ export function EditOrderForm({
             </Card>
           </form>
         </Form>
-      </TabsContent>
-      <TabsContent value="productos" className="space-y-3">
-        <FormDetail order={order} />
       </TabsContent>
       <TabsContent value="envio">
         <OrderShipping order={order} envioPrices={envioPrices} />

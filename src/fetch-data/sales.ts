@@ -53,6 +53,7 @@ export async function getSales(searchParams: SearchParamsProps) {
       .select({
         id: ventas.id,
         nombreCliente: sql<string>`${clientes.nombre} || ' ' || ${clientes.apellido}`,
+        imagenUrl: clientes.imagenUrl,
         abono: ventas.abono,
         fecha: ventas.fecha,
         credito: ventas.credito,

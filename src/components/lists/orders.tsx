@@ -24,11 +24,14 @@ import {
 import { CardItem, ListItem } from './list-item';
 import { Badge } from '../ui/badge';
 import { formatDate } from '@/lib/formatters';
+import { Calendar, Hash } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 interface Orders {
   data: {
     id: number;
     nombreCliente: string;
+    imagenUrl: string | null;
     fecha: string;
     total: number;
     abonos: number;
@@ -68,18 +71,29 @@ export function Orders({ data, query, totalPages }: Orders) {
           return (
             <Link key={register.id} href={`/pedidos/${register.id}`}>
               <Card className="py-4 gap-4">
-                <CardHeader className="border-b [.border-b]:pb-4">
-                  <CardTitle>{register.nombreCliente}</CardTitle>
-                  <CardDescription className="inline-flex gap-3 items-center">
-                    <Badge className="bg-brand text-black font-normal">
-                      {register.id}
-                    </Badge>
-                    <Badge variant="outline">
-                      {formatDate(register.fecha)}
-                    </Badge>
-                  </CardDescription>
+                <CardHeader className="border-b [.border-b]:pb-4 inline-flex gap-3 px-4">
+                  <Avatar>
+                    <AvatarImage src={register.imagenUrl} alt="@shadcn" />
+                    <AvatarFallback>
+                      {register.nombreCliente.substring(0, 1)}
+                    </AvatarFallback>
+                  </Avatar>
+
+                  <div className="flex flex-col gap-2">
+                    <CardTitle>{register.nombreCliente}</CardTitle>
+                    <CardDescription className="inline-flex gap-3 items-center">
+                      <Badge variant="outline">
+                        <Hash />
+                        {register.id}
+                      </Badge>
+                      <Badge variant="outline">
+                        <Calendar />
+                        {formatDate(register.fecha)}
+                      </Badge>
+                    </CardDescription>
+                  </div>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="space-y-1">
                   <CardItem
                     value={register.total}
                     label="Total"
@@ -110,10 +124,10 @@ export function Orders({ data, query, totalPages }: Orders) {
           <CardHeader className="border-b [.border-b]:pb-4">
             <CardTitle>Total</CardTitle>
             <CardDescription className="inline-flex gap-3 items-center">
-              <Badge variant="outline">{data.length}</Badge>
+              <Badge variant="outline">Conteo: {data.length}</Badge>
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-1">
             <CardItem value={totals.total} label="Total" color="neutral" />
             <CardItem value={totals.abonos} label="Abonos" color="green" />
             <CardItem
@@ -134,8 +148,8 @@ export function Orders({ data, query, totalPages }: Orders) {
       <TableContainer>
         <TableHeader className="bg-muted sticky top-0 z-10">
           <TableRow>
-            <TableHead className="text-center">Id</TableHead>
             <TableHead className="w-full">Cliente</TableHead>
+            <TableHead>Id</TableHead>
             <TableHead>Fecha</TableHead>
             <TableHead>Total</TableHead>
             <TableHead>Abonos</TableHead>
@@ -151,15 +165,29 @@ export function Orders({ data, query, totalPages }: Orders) {
                 className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
                 onClick={() => router.push(`/pedidos/${register.id}`)}
               >
+                <TableCell className="w-full whitespace-normal">
+                  <div className="inline-flex items-center gap-3">
+                    <Avatar>
+                      <AvatarImage src={register.imagenUrl} alt="@shadcn" />
+                      <AvatarFallback>
+                        {register.nombreCliente.substring(0, 1)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span>{register.nombreCliente}</span>
+                  </div>
+                </TableCell>
                 <TableCell>
-                  <Badge className="bg-brand text-black font-normal">
+                  <Badge variant="outline" className="w-full">
+                    <Hash />
                     {register.id}
                   </Badge>
                 </TableCell>
-                <TableCell className="w-full whitespace-normal">
-                  {register.nombreCliente}
+                <TableCell>
+                  <Badge variant="outline">
+                    <Calendar />
+                    {formatDate(register.fecha)}
+                  </Badge>
                 </TableCell>
-                <TableCell>{formatDate(register.fecha)}</TableCell>
                 <TableCell>
                   <ListItem value={register.total} color="neutral" />
                 </TableCell>
@@ -183,9 +211,9 @@ export function Orders({ data, query, totalPages }: Orders) {
         <TableFooter className="bg-muted">
           <TableRow>
             <TableCell>
-              <Badge variant="outline">{data.length}</Badge>
+              <Badge variant="outline">Conteo: {data.length}</Badge>
             </TableCell>
-            <TableCell>Total</TableCell>
+            <TableCell></TableCell>
             <TableCell></TableCell>
             <TableCell>
               <ListItem value={totals.total} color="neutral" />

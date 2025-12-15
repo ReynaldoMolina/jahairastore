@@ -1,6 +1,6 @@
 'use client';
 
-import { FieldGroup, FieldSet } from '../../ui/field';
+import { FieldGroup, FieldSeparator, FieldSet } from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import z from 'zod';
 import { SaleById, SelectOptions } from '@/types/types';
@@ -63,7 +63,8 @@ export function SaleForm({
         />
         {credito && !isNew && (
           <>
-            <div className="inline-flex gap-3">
+            <FieldSeparator className="md:hidden" />
+            <FieldSet className="inline-flex md:flex-row">
               <FormInputReadOnly
                 value={formatNumber(totalSell)}
                 label="Total"
@@ -88,7 +89,8 @@ export function SaleForm({
                 readOnly
                 textAddon="C$"
               />
-            </div>
+            </FieldSet>
+            <FieldSeparator className="md:hidden" />
             <FormInput
               control={form.control}
               name="cambioDolar"

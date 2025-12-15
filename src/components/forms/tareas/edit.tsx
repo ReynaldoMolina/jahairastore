@@ -29,7 +29,6 @@ export function EditTareaForm({ tarea }: EditTareaForm) {
     defaultValues: {
       tarea: tarea.tarea,
       fecha_entrega: tarea.fecha_entrega,
-      prioridad: tarea.prioridad,
       estado: tarea.estado,
     },
   });
