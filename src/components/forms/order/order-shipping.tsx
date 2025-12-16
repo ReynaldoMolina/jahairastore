@@ -206,7 +206,7 @@ export function OrderShipping({ order, envioPrices }: OrderShipping) {
             <CardDescription className="inline-flex items-center gap-2 text-xs">
               <Info className="size-3.5 min-w-3.5" />
               Antes de enviar el mensaje por WhatsApp, guarda los cambios para
-              que no perderlos.
+              no perderlos.
             </CardDescription>
           </CardContent>
           <FormCardFooter isPending={isPending} />
