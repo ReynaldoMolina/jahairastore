@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { FormOption } from '@/components/form-elements/form-option';
+import { Separator } from '@/components/ui/separator';
 
 interface PurchaseOptions {
   purchase: PurchaseById;
@@ -36,12 +37,15 @@ export function PurchaseOptions({ purchase }: PurchaseOptions) {
           <BanknoteArrowDown className="size-4" />
         </FormOption>
         {purchase.gastos > 0 && (
-          <FormOption
-            label="Ver lista de gastos"
-            href={`/gastos?query=${purchase.id} ${purchase.nombreEmpresa}`}
-          >
-            <BanknoteArrowDown className="size-4" />
-          </FormOption>
+          <>
+            <Separator className="my-6" />
+            <FormOption
+              label="Ver gastos realizados"
+              href={`/gastos?query=${purchase.id} ${purchase.nombreEmpresa}`}
+            >
+              <BanknoteArrowDown className="size-4" />
+            </FormOption>
+          </>
         )}
       </CardContent>
     </Card>

@@ -63,10 +63,13 @@ export function EditPurchaseForm({
   return (
     <Tabs defaultValue="productos">
       <TabsList className="w-full sm:w-fit">
-        <TabsTrigger value="info">Información</TabsTrigger>
         <TabsTrigger value="productos">Productos</TabsTrigger>
+        <TabsTrigger value="info">Información</TabsTrigger>
         <TabsTrigger value="gastos">Gastos</TabsTrigger>
       </TabsList>
+      <TabsContent value="productos" className="space-y-3">
+        <FormDetail productData={productData} purchase={purchase} />
+      </TabsContent>
       <TabsContent value="info">
         <Form {...form}>
           <form
@@ -91,9 +94,6 @@ export function EditPurchaseForm({
             </Card>
           </form>
         </Form>
-      </TabsContent>
-      <TabsContent value="productos" className="space-y-3">
-        <FormDetail productData={productData} purchase={purchase} />
       </TabsContent>
       <TabsContent value="gastos">
         <PurchaseOptions purchase={purchase} />

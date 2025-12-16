@@ -1,6 +1,6 @@
 import { SearchParamsProps } from '@/types/types';
 import { getUrlParams } from './filter';
-import { buildSearchFilter } from './build-by-search';
+import { buildSearchFilterByProvider } from './build-by-search';
 import {
   compras,
   comprasDetalles,
@@ -14,9 +14,7 @@ import { desc, eq, sql, asc } from 'drizzle-orm';
 export async function getPurchases(searchParams: SearchParamsProps) {
   const { query, limit, offset } = getUrlParams(searchParams);
 
-  const filterBySearch = buildSearchFilter(searchParams, [
-    proveedores.nombreEmpresa,
-  ]);
+  const filterBySearch = buildSearchFilterByProvider(searchParams);
 
   try {
     const ventas = db

@@ -54,7 +54,7 @@ export function ProductForm({ form }: ProductForm) {
         />
       </FieldSet>
 
-      <FieldSet className={precioEnCordobas ? 'hidden' : 'md:flex-row'}>
+      <FieldSet className={precioEnCordobas ? 'hidden' : 'sm:flex-row'}>
         <FormInput
           control={form.control}
           name="precioCompra"
@@ -75,7 +75,7 @@ export function ProductForm({ form }: ProductForm) {
       </FieldSet>
 
       {precioEnCordobas && (
-        <FieldSet className="md:flex-row">
+        <FieldSet className="sm:flex-row">
           <FormInputOnChange
             value={
               isNaN(Number(precioCompra)) ? '' : precioCompra * cambioDolar

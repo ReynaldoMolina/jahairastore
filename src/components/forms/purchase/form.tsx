@@ -47,7 +47,7 @@ export function PurchaseForm({
       </FieldSet>
       {!isNew && (
         <>
-          <FieldSet className="flex-row gap-3">
+          <FieldSet className="sm:flex-row">
             <FormInputReadOnly
               value={`C$ ${formatNumber(totalCost)}`}
               label="Subtotal"

@@ -3,15 +3,12 @@ import { clientes } from '@/database/schema/schema';
 import { SearchParamsProps } from '@/types/types';
 import { sql, asc, desc, eq } from 'drizzle-orm';
 import { getUrlParams } from './filter';
-import { buildSearchFilter } from './build-by-search';
+import { buildSearchFilterByClient } from './build-by-search';
 
 export async function getClients(searchParams: SearchParamsProps) {
   const { query, limit, offset } = getUrlParams(searchParams);
 
-  const filterBySearch = buildSearchFilter(searchParams, [
-    clientes.nombre,
-    clientes.apellido,
-  ]);
+  const filterBySearch = buildSearchFilterByClient(searchParams);
 
   try {
     const data = await db

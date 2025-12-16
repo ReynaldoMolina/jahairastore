@@ -64,7 +64,7 @@ export function SaleForm({
         {credito && !isNew && (
           <>
             <FieldSeparator className="md:hidden" />
-            <FieldSet className="inline-flex md:flex-row">
+            <FieldSet className="inline-flex sm:flex-row">
               <FormInputReadOnly
                 value={formatNumber(totalSell)}
                 label="Total"

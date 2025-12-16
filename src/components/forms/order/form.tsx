@@ -65,7 +65,7 @@ export function OrderForm({
       {!isNew && (
         <>
           <FieldSeparator className="md:hidden" />
-          <FieldSet className="md:flex-row">
+          <FieldSet className="sm:flex-row">
             <FormInputReadOnly
               value={`$ ${formatNumber(totals.totalSell)}`}
               label="Total"

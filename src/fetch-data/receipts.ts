@@ -3,16 +3,13 @@ import { getUrlParams } from './filter';
 import { db } from '@/database/db';
 import { clientes, pedidosDetalles, recibos } from '@/database/schema/schema';
 import { desc, eq, sql, asc } from 'drizzle-orm';
-import { buildSearchFilter } from './build-by-search';
+import { buildSearchFilterByOrder } from './build-by-search';
 import { getBusinessInfo } from './settings';
 
 export async function getReceipts(searchParams: SearchParamsProps) {
   const { query, limit, offset } = getUrlParams(searchParams);
 
-  const filterBySearch = buildSearchFilter(searchParams, [
-    clientes.nombre,
-    clientes.apellido,
-  ]);
+  const filterBySearch = buildSearchFilterByOrder(searchParams);
 
   try {
     const data = await db

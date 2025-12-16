@@ -131,8 +131,8 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
     <TableContainer>
       <TableHeader className="bg-muted sticky top-0 z-10">
         <TableRow>
-          <TableHead className="text-center">Id</TableHead>
           <TableHead>Producto</TableHead>
+          <TableHead>Id</TableHead>
           <TableHead>Cantidad</TableHead>
           <TableHead>Precio</TableHead>
           <TableHead>Subtotal</TableHead>
@@ -153,13 +153,14 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
               key={detail.id}
               className="hover:bg-brand/30 dark:hover:bg-brand/20"
             >
-              <TableCell>
-                <Badge className="bg-brand text-black font-normal">
-                  {detail.idProducto}
-                </Badge>
-              </TableCell>
               <TableCell className="w-full whitespace-normal">
                 {detail.nombreProducto}
+              </TableCell>
+              <TableCell>
+                <Badge variant="outline">
+                  <Hash />
+                  {detail.idProducto}
+                </Badge>
               </TableCell>
               <TableCell>
                 <ListItem
@@ -199,9 +200,9 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
       <TableFooter className="bg-muted">
         <TableRow>
           <TableCell>
-            <Badge variant="outline">{purchase.detail.length}</Badge>
+            <Badge variant="outline">Conteo: {purchase.detail.length}</Badge>
           </TableCell>
-          <TableCell>Total</TableCell>
+          <TableCell></TableCell>
           <TableCell className="text-center">
             <ListItem
               value={String(formTotals.quantity)}

@@ -1,6 +1,5 @@
 import { SearchParamsProps } from '@/types/types';
 import { getUrlParams } from './filter';
-import { buildSearchFilter } from './build-by-search';
 import {
   clientes,
   pedidos,
@@ -9,14 +8,12 @@ import {
 } from '@/database/schema/schema';
 import { and, eq, sql, desc } from 'drizzle-orm';
 import { db } from '@/database/db';
+import { buildSearchFilterByClient } from './build-by-search';
 
 export async function getOrders(searchParams: SearchParamsProps) {
   const { query, state, limit, offset } = getUrlParams(searchParams);
 
-  const filterBySearch = buildSearchFilter(searchParams, [
-    clientes.nombre,
-    clientes.apellido,
-  ]);
+  const filterBySearch = buildSearchFilterByClient(searchParams);
 
   const filterByState = state
     ? sql`ROUND(

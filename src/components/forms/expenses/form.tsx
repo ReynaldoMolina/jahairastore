@@ -39,7 +39,7 @@ export function ExpenseForm({ form, expense, nombreEmpresa }: ExpenseForm) {
           label="Proveedor"
         />
       </FieldSet>
-      <FieldSet className="md:flex-row">
+      <FieldSet className="sm:flex-row">
         <FormInput
           control={form.control}
           name="cambioDolar"

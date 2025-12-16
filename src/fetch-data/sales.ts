@@ -9,16 +9,13 @@ import {
 import { SearchParamsProps } from '@/types/types';
 import { desc, eq, sql, and, gt, asc } from 'drizzle-orm';
 import { getUrlParams } from './filter';
-import { buildSearchFilter } from './build-by-search';
 import { getBusinessInfo } from './settings';
+import { buildSearchFilterByClient } from './build-by-search';
 
 export async function getSales(searchParams: SearchParamsProps) {
   const { query, limit, offset, state } = getUrlParams(searchParams);
 
-  const filterBySearch = buildSearchFilter(searchParams, [
-    clientes.nombre,
-    clientes.apellido,
-  ]);
+  const filterBySearch = buildSearchFilterByClient(searchParams);
 
   const filterByState = state
     ? gt(sql<number>`ROUND(${ventas.saldo}::numeric, 2)::float`, 0.01)
