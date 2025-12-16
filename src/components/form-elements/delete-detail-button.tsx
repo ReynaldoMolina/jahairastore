@@ -20,12 +20,8 @@ export function DeleteDetailButton({ handleDelete }: DeleteDetailButton) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button
-          variant="destructive"
-          size="icon-sm"
-          className="size-7 md:size-6"
-        >
-          <Trash2 className="size-3.5" />
+        <Button variant="destructive" size="icon-sm">
+          <Trash2 />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

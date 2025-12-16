@@ -188,11 +188,14 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
                 <ListItem value={ganancia} showPriceInNio color="blue" />
               </TableCell>
               <TableCell>
-                <div className="flex gap-1 items-center"></div>
-                <EditDetailButton
-                  href={`/ventas/${sale.id}/detalle/${detail.id}`}
-                />
-                <DeleteButton handleDelete={() => handleDelete(detail.id)} />
+                <div className="flex gap-1 items-center">
+                  <EditDetailButton
+                    href={`/ventas/${sale.id}/detalle/${detail.id}`}
+                  />
+                  <DeleteDetailButton
+                    handleDelete={() => handleDelete(detail.id)}
+                  />
+                </div>
               </TableCell>
             </TableRow>
           );
@@ -246,36 +249,5 @@ function ProductCardEmpty() {
         </span>
       </CardContent>
     </Card>
-  );
-}
-
-interface DeleteButton {
-  handleDelete: () => void;
-}
-
-function DeleteButton({ handleDelete }: DeleteButton) {
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="destructive" size="icon-sm" className="size-6">
-          <Trash2 className="size-3.5" />
-        </Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-          <AlertDialogDescription>
-            Esta acción no se puede deshacer. Se va a quitar el producto de la
-            lista.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete}>
-            Quitar producto
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
   );
 }

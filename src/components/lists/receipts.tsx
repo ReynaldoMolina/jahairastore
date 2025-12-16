@@ -136,7 +136,7 @@ export function Receipts({ data, query, totalPages }: Receipts) {
                 onClick={() => router.push(`/recibos/${register.id}`)}
               >
                 <TableCell className="w-full whitespace-normal">
-                  <div className="inline-flex items-center gap-3">
+                  <div className="flex items-center gap-3">
                     <Avatar>
                       <AvatarImage src={register.imagenUrl} alt="@shadcn" />
                       <AvatarFallback>

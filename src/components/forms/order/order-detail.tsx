@@ -167,13 +167,15 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
               <TableCell>
                 <ListItem value={ganancia} color="blue" />
               </TableCell>
-              <TableCell className="inline-flex gap-1 items-center">
-                <EditDetailButton
-                  href={`/pedidos/${order.id}/detalle/${detail.id}`}
-                />
-                <DeleteDetailButton
-                  handleDelete={() => handleDelete(detail.id)}
-                />
+              <TableCell>
+                <div className="flex gap-1 items-center">
+                  <EditDetailButton
+                    href={`/pedidos/${order.id}/detalle/${detail.id}`}
+                  />
+                  <DeleteDetailButton
+                    handleDelete={() => handleDelete(detail.id)}
+                  />
+                </div>
               </TableCell>
             </TableRow>
           );
@@ -182,9 +184,9 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
       <TableFooter className="bg-muted">
         <TableRow>
           <TableCell>
-            <Badge variant="outline">{order.detail.length}</Badge>
+            <Badge variant="outline">Conteo: {order.detail.length}</Badge>
           </TableCell>
-          <TableCell>Total</TableCell>
+          <TableCell></TableCell>
           <TableCell className="text-center">
             <ListItem
               value={String(formTotals.quantity)}

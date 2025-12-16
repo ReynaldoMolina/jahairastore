@@ -8,15 +8,9 @@ interface EditDetailButton {
 
 export function EditDetailButton({ href }: EditDetailButton) {
   return (
-    <Button
-      type="button"
-      variant="outline"
-      size="icon-sm"
-      className="size-7 md:size-6"
-      asChild
-    >
+    <Button type="button" variant="outline" size="icon-sm" asChild>
       <Link href={href}>
-        <Pencil className="size-3.5" />
+        <Pencil />
       </Link>
     </Button>
   );

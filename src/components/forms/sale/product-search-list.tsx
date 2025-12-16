@@ -82,11 +82,7 @@ export default function ProductSearchList({
                 <CardDescription className="inline-flex gap-3 items-center">
                   <Badge
                     variant="outline"
-                    className={
-                      isSoldOut
-                        ? 'bg-brand/50 text-muted-foreground dark:text-black'
-                        : ''
-                    }
+                    className={isSoldOut ? 'text-muted-foreground' : ''}
                   >
                     <Hash />
                     {p.id}

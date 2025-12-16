@@ -99,14 +99,16 @@ export function Providers({ data, query, totalPages }: Providers) {
                 className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
                 onClick={() => router.push(`/proveedores/${register.id}`)}
               >
-                <TableCell className="inline-flex items-center gap-3 w-full whitespace-normal">
-                  <Avatar>
-                    <AvatarImage src={register.imagenUrl} alt="@shadcn" />
-                    <AvatarFallback>
-                      {register.nombreEmpresa.substring(0, 1)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <span>{register.nombreEmpresa}</span>
+                <TableCell className="w-full whitespace-normal">
+                  <div className="flex items-center gap-3">
+                    <Avatar>
+                      <AvatarImage src={register.imagenUrl} alt="@shadcn" />
+                      <AvatarFallback>
+                        {register.nombreEmpresa.substring(0, 1)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <span>{register.nombreEmpresa}</span>
+                  </div>
                 </TableCell>
                 <TableCell>
                   <Badge

@@ -69,7 +69,7 @@ export function SaleDetailForm({ form, detail }: SaleDetailForm) {
       </FieldSet>
 
       {precioEnCordobas && (
-        <FieldSet className="md:flex-row">
+        <FieldSet className="sm:flex-row">
           <FormInputOnChange
             value={precioCompra * cambioDolar}
             label="Compra"
