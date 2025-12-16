@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "dbpush": "npx drizzle-kit push"
+    "dbpush": "npx drizzle-kit push",
+    "dbstart": "docker compose up -d"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
