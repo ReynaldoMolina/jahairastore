@@ -231,7 +231,7 @@ function WhatsAppButton({ children, message, phoneNumber }: WhatsAppButton) {
     <Button type="button" variant="outline" asChild>
       <Link href={whatsAppUrl} target="_blank" rel="noopener noreferrer">
         {children}
-        <label className="text-xs">Enviar</label>
+        <label className="text-sm">Enviar</label>
       </Link>
     </Button>
   );
