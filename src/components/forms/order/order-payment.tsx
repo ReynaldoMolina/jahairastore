@@ -53,11 +53,11 @@ export function OrderPayment({ order }: OrderPayment) {
             >
               <Check className="size-4" />
             </FormOption>
-            <Separator className="my-6" />
           </>
         )}
         {order.abonos > 0 && (
           <>
+            <Separator className="my-6" />
             <FormOption
               label="Ver recibos de abonos"
               href={`/recibos?query=${order.id} ${order.nombreCliente}`}
