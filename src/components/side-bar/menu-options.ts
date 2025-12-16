@@ -1,9 +1,9 @@
 import {
   BanknoteArrowDown,
+  Book,
   ChartNoAxesCombined,
   ClipboardList,
   Coins,
-  // Home,
   Package,
   Receipt,
   ShoppingBag,
@@ -62,6 +62,11 @@ export const menuOptions = [
     name: 'Tareas',
     url: '/tareas',
     icon: ClipboardList,
+  },
+  {
+    name: 'Documentación',
+    url: '/documentacion',
+    icon: Book,
   },
 ];
 

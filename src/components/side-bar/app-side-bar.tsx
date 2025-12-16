@@ -8,6 +8,7 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -19,6 +20,12 @@ import { NavUser } from './nav-user';
 import { authClient } from '@/lib/auth-client';
 import { useEffect, useState } from 'react';
 import { BusinessInfoType } from '@/types/types';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '../ui/collapsible';
+import { ChartNoAxesCombined, ChevronDown } from 'lucide-react';
 
 interface AppSideBarProps {
   businessInfo: BusinessInfoType;
@@ -53,6 +60,7 @@ export function AppSideBar({ businessInfo }: AppSideBarProps) {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
+          <SidebarGroupLabel>Menú</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuOptions.map((option) => (
