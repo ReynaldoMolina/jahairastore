@@ -20,8 +20,9 @@ export function MenuItem({ option }: MenuItem) {
         asChild
         isActive={isActive}
         className="data-[active=true]:bg-brand data-[active=true]:text-black"
+        onClick={() => setOpenMobile(false)}
       >
-        <Link href={option.url} onClick={() => setOpenMobile(false)}>
+        <Link href={option.url}>
           <option.icon className="size-4 md:size-3.5" />
           {option.name}
         </Link>

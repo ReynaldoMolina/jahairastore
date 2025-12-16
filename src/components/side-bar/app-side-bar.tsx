@@ -13,6 +13,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from '../ui/sidebar';
 import Link from 'next/link';
 import Logo from '@/components/icons/logominimal.svg';
@@ -20,12 +21,6 @@ import { NavUser } from './nav-user';
 import { authClient } from '@/lib/auth-client';
 import { useEffect, useState } from 'react';
 import { BusinessInfoType } from '@/types/types';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '../ui/collapsible';
-import { ChartNoAxesCombined, ChevronDown } from 'lucide-react';
 
 interface AppSideBarProps {
   businessInfo: BusinessInfoType;
@@ -33,6 +28,7 @@ interface AppSideBarProps {
 
 export function AppSideBar({ businessInfo }: AppSideBarProps) {
   const [session, setSession] = useState<any>(null);
+  const { setOpenMobile } = useSidebar();
 
   useEffect(() => {
     authClient.getSession().then(({ data }) => {
@@ -50,7 +46,11 @@ export function AppSideBar({ businessInfo }: AppSideBarProps) {
     <Sidebar>
       <SidebarHeader>
         <SidebarMenuItem>
-          <SidebarMenuButton asChild className="min-w-0">
+          <SidebarMenuButton
+            asChild
+            className="min-w-0"
+            onClick={() => setOpenMobile(false)}
+          >
             <Link href="/" className="font-bold">
               <Logo />
               <span className="truncate">{businessInfo.nombreEmpresa}</span>

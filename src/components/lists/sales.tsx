@@ -168,7 +168,7 @@ export function Sales({ data, query, totalPages }: SalesProps) {
               className="hover:cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
             >
               <TableCell className="w-full whitespace-normal">
-                <div className="inline-flex items-center gap-3">
+                <div className="flex items-center gap-3">
                   <Avatar>
                     <AvatarImage src={register.imagenUrl} alt="@shadcn" />
                     <AvatarFallback>

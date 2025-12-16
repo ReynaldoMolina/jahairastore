@@ -57,7 +57,7 @@ export function Documentacion() {
             <li>
               <strong>Publicidad:</strong> anunciar al menos una vez a la semana
               que estamos aceptando pedidos. Usar WhatsApp (grupos y estados),
-              Tik Tok y Facebook.
+              TikTok y Facebook.
             </li>
             <li>
               <strong>Atención al cliente:</strong> estar atento al WhatsApp
@@ -85,22 +85,22 @@ export function Documentacion() {
               <table className="w-full border border-border text-sm">
                 <thead className="bg-muted">
                   <tr>
-                    <th className="border px-3 py-2 text-left">Método</th>
+                    <th className="border px-3 py-2 text-left max-w-fit">
+                      Método
+                    </th>
                     <th className="border px-3 py-2 text-left">Detalle</th>
                     <th className="border px-3 py-2 text-left"></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="border px-3 py-2 font-medium">
-                      Billetera Móvil
-                    </td>
+                    <td className="border px-3 py-2">Billetera Móvil</td>
                     <td className="px-3 py-2 border">
                       7867 9884 <br /> Reynaldo Molina
                     </td>
-                    <td className="px-3 py-2 border">
+                    <td className="p-2 border">
                       <Button
-                        variant="secondary"
+                        variant="outline"
                         size="icon-sm"
                         onClick={async () => {
                           await navigator.clipboard.writeText(`Billetera móvil
@@ -116,16 +116,14 @@ export function Documentacion() {
                     </td>
                   </tr>
                   <tr>
-                    <td className="border px-3 py-2 font-medium">
-                      Lafise córdobas
-                    </td>
+                    <td className="border px-3 py-2">Lafise córdobas</td>
                     <td className="px-3 py-2 border">
                       131 003 549
                       <br /> Jahaira Sevilla
                     </td>
-                    <td className="px-3 py-2 border">
+                    <td className="p-2 border">
                       <Button
-                        variant="secondary"
+                        variant="outline"
                         size="icon-sm"
                         onClick={async () => {
                           await navigator.clipboard
@@ -140,16 +138,14 @@ export function Documentacion() {
                     </td>
                   </tr>
                   <tr>
-                    <td className="border px-3 py-2 font-medium">
-                      Lafise dólares
-                    </td>
+                    <td className="border px-3 py-2">Lafise dólares</td>
                     <td className="px-3 py-2 border">
                       131 235 650
                       <br /> Jahaira Sevilla
                     </td>
-                    <td className="px-3 py-2 border">
+                    <td className="p-2 border">
                       <Button
-                        variant="secondary"
+                        variant="outline"
                         size="icon-sm"
                         onClick={async () => {
                           await navigator.clipboard
@@ -210,24 +206,19 @@ export function Documentacion() {
               </thead>
               <tbody>
                 <tr>
-                  <td className="border px-3 py-2 font-medium">
-                    Punto Céntrico
-                  </td>
+                  <td className="border px-3 py-2">Punto céntrico</td>
                   <td className="border px-3 py-2">
-                    Recolección del paquete en un lugar céntrico predefinido
-                    (ej. centros comerciales, plazas).
+                    Centros comerciales, plazas, parques, etc.
                   </td>
                   <td className="border px-3 py-2">Gratis</td>
                 </tr>
                 <tr>
-                  <td className="border px-3 py-2 font-medium">
-                    Entrega a Domicilio
-                  </td>
+                  <td className="border px-3 py-2">Entrega a domicilio</td>
                   <td className="border px-3 py-2">
                     Envío directo a la dirección proporcionada por el cliente.
                   </td>
                   <td className="border px-3 py-2">
-                    Costo adicional C$50 o calculado según zona/distancia
+                    Costo adicional C$50 o según distancia
                   </td>
                 </tr>
               </tbody>

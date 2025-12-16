@@ -187,7 +187,8 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
               <TableCell>
                 <ListItem value={ganancia} showPriceInNio color="blue" />
               </TableCell>
-              <TableCell className="inline-flex gap-1 items-center">
+              <TableCell>
+                <div className="flex gap-1 items-center"></div>
                 <EditDetailButton
                   href={`/ventas/${sale.id}/detalle/${detail.id}`}
                 />
