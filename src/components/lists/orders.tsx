@@ -24,7 +24,7 @@ import {
 import { CardItem, ListItem } from './list-item';
 import { Badge } from '../ui/badge';
 import { formatDate } from '@/lib/formatters';
-import { Calendar, Hash } from 'lucide-react';
+import { Calendar, CircleQuestionMark, Hash, Plane, Ship } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 interface Orders {
@@ -33,6 +33,7 @@ interface Orders {
     nombreCliente: string;
     imagenUrl: string | null;
     fecha: string;
+    envio: string;
     total: number;
     abonos: number;
     saldo: number;
@@ -89,6 +90,17 @@ export function Orders({ data, query, totalPages }: Orders) {
                       <Badge variant="outline">
                         <Calendar />
                         {formatDate(register.fecha)}
+                      </Badge>
+                      <Badge variant="outline">
+                        {register.envio ? (
+                          register.envio === 'maritimo' ? (
+                            <Ship />
+                          ) : (
+                            <Plane />
+                          )
+                        ) : (
+                          <CircleQuestionMark />
+                        )}
                       </Badge>
                     </CardDescription>
                   </div>
@@ -150,6 +162,7 @@ export function Orders({ data, query, totalPages }: Orders) {
           <TableRow>
             <TableHead className="w-full">Cliente</TableHead>
             <TableHead>Id</TableHead>
+            <TableHead>Envío</TableHead>
             <TableHead>Fecha</TableHead>
             <TableHead>Total</TableHead>
             <TableHead>Abonos</TableHead>
@@ -184,6 +197,19 @@ export function Orders({ data, query, totalPages }: Orders) {
                 </TableCell>
                 <TableCell>
                   <Badge variant="outline">
+                    {register.envio ? (
+                      register.envio === 'maritimo' ? (
+                        <Ship />
+                      ) : (
+                        <Plane />
+                      )
+                    ) : (
+                      <CircleQuestionMark />
+                    )}
+                  </Badge>
+                </TableCell>
+                <TableCell>
+                  <Badge variant="outline">
                     <Calendar />
                     {formatDate(register.fecha)}
                   </Badge>
@@ -213,6 +239,7 @@ export function Orders({ data, query, totalPages }: Orders) {
             <TableCell>
               <Badge variant="outline">Conteo: {data.length}</Badge>
             </TableCell>
+            <TableCell></TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
             <TableCell>
