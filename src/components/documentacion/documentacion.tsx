@@ -103,11 +103,12 @@ export function Documentacion() {
                         variant="outline"
                         size="icon-sm"
                         onClick={async () => {
-                          await navigator.clipboard.writeText(`Billetera móvil
-  Número: 7867 9884
-  A nombre de: Reynaldo Molina
-  
-  Me envías el comprobante y listo ✨`);
+                          await navigator.clipboard.writeText(
+                            `_Billetera móvil_\n\n` +
+                              `*Número:* 7867 9884\n` +
+                              `*A nombre de:* Reynaldo Molina\n\n` +
+                              `Me envías el comprobante y listo ✨`
+                          );
                           toast.info('Se copió al portapapeles');
                         }}
                       >
@@ -126,10 +127,11 @@ export function Documentacion() {
                         variant="outline"
                         size="icon-sm"
                         onClick={async () => {
-                          await navigator.clipboard
-                            .writeText(`Cuenta Lafise Córdobas
-  Titular: Jahaira del Socorro Picado Sevilla
-  Cuenta: 131 003 549`);
+                          await navigator.clipboard.writeText(
+                            `_Lafise Córdobas_\n\n` +
+                              `*Titular:* Jahaira del Socorro Picado Sevilla\n` +
+                              `*Cuenta:* 131 003 549`
+                          );
                           toast.info('Se copió al portapapeles');
                         }}
                       >
@@ -148,10 +150,34 @@ export function Documentacion() {
                         variant="outline"
                         size="icon-sm"
                         onClick={async () => {
-                          await navigator.clipboard
-                            .writeText(`Cuenta Lafise Dólares
-  Titular: Jahaira del Socorro Picado Sevilla
-  Cuenta: 131 235 650`);
+                          await navigator.clipboard.writeText(
+                            `_Lafise Dólares_\n\n` +
+                              `*Titular:* Jahaira del Socorro Picado Sevilla\n` +
+                              `*Cuenta:* 131 235 650`
+                          );
+                          toast.info('Se copió al portapapeles');
+                        }}
+                      >
+                        <Copy />
+                      </Button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="border px-3 py-2">Banpro dólares</td>
+                    <td className="px-3 py-2 border">
+                      1002 0210 2138 35
+                      <br /> Reynaldo Molina
+                    </td>
+                    <td className="p-2 border">
+                      <Button
+                        variant="outline"
+                        size="icon-sm"
+                        onClick={async () => {
+                          await navigator.clipboard.writeText(
+                            `_Banpro Dólares_\n\n` +
+                              `*Titular:* Reynaldo Antonio Molina Castillo\n` +
+                              `*Cuenta:* 1002 0210 2138 35`
+                          );
                           toast.info('Se copió al portapapeles');
                         }}
                       >
@@ -242,10 +268,6 @@ export function Documentacion() {
                   negocio, etc.).
                 </li>
                 <li>
-                  Debe haber una persona responsable disponible para recibir el
-                  paquete.
-                </li>
-                <li>
                   Si se autoriza a un tercero (familiar, portero, compañero de
                   trabajo), debe notificarse con antelación.
                 </li>
@@ -263,7 +285,7 @@ export function Documentacion() {
             <li>
               <strong>Tolerancia de espera:</strong> tanto para punto céntrico
               como para entrega a domicilio, el personal esperará un máximo de
-              10 minutos en el lugar acordado.
+              15 minutos en el lugar acordado.
             </li>
           </TypographyList>
 
@@ -272,12 +294,12 @@ export function Documentacion() {
           <TypographyList>
             <li>
               <strong>Identificación:</strong> el repartidor proporcionará su
-              nombre y un número de contacto (solo para emergencias de la
-              entrega).
+              nombre y un número de contacto.
             </li>
             <li>
               <strong>Vestimenta:</strong> el personal se presentará con
-              vestimenta identificable, proporcionar color de camiseta, etc.
+              vestimenta identificable, proporcionar color de camiseta,
+              pantalón, etc.
             </li>
             <li>
               <strong>Comunicación:</strong> el repartidor contactará al cliente
@@ -297,8 +319,7 @@ export function Documentacion() {
               Los pedidos se preparan y se agendan con 1 día de antelación.
             </li>
             <li>
-              La hora exacta de entrega se acordará previamente con el cliente
-              vía WhatsApp o llamada.
+              La hora exacta de entrega se acordará previamente con el cliente.
             </li>
           </TypographyList>
         </TypographySection>
@@ -309,9 +330,8 @@ export function Documentacion() {
           <TypographyH3>Elegibilidad</TypographyH3>
 
           <TypographyP>
-            El acceso a pedidos al crédito (apartado con monto menor al 50% o
-            crédito completo) está reservado exclusivamente para clientes con
-            buen récord de compras.
+            El acceso a pedidos al crédito está reservado exclusivamente para
+            clientes con buen récord de compras.
           </TypographyP>
 
           <TypographyP>
