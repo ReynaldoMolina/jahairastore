@@ -89,7 +89,7 @@ export function AppSettingsForm({ data }: AppSettingsForm) {
                       description="Aparecerá también en los recibos."
                       disabled={isDemo}
                     />
-                    <FormInput
+                    <FormTextArea
                       control={form.control}
                       name="mensaje"
                       label="Mensaje motivacional"
@@ -103,6 +103,7 @@ export function AppSettingsForm({ data }: AppSettingsForm) {
             </Card>
           </form>
         </TabsContent>
+
         <TabsContent value="precios">
           <form
             onSubmit={form.handleSubmit(onSubmit)}

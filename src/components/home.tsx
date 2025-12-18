@@ -7,7 +7,7 @@ import { Coins, ShoppingBag } from 'lucide-react';
 
 export function Home({ businessInfo }: { businessInfo: BusinessInfoType }) {
   return (
-    <main className="m-auto p-5 grid md:grid-cols-2 gap-5">
+    <main className="m-auto p-5 grid md:grid-cols-2 gap-5 max-w-2xl">
       {/* Text section */}
       <div className="flex flex-col items-center md:justify-center md:items-start gap-5 order-2 md:order-1">
         <h1 className="text-2xl font-extrabold bg-gradient-to-r from-purple-500 to-sky-500 bg-clip-text text-transparent text-center md:text-left">
@@ -16,7 +16,7 @@ export function Home({ businessInfo }: { businessInfo: BusinessInfoType }) {
         <p className="text-sm text-muted-foreground text-center md:text-left">
           {businessInfo.eslogan}
         </p>
-        <blockquote className="border-l-2 pl-3 italic text-sm text-muted-foreground text-center md:text-left">
+        <blockquote className="border-l-2 pl-3 italic text-sm text-muted-foreground text-center md:text-left max-w-xl">
           {isDemo ? 'DEMO' : businessInfo.mensaje || '¡Bienvenido!'}
         </blockquote>
 
@@ -38,8 +38,8 @@ export function Home({ businessInfo }: { businessInfo: BusinessInfoType }) {
       </div>
 
       {/* Logo section */}
-      <div className="flex justify-center order-1 md:order-2">
-        <div className="bg-muted rounded-full p-7 aspect-square flex items-center justify-center">
+      <div className="flex justify-center items-center order-1 md:order-2 max-w-lg">
+        <div className="bg-muted rounded-full p-7 aspect-square flex items-center justify-center max-h-50 max-w-50">
           <Logo className="size-30" />
         </div>
       </div>

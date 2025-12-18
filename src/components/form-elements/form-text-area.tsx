@@ -8,6 +8,7 @@ interface FormInput<T extends FieldValues> {
   label: string;
   placeholder?: string;
   description?: string;
+  disabled?: boolean;
 }
 
 export function FormTextArea<T extends FieldValues>({
@@ -16,6 +17,7 @@ export function FormTextArea<T extends FieldValues>({
   label,
   placeholder,
   description,
+  disabled,
 }: FormInput<T>) {
   return (
     <Controller
@@ -31,6 +33,7 @@ export function FormTextArea<T extends FieldValues>({
             placeholder={placeholder ? placeholder : label}
             autoComplete="off"
             className="field-sizing-content"
+            disabled={disabled}
           />
           {description && <FieldDescription>{description}</FieldDescription>}
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
