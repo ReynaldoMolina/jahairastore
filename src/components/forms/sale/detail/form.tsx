@@ -12,6 +12,7 @@ import { MinusIcon, PlusIcon } from 'lucide-react';
 import { saleDetailSchema } from '../../validation/sale';
 import { SaleDetailType } from '@/types/types';
 import { FormInputOnChange } from '@/components/form-elements/form-input-on-change';
+import { FormCheck } from '@/components/form-elements/form-checkbox';
 
 interface SaleDetailForm {
   form: UseFormReturn<z.infer<typeof saleDetailSchema>>;
@@ -19,11 +20,19 @@ interface SaleDetailForm {
 }
 
 export function SaleDetailForm({ form, detail }: SaleDetailForm) {
-  const { precioVenta, precioCompra, cantidad } = form.watch();
+  const {
+    precioVenta,
+    precioVentaPorMayor,
+    precioPorMayor,
+    precioCompra,
+    cantidad,
+  } = form.watch();
 
   const { cambioDolar, precioEnCordobas } = detail;
   const ganancia = (precioVenta ?? 0) - (precioCompra ?? 0);
+  const gananciaPorMayor = (precioVentaPorMayor ?? 0) - (precioCompra ?? 0);
   const gananciaEnCordobas = ganancia * cambioDolar;
+  const gananciaPorMayorEnCordobas = gananciaPorMayor * cambioDolar;
 
   const maxQuantity = (detail.existencias ?? 0) + (detail.cantidad ?? 0);
   const canAddQuantity = cantidad < maxQuantity;
@@ -47,51 +56,87 @@ export function SaleDetailForm({ form, detail }: SaleDetailForm) {
           value={detail.nombreProducto}
           label="Nombre producto"
         />
-      </FieldSet>
-      <FieldSet className={precioEnCordobas ? 'hidden' : 'md:flex-row'}>
-        <FormInput
+        <FormCheck
           control={form.control}
-          name="precioCompra"
-          label="Compra"
-          textAddon="$"
-        />
-        <FormInput
-          control={form.control}
-          name="precioVenta"
-          label="Venta"
-          textAddon="$"
-        />
-        <FormInputReadOnly
-          value={formatNumber(ganancia)}
-          label="Ganancia"
-          textAddon="$"
+          name="precioPorMayor"
+          label="¿Usar precio de venta al por mayor?"
         />
       </FieldSet>
 
-      {precioEnCordobas && (
+      <div className={precioEnCordobas ? 'hidden' : 'flex flex-col gap-7'}>
         <FieldSet className="sm:flex-row">
-          <FormInputOnChange
-            value={precioCompra * cambioDolar}
+          <FormInput
+            control={form.control}
+            name="precioCompra"
             label="Compra"
-            handleChange={(val) =>
-              form.setValue('precioCompra', Number(val) / cambioDolar)
-            }
-            textAddon="C$"
+            textAddon="$"
           />
-          <FormInputOnChange
-            value={precioVenta * cambioDolar}
+          <FormInput
+            control={form.control}
+            name="precioVenta"
             label="Venta"
-            handleChange={(val) =>
-              form.setValue('precioVenta', Number(val) / cambioDolar)
-            }
-            textAddon="C$"
+            textAddon="$"
+            hidden={precioPorMayor}
           />
-          <FormInputReadOnly
-            value={formatNumber(gananciaEnCordobas)}
-            label="Ganancia"
-            textAddon="C$"
+          <FormInput
+            control={form.control}
+            name="precioVentaPorMayor"
+            label="Venta por mayor"
+            textAddon="$"
+            hidden={!precioPorMayor}
           />
         </FieldSet>
+        <FormInputReadOnly
+          value={
+            precioPorMayor
+              ? formatNumber(gananciaPorMayor)
+              : formatNumber(ganancia)
+          }
+          label="Ganancia"
+          textAddon="$"
+        />
+      </div>
+
+      {precioEnCordobas && (
+        <div className="flex flex-col gap-7">
+          <FieldSet className="sm:flex-row">
+            <FormInputOnChange
+              value={precioCompra * cambioDolar}
+              label="Compra"
+              handleChange={(val) =>
+                form.setValue('precioCompra', Number(val) / cambioDolar)
+              }
+              textAddon="C$"
+            />
+            <FormInputOnChange
+              value={precioVenta * cambioDolar}
+              label="Venta"
+              handleChange={(val) =>
+                form.setValue('precioVenta', Number(val) / cambioDolar)
+              }
+              textAddon="C$"
+              hidden={precioPorMayor}
+            />
+            <FormInputOnChange
+              value={precioVentaPorMayor * cambioDolar}
+              label="Venta por mayor"
+              handleChange={(val) =>
+                form.setValue('precioVentaPorMayor', Number(val) / cambioDolar)
+              }
+              textAddon="C$"
+              hidden={!precioPorMayor}
+            />
+            <FormInputReadOnly
+              value={
+                precioPorMayor
+                  ? formatNumber(gananciaPorMayorEnCordobas)
+                  : formatNumber(gananciaEnCordobas)
+              }
+              label="Ganancia"
+              textAddon="C$"
+            />
+          </FieldSet>
+        </div>
       )}
 
       <FieldSet className="flex-row gap-3 md:gap-6 items-end">

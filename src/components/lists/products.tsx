@@ -29,7 +29,7 @@ interface Products {
   data: {
     id: number;
     nombre: string;
-    idShein: string;
+    codigo: string;
     precioEnCordobas: boolean;
     cambioDolar: number;
     precioCompra: number;

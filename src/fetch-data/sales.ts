@@ -25,10 +25,16 @@ export async function getSales(searchParams: SearchParamsProps) {
     const ventasTotal = db
       .select({
         idVenta: ventaDetalle.idVenta,
-        total:
-          sql<number>`SUM(${ventaDetalle.precioVenta} * ${ventaDetalle.cantidad} * ${ventaDetalle.cambioDolar})`.as(
-            'total'
-          ),
+        total: sql<number>`
+      SUM(
+        CASE
+          WHEN ${ventaDetalle.precioPorMayor}
+            THEN ${ventaDetalle.precioVentaPorMayor} * ${ventaDetalle.cantidad}
+          ELSE ${ventaDetalle.precioVenta} * ${ventaDetalle.cantidad}
+        END
+        * ${ventaDetalle.cambioDolar}
+      )
+    `.as('total'),
       })
       .from(ventaDetalle)
       .groupBy(ventaDetalle.idVenta)
@@ -114,13 +120,15 @@ export async function getSaleById(id: number | string) {
     const detail = await db
       .select({
         id: ventaDetalle.id,
+        idVenta: ventaDetalle.idVenta,
         idProducto: ventaDetalle.idProducto,
         nombre: producto.nombre,
         precioVenta: ventaDetalle.precioVenta,
+        precioVentaPorMayor: ventaDetalle.precioVentaPorMayor,
         precioCompra: ventaDetalle.precioCompra,
         cantidad: ventaDetalle.cantidad,
         cambioDolar: ventaDetalle.cambioDolar,
-        idVenta: ventaDetalle.idVenta,
+        precioPorMayor: ventaDetalle.precioPorMayor,
       })
       .from(ventaDetalle)
       .leftJoin(producto, eq(ventaDetalle.idProducto, producto.id))

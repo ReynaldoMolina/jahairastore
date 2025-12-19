@@ -29,14 +29,16 @@ export async function getSaleDetailById(id: number | string) {
     const [detail] = await db
       .select({
         id: ventaDetalle.id,
+        idVenta: ventaDetalle.idVenta,
         idProducto: ventaDetalle.idProducto,
         nombreProducto: producto.nombre,
         precioEnCordobas: producto.precioEnCordobas,
         precioVenta: ventaDetalle.precioVenta,
+        precioVentaPorMayor: ventaDetalle.precioVentaPorMayor,
         precioCompra: ventaDetalle.precioCompra,
         cantidad: ventaDetalle.cantidad,
         cambioDolar: ventaDetalle.cambioDolar,
-        idVenta: ventaDetalle.idVenta,
+        precioPorMayor: ventaDetalle.precioPorMayor,
         existencias: sql<number>`
           (COALESCE("compras"."cantidad", 0) - COALESCE("ventas"."cantidad", 0))::integer
         `,

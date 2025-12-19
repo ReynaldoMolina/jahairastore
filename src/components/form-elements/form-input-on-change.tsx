@@ -6,6 +6,7 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '../ui/input-group';
+import { cn } from '@/lib/utils';
 
 interface FormInputOnChangeProps {
   value: number | string;
@@ -15,6 +16,7 @@ interface FormInputOnChangeProps {
   description?: string;
   className?: string;
   readOnly?: boolean;
+  hidden?: boolean;
 }
 
 export function FormInputOnChange({
@@ -25,6 +27,7 @@ export function FormInputOnChange({
   description,
   className,
   readOnly,
+  hidden,
 }: FormInputOnChangeProps) {
   const [displayValue, setDisplayValue] = useState(String(value));
 
@@ -41,7 +44,7 @@ export function FormInputOnChange({
   };
 
   return (
-    <div className="flex flex-col w-full gap-3">
+    <div className={hidden ? 'hidden' : 'flex flex-col w-full gap-3'}>
       <FieldLabel>{label}</FieldLabel>
       <InputGroup className={className}>
         {textAddon && (

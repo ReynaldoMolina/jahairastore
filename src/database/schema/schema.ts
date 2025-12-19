@@ -110,9 +110,13 @@ export const ventaDetalle = pgTable('venta_detalle', {
   idVenta: integer('id_venta').notNull(),
   idProducto: integer('id_producto').notNull(),
   precioVenta: doublePrecision('precio_venta').notNull(),
+  precioVentaPorMayor: doublePrecision('precio_venta_por_mayor')
+    .notNull()
+    .default(0),
   precioCompra: doublePrecision('precio_compra').notNull(),
   cantidad: integer('cantidad').notNull(),
   cambioDolar: doublePrecision('cambio_dolar').notNull(),
+  precioPorMayor: boolean('precio_por_mayor').notNull().default(false),
 });
 
 export const producto = pgTable('producto', {
@@ -122,8 +126,9 @@ export const producto = pgTable('producto', {
   descripcion: text('descripcion'),
   precioCompra: doublePrecision('precio_compra').notNull(),
   precioVenta: doublePrecision('precio_venta').notNull(),
+  precioVentaPorMayor: doublePrecision('precio_venta_por_mayor'),
   fecha: date('fecha').notNull(),
-  idShein: text('id_shein'),
+  codigo: text('codigo'),
   precioEnCordobas: boolean('precio_en_cordobas').notNull().default(false),
   cambioDolar: doublePrecision('cambio_dolar'),
 });

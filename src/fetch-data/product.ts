@@ -42,7 +42,7 @@ export async function getProducts(searchParams: SearchParamsProps) {
       .select({
         id: producto.id,
         nombre: producto.nombre,
-        idShein: producto.idShein,
+        codigo: producto.codigo,
         precioEnCordobas: producto.precioEnCordobas,
         cambioDolar: producto.cambioDolar,
         precioCompra: producto.precioCompra,
@@ -127,9 +127,10 @@ export async function getProductsSearchList(searchParams: SearchParamsProps) {
       .select({
         id: producto.id,
         nombre: producto.nombre,
-        idShein: producto.idShein,
+        codigo: producto.codigo,
         precioCompra: producto.precioCompra,
         precioVenta: producto.precioVenta,
+        precioVentaPorMayor: producto.precioVentaPorMayor,
         cambioDolar: producto.cambioDolar,
         existencias: sql<number>`
           (COALESCE("compras_totales"."cantidad", 0) - COALESCE("ventas_totales"."cantidad", 0))::integer

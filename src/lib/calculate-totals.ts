@@ -5,6 +5,7 @@ interface CalculateTotals {
 
 export function calculateTotals({ list, convert = false }: CalculateTotals) {
   let totalSell = 0,
+    totalSellPorMayor = 0,
     totalCost = 0,
     quantity = 0;
 
@@ -13,7 +14,9 @@ export function calculateTotals({ list, convert = false }: CalculateTotals) {
   for (const element of list) {
     totalSell +=
       element.cantidad *
-      element.precioVenta *
+      (element.precioPorMayor
+        ? element.precioVentaPorMayor
+        : element.precioVenta) *
       (convert ? element.cambioDolar : 1);
 
     totalCost +=
@@ -26,5 +29,11 @@ export function calculateTotals({ list, convert = false }: CalculateTotals) {
 
   let profit = totalSell - totalCost;
 
-  return { totalSell, totalCost, profit, quantity, items };
+  return {
+    totalSell,
+    totalCost,
+    profit,
+    quantity,
+    items,
+  };
 }

@@ -62,13 +62,15 @@ export interface SaleById {
   cambioDolar: number;
   detail: {
     id: number;
+    idVenta: number;
     idProducto: number;
     nombre: string;
     precioVenta: number;
+    precioVentaPorMayor: number;
     precioCompra: number;
     cantidad: number;
     cambioDolar: number;
-    idVenta: number;
+    precioPorMayor: boolean;
   }[];
 }
 
@@ -87,11 +89,13 @@ export interface SaleDetailType {
   idProducto: number;
   nombreProducto?: string;
   precioVenta: number;
+  precioVentaPorMayor: number;
   precioCompra: number;
   cantidad: number;
   cambioDolar: number;
   idVenta: number;
   existencias?: number;
+  precioPorMayor?: boolean;
   precioEnCordobas?: boolean;
 }
 
@@ -103,18 +107,20 @@ export interface ProductFormType {
   cambioDolar: number;
   precioCompra: number;
   precioVenta: number;
+  precioVentaPorMayor: number | null;
   descripcion?: string | null;
   fecha: string;
-  idShein?: string | null;
+  codigo?: string | null;
   precioEnCordobas: boolean;
 }
 
 export interface ProductSearchProduct {
   id: number;
   nombre: string;
-  idShein: string;
+  codigo: string;
   precioCompra: number;
   precioVenta: number;
+  precioVentaPorMayor: number;
   cambioDolar: number;
   existencias: number;
   precioEnCordobas: boolean;

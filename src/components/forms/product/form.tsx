@@ -16,8 +16,13 @@ interface ProductForm {
 }
 
 export function ProductForm({ form }: ProductForm) {
-  const { precioEnCordobas, precioVenta, precioCompra, cambioDolar } =
-    form.watch();
+  const {
+    precioEnCordobas,
+    precioVenta,
+    precioVentaPorMayor,
+    precioCompra,
+    cambioDolar,
+  } = form.watch();
 
   const ganancia = (precioVenta ?? 0) - (precioCompra ?? 0);
   const gananciaEnCordobas = ganancia * cambioDolar;
@@ -49,52 +54,76 @@ export function ProductForm({ form }: ProductForm) {
         />
       </FieldSet>
 
-      <FieldSet className={precioEnCordobas ? 'hidden' : 'sm:flex-row'}>
-        <FormInput
-          control={form.control}
-          name="precioCompra"
-          label="Compra"
-          textAddon="$"
-        />
-        <FormInput
-          control={form.control}
-          name="precioVenta"
-          label="Venta"
-          textAddon="$"
-        />
+      <div className={precioEnCordobas ? 'hidden' : 'flex flex-col gap-7'}>
+        <FieldSet className="sm:flex-row">
+          <FormInput
+            control={form.control}
+            name="precioCompra"
+            label="Compra"
+            textAddon="$"
+          />
+          <FormInput
+            control={form.control}
+            name="precioVenta"
+            label="Venta"
+            textAddon="$"
+          />
+          <FormInput
+            control={form.control}
+            name="precioVentaPorMayor"
+            label="Venta por mayor"
+            textAddon="$"
+          />
+        </FieldSet>
         <FormInputReadOnly
           value={formatNumber(ganancia)}
           label="Ganancia"
           textAddon="$"
         />
-      </FieldSet>
+      </div>
 
       {precioEnCordobas && (
-        <FieldSet className="sm:flex-row">
-          <FormInputOnChange
-            value={
-              isNaN(Number(precioCompra)) ? '' : precioCompra * cambioDolar
-            }
-            label="Compra"
-            handleChange={(val) =>
-              form.setValue('precioCompra', Number(val) / cambioDolar)
-            }
-            textAddon="C$"
-          />
-          <FormInputOnChange
-            value={isNaN(Number(precioVenta)) ? '' : precioVenta * cambioDolar}
-            label="Venta"
-            handleChange={(val) =>
-              form.setValue('precioVenta', Number(val) / cambioDolar)
-            }
-            textAddon="C$"
-          />
+        <>
+          <FieldSet className="sm:flex-row">
+            <FormInputOnChange
+              value={
+                isNaN(Number(precioCompra)) ? '' : precioCompra * cambioDolar
+              }
+              label="Compra"
+              handleChange={(val) =>
+                form.setValue('precioCompra', Number(val) / cambioDolar)
+              }
+              textAddon="C$"
+            />
+            <FormInputOnChange
+              value={
+                isNaN(Number(precioVenta)) ? '' : precioVenta * cambioDolar
+              }
+              label="Venta"
+              handleChange={(val) =>
+                form.setValue('precioVenta', Number(val) / cambioDolar)
+              }
+              textAddon="C$"
+            />
+            <FormInputOnChange
+              value={
+                isNaN(Number(precioVentaPorMayor))
+                  ? ''
+                  : precioVentaPorMayor * cambioDolar
+              }
+              label="Venta por mayor"
+              handleChange={(val) =>
+                form.setValue('precioVentaPorMayor', Number(val) / cambioDolar)
+              }
+              textAddon="C$"
+            />
+          </FieldSet>
           <FormInputReadOnly
             value={formatNumber(gananciaEnCordobas)}
             label="Ganancia"
             textAddon="C$"
           />
-        </FieldSet>
+        </>
       )}
 
       <FieldSeparator />
@@ -107,9 +136,9 @@ export function ProductForm({ form }: ProductForm) {
         />
         <FormInput
           control={form.control}
-          name="idShein"
-          label="Id externo"
-          tooltipAddon="Id del proveedor o código de barra"
+          name="codigo"
+          label="Código"
+          tooltipAddon="Del proveedor o código de barra"
         />
       </FieldSet>
     </FieldGroup>

@@ -1,5 +1,5 @@
 import z from 'zod';
-import { zNumberMin } from './zod-helper';
+import { zNumberMin, zNumberMinZero } from './zod-helper';
 
 export const productSchema = z.object({
   idProveedor: z.number().nullable(),
@@ -7,8 +7,9 @@ export const productSchema = z.object({
   descripcion: z.string().nullable(),
   precioCompra: zNumberMin(),
   precioVenta: zNumberMin(),
+  precioVentaPorMayor: zNumberMinZero(),
   fecha: z.string().nullable(),
-  idShein: z.string().nullable(),
+  codigo: z.string().nullable(),
   precioEnCordobas: z.boolean(),
   cambioDolar: zNumberMin(),
 });

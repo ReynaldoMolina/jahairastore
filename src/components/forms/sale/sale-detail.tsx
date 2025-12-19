@@ -15,8 +15,7 @@ import { CardItem, ListItem } from '@/components/lists/list-item';
 import { Badge } from '@/components/ui/badge';
 import { bgColors } from '@/lib/bg-colors';
 import { formatNumber } from '@/lib/formatters';
-import { Button } from '@/components/ui/button';
-import { Hash, Trash2 } from 'lucide-react';
+import { Hash, MoreHorizontal } from 'lucide-react';
 import { TableContainer } from '@/components/lists/table';
 import {
   TableBody,
@@ -26,19 +25,15 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 import { EditDetailButton } from '@/components/form-elements/edit-detail-button';
 import { DeleteDetailButton } from '@/components/form-elements/delete-detail-button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
 
 interface SaleDetail {
   sale: SaleById;
@@ -56,8 +51,18 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
     return (
       <>
         {sale.detail.map((detail) => {
-          const { precioVenta, precioCompra, cambioDolar, cantidad } = detail;
-          const subtotalVenta = precioVenta * cambioDolar * cantidad;
+          const {
+            precioVenta,
+            precioVentaPorMayor,
+            precioCompra,
+            cambioDolar,
+            cantidad,
+            precioPorMayor,
+          } = detail;
+          const subtotalVenta =
+            (precioPorMayor ? precioVentaPorMayor : precioVenta) *
+            cambioDolar *
+            cantidad;
           const subtotalCompra = precioCompra * cambioDolar * cantidad;
           const ganancia = subtotalVenta - subtotalCompra;
 
@@ -71,17 +76,33 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
                     {detail.idProducto}
                   </Badge>
                   <Badge variant="secondary" className={`${bgColors.green}`}>
-                    C$ {formatNumber(detail.precioVenta * detail.cambioDolar)}
+                    C${' '}
+                    {formatNumber(
+                      (precioPorMayor
+                        ? detail.precioVentaPorMayor
+                        : detail.precioVenta) * detail.cambioDolar
+                    )}
                   </Badge>
                   <Badge variant="secondary">Cant: {detail.cantidad}</Badge>
                 </CardDescription>
                 <CardAction className="inline-flex gap-1 items-center">
-                  <EditDetailButton
-                    href={`/ventas/${sale.id}/detalle/${detail.id}`}
-                  />
-                  <DeleteDetailButton
-                    handleDelete={() => handleDelete(detail.id)}
-                  />
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" size="icon">
+                        <MoreHorizontal />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuGroup>
+                        <EditDetailButton
+                          href={`/ventas/${sale.id}/detalle/${detail.id}`}
+                        />
+                        <DeleteDetailButton
+                          handleDelete={() => handleDelete(detail.id)}
+                        />
+                      </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </CardAction>
               </CardHeader>
               <CardContent className="space-y-1">
@@ -137,14 +158,24 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
           <TableHead>Precio</TableHead>
           <TableHead>Subtotal</TableHead>
           <TableHead>Ganancia</TableHead>
-          <TableHead>Acciones</TableHead>
+          <TableHead></TableHead>
         </TableRow>
       </TableHeader>
 
       <TableBody>
         {sale.detail.map((detail) => {
-          const { precioVenta, precioCompra, cambioDolar, cantidad } = detail;
-          const subtotalVenta = precioVenta * cambioDolar * cantidad;
+          const {
+            precioVenta,
+            precioVentaPorMayor,
+            precioCompra,
+            cambioDolar,
+            cantidad,
+            precioPorMayor,
+          } = detail;
+          const subtotalVenta =
+            (precioPorMayor ? precioVentaPorMayor : precioVenta) *
+            cambioDolar *
+            cantidad;
           const subtotalCompra = precioCompra * cambioDolar * cantidad;
           const ganancia = subtotalVenta - subtotalCompra;
 
@@ -188,14 +219,23 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
                 <ListItem value={ganancia} showPriceInNio color="blue" />
               </TableCell>
               <TableCell>
-                <div className="flex gap-1 items-center">
-                  <EditDetailButton
-                    href={`/ventas/${sale.id}/detalle/${detail.id}`}
-                  />
-                  <DeleteDetailButton
-                    handleDelete={() => handleDelete(detail.id)}
-                  />
-                </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="icon">
+                      <MoreHorizontal />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuGroup>
+                      <EditDetailButton
+                        href={`/ventas/${sale.id}/detalle/${detail.id}`}
+                      />
+                      <DeleteDetailButton
+                        handleDelete={() => handleDelete(detail.id)}
+                      />
+                    </DropdownMenuGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </TableCell>
             </TableRow>
           );

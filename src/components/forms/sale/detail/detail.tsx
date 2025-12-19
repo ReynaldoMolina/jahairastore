@@ -32,12 +32,14 @@ export function EditSaleDetailDialog({ detail }: EditSaleDetailDialog) {
   const form = useForm<z.infer<typeof saleDetailSchema>>({
     resolver: zodResolver(saleDetailSchema),
     defaultValues: {
+      idVenta: detail.idVenta,
       idProducto: detail.idProducto,
       precioVenta: detail.precioVenta,
+      precioVentaPorMayor: detail.precioVentaPorMayor,
       precioCompra: detail.precioCompra,
       cantidad: detail.cantidad,
+      precioPorMayor: detail.precioPorMayor,
       cambioDolar: detail.cambioDolar,
-      idVenta: detail.idVenta,
     },
   });
 

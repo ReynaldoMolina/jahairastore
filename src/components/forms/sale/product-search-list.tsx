@@ -14,7 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { CardItem, ListItem } from '@/components/lists/list-item';
+import { ListItem } from '@/components/lists/list-item';
 import { TableContainer } from '@/components/lists/table';
 import {
   TableHeader,
@@ -105,12 +105,14 @@ export default function ProductSearchList({
                     disabled={isAlreadyAdded || isSoldOut}
                     onCheckedChange={() =>
                       handleCheckedChange({
+                        idVenta: sale.id,
                         idProducto: p.id,
                         precioVenta: p.precioVenta,
+                        precioVentaPorMayor: p.precioVentaPorMayor,
                         precioCompra: p.precioCompra,
                         cantidad: 1,
                         cambioDolar: p.cambioDolar,
-                        idVenta: sale.id,
+                        precioPorMayor: false,
                       })
                     }
                   />
@@ -182,12 +184,14 @@ export default function ProductSearchList({
                     disabled={isAlreadyAdded || isSoldOut}
                     onCheckedChange={() =>
                       handleCheckedChange({
+                        idVenta: sale.id,
                         idProducto: product.id,
                         precioVenta: product.precioVenta,
+                        precioVentaPorMayor: product.precioVentaPorMayor,
                         precioCompra: product.precioCompra,
                         cantidad: 1,
                         cambioDolar: product.cambioDolar,
-                        idVenta: sale.id,
+                        precioEnCordobas: false,
                       })
                     }
                   />

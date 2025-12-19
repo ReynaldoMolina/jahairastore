@@ -11,10 +11,12 @@ export const saleSchema = z.object({
 });
 
 export const saleDetailSchema = z.object({
+  idVenta: zNumberMin(),
   idProducto: zNumberMin(),
   precioVenta: zNumberMin(),
+  precioVentaPorMayor: zNumberMinZero(),
   precioCompra: zNumberMin(),
   cantidad: zNumberMin(),
   cambioDolar: zNumberMin(),
-  idVenta: zNumberMin(),
+  precioPorMayor: z.boolean(),
 });
