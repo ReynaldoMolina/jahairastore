@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/database/db';
-import { comprasDetalles } from '@/database/schema/schema';
+import { compraDetalle } from '@/database/schema/schema';
 import {
   stateCreateError,
   stateDeleteError,
@@ -23,13 +23,13 @@ export async function createPurchaseDetail(
   const isPlural = data.values.length > 1;
 
   try {
-    await db.insert(comprasDetalles).values(data.values);
+    await db.insert(compraDetalle).values(data.values);
 
     return {
       success: true,
       title: `Se ${isPlural ? 'agregaron' : 'agregó'} ${data.values.length} ${
         isPlural ? 'productos' : 'producto'
-      } a la lista.`,
+      } correctamente.`,
     };
   } catch (error) {
     console.error(error);
@@ -48,9 +48,9 @@ export async function updatePurchaseDetail(
 ) {
   try {
     await db
-      .update(comprasDetalles)
+      .update(compraDetalle)
       .set(data.values)
-      .where(eq(comprasDetalles.id, Number(data.id)));
+      .where(eq(compraDetalle.id, Number(data.id)));
     return stateUpdateSuccess;
   } catch (error) {
     console.error(error);
@@ -67,9 +67,7 @@ export async function deletePurchaseDetail(
   data: DeletePurchaseDetail
 ) {
   try {
-    await db
-      .delete(comprasDetalles)
-      .where(eq(comprasDetalles.id, Number(data.id)));
+    await db.delete(compraDetalle).where(eq(compraDetalle.id, Number(data.id)));
     return {
       ...stateDeleteSuccess,
       title: `Se eliminó el producto ${data.id}.`,

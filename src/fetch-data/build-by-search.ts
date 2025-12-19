@@ -1,9 +1,4 @@
-import {
-  clientes,
-  egresos,
-  proveedores,
-  recibos,
-} from '@/database/schema/schema';
+import { cliente, gasto, proveedor, recibo } from '@/database/schema/schema';
 import { SearchParamsProps } from '@/types/types';
 import { AnyColumn, or, sql } from 'drizzle-orm';
 
@@ -29,7 +24,7 @@ export function buildSearchFilterByClient(searchParams: SearchParamsProps) {
 
   return search
     ? sql`
-        unaccent(${clientes.nombre} || ' ' || ${clientes.apellido})
+        unaccent(${cliente.nombre} || ' ' || ${cliente.apellido})
         ILIKE unaccent(${`%${search}%`})
       `
     : undefined;
@@ -42,7 +37,7 @@ export function buildSearchFilterByProvider(searchParams: SearchParamsProps) {
 
   return search
     ? sql`
-        unaccent(${proveedores.nombreEmpresa})
+        unaccent(${proveedor.nombreEmpresa})
         ILIKE unaccent(${`%${search}%`})
       `
     : undefined;
@@ -55,8 +50,8 @@ export function buildSearchFilterByOrder(searchParams: SearchParamsProps) {
 
   return search
     ? sql`
-        unaccent(${recibos.idPedido} || ' ' || ${clientes.nombre} || ' ' || ${
-        clientes.apellido
+        unaccent(${recibo.idPedido} || ' ' || ${cliente.nombre} || ' ' || ${
+        cliente.apellido
       })
         ILIKE unaccent(${`%${search}%`})
       `
@@ -70,7 +65,7 @@ export function buildSearchFilterByPurchase(searchParams: SearchParamsProps) {
 
   return search
     ? sql`
-        unaccent(${egresos.idCompra} || ' ' || ${proveedores.nombreEmpresa})
+        unaccent(${gasto.idCompra} || ' ' || ${proveedor.nombreEmpresa})
         ILIKE unaccent(${`%${search}%`})
       `
     : undefined;

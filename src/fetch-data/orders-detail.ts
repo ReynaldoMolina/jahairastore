@@ -1,4 +1,4 @@
-import { pedidosDetalles } from '@/database/schema/schema';
+import { pedidoDetalle } from '@/database/schema/schema';
 import { eq } from 'drizzle-orm';
 import { db } from '@/database/db';
 
@@ -6,8 +6,8 @@ export async function getOrderDetailById(id: number | string) {
   try {
     const [detail] = await db
       .select()
-      .from(pedidosDetalles)
-      .where(eq(pedidosDetalles.id, Number(id)));
+      .from(pedidoDetalle)
+      .where(eq(pedidoDetalle.id, Number(id)));
 
     return detail;
   } catch (error) {

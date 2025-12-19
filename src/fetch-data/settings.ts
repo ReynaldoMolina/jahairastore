@@ -1,5 +1,5 @@
 import { db } from '@/database/db';
-import { configuracion } from '@/database/schema/schema';
+import { ajustes } from '@/database/schema/schema';
 import {
   BusinessInfoType,
   SettingsCambioDolarType,
@@ -13,12 +13,12 @@ export async function getBusinessInfo(
   try {
     const [data] = await db
       .select({
-        nombreEmpresa: configuracion.nombreEmpresa,
-        eslogan: configuracion.eslogan,
-        mensaje: configuracion.mensaje,
+        nombreEmpresa: ajustes.nombreEmpresa,
+        eslogan: ajustes.eslogan,
+        mensaje: ajustes.mensaje,
       })
-      .from(configuracion)
-      .where(eq(configuracion.id, Number(id)));
+      .from(ajustes)
+      .where(eq(ajustes.id, Number(id)));
     return data;
   } catch (error) {
     console.error(error);
@@ -32,8 +32,8 @@ export async function getSettings(
   try {
     const [data] = await db
       .select()
-      .from(configuracion)
-      .where(eq(configuracion.id, Number(id)));
+      .from(ajustes)
+      .where(eq(ajustes.id, Number(id)));
     return data;
   } catch (error) {
     console.error(error);
@@ -45,10 +45,10 @@ export async function getSettingsCambioDolar(id: number = 1): Promise<number> {
   try {
     const [data] = await db
       .select({
-        cambioDolar: configuracion.cambioDolar,
+        cambioDolar: ajustes.cambioDolar,
       })
-      .from(configuracion)
-      .where(eq(configuracion.id, Number(id)));
+      .from(ajustes)
+      .where(eq(ajustes.id, Number(id)));
     return data.cambioDolar;
   } catch (error) {
     console.error(error);
@@ -62,11 +62,11 @@ export async function getSettingsEnvioPrices(
   try {
     const [data] = await db
       .select({
-        envioMaritimo: configuracion.envioMaritimo,
-        envioAereo: configuracion.envioAereo,
+        envioMaritimo: ajustes.envioMaritimo,
+        envioAereo: ajustes.envioAereo,
       })
-      .from(configuracion)
-      .where(eq(configuracion.id, Number(id)));
+      .from(ajustes)
+      .where(eq(ajustes.id, Number(id)));
     return data;
   } catch (error) {
     console.error(error);

@@ -15,8 +15,8 @@ interface TareaForm {
 export function TareaForm({ form }: TareaForm) {
   return (
     <FieldGroup>
-      <FieldSet>
-        <FormTextArea control={form.control} name="tarea" label="Tarea" />
+      <FormTextArea control={form.control} name="tarea" label="Tarea" />
+      <FieldSet className="sm:flex-row">
         <FormDatePicker
           control={form.control}
           name="fecha_entrega"

@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/database/db';
-import { ventas } from '@/database/schema/schema';
+import { venta } from '@/database/schema/schema';
 import {
   stateCreateError,
   stateCreateSuccess,
@@ -20,12 +20,13 @@ export async function createSale(prevState: ServerStatus, data: CreateSale) {
 
   try {
     [returningId] = await db
-      .insert(ventas)
+      .insert(venta)
       .values(data.values)
-      .returning({ id: ventas.id });
+      .returning({ id: venta.id });
 
     return {
-      ...stateCreateSuccess,
+      success: true,
+      title: 'Se creó la venta correctamente.',
       returningId: returningId.id,
     };
   } catch (error) {
@@ -42,9 +43,9 @@ interface UpdateSale {
 export async function updateSale(prevState: ServerStatus, data: UpdateSale) {
   try {
     await db
-      .update(ventas)
+      .update(venta)
       .set(data.values)
-      .where(eq(ventas.id, Number(data.id)));
+      .where(eq(venta.id, Number(data.id)));
     return stateUpdateSuccess;
   } catch (error) {
     console.error(error);

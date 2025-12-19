@@ -1,12 +1,11 @@
 'use client';
 
-import { FieldGroup, FieldSet } from '../../ui/field';
+import { FieldGroup, FieldSeparator, FieldSet } from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
 import { FormInput } from '@/components/form-elements/form-input';
 import z from 'zod';
 import { clientSchema } from '../validation/client';
-import { FormSelect } from '@/components/form-elements/form-select';
 
 interface ClientForm {
   form: UseFormReturn<z.infer<typeof clientSchema>>;
@@ -15,7 +14,7 @@ interface ClientForm {
 export function ClientForm({ form }: ClientForm) {
   return (
     <FieldGroup>
-      <FieldSet>
+      <FieldSet className="sm:flex-row">
         <FormInput control={form.control} name="nombre" label="Nombre" />
         <FormInput control={form.control} name="apellido" label="Apellido" />
       </FieldSet>
@@ -26,25 +25,6 @@ export function ClientForm({ form }: ClientForm) {
           label="Teléfono"
           textAddon="+505"
         />
-        <FormSelect
-          control={form.control}
-          name="municipio"
-          label="Municipio"
-          options={[
-            {
-              value: 'León',
-              label: 'León',
-            },
-            {
-              value: 'Managua',
-              label: 'Managua',
-            },
-            {
-              value: 'Acoyapa',
-              label: 'Acoyapa',
-            },
-          ]}
-        />
       </FieldSet>
       <FieldSet>
         <FormTextArea
@@ -52,8 +32,9 @@ export function ClientForm({ form }: ClientForm) {
           name="direccion"
           label="Dirección"
         />
-        <FormInput control={form.control} name="imagenUrl" label="Foto (url)" />
       </FieldSet>
+      <FieldSeparator />
+      <FormInput control={form.control} name="imagenUrl" label="Foto (url)" />
     </FieldGroup>
   );
 }

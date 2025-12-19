@@ -9,7 +9,7 @@ import {
   FieldSet,
 } from '../../ui/field';
 import { useForm } from 'react-hook-form';
-import { appSettingsSchema } from '../validation/app-settings';
+import { settingsSchema } from '../validation/settings';
 import z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormInput } from '../../form-elements/form-input';
@@ -29,8 +29,8 @@ interface AppSettingsForm {
 }
 
 export function AppSettingsForm({ data }: AppSettingsForm) {
-  const form = useForm<z.infer<typeof appSettingsSchema>>({
-    resolver: zodResolver(appSettingsSchema),
+  const form = useForm<z.infer<typeof settingsSchema>>({
+    resolver: zodResolver(settingsSchema),
     defaultValues: {
       nombreEmpresa: data.nombreEmpresa,
       eslogan: data.eslogan,
@@ -46,7 +46,7 @@ export function AppSettingsForm({ data }: AppSettingsForm) {
     stateDefault
   );
 
-  function onSubmit(values: z.infer<typeof appSettingsSchema>) {
+  function onSubmit(values: z.infer<typeof settingsSchema>) {
     startTransition(() => {
       formAction({ values: values as AppSettingsFormType });
     });

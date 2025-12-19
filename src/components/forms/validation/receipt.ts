@@ -7,5 +7,7 @@ export const receiptSchema = z.object({
   fecha: z.string().min(1, 'Requerido'),
   abono: zNumberMin(),
   saldo: zNumberMinZero(),
+  cambioDolar: zNumberMin(),
+  enCordobas: z.boolean(),
   concepto: z.string().nullable(),
 });

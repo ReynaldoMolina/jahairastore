@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/database/db';
-import { proveedores } from '@/database/schema/schema';
+import { proveedor } from '@/database/schema/schema';
 import { ProviderById, ServerStatus } from '@/types/types';
 import { eq } from 'drizzle-orm';
 import {
@@ -23,12 +23,13 @@ export async function createProvider(
 
   try {
     [returningId] = await db
-      .insert(proveedores)
+      .insert(proveedor)
       .values(data.values)
-      .returning({ id: proveedores.id });
+      .returning({ id: proveedor.id });
 
     return {
-      ...stateCreateSuccess,
+      success: true,
+      title: 'Se creó el proveedor correctamente.',
       returningId: returningId.id,
     };
   } catch (error) {
@@ -48,9 +49,9 @@ export async function updateProvider(
 ) {
   try {
     await db
-      .update(proveedores)
+      .update(proveedor)
       .set(data.values)
-      .where(eq(proveedores.id, Number(data.id)));
+      .where(eq(proveedor.id, Number(data.id)));
     return stateUpdateSuccess;
   } catch (error) {
     console.error(error);

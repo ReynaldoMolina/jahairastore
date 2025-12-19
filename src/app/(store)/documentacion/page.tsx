@@ -1,6 +1,5 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { Documentacion } from '@/components/documentacion/documentacion';
-import { SiteHeader } from '@/components/site-header';
 import { isDemo } from '@/middleware';
 import { notFound } from 'next/navigation';
 
@@ -13,10 +12,5 @@ export default async function Page() {
 
   if (isDemo) return notFound();
 
-  return (
-    <>
-      <SiteHeader title="Documentación" hideBackButton />
-      <Documentacion />
-    </>
-  );
+  return <Documentacion />;
 }

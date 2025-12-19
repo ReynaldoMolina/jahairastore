@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/database/db';
-import { productos } from '@/database/schema/schema';
+import { producto } from '@/database/schema/schema';
 import { ProductFormType, ServerStatus } from '@/types/types';
 import { eq } from 'drizzle-orm';
 import {
@@ -20,8 +20,11 @@ export async function createProduct(
   data: CreateProduct
 ) {
   try {
-    await db.insert(productos).values(data.values);
-    return stateCreateSuccess;
+    await db.insert(producto).values(data.values);
+    return {
+      success: true,
+      title: 'Se creó el producto correctamente.',
+    };
   } catch (error) {
     console.error(error);
     return stateCreateError;
@@ -39,9 +42,9 @@ export async function updateProduct(
 ) {
   try {
     await db
-      .update(productos)
+      .update(producto)
       .set(data.values)
-      .where(eq(productos.id, Number(data.id)));
+      .where(eq(producto.id, Number(data.id)));
     return stateUpdateSuccess;
   } catch (error) {
     console.error(error);

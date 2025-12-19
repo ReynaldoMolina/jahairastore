@@ -23,6 +23,8 @@ export function OrderPayment({ order }: OrderPayment) {
   });
   const balance = Math.round((formTotals.totalSell - order.abonos) * 100) / 100;
   const half = Math.round((balance / 2) * 100) / 100;
+  const hasBalance = formTotals.totalSell - order.abonos > 0;
+  const hasAbonos = order.abonos > 0;
 
   return (
     <Card className="max-w-xl">
@@ -31,7 +33,7 @@ export function OrderPayment({ order }: OrderPayment) {
         <CardDescription>Crea recibos para pagar el pedido.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-3">
-        {formTotals.totalSell - order.abonos > 0 && (
+        {hasBalance && (
           <>
             <FormOption
               label="Pagar 0%"
@@ -55,16 +57,16 @@ export function OrderPayment({ order }: OrderPayment) {
             </FormOption>
           </>
         )}
-        {order.abonos > 0 && (
-          <>
-            <Separator className="my-6" />
-            <FormOption
-              label="Ver recibos de abonos"
-              href={`/recibos?query=${order.id} ${order.nombreCliente}`}
-            >
-              <Receipt className="size-4" />
-            </FormOption>
-          </>
+
+        {hasBalance && hasAbonos && <Separator className="my-6" />}
+
+        {hasAbonos && (
+          <FormOption
+            label="Ver recibos de abonos"
+            href={`/recibos?query=${order.id} ${order.nombreCliente}`}
+          >
+            <Receipt className="size-4" />
+          </FormOption>
         )}
       </CardContent>
     </Card>

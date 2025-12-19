@@ -1,5 +1,5 @@
 import { db } from '@/database/db';
-import { clientes } from '@/database/schema/schema';
+import { cliente } from '@/database/schema/schema';
 import { SearchParamsProps } from '@/types/types';
 import { sql, asc, desc, eq } from 'drizzle-orm';
 import { getUrlParams } from './filter';
@@ -13,27 +13,27 @@ export async function getClients(searchParams: SearchParamsProps) {
   try {
     const data = await db
       .select({
-        id: clientes.id,
-        nombre: sql<string>`${clientes.nombre} || ' ' || ${clientes.apellido}`,
-        imagenUrl: clientes.imagenUrl,
-        telefono: clientes.telefono,
+        id: cliente.id,
+        nombre: sql<string>`${cliente.nombre} || ' ' || ${cliente.apellido}`,
+        imagenUrl: cliente.imagenUrl,
+        telefono: cliente.telefono,
       })
-      .from(clientes)
+      .from(cliente)
       .where(filterBySearch)
-      .orderBy(desc(clientes.id))
+      .orderBy(desc(cliente.id))
       .limit(limit)
       .offset(offset);
 
     const [{ count }] = await db
       .select({ count: sql<number>`COUNT(*)` })
-      .from(clientes)
+      .from(cliente)
       .where(filterBySearch);
 
     const totalPages = Math.ceil(count / limit) || 1;
 
     return { data, query, totalPages };
   } catch (error) {
-    throw new Error('No se pudieron obtener los clientes.');
+    throw new Error('No se pudieron obtener los cliente.');
   }
 }
 
@@ -41,8 +41,8 @@ export async function getClientById(id: number | string) {
   try {
     const [data] = await db
       .select()
-      .from(clientes)
-      .where(eq(clientes.id, Number(id)));
+      .from(cliente)
+      .where(eq(cliente.id, Number(id)));
     return data;
   } catch (error) {
     throw new Error('No se pudo obtener el cliente.');
@@ -53,14 +53,14 @@ export async function getClientsSelect() {
   try {
     const data = await db
       .select({
-        value: sql<string>`CAST(${clientes.id} AS TEXT)`,
-        label: sql<string>`${clientes.nombre} || ' ' || ${clientes.apellido}`,
+        value: sql<string>`CAST(${cliente.id} AS TEXT)`,
+        label: sql<string>`${cliente.nombre} || ' ' || ${cliente.apellido}`,
       })
-      .from(clientes)
-      .orderBy(asc(clientes.nombre));
+      .from(cliente)
+      .orderBy(asc(cliente.nombre));
 
     return data;
   } catch (error) {
-    throw new Error('No se pudieron obtener los clientes.');
+    throw new Error('No se pudieron obtener los cliente.');
   }
 }

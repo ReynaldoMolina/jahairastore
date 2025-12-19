@@ -35,11 +35,6 @@ export function ProductForm({ form }: ProductForm) {
           name="descripcion"
           label="Descripción"
         />
-        <FormInput
-          control={form.control}
-          name="idCategoria"
-          label="Id categoría"
-        />
         <FormInput control={form.control} name="fecha" label="Fecha" />
       </FieldSet>
       <FieldSet>
@@ -103,7 +98,7 @@ export function ProductForm({ form }: ProductForm) {
       )}
 
       <FieldSeparator />
-      <FieldSet>
+      <FieldSet className="sm:flex-row">
         <FormInput
           control={form.control}
           name="cambioDolar"

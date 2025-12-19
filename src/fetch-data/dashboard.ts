@@ -4,14 +4,14 @@ import { getSettingsCambioDolar } from './settings';
 import { and, between, eq, sql } from 'drizzle-orm';
 import { db } from '@/database/db';
 import {
-  compras,
-  comprasDetalles,
-  egresos,
-  pedidos,
-  pedidosDetalles,
-  recibos,
-  ventas,
-  ventasDetalles,
+  compra,
+  compraDetalle,
+  gasto,
+  pedido,
+  pedidoDetalle,
+  recibo,
+  venta,
+  ventaDetalle,
 } from '@/database/schema/schema';
 
 export async function getTotalsDashboard(searchParams: SearchParamsProps) {
@@ -25,70 +25,67 @@ export async function getTotalsDashboard(searchParams: SearchParamsProps) {
   try {
     const [salesContado] = await db
       .select({
-        salesContado: sql<number>`COALESCE(ROUND(SUM((${ventasDetalles.precioVenta} * ${ventasDetalles.cantidad} * ${ventasDetalles.cambioDolar})::numeric), 2), 0)::float`,
+        salesContado: sql<number>`COALESCE(ROUND(SUM((${ventaDetalle.precioVenta} * ${ventaDetalle.cantidad} * ${ventaDetalle.cambioDolar})::numeric), 2), 0)::float`,
       })
-      .from(ventasDetalles)
-      .leftJoin(ventas, eq(ventasDetalles.idVenta, ventas.id))
+      .from(ventaDetalle)
+      .leftJoin(venta, eq(ventaDetalle.idVenta, venta.id))
       .where(
         and(
-          eq(ventas.credito, false),
-          between(ventas.fecha, startParam, endParam)
+          eq(venta.credito, false),
+          between(venta.fecha, startParam, endParam)
         )
       );
 
     const [salesCreditoAbonos] = await db
       .select({
-        salesCreditAbonos: sql<number>`COALESCE(ROUND(SUM(${ventas.abono})::numeric, 2), 0)::float`,
+        salesCreditAbonos: sql<number>`COALESCE(ROUND(SUM(${venta.abono})::numeric, 2), 0)::float`,
       })
-      .from(ventas)
+      .from(venta)
       .where(
-        and(
-          eq(ventas.credito, true),
-          between(ventas.fecha, startParam, endParam)
-        )
+        and(eq(venta.credito, true), between(venta.fecha, startParam, endParam))
       );
 
     const [ordersAbonos] = await db
       .select({
-        ordersAbonos: sql<number>`COALESCE(ROUND(SUM(${recibos.abono} * ${cambioDolar})::numeric, 2), 0)::float`,
+        ordersAbonos: sql<number>`COALESCE(ROUND(SUM(${recibo.abono} * ${cambioDolar})::numeric, 2), 0)::float`,
       })
-      .from(recibos)
-      .where(between(recibos.fecha, startParam, endParam));
+      .from(recibo)
+      .where(between(recibo.fecha, startParam, endParam));
 
     const [salesPurchases] = await db
       .select({
-        comprasInventario: sql<number>`COALESCE(ROUND(SUM(${comprasDetalles.precioCompra} * ${comprasDetalles.cantidad} * ${comprasDetalles.cambioDolar})::numeric, 2), 0)::float`,
+        comprasInventario: sql<number>`COALESCE(ROUND(SUM(${compraDetalle.precioCompra} * ${compraDetalle.cantidad} * ${compraDetalle.cambioDolar})::numeric, 2), 0)::float`,
       })
-      .from(comprasDetalles)
-      .leftJoin(compras, eq(comprasDetalles.idCompra, compras.id))
-      .where(between(compras.fecha, startParam, endParam));
+      .from(compraDetalle)
+      .leftJoin(compra, eq(compraDetalle.idCompra, compra.id))
+      .where(between(compra.fecha, startParam, endParam));
 
     const [salesExpenses] = await db
       .select({
         comprasGastos: sql<number>`
           COALESCE(
             ROUND(
-              SUM(${egresos.gasto} * ${egresos.cambioDolar})::numeric,
+              SUM(${gasto.gasto} * ${gasto.cambioDolar})::numeric,
             2),
           0)::float
         `,
       })
-      .from(egresos)
-      .where(between(egresos.fecha, startParam, endParam));
+      .from(gasto)
+      .where(between(gasto.fecha, startParam, endParam));
 
     const [ordersCostsInDollars] = await db
       .select({
         ordersCostsInDollars: sql<number>`
           COALESCE(
             ROUND(
-              SUM(${pedidosDetalles.precioCompra} * ${pedidosDetalles.cantidad})::numeric,
+              SUM(${pedidoDetalle.precioCompra} * ${pedidoDetalle.cantidad})::numeric,
             2),
           0)::float
         `,
       })
-      .from(pedidosDetalles)
-      .leftJoin(pedidos, eq(pedidosDetalles.idPedido, pedidos.id))
-      .where(between(pedidos.fecha, startParam, endParam));
+      .from(pedidoDetalle)
+      .leftJoin(pedido, eq(pedidoDetalle.idPedido, pedido.id))
+      .where(between(pedido.fecha, startParam, endParam));
 
     const [totalOrdersInDollars] = await db
       .select({
@@ -96,16 +93,16 @@ export async function getTotalsDashboard(searchParams: SearchParamsProps) {
           COALESCE(
             ROUND(
               SUM(
-                ${pedidosDetalles.precioVenta} 
-                * ${pedidosDetalles.cantidad}
+                ${pedidoDetalle.precioVenta} 
+                * ${pedidoDetalle.cantidad}
               )::numeric,
             2),
           0)::float
         `,
       })
-      .from(pedidosDetalles)
-      .leftJoin(pedidos, eq(pedidosDetalles.idPedido, pedidos.id))
-      .where(between(pedidos.fecha, startParam, endParam));
+      .from(pedidoDetalle)
+      .leftJoin(pedido, eq(pedidoDetalle.idPedido, pedido.id))
+      .where(between(pedido.fecha, startParam, endParam));
 
     const [salesCosts] = await db
       .select({
@@ -113,17 +110,17 @@ export async function getTotalsDashboard(searchParams: SearchParamsProps) {
       COALESCE(
         ROUND(
           SUM(
-            ${ventasDetalles.precioCompra}
-            * ${ventasDetalles.cantidad}
-            * ${ventasDetalles.cambioDolar}
+            ${ventaDetalle.precioCompra}
+            * ${ventaDetalle.cantidad}
+            * ${ventaDetalle.cambioDolar}
           )::numeric,
         2),
       0)::float
     `,
       })
-      .from(ventasDetalles)
-      .leftJoin(ventas, eq(ventasDetalles.idVenta, ventas.id))
-      .where(between(ventas.fecha, startParam, endParam));
+      .from(ventaDetalle)
+      .leftJoin(venta, eq(ventaDetalle.idVenta, venta.id))
+      .where(between(venta.fecha, startParam, endParam));
 
     return {
       ...ordersCostsInDollars,

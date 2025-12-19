@@ -7,169 +7,135 @@ import {
   date,
   doublePrecision,
   boolean,
-  foreignKey,
 } from 'drizzle-orm/pg-core';
 
-export const clientes = pgTable('Clientes', {
-  id: serial('Id').primaryKey().notNull(),
-  nombre: varchar('Nombre', { length: 255 }).notNull(),
-  apellido: varchar('Apellido', { length: 255 }).notNull(),
-  telefono: text('Telefono'),
-  municipio: text('Municipio'),
-  departamento: text('Departamento'),
-  pais: text('Pais'),
-  direccion: text('Direccion'),
-  idUsuario: integer('Id_usuario'),
-  imagenUrl: text('Imagen_url'),
+export const cliente = pgTable('cliente', {
+  id: serial('id').primaryKey().notNull(),
+  nombre: varchar('nombre', { length: 255 }).notNull(),
+  apellido: varchar('apellido', { length: 255 }).notNull(),
+  telefono: text('telefono'),
+  direccion: text('direccion'),
+  imagenUrl: text('imagen_url'),
 });
 
-export const compras = pgTable('Compras', {
-  id: serial('Id').primaryKey().notNull(),
-  idProveedor: integer('Id_proveedor').notNull(),
-  fecha: date('Fecha').notNull(),
+export const compra = pgTable('compra', {
+  id: serial('id').primaryKey().notNull(),
+  idProveedor: integer('id_proveedor').notNull(),
+  fecha: date('fecha').notNull(),
 });
 
-export const comprasDetalles = pgTable('ComprasDetalles', {
-  id: serial('Id').primaryKey().notNull(),
-  idCompra: integer('Id_compra').notNull(),
-  idProducto: integer('Id_producto').notNull(),
-  precioCompra: doublePrecision('Precio_compra').notNull(),
-  cantidad: integer('Cantidad').notNull(),
-  precioVenta: doublePrecision('Precio_venta').notNull(),
-  cambioDolar: doublePrecision('Cambio_dolar').notNull(),
+export const compraDetalle = pgTable('compra_detalle', {
+  id: serial('id').primaryKey().notNull(),
+  idCompra: integer('id_compra').notNull(),
+  idProducto: integer('id_producto').notNull(),
+  precioCompra: doublePrecision('precio_compra').notNull(),
+  precioVenta: doublePrecision('precio_venta').notNull(),
+  cantidad: integer('cantidad').notNull(),
+  cambioDolar: doublePrecision('cambio_dolar').notNull(),
 });
 
-export const configuracion = pgTable('Configuracion', {
-  id: serial('Id').primaryKey().notNull(),
-  nombreEmpresa: text('Nombre_empresa').notNull(),
-  eslogan: text('Eslogan').notNull(),
-  mensaje: text('Mensaje'),
-  cambioDolar: doublePrecision('Cambio_dolar'),
-  envioMaritimo: doublePrecision('Envio_maritimo'),
-  envioAereo: doublePrecision('Envio_aereo'),
+export const ajustes = pgTable('ajustes', {
+  id: serial('id').primaryKey().notNull(),
+  nombreEmpresa: text('nombre_empresa').notNull(),
+  eslogan: text('eslogan').notNull(),
+  mensaje: text('mensaje'),
+  cambioDolar: doublePrecision('cambio_dolar'),
+  envioMaritimo: doublePrecision('envio_maritimo'),
+  envioAereo: doublePrecision('envio_aereo'),
 });
 
-export const egresos = pgTable('Egresos', {
-  id: serial('Id').primaryKey().notNull(),
-  idCompra: integer('Id_compra').notNull(),
-  idProveedor: integer('Id_proveedor').notNull(),
-  fecha: date('Fecha').notNull(),
-  gasto: doublePrecision('Gasto').notNull(),
-  concepto: varchar('Concepto', { length: 255 }).notNull(),
-  cambioDolar: doublePrecision('Cambio_dolar').notNull(),
+export const gasto = pgTable('gasto', {
+  id: serial('id').primaryKey().notNull(),
+  idCompra: integer('id_compra').notNull(),
+  idProveedor: integer('id_proveedor').notNull(),
+  fecha: date('fecha').notNull(),
+  gasto: doublePrecision('gasto').notNull(),
+  concepto: varchar('concepto', { length: 255 }).notNull(),
+  cambioDolar: doublePrecision('cambio_dolar').notNull(),
 });
 
-export const pedidos = pgTable('Pedidos', {
-  id: serial('Id').primaryKey().notNull(),
-  idCliente: integer('Id_cliente').notNull(),
-  fecha: date('Fecha').notNull(),
+export const pedido = pgTable('pedido', {
+  id: serial('id').primaryKey().notNull(),
+  idCliente: integer('id_cliente').notNull(),
+  fecha: date('fecha').notNull(),
   peso: doublePrecision('Peso'),
-  cambioDolar: doublePrecision('Cambio_dolar'),
-  precioLibra: doublePrecision('Precio_libra'),
-  tipoEnvio: text('Tipo_envio'),
+  cambioDolar: doublePrecision('cambio_dolar'),
+  precioLibra: doublePrecision('precio_libra'),
+  tipoEnvio: text('tipo_envio'),
 });
 
-export const pedidosDetalles = pgTable('PedidosDetalles', {
-  id: serial('Id').primaryKey().notNull(),
-  idPedido: integer('Id_pedido').notNull(),
-  nombreProducto: text('Nombre_producto'),
-  precioVenta: doublePrecision('Precio_venta').notNull(),
-  precioCompra: doublePrecision('Precio_compra').notNull(),
-  cantidad: integer('Cantidad').notNull(),
-  imagenUrl: text('Imagen_url'),
+export const pedidoDetalle = pgTable('pedido_detalle', {
+  id: serial('id').primaryKey().notNull(),
+  idPedido: integer('id_pedido').notNull(),
+  nombreProducto: text('nombre_producto'),
+  precioVenta: doublePrecision('precio_venta').notNull(),
+  precioCompra: doublePrecision('precio_compra').notNull(),
+  cantidad: integer('cantidad').notNull(),
+  imagenUrl: text('imagen_url'),
 });
 
-export const proveedores = pgTable('Proveedores', {
-  id: serial('Id').primaryKey().notNull(),
-  nombreEmpresa: varchar('Nombre_empresa', { length: 255 }).notNull(),
-  imagenUrl: text('Imagen_url'),
-  nombreContacto: varchar('Nombre_contacto', { length: 255 }),
-  telefono: varchar('Telefono', { length: 255 }),
-  departamento: varchar('Departamento', { length: 255 }),
-  municipio: varchar('Municipio', { length: 255 }),
-  pais: varchar('Pais', { length: 255 }),
-  direccion: varchar('Direccion', { length: 255 }),
+export const proveedor = pgTable('proveedor', {
+  id: serial('id').primaryKey().notNull(),
+  nombreEmpresa: varchar('nombre_empresa', { length: 255 }).notNull(),
+  imagenUrl: text('imagen_url'),
+  nombreContacto: varchar('nombre_contacto', { length: 255 }),
+  telefono: varchar('telefono', { length: 255 }),
+  direccion: varchar('direccion', { length: 255 }),
 });
 
-export const recibos = pgTable('Recibos', {
-  id: serial('Id').primaryKey().notNull(),
-  idPedido: integer('Id_pedido').notNull(),
-  idCliente: integer('Id_cliente').notNull(),
-  fecha: date('Fecha').notNull(),
-  abono: doublePrecision('Abono').notNull(),
-  saldo: doublePrecision('Saldo').notNull(),
-  concepto: text('Concepto'),
+export const recibo = pgTable('recibo', {
+  id: serial('id').primaryKey().notNull(),
+  idPedido: integer('id_pedido').notNull(),
+  idCliente: integer('id_cliente').notNull(),
+  fecha: date('fecha').notNull(),
+  abono: doublePrecision('abono').notNull(),
+  saldo: doublePrecision('saldo').notNull(),
+  concepto: text('concepto'),
+  cambioDolar: doublePrecision('cambio_dolar').notNull().default(37),
+  en_cordobas: boolean('en_cordobas').notNull().default(false),
 });
 
-export const usuarios = pgTable('Usuarios', {
-  idUsuario: serial('Id_usuario').primaryKey().notNull(),
-  nombreUsuario: text('Nombre_usuario').notNull(),
-  password: text('Password'),
-  fotoUrl: text('Foto_url'),
-  rol: text('Rol'),
+export const venta = pgTable('venta', {
+  id: serial('id').primaryKey().notNull(),
+  idCliente: integer('id_cliente').notNull(),
+  fecha: date('fecha').notNull(),
+  abono: doublePrecision('abono').notNull(),
+  credito: boolean('credito').notNull(),
+  saldo: doublePrecision('saldo'),
+  cambioDolar: doublePrecision('cambio_dolar'),
 });
 
-export const ventas = pgTable('Ventas', {
-  id: serial('Id').primaryKey().notNull(),
-  idCliente: integer('Id_cliente').notNull(),
-  fecha: date('Fecha').notNull(),
-  abono: doublePrecision('Abono').notNull(),
-  credito: boolean('Credito').notNull(),
-  saldo: doublePrecision('Saldo'),
-  cambioDolar: doublePrecision('Cambio_dolar'),
+export const ventaDetalle = pgTable('venta_detalle', {
+  id: serial('id').primaryKey().notNull(),
+  idVenta: integer('id_venta').notNull(),
+  idProducto: integer('id_producto').notNull(),
+  precioVenta: doublePrecision('precio_venta').notNull(),
+  precioCompra: doublePrecision('precio_compra').notNull(),
+  cantidad: integer('cantidad').notNull(),
+  cambioDolar: doublePrecision('cambio_dolar').notNull(),
 });
 
-export const ventasDetalles = pgTable('VentasDetalles', {
-  id: serial('Id').primaryKey().notNull(),
-  idProducto: integer('Id_producto').notNull(),
-  precioVenta: doublePrecision('Precio_venta').notNull(),
-  precioCompra: doublePrecision('Precio_compra').notNull(),
-  cantidad: integer('Cantidad').notNull(),
-  cambioDolar: doublePrecision('Cambio_dolar').notNull(),
-  idVenta: integer('Id_venta').notNull(),
+export const producto = pgTable('producto', {
+  id: serial('id').primaryKey().notNull(),
+  idProveedor: integer('id_proveedor'),
+  nombre: text('nombre').notNull(),
+  descripcion: text('descripcion'),
+  precioCompra: doublePrecision('precio_compra').notNull(),
+  precioVenta: doublePrecision('precio_venta').notNull(),
+  fecha: date('fecha').notNull(),
+  idShein: text('id_shein'),
+  precioEnCordobas: boolean('precio_en_cordobas').notNull().default(false),
+  cambioDolar: doublePrecision('cambio_dolar'),
 });
 
-export const categorias = pgTable('Categorias', {
-  id: serial('Id').primaryKey().notNull(),
-  nombre: varchar('Nombre', { length: 255 }).notNull(),
+export const tarea = pgTable('tarea', {
+  id: serial('id').primaryKey().notNull(),
+  tarea: varchar('tarea', { length: 255 }).notNull(),
+  fecha_entrega: date('fecha_entrega').notNull(),
+  estado: varchar('estado', { length: 255 }).notNull(),
 });
 
-export const productos = pgTable(
-  'Productos',
-  {
-    id: serial('Id').primaryKey().notNull(),
-    idProveedor: integer('Id_proveedor'),
-    nombre: text('Nombre').notNull(),
-    descripcion: text('Descripcion'),
-    precioCompra: doublePrecision('Precio_compra').notNull(),
-    precioVenta: doublePrecision('Precio_venta').notNull(),
-    idCategoria: integer('Id_categoria'),
-    fecha: date('Fecha').notNull(),
-    idShein: text('Id_shein'),
-    inventario: boolean('Inventario').notNull(),
-    precioEnCordobas: boolean('Precio_en_cordobas').notNull().default(false),
-    cambioDolar: doublePrecision('Cambio_dolar'),
-  },
-  (table) => [
-    foreignKey({
-      columns: [table.idCategoria],
-      foreignColumns: [categorias.id],
-      name: 'Productos_Id_categoria_fkey',
-    })
-      .onUpdate('cascade')
-      .onDelete('set null'),
-  ]
-);
-
-export const tareas = pgTable('Tareas', {
-  id: serial('Id').primaryKey().notNull(),
-  tarea: varchar('Tarea', { length: 255 }).notNull(),
-  fecha_entrega: date('Fecha_entrega').notNull(),
-  estado: varchar('Estado', { length: 255 }).notNull(),
-});
-
-// only in demo mode
-export const urls = pgTable('Urls', {
+export const url = pgTable('url', {
   id: text().primaryKey().notNull(),
   url: text(),
 });

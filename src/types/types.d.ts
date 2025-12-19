@@ -104,10 +104,8 @@ export interface ProductFormType {
   precioCompra: number;
   precioVenta: number;
   descripcion?: string | null;
-  idCategoria?: number | null;
   fecha: string;
   idShein?: string | null;
-  inventario: boolean;
   precioEnCordobas: boolean;
 }
 
@@ -176,6 +174,8 @@ export interface ReceiptFormType {
   fecha: string;
   abono: number;
   saldo: number;
+  cambioDolar: number;
+  enCordobas: boolean;
   concepto: string;
 }
 
@@ -189,6 +189,8 @@ export interface ReceiptById {
   fecha: string;
   abono: number;
   saldo: number;
+  cambioDolar: number;
+  enCordobas: boolean;
   concepto: string;
 }
 
@@ -255,11 +257,7 @@ export interface ClientById {
   nombre: string;
   apellido: string;
   telefono: string | null;
-  municipio: string | null;
-  departamento: string | null;
-  pais: string | null;
   direccion: string | null;
-  idUsuario: number | null;
   imagenUrl: string | null;
 }
 
@@ -268,9 +266,6 @@ export interface ProviderById {
   nombreEmpresa: string;
   nombreContacto: string | null;
   telefono: string | null;
-  municipio: string | null;
-  departamento: string | null;
-  pais: string | null;
   direccion: string | null;
   imagenUrl: string | null;
 }

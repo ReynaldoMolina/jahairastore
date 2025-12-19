@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/database/db';
-import { recibos } from '@/database/schema/schema';
+import { recibo } from '@/database/schema/schema';
 import { ReceiptFormType, ServerStatus } from '@/types/types';
 import { eq } from 'drizzle-orm';
 import {
@@ -23,12 +23,13 @@ export async function createReceipt(
 
   try {
     [returningId] = await db
-      .insert(recibos)
+      .insert(recibo)
       .values(data.values)
-      .returning({ id: recibos.id });
+      .returning({ id: recibo.id });
 
     return {
-      ...stateCreateSuccess,
+      success: true,
+      title: 'Se creó el recibo correctamente.',
       returningId: returningId.id,
     };
   } catch (error) {
@@ -48,9 +49,9 @@ export async function updateReceipt(
 ) {
   try {
     await db
-      .update(recibos)
+      .update(recibo)
       .set(data.values)
-      .where(eq(recibos.id, Number(data.id)));
+      .where(eq(recibo.id, Number(data.id)));
     return stateUpdateSuccess;
   } catch (error) {
     console.error(error);

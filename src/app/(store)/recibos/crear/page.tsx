@@ -3,6 +3,7 @@ import { CreateReceiptForm } from '@/components/forms/receipt/create';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
 import { getReceiptClientById } from '@/fetch-data/receipts';
+import { getSettingsCambioDolar } from '@/fetch-data/settings';
 import { PageProps } from '@/types/types';
 
 export const metadata = {
@@ -14,6 +15,7 @@ export default async function Page({ searchParams }: PageProps) {
 
   const { cliente } = await searchParams;
   const client = await getReceiptClientById(cliente);
+  const cambioDolar = await getSettingsCambioDolar();
 
   return (
     <>
@@ -22,6 +24,7 @@ export default async function Page({ searchParams }: PageProps) {
         <CreateReceiptForm
           searchParams={await searchParams}
           nombreCliente={client.nombreCliente}
+          cambioDolar={cambioDolar}
         />
       </PageWrapper>
     </>

@@ -13,6 +13,8 @@ interface FormInputOnChangeProps {
   textAddon?: string;
   handleChange: (value: string) => void;
   description?: string;
+  className?: string;
+  readOnly?: boolean;
 }
 
 export function FormInputOnChange({
@@ -21,6 +23,8 @@ export function FormInputOnChange({
   textAddon,
   handleChange,
   description,
+  className,
+  readOnly,
 }: FormInputOnChangeProps) {
   const [displayValue, setDisplayValue] = useState(String(value));
 
@@ -39,7 +43,7 @@ export function FormInputOnChange({
   return (
     <div className="flex flex-col w-full gap-3">
       <FieldLabel>{label}</FieldLabel>
-      <InputGroup>
+      <InputGroup className={className}>
         {textAddon && (
           <InputGroupAddon>
             <InputGroupText>{textAddon}</InputGroupText>
@@ -50,6 +54,8 @@ export function FormInputOnChange({
           placeholder={label}
           onChange={handleInputChange}
           onBlur={handleInputBlur}
+          className={readOnly ? 'opacity-50' : ''}
+          readOnly={readOnly}
         />
       </InputGroup>
       {description && <FieldDescription>{description}</FieldDescription>}

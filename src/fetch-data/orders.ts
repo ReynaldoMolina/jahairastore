@@ -1,10 +1,10 @@
 import { SearchParamsProps } from '@/types/types';
 import { getUrlParams } from './filter';
 import {
-  clientes,
-  pedidos,
-  pedidosDetalles,
-  recibos,
+  cliente,
+  pedido,
+  pedidoDetalle,
+  recibo,
 } from '@/database/schema/schema';
 import { and, eq, sql, desc } from 'drizzle-orm';
 import { db } from '@/database/db';
@@ -17,8 +17,8 @@ export async function getOrders(searchParams: SearchParamsProps) {
 
   const filterByState = state
     ? sql`ROUND(
-      COALESCE("Ventas"."total", 0)::numeric -
-      COALESCE("Abonos"."total", 0)::numeric,
+      COALESCE("ventas"."total", 0)::numeric -
+      COALESCE("abonos"."total", 0)::numeric,
       2
       )::double precision > 0`
     : undefined;
@@ -26,66 +26,66 @@ export async function getOrders(searchParams: SearchParamsProps) {
   try {
     const ventas = db
       .select({
-        idPedido: pedidosDetalles.idPedido,
+        idPedido: pedidoDetalle.idPedido,
         total:
-          sql<number>`SUM(${pedidosDetalles.precioVenta} * ${pedidosDetalles.cantidad})`.as(
+          sql<number>`SUM(${pedidoDetalle.precioVenta} * ${pedidoDetalle.cantidad})`.as(
             'total'
           ),
       })
-      .from(pedidosDetalles)
-      .groupBy(pedidosDetalles.idPedido)
-      .as('Ventas');
+      .from(pedidoDetalle)
+      .groupBy(pedidoDetalle.idPedido)
+      .as('ventas');
 
     const compras = db
       .select({
-        idPedido: pedidosDetalles.idPedido,
+        idPedido: pedidoDetalle.idPedido,
         total:
-          sql<number>`SUM(${pedidosDetalles.precioCompra} * ${pedidosDetalles.cantidad})`.as(
+          sql<number>`SUM(${pedidoDetalle.precioCompra} * ${pedidoDetalle.cantidad})`.as(
             'total'
           ),
       })
-      .from(pedidosDetalles)
-      .groupBy(pedidosDetalles.idPedido)
-      .as('Compras');
+      .from(pedidoDetalle)
+      .groupBy(pedidoDetalle.idPedido)
+      .as('compras');
 
     const abonos = db
       .select({
-        idPedido: recibos.idPedido,
-        total: sql<number>`SUM(${recibos.abono})`.as('total'),
+        idPedido: recibo.idPedido,
+        total: sql<number>`SUM(${recibo.abono})`.as('total'),
       })
-      .from(recibos)
-      .groupBy(recibos.idPedido)
-      .as('Abonos');
+      .from(recibo)
+      .groupBy(recibo.idPedido)
+      .as('abonos');
 
     const data = await db
       .select({
-        id: pedidos.id,
-        nombreCliente: sql<string>`${clientes.nombre} || ' ' || ${clientes.apellido}`,
-        imagenUrl: clientes.imagenUrl,
-        fecha: pedidos.fecha,
-        envio: pedidos.tipoEnvio,
-        total: sql<number>`COALESCE("Ventas"."total", 0)`,
-        abonos: sql<number>`COALESCE("Abonos"."total", 0)`,
-        saldo: sql<number>`COALESCE("Ventas"."total", 0) - COALESCE("Abonos"."total", 0)`,
-        ganancia: sql<number>`COALESCE("Ventas"."total", 0) - COALESCE("Compras"."total", 0)`,
+        id: pedido.id,
+        nombreCliente: sql<string>`${cliente.nombre} || ' ' || ${cliente.apellido}`,
+        imagenUrl: cliente.imagenUrl,
+        fecha: pedido.fecha,
+        envio: pedido.tipoEnvio,
+        total: sql<number>`COALESCE("ventas"."total", 0)`,
+        abonos: sql<number>`COALESCE("abonos"."total", 0)`,
+        saldo: sql<number>`COALESCE("ventas"."total", 0) - COALESCE("abonos"."total", 0)`,
+        ganancia: sql<number>`COALESCE("ventas"."total", 0) - COALESCE("compras"."total", 0)`,
       })
-      .from(pedidos)
-      .leftJoin(clientes, eq(pedidos.idCliente, clientes.id))
-      .leftJoin(ventas, eq(pedidos.id, ventas.idPedido))
-      .leftJoin(compras, eq(pedidos.id, compras.idPedido))
-      .leftJoin(abonos, eq(pedidos.id, abonos.idPedido))
+      .from(pedido)
+      .leftJoin(cliente, eq(pedido.idCliente, cliente.id))
+      .leftJoin(ventas, eq(pedido.id, ventas.idPedido))
+      .leftJoin(compras, eq(pedido.id, compras.idPedido))
+      .leftJoin(abonos, eq(pedido.id, abonos.idPedido))
       .where(and(filterBySearch, filterByState))
-      .orderBy(desc(pedidos.id))
+      .orderBy(desc(pedido.id))
       .limit(limit)
       .offset(offset);
 
     const [{ count }] = await db
       .select({ count: sql<number>`COUNT(*)` })
-      .from(pedidos)
-      .leftJoin(clientes, eq(pedidos.idCliente, clientes.id))
-      .leftJoin(ventas, eq(pedidos.id, ventas.idPedido))
-      .leftJoin(compras, eq(pedidos.id, compras.idPedido))
-      .leftJoin(abonos, eq(pedidos.id, abonos.idPedido))
+      .from(pedido)
+      .leftJoin(cliente, eq(pedido.idCliente, cliente.id))
+      .leftJoin(ventas, eq(pedido.id, ventas.idPedido))
+      .leftJoin(compras, eq(pedido.id, compras.idPedido))
+      .leftJoin(abonos, eq(pedido.id, abonos.idPedido))
       .where(and(filterBySearch, filterByState));
 
     const totalPages = Math.ceil(count / limit) || 1;
@@ -93,7 +93,7 @@ export async function getOrders(searchParams: SearchParamsProps) {
     return { data, query, totalPages };
   } catch (error) {
     console.error(error);
-    throw new Error('No se pudieron obtener los pedidos');
+    throw new Error('No se pudieron obtener los pedido');
   }
 }
 
@@ -101,36 +101,36 @@ export async function getOrderById(id: number | string) {
   try {
     const abonos = db
       .select({
-        idPedido: recibos.idPedido,
-        total: sql<number>`SUM(${recibos.abono})`.as('total'),
+        idPedido: recibo.idPedido,
+        total: sql<number>`SUM(${recibo.abono})`.as('total'),
       })
-      .from(recibos)
-      .groupBy(recibos.idPedido)
-      .as('Abonos');
+      .from(recibo)
+      .groupBy(recibo.idPedido)
+      .as('abonos');
 
     const [order] = await db
       .select({
-        id: pedidos.id,
-        idCliente: pedidos.idCliente,
-        fecha: pedidos.fecha,
-        nombreCliente: clientes.nombre,
-        telefono: clientes.telefono,
-        peso: pedidos.peso,
-        cambioDolar: pedidos.cambioDolar,
-        precioLibra: pedidos.precioLibra,
-        tipoEnvio: pedidos.tipoEnvio,
-        abonos: sql<number>`COALESCE("Abonos"."total", 0)`,
+        id: pedido.id,
+        idCliente: pedido.idCliente,
+        fecha: pedido.fecha,
+        nombreCliente: cliente.nombre,
+        telefono: cliente.telefono,
+        peso: pedido.peso,
+        cambioDolar: pedido.cambioDolar,
+        precioLibra: pedido.precioLibra,
+        tipoEnvio: pedido.tipoEnvio,
+        abonos: sql<number>`COALESCE("abonos"."total", 0)`,
       })
-      .from(pedidos)
-      .leftJoin(clientes, eq(pedidos.idCliente, clientes.id))
-      .leftJoin(abonos, eq(pedidos.id, abonos.idPedido))
-      .where(eq(pedidos.id, Number(id)));
+      .from(pedido)
+      .leftJoin(cliente, eq(pedido.idCliente, cliente.id))
+      .leftJoin(abonos, eq(pedido.id, abonos.idPedido))
+      .where(eq(pedido.id, Number(id)));
 
     const detail = await db
       .select()
-      .from(pedidosDetalles)
-      .where(eq(pedidosDetalles.idPedido, Number(id)))
-      .orderBy(desc(pedidosDetalles.id));
+      .from(pedidoDetalle)
+      .where(eq(pedidoDetalle.idPedido, Number(id)))
+      .orderBy(desc(pedidoDetalle.id));
 
     return {
       ...order,

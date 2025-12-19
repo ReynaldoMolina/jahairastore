@@ -35,6 +35,8 @@ export function EditReceiptForm({ receipt }: EditReceiptForm) {
       fecha: receipt.fecha,
       abono: receipt.abono,
       saldo: receipt.saldo,
+      cambioDolar: receipt.cambioDolar,
+      enCordobas: receipt.enCordobas,
       concepto: receipt.concepto,
     },
   });

@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/database/db';
-import { pedidosDetalles } from '@/database/schema/schema';
+import { pedidoDetalle } from '@/database/schema/schema';
 import {
   stateCreateError,
   stateDeleteError,
@@ -21,11 +21,11 @@ export async function createOrderDetail(
   data: CreateOrderDetail
 ) {
   try {
-    await db.insert(pedidosDetalles).values(data.values);
+    await db.insert(pedidoDetalle).values(data.values);
 
     return {
       success: true,
-      title: 'Se agregó el producto a la lista.',
+      title: 'Se agregó el producto correctamente.',
     };
   } catch (error) {
     console.error(error);
@@ -44,9 +44,9 @@ export async function updateOrderDetail(
 ) {
   try {
     await db
-      .update(pedidosDetalles)
+      .update(pedidoDetalle)
       .set(data.values)
-      .where(eq(pedidosDetalles.id, Number(data.id)));
+      .where(eq(pedidoDetalle.id, Number(data.id)));
     return stateUpdateSuccess;
   } catch (error) {
     console.error(error);
@@ -63,9 +63,7 @@ export async function deleteOrderDetail(
   data: DeleteOrderDetail
 ) {
   try {
-    await db
-      .delete(pedidosDetalles)
-      .where(eq(pedidosDetalles.id, Number(data.id)));
+    await db.delete(pedidoDetalle).where(eq(pedidoDetalle.id, Number(data.id)));
     return {
       ...stateDeleteSuccess,
       title: `Se eliminó el producto ${data.id}.`,

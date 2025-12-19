@@ -24,12 +24,9 @@ export function EditProviderForm({ provider }: EditProviderForm) {
     defaultValues: {
       nombreEmpresa: provider.nombreEmpresa,
       nombreContacto: provider.nombreContacto,
-      telefono: provider.telefono || '',
-      municipio: provider.municipio,
-      departamento: provider.departamento,
-      pais: provider.pais,
-      direccion: provider.direccion,
       imagenUrl: provider.imagenUrl || '',
+      telefono: provider.telefono || '',
+      direccion: provider.direccion,
     },
   });
 

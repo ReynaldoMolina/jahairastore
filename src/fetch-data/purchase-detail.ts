@@ -1,7 +1,7 @@
 import {
-  comprasDetalles,
-  productos,
-  ventasDetalles,
+  compraDetalle,
+  producto,
+  ventaDetalle,
 } from '@/database/schema/schema';
 import { eq, sql } from 'drizzle-orm';
 import { db } from '@/database/db';
@@ -10,42 +10,42 @@ export async function getPurchaseDetailById(id: number | string) {
   try {
     const compras = db
       .select({
-        idProducto: comprasDetalles.idProducto,
-        cantidad: sql<number>`SUM(${comprasDetalles.cantidad})`.as('cantidad'),
+        idProducto: compraDetalle.idProducto,
+        cantidad: sql<number>`SUM(${compraDetalle.cantidad})`.as('cantidad'),
       })
-      .from(comprasDetalles)
-      .groupBy(comprasDetalles.idProducto)
-      .as('Compras');
+      .from(compraDetalle)
+      .groupBy(compraDetalle.idProducto)
+      .as('compras');
 
     const ventas = db
       .select({
-        idProducto: ventasDetalles.idProducto,
-        cantidad: sql<number>`SUM(${ventasDetalles.cantidad})`.as('cantidad'),
+        idProducto: ventaDetalle.idProducto,
+        cantidad: sql<number>`SUM(${ventaDetalle.cantidad})`.as('cantidad'),
       })
-      .from(ventasDetalles)
-      .groupBy(ventasDetalles.idProducto)
-      .as('Ventas');
+      .from(ventaDetalle)
+      .groupBy(ventaDetalle.idProducto)
+      .as('ventas');
 
     const [detail] = await db
       .select({
-        id: comprasDetalles.id,
-        idProducto: comprasDetalles.idProducto,
-        nombreProducto: productos.nombre,
-        precioEnCordobas: productos.precioEnCordobas,
-        precioVenta: comprasDetalles.precioVenta,
-        precioCompra: comprasDetalles.precioCompra,
-        cantidad: comprasDetalles.cantidad,
-        cambioDolar: comprasDetalles.cambioDolar,
-        idCompra: comprasDetalles.idCompra,
+        id: compraDetalle.id,
+        idProducto: compraDetalle.idProducto,
+        nombreProducto: producto.nombre,
+        precioEnCordobas: producto.precioEnCordobas,
+        precioVenta: compraDetalle.precioVenta,
+        precioCompra: compraDetalle.precioCompra,
+        cantidad: compraDetalle.cantidad,
+        cambioDolar: compraDetalle.cambioDolar,
+        idCompra: compraDetalle.idCompra,
         existencias: sql<number>`
-          (COALESCE("Compras"."cantidad", 0) - COALESCE("Ventas"."cantidad", 0))::integer
+          (COALESCE("compras"."cantidad", 0) - COALESCE("ventas"."cantidad", 0))::integer
         `,
       })
-      .from(comprasDetalles)
-      .leftJoin(productos, eq(comprasDetalles.idProducto, productos.id))
-      .leftJoin(compras, eq(compras.idProducto, comprasDetalles.idProducto))
-      .leftJoin(ventas, eq(ventas.idProducto, comprasDetalles.idProducto))
-      .where(eq(comprasDetalles.id, Number(id)));
+      .from(compraDetalle)
+      .leftJoin(producto, eq(compraDetalle.idProducto, producto.id))
+      .leftJoin(compras, eq(compras.idProducto, compraDetalle.idProducto))
+      .leftJoin(ventas, eq(ventas.idProducto, compraDetalle.idProducto))
+      .where(eq(compraDetalle.id, Number(id)));
 
     return detail;
   } catch (error) {

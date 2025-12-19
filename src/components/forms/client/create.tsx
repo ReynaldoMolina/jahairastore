@@ -21,11 +21,7 @@ export function CreateClientForm() {
       nombre: '',
       apellido: '',
       telefono: '',
-      municipio: 'León',
-      departamento: null,
-      pais: null,
       direccion: '',
-      idUsuario: null,
       imagenUrl: '',
     },
   });

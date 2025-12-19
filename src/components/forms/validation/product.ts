@@ -7,10 +7,8 @@ export const productSchema = z.object({
   descripcion: z.string().nullable(),
   precioCompra: zNumberMin(),
   precioVenta: zNumberMin(),
-  idCategoria: z.number().nullable(),
   fecha: z.string().nullable(),
   idShein: z.string().nullable(),
-  inventario: z.boolean(),
-  cambioDolar: zNumberMin(),
   precioEnCordobas: z.boolean(),
+  cambioDolar: zNumberMin(),
 });

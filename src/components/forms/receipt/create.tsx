@@ -24,11 +24,13 @@ import { ReceiptForm } from './form';
 interface CreateReceiptForm {
   searchParams: SearchParamsProps;
   nombreCliente: string;
+  cambioDolar: number;
 }
 
 export function CreateReceiptForm({
   searchParams,
   nombreCliente,
+  cambioDolar,
 }: CreateReceiptForm) {
   const currentDate = getCurrentDate();
   const idPedido = Number(searchParams?.pedido) || 0;
@@ -44,6 +46,8 @@ export function CreateReceiptForm({
       fecha: currentDate,
       abono: abono,
       saldo: saldoInicial - abono,
+      cambioDolar: cambioDolar,
+      enCordobas: false,
       concepto: '',
     },
   });

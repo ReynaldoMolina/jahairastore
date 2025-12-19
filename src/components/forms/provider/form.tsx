@@ -1,6 +1,6 @@
 'use client';
 
-import { FieldGroup, FieldSet } from '../../ui/field';
+import { FieldGroup, FieldSeparator, FieldSet } from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
 import { FormInput } from '@/components/form-elements/form-input';
@@ -21,37 +21,18 @@ export function ProviderForm({ form }: ProviderForm) {
           name="nombreEmpresa"
           label="Nombre empresa"
         />
+      </FieldSet>
+      <FieldSet className="sm:flex-row">
         <FormInput
           control={form.control}
           name="nombreContacto"
           label="Contacto"
         />
-      </FieldSet>
-      <FieldSet className="flex-row gap-3 md:gap-6">
         <FormInput
           control={form.control}
           name="telefono"
           label="Teléfono"
           textAddon="+505"
-        />
-        <FormSelect
-          control={form.control}
-          name="municipio"
-          label="Municipio"
-          options={[
-            {
-              value: 'León',
-              label: 'León',
-            },
-            {
-              value: 'Managua',
-              label: 'Managua',
-            },
-            {
-              value: 'Acoyapa',
-              label: 'Acoyapa',
-            },
-          ]}
         />
       </FieldSet>
       <FieldSet>
@@ -60,8 +41,9 @@ export function ProviderForm({ form }: ProviderForm) {
           name="direccion"
           label="Dirección"
         />
-        <FormInput control={form.control} name="imagenUrl" label="Foto (url)" />
       </FieldSet>
+      <FieldSeparator />
+      <FormInput control={form.control} name="imagenUrl" label="Foto (url)" />
     </FieldGroup>
   );
 }

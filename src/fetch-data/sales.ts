@@ -1,10 +1,10 @@
 import { db } from '@/database/db';
 import {
-  clientes,
-  configuracion,
-  productos,
-  ventas,
-  ventasDetalles,
+  cliente,
+  ajustes,
+  producto,
+  venta,
+  ventaDetalle,
 } from '@/database/schema/schema';
 import { SearchParamsProps } from '@/types/types';
 import { desc, eq, sql, and, gt, asc } from 'drizzle-orm';
@@ -18,61 +18,61 @@ export async function getSales(searchParams: SearchParamsProps) {
   const filterBySearch = buildSearchFilterByClient(searchParams);
 
   const filterByState = state
-    ? gt(sql<number>`ROUND(${ventas.saldo}::numeric, 2)::float`, 0.01)
+    ? gt(sql<number>`ROUND(${venta.saldo}::numeric, 2)::float`, 0.01)
     : undefined;
 
   try {
     const ventasTotal = db
       .select({
-        idVenta: ventasDetalles.idVenta,
+        idVenta: ventaDetalle.idVenta,
         total:
-          sql<number>`SUM(${ventasDetalles.precioVenta} * ${ventasDetalles.cantidad} * ${ventasDetalles.cambioDolar})`.as(
+          sql<number>`SUM(${ventaDetalle.precioVenta} * ${ventaDetalle.cantidad} * ${ventaDetalle.cambioDolar})`.as(
             'total'
           ),
       })
-      .from(ventasDetalles)
-      .groupBy(ventasDetalles.idVenta)
-      .as('VentasTotal');
+      .from(ventaDetalle)
+      .groupBy(ventaDetalle.idVenta)
+      .as('ventas');
 
     const compras = db
       .select({
-        idVenta: ventasDetalles.idVenta,
+        idVenta: ventaDetalle.idVenta,
         total:
-          sql<number>`SUM(${ventasDetalles.precioCompra} * ${ventasDetalles.cantidad} * ${ventasDetalles.cambioDolar})`.as(
+          sql<number>`SUM(${ventaDetalle.precioCompra} * ${ventaDetalle.cantidad} * ${ventaDetalle.cambioDolar})`.as(
             'total'
           ),
       })
-      .from(ventasDetalles)
-      .groupBy(ventasDetalles.idVenta)
-      .as('Compras');
+      .from(ventaDetalle)
+      .groupBy(ventaDetalle.idVenta)
+      .as('compras');
 
     const data = await db
       .select({
-        id: ventas.id,
-        nombreCliente: sql<string>`${clientes.nombre} || ' ' || ${clientes.apellido}`,
-        imagenUrl: clientes.imagenUrl,
-        abono: ventas.abono,
-        fecha: ventas.fecha,
-        credito: ventas.credito,
-        total: sql<number>`COALESCE("VentasTotal"."total", 0)`,
-        saldo: sql<number>`COALESCE(${ventas.saldo}, 0)`,
-        ganancia: sql<number>`COALESCE("VentasTotal"."total", 0) - COALESCE("Compras"."total", 0)`,
+        id: venta.id,
+        nombreCliente: sql<string>`${cliente.nombre} || ' ' || ${cliente.apellido}`,
+        imagenUrl: cliente.imagenUrl,
+        abono: venta.abono,
+        fecha: venta.fecha,
+        credito: venta.credito,
+        total: sql<number>`COALESCE("ventas"."total", 0)`,
+        saldo: sql<number>`COALESCE(${venta.saldo}, 0)`,
+        ganancia: sql<number>`COALESCE("ventas"."total", 0) - COALESCE("compras"."total", 0)`,
       })
-      .from(ventas)
-      .leftJoin(clientes, eq(ventas.idCliente, clientes.id))
-      .leftJoin(ventasTotal, eq(ventas.id, ventasTotal.idVenta))
-      .leftJoin(compras, eq(ventas.id, compras.idVenta))
+      .from(venta)
+      .leftJoin(cliente, eq(venta.idCliente, cliente.id))
+      .leftJoin(ventasTotal, eq(venta.id, ventasTotal.idVenta))
+      .leftJoin(compras, eq(venta.id, compras.idVenta))
       .where(and(filterBySearch, filterByState))
-      .orderBy(desc(ventas.id))
+      .orderBy(desc(venta.id))
       .limit(limit)
       .offset(offset);
 
     const [{ count }] = await db
       .select({ count: sql<number>`COUNT(*)` })
-      .from(ventas)
-      .leftJoin(clientes, eq(ventas.idCliente, clientes.id))
-      .leftJoin(ventasTotal, eq(ventas.id, ventasTotal.idVenta))
-      .leftJoin(compras, eq(ventas.id, compras.idVenta))
+      .from(venta)
+      .leftJoin(cliente, eq(venta.idCliente, cliente.id))
+      .leftJoin(ventasTotal, eq(venta.id, ventasTotal.idVenta))
+      .leftJoin(compras, eq(venta.id, compras.idVenta))
       .where(and(filterBySearch, filterByState));
 
     const totalPages = Math.ceil(count / limit) || 1;
@@ -88,44 +88,44 @@ export async function getSaleById(id: number | string) {
   try {
     const [businessInfo] = await db
       .select({
-        nombreEmpresa: configuracion.nombreEmpresa,
-        eslogan: configuracion.eslogan,
+        nombreEmpresa: ajustes.nombreEmpresa,
+        eslogan: ajustes.eslogan,
       })
-      .from(configuracion)
-      .where(eq(configuracion.id, Number(1)));
+      .from(ajustes)
+      .where(eq(ajustes.id, Number(1)));
 
     const [sale] = await db
       .select({
-        id: ventas.id,
-        idCliente: ventas.idCliente,
-        nombreCliente: clientes.nombre,
-        apellidoCliente: clientes.apellido,
-        telefono: clientes.telefono,
-        fecha: ventas.fecha,
-        abono: ventas.abono,
-        credito: ventas.credito,
-        saldo: ventas.saldo,
-        cambioDolar: ventas.cambioDolar,
+        id: venta.id,
+        idCliente: venta.idCliente,
+        nombreCliente: cliente.nombre,
+        apellidoCliente: cliente.apellido,
+        telefono: cliente.telefono,
+        fecha: venta.fecha,
+        abono: venta.abono,
+        credito: venta.credito,
+        saldo: venta.saldo,
+        cambioDolar: venta.cambioDolar,
       })
-      .from(ventas)
-      .leftJoin(clientes, eq(ventas.idCliente, clientes.id))
-      .where(eq(ventas.id, Number(id)));
+      .from(venta)
+      .leftJoin(cliente, eq(venta.idCliente, cliente.id))
+      .where(eq(venta.id, Number(id)));
 
     const detail = await db
       .select({
-        id: ventasDetalles.id,
-        idProducto: ventasDetalles.idProducto,
-        nombre: productos.nombre,
-        precioVenta: ventasDetalles.precioVenta,
-        precioCompra: ventasDetalles.precioCompra,
-        cantidad: ventasDetalles.cantidad,
-        cambioDolar: ventasDetalles.cambioDolar,
-        idVenta: ventasDetalles.idVenta,
+        id: ventaDetalle.id,
+        idProducto: ventaDetalle.idProducto,
+        nombre: producto.nombre,
+        precioVenta: ventaDetalle.precioVenta,
+        precioCompra: ventaDetalle.precioCompra,
+        cantidad: ventaDetalle.cantidad,
+        cambioDolar: ventaDetalle.cambioDolar,
+        idVenta: ventaDetalle.idVenta,
       })
-      .from(ventasDetalles)
-      .leftJoin(productos, eq(ventasDetalles.idProducto, productos.id))
-      .where(eq(ventasDetalles.idVenta, Number(id)))
-      .orderBy(desc(ventasDetalles.id));
+      .from(ventaDetalle)
+      .leftJoin(producto, eq(ventaDetalle.idProducto, producto.id))
+      .where(eq(ventaDetalle.idVenta, Number(id)))
+      .orderBy(desc(ventaDetalle.id));
 
     return {
       ...businessInfo,
@@ -164,33 +164,33 @@ export async function getSaleReceiptPdf(id: number | string | undefined) {
 
     const [sale]: ReciboVenta[] = await db
       .select({
-        id: ventas.id,
-        idCliente: ventas.idCliente,
-        fecha: ventas.fecha,
-        abono: ventas.abono,
-        credito: ventas.credito,
-        saldo: ventas.saldo,
-        nombreCliente: clientes.nombre,
-        apellidoCliente: clientes.apellido,
+        id: venta.id,
+        idCliente: venta.idCliente,
+        fecha: venta.fecha,
+        abono: venta.abono,
+        credito: venta.credito,
+        saldo: venta.saldo,
+        nombreCliente: cliente.nombre,
+        apellidoCliente: cliente.apellido,
       })
-      .from(ventas)
-      .leftJoin(clientes, eq(ventas.idCliente, clientes.id))
-      .where(eq(ventas.id, Number(id)))
-      .groupBy(clientes.id, ventas.id);
+      .from(venta)
+      .leftJoin(cliente, eq(venta.idCliente, cliente.id))
+      .where(eq(venta.id, Number(id)))
+      .groupBy(cliente.id, venta.id);
 
     const saledetail: ReciboVentaDetalle[] = await db
       .select({
-        id: ventasDetalles.id,
-        precioVenta: ventasDetalles.precioVenta,
-        cantidad: ventasDetalles.cantidad,
-        nombreProducto: productos.nombre,
-        cambioDolar: ventasDetalles.cambioDolar,
+        id: ventaDetalle.id,
+        precioVenta: ventaDetalle.precioVenta,
+        cantidad: ventaDetalle.cantidad,
+        nombreProducto: producto.nombre,
+        cambioDolar: ventaDetalle.cambioDolar,
       })
-      .from(ventasDetalles)
-      .leftJoin(productos, eq(ventasDetalles.idProducto, productos.id))
-      .where(eq(ventasDetalles.idVenta, Number(sale.id)))
-      .groupBy(ventasDetalles.id, productos.nombre)
-      .orderBy(asc(productos.nombre));
+      .from(ventaDetalle)
+      .leftJoin(producto, eq(ventaDetalle.idProducto, producto.id))
+      .where(eq(ventaDetalle.idVenta, Number(sale.id)))
+      .groupBy(ventaDetalle.id, producto.nombre)
+      .orderBy(asc(producto.nombre));
 
     return {
       ...businessInfo,

@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/database/db';
-import { clientes, proveedores } from '@/database/schema/schema';
+import { cliente, proveedor } from '@/database/schema/schema';
 import { ClientById, ServerStatus } from '@/types/types';
 import { eq } from 'drizzle-orm';
 import {
@@ -23,12 +23,13 @@ export async function createClient(
 
   try {
     [returningId] = await db
-      .insert(clientes)
+      .insert(cliente)
       .values(data.values)
-      .returning({ id: proveedores.id });
+      .returning({ id: proveedor.id });
 
     return {
-      ...stateCreateSuccess,
+      success: true,
+      title: 'Se creó el cliente correctamente.',
       returningId: returningId.id,
     };
   } catch (error) {
@@ -48,9 +49,9 @@ export async function updateClient(
 ) {
   try {
     await db
-      .update(clientes)
+      .update(cliente)
       .set(data.values)
-      .where(eq(clientes.id, Number(data.id)));
+      .where(eq(cliente.id, Number(data.id)));
     return stateUpdateSuccess;
   } catch (error) {
     console.error(error);

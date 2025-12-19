@@ -91,17 +91,11 @@ export function Orders({ data, query, totalPages }: Orders) {
                         <Calendar />
                         {formatDate(register.fecha)}
                       </Badge>
-                      <Badge variant="outline">
-                        {register.envio ? (
-                          register.envio === 'maritimo' ? (
-                            <Ship />
-                          ) : (
-                            <Plane />
-                          )
-                        ) : (
-                          <CircleQuestionMark />
-                        )}
-                      </Badge>
+                      {register.envio === 'aereo' && (
+                        <Badge variant="outline">
+                          <Plane />
+                        </Badge>
+                      )}
                     </CardDescription>
                   </div>
                 </CardHeader>
@@ -162,10 +156,9 @@ export function Orders({ data, query, totalPages }: Orders) {
           <TableRow>
             <TableHead className="w-full">Cliente</TableHead>
             <TableHead>Id</TableHead>
-            <TableHead>Envío</TableHead>
             <TableHead>Fecha</TableHead>
             <TableHead>Total</TableHead>
-            <TableHead>Abonos</TableHead>
+            <TableHead>Abono</TableHead>
             <TableHead>Saldo</TableHead>
             <TableHead>Ganancia</TableHead>
           </TableRow>
@@ -187,25 +180,17 @@ export function Orders({ data, query, totalPages }: Orders) {
                       </AvatarFallback>
                     </Avatar>
                     <span>{register.nombreCliente}</span>
+                    {register.envio === 'aereo' && (
+                      <Badge variant="outline">
+                        <Plane />
+                      </Badge>
+                    )}
                   </div>
                 </TableCell>
                 <TableCell>
                   <Badge variant="outline" className="w-full">
                     <Hash />
                     {register.id}
-                  </Badge>
-                </TableCell>
-                <TableCell>
-                  <Badge variant="outline">
-                    {register.envio ? (
-                      register.envio === 'maritimo' ? (
-                        <Ship />
-                      ) : (
-                        <Plane />
-                      )
-                    ) : (
-                      <CircleQuestionMark />
-                    )}
                   </Badge>
                 </TableCell>
                 <TableCell>
@@ -239,7 +224,6 @@ export function Orders({ data, query, totalPages }: Orders) {
             <TableCell>
               <Badge variant="outline">Conteo: {data.length}</Badge>
             </TableCell>
-            <TableCell></TableCell>
             <TableCell></TableCell>
             <TableCell></TableCell>
             <TableCell>

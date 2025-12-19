@@ -67,7 +67,7 @@ export function OrderDetailForm({
         />
       </FieldSet>
 
-      <FieldSet className="flex-row gap-3 md:gap-6 items-end">
+      <FieldSet className="sm:flex-row">
         <ButtonGroup
           aria-label="Media controls"
           className="h-fit items-end w-full"
@@ -102,9 +102,9 @@ export function OrderDetailForm({
             <PlusIcon />
           </Button>
         </ButtonGroup>
-      </FieldSet>
 
-      <FormInput control={form.control} name="imagenUrl" label="Foto (url)" />
+        <FormInput control={form.control} name="imagenUrl" label="Foto (url)" />
+      </FieldSet>
 
       {isNew && (
         <FieldSet>

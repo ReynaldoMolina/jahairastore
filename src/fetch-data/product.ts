@@ -1,8 +1,8 @@
 import { db } from '@/database/db';
 import {
-  comprasDetalles,
-  productos,
-  ventasDetalles,
+  compraDetalle,
+  producto,
+  ventaDetalle,
 } from '@/database/schema/schema';
 import { SearchParamsProps } from '@/types/types';
 import { desc, eq, sql, and } from 'drizzle-orm';
@@ -12,65 +12,65 @@ import { buildSearchFilter } from './build-by-search';
 export async function getProducts(searchParams: SearchParamsProps) {
   const { query, state, limit, offset } = getUrlParams(searchParams);
 
-  const filterBySearch = buildSearchFilter(searchParams, [productos.nombre]);
+  const filterBySearch = buildSearchFilter(searchParams, [producto.nombre]);
 
   const filterByState = state
     ? sql`(
-      COALESCE("Compras"."cantidad", 0) - COALESCE("Ventas"."cantidad", 0) > 0)`
+      COALESCE("compras"."cantidad", 0) - COALESCE("ventas"."cantidad", 0) > 0)`
     : undefined;
 
   try {
     const compras = db
       .select({
-        idProducto: comprasDetalles.idProducto,
-        cantidad: sql<number>`SUM(${comprasDetalles.cantidad})`.as('cantidad'),
+        idProducto: compraDetalle.idProducto,
+        cantidad: sql<number>`SUM(${compraDetalle.cantidad})`.as('cantidad'),
       })
-      .from(comprasDetalles)
-      .groupBy(comprasDetalles.idProducto)
-      .as('Compras');
+      .from(compraDetalle)
+      .groupBy(compraDetalle.idProducto)
+      .as('compras');
 
     const ventas = db
       .select({
-        idProducto: ventasDetalles.idProducto,
-        cantidad: sql<number>`SUM(${ventasDetalles.cantidad})`.as('cantidad'),
+        idProducto: ventaDetalle.idProducto,
+        cantidad: sql<number>`SUM(${ventaDetalle.cantidad})`.as('cantidad'),
       })
-      .from(ventasDetalles)
-      .groupBy(ventasDetalles.idProducto)
-      .as('Ventas');
+      .from(ventaDetalle)
+      .groupBy(ventaDetalle.idProducto)
+      .as('ventas');
 
     const data = await db
       .select({
-        id: productos.id,
-        nombre: productos.nombre,
-        idShein: productos.idShein,
-        precioEnCordobas: productos.precioEnCordobas,
-        cambioDolar: productos.cambioDolar,
-        precioCompra: productos.precioCompra,
-        precioVenta: productos.precioVenta,
-        gananciaUnidad: sql<number>`${productos.precioVenta} - ${productos.precioCompra}`,
+        id: producto.id,
+        nombre: producto.nombre,
+        idShein: producto.idShein,
+        precioEnCordobas: producto.precioEnCordobas,
+        cambioDolar: producto.cambioDolar,
+        precioCompra: producto.precioCompra,
+        precioVenta: producto.precioVenta,
+        gananciaUnidad: sql<number>`${producto.precioVenta} - ${producto.precioCompra}`,
         existencias: sql<number>`
-          (COALESCE("Compras"."cantidad", 0)
-          - COALESCE("Ventas"."cantidad", 0))::integer
+          (COALESCE("compras"."cantidad", 0)
+          - COALESCE("ventas"."cantidad", 0))::integer
         `,
         gananciaExistencias: sql<number>`
           (
-            (COALESCE("Compras"."cantidad", 0) - COALESCE("Ventas"."cantidad", 0))
-            * (${productos.precioVenta} - ${productos.precioCompra})
+            (COALESCE("compras"."cantidad", 0) - COALESCE("ventas"."cantidad", 0))
+            * (${producto.precioVenta} - ${producto.precioCompra})
           )`,
       })
-      .from(productos)
-      .leftJoin(compras, eq(productos.id, compras.idProducto))
-      .leftJoin(ventas, eq(productos.id, ventas.idProducto))
+      .from(producto)
+      .leftJoin(compras, eq(producto.id, compras.idProducto))
+      .leftJoin(ventas, eq(producto.id, ventas.idProducto))
       .where(and(filterBySearch, filterByState))
       .limit(limit)
       .offset(offset)
-      .orderBy(desc(productos.id));
+      .orderBy(desc(producto.id));
 
     const [{ count }] = await db
       .select({ count: sql<number>`count(*)` })
-      .from(productos)
-      .leftJoin(compras, eq(productos.id, compras.idProducto))
-      .leftJoin(ventas, eq(productos.id, ventas.idProducto))
+      .from(producto)
+      .leftJoin(compras, eq(producto.id, compras.idProducto))
+      .leftJoin(ventas, eq(producto.id, ventas.idProducto))
       .where(and(filterBySearch, filterByState));
 
     const totalPages = Math.ceil(count / limit) || 1;
@@ -78,7 +78,7 @@ export async function getProducts(searchParams: SearchParamsProps) {
     return { data, query, totalPages };
   } catch (error) {
     console.error(error);
-    throw new Error('No se pudieron obtener los productos');
+    throw new Error('No se pudieron obtener los producto');
   }
 }
 
@@ -86,8 +86,8 @@ export async function getProductById(id: number | string) {
   try {
     const [data] = await db
       .select()
-      .from(productos)
-      .where(eq(productos.id, Number(id)));
+      .from(producto)
+      .where(eq(producto.id, Number(id)));
     return data;
   } catch (error) {
     throw new Error('No se pudo obtener el producto.');
@@ -97,58 +97,58 @@ export async function getProductById(id: number | string) {
 export async function getProductsSearchList(searchParams: SearchParamsProps) {
   const { query, state, limit, offset } = getUrlParams(searchParams);
 
-  const filterBySearch = buildSearchFilter(searchParams, [productos.nombre]);
+  const filterBySearch = buildSearchFilter(searchParams, [producto.nombre]);
 
   const filterByState = state
     ? sql`(
-      COALESCE("ComprasTotales"."cantidad", 0) - COALESCE("VentasTotales"."cantidad", 0) > 0)`
+      COALESCE("compras_totales"."cantidad", 0) - COALESCE("ventas_totales"."cantidad", 0) > 0)`
     : undefined;
 
   try {
     const compras = db
       .select({
-        idProducto: comprasDetalles.idProducto,
-        cantidad: sql<number>`SUM(${comprasDetalles.cantidad})`.as('cantidad'),
+        idProducto: compraDetalle.idProducto,
+        cantidad: sql<number>`SUM(${compraDetalle.cantidad})`.as('cantidad'),
       })
-      .from(comprasDetalles)
-      .groupBy(comprasDetalles.idProducto)
-      .as('ComprasTotales');
+      .from(compraDetalle)
+      .groupBy(compraDetalle.idProducto)
+      .as('compras_totales');
 
     const ventas = db
       .select({
-        idProducto: ventasDetalles.idProducto,
-        cantidad: sql<number>`SUM(${ventasDetalles.cantidad})`.as('cantidad'),
+        idProducto: ventaDetalle.idProducto,
+        cantidad: sql<number>`SUM(${ventaDetalle.cantidad})`.as('cantidad'),
       })
-      .from(ventasDetalles)
-      .groupBy(ventasDetalles.idProducto)
-      .as('VentasTotales');
+      .from(ventaDetalle)
+      .groupBy(ventaDetalle.idProducto)
+      .as('ventas_totales');
 
     const products = await db
       .select({
-        id: productos.id,
-        nombre: productos.nombre,
-        idShein: productos.idShein,
-        precioCompra: productos.precioCompra,
-        precioVenta: productos.precioVenta,
-        cambioDolar: productos.cambioDolar,
+        id: producto.id,
+        nombre: producto.nombre,
+        idShein: producto.idShein,
+        precioCompra: producto.precioCompra,
+        precioVenta: producto.precioVenta,
+        cambioDolar: producto.cambioDolar,
         existencias: sql<number>`
-          (COALESCE("ComprasTotales"."cantidad", 0) - COALESCE("VentasTotales"."cantidad", 0))::integer
+          (COALESCE("compras_totales"."cantidad", 0) - COALESCE("ventas_totales"."cantidad", 0))::integer
         `,
-        precioEnCordobas: productos.precioEnCordobas,
+        precioEnCordobas: producto.precioEnCordobas,
       })
-      .from(productos)
-      .leftJoin(compras, eq(compras.idProducto, productos.id))
-      .leftJoin(ventas, eq(ventas.idProducto, productos.id))
+      .from(producto)
+      .leftJoin(compras, eq(compras.idProducto, producto.id))
+      .leftJoin(ventas, eq(ventas.idProducto, producto.id))
       .where(and(filterBySearch, filterByState))
-      .orderBy(desc(productos.id))
+      .orderBy(desc(producto.id))
       .limit(limit)
       .offset(offset);
 
     const [{ count }] = await db
       .select({ count: sql<number>`COUNT(*)` })
-      .from(productos)
-      .leftJoin(compras, eq(compras.idProducto, productos.id))
-      .leftJoin(ventas, eq(ventas.idProducto, productos.id))
+      .from(producto)
+      .leftJoin(compras, eq(compras.idProducto, producto.id))
+      .leftJoin(ventas, eq(ventas.idProducto, producto.id))
       .where(and(filterBySearch, filterByState));
 
     const totalPages = Math.ceil(count / limit) || 1;
@@ -156,6 +156,6 @@ export async function getProductsSearchList(searchParams: SearchParamsProps) {
     return { products, query, totalPages };
   } catch (error) {
     console.error(error);
-    throw new Error('No se pudieron obtener los productos.');
+    throw new Error('No se pudieron obtener los producto.');
   }
 }

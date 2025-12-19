@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/database/db';
-import { pedidos, ventas } from '@/database/schema/schema';
+import { pedido } from '@/database/schema/schema';
 import {
   stateCreateError,
   stateCreateSuccess,
@@ -20,12 +20,13 @@ export async function createOrder(prevState: ServerStatus, data: CreateOrder) {
 
   try {
     [returningId] = await db
-      .insert(pedidos)
+      .insert(pedido)
       .values(data.values)
-      .returning({ id: pedidos.id });
+      .returning({ id: pedido.id });
 
     return {
-      ...stateCreateSuccess,
+      success: true,
+      title: 'Se creó el pedido correctamente.',
       returningId: returningId.id,
     };
   } catch (error) {
@@ -42,9 +43,9 @@ interface UpdateOrder {
 export async function updateOrder(prevState: ServerStatus, data: UpdateOrder) {
   try {
     await db
-      .update(pedidos)
+      .update(pedido)
       .set(data.values)
-      .where(eq(pedidos.id, Number(data.id)));
+      .where(eq(pedido.id, Number(data.id)));
     return stateUpdateSuccess;
   } catch (error) {
     console.error(error);

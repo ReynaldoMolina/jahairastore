@@ -7,7 +7,7 @@ export const stateDefault: ServerStatus = {
 
 export const stateCreateSuccess: ServerStatus = {
   success: true,
-  title: 'Se creó el registro.',
+  title: 'Se creó el registro correctamtente.',
 };
 
 export const stateCreateError: ServerStatus = {
@@ -17,7 +17,7 @@ export const stateCreateError: ServerStatus = {
 
 export const stateUpdateSuccess: ServerStatus = {
   success: true,
-  title: 'Cambios guardados.',
+  title: 'Cambios guardados correctamente.',
 };
 
 export const stateUpdateError: ServerStatus = {
@@ -27,7 +27,7 @@ export const stateUpdateError: ServerStatus = {
 
 export const stateDeleteSuccess: ServerStatus = {
   success: true,
-  title: 'Se eliminó el registro.',
+  title: 'Se eliminó el registro correctamtente.',
 };
 
 export const stateDeleteError: ServerStatus = {

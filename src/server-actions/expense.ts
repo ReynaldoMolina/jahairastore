@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/database/db';
-import { egresos } from '@/database/schema/schema';
+import { gasto } from '@/database/schema/schema';
 import { ExpenseFormType, ServerStatus } from '@/types/types';
 import { eq } from 'drizzle-orm';
 import {
@@ -23,12 +23,13 @@ export async function createExpense(
 
   try {
     [returningId] = await db
-      .insert(egresos)
+      .insert(gasto)
       .values(data.values)
-      .returning({ id: egresos.id });
+      .returning({ id: gasto.id });
 
     return {
-      ...stateCreateSuccess,
+      success: true,
+      title: 'Se creó el gasto correctamente.',
       returningId: returningId.id,
     };
   } catch (error) {
@@ -48,9 +49,9 @@ export async function updateExpense(
 ) {
   try {
     await db
-      .update(egresos)
+      .update(gasto)
       .set(data.values)
-      .where(eq(egresos.id, Number(data.id)));
+      .where(eq(gasto.id, Number(data.id)));
     return stateUpdateSuccess;
   } catch (error) {
     console.error(error);

@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/database/db';
-import { configuracion } from '@/database/schema/schema';
+import { ajustes } from '@/database/schema/schema';
 import { ServerStatus, AppSettingsFormType } from '@/types/types';
 import { eq } from 'drizzle-orm';
 import { stateUpdateError, stateUpdateSuccess } from './stateMessage';
@@ -16,10 +16,7 @@ export async function updateSettings(
 ) {
   try {
     const id = 1;
-    await db
-      .update(configuracion)
-      .set(data.values)
-      .where(eq(configuracion.id, id));
+    await db.update(ajustes).set(data.values).where(eq(ajustes.id, id));
 
     return stateUpdateSuccess;
   } catch (error) {

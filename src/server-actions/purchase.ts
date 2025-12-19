@@ -1,10 +1,9 @@
 'use server';
 
 import { db } from '@/database/db';
-import { compras } from '@/database/schema/schema';
+import { compra } from '@/database/schema/schema';
 import {
   stateCreateError,
-  stateCreateSuccess,
   stateUpdateError,
   stateUpdateSuccess,
 } from './stateMessage';
@@ -23,12 +22,13 @@ export async function createPurchase(
 
   try {
     [returningId] = await db
-      .insert(compras)
+      .insert(compra)
       .values(data.values)
-      .returning({ id: compras.id });
+      .returning({ id: compra.id });
 
     return {
-      ...stateCreateSuccess,
+      success: true,
+      title: 'Se creó la compra correctamente.',
       returningId: returningId.id,
     };
   } catch (error) {
@@ -48,9 +48,9 @@ export async function updatePurchase(
 ) {
   try {
     await db
-      .update(compras)
+      .update(compra)
       .set(data.values)
-      .where(eq(compras.id, Number(data.id)));
+      .where(eq(compra.id, Number(data.id)));
     return stateUpdateSuccess;
   } catch (error) {
     console.error(error);

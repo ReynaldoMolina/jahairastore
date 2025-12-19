@@ -85,18 +85,6 @@ export function Products({ data, query, totalPages }: Products) {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {register.existencias > 1 && (
-                    <CardItem
-                      value={
-                        register.precioEnCordobas
-                          ? register.gananciaUnidad * register.cambioDolar
-                          : register.gananciaUnidad
-                      }
-                      label="Ganancia"
-                      color="blue"
-                      showPriceInNio={register.precioEnCordobas}
-                    />
-                  )}
                   <CardItem
                     value={
                       register.precioEnCordobas
@@ -125,7 +113,6 @@ export function Products({ data, query, totalPages }: Products) {
             <TableHead>Id</TableHead>
             <TableHead>Disponibles</TableHead>
             <TableHead>Precio</TableHead>
-            <TableHead>Ganancia</TableHead>
             <TableHead>Ganancia disp.</TableHead>
           </TableRow>
         </TableHeader>
@@ -170,17 +157,6 @@ export function Products({ data, query, totalPages }: Products) {
                         : register.precioVenta
                     }
                     color="green"
-                    showPriceInNio={register.precioEnCordobas}
-                  />
-                </TableCell>
-                <TableCell>
-                  <ListItem
-                    value={
-                      register.precioEnCordobas
-                        ? register.gananciaUnidad * register.cambioDolar
-                        : register.gananciaUnidad
-                    }
-                    color="blue"
                     showPriceInNio={register.precioEnCordobas}
                   />
                 </TableCell>
