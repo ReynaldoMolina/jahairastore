@@ -16,7 +16,7 @@ import { Badge } from '@/components/ui/badge';
 import { bgColors } from '@/lib/bg-colors';
 import { formatNumber } from '@/lib/formatters';
 import { Button } from '@/components/ui/button';
-import { Hash, Trash2 } from 'lucide-react';
+import { Hash, MoreHorizontal, Trash2 } from 'lucide-react';
 import { TableContainer } from '@/components/lists/table';
 import {
   TableBody,
@@ -26,19 +26,14 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 import { EditDetailButton } from '@/components/form-elements/edit-detail-button';
 import { DeleteDetailButton } from '@/components/form-elements/delete-detail-button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 interface PurchaseDetail {
   purchase: PurchaseById;
@@ -76,12 +71,23 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
                   <Badge variant="outline">Cant: {detail.cantidad}</Badge>
                 </CardDescription>
                 <CardAction className="inline-flex gap-1 items-center">
-                  <EditDetailButton
-                    href={`/compras/${purchase.id}/detalle/${detail.id}`}
-                  />
-                  <DeleteDetailButton
-                    handleDelete={() => handleDelete(detail.id)}
-                  />
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" size="icon">
+                        <MoreHorizontal />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuGroup>
+                        <EditDetailButton
+                          href={`/compras/${purchase.id}/detalle/${detail.id}`}
+                        />
+                        <DeleteDetailButton
+                          handleDelete={() => handleDelete(detail.id)}
+                        />
+                      </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </CardAction>
               </CardHeader>
               <CardContent>
@@ -137,7 +143,7 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
           <TableHead>Precio</TableHead>
           <TableHead>Subtotal</TableHead>
           <TableHead>Ganancia aprox.</TableHead>
-          <TableHead>Acciones</TableHead>
+          <TableHead></TableHead>
         </TableRow>
       </TableHeader>
 
@@ -188,14 +194,23 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
                 <ListItem value={ganancia} showPriceInNio color="blue" />
               </TableCell>
               <TableCell>
-                <div className="flex gap-1 items-center">
-                  <EditDetailButton
-                    href={`/compras/${purchase.id}/detalle/${detail.id}`}
-                  />
-                  <DeleteDetailButton
-                    handleDelete={() => handleDelete(detail.id)}
-                  />
-                </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="icon">
+                      <MoreHorizontal />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuGroup>
+                      <EditDetailButton
+                        href={`/compras/${purchase.id}/detalle/${detail.id}`}
+                      />
+                      <DeleteDetailButton
+                        handleDelete={() => handleDelete(detail.id)}
+                      />
+                    </DropdownMenuGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </TableCell>
             </TableRow>
           );

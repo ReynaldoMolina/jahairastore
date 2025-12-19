@@ -27,6 +27,14 @@ import {
 import { DeleteDetailButton } from '@/components/form-elements/delete-detail-button';
 import { EditDetailButton } from '@/components/form-elements/edit-detail-button';
 import Image from 'next/image';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { MoreHorizontal } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface OrderDetail {
   order: OrderById;
@@ -70,12 +78,23 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
                   <Badge variant="secondary">Cant: {detail.cantidad}</Badge>
                 </CardDescription>
                 <CardAction className="inline-flex gap-1 items-center">
-                  <EditDetailButton
-                    href={`/pedidos/${order.id}/detalle/${detail.id}`}
-                  />
-                  <DeleteDetailButton
-                    handleDelete={() => handleDelete(detail.id)}
-                  />
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" size="icon">
+                        <MoreHorizontal />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuGroup>
+                        <EditDetailButton
+                          href={`/pedidos/${order.id}/detalle/${detail.id}`}
+                        />
+                        <DeleteDetailButton
+                          handleDelete={() => handleDelete(detail.id)}
+                        />
+                      </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </CardAction>
               </CardHeader>
               <CardContent>
@@ -119,7 +138,7 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
           <TableHead>Precio</TableHead>
           <TableHead>Subtotal</TableHead>
           <TableHead>Ganancia</TableHead>
-          <TableHead>Acciones</TableHead>
+          <TableHead></TableHead>
         </TableRow>
       </TableHeader>
 
@@ -168,14 +187,23 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
                 <ListItem value={ganancia} color="blue" />
               </TableCell>
               <TableCell>
-                <div className="flex gap-1 items-center">
-                  <EditDetailButton
-                    href={`/pedidos/${order.id}/detalle/${detail.id}`}
-                  />
-                  <DeleteDetailButton
-                    handleDelete={() => handleDelete(detail.id)}
-                  />
-                </div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="icon">
+                      <MoreHorizontal />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuGroup>
+                      <EditDetailButton
+                        href={`/pedidos/${order.id}/detalle/${detail.id}`}
+                      />
+                      <DeleteDetailButton
+                        handleDelete={() => handleDelete(detail.id)}
+                      />
+                    </DropdownMenuGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </TableCell>
             </TableRow>
           );
