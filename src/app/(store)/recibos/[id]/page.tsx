@@ -2,11 +2,7 @@ import { checkAuthorization } from '@/authorization/check-authorization';
 import { EditReceiptForm } from '@/components/forms/receipt/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
-import {
-  getPedidoReceiptPdf,
-  getReceiptById,
-  getReceiptClientById,
-} from '@/fetch-data/receipts';
+import { getReceiptById } from '@/fetch-data/receipts';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 

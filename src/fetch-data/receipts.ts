@@ -56,6 +56,8 @@ export async function getReceiptById(id: number | string) {
         fecha: recibo.fecha,
         abono: recibo.abono,
         saldo: recibo.saldo,
+        cambioDolar: recibo.cambioDolar,
+        enCordobas: recibo.en_cordobas,
         concepto: recibo.concepto,
       })
       .from(recibo)
