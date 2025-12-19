@@ -10,9 +10,7 @@ export async function getTareas(searchParams: SearchParamsProps) {
 
   const filterBySearch = buildSearchFilter(searchParams, [tarea.tarea]);
 
-  const filterByState = state
-    ? sql`"tareas"."estado" = 'Pendiente'`
-    : undefined;
+  const filterByState = state ? sql`"tarea"."estado" != 'Hecho'` : undefined;
 
   try {
     const data = await db

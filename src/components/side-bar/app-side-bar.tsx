@@ -63,12 +63,24 @@ export function AppSideBar({ businessInfo }: AppSideBarProps) {
           <SidebarGroupLabel>Menú</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {menuOptions.map((option) => (
-                <MenuItem key={option.name} option={option} />
+              {menuOptions.map((item) => (
+                <MenuItem key={item.name} option={item} />
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        {/* {menuOptions.map((option) => (
+          <SidebarGroup key={option.title}>
+            <SidebarGroupLabel>{option.title}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {option.items.map((item) => (
+                  <MenuItem key={item.name} option={item} />
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))} */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser
