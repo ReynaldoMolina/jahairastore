@@ -9,7 +9,7 @@ export default async function Layout({ children }) {
       <SiteHeader title="Documentación" hideBackButton />
 
       <PageWrapper>
-        <div className="max-w-2xl mx-auto mb-10">
+        <div className="max-w-2xl mx-auto mb-10 w-full">
           <TypographyH1>Documentación de la tienda</TypographyH1>
 
           <div className="flex flex-col gap-2 my-6">
@@ -18,7 +18,11 @@ export default async function Layout({ children }) {
             </span>
             <MenuButton
               title="Políticas de pedidos de Shein"
-              href="/documentacion"
+              href="/documentacion/politica-pedidos-shein"
+            />
+            <MenuButton
+              title="Opciones de pago"
+              href="/documentacion/opciones-de-pago"
             />
             <MenuButton
               title="Políticas de envío"

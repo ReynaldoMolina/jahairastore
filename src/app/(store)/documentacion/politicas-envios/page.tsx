@@ -1,13 +1,16 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
+import { EnviosInfoButton } from '@/components/documentacion/envios-info-button';
 import {
   TypographySection,
   TypographyH2,
   TypographyH3,
   TypographyList,
 } from '@/components/documentacion/typography';
-import { SiteHeader } from '@/components/site-header';
+import { Button } from '@/components/ui/button';
 import { isDemo } from '@/middleware';
+import { Copy } from 'lucide-react';
 import { notFound } from 'next/navigation';
+import { toast } from 'sonner';
 
 export const metadata = {
   title: 'Políticas de envío',
@@ -22,6 +25,10 @@ export default async function Page() {
     <>
       <TypographySection id="politicas-envio">
         <TypographyH2>Políticas de envío</TypographyH2>
+
+        <TypographyH3>Enviar por WhatsApp</TypographyH3>
+        <EnviosInfoButton />
+
         <TypographyH3>Opciones y costos de envío</TypographyH3>
 
         <div className="my-6 overflow-x-auto">
@@ -37,7 +44,7 @@ export default async function Page() {
               <tr>
                 <td className="border px-3 py-2">Punto céntrico</td>
                 <td className="border px-3 py-2">
-                  Centros comerciales, plazas, parques, etc.
+                  Plaza de Sutiava, Parque central.
                 </td>
                 <td className="border px-3 py-2">Gratis</td>
               </tr>
@@ -63,16 +70,15 @@ export default async function Page() {
             <strong>Entrega a domicilio:</strong>
             <TypographyList>
               <li>
-                Proporcionar la dirección completa y exacta (calle, número de
-                casa, barrio).
+                Proporcionar la dirección exacta (barrio, número de casa).
               </li>
               <li>
                 Incluir referencias visuales (color de la casa, frente a qué
-                negocio, etc.).
+                negocio).
               </li>
               <li>
-                Si se autoriza a un tercero (familiar, portero, compañero de
-                trabajo), debe notificarse con antelación.
+                Si se autoriza a un tercero (familiar, compañero de trabajo),
+                debe notificarse con antelación.
               </li>
             </TypographyList>
           </li>

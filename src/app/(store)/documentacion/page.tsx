@@ -1,5 +1,4 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { Documentacion } from '@/components/documentacion/documentacion';
 import { isDemo } from '@/middleware';
 import { notFound } from 'next/navigation';
 
@@ -12,5 +11,5 @@ export default async function Page() {
 
   if (isDemo) return notFound();
 
-  return <Documentacion />;
+  return null;
 }
