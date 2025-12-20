@@ -12,6 +12,7 @@ import { MinusIcon, PlusIcon } from 'lucide-react';
 import { PurchaseDetailType } from '@/types/types';
 import { FormInputOnChange } from '@/components/form-elements/form-input-on-change';
 import { purchaseDetailSchema } from '../../validation/purchase';
+import { FormTextAreaReadOnly } from '@/components/form-elements/form-text-area-read-only';
 
 interface PurchaseDetailForm {
   form: UseFormReturn<z.infer<typeof purchaseDetailSchema>>;
@@ -41,7 +42,7 @@ export function PurchaseDetailForm({ form, detail }: PurchaseDetailForm) {
           label="Id compra"
           hidden
         />
-        <FormInputReadOnly
+        <FormTextAreaReadOnly
           value={detail.nombreProducto}
           label="Nombre producto"
         />

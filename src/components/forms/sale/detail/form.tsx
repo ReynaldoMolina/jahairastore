@@ -13,6 +13,8 @@ import { saleDetailSchema } from '../../validation/sale';
 import { SaleDetailType } from '@/types/types';
 import { FormInputOnChange } from '@/components/form-elements/form-input-on-change';
 import { FormCheck } from '@/components/form-elements/form-checkbox';
+import { FormTextArea } from '@/components/form-elements/form-text-area';
+import { FormTextAreaReadOnly } from '@/components/form-elements/form-text-area-read-only';
 
 interface SaleDetailForm {
   form: UseFormReturn<z.infer<typeof saleDetailSchema>>;
@@ -52,7 +54,7 @@ export function SaleDetailForm({ form, detail }: SaleDetailForm) {
           label="Id venta"
           hidden
         />
-        <FormInputReadOnly
+        <FormTextAreaReadOnly
           value={detail.nombreProducto}
           label="Nombre producto"
         />
