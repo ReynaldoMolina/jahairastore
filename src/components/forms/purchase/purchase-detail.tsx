@@ -34,6 +34,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { DetailOptions } from '../detail-options';
 
 interface PurchaseDetail {
   purchase: PurchaseById;
@@ -71,23 +72,12 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
                   <Badge variant="outline">Cant: {detail.cantidad}</Badge>
                 </CardDescription>
                 <CardAction className="inline-flex gap-1 items-center">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="icon">
-                        <MoreHorizontal />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuGroup>
-                        <EditDetailButton
-                          href={`/compras/${purchase.id}/detalle/${detail.id}`}
-                        />
-                        <DeleteDetailButton
-                          handleDelete={() => handleDelete(detail.id)}
-                        />
-                      </DropdownMenuGroup>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  <DetailOptions
+                    path="compras"
+                    registerId={purchase.id}
+                    detailId={detail.id}
+                    handleDelete={handleDelete}
+                  />
                 </CardAction>
               </CardHeader>
               <CardContent>
@@ -194,23 +184,12 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
                 <ListItem value={ganancia} showPriceInNio color="blue" />
               </TableCell>
               <TableCell>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="icon">
-                      <MoreHorizontal />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuGroup>
-                      <EditDetailButton
-                        href={`/compras/${purchase.id}/detalle/${detail.id}`}
-                      />
-                      <DeleteDetailButton
-                        handleDelete={() => handleDelete(detail.id)}
-                      />
-                    </DropdownMenuGroup>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <DetailOptions
+                  path="compras"
+                  registerId={purchase.id}
+                  detailId={detail.id}
+                  handleDelete={handleDelete}
+                />
               </TableCell>
             </TableRow>
           );

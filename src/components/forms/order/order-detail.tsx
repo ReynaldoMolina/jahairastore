@@ -33,8 +33,9 @@ import {
   DropdownMenuGroup,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { MoreHorizontal } from 'lucide-react';
+import { MoreVertical } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { DetailOptions } from '../detail-options';
 
 interface OrderDetail {
   order: OrderById;
@@ -78,23 +79,12 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
                   <Badge variant="secondary">Cant: {detail.cantidad}</Badge>
                 </CardDescription>
                 <CardAction className="inline-flex gap-1 items-center">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="icon">
-                        <MoreHorizontal />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuGroup>
-                        <EditDetailButton
-                          href={`/pedidos/${order.id}/detalle/${detail.id}`}
-                        />
-                        <DeleteDetailButton
-                          handleDelete={() => handleDelete(detail.id)}
-                        />
-                      </DropdownMenuGroup>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  <DetailOptions
+                    path="pedidos"
+                    registerId={order.id}
+                    detailId={detail.id}
+                    handleDelete={handleDelete}
+                  />
                 </CardAction>
               </CardHeader>
               <CardContent>
@@ -187,23 +177,12 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
                 <ListItem value={ganancia} color="blue" />
               </TableCell>
               <TableCell>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="icon">
-                      <MoreHorizontal />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuGroup>
-                      <EditDetailButton
-                        href={`/pedidos/${order.id}/detalle/${detail.id}`}
-                      />
-                      <DeleteDetailButton
-                        handleDelete={() => handleDelete(detail.id)}
-                      />
-                    </DropdownMenuGroup>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <DetailOptions
+                  path="pedidos"
+                  registerId={order.id}
+                  detailId={detail.id}
+                  handleDelete={handleDelete}
+                />
               </TableCell>
             </TableRow>
           );
