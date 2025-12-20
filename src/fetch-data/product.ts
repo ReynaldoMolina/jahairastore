@@ -52,11 +52,6 @@ export async function getProducts(searchParams: SearchParamsProps) {
           (COALESCE("compras"."cantidad", 0)
           - COALESCE("ventas"."cantidad", 0))::integer
         `,
-        gananciaExistencias: sql<number>`
-          (
-            (COALESCE("compras"."cantidad", 0) - COALESCE("ventas"."cantidad", 0))
-            * (${producto.precioVenta} - ${producto.precioCompra})
-          )`,
       })
       .from(producto)
       .leftJoin(compras, eq(producto.id, compras.idProducto))

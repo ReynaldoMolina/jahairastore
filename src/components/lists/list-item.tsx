@@ -1,6 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { BgColors, bgColors } from '@/lib/bg-colors';
-import { formatNumber } from '@/lib/formatters';
+import { formatNumber, roundToPointZeroOrFive } from '@/lib/formatters';
 import { cn } from '@/lib/utils';
 
 interface ListItem {

@@ -7,6 +7,25 @@ export function formatNumber(value: number, digits = 2) {
   return formatter.format(Number(value));
 }
 
+export function roundToPointZeroOrFive(value: number): number {
+  const integerPart = Math.floor(value);
+  const decimalPart = value - integerPart;
+
+  if (decimalPart < 0.5) {
+    return integerPart;
+  }
+
+  if (decimalPart === 0.5) {
+    return integerPart + 0.5;
+  }
+
+  return integerPart + 1;
+}
+
+export function roundToTwoDecimals(value: number): number {
+  return Math.round((value + Number.EPSILON) * 100) / 100;
+}
+
 export function formatDate(isoDateStr: string) {
   const [year, month, day] = isoDateStr.split('-').map(Number);
   const input = new Date(year, month - 1, day);

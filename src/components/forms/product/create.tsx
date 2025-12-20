@@ -29,7 +29,7 @@ export function CreateProductForm({ cambioDolar }: CreateProductForm) {
       descripcion: null,
       precioCompra: undefined,
       precioVenta: undefined,
-      precioVentaPorMayor: undefined,
+      precioVentaPorMayor: 0,
       fecha: currentDate,
       codigo: null,
       cambioDolar: cambioDolar,

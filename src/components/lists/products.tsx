@@ -23,7 +23,11 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
 import { Hash } from 'lucide-react';
-import { formatNumber } from '@/lib/formatters';
+import {
+  formatNumber,
+  roundToPointZeroOrFive,
+  roundToTwoDecimals,
+} from '@/lib/formatters';
 
 interface Products {
   data: {
@@ -36,7 +40,6 @@ interface Products {
     precioVenta: number;
     gananciaUnidad: number;
     existencias: number;
-    gananciaExistencias: number;
   }[];
   query: string;
   totalPages: number;
@@ -57,7 +60,9 @@ export function Products({ data, query, totalPages }: Products) {
           return (
             <Link key={register.id} href={`/productos/${register.id}`}>
               <Card className="py-4 gap-4">
-                <CardHeader className="border-b [.border-b]:pb-4">
+                <CardHeader
+                  className={!isSoldOut ? 'border-b [.border-b]:pb-4' : ''}
+                >
                   <CardTitle>{register.nombre}</CardTitle>
                   <CardDescription className="inline-flex gap-3 items-center">
                     <Badge variant="outline">
@@ -78,24 +83,33 @@ export function Products({ data, query, totalPages }: Products) {
                       {register.precioEnCordobas ? 'C$ ' : '$ '}
                       {register.precioEnCordobas
                         ? formatNumber(
-                            register.precioVenta * register.cambioDolar
+                            roundToPointZeroOrFive(
+                              register.precioVenta * register.cambioDolar
+                            )
                           )
                         : formatNumber(register.precioVenta)}
                     </Badge>
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <CardItem
-                    value={
-                      register.precioEnCordobas
-                        ? register.gananciaExistencias * register.cambioDolar
-                        : register.gananciaExistencias
-                    }
-                    label="Ganancia disp."
-                    color="blue"
-                    showPriceInNio={register.precioEnCordobas}
-                  />
-                </CardContent>
+                {!isSoldOut && (
+                  <CardContent>
+                    <CardItem
+                      value={
+                        register.precioEnCordobas
+                          ? roundToPointZeroOrFive(
+                              register.precioVenta * register.cambioDolar
+                            ) -
+                            roundToTwoDecimals(
+                              register.precioCompra * register.cambioDolar
+                            )
+                          : register.precioVenta - register.precioCompra
+                      }
+                      label="Ganancia disp."
+                      color="blue"
+                      showPriceInNio={register.precioEnCordobas}
+                    />
+                  </CardContent>
+                )}
               </Card>
             </Link>
           );
@@ -153,7 +167,9 @@ export function Products({ data, query, totalPages }: Products) {
                   <ListItem
                     value={
                       register.precioEnCordobas
-                        ? register.precioVenta * register.cambioDolar
+                        ? roundToPointZeroOrFive(
+                            register.precioVenta * register.cambioDolar
+                          )
                         : register.precioVenta
                     }
                     color="green"
@@ -164,8 +180,13 @@ export function Products({ data, query, totalPages }: Products) {
                   <ListItem
                     value={
                       register.precioEnCordobas
-                        ? register.gananciaExistencias * register.cambioDolar
-                        : register.gananciaExistencias
+                        ? roundToPointZeroOrFive(
+                            register.precioVenta * register.cambioDolar
+                          ) -
+                          roundToTwoDecimals(
+                            register.precioCompra * register.cambioDolar
+                          )
+                        : register.precioVenta - register.precioCompra
                     }
                     color="blue"
                     showPriceInNio={register.precioEnCordobas}

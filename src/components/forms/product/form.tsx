@@ -4,7 +4,11 @@ import { FieldGroup, FieldSeparator, FieldSet } from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import { FormCheck } from '@/components/form-elements/form-checkbox';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
-import { formatNumber } from '@/lib/formatters';
+import {
+  formatNumber,
+  roundToPointZeroOrFive,
+  roundToTwoDecimals,
+} from '@/lib/formatters';
 import { productSchema } from '../validation/product';
 import z from 'zod';
 import { FormInputOnChange } from '@/components/form-elements/form-input-on-change';
@@ -24,8 +28,10 @@ export function ProductForm({ form }: ProductForm) {
     cambioDolar,
   } = form.watch();
 
-  const ganancia = (precioVenta ?? 0) - (precioCompra ?? 0);
-  const gananciaEnCordobas = ganancia * cambioDolar;
+  const ganancia = precioEnCordobas
+    ? (roundToPointZeroOrFive(precioVenta * cambioDolar) ?? 0) -
+      (roundToTwoDecimals(precioCompra * cambioDolar) ?? 0)
+    : (precioVenta ?? 0) - (precioCompra ?? 0);
 
   return (
     <FieldGroup>
@@ -75,11 +81,6 @@ export function ProductForm({ form }: ProductForm) {
             textAddon="$"
           />
         </FieldSet>
-        <FormInputReadOnly
-          value={formatNumber(ganancia)}
-          label="Ganancia"
-          textAddon="$"
-        />
       </div>
 
       {precioEnCordobas && (
@@ -87,21 +88,31 @@ export function ProductForm({ form }: ProductForm) {
           <FieldSet className="sm:flex-row">
             <FormInputOnChange
               value={
-                isNaN(Number(precioCompra)) ? '' : precioCompra * cambioDolar
+                isNaN(Number(precioCompra))
+                  ? ''
+                  : roundToTwoDecimals(precioCompra * cambioDolar)
               }
               label="Compra"
               handleChange={(val) =>
-                form.setValue('precioCompra', Number(val) / cambioDolar)
+                form.setValue(
+                  'precioCompra',
+                  roundToTwoDecimals(Number(val) / cambioDolar)
+                )
               }
               textAddon="C$"
             />
             <FormInputOnChange
               value={
-                isNaN(Number(precioVenta)) ? '' : precioVenta * cambioDolar
+                isNaN(Number(precioVenta))
+                  ? ''
+                  : roundToPointZeroOrFive(precioVenta * cambioDolar)
               }
               label="Venta"
               handleChange={(val) =>
-                form.setValue('precioVenta', Number(val) / cambioDolar)
+                form.setValue(
+                  'precioVenta',
+                  roundToTwoDecimals(Number(val) / cambioDolar)
+                )
               }
               textAddon="C$"
             />
@@ -109,22 +120,26 @@ export function ProductForm({ form }: ProductForm) {
               value={
                 isNaN(Number(precioVentaPorMayor))
                   ? ''
-                  : precioVentaPorMayor * cambioDolar
+                  : roundToPointZeroOrFive(precioVentaPorMayor * cambioDolar)
               }
               label="Venta por mayor"
               handleChange={(val) =>
-                form.setValue('precioVentaPorMayor', Number(val) / cambioDolar)
+                form.setValue(
+                  'precioVentaPorMayor',
+                  roundToTwoDecimals(Number(val) / cambioDolar)
+                )
               }
               textAddon="C$"
             />
           </FieldSet>
-          <FormInputReadOnly
-            value={formatNumber(gananciaEnCordobas)}
-            label="Ganancia"
-            textAddon="C$"
-          />
         </>
       )}
+
+      <FormInputReadOnly
+        value={formatNumber(ganancia)}
+        label="Ganancia"
+        textAddon={precioEnCordobas ? 'C$' : '$'}
+      />
 
       <FieldSeparator />
       <FieldSet className="sm:flex-row">
