@@ -20,8 +20,6 @@ export default async function Page({ params }: PageProps) {
   const { id } = await params;
   const receipt = await getReceiptById(id);
 
-  console.log(receipt);
-
   if (!receipt) {
     notFound();
   }

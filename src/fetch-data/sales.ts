@@ -156,7 +156,7 @@ export interface ReciboVenta {
   id: number;
   idCliente: number;
   fecha: string;
-  abono: string;
+  abono: number;
   credito: boolean;
   saldo: number;
   nombreCliente: string;
