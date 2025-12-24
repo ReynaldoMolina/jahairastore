@@ -57,7 +57,6 @@ export async function getSales(searchParams: SearchParamsProps) {
         id: venta.id,
         nombreCliente: sql<string>`${cliente.nombre} || ' ' || ${cliente.apellido}`,
         imagenUrl: cliente.imagenUrl,
-        abono: venta.abono,
         fecha: venta.fecha,
         credito: venta.credito,
         total: sql<number>`COALESCE("ventas"."total", 0)`,
@@ -157,7 +156,7 @@ export interface ReciboVenta {
   id: number;
   idCliente: number;
   fecha: string;
-  abono: number;
+  abono: string;
   credito: boolean;
   saldo: number;
   nombreCliente: string;

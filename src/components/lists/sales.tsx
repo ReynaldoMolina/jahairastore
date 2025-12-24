@@ -36,7 +36,6 @@ interface SalesProps {
     id: number;
     nombreCliente: string;
     imagenUrl: string | null;
-    abono: number;
     fecha: string;
     credito: boolean;
     total: number;
