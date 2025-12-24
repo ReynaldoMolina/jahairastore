@@ -20,8 +20,8 @@ export function ListItem({
   showPing = false,
   className,
 }: ListItem) {
-  const formattedValue =
-    typeof value === 'number' ? formatNumber(value) : value;
+  const isString = typeof value === 'string';
+  const formattedValue = isString ? value : formatNumber(value);
   const bgColor = bgColors[color];
   const currency = showPriceInNio ? 'C$ ' : '$ ';
 
@@ -30,13 +30,14 @@ export function ListItem({
       <Badge
         variant="secondary"
         className={cn(
-          'justify-end md:w-full min-w-27 md:min-w-fit',
+          'w-full min-w-25 md:min-w-min',
+          isString ? 'justify-center' : 'justify-end',
           bgColor,
           className
         )}
       >
-        {!hideCurrency && <span>{currency}</span>}
-        {formattedValue}
+        {!hideCurrency && <span className="mr-auto">{currency}</span>}
+        <span>{formattedValue}</span>
       </Badge>
       {showPing && (
         <>

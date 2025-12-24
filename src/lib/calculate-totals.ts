@@ -1,3 +1,5 @@
+import { roundToPointZeroOrFive } from './formatters';
+
 interface CalculateTotals {
   list: any;
   convert?: boolean;
@@ -5,7 +7,6 @@ interface CalculateTotals {
 
 export function calculateTotals({ list, convert = false }: CalculateTotals) {
   let totalSell = 0,
-    totalSellPorMayor = 0,
     totalCost = 0,
     quantity = 0;
 
@@ -13,11 +14,15 @@ export function calculateTotals({ list, convert = false }: CalculateTotals) {
 
   for (const element of list) {
     totalSell +=
-      element.cantidad *
-      (element.precioPorMayor
-        ? element.precioVentaPorMayor
-        : element.precioVenta) *
-      (convert ? element.cambioDolar : 1);
+      element.cantidad * element.precioPorMayor
+        ? convert
+          ? roundToPointZeroOrFive(
+              element.precioVentaPorMayor * element.cambioDolar
+            )
+          : element.precioVentaPorMayor
+        : convert
+        ? roundToPointZeroOrFive(element.precioVenta * element.cambioDolar)
+        : element.precioVenta;
 
     totalCost +=
       element.cantidad *

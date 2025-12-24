@@ -52,8 +52,7 @@ export function SaleForm({
         <FormCheck
           control={form.control}
           name="credito"
-          label="¿Al crédito?"
-          description="Marcar como venta al crédito."
+          label="Venta al crédito"
           onCheckedExtra={(checked) => {
             if (!isNew) {
               form.setValue('abono', checked ? sale.abono : totalSell);

@@ -3,7 +3,11 @@
 import { FieldGroup, FieldSet } from '../../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
-import { formatNumber } from '@/lib/formatters';
+import {
+  formatNumber,
+  roundToPointZeroOrFive,
+  roundToTwoDecimals,
+} from '@/lib/formatters';
 import z from 'zod';
 import { FormInput } from '@/components/form-elements/form-input';
 import { ButtonGroup } from '@/components/ui/button-group';
@@ -13,7 +17,6 @@ import { saleDetailSchema } from '../../validation/sale';
 import { SaleDetailType } from '@/types/types';
 import { FormInputOnChange } from '@/components/form-elements/form-input-on-change';
 import { FormCheck } from '@/components/form-elements/form-checkbox';
-import { FormTextArea } from '@/components/form-elements/form-text-area';
 import { FormTextAreaReadOnly } from '@/components/form-elements/form-text-area-read-only';
 
 interface SaleDetailForm {
@@ -61,33 +64,31 @@ export function SaleDetailForm({ form, detail }: SaleDetailForm) {
         <FormCheck
           control={form.control}
           name="precioPorMayor"
-          label="¿Usar precio de venta al por mayor?"
+          label="Usar precio de venta al por mayor"
         />
       </FieldSet>
 
-      <div className={precioEnCordobas ? 'hidden' : 'flex flex-col gap-7'}>
-        <FieldSet className="sm:flex-row">
-          <FormInput
-            control={form.control}
-            name="precioCompra"
-            label="Compra"
-            textAddon="$"
-          />
-          <FormInput
-            control={form.control}
-            name="precioVenta"
-            label="Venta"
-            textAddon="$"
-            hidden={precioPorMayor}
-          />
-          <FormInput
-            control={form.control}
-            name="precioVentaPorMayor"
-            label="Venta por mayor"
-            textAddon="$"
-            hidden={!precioPorMayor}
-          />
-        </FieldSet>
+      <FieldSet className={precioEnCordobas ? 'hidden' : 'sm:flex-row'}>
+        <FormInput
+          control={form.control}
+          name="precioCompra"
+          label="Precio compra"
+          textAddon="$"
+        />
+        <FormInput
+          control={form.control}
+          name="precioVenta"
+          label="Precio venta"
+          textAddon="$"
+          hidden={precioPorMayor}
+        />
+        <FormInput
+          control={form.control}
+          name="precioVentaPorMayor"
+          label="Venta por mayor"
+          textAddon="$"
+          hidden={!precioPorMayor}
+        />
         <FormInputReadOnly
           value={
             precioPorMayor
@@ -97,22 +98,22 @@ export function SaleDetailForm({ form, detail }: SaleDetailForm) {
           label="Ganancia"
           textAddon="$"
         />
-      </div>
+      </FieldSet>
 
       {precioEnCordobas && (
         <div className="flex flex-col gap-7">
           <FieldSet className="sm:flex-row">
             <FormInputOnChange
-              value={precioCompra * cambioDolar}
-              label="Compra"
+              value={roundToTwoDecimals(precioCompra * cambioDolar)}
+              label="Precio compra"
               handleChange={(val) =>
                 form.setValue('precioCompra', Number(val) / cambioDolar)
               }
               textAddon="C$"
             />
             <FormInputOnChange
-              value={precioVenta * cambioDolar}
-              label="Venta"
+              value={roundToPointZeroOrFive(precioVenta * cambioDolar)}
+              label="Precio venta"
               handleChange={(val) =>
                 form.setValue('precioVenta', Number(val) / cambioDolar)
               }
@@ -120,7 +121,7 @@ export function SaleDetailForm({ form, detail }: SaleDetailForm) {
               hidden={precioPorMayor}
             />
             <FormInputOnChange
-              value={precioVentaPorMayor * cambioDolar}
+              value={roundToPointZeroOrFive(precioVentaPorMayor * cambioDolar)}
               label="Venta por mayor"
               handleChange={(val) =>
                 form.setValue('precioVentaPorMayor', Number(val) / cambioDolar)

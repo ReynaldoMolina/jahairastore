@@ -3,7 +3,7 @@ import { Pagination } from '@/components/lists/pagination';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { ProductSearchData, SaleById, SaleDetailType } from '@/types/types';
 import { Dispatch, SetStateAction, useMemo } from 'react';
-import { formatNumber } from '@/lib/formatters';
+import { formatNumber, roundToPointZeroOrFive } from '@/lib/formatters';
 import { bgColors } from '@/lib/bg-colors';
 import { cn } from '@/lib/utils';
 import {
@@ -26,7 +26,7 @@ import {
 import { ChangeQuantityCard, ChangeQuantity } from './change-quantity';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Hash } from 'lucide-react';
+import { Hash, PackageCheck } from 'lucide-react';
 
 interface ProductSearchList {
   productData: ProductSearchData;
@@ -55,7 +55,7 @@ export default function ProductSearchList({
       <>
         {productData.products.map((p) => {
           const price = p.precioEnCordobas
-            ? p.precioVenta * p.cambioDolar
+            ? roundToPointZeroOrFive(p.precioVenta * p.cambioDolar)
             : p.precioVenta;
           const isAlreadyAdded = detailIds.includes(p.id);
           const isSelected = selectedProducts.some(
@@ -87,15 +87,20 @@ export default function ProductSearchList({
                     <Hash />
                     {p.id}
                   </Badge>
-                  {isSoldOut ? (
-                    <Badge variant="destructive">Agotado</Badge>
-                  ) : (
-                    <Badge variant="secondary">Disp: {p.existencias}</Badge>
-                  )}
                   <Badge variant="secondary" className={bgColors.green}>
                     {`${p.precioEnCordobas ? 'C$' : '$'} ${formatNumber(
                       price
                     )}`}
+                  </Badge>
+                  <Badge variant={isSoldOut ? 'destructive' : 'secondary'}>
+                    {isSoldOut ? (
+                      'Agotado'
+                    ) : (
+                      <>
+                        <PackageCheck />
+                        Disp: {p.existencias}
+                      </>
+                    )}
                   </Badge>
                 </CardDescription>
                 <CardAction>
@@ -158,7 +163,9 @@ export default function ProductSearchList({
         <TableBody>
           {productData.products.map((product) => {
             const price = product.precioEnCordobas
-              ? product.precioVenta * product.cambioDolar
+              ? roundToPointZeroOrFive(
+                  product.precioVenta * product.cambioDolar
+                )
               : product.precioVenta;
             const isAlreadyAdded = detailIds.includes(product.id);
             const isSelected = selectedProducts.some(

@@ -14,20 +14,18 @@ import {
   TableHead,
   TableBody,
   TableCell,
+  TableFooter,
 } from '../ui/table';
 import EmptyList from './empty-list';
-import { CardItem, ListItem } from './list-item';
+import { ListItem } from './list-item';
 import { Pagination } from './pagination';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
-import { Hash } from 'lucide-react';
-import {
-  formatNumber,
-  roundToPointZeroOrFive,
-  roundToTwoDecimals,
-} from '@/lib/formatters';
+import { Hash, PackageCheck } from 'lucide-react';
+import { formatNumber, roundToPointZeroOrFive } from '@/lib/formatters';
+import { bgColors } from '@/lib/bg-colors';
 
 interface Products {
   data: {
@@ -51,6 +49,16 @@ export function Products({ data, query, totalPages }: Products) {
 
   if (data.length === 0) return <EmptyList query={query} />;
 
+  const totals = data.reduce(
+    (acc, item) => {
+      acc.existencias += item.existencias;
+      return acc;
+    },
+    {
+      existencias: 0,
+    }
+  );
+
   if (isMobile)
     return (
       <>
@@ -61,7 +69,7 @@ export function Products({ data, query, totalPages }: Products) {
             <Link key={register.id} href={`/productos/${register.id}`}>
               <Card className="py-4 gap-4">
                 <CardHeader
-                  className={!isSoldOut ? 'border-b [.border-b]:pb-4' : ''}
+                // className={!isSoldOut ? 'border-b [.border-b]:pb-4' : ''}
                 >
                   <CardTitle>{register.nombre}</CardTitle>
                   <CardDescription className="inline-flex gap-3 items-center">
@@ -69,17 +77,7 @@ export function Products({ data, query, totalPages }: Products) {
                       <Hash />
                       {register.id}
                     </Badge>
-                    {isSoldOut ? (
-                      <Badge variant="destructive">Agotado</Badge>
-                    ) : (
-                      <Badge variant="secondary">
-                        Disp: {register.existencias}
-                      </Badge>
-                    )}
-                    <Badge
-                      variant="secondary"
-                      className="bg-green-100 dark:bg-green-900/30"
-                    >
+                    <Badge variant="secondary" className={bgColors.green}>
                       {register.precioEnCordobas ? 'C$ ' : '$ '}
                       {register.precioEnCordobas
                         ? formatNumber(
@@ -89,31 +87,31 @@ export function Products({ data, query, totalPages }: Products) {
                           )
                         : formatNumber(register.precioVenta)}
                     </Badge>
+                    <Badge variant={isSoldOut ? 'destructive' : 'secondary'}>
+                      {isSoldOut ? (
+                        'Agotado'
+                      ) : (
+                        <>
+                          <PackageCheck />
+                          Disp: {register.existencias}
+                        </>
+                      )}
+                    </Badge>
                   </CardDescription>
                 </CardHeader>
-                {!isSoldOut && (
-                  <CardContent>
-                    <CardItem
-                      value={
-                        register.precioEnCordobas
-                          ? roundToPointZeroOrFive(
-                              register.precioVenta * register.cambioDolar
-                            ) -
-                            roundToTwoDecimals(
-                              register.precioCompra * register.cambioDolar
-                            )
-                          : register.precioVenta - register.precioCompra
-                      }
-                      label="Ganancia disp."
-                      color="blue"
-                      showPriceInNio={register.precioEnCordobas}
-                    />
-                  </CardContent>
-                )}
               </Card>
             </Link>
           );
         })}
+        <Card className="py-4 gap-4 bg-muted">
+          <CardHeader>
+            <CardTitle>Total</CardTitle>
+            <CardDescription className="inline-flex gap-3 items-center">
+              <Badge variant="outline">Conteo: {data.length}</Badge>
+              <Badge variant="outline">Disponibles: {totals.existencias}</Badge>
+            </CardDescription>
+          </CardHeader>
+        </Card>
         <Pagination totalPages={totalPages} />
       </>
     );
@@ -125,9 +123,9 @@ export function Products({ data, query, totalPages }: Products) {
           <TableRow>
             <TableHead className="w-full">Producto</TableHead>
             <TableHead>Id</TableHead>
-            <TableHead>Disponibles</TableHead>
             <TableHead>Precio</TableHead>
-            <TableHead>Ganancia disp.</TableHead>
+            <TableHead>Disponibles</TableHead>
+            {/* <TableHead>Ganancia disp.</TableHead> */}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -150,20 +148,6 @@ export function Products({ data, query, totalPages }: Products) {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  {isSoldOut ? (
-                    <Badge variant="destructive" className="w-full">
-                      Agotado
-                    </Badge>
-                  ) : (
-                    <ListItem
-                      value={String(register.existencias)}
-                      color="neutral"
-                      hideCurrency
-                      className="justify-center"
-                    />
-                  )}
-                </TableCell>
-                <TableCell>
                   <ListItem
                     value={
                       register.precioEnCordobas
@@ -177,25 +161,39 @@ export function Products({ data, query, totalPages }: Products) {
                   />
                 </TableCell>
                 <TableCell>
-                  <ListItem
-                    value={
-                      register.precioEnCordobas
-                        ? roundToPointZeroOrFive(
-                            register.precioVenta * register.cambioDolar
-                          ) -
-                          roundToTwoDecimals(
-                            register.precioCompra * register.cambioDolar
-                          )
-                        : register.precioVenta - register.precioCompra
-                    }
-                    color="blue"
-                    showPriceInNio={register.precioEnCordobas}
-                  />
+                  {isSoldOut ? (
+                    <Badge variant="destructive" className="w-full">
+                      Agotado
+                    </Badge>
+                  ) : (
+                    <ListItem
+                      value={String(register.existencias)}
+                      color="neutral"
+                      hideCurrency
+                      className="justify-center"
+                    />
+                  )}
                 </TableCell>
               </TableRow>
             );
           })}
         </TableBody>
+        <TableFooter className="bg-muted">
+          <TableRow>
+            <TableCell>
+              <Badge variant="outline">Conteo: {data.length}</Badge>
+            </TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+            <TableCell>
+              <ListItem
+                value={String(totals.existencias)}
+                color="neutral"
+                hideCurrency
+              />
+            </TableCell>
+          </TableRow>
+        </TableFooter>
       </TableContainer>
       <Pagination totalPages={totalPages} />
     </>

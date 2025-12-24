@@ -1,13 +1,7 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '../../ui/card';
+import { Card, CardContent } from '../../ui/card';
 import * as z from 'zod';
 import {
   OrderById,
@@ -85,12 +79,6 @@ export function EditOrderForm({
             className="max-w-xl w-full"
           >
             <Card>
-              <CardHeader>
-                <CardTitle className="text-sm">Editar pedido</CardTitle>
-                <CardDescription>
-                  Actualiza los datos del pedido.
-                </CardDescription>
-              </CardHeader>
               <CardContent>
                 <OrderForm
                   form={form}

@@ -8,14 +8,13 @@ import {
   ItemActions,
   ItemContent,
   ItemDescription,
-  ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
 import { toast } from 'sonner';
 import { Spinner } from '@/components/ui/spinner';
 import { SaleById } from '@/types/types';
 import Link from 'next/link';
-import { CardDescription, CardTitle } from '@/components/ui/card';
+import { CardTitle } from '@/components/ui/card';
 
 interface SaleOptions {
   sale: SaleById;
@@ -66,29 +65,23 @@ export function SaleOptions({ sale }: SaleOptions) {
   return (
     <>
       <Item variant="outline">
-        <ItemMedia variant="icon" className="hidden sm:flex">
-          <Eye />
-        </ItemMedia>
         <ItemContent>
           <ItemTitle>Ver</ItemTitle>
           <ItemDescription>Ver el recibo como imagen.</ItemDescription>
         </ItemContent>
         <ItemActions>
-          <Button variant="outline" size="sm" asChild>
+          <Button variant="outline" size="icon" asChild>
             <Link
               href={`/api/recibos/venta?id_venta=${sale.id}`}
               target="_blank"
             >
-              Ver
+              <Eye />
             </Link>
           </Button>
         </ItemActions>
       </Item>
 
       <Item variant="outline">
-        <ItemMedia variant="icon" className="hidden sm:flex">
-          <Download />
-        </ItemMedia>
         <ItemContent>
           <ItemTitle>Descargar</ItemTitle>
           <ItemDescription>Descarga el recibo como imagen.</ItemDescription>
@@ -96,39 +89,30 @@ export function SaleOptions({ sale }: SaleOptions) {
         <ItemActions>
           <Button
             variant="outline"
-            size="sm"
+            size="icon"
             onClick={handleDownload}
             disabled={loading !== null}
-            className="min-w-20"
           >
-            {loading === 'download' ? <Spinner /> : 'Descargar'}
+            {loading === 'download' ? <Spinner /> : <Download />}
           </Button>
         </ItemActions>
       </Item>
 
       <CardTitle className="mt-8">¿Quieres enviar el recibo?</CardTitle>
-      <CardDescription>
-        Cópialo al portapapeles, luego abre la conversación de WhatsApp y pega
-        la imagen.
-      </CardDescription>
 
       <Item variant="outline">
-        <ItemMedia variant="icon" className="hidden sm:flex">
-          <Copy />
-        </ItemMedia>
         <ItemContent>
-          <ItemTitle>Copiar</ItemTitle>
+          <ItemTitle>1. Copiar</ItemTitle>
           <ItemDescription>Copia el recibo al portapapeles.</ItemDescription>
         </ItemContent>
         <ItemActions>
           <Button
             variant="outline"
-            size="sm"
+            size="icon"
             onClick={handleCopy}
             disabled={loading !== null}
-            className="min-w-20"
           >
-            {loading === 'copy' ? <Spinner /> : 'Copiar'}
+            {loading === 'copy' ? <Spinner /> : <Copy />}
           </Button>
         </ItemActions>
       </Item>
@@ -146,37 +130,30 @@ interface WhatsAppButton {
   phoneNumber: string;
 }
 
-function WhatsAppButton({ message, phoneNumber }: WhatsAppButton) {
+export function WhatsAppButton({ message, phoneNumber }: WhatsAppButton) {
   const encodedMessage = encodeURIComponent(message);
   const formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
   const whatsAppUrl = `https://api.whatsapp.com/send?phone=505${formattedPhoneNumber}&text=${encodedMessage}`;
 
   return (
     <Item variant="outline">
-      <ItemMedia variant="icon" className="hidden sm:flex">
-        <MessageCircle />
-      </ItemMedia>
       <ItemContent>
-        <ItemTitle>Enviar</ItemTitle>
+        <ItemTitle>2. Enviar</ItemTitle>
         <ItemDescription>
           {phoneNumber
-            ? 'Abre la conversación en WhatsApp y pega el recibo.'
+            ? 'Abre el chat en WhatsApp y pega el recibo.'
             : 'Necesitas agregar un número de teléfono.'}
         </ItemDescription>
       </ItemContent>
-      <ItemActions>
-        {!phoneNumber ? (
-          <Button variant="outline" size="sm" disabled>
-            Abrir
-          </Button>
-        ) : (
-          <Button variant="outline" size="sm" disabled={!phoneNumber} asChild>
+      {phoneNumber && (
+        <ItemActions>
+          <Button variant="outline" size="icon" disabled={!phoneNumber} asChild>
             <Link href={whatsAppUrl} target="_blank" rel="noopener noreferrer">
-              Abrir
+              <MessageCircle />
             </Link>
           </Button>
-        )}
-      </ItemActions>
+        </ItemActions>
+      )}
     </Item>
   );
 }

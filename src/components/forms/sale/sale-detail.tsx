@@ -14,8 +14,8 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { CardItem, ListItem } from '@/components/lists/list-item';
 import { Badge } from '@/components/ui/badge';
 import { bgColors } from '@/lib/bg-colors';
-import { formatNumber } from '@/lib/formatters';
-import { Hash, MoreHorizontal } from 'lucide-react';
+import { formatNumber, roundToPointZeroOrFive } from '@/lib/formatters';
+import { Hash } from 'lucide-react';
 import { TableContainer } from '@/components/lists/table';
 import {
   TableBody,
@@ -25,15 +25,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { EditDetailButton } from '@/components/form-elements/edit-detail-button';
-import { DeleteDetailButton } from '@/components/form-elements/delete-detail-button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
 import { DetailOptions } from '../detail-options';
 
 interface SaleDetail {
@@ -61,9 +52,9 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
             precioPorMayor,
           } = detail;
           const subtotalVenta =
-            (precioPorMayor ? precioVentaPorMayor : precioVenta) *
-            cambioDolar *
-            cantidad;
+            (precioPorMayor
+              ? roundToPointZeroOrFive(precioVentaPorMayor * cambioDolar)
+              : roundToPointZeroOrFive(precioVenta * cambioDolar)) * cantidad;
           const subtotalCompra = precioCompra * cambioDolar * cantidad;
           const ganancia = subtotalVenta - subtotalCompra;
 
@@ -79,9 +70,13 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
                   <Badge variant="secondary" className={`${bgColors.green}`}>
                     C${' '}
                     {formatNumber(
-                      (precioPorMayor
-                        ? detail.precioVentaPorMayor
-                        : detail.precioVenta) * detail.cambioDolar
+                      precioPorMayor
+                        ? roundToPointZeroOrFive(
+                            detail.precioVentaPorMayor * detail.cambioDolar
+                          )
+                        : roundToPointZeroOrFive(
+                            detail.precioVenta * detail.cambioDolar
+                          )
                     )}
                   </Badge>
                   <Badge variant="secondary">Cant: {detail.cantidad}</Badge>
@@ -95,7 +90,7 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
                   />
                 </CardAction>
               </CardHeader>
-              <CardContent className="space-y-1">
+              <CardContent>
                 <CardItem
                   value={subtotalVenta}
                   label="Subtotal"
@@ -120,7 +115,7 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
               <Badge variant="outline">Cant: {formTotals.quantity}</Badge>
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-1">
+          <CardContent>
             <CardItem
               value={formTotals.totalSell}
               label="Subtotal"
@@ -163,9 +158,9 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
             precioPorMayor,
           } = detail;
           const subtotalVenta =
-            (precioPorMayor ? precioVentaPorMayor : precioVenta) *
-            cambioDolar *
-            cantidad;
+            (precioPorMayor
+              ? roundToPointZeroOrFive(precioVentaPorMayor * cambioDolar)
+              : roundToPointZeroOrFive(precioVenta * cambioDolar)) * cantidad;
           const subtotalCompra = precioCompra * cambioDolar * cantidad;
           const ganancia = subtotalVenta - subtotalCompra;
 
@@ -193,7 +188,9 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
               </TableCell>
               <TableCell>
                 <ListItem
-                  value={detail.precioVenta * detail.cambioDolar}
+                  value={roundToPointZeroOrFive(
+                    detail.precioVenta * detail.cambioDolar
+                  )}
                   color="green"
                   showPriceInNio
                 />

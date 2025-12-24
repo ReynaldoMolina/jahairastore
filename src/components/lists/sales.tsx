@@ -11,7 +11,11 @@ import {
   TableHeader,
   TableRow,
 } from '../ui/table';
-import { formatNumber, formatDate } from '@/lib/formatters';
+import {
+  formatNumber,
+  formatDate,
+  roundToPointZeroOrFive,
+} from '@/lib/formatters';
 import { useIsMobile } from '@/hooks/use-mobile';
 import {
   Card,
@@ -51,7 +55,7 @@ export function Sales({ data, query, totalPages }: SalesProps) {
 
   const totals = data.reduce(
     (acc, item) => {
-      acc.total += item.total;
+      acc.total += roundToPointZeroOrFive(item.total);
       acc.saldo += item.saldo;
       acc.ganancia += item.ganancia;
       return acc;
@@ -93,7 +97,7 @@ export function Sales({ data, query, totalPages }: SalesProps) {
               </CardHeader>
               <CardContent>
                 <CardItem
-                  value={register.total}
+                  value={roundToPointZeroOrFive(register.total)}
                   label="Total"
                   color="neutral"
                   showPriceInNio

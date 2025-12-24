@@ -7,11 +7,11 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import { calculateTotals } from '@/lib/calculate-totals';
 import { FormOption } from '@/components/form-elements/form-option';
 import { Separator } from '@/components/ui/separator';
+import { roundToTwoDecimals } from '@/lib/formatters';
 
 interface OrderPayment {
   order: OrderById;
@@ -21,17 +21,18 @@ export function OrderPayment({ order }: OrderPayment) {
   const formTotals = calculateTotals({
     list: order.detail,
   });
-  const balance = Math.round((formTotals.totalSell - order.abonos) * 100) / 100;
-  const half = Math.round((balance / 2) * 100) / 100;
-  const hasBalance = formTotals.totalSell - order.abonos > 0;
+  const balance = roundToTwoDecimals(formTotals.totalSell - order.abonos);
+  const half = roundToTwoDecimals((balance / 2) * 100);
+  const hasBalance = balance > 0;
   const hasAbonos = order.abonos > 0;
 
   return (
     <Card className="max-w-xl">
-      <CardHeader>
-        <CardTitle className="text-sm">Pagar pedido</CardTitle>
-        <CardDescription>Crea recibos para pagar el pedido.</CardDescription>
-      </CardHeader>
+      {!hasBalance && (
+        <CardHeader>
+          <CardDescription>El pedido ya está pagado.</CardDescription>
+        </CardHeader>
+      )}
       <CardContent className="space-y-3">
         {hasBalance && (
           <>

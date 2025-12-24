@@ -62,7 +62,7 @@ export function EditSaleDetailDialog({ detail }: EditSaleDetailDialog) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Dialog open={true} onOpenChange={() => router.back()}>
-          <DialogContent className="sm:max-w-120 max-h-[97dvh] overflow-y-auto">
+          <DialogContent className="sm:max-w-xl max-h-[97dvh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Editar producto</DialogTitle>
               <DialogDescription>

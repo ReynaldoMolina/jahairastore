@@ -55,8 +55,7 @@ export function ProductForm({ form }: ProductForm) {
         <FormCheck
           control={form.control}
           name="precioEnCordobas"
-          label="¿Precio en córdobas?"
-          description="Se mostrará el precio en córdobas."
+          label="Precio en córdobas"
         />
       </FieldSet>
 
@@ -65,13 +64,13 @@ export function ProductForm({ form }: ProductForm) {
           <FormInput
             control={form.control}
             name="precioCompra"
-            label="Compra"
+            label="Precio compra"
             textAddon="$"
           />
           <FormInput
             control={form.control}
             name="precioVenta"
-            label="Venta"
+            label="Precio venta"
             textAddon="$"
           />
           <FormInput
@@ -92,12 +91,9 @@ export function ProductForm({ form }: ProductForm) {
                   ? ''
                   : roundToTwoDecimals(precioCompra * cambioDolar)
               }
-              label="Compra"
+              label="Precio compra"
               handleChange={(val) =>
-                form.setValue(
-                  'precioCompra',
-                  roundToTwoDecimals(Number(val) / cambioDolar)
-                )
+                form.setValue('precioCompra', Number(val) / cambioDolar)
               }
               textAddon="C$"
             />
@@ -107,12 +103,9 @@ export function ProductForm({ form }: ProductForm) {
                   ? ''
                   : roundToPointZeroOrFive(precioVenta * cambioDolar)
               }
-              label="Venta"
+              label="Precio venta"
               handleChange={(val) =>
-                form.setValue(
-                  'precioVenta',
-                  roundToTwoDecimals(Number(val) / cambioDolar)
-                )
+                form.setValue('precioVenta', Number(val) / cambioDolar)
               }
               textAddon="C$"
             />
@@ -124,10 +117,7 @@ export function ProductForm({ form }: ProductForm) {
               }
               label="Venta por mayor"
               handleChange={(val) =>
-                form.setValue(
-                  'precioVentaPorMayor',
-                  roundToTwoDecimals(Number(val) / cambioDolar)
-                )
+                form.setValue('precioVentaPorMayor', Number(val) / cambioDolar)
               }
               textAddon="C$"
             />

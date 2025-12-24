@@ -193,6 +193,7 @@ export interface ReceiptById {
   apellidoCliente: string;
   telefono: string;
   fecha: string;
+  saldoInicial: number;
   abono: number;
   saldo: number;
   cambioDolar: number;

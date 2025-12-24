@@ -70,8 +70,7 @@ export function CreateOrderForm({
           <CardHeader>
             <CardTitle className="text-sm">Nuevo pedido</CardTitle>
             <CardDescription>
-              Ingresa los datos del pedido, da click en siguiente cundo estés
-              listo.
+              Ingresa los datos, da click en siguiente cuando estés listo.
             </CardDescription>
           </CardHeader>
           <CardContent>

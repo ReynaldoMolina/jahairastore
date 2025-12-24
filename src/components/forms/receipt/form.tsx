@@ -8,7 +8,7 @@ import { FormInput } from '@/components/form-elements/form-input';
 import { receiptSchema } from '../validation/receipt';
 import { FormDatePicker } from '@/components/form-elements/form-date-picker';
 import z from 'zod';
-import { formatNumber } from '@/lib/formatters';
+import { roundToTwoDecimals } from '@/lib/formatters';
 import { bgColors } from '@/lib/bg-colors';
 import { ReceiptById } from '@/types/types';
 import { FormCheck } from '@/components/form-elements/form-checkbox';
@@ -51,19 +51,16 @@ export function ReceiptForm({
           label="Cliente"
         />
       </FieldSet>
-
       <FieldSeparator />
-
-      {/* <FormCheck
+      <FormCheck
         control={form.control}
         name="enCordobas"
-        label="¿Abono en córdobas?"
-        description="Se mostrará el abono en córdobas."
-      /> */}
+        label="Abono en córdobas"
+      />
 
       <FieldSet className={enCordobas ? 'hidden' : 'sm:flex-row'}>
         <FormInputReadOnly
-          value={formatNumber(saldoInicial)}
+          value={saldoInicial}
           label="Saldo inicial"
           textAddon="$"
           className={bgColors.neutral}
@@ -77,7 +74,9 @@ export function ReceiptForm({
           onChangeExtra={(value) =>
             form.setValue(
               'saldo',
-              saldoInicial - (isNaN(Number(value)) ? 0 : Number(value))
+              roundToTwoDecimals(
+                saldoInicial - (isNaN(Number(value)) ? 0 : Number(value))
+              )
             )
           }
         />
@@ -94,27 +93,36 @@ export function ReceiptForm({
       {enCordobas && (
         <FieldSet className="sm:flex-row">
           <FormInputReadOnly
-            value={formatNumber(saldoInicial * cambioDolar)}
+            value={roundToTwoDecimals(saldoInicial * cambioDolar)}
             label="Saldo inicial"
             textAddon="$"
             className={bgColors.neutral}
           />
           <FormInputOnChange
-            value={isNaN(Number(abono)) ? '' : abono * cambioDolar}
+            value={
+              isNaN(Number(abono)) ? 0 : roundToTwoDecimals(abono * cambioDolar)
+            }
             label="Abono"
             handleChange={(val) => {
-              form.setValue('abono', Number(val) / cambioDolar);
+              form.setValue(
+                'abono',
+                roundToTwoDecimals(Number(val) / cambioDolar)
+              );
               form.setValue(
                 'saldo',
-                saldoInicial -
-                  (isNaN(Number(val)) ? 0 : Number(val) / cambioDolar)
+                roundToTwoDecimals(
+                  saldoInicial -
+                    (isNaN(Number(val)) ? 0 : Number(val) / cambioDolar)
+                )
               );
             }}
             textAddon="C$"
             className={bgColors.green}
           />
           <FormInputOnChange
-            value={isNaN(Number(saldo)) ? '' : saldo * cambioDolar}
+            value={
+              isNaN(Number(saldo)) ? 0 : roundToTwoDecimals(saldo * cambioDolar)
+            }
             label="Saldo"
             handleChange={(val) =>
               form.setValue('saldo', Number(val) / cambioDolar)
@@ -134,7 +142,6 @@ export function ReceiptForm({
       />
 
       <FieldSeparator />
-
       <FieldSet>
         <FormTextArea control={form.control} name="concepto" label="Concepto" />
       </FieldSet>

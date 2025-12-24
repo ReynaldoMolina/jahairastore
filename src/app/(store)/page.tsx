@@ -1,5 +1,6 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { Home } from '@/components/home';
+import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
 import { getBusinessInfo } from '@/fetch-data/settings';
 
@@ -15,7 +16,9 @@ export default async function Page() {
   return (
     <>
       <SiteHeader title="Inicio" hideBackButton />
-      <Home businessInfo={businessInfo} />
+      <PageWrapper>
+        <Home businessInfo={businessInfo} />
+      </PageWrapper>
     </>
   );
 }

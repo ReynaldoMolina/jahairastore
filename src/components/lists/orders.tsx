@@ -24,7 +24,7 @@ import {
 import { CardItem, ListItem } from './list-item';
 import { Badge } from '../ui/badge';
 import { formatDate } from '@/lib/formatters';
-import { Calendar, CircleQuestionMark, Hash, Plane, Ship } from 'lucide-react';
+import { Calendar, Hash, Plane } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 interface Orders {
@@ -92,7 +92,7 @@ export function Orders({ data, query, totalPages }: Orders) {
                         {formatDate(register.fecha)}
                       </Badge>
                       {register.envio === 'aereo' && (
-                        <Badge variant="outline">
+                        <Badge variant="outline" className="h-5">
                           <Plane />
                         </Badge>
                       )}
@@ -182,7 +182,7 @@ export function Orders({ data, query, totalPages }: Orders) {
                     <span>{register.nombreCliente}</span>
                     {register.envio === 'aereo' && (
                       <Badge variant="outline">
-                        <Plane />
+                        <Plane className="h-5" />
                       </Badge>
                     )}
                   </div>

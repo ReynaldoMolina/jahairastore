@@ -92,7 +92,7 @@ export const recibo = pgTable('recibo', {
   saldo: doublePrecision('saldo').notNull(),
   concepto: text('concepto'),
   cambioDolar: doublePrecision('cambio_dolar').notNull().default(37),
-  en_cordobas: boolean('en_cordobas').notNull().default(false),
+  enCordobas: boolean('en_cordobas').notNull().default(false),
 });
 
 export const venta = pgTable('venta', {

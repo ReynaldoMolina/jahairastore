@@ -20,7 +20,7 @@ export async function getOrders(searchParams: SearchParamsProps) {
       COALESCE("ventas"."total", 0)::numeric -
       COALESCE("abonos"."total", 0)::numeric,
       2
-      )::double precision > 0`
+      )::float > 0`
     : undefined;
 
   try {
@@ -28,7 +28,7 @@ export async function getOrders(searchParams: SearchParamsProps) {
       .select({
         idPedido: pedidoDetalle.idPedido,
         total:
-          sql<number>`SUM(${pedidoDetalle.precioVenta} * ${pedidoDetalle.cantidad})`.as(
+          sql<number>`ROUND(SUM(${pedidoDetalle.precioVenta} * ${pedidoDetalle.cantidad})::numeric, 2)::float`.as(
             'total'
           ),
       })
@@ -40,7 +40,7 @@ export async function getOrders(searchParams: SearchParamsProps) {
       .select({
         idPedido: pedidoDetalle.idPedido,
         total:
-          sql<number>`SUM(${pedidoDetalle.precioCompra} * ${pedidoDetalle.cantidad})`.as(
+          sql<number>`ROUND(SUM(${pedidoDetalle.precioCompra} * ${pedidoDetalle.cantidad})::numeric, 2)::float`.as(
             'total'
           ),
       })
@@ -51,7 +51,9 @@ export async function getOrders(searchParams: SearchParamsProps) {
     const abonos = db
       .select({
         idPedido: recibo.idPedido,
-        total: sql<number>`SUM(${recibo.abono})`.as('total'),
+        total: sql<number>`ROUND(SUM(${recibo.abono})::numeric, 2)::float`.as(
+          'total'
+        ),
       })
       .from(recibo)
       .groupBy(recibo.idPedido)
@@ -67,7 +69,7 @@ export async function getOrders(searchParams: SearchParamsProps) {
         total: sql<number>`COALESCE("ventas"."total", 0)`,
         abonos: sql<number>`COALESCE("abonos"."total", 0)`,
         saldo: sql<number>`COALESCE("ventas"."total", 0) - COALESCE("abonos"."total", 0)`,
-        ganancia: sql<number>`COALESCE("ventas"."total", 0) - COALESCE("compras"."total", 0)`,
+        ganancia: sql<number>`ROUND(COALESCE("ventas"."total", 0)::numeric - COALESCE("compras"."total", 0)::numeric, 2)::float`,
       })
       .from(pedido)
       .leftJoin(cliente, eq(pedido.idCliente, cliente.id))

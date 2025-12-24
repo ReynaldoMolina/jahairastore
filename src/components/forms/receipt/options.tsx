@@ -1,21 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { Copy, Download, Eye, MessageCircle } from 'lucide-react';
+import { Copy, Download, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Item,
   ItemActions,
   ItemContent,
   ItemDescription,
-  ItemMedia,
   ItemTitle,
 } from '@/components/ui/item';
 import { toast } from 'sonner';
 import { Spinner } from '@/components/ui/spinner';
 import { ReceiptById } from '@/types/types';
 import Link from 'next/link';
-import { CardDescription, CardTitle } from '@/components/ui/card';
+import { CardTitle } from '@/components/ui/card';
+import { WhatsAppButton } from '../sale/options';
 
 interface ReceiptOptions {
   receipt: ReceiptById;
@@ -66,29 +66,23 @@ export function ReceiptOptions({ receipt }: ReceiptOptions) {
   return (
     <>
       <Item variant="outline">
-        <ItemMedia variant="icon" className="hidden md:flex">
-          <Eye />
-        </ItemMedia>
         <ItemContent>
           <ItemTitle>Ver</ItemTitle>
           <ItemDescription>Ver el recibo como imagen.</ItemDescription>
         </ItemContent>
         <ItemActions>
-          <Button variant="outline" size="sm" asChild>
+          <Button variant="outline" size="icon" asChild>
             <Link
               href={`/api/recibos/pedido?id_recibo=${receipt.id}`}
               target="_blank"
             >
-              Ver
+              <Eye />
             </Link>
           </Button>
         </ItemActions>
       </Item>
 
       <Item variant="outline">
-        <ItemMedia variant="icon" className="hidden md:flex">
-          <Download />
-        </ItemMedia>
         <ItemContent>
           <ItemTitle>Descargar</ItemTitle>
           <ItemDescription>Descarga el recibo como imagen.</ItemDescription>
@@ -96,39 +90,30 @@ export function ReceiptOptions({ receipt }: ReceiptOptions) {
         <ItemActions>
           <Button
             variant="outline"
-            size="sm"
+            size="icon"
             onClick={handleDownload}
             disabled={loading !== null}
-            className="min-w-20"
           >
-            {loading === 'download' ? <Spinner /> : 'Descargar'}
+            {loading === 'download' ? <Spinner /> : <Download />}
           </Button>
         </ItemActions>
       </Item>
 
       <CardTitle className="mt-8">¿Quieres enviar el recibo?</CardTitle>
-      <CardDescription>
-        Cópialo al portapapeles, luego abre la conversación de WhatsApp y pega
-        la imagen.
-      </CardDescription>
 
       <Item variant="outline">
-        <ItemMedia variant="icon" className="hidden md:flex">
-          <Copy />
-        </ItemMedia>
         <ItemContent>
-          <ItemTitle>Copiar</ItemTitle>
+          <ItemTitle>1. Copiar</ItemTitle>
           <ItemDescription>Copia el recibo al portapapeles.</ItemDescription>
         </ItemContent>
         <ItemActions>
           <Button
             variant="outline"
-            size="sm"
+            size="icon"
             onClick={handleCopy}
             disabled={loading !== null}
-            className="min-w-20"
           >
-            {loading === 'copy' ? <Spinner /> : 'Copiar'}
+            {loading === 'copy' ? <Spinner /> : <Copy />}
           </Button>
         </ItemActions>
       </Item>
@@ -138,45 +123,5 @@ export function ReceiptOptions({ receipt }: ReceiptOptions) {
         phoneNumber={receipt.telefono}
       />
     </>
-  );
-}
-
-interface WhatsAppButton {
-  message: string;
-  phoneNumber: string;
-}
-
-function WhatsAppButton({ message, phoneNumber }: WhatsAppButton) {
-  const encodedMessage = encodeURIComponent(message);
-  const formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
-  const whatsAppUrl = `https://api.whatsapp.com/send?phone=505${formattedPhoneNumber}&text=${encodedMessage}`;
-
-  return (
-    <Item variant="outline">
-      <ItemMedia variant="icon" className="hidden md:flex">
-        <MessageCircle />
-      </ItemMedia>
-      <ItemContent>
-        <ItemTitle>Enviar</ItemTitle>
-        <ItemDescription>
-          {phoneNumber
-            ? 'Abre la conversación y pega el recibo.'
-            : 'Necesitas agregar un número de teléfono.'}
-        </ItemDescription>
-      </ItemContent>
-      <ItemActions>
-        {!phoneNumber ? (
-          <Button variant="outline" size="sm" disabled>
-            Abrir
-          </Button>
-        ) : (
-          <Button variant="outline" size="sm" disabled={!phoneNumber} asChild>
-            <Link href={whatsAppUrl} target="_blank" rel="noopener noreferrer">
-              Abrir
-            </Link>
-          </Button>
-        )}
-      </ItemActions>
-    </Item>
   );
 }

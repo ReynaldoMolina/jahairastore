@@ -54,10 +54,11 @@ export async function getReceiptById(id: number | string) {
         apellidoCliente: cliente.apellido,
         telefono: cliente.telefono,
         fecha: recibo.fecha,
+        saldoInicial: sql<number>`ROUND((${recibo.abono} + ${recibo.saldo})::numeric, 2)::float`,
         abono: recibo.abono,
         saldo: recibo.saldo,
         cambioDolar: recibo.cambioDolar,
-        enCordobas: recibo.en_cordobas,
+        enCordobas: recibo.enCordobas,
         concepto: recibo.concepto,
       })
       .from(recibo)
@@ -65,6 +66,7 @@ export async function getReceiptById(id: number | string) {
       .where(eq(recibo.id, Number(id)));
     return data;
   } catch (error) {
+    console.error(error);
     throw new Error('No se pudo obtener el recibo.');
   }
 }

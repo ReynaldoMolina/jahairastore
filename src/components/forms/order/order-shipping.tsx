@@ -106,12 +106,6 @@ export function OrderShipping({ order, envioPrices }: OrderShipping) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card className="max-w-xl mx-auto">
-          <CardHeader>
-            <CardTitle className="text-sm">Envío del pedido</CardTitle>
-            <CardDescription>
-              Actualiza los datos de envío del pedido.
-            </CardDescription>
-          </CardHeader>
           <CardContent className="space-y-5">
             <FieldGroup>
               <FieldSet>
@@ -205,8 +199,7 @@ export function OrderShipping({ order, envioPrices }: OrderShipping) {
             </div>
             <CardDescription className="inline-flex items-center gap-2 text-xs">
               <Info className="size-3.5 min-w-3.5" />
-              Antes de enviar el mensaje por WhatsApp, guarda los cambios para
-              no perderlos.
+              Guarda los cambios antes de enviar el mensaje por WhatsApp.
             </CardDescription>
           </CardContent>
           <FormCardFooter isPending={isPending} />
