@@ -196,7 +196,7 @@ export function Sales({ data, query, totalPages }: SalesProps) {
               </TableCell>
               <TableCell>
                 <ListItem
-                  value={formatNumber(register.total)}
+                  value={formatNumber(roundToPointZeroOrFive(register.total))}
                   color="neutral"
                   showPriceInNio
                 />

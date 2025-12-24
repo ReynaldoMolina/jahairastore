@@ -1,13 +1,7 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '../../ui/card';
+import { Card, CardContent } from '../../ui/card';
 import * as z from 'zod';
 import {
   ProductSearchData,
