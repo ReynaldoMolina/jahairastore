@@ -44,8 +44,8 @@ export function LoginForm() {
             type="button"
             className="w-full"
             onClick={() =>
-              startTransition(() => {
-                handleLogin();
+              startTransition(async () => {
+                await handleLogin();
               })
             }
             disabled={isPending}

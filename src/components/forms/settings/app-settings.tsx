@@ -70,12 +70,6 @@ export function AppSettingsForm({ data }: AppSettingsForm) {
               <CardContent>
                 <FieldGroup>
                   <FieldSet>
-                    <FieldLegend className="data-[variant=legend]:text-sm font-semibold">
-                      Información del negocio
-                    </FieldLegend>
-                    <FieldDescription>
-                      Mantén actualizados los datos de tu negocio.
-                    </FieldDescription>
                     <FormInput
                       control={form.control}
                       name="nombreEmpresa"

@@ -10,9 +10,7 @@ export default async function Layout({ children }) {
 
       <PageWrapper>
         <div className="max-w-2xl mx-auto mb-10 w-full">
-          <TypographyH1>Documentación de la tienda</TypographyH1>
-
-          <div className="flex flex-col gap-2 my-6">
+          <div className="flex flex-col gap-2 my-3">
             <span className="text-sm text-muted-foreground border-b pb-1">
               Menú
             </span>

@@ -62,7 +62,7 @@ export function SearchInput({ className }: SearchInput) {
   }, 400);
 
   return (
-    <InputGroup className={cn('w-full max-w-40 h-9', className)}>
+    <InputGroup className={cn('w-full max-w-50', className)}>
       <InputGroupInput
         type="search"
         placeholder="Buscar"

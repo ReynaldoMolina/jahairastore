@@ -4,9 +4,13 @@ import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
 import { getBusinessInfo } from '@/fetch-data/settings';
 
-export const metadata = {
-  title: 'Inicio',
-};
+export async function generateMetadata() {
+  const businessInfo = await getBusinessInfo();
+
+  return {
+    title: businessInfo.nombreEmpresa || 'Tienda',
+  };
+}
 
 export default async function Page() {
   await checkAuthorization();
@@ -15,7 +19,7 @@ export default async function Page() {
 
   return (
     <>
-      <SiteHeader title="Inicio" hideBackButton />
+      <SiteHeader title={businessInfo.nombreEmpresa} hideBackButton />
       <PageWrapper>
         <Home businessInfo={businessInfo} />
       </PageWrapper>

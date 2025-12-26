@@ -1,5 +1,6 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { ListFilter } from '@/components/actiontools/list-filter';
+import { SearchInput } from '@/components/actiontools/search-input';
 import { Products } from '@/components/lists/products';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
@@ -21,6 +22,7 @@ export default async function Page({ searchParams }: PageProps) {
         <ListFilter listName="productos" />
       </SiteHeader>
       <PageWrapper>
+        <SearchInput />
         <Products data={data} query={query} totalPages={totalPages} />
       </PageWrapper>
     </>
