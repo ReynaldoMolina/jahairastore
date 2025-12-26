@@ -62,9 +62,7 @@ export function Products({ data, query, totalPages }: Products) {
           return (
             <Link key={register.id} href={`/productos/${register.id}`}>
               <Card className="py-4 gap-4">
-                <CardHeader
-                // className={!isSoldOut ? 'border-b [.border-b]:pb-4' : ''}
-                >
+                <CardHeader>
                   <CardTitle>{register.nombre}</CardTitle>
                   <CardDescription className="inline-flex gap-3 items-center">
                     <Badge variant="outline">
@@ -85,10 +83,7 @@ export function Products({ data, query, totalPages }: Products) {
                       {isSoldOut ? (
                         'Agotado'
                       ) : (
-                        <>
-                          <PackageCheck />
-                          Disp: {register.existencias}
-                        </>
+                        <span>Cant: {register.existencias}</span>
                       )}
                     </Badge>
                   </CardDescription>
@@ -102,7 +97,7 @@ export function Products({ data, query, totalPages }: Products) {
             <CardTitle>Total</CardTitle>
             <CardDescription className="inline-flex gap-3 items-center">
               <Badge variant="outline">Conteo: {data.length}</Badge>
-              <Badge variant="outline">Disponibles: {totals.existencias}</Badge>
+              <Badge variant="outline">Cant: {totals.existencias}</Badge>
             </CardDescription>
           </CardHeader>
         </Card>
@@ -118,7 +113,7 @@ export function Products({ data, query, totalPages }: Products) {
             <TableHead className="w-full">Producto</TableHead>
             <TableHead>Id</TableHead>
             <TableHead>Precio</TableHead>
-            <TableHead>Disponibles</TableHead>
+            <TableHead>Cantidad</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -173,16 +168,15 @@ export function Products({ data, query, totalPages }: Products) {
         </TableBody>
         <TableFooter className="bg-muted">
           <TableRow>
-            <TableCell>
-              <Badge variant="outline">Conteo: {data.length}</Badge>
-            </TableCell>
+            <TableCell>Total</TableCell>
+            <TableCell className="text-xs text-center">{data.length}</TableCell>
             <TableCell></TableCell>
-            <TableCell></TableCell>
-            <TableCell>
+            <TableCell className="text-xs text-center">
               <ListItem
                 value={String(totals.existencias)}
                 color="neutral"
                 hideCurrency
+                className="justify-center"
               />
             </TableCell>
           </TableRow>

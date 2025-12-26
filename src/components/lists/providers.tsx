@@ -125,10 +125,8 @@ export function Providers({ data, query, totalPages }: Providers) {
         </TableBody>
         <TableFooter className="bg-muted">
           <TableRow>
-            <TableCell>
-              <Badge variant="outline">Conteo: {data.length}</Badge>
-            </TableCell>
-            <TableCell></TableCell>
+            <TableCell>Total</TableCell>
+            <TableCell className="text-xs text-center">{data.length}</TableCell>
           </TableRow>
         </TableFooter>
       </Table>

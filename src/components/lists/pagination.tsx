@@ -26,7 +26,7 @@ export function Pagination({ totalPages }: { totalPages: number }) {
   };
 
   return (
-    <div className="inline-flex justify-center items-center overflow-auto min-h-10 gap-3">
+    <div className="inline-flex justify-center items-center overflow-auto gap-2 min-h-8">
       <span className="text-muted-foreground text-xs">{`${currentPage} de ${totalPages}`}</span>
       <div className="inline-flex gap-1">
         <PaginationArrow
@@ -50,8 +50,8 @@ export function Pagination({ totalPages }: { totalPages: number }) {
           href={createPageURL(totalPages)}
           disabled={currentPage >= totalPages}
         />
+        <FilterLimit searchParams={searchParams} />
       </div>
-      <FilterLimit searchParams={searchParams} />
     </div>
   );
 }

@@ -40,18 +40,18 @@ export function ProductSearch({
           Agregar producto
         </Button>
       </DialogTrigger>
-      <DialogContent className="min-w-dvw lg:min-w-[80dvw] max-h-dvh overflow-y-auto px-3 md:px-6">
+      <DialogContent className="lg:min-w-[80dvw] max-h-[95dvh] overflow-y-auto px-3 md:px-6 pb-3 md:pb-6 gap-3">
         <DialogHeader>
           <DialogTitle>Agregar productos</DialogTitle>
           <DialogDescription>
             Selecciona los productos y luego da click en agregar.
           </DialogDescription>
         </DialogHeader>
-        <div className="inline-flex justify-between gap-3">
+        <div className="inline-flex justify-between gap-2">
           <SearchInput />
           <ListFilter listName="productos" />
         </div>
-        <div className="flex flex-col max-h-[55dvh] md:max-h-[65dvh] overflow-y-auto gap-3 w-full pb-1">
+        <div className="flex flex-col max-h-[50dvh] md:max-h-[55dvh] overflow-y-auto gap-2 w-full pb-1">
           {children}
         </div>
         <DialogFooter>

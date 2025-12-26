@@ -99,7 +99,7 @@ export function Purchases({ data, query, totalPages }: Purchases) {
                   />
                   <CardItem
                     value={register.ganancia}
-                    label="Ganancia aprox."
+                    label="Ganancia"
                     color="blue"
                     showPriceInNio
                   />
@@ -124,7 +124,7 @@ export function Purchases({ data, query, totalPages }: Purchases) {
             />
             <CardItem
               value={totals.ganancia}
-              label="Ganancia aprox."
+              label="Ganancia"
               color="blue"
               showPriceInNio
             />
@@ -143,7 +143,7 @@ export function Purchases({ data, query, totalPages }: Purchases) {
             <TableHead>Id</TableHead>
             <TableHead>Fecha</TableHead>
             <TableHead>Total</TableHead>
-            <TableHead>Ganancia aprox.</TableHead>
+            <TableHead>Ganancia</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -197,10 +197,8 @@ export function Purchases({ data, query, totalPages }: Purchases) {
         </TableBody>
         <TableFooter className="bg-muted">
           <TableRow>
-            <TableCell>
-              <Badge variant="outline">Conteo: {data.length}</Badge>
-            </TableCell>
-            <TableCell></TableCell>
+            <TableCell>Total</TableCell>
+            <TableCell className="text-xs text-center">{data.length}</TableCell>
             <TableCell></TableCell>
             <TableCell>
               <ListItem

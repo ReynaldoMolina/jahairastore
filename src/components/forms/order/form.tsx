@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  FieldDescription,
-  FieldGroup,
-  FieldLegend,
-  FieldSeparator,
-  FieldSet,
-} from '../../ui/field';
+import { FieldGroup, FieldSeparator, FieldSet } from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import z from 'zod';
 import {
@@ -48,6 +42,7 @@ export function OrderForm({
   if (!isNew) {
     totals = calculateTotals({
       list: order.detail,
+      isOrder: true,
     });
   }
 

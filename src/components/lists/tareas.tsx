@@ -10,6 +10,7 @@ import {
   TableBody,
   TableCell,
   Table,
+  TableFooter,
 } from '../ui/table';
 import EmptyList from './empty-list';
 import { Pagination } from './pagination';
@@ -146,6 +147,14 @@ export function Tareas({ data, query, totalPages }: Tareas) {
             );
           })}
         </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell>Total</TableCell>
+            <TableCell className="text-xs text-center">{data.length}</TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+        </TableFooter>
       </Table>
       <Pagination totalPages={totalPages} />
     </>

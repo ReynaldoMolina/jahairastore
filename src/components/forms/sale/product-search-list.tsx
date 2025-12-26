@@ -26,7 +26,7 @@ import {
 import { ChangeQuantityCard, ChangeQuantity } from './change-quantity';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Hash, PackageCheck } from 'lucide-react';
+import { Hash } from 'lucide-react';
 
 interface ProductSearchList {
   productData: ProductSearchData;
@@ -93,14 +93,7 @@ export default function ProductSearchList({
                     )}`}
                   </Badge>
                   <Badge variant={isSoldOut ? 'destructive' : 'secondary'}>
-                    {isSoldOut ? (
-                      'Agotado'
-                    ) : (
-                      <>
-                        <PackageCheck />
-                        Disp: {p.existencias}
-                      </>
-                    )}
+                    {isSoldOut ? 'Agotado' : <span>Cant: {p.existencias}</span>}
                   </Badge>
                 </CardDescription>
                 <CardAction>
@@ -147,14 +140,14 @@ export default function ProductSearchList({
   return (
     <>
       <Table>
-        <TableHeader className="bg-muted sticky top-0 z-10">
+        <TableHeader>
           <TableRow>
-            <TableHead className="text-center">
+            <TableHead className="min-w-8">
               <Checkbox disabled />
             </TableHead>
             <TableHead>Producto</TableHead>
             <TableHead>Id</TableHead>
-            <TableHead>Disp.</TableHead>
+            <TableHead>Disponible</TableHead>
             <TableHead>Precio</TableHead>
             <TableHead>Cantidad</TableHead>
           </TableRow>

@@ -40,6 +40,7 @@ interface OrderShipping {
 export function OrderShipping({ order, envioPrices }: OrderShipping) {
   const formTotals = calculateTotals({
     list: order.detail,
+    isOrder: true,
   });
 
   const form = useForm<z.infer<typeof orderSchema>>({

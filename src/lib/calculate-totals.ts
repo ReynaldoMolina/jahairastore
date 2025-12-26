@@ -1,11 +1,16 @@
-import { roundToPointZeroOrFive } from './formatters';
+import { roundToPointZeroOrFive, roundToTwoDecimals } from './formatters';
 
 interface CalculateTotals {
   list: any;
   convert?: boolean;
+  isOrder?: boolean;
 }
 
-export function calculateTotals({ list, convert = false }: CalculateTotals) {
+export function calculateTotals({
+  list,
+  convert = false,
+  isOrder = false,
+}: CalculateTotals) {
   let totalSell = 0,
     totalCost = 0,
     quantity = 0;
@@ -13,30 +18,31 @@ export function calculateTotals({ list, convert = false }: CalculateTotals) {
   let items = list.length;
 
   for (const element of list) {
-    totalSell +=
-      element.cantidad * element.precioPorMayor
-        ? convert
-          ? roundToPointZeroOrFive(
-              element.precioVentaPorMayor * element.cambioDolar
-            )
-          : element.precioVentaPorMayor
-        : convert
-        ? roundToPointZeroOrFive(element.precioVenta * element.cambioDolar)
-        : element.precioVenta;
+    const exchangeRate = convert ? element.cambioDolar : 1;
 
-    totalCost +=
-      element.cantidad *
-      element.precioCompra *
-      (convert ? element.cambioDolar : 1);
+    if (isOrder) {
+      totalSell +=
+        roundToTwoDecimals(element.precioVenta * exchangeRate) *
+        element.cantidad;
+    } else {
+      totalSell += element.precioPorMayor
+        ? roundToPointZeroOrFive(element.precioVentaPorMayor * exchangeRate) *
+          element.cantidad
+        : roundToPointZeroOrFive(
+            element.precioVenta * exchangeRate * element.cantidad
+          );
+    }
+
+    totalCost += element.cantidad * element.precioCompra * exchangeRate;
 
     quantity += element.cantidad;
   }
 
-  let profit = totalSell - totalCost;
+  let profit = roundToTwoDecimals(totalSell) - roundToTwoDecimals(totalCost);
 
   return {
-    totalSell,
-    totalCost,
+    totalSell: roundToTwoDecimals(totalSell),
+    totalCost: roundToTwoDecimals(totalCost),
     profit,
     quantity,
     items,

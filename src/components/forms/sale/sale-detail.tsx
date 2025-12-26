@@ -93,7 +93,7 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
               <CardContent>
                 <CardItem
                   value={subtotalVenta}
-                  label="Subtotal"
+                  label="Total"
                   color="green"
                   showPriceInNio
                 />
@@ -118,7 +118,7 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
           <CardContent>
             <CardItem
               value={formTotals.totalSell}
-              label="Subtotal"
+              label="Total"
               color="green"
               showPriceInNio
             />
@@ -135,13 +135,13 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
 
   return (
     <Table>
-      <TableHeader className="bg-muted sticky top-0 z-10">
+      <TableHeader>
         <TableRow>
           <TableHead>Producto</TableHead>
           <TableHead>Id</TableHead>
           <TableHead>Cant</TableHead>
           <TableHead>Precio</TableHead>
-          <TableHead>Subtotal</TableHead>
+          <TableHead>Total</TableHead>
           <TableHead>Ganancia</TableHead>
           <TableHead></TableHead>
         </TableRow>
@@ -178,13 +178,8 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
                   {detail.idProducto}
                 </Badge>
               </TableCell>
-              <TableCell>
-                <ListItem
-                  value={String(detail.cantidad)}
-                  color="neutral"
-                  hideCurrency
-                  className="justify-center"
-                />
+              <TableCell className="text-xs text-center">
+                {detail.cantidad}
               </TableCell>
               <TableCell>
                 <ListItem
@@ -219,17 +214,12 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
       </TableBody>
       <TableFooter className="bg-muted">
         <TableRow>
-          <TableCell>
-            <Badge variant="outline">Conteo: {sale.detail.length}</Badge>
+          <TableCell>Total</TableCell>
+          <TableCell className="text-xs text-center">
+            {sale.detail.length}
           </TableCell>
-          <TableCell></TableCell>
-          <TableCell className="text-center">
-            <ListItem
-              value={String(formTotals.quantity)}
-              color="neutral"
-              hideCurrency
-              className="justify-center"
-            />
+          <TableCell className="text-center text-xs">
+            {formTotals.quantity}
           </TableCell>
           <TableCell>
             <ListItem

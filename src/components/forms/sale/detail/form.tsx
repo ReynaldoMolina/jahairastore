@@ -57,10 +57,7 @@ export function SaleDetailForm({ form, detail }: SaleDetailForm) {
           label="Id venta"
           hidden
         />
-        <FormTextAreaReadOnly
-          value={detail.nombreProducto}
-          label="Nombre producto"
-        />
+        <FormTextAreaReadOnly value={detail.nombreProducto} label="Nombre" />
         <FormCheck
           control={form.control}
           name="precioPorMayor"

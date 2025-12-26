@@ -35,7 +35,7 @@ interface OrderDetail {
 export function OrderDetail({ order, handleDelete }: OrderDetail) {
   const isMobile = useIsMobile();
 
-  const formTotals = calculateTotals({ list: order.detail });
+  const formTotals = calculateTotals({ list: order.detail, isOrder: true });
 
   if (order.detail.length <= 0) return <ProductCardEmpty />;
 
@@ -78,11 +78,7 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
                 </CardAction>
               </CardHeader>
               <CardContent>
-                <CardItem
-                  value={subtotalVenta}
-                  label="Subtotal"
-                  color="green"
-                />
+                <CardItem value={subtotalVenta} label="Total" color="neutral" />
                 <CardItem value={ganancia} label="Ganancia" color="blue" />
               </CardContent>
             </Card>
@@ -100,7 +96,7 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
             <CardItem
               value={formTotals.totalSell}
               label="Total"
-              color="green"
+              color="neutral"
             />
             <CardItem value={formTotals.profit} label="Ganancia" color="blue" />
           </CardContent>
@@ -114,9 +110,9 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
         <TableRow>
           <TableHead>Imagen</TableHead>
           <TableHead>Producto</TableHead>
-          <TableHead>Cantidad</TableHead>
+          <TableHead>Cant</TableHead>
           <TableHead>Precio</TableHead>
-          <TableHead>Subtotal</TableHead>
+          <TableHead>Total</TableHead>
           <TableHead>Ganancia</TableHead>
           <TableHead></TableHead>
         </TableRow>
@@ -149,13 +145,8 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
               <TableCell className="w-full whitespace-normal">
                 {detail.nombreProducto}
               </TableCell>
-              <TableCell>
-                <ListItem
-                  value={String(detail.cantidad)}
-                  color="neutral"
-                  hideCurrency
-                  className="justify-center"
-                />
+              <TableCell className="text-center text-xs">
+                {detail.cantidad}
               </TableCell>
               <TableCell>
                 <ListItem value={detail.precioVenta} color="green" />
@@ -180,26 +171,14 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
       </TableBody>
       <TableFooter className="bg-muted">
         <TableRow>
-          <TableCell>
-            <Badge variant="outline">Conteo: {order.detail.length}</Badge>
+          <TableCell>Total</TableCell>
+          <TableCell className="text-xs text-center">
+            {order.detail.length}
+          </TableCell>
+          <TableCell className="text-xs text-center">
+            {formTotals.quantity}
           </TableCell>
           <TableCell></TableCell>
-          <TableCell className="text-center">
-            <ListItem
-              value={String(formTotals.quantity)}
-              color="neutral"
-              hideCurrency
-              className="justify-center"
-            />
-          </TableCell>
-          <TableCell>
-            <ListItem
-              value="-"
-              color="green"
-              hideCurrency
-              className="justify-center"
-            />
-          </TableCell>
           <TableCell>
             <ListItem value={formTotals.totalSell} color="neutral" />
           </TableCell>

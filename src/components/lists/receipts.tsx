@@ -66,9 +66,9 @@ export function Receipts({ data, query, totalPages }: Receipts) {
                     </AvatarFallback>
                   </Avatar>
 
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2 overflow-hidden">
                     <CardTitle>{register.nombreCliente}</CardTitle>
-                    <CardDescription className="inline-flex gap-2 md:gap-3 items-center">
+                    <CardDescription className="flex gap-2 md:gap-3 items-center">
                       <Badge variant="outline">
                         <Hash />
                         {register.id}
@@ -77,12 +77,12 @@ export function Receipts({ data, query, totalPages }: Receipts) {
                         <Calendar />
                         {formatDate(register.fecha)}
                       </Badge>
+                      <Badge variant="secondary" className={bgColors.green}>
+                        $ {formatNumber(register.abono)}
+                      </Badge>
                       <Badge variant="outline">
                         <ShoppingBag />
                         {register.idPedido}
-                      </Badge>
-                      <Badge variant="secondary" className={bgColors.green}>
-                        $ {formatNumber(register.abono)}
                       </Badge>
                     </CardDescription>
                   </div>
@@ -114,8 +114,8 @@ export function Receipts({ data, query, totalPages }: Receipts) {
             <TableHead className="w-full">Cliente</TableHead>
             <TableHead>Id</TableHead>
             <TableHead>Fecha</TableHead>
-            <TableHead>Pedido</TableHead>
             <TableHead>Abono</TableHead>
+            <TableHead>Pedido</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -150,13 +150,13 @@ export function Receipts({ data, query, totalPages }: Receipts) {
                   </Badge>
                 </TableCell>
                 <TableCell>
+                  <ListItem value={register.abono} color="green" />
+                </TableCell>
+                <TableCell>
                   <Badge variant="outline">
                     <ShoppingBag />
                     {register.idPedido}
                   </Badge>
-                </TableCell>
-                <TableCell>
-                  <ListItem value={register.abono} color="green" />
                 </TableCell>
               </TableRow>
             );
@@ -164,15 +164,13 @@ export function Receipts({ data, query, totalPages }: Receipts) {
         </TableBody>
         <TableFooter className="bg-muted">
           <TableRow>
-            <TableCell>
-              <Badge variant="outline">Conteo: {data.length}</Badge>
-            </TableCell>
-            <TableCell></TableCell>
-            <TableCell></TableCell>
+            <TableCell>Total</TableCell>
+            <TableCell className="text-xs text-center">{data.length}</TableCell>
             <TableCell></TableCell>
             <TableCell>
               <ListItem value={totals.abono} color="green" />
             </TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableFooter>
       </Table>

@@ -20,7 +20,9 @@ interface OrderPayment {
 export function OrderPayment({ order }: OrderPayment) {
   const formTotals = calculateTotals({
     list: order.detail,
+    isOrder: true,
   });
+
   const balance = roundToTwoDecimals(formTotals.totalSell - order.abonos);
   const half = roundToTwoDecimals((balance / 2) * 100);
   const hasBalance = balance > 0;
