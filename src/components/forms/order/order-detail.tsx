@@ -15,8 +15,8 @@ import { CardItem, ListItem } from '@/components/lists/list-item';
 import { Badge } from '@/components/ui/badge';
 import { bgColors } from '@/lib/bg-colors';
 import { formatNumber } from '@/lib/formatters';
-import { TableContainer } from '@/components/lists/table';
 import {
+  Table,
   TableBody,
   TableCell,
   TableFooter,
@@ -24,17 +24,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { DeleteDetailButton } from '@/components/form-elements/delete-detail-button';
-import { EditDetailButton } from '@/components/form-elements/edit-detail-button';
 import Image from 'next/image';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { MoreVertical } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { DetailOptions } from '../detail-options';
 
 interface OrderDetail {
@@ -65,8 +55,8 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
                 {detail.imagenUrl && (
                   <Image
                     src={detail.imagenUrl}
-                    width={100}
-                    height={100}
+                    width={120}
+                    height={120}
                     alt="Thumbnail"
                     className="rounded text-xs bg-muted"
                   />
@@ -119,7 +109,7 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
     );
 
   return (
-    <TableContainer>
+    <Table>
       <TableHeader className="bg-muted sticky top-0 z-10">
         <TableRow>
           <TableHead>Imagen</TableHead>
@@ -149,8 +139,8 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
                 {detail.imagenUrl && (
                   <Image
                     src={detail.imagenUrl}
-                    width={50}
-                    height={50}
+                    width={100}
+                    height={100}
                     alt="Imagen"
                     className="rounded text-[10px] bg-muted"
                   />
@@ -219,7 +209,7 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
           <TableCell></TableCell>
         </TableRow>
       </TableFooter>
-    </TableContainer>
+    </Table>
   );
 }
 

@@ -4,6 +4,7 @@ import {
   ChartNoAxesCombined,
   ClipboardList,
   Coins,
+  Home,
   Package,
   Receipt,
   ShoppingBag,
@@ -13,6 +14,11 @@ import {
 } from 'lucide-react';
 
 export const menuOptions = [
+  {
+    name: 'Inicio',
+    url: '/',
+    icon: Home,
+  },
   {
     name: 'Dashboard',
     url: '/dashboard',

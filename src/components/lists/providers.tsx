@@ -6,7 +6,6 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Card, CardDescription, CardHeader, CardTitle } from '../ui/card';
-import { TableContainer } from './table';
 import {
   TableHeader,
   TableRow,
@@ -14,10 +13,11 @@ import {
   TableBody,
   TableCell,
   TableFooter,
+  Table,
 } from '../ui/table';
 import { Badge } from '../ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { Hash, Phone } from 'lucide-react';
+import { Phone } from 'lucide-react';
 
 interface Providers {
   data: {
@@ -84,8 +84,8 @@ export function Providers({ data, query, totalPages }: Providers) {
 
   return (
     <>
-      <TableContainer>
-        <TableHeader className="bg-muted sticky top-0 z-10">
+      <Table>
+        <TableHeader>
           <TableRow>
             <TableHead className="w-full">Proveedor</TableHead>
             <TableHead>Teléfono</TableHead>
@@ -131,7 +131,7 @@ export function Providers({ data, query, totalPages }: Providers) {
             <TableCell></TableCell>
           </TableRow>
         </TableFooter>
-      </TableContainer>
+      </Table>
       <Pagination totalPages={totalPages} />
     </>
   );

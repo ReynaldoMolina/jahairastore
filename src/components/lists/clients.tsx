@@ -2,7 +2,6 @@
 
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useRouter } from 'next/navigation';
-import { TableContainer } from './table';
 import { Card, CardHeader, CardTitle, CardDescription } from '../ui/card';
 import {
   TableHeader,
@@ -11,6 +10,7 @@ import {
   TableBody,
   TableCell,
   TableFooter,
+  Table,
 } from '../ui/table';
 import EmptyList from './empty-list';
 import { Pagination } from './pagination';
@@ -84,8 +84,8 @@ export function Clients({ data, query, totalPages }: Clients) {
 
   return (
     <>
-      <TableContainer>
-        <TableHeader className="bg-muted sticky top-0 z-10">
+      <Table>
+        <TableHeader>
           <TableRow>
             <TableHead className="w-full">Cliente</TableHead>
             <TableHead>Teléfono</TableHead>
@@ -129,7 +129,7 @@ export function Clients({ data, query, totalPages }: Clients) {
             <TableCell></TableCell>
           </TableRow>
         </TableFooter>
-      </TableContainer>
+      </Table>
       <Pagination totalPages={totalPages} />
     </>
   );

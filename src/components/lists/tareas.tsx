@@ -2,7 +2,6 @@
 
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useRouter } from 'next/navigation';
-import { TableContainer } from './table';
 import { Card, CardHeader, CardTitle, CardDescription } from '../ui/card';
 import {
   TableHeader,
@@ -10,6 +9,7 @@ import {
   TableHead,
   TableBody,
   TableCell,
+  Table,
 } from '../ui/table';
 import EmptyList from './empty-list';
 import { Pagination } from './pagination';
@@ -94,8 +94,8 @@ export function Tareas({ data, query, totalPages }: Tareas) {
 
   return (
     <>
-      <TableContainer>
-        <TableHeader className="bg-muted sticky top-0 z-10">
+      <Table>
+        <TableHeader>
           <TableRow>
             <TableHead className="w-full">Tarea</TableHead>
             <TableHead>Id</TableHead>
@@ -146,7 +146,7 @@ export function Tareas({ data, query, totalPages }: Tareas) {
             );
           })}
         </TableBody>
-      </TableContainer>
+      </Table>
       <Pagination totalPages={totalPages} />
     </>
   );

@@ -6,11 +6,8 @@ import {
   TypographyH3,
   TypographyList,
 } from '@/components/documentacion/typography';
-import { Button } from '@/components/ui/button';
 import { isDemo } from '@/middleware';
-import { Copy } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { toast } from 'sonner';
 
 export const metadata = {
   title: 'Políticas de envío',
@@ -26,7 +23,6 @@ export default async function Page() {
       <TypographySection id="politicas-envio">
         <TypographyH2>Políticas de envío</TypographyH2>
 
-        <TypographyH3>Enviar por WhatsApp</TypographyH3>
         <EnviosInfoButton />
 
         <TypographyH3>Opciones y costos de envío</TypographyH3>

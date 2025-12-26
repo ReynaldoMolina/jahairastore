@@ -16,13 +16,10 @@ export default async function Layout({ children }) {
             <span className="text-sm text-muted-foreground border-b pb-1">
               Menú
             </span>
+            <MenuButton title="Opciones de pago" href="/documentacion" />
             <MenuButton
               title="Políticas de pedidos de Shein"
               href="/documentacion/politica-pedidos-shein"
-            />
-            <MenuButton
-              title="Opciones de pago"
-              href="/documentacion/opciones-de-pago"
             />
             <MenuButton
               title="Políticas de envío"

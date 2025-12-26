@@ -5,14 +5,7 @@ import EmptyList from './empty-list';
 import { Pagination } from './pagination';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { TableContainer } from './table';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from '../ui/card';
+import { Card, CardHeader, CardTitle, CardDescription } from '../ui/card';
 import {
   TableHeader,
   TableRow,
@@ -20,8 +13,9 @@ import {
   TableBody,
   TableCell,
   TableFooter,
+  Table,
 } from '../ui/table';
-import { CardItem, ListItem } from './list-item';
+import { ListItem } from './list-item';
 import { Badge } from '../ui/badge';
 import { formatDate, formatNumber } from '@/lib/formatters';
 import { Calendar, Hash, ShoppingBag } from 'lucide-react';
@@ -114,8 +108,8 @@ export function Receipts({ data, query, totalPages }: Receipts) {
 
   return (
     <>
-      <TableContainer>
-        <TableHeader className="bg-muted sticky top-0 z-10">
+      <Table>
+        <TableHeader>
           <TableRow>
             <TableHead className="w-full">Cliente</TableHead>
             <TableHead>Id</TableHead>
@@ -181,7 +175,7 @@ export function Receipts({ data, query, totalPages }: Receipts) {
             </TableCell>
           </TableRow>
         </TableFooter>
-      </TableContainer>
+      </Table>
       <Pagination totalPages={totalPages} />
     </>
   );

@@ -1,13 +1,6 @@
 'use client';
 
-import { TableContainer } from './table';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from '../ui/card';
+import { Card, CardHeader, CardTitle, CardDescription } from '../ui/card';
 import {
   TableHeader,
   TableRow,
@@ -15,6 +8,7 @@ import {
   TableBody,
   TableCell,
   TableFooter,
+  Table,
 } from '../ui/table';
 import EmptyList from './empty-list';
 import { ListItem } from './list-item';
@@ -118,14 +112,13 @@ export function Products({ data, query, totalPages }: Products) {
 
   return (
     <>
-      <TableContainer>
-        <TableHeader className="bg-muted sticky top-0 z-10">
+      <Table>
+        <TableHeader>
           <TableRow>
             <TableHead className="w-full">Producto</TableHead>
             <TableHead>Id</TableHead>
             <TableHead>Precio</TableHead>
             <TableHead>Disponibles</TableHead>
-            {/* <TableHead>Ganancia disp.</TableHead> */}
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -194,7 +187,7 @@ export function Products({ data, query, totalPages }: Products) {
             </TableCell>
           </TableRow>
         </TableFooter>
-      </TableContainer>
+      </Table>
       <Pagination totalPages={totalPages} />
     </>
   );

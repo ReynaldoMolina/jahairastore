@@ -15,10 +15,9 @@ import { CardItem, ListItem } from '@/components/lists/list-item';
 import { Badge } from '@/components/ui/badge';
 import { bgColors } from '@/lib/bg-colors';
 import { formatNumber } from '@/lib/formatters';
-import { Button } from '@/components/ui/button';
-import { Hash, MoreHorizontal, Trash2 } from 'lucide-react';
-import { TableContainer } from '@/components/lists/table';
+import { Hash } from 'lucide-react';
 import {
+  Table,
   TableBody,
   TableCell,
   TableFooter,
@@ -26,14 +25,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { EditDetailButton } from '@/components/form-elements/edit-detail-button';
-import { DeleteDetailButton } from '@/components/form-elements/delete-detail-button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { DetailOptions } from '../detail-options';
 
 interface PurchaseDetail {
@@ -124,7 +115,7 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
     );
 
   return (
-    <TableContainer>
+    <Table>
       <TableHeader className="bg-muted sticky top-0 z-10">
         <TableRow>
           <TableHead>Producto</TableHead>
@@ -230,7 +221,7 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
           <TableCell></TableCell>
         </TableRow>
       </TableFooter>
-    </TableContainer>
+    </Table>
   );
 }
 

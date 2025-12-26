@@ -1,4 +1,9 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
+import { OpcionesDePago } from '@/components/documentacion/opciones-de-pago';
+import {
+  TypographyH2,
+  TypographySection,
+} from '@/components/documentacion/typography';
 import { isDemo } from '@/middleware';
 import { notFound } from 'next/navigation';
 
@@ -11,5 +16,13 @@ export default async function Page() {
 
   if (isDemo) return notFound();
 
-  return null;
+  return (
+    <>
+      <TypographySection id="opciones-de-pago">
+        <TypographyH2>Opciones de pago</TypographyH2>
+
+        <OpcionesDePago />
+      </TypographySection>
+    </>
+  );
 }

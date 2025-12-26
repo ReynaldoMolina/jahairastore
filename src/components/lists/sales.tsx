@@ -2,8 +2,8 @@
 
 import EmptyList from './empty-list';
 import { Pagination } from './pagination';
-import { TableContainer } from './table';
 import {
+  Table,
   TableBody,
   TableCell,
   TableFooter,
@@ -152,8 +152,8 @@ export function Sales({ data, query, totalPages }: SalesProps) {
 
   return (
     <>
-      <TableContainer>
-        <TableHeader className="bg-muted sticky top-0 z-10">
+      <Table>
+        <TableHeader>
           <TableRow>
             <TableHead>Cliente</TableHead>
             <TableHead>Id</TableHead>
@@ -248,7 +248,7 @@ export function Sales({ data, query, totalPages }: SalesProps) {
             </TableCell>
           </TableRow>
         </TableFooter>
-      </TableContainer>
+      </Table>
       <Pagination totalPages={totalPages} />
     </>
   );

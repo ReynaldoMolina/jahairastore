@@ -15,13 +15,13 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { ListItem } from '@/components/lists/list-item';
-import { TableContainer } from '@/components/lists/table';
 import {
   TableHeader,
   TableRow,
   TableHead,
   TableBody,
   TableCell,
+  Table,
 } from '@/components/ui/table';
 import { ChangeQuantityCard, ChangeQuantity } from './change-quantity';
 import { Badge } from '@/components/ui/badge';
@@ -146,7 +146,7 @@ export default function ProductSearchList({
 
   return (
     <>
-      <TableContainer>
+      <Table>
         <TableHeader className="bg-muted sticky top-0 z-10">
           <TableRow>
             <TableHead className="text-center">
@@ -258,7 +258,7 @@ export default function ProductSearchList({
             );
           })}
         </TableBody>
-      </TableContainer>
+      </Table>
       <Pagination totalPages={productData.totalPages} />
     </>
   );

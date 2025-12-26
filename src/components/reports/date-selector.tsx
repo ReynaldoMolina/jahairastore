@@ -48,7 +48,7 @@ export function DateSelector({ searchParams }: DateSelector) {
             Selecciona las fechas para generar los informes.
           </DialogDescription>
         </DialogHeader>
-        <div className="inline-flex flex-col md:flex-row gap-6">
+        <div className="inline-flex flex-row gap-3">
           <DatePickerForm
             name="start"
             label="Desde el:"

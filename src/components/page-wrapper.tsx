@@ -9,7 +9,7 @@ interface PageWrapper {
 export function PageWrapper({ children, className }: PageWrapper) {
   return (
     <div
-      className={cn('flex flex-col flex-1 p-3 overflow-auto gap-3', className)}
+      className={cn('flex flex-col p-3 gap-3 overflow-auto flex-1', className)}
     >
       {children}
     </div>

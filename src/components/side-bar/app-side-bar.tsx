@@ -15,7 +15,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '../ui/sidebar';
-import Link from 'next/link';
 import Logo from '@/components/icons/logominimal.svg';
 import { NavUser } from './nav-user';
 import { authClient } from '@/lib/auth-client';
@@ -46,21 +45,16 @@ export function AppSideBar({ businessInfo }: AppSideBarProps) {
     <Sidebar>
       <SidebarHeader>
         <SidebarMenuItem>
-          <SidebarMenuButton
-            asChild
-            className="min-w-0"
-            onClick={() => setOpenMobile(false)}
-          >
-            <Link href="/" className="font-bold">
-              <Logo />
-              <span className="truncate">{businessInfo.nombreEmpresa}</span>
-            </Link>
+          <SidebarMenuButton>
+            <Logo />
+            <span className="truncate font-bold">
+              {businessInfo.nombreEmpresa}
+            </span>
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Menú</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuOptions.map((item) => (
@@ -69,18 +63,6 @@ export function AppSideBar({ businessInfo }: AppSideBarProps) {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        {/* {menuOptions.map((option) => (
-          <SidebarGroup key={option.title}>
-            <SidebarGroupLabel>{option.title}</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {option.items.map((item) => (
-                  <MenuItem key={item.name} option={item} />
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        ))} */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser

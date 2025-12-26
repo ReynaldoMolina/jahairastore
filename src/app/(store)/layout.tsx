@@ -13,10 +13,10 @@ export default async function Layout({ children }) {
   return (
     <SidebarProvider
       defaultOpen={defaultOpen}
-      className="flex flex-col md:flex-row max-h-dvh min-h-dvh"
+      className="flex flex-col md:flex-row"
     >
       <AppSideBar businessInfo={businessInfo} />
-      <div className="flex flex-col flex-1 overflow-auto">{children}</div>
+      <div className="flex relative flex-col flex-1">{children}</div>
     </SidebarProvider>
   );
 }

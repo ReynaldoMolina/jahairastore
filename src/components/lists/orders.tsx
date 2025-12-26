@@ -12,7 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
-import { TableContainer } from './table';
 import {
   TableHeader,
   TableRow,
@@ -20,6 +19,7 @@ import {
   TableBody,
   TableCell,
   TableFooter,
+  Table,
 } from '../ui/table';
 import { CardItem, ListItem } from './list-item';
 import { Badge } from '../ui/badge';
@@ -151,8 +151,8 @@ export function Orders({ data, query, totalPages }: Orders) {
 
   return (
     <>
-      <TableContainer>
-        <TableHeader className="bg-muted sticky top-0 z-10">
+      <Table>
+        <TableHeader>
           <TableRow>
             <TableHead className="w-full">Cliente</TableHead>
             <TableHead>Id</TableHead>
@@ -244,7 +244,7 @@ export function Orders({ data, query, totalPages }: Orders) {
             </TableCell>
           </TableRow>
         </TableFooter>
-      </TableContainer>
+      </Table>
       <Pagination totalPages={totalPages} />
     </>
   );

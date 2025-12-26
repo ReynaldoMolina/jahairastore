@@ -7,11 +7,11 @@ import {
   PurchaseDetailType,
 } from '@/types/types';
 import { Checkbox } from '../../ui/checkbox';
-import { CardItem, ListItem } from '../../lists/list-item';
+import { ListItem } from '../../lists/list-item';
 import { Dispatch, SetStateAction, useMemo } from 'react';
 import { Badge } from '../../ui/badge';
-import { TableContainer } from '../../lists/table';
 import {
+  Table,
   TableBody,
   TableCell,
   TableHead,
@@ -144,7 +144,7 @@ export default function ProductSearchList({
 
   return (
     <>
-      <TableContainer>
+      <Table>
         <TableHeader className="bg-muted sticky top-0 z-10">
           <TableRow>
             <TableHead className="text-center">
@@ -248,7 +248,7 @@ export default function ProductSearchList({
             );
           })}
         </TableBody>
-      </TableContainer>
+      </Table>
       <Pagination totalPages={productData.totalPages} />
     </>
   );

@@ -5,7 +5,6 @@ import { Button } from './ui/button';
 import { ArrowLeft } from 'lucide-react';
 import { ActionBar } from './actiontools/action-bar';
 import { SidebarTrigger } from './ui/sidebar';
-import { Separator } from './ui/separator';
 
 interface SiteHeader {
   title: string;
@@ -25,7 +24,7 @@ export function SiteHeader({
   const router = useRouter();
 
   return (
-    <header className="inline-flex h-12 items-center border-b shrink-0 p-3 gap-1">
+    <header className="flex sticky top-0 h-12 items-center border-b px-3 gap-1 z-20 bg-background">
       {!hideBackButton ? (
         <Button variant="ghost" size="icon" onClick={() => router.back()}>
           <ArrowLeft className="size-4.5" />

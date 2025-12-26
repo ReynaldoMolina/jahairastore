@@ -16,8 +16,8 @@ import { Badge } from '@/components/ui/badge';
 import { bgColors } from '@/lib/bg-colors';
 import { formatNumber, roundToPointZeroOrFive } from '@/lib/formatters';
 import { Hash } from 'lucide-react';
-import { TableContainer } from '@/components/lists/table';
 import {
+  Table,
   TableBody,
   TableCell,
   TableFooter,
@@ -134,7 +134,7 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
     );
 
   return (
-    <TableContainer>
+    <Table>
       <TableHeader className="bg-muted sticky top-0 z-10">
         <TableRow>
           <TableHead>Producto</TableHead>
@@ -252,7 +252,7 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
           <TableCell></TableCell>
         </TableRow>
       </TableFooter>
-    </TableContainer>
+    </Table>
   );
 }
 
