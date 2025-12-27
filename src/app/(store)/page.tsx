@@ -2,13 +2,13 @@ import { checkAuthorization } from '@/authorization/check-authorization';
 import { Home } from '@/components/home';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
-import { getBusinessInfo } from '@/fetch-data/settings';
+import { getBusinessInfo, getBusinessName } from '@/fetch-data/settings';
 
 export async function generateMetadata() {
-  const businessInfo = await getBusinessInfo();
+  const businessName = await getBusinessName();
 
   return {
-    title: businessInfo.nombreEmpresa || 'Tienda',
+    title: businessName.nombreEmpresa || 'Tienda',
   };
 }
 

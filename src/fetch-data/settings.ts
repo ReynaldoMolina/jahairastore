@@ -7,6 +7,23 @@ import {
 } from '@/types/types';
 import { eq } from 'drizzle-orm';
 
+export async function getBusinessName(
+  id: number = 1
+): Promise<BusinessInfoType> {
+  try {
+    const [data] = await db
+      .select({
+        nombreEmpresa: ajustes.nombreEmpresa,
+      })
+      .from(ajustes)
+      .where(eq(ajustes.id, Number(id)));
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudo obtener la información del negocio');
+  }
+}
+
 export async function getBusinessInfo(
   id: number = 1
 ): Promise<BusinessInfoType> {

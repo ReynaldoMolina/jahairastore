@@ -286,7 +286,7 @@ export interface TareaById {
 
 export interface BusinessInfoType {
   nombreEmpresa: string;
-  eslogan: string;
+  eslogan?: string;
   mensaje?: string;
 }
 
