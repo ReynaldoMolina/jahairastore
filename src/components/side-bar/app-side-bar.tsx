@@ -8,12 +8,10 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from '../ui/sidebar';
 import Logo from '@/components/icons/logominimal.svg';
 import { NavUser } from './nav-user';
@@ -27,7 +25,6 @@ interface AppSideBarProps {
 
 export function AppSideBar({ businessInfo }: AppSideBarProps) {
   const [session, setSession] = useState<any>(null);
-  const { setOpenMobile } = useSidebar();
 
   useEffect(() => {
     authClient.getSession().then(({ data }) => {

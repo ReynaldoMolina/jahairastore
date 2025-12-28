@@ -23,6 +23,7 @@ export async function getExpenses(searchParams: SearchParamsProps) {
         fecha: gasto.fecha,
         gasto: gasto.gasto,
         concepto: gasto.concepto,
+        enCordobas: gasto.enCordobas,
         cambioDolar: gasto.cambioDolar,
       })
       .from(gasto)

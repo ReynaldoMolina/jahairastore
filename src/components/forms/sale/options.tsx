@@ -15,6 +15,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { SaleById } from '@/types/types';
 import Link from 'next/link';
 import { CardTitle } from '@/components/ui/card';
+import WhatsAppIcon from '@/components/icons/whatsapp.svg';
 
 interface SaleOptions {
   sale: SaleById;
@@ -36,7 +37,7 @@ export function SaleOptions({ sale }: SaleOptions) {
       await navigator.clipboard.write([
         new ClipboardItem({ [blob.type]: blob }),
       ]);
-      toast.info('Imagen copiada.');
+      toast.success('Copiado.');
     } catch (err) {
       console.error(err);
       toast.error('Hubo un error al copiar la imagen al portapapeles.');
@@ -149,7 +150,7 @@ export function WhatsAppButton({ message, phoneNumber }: WhatsAppButton) {
         <ItemActions>
           <Button variant="outline" size="icon" disabled={!phoneNumber} asChild>
             <Link href={whatsAppUrl} target="_blank" rel="noopener noreferrer">
-              <MessageCircle />
+              <WhatsAppIcon />
             </Link>
           </Button>
         </ItemActions>

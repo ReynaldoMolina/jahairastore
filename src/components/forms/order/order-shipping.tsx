@@ -2,7 +2,7 @@
 
 import React, { startTransition, useActionState } from 'react';
 import { formatNumber } from '@/lib/formatters';
-import { Copy, Info, MessageCircle } from 'lucide-react';
+import { Copy, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { calculateTotals } from '@/lib/calculate-totals';
@@ -20,17 +20,12 @@ import z from 'zod';
 import { updateOrder } from '@/server-actions/order';
 import { toast } from 'sonner';
 import { FormInput } from '@/components/form-elements/form-input';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription } from '@/components/ui/card';
 import { FieldGroup, FieldSet } from '@/components/ui/field';
 import { FormSelect } from '@/components/form-elements/form-select';
 import { FormCardFooter } from '@/components/form-elements/form-footer';
 import { Form } from '@/components/ui/form';
+import WhatsAppIcon from '@/components/icons/whatsapp.svg';
 
 interface OrderShipping {
   order: OrderById;
@@ -193,9 +188,10 @@ export function OrderShipping({ order, envioPrices }: OrderShipping) {
                 Copiar
               </Button>
               {order.telefono && (
-                <WhatsAppButton message={message} phoneNumber={order.telefono}>
-                  <MessageCircle className="size-4" />
-                </WhatsAppButton>
+                <WhatsAppButton
+                  message={message}
+                  phoneNumber={order.telefono}
+                />
               )}
             </div>
             <CardDescription className="inline-flex items-center gap-2 text-xs">
@@ -211,12 +207,11 @@ export function OrderShipping({ order, envioPrices }: OrderShipping) {
 }
 
 interface WhatsAppButton {
-  children: React.ReactNode;
   message: string;
   phoneNumber: string;
 }
 
-function WhatsAppButton({ children, message, phoneNumber }: WhatsAppButton) {
+function WhatsAppButton({ message, phoneNumber }: WhatsAppButton) {
   const encodedMessage = encodeURIComponent(message);
   const formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
   const whatsAppUrl = `https://api.whatsapp.com/send?phone=505${formattedPhoneNumber}&text=${encodedMessage}`;
@@ -224,7 +219,7 @@ function WhatsAppButton({ children, message, phoneNumber }: WhatsAppButton) {
   return (
     <Button type="button" variant="outline" asChild>
       <Link href={whatsAppUrl} target="_blank" rel="noopener noreferrer">
-        {children}
+        <WhatsAppIcon />
         <label className="text-sm">Enviar</label>
       </Link>
     </Button>

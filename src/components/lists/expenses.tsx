@@ -23,7 +23,7 @@ import {
 import { CardItem, ListItem } from './list-item';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
-import { formatDate } from '@/lib/formatters';
+import { formatDate, roundToTwoDecimals } from '@/lib/formatters';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Calendar, Hash, ShoppingCart } from 'lucide-react';
 
@@ -36,6 +36,7 @@ interface Expenses {
     fecha: string;
     gasto: number;
     concepto: string;
+    enCordobas: boolean;
     cambioDolar: number;
   }[];
   query: string;
@@ -99,7 +100,18 @@ export function Expenses({ data, query, totalPages }: Expenses) {
                     hideCurrency
                     className="bg-transparent"
                   />
-                  <CardItem value={register.gasto} label="Gasto" color="red" />
+                  <CardItem
+                    value={
+                      register.enCordobas
+                        ? roundToTwoDecimals(
+                            register.gasto * register.cambioDolar
+                          )
+                        : register.gasto
+                    }
+                    label="Gasto"
+                    color="red"
+                    showPriceInNio={register.enCordobas}
+                  />
                 </CardContent>
               </Card>
             </Link>
@@ -167,7 +179,17 @@ export function Expenses({ data, query, totalPages }: Expenses) {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <ListItem value={register.gasto} color="red" />
+                  <ListItem
+                    value={
+                      register.enCordobas
+                        ? roundToTwoDecimals(
+                            register.gasto * register.cambioDolar
+                          )
+                        : register.gasto
+                    }
+                    color="red"
+                    showPriceInNio={register.enCordobas}
+                  />
                 </TableCell>
               </TableRow>
             );

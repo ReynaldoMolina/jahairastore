@@ -7,7 +7,6 @@ import { FormTextArea } from '@/components/form-elements/form-text-area';
 import { FormInput } from '@/components/form-elements/form-input';
 import { FormDatePicker } from '@/components/form-elements/form-date-picker';
 import z from 'zod';
-import { bgColors } from '@/lib/bg-colors';
 import { ExpenseById } from '@/types/types';
 import { expenseSchema } from '../validation/expense';
 import { FormInputOnChange } from '@/components/form-elements/form-input-on-change';

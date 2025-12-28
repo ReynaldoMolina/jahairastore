@@ -55,12 +55,6 @@ export function EditExpenseForm({ expense }: EditExpenseForm) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card>
-          <CardHeader>
-            <CardTitle className="text-sm">Editar gasto</CardTitle>
-            <CardDescription>
-              Actualiza la información del gasto.
-            </CardDescription>
-          </CardHeader>
           <CardContent className="space-y-6">
             <ExpenseForm form={form} expense={expense} />
           </CardContent>

@@ -1,6 +1,6 @@
 import {
   BanknoteArrowDown,
-  Book,
+  BookText,
   ChartNoAxesCombined,
   ClipboardList,
   Coins,
@@ -65,14 +65,14 @@ export const menuOptions = [
     icon: Users,
   },
   {
-    name: 'Tareas',
-    url: '/tareas',
-    icon: ClipboardList,
-  },
-  {
     name: 'Documentación',
     url: '/documentacion',
-    icon: Book,
+    icon: BookText,
+  },
+  {
+    name: 'Tareas',
+    url: '/tareas?state=true',
+    icon: ClipboardList,
   },
 ];
 
