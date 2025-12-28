@@ -11,6 +11,7 @@ import {
 } from '@/lib/get-date';
 import { DateSelector } from './date-selector';
 import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
+import { cn } from '@/lib/utils';
 
 export function DateRangeButtons({
   searchParams,
@@ -45,11 +46,13 @@ export function DateRangeButtons({
     <ToggleGroup
       type="single"
       variant="outline"
+      spacing={2}
+      size="sm"
       className="overflow-auto w-full"
     >
       <ToggleGroupItem
         value="1"
-        className={
+        className={cn(
           isActive(
             startParam,
             endParam,
@@ -57,8 +60,9 @@ export function DateRangeButtons({
             ranges.month.end
           ) || !startParam
             ? 'bg-muted dark:bg-muted'
-            : ''
-        }
+            : '',
+          'rounded-full'
+        )}
         onClick={() => applyRange(ranges.month.start, ranges.month.end)}
       >
         Este mes
@@ -66,11 +70,12 @@ export function DateRangeButtons({
 
       <ToggleGroupItem
         value="2"
-        className={
+        className={cn(
           isActive(startParam, endParam, ranges.week.start, ranges.week.end)
             ? 'bg-muted dark:bg-muted'
-            : ''
-        }
+            : '',
+          'rounded-full'
+        )}
         onClick={() => applyRange(ranges.week.start, ranges.week.end)}
       >
         Esta semana
@@ -78,7 +83,7 @@ export function DateRangeButtons({
 
       <ToggleGroupItem
         value="3"
-        className={
+        className={cn(
           isActive(
             startParam,
             endParam,
@@ -86,8 +91,9 @@ export function DateRangeButtons({
             ranges.lastMonth.end
           )
             ? 'bg-muted dark:bg-muted'
-            : ''
-        }
+            : '',
+          'rounded-full'
+        )}
         onClick={() => applyRange(ranges.lastMonth.start, ranges.lastMonth.end)}
       >
         Mes pasado
@@ -95,11 +101,12 @@ export function DateRangeButtons({
 
       <ToggleGroupItem
         value="4"
-        className={
+        className={cn(
           isActive(startParam, endParam, ranges.year.start, ranges.year.end)
             ? 'bg-muted dark:bg-muted'
-            : ''
-        }
+            : '',
+          'rounded-full'
+        )}
         onClick={() => applyRange(ranges.year.start, ranges.year.end)}
       >
         Este año
@@ -107,11 +114,12 @@ export function DateRangeButtons({
 
       <ToggleGroupItem
         value="5"
-        className={
+        className={cn(
           isActive(startParam, endParam, ranges.today.start, ranges.today.end)
             ? 'bg-muted dark:bg-muted'
-            : ''
-        }
+            : '',
+          'rounded-full'
+        )}
         onClick={() => applyRange(ranges.today.start, ranges.today.end)}
       >
         Hoy
