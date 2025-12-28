@@ -94,10 +94,9 @@ export function Products({ data, query, totalPages }: Products) {
         })}
         <Card className="py-4 gap-4 bg-muted">
           <CardHeader>
-            <CardTitle>Total</CardTitle>
+            <CardTitle>Total: {data.length}</CardTitle>
             <CardDescription className="inline-flex gap-3 items-center">
-              <Badge variant="outline">Conteo: {data.length}</Badge>
-              <Badge variant="outline">Cant: {totals.existencias}</Badge>
+              <Badge variant="outline">Cantidad: {totals.existencias}</Badge>
             </CardDescription>
           </CardHeader>
         </Card>

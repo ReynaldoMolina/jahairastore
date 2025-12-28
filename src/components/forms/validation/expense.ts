@@ -8,4 +8,5 @@ export const expenseSchema = z.object({
   gasto: zNumberMin(),
   concepto: z.string().nullable(),
   cambioDolar: zNumberMin(),
+  enCordobas: z.boolean(),
 });

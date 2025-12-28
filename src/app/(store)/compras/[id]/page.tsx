@@ -1,5 +1,3 @@
-// export const dynamic = 'force-dynamic';
-
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { EditPurchaseForm } from '@/components/forms/purchase/edit';
 import { PageWrapper } from '@/components/page-wrapper';

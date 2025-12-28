@@ -58,6 +58,7 @@ export async function getExpenseById(id: number | string) {
         gasto: gasto.gasto,
         concepto: gasto.concepto,
         cambioDolar: gasto.cambioDolar,
+        enCordobas: gasto.enCordobas,
       })
       .from(gasto)
       .leftJoin(proveedor, eq(gasto.idProveedor, proveedor.id))

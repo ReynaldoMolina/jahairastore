@@ -3,7 +3,11 @@
 import { FieldGroup, FieldSet } from '../../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
-import { formatNumber } from '@/lib/formatters';
+import {
+  formatNumber,
+  roundToPointZeroOrFive,
+  roundToTwoDecimals,
+} from '@/lib/formatters';
 import z from 'zod';
 import { FormInput } from '@/components/form-elements/form-input';
 import { ButtonGroup } from '@/components/ui/button-group';
@@ -42,14 +46,9 @@ export function PurchaseDetailForm({ form, detail }: PurchaseDetailForm) {
           label="Id compra"
           hidden
         />
-        <FormTextAreaReadOnly
-          value={detail.nombreProducto}
-          label="Nombre producto"
-        />
+        <FormTextAreaReadOnly value={detail.nombreProducto} label="Nombre" />
       </FieldSet>
-      <FieldSet
-        className={precioEnCordobas ? 'hidden' : 'gap-3 md:gap-6 flex-row'}
-      >
+      <FieldSet className={precioEnCordobas ? 'hidden' : 'sm:flex-row'}>
         <FormInput
           control={form.control}
           name="precioCompra"
@@ -70,9 +69,9 @@ export function PurchaseDetailForm({ form, detail }: PurchaseDetailForm) {
       </FieldSet>
 
       {precioEnCordobas && (
-        <FieldSet className="flex-row gap-3 md:gap-6">
+        <FieldSet className="sm:flex-row">
           <FormInputOnChange
-            value={precioCompra * cambioDolar}
+            value={roundToTwoDecimals(precioCompra * cambioDolar)}
             label="Compra"
             handleChange={(val) =>
               form.setValue('precioCompra', Number(val) / cambioDolar)
@@ -80,7 +79,7 @@ export function PurchaseDetailForm({ form, detail }: PurchaseDetailForm) {
             textAddon="C$"
           />
           <FormInputOnChange
-            value={precioVenta * cambioDolar}
+            value={roundToPointZeroOrFive(precioVenta * cambioDolar)}
             label="Venta"
             handleChange={(val) =>
               form.setValue('precioVenta', Number(val) / cambioDolar)
@@ -95,7 +94,7 @@ export function PurchaseDetailForm({ form, detail }: PurchaseDetailForm) {
         </FieldSet>
       )}
 
-      <FieldSet className="flex-row gap-3 md:gap-6 items-end">
+      <FieldSet className="sm:flex-row">
         <FormInputReadOnly
           value={detail.existencias < 1 ? 'Agotado' : detail.existencias}
           label="Disponibles"

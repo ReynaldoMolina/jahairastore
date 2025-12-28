@@ -1,5 +1,5 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditExpenseForm } from '@/components/forms/expenses/edit';
+import { EditExpenseForm } from '@/components/forms/expense/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
 import { getExpenseById } from '@/fetch-data/expenses';

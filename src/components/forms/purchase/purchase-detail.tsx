@@ -74,13 +74,13 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
               <CardContent>
                 <CardItem
                   value={subtotalCompra}
-                  label="Subtotal"
+                  label="Total"
                   color="red"
                   showPriceInNio
                 />
                 <CardItem
                   value={ganancia}
-                  label="Ganancia aprox."
+                  label="Ganancia"
                   color="blue"
                   showPriceInNio
                 />
@@ -89,14 +89,16 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
           );
         })}
         <Card className="py-4 gap-4 bg-muted">
-          <CardHeader className="border-b [.border-b]:pb-4">
-            <CardTitle>Total</CardTitle>
-            <CardDescription className="inline-flex gap-3">
-              <Badge variant="outline">Conteo: {purchase.detail.length}</Badge>
-              <Badge variant="outline">Cantidad: {formTotals.quantity}</Badge>
-            </CardDescription>
+          <CardHeader className="border-b [.border-b]:pb-2">
+            <CardTitle>Total: {purchase.detail.length}</CardTitle>
           </CardHeader>
           <CardContent>
+            <CardItem
+              value={String(formTotals.quantity)}
+              label="Cantidad"
+              color="neutral"
+              hideCurrency
+            />
             <CardItem
               value={formTotals.totalCost}
               label="Subtotal"
@@ -116,14 +118,14 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
 
   return (
     <Table>
-      <TableHeader className="bg-muted sticky top-0 z-10">
+      <TableHeader>
         <TableRow>
           <TableHead>Producto</TableHead>
           <TableHead>Id</TableHead>
-          <TableHead>Cantidad</TableHead>
+          <TableHead>Cant</TableHead>
           <TableHead>Precio</TableHead>
-          <TableHead>Subtotal</TableHead>
-          <TableHead>Ganancia aprox.</TableHead>
+          <TableHead>Total</TableHead>
+          <TableHead>Ganancia</TableHead>
           <TableHead></TableHead>
         </TableRow>
       </TableHeader>
@@ -149,13 +151,8 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
                   {detail.idProducto}
                 </Badge>
               </TableCell>
-              <TableCell>
-                <ListItem
-                  value={String(detail.cantidad)}
-                  color="neutral"
-                  hideCurrency
-                  className="justify-center"
-                />
+              <TableCell className="text-xs text-center">
+                {detail.cantidad}
               </TableCell>
               <TableCell>
                 <ListItem
@@ -188,26 +185,14 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
       </TableBody>
       <TableFooter className="bg-muted">
         <TableRow>
-          <TableCell>
-            <Badge variant="outline">Conteo: {purchase.detail.length}</Badge>
+          <TableCell>Total</TableCell>
+          <TableCell className="text-xs text-center">
+            {purchase.detail.length}
+          </TableCell>
+          <TableCell className="text-xs text-center">
+            {formTotals.quantity}
           </TableCell>
           <TableCell></TableCell>
-          <TableCell className="text-center">
-            <ListItem
-              value={String(formTotals.quantity)}
-              color="neutral"
-              hideCurrency
-              className="justify-center"
-            />
-          </TableCell>
-          <TableCell>
-            <ListItem
-              value="-"
-              color="red"
-              hideCurrency
-              className="justify-center"
-            />
-          </TableCell>
           <TableCell>
             <ListItem
               value={formTotals.totalCost}

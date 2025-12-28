@@ -83,25 +83,20 @@ export default function ProductSearchList({
               <CardHeader
                 className={isSelected ? 'border-b [.border-b]:pb-4' : ''}
               >
-                <CardTitle className={isSoldOut ? 'text-muted-foreground' : ''}>
-                  {p.nombre}
-                </CardTitle>
+                <CardTitle>{p.nombre}</CardTitle>
                 <CardDescription className="inline-flex gap-3 items-center">
-                  <Badge
-                    variant="outline"
-                    className={isSoldOut ? 'text-muted-foreground' : ''}
-                  >
+                  <Badge variant="outline">
                     <Hash />
                     {p.id}
+                  </Badge>
+                  <Badge variant="secondary" className={bgColors.red}>
+                    C$ {formatNumber(price)}
                   </Badge>
                   {isSoldOut ? (
                     <Badge variant="destructive">Agotado</Badge>
                   ) : (
-                    <Badge variant="secondary">Disp: {p.existencias}</Badge>
+                    <Badge variant="secondary">Cant: {p.existencias}</Badge>
                   )}
-                  <Badge variant="secondary" className={bgColors.red}>
-                    C$ {formatNumber(price)}
-                  </Badge>
                 </CardDescription>
                 <CardAction>
                   <Checkbox
@@ -145,15 +140,15 @@ export default function ProductSearchList({
   return (
     <>
       <Table>
-        <TableHeader className="bg-muted sticky top-0 z-10">
+        <TableHeader>
           <TableRow>
-            <TableHead className="text-center">
+            <TableHead className="min-w-8">
               <Checkbox disabled />
             </TableHead>
             <TableHead>Producto</TableHead>
             <TableHead>Id</TableHead>
-            <TableHead>Disponibles</TableHead>
             <TableHead>Precio</TableHead>
+            <TableHead>Disponible</TableHead>
             <TableHead>Cantidad</TableHead>
           </TableRow>
         </TableHeader>
@@ -195,25 +190,27 @@ export default function ProductSearchList({
                     }
                   />
                 </TableCell>
-                <TableCell
-                  className={`${
-                    isSoldOut ? 'text-muted-foreground' : ''
-                  } w-full whitespace-normal`}
-                >
+                <TableCell className="w-full whitespace-normal">
                   {product.nombre}
                 </TableCell>
                 <TableCell>
-                  <Badge
-                    variant="outline"
-                    className={isSoldOut ? 'text-muted-foreground' : ''}
-                  >
+                  <Badge variant="outline">
                     <Hash />
                     {product.id}
                   </Badge>
                 </TableCell>
                 <TableCell>
+                  <ListItem
+                    value={formatNumber(price)}
+                    color="red"
+                    showPriceInNio
+                  />
+                </TableCell>
+                <TableCell>
                   {isSoldOut ? (
-                    <Badge variant="destructive">Agotado</Badge>
+                    <Badge variant="destructive" className="w-full">
+                      Agotado
+                    </Badge>
                   ) : (
                     <ListItem
                       value={String(product.existencias)}
@@ -222,13 +219,6 @@ export default function ProductSearchList({
                       className="justify-center"
                     />
                   )}
-                </TableCell>
-                <TableCell>
-                  <ListItem
-                    value={formatNumber(price)}
-                    color="red"
-                    showPriceInNio
-                  />
                 </TableCell>
                 <TableCell>
                   {isSelected && (

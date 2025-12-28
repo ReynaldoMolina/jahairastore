@@ -5,7 +5,13 @@ import EmptyList from './empty-list';
 import { Pagination } from './pagination';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Card, CardHeader, CardTitle, CardDescription } from '../ui/card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from '../ui/card';
 import {
   TableHeader,
   TableRow,
@@ -15,7 +21,7 @@ import {
   TableFooter,
   Table,
 } from '../ui/table';
-import { ListItem } from './list-item';
+import { CardItem, ListItem } from './list-item';
 import { Badge } from '../ui/badge';
 import { formatDate, formatNumber } from '@/lib/formatters';
 import { Calendar, Hash, ShoppingBag } from 'lucide-react';
@@ -92,15 +98,12 @@ export function Receipts({ data, query, totalPages }: Receipts) {
           );
         })}
         <Card className="py-4 gap-4 bg-muted">
-          <CardHeader>
-            <CardTitle>Total</CardTitle>
-            <CardDescription className="inline-flex gap-3 items-center">
-              <Badge variant="outline">Conteo: {data.length}</Badge>
-              <Badge variant="secondary" className={bgColors.green}>
-                $ {formatNumber(totals.abono)}
-              </Badge>
-            </CardDescription>
+          <CardHeader className="border-b [.border-b]:pb-2">
+            <CardTitle>Total: {data.length}</CardTitle>
           </CardHeader>
+          <CardContent>
+            <CardItem label="Abonos" value={totals.abono} color="green" />
+          </CardContent>
         </Card>
         <Pagination totalPages={totalPages} />
       </>

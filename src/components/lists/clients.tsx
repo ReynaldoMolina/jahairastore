@@ -70,12 +70,9 @@ export function Clients({ data, query, totalPages }: Clients) {
             </Link>
           );
         })}
-        <Card className="py-4 gap-4 bg-muted">
-          <CardHeader>
-            <CardTitle>Total</CardTitle>
-            <CardDescription className="inline-flex gap-3 items-center">
-              <Badge variant="outline">Conteo: {data.length}</Badge>
-            </CardDescription>
+        <Card className="py-4 bg-muted">
+          <CardHeader className="items-center">
+            <CardTitle>Total: {data.length}</CardTitle>
           </CardHeader>
         </Card>
         <Pagination totalPages={totalPages} />
@@ -123,10 +120,8 @@ export function Clients({ data, query, totalPages }: Clients) {
         </TableBody>
         <TableFooter className="bg-muted">
           <TableRow>
-            <TableCell>
-              <Badge variant="outline">Conteo: {data.length}</Badge>
-            </TableCell>
-            <TableCell></TableCell>
+            <TableCell>Total</TableCell>
+            <TableCell className="text-xs text-center">{data.length}</TableCell>
           </TableRow>
         </TableFooter>
       </Table>

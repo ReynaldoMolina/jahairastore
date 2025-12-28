@@ -257,6 +257,7 @@ export interface ExpenseById {
   gasto: number;
   concepto: string;
   cambioDolar: number;
+  enCordobas: boolean;
 }
 
 export interface ClientById {

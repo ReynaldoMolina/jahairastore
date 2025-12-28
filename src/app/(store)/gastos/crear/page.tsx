@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { CreateExpenseForm } from '@/components/forms/expenses/create';
+import { CreateExpenseForm } from '@/components/forms/expense/create';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/site-header';
 import { getExpenseProviderById } from '@/fetch-data/expenses';

@@ -85,14 +85,16 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
           );
         })}
         <Card className="py-4 gap-4 bg-muted">
-          <CardHeader className="border-b [.border-b]:pb-4">
-            <CardTitle>Total</CardTitle>
-            <CardDescription className="inline-flex gap-3">
-              <Badge variant="outline">Items: {order.detail.length}</Badge>
-              <Badge variant="outline">Cant: {formTotals.quantity}</Badge>
-            </CardDescription>
+          <CardHeader className="border-b [.border-b]:pb-2">
+            <CardTitle>Total: {order.detail.length}</CardTitle>
           </CardHeader>
           <CardContent>
+            <CardItem
+              value={String(formTotals.quantity)}
+              label="Cantidad"
+              color="neutral"
+              hideCurrency
+            />
             <CardItem
               value={formTotals.totalSell}
               label="Total"

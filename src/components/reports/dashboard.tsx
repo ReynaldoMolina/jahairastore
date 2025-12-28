@@ -11,7 +11,7 @@ interface Dashboard {
 
 export function Dashboard({ data, searchParams }: Dashboard) {
   return (
-    <main className="flex flex-col flex-1 w-full gap-3 mx-auto">
+    <main className="flex flex-col flex-1 w-full gap-2 mx-auto">
       <DateRangeButtons searchParams={searchParams} />
       <SalesOnlyReport data={data} />
       <OrdersOnlyReport data={data} />

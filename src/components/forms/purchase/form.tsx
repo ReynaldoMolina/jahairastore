@@ -1,6 +1,6 @@
 'use client';
 
-import { FieldGroup, FieldSet } from '../../ui/field';
+import { FieldGroup, FieldSeparator, FieldSet } from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import z from 'zod';
 import { PurchaseById, SelectOptions } from '@/types/types';
@@ -47,6 +47,7 @@ export function PurchaseForm({
       </FieldSet>
       {!isNew && (
         <>
+          <FieldSeparator />
           <FieldSet className="sm:flex-row">
             <FormInputReadOnly
               value={`C$ ${formatNumber(totalCost)}`}

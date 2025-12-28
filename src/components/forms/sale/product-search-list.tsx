@@ -147,8 +147,8 @@ export default function ProductSearchList({
             </TableHead>
             <TableHead>Producto</TableHead>
             <TableHead>Id</TableHead>
-            <TableHead>Disponible</TableHead>
             <TableHead>Precio</TableHead>
+            <TableHead>Disponible</TableHead>
             <TableHead>Cantidad</TableHead>
           </TableRow>
         </TableHeader>
@@ -213,6 +213,13 @@ export default function ProductSearchList({
                   </Badge>
                 </TableCell>
                 <TableCell>
+                  <ListItem
+                    value={formatNumber(price)}
+                    color="green"
+                    showPriceInNio={product.precioEnCordobas}
+                  />
+                </TableCell>
+                <TableCell>
                   {product.existencias <= 0 ? (
                     <Badge variant="destructive" className="w-full">
                       Agotado
@@ -225,13 +232,6 @@ export default function ProductSearchList({
                       className="justify-center"
                     />
                   )}
-                </TableCell>
-                <TableCell>
-                  <ListItem
-                    value={formatNumber(price)}
-                    color="green"
-                    showPriceInNio={product.precioEnCordobas}
-                  />
                 </TableCell>
                 <TableCell>
                   {isSelected && (

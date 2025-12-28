@@ -40,7 +40,7 @@ export function ProductSearch({
           Agregar producto
         </Button>
       </DialogTrigger>
-      <DialogContent className="lg:min-w-[80dvw] max-h-[95dvh] overflow-y-auto px-3 md:px-6 pb-3 md:pb-6 gap-3">
+      <DialogContent className="sm:min-w-[80dvw] max-h-[95dvh] overflow-y-auto px-3 md:px-6 pb-3 md:pb-6 gap-2">
         <DialogHeader>
           <DialogTitle>Agregar productos</DialogTitle>
           <DialogDescription>

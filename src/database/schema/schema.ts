@@ -52,6 +52,7 @@ export const gasto = pgTable('gasto', {
   gasto: doublePrecision('gasto').notNull(),
   concepto: varchar('concepto', { length: 255 }).notNull(),
   cambioDolar: doublePrecision('cambio_dolar').notNull(),
+  enCordobas: boolean('en_cordobas').notNull().default(false),
 });
 
 export const pedido = pgTable('pedido', {

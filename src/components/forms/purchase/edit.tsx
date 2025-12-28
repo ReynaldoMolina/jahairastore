@@ -67,7 +67,7 @@ export function EditPurchaseForm({
         <TabsTrigger value="info">Información</TabsTrigger>
         <TabsTrigger value="gastos">Gastos</TabsTrigger>
       </TabsList>
-      <TabsContent value="productos" className="space-y-3">
+      <TabsContent value="productos" className="space-y-2">
         <FormDetail productData={productData} purchase={purchase} />
       </TabsContent>
       <TabsContent value="info">
@@ -77,12 +77,6 @@ export function EditPurchaseForm({
             className="max-w-xl w-full"
           >
             <Card>
-              <CardHeader>
-                <CardTitle className="text-sm">Editar compra</CardTitle>
-                <CardDescription>
-                  Actualiza la información de la compra.
-                </CardDescription>
-              </CardHeader>
               <CardContent>
                 <PurchaseForm
                   form={form}

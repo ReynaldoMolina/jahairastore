@@ -127,11 +127,8 @@ export function Orders({ data, query, totalPages }: Orders) {
           );
         })}
         <Card className="py-4 gap-4 bg-muted">
-          <CardHeader className="border-b [.border-b]:pb-4">
-            <CardTitle>Total</CardTitle>
-            <CardDescription className="inline-flex gap-3 items-center">
-              <Badge variant="outline">Conteo: {data.length}</Badge>
-            </CardDescription>
+          <CardHeader className="border-b [.border-b]:pb-2">
+            <CardTitle>Total: {data.length}</CardTitle>
           </CardHeader>
           <CardContent>
             <CardItem value={totals.total} label="Total" color="neutral" />

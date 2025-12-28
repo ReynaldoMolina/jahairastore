@@ -1,6 +1,6 @@
 'use client';
 
-import { FieldGroup, FieldSet } from '../../ui/field';
+import { FieldGroup, FieldSeparator, FieldSet } from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
@@ -11,6 +11,7 @@ import { bgColors } from '@/lib/bg-colors';
 import { ExpenseById } from '@/types/types';
 import { expenseSchema } from '../validation/expense';
 import { FormInputOnChange } from '@/components/form-elements/form-input-on-change';
+import { FormCheck } from '@/components/form-elements/form-checkbox';
 
 interface ExpenseForm {
   form: UseFormReturn<z.infer<typeof expenseSchema>>;
@@ -19,7 +20,7 @@ interface ExpenseForm {
 }
 
 export function ExpenseForm({ form, expense, nombreEmpresa }: ExpenseForm) {
-  const { gasto, cambioDolar } = form.watch();
+  const { gasto, cambioDolar, enCordobas } = form.watch();
 
   return (
     <FieldGroup>
@@ -39,19 +40,17 @@ export function ExpenseForm({ form, expense, nombreEmpresa }: ExpenseForm) {
           label="Proveedor"
         />
       </FieldSet>
+
+      <FieldSeparator />
+      <FormCheck control={form.control} name="enCordobas" label="En córdobas" />
+
       <FieldSet className="sm:flex-row">
-        <FormInput
-          control={form.control}
-          name="cambioDolar"
-          label="Cambio USD"
-          textAddon="C$"
-        />
         <FormInput
           control={form.control}
           name="gasto"
           label="Gasto"
           textAddon="$"
-          className={bgColors.red}
+          hidden={enCordobas}
         />
         <FormInputOnChange
           value={gasto * cambioDolar}
@@ -62,6 +61,13 @@ export function ExpenseForm({ form, expense, nombreEmpresa }: ExpenseForm) {
               form.setValue('gasto', num / cambioDolar);
             }
           }}
+          hidden={!enCordobas}
+          textAddon="C$"
+        />
+        <FormInput
+          control={form.control}
+          name="cambioDolar"
+          label="Cambio USD"
           textAddon="C$"
         />
       </FieldSet>
