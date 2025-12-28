@@ -47,6 +47,7 @@ export function CreateExpenseForm({
       concepto: concepto,
       cambioDolar: cambioDolar,
       enCordobas: false,
+      anulado: false,
     },
   });
 

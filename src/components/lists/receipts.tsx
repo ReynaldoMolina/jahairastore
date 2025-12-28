@@ -23,7 +23,11 @@ import {
 } from '../ui/table';
 import { CardItem, ListItem } from './list-item';
 import { Badge } from '../ui/badge';
-import { formatDate, formatNumber } from '@/lib/formatters';
+import {
+  formatDate,
+  formatNumber,
+  roundToPointZeroOrFive,
+} from '@/lib/formatters';
 import { Calendar, Hash, ShoppingBag } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { bgColors } from '@/lib/bg-colors';
@@ -36,6 +40,9 @@ interface Receipts {
     abono: number;
     nombreCliente: string;
     imagenUrl: string | null;
+    cambioDolar: number;
+    enCordobas: boolean;
+    anulado: boolean;
   }[];
   query: string;
   totalPages: number;
@@ -73,7 +80,15 @@ export function Receipts({ data, query, totalPages }: Receipts) {
                   </Avatar>
 
                   <div className="flex flex-col gap-2 overflow-hidden">
-                    <CardTitle>{register.nombreCliente}</CardTitle>
+                    <CardTitle
+                      className={
+                        register.anulado
+                          ? 'text-muted-foreground line-through'
+                          : ''
+                      }
+                    >
+                      {register.nombreCliente}
+                    </CardTitle>
                     <CardDescription className="flex gap-2 md:gap-3 items-center">
                       <Badge variant="outline">
                         <Hash />
@@ -83,9 +98,20 @@ export function Receipts({ data, query, totalPages }: Receipts) {
                         <Calendar />
                         {formatDate(register.fecha)}
                       </Badge>
-                      <Badge variant="secondary" className={bgColors.green}>
-                        $ {formatNumber(register.abono)}
-                      </Badge>
+                      {register.anulado ? (
+                        <Badge variant="destructive">Anulado</Badge>
+                      ) : (
+                        <Badge variant="secondary" className={bgColors.green}>
+                          {register.enCordobas ? 'C$' : '$'}{' '}
+                          {formatNumber(
+                            register.enCordobas
+                              ? roundToPointZeroOrFive(
+                                  register.abono * register.cambioDolar
+                                )
+                              : register.abono
+                          )}
+                        </Badge>
+                      )}
                       <Badge variant="outline">
                         <ShoppingBag />
                         {register.idPedido}
@@ -137,7 +163,15 @@ export function Receipts({ data, query, totalPages }: Receipts) {
                         {register.nombreCliente.substring(0, 1)}
                       </AvatarFallback>
                     </Avatar>
-                    <span>{register.nombreCliente}</span>
+                    <span
+                      className={
+                        register.anulado
+                          ? 'text-muted-foreground line-through'
+                          : ''
+                      }
+                    >
+                      {register.nombreCliente}
+                    </span>
                   </div>
                 </TableCell>
                 <TableCell>
@@ -153,7 +187,23 @@ export function Receipts({ data, query, totalPages }: Receipts) {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <ListItem value={register.abono} color="green" />
+                  {register.anulado ? (
+                    <Badge variant="destructive" className="w-full">
+                      Anulado
+                    </Badge>
+                  ) : (
+                    <ListItem
+                      value={
+                        register.enCordobas
+                          ? roundToPointZeroOrFive(
+                              register.abono * register.cambioDolar
+                            )
+                          : register.abono
+                      }
+                      color="green"
+                      showPriceInNio={register.enCordobas}
+                    />
+                  )}
                 </TableCell>
                 <TableCell>
                   <Badge variant="outline">

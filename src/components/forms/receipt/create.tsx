@@ -49,6 +49,7 @@ export function CreateReceiptForm({
       cambioDolar: cambioDolar,
       enCordobas: false,
       concepto: '',
+      anulado: false,
     },
   });
 

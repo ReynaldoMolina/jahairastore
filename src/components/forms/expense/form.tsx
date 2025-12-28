@@ -11,6 +11,7 @@ import { ExpenseById } from '@/types/types';
 import { expenseSchema } from '../validation/expense';
 import { FormInputOnChange } from '@/components/form-elements/form-input-on-change';
 import { FormCheck } from '@/components/form-elements/form-checkbox';
+import { roundToTwoDecimals } from '@/lib/formatters';
 
 interface ExpenseForm {
   form: UseFormReturn<z.infer<typeof expenseSchema>>;
@@ -19,7 +20,7 @@ interface ExpenseForm {
 }
 
 export function ExpenseForm({ form, expense, nombreEmpresa }: ExpenseForm) {
-  const { gasto, cambioDolar, enCordobas } = form.watch();
+  const { gasto, cambioDolar, enCordobas, anulado } = form.watch();
 
   return (
     <FieldGroup>
@@ -40,37 +41,53 @@ export function ExpenseForm({ form, expense, nombreEmpresa }: ExpenseForm) {
         />
       </FieldSet>
 
-      <FieldSeparator />
-      <FormCheck control={form.control} name="enCordobas" label="En córdobas" />
+      <div className={anulado ? 'hidden' : 'flex flex-col gap-6'}>
+        <FieldSeparator />
+        <FormCheck
+          control={form.control}
+          name="enCordobas"
+          label="En córdobas"
+        />
 
-      <FieldSet className="sm:flex-row">
-        <FormInput
-          control={form.control}
-          name="gasto"
-          label="Gasto"
-          textAddon="$"
-          hidden={enCordobas}
-        />
-        <FormInputOnChange
-          value={gasto * cambioDolar}
-          label="Gasto"
-          handleChange={(val) => {
-            const num = Number(val);
-            if (!isNaN(num)) {
-              form.setValue('gasto', num / cambioDolar);
-            }
-          }}
-          hidden={!enCordobas}
-          textAddon="C$"
-        />
-        <FormInput
-          control={form.control}
-          name="cambioDolar"
-          label="Cambio USD"
-          textAddon="C$"
-        />
-      </FieldSet>
+        <FieldSet className="sm:flex-row">
+          <FormInput
+            control={form.control}
+            name="gasto"
+            label="Gasto"
+            textAddon="$"
+            hidden={enCordobas}
+          />
+          <FormInputOnChange
+            value={roundToTwoDecimals(gasto * cambioDolar)}
+            label="Gasto"
+            handleChange={(val) => {
+              const num = Number(val);
+              if (!isNaN(num)) {
+                form.setValue('gasto', num / cambioDolar);
+              }
+            }}
+            hidden={!enCordobas}
+            textAddon="C$"
+          />
+          <FormInput
+            control={form.control}
+            name="cambioDolar"
+            label="Cambio USD"
+            textAddon="C$"
+          />
+        </FieldSet>
+      </div>
+
       <FieldSet>
+        <FormCheck
+          control={form.control}
+          name="anulado"
+          label="Anular"
+          description="Marcar gasto como anulado"
+          onCheckedExtra={() => {
+            form.setValue('gasto', 0);
+          }}
+        />
         <FormTextArea control={form.control} name="concepto" label="Concepto" />
       </FieldSet>
     </FieldGroup>

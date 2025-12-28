@@ -25,6 +25,7 @@ export async function getExpenses(searchParams: SearchParamsProps) {
         concepto: gasto.concepto,
         enCordobas: gasto.enCordobas,
         cambioDolar: gasto.cambioDolar,
+        anulado: gasto.anulado,
       })
       .from(gasto)
       .leftJoin(proveedor, eq(gasto.idProveedor, proveedor.id))
@@ -60,6 +61,7 @@ export async function getExpenseById(id: number | string) {
         concepto: gasto.concepto,
         cambioDolar: gasto.cambioDolar,
         enCordobas: gasto.enCordobas,
+        anulado: gasto.anulado,
       })
       .from(gasto)
       .leftJoin(proveedor, eq(gasto.idProveedor, proveedor.id))

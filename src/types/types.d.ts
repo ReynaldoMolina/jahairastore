@@ -199,6 +199,7 @@ export interface ReceiptById {
   cambioDolar: number;
   enCordobas: boolean;
   concepto: string;
+  anulado: boolean;
 }
 
 export interface PurchaseFormType {
@@ -258,6 +259,7 @@ export interface ExpenseById {
   concepto: string;
   cambioDolar: number;
   enCordobas: boolean;
+  anulado: boolean;
 }
 
 export interface ClientById {

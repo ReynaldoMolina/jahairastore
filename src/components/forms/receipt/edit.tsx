@@ -32,6 +32,7 @@ export function EditReceiptForm({ receipt }: EditReceiptForm) {
       cambioDolar: receipt.cambioDolar,
       enCordobas: receipt.enCordobas,
       concepto: receipt.concepto,
+      anulado: receipt.anulado,
     },
   });
 

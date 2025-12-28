@@ -5,9 +5,10 @@ export const receiptSchema = z.object({
   idPedido: zNumberMin(),
   idCliente: zNumberMin(),
   fecha: z.string().min(1, 'Requerido'),
-  abono: zNumberMin(),
+  abono: zNumberMinZero(),
   saldo: zNumberMinZero(),
   cambioDolar: zNumberMin(),
   enCordobas: z.boolean(),
   concepto: z.string().nullable(),
+  anulado: z.boolean(),
 });

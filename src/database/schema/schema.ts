@@ -53,6 +53,7 @@ export const gasto = pgTable('gasto', {
   concepto: varchar('concepto', { length: 255 }).notNull(),
   cambioDolar: doublePrecision('cambio_dolar').notNull(),
   enCordobas: boolean('en_cordobas').notNull().default(false),
+  anulado: boolean('anulado').notNull().default(false),
 });
 
 export const pedido = pgTable('pedido', {
@@ -94,6 +95,7 @@ export const recibo = pgTable('recibo', {
   concepto: text('concepto'),
   cambioDolar: doublePrecision('cambio_dolar').notNull().default(37),
   enCordobas: boolean('en_cordobas').notNull().default(false),
+  anulado: boolean('anulado').notNull().default(false),
 });
 
 export const venta = pgTable('venta', {

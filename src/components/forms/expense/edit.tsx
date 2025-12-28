@@ -35,6 +35,7 @@ export function EditExpenseForm({ expense }: EditExpenseForm) {
       concepto: expense.concepto,
       cambioDolar: expense.cambioDolar,
       enCordobas: expense.enCordobas,
+      anulado: expense.anulado,
     },
   });
 

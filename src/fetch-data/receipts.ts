@@ -20,6 +20,9 @@ export async function getReceipts(searchParams: SearchParamsProps) {
         abono: recibo.abono,
         nombreCliente: sql<string>`${cliente.nombre} || ' ' || ${cliente.apellido}`,
         imagenUrl: cliente.imagenUrl,
+        cambioDolar: recibo.cambioDolar,
+        anulado: recibo.anulado,
+        enCordobas: recibo.enCordobas,
       })
       .from(recibo)
       .leftJoin(cliente, eq(recibo.idCliente, cliente.id))
@@ -59,6 +62,7 @@ export async function getReceiptById(id: number | string) {
         saldo: recibo.saldo,
         cambioDolar: recibo.cambioDolar,
         enCordobas: recibo.enCordobas,
+        anulado: recibo.anulado,
         concepto: recibo.concepto,
       })
       .from(recibo)
@@ -106,6 +110,7 @@ export async function getPedidoReceiptPdf(id: number | string | undefined) {
         idCliente: recibo.idCliente,
         nombreCliente: cliente.nombre,
         apellidoCliente: cliente.apellido,
+        anulado: recibo.anulado,
       })
       .from(recibo)
       .leftJoin(cliente, eq(recibo.idCliente, cliente.id))

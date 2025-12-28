@@ -38,6 +38,7 @@ interface Expenses {
     concepto: string;
     enCordobas: boolean;
     cambioDolar: number;
+    anulado: boolean;
   }[];
   query: string;
   totalPages: number;
@@ -75,7 +76,15 @@ export function Expenses({ data, query, totalPages }: Expenses) {
                   </Avatar>
 
                   <div className="flex flex-col gap-2">
-                    <CardTitle>{register.nombreProveedor}</CardTitle>
+                    <CardTitle
+                      className={
+                        register.anulado
+                          ? 'text-muted-foreground line-through'
+                          : ''
+                      }
+                    >
+                      {register.nombreProveedor}
+                    </CardTitle>
                     <CardDescription className="inline-flex gap-3 items-center">
                       <Badge variant="outline">
                         <Hash />
@@ -100,16 +109,20 @@ export function Expenses({ data, query, totalPages }: Expenses) {
                     hideCurrency
                     className="bg-transparent"
                   />
+
                   <CardItem
                     value={
-                      register.enCordobas
+                      register.anulado
+                        ? 'Anulado'
+                        : register.enCordobas
                         ? roundToTwoDecimals(
                             register.gasto * register.cambioDolar
                           )
                         : register.gasto
                     }
                     label="Gasto"
-                    color="red"
+                    color={register.anulado ? 'destructive' : 'red'}
+                    hideCurrency={register.anulado}
                     showPriceInNio={register.enCordobas}
                   />
                 </CardContent>
@@ -137,8 +150,8 @@ export function Expenses({ data, query, totalPages }: Expenses) {
             <TableHead className="w-full">Proveedor</TableHead>
             <TableHead>Id</TableHead>
             <TableHead>Fecha</TableHead>
-            <TableHead>Compra</TableHead>
             <TableHead>Gasto</TableHead>
+            <TableHead>Compra</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -157,7 +170,15 @@ export function Expenses({ data, query, totalPages }: Expenses) {
                         {register.nombreProveedor.substring(0, 1)}
                       </AvatarFallback>
                     </Avatar>
-                    <span>{register.nombreProveedor}</span>
+                    <span
+                      className={
+                        register.anulado
+                          ? 'text-muted-foreground line-through'
+                          : ''
+                      }
+                    >
+                      {register.nombreProveedor}
+                    </span>
                   </div>
                 </TableCell>
                 <TableCell>
@@ -173,23 +194,29 @@ export function Expenses({ data, query, totalPages }: Expenses) {
                   </Badge>
                 </TableCell>
                 <TableCell>
+                  {register.anulado ? (
+                    <Badge variant="destructive" className="w-full">
+                      Anulado
+                    </Badge>
+                  ) : (
+                    <ListItem
+                      value={
+                        register.enCordobas
+                          ? roundToTwoDecimals(
+                              register.gasto * register.cambioDolar
+                            )
+                          : register.gasto
+                      }
+                      color="red"
+                      showPriceInNio={register.enCordobas}
+                    />
+                  )}
+                </TableCell>
+                <TableCell>
                   <Badge variant="outline">
                     <ShoppingCart />
                     {register.idCompra}
                   </Badge>
-                </TableCell>
-                <TableCell>
-                  <ListItem
-                    value={
-                      register.enCordobas
-                        ? roundToTwoDecimals(
-                            register.gasto * register.cambioDolar
-                          )
-                        : register.gasto
-                    }
-                    color="red"
-                    showPriceInNio={register.enCordobas}
-                  />
                 </TableCell>
               </TableRow>
             );
@@ -200,10 +227,10 @@ export function Expenses({ data, query, totalPages }: Expenses) {
             <TableCell>Total</TableCell>
             <TableCell className="text-xs text-center">{data.length}</TableCell>
             <TableCell></TableCell>
-            <TableCell></TableCell>
             <TableCell>
               <ListItem value={totals.gasto} color="red" />
             </TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableFooter>
       </Table>
