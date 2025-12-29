@@ -1,9 +1,9 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { ListFilter } from '@/components/actiontools/list-filter';
-import { SearchInput } from '@/components/actiontools/search-input';
+import { HeaderFilter } from '@/components/header/header-filter';
+import { SearchInput } from '@/components/filters/search-input';
 import { Orders } from '@/components/lists/orders';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SiteHeader } from '@/components/site-header';
+import { SiteHeader } from '@/components/header/site-header';
 import { getOrders } from '@/fetch-data/orders';
 import { PageProps } from '@/types/types';
 
@@ -18,8 +18,8 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
-      <SiteHeader title="Pedidos" showActionBar hideBackButton>
-        <ListFilter listName="pedidos" />
+      <SiteHeader title="Pedidos" showHeaderActions hideBackButton>
+        <HeaderFilter listName="pedidos" />
       </SiteHeader>
       <PageWrapper>
         <SearchInput />

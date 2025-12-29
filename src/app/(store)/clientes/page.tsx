@@ -1,8 +1,8 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { SearchInput } from '@/components/actiontools/search-input';
+import { SearchInput } from '@/components/filters/search-input';
 import { Clients } from '@/components/lists/clients';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SiteHeader } from '@/components/site-header';
+import { SiteHeader } from '@/components/header/site-header';
 import { getClients } from '@/fetch-data/clients';
 import { PageProps } from '@/types/types';
 
@@ -17,7 +17,7 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
-      <SiteHeader title="Clientes" showActionBar hideBackButton />
+      <SiteHeader title="Clientes" showHeaderActions hideBackButton />
       <PageWrapper>
         <SearchInput />
         <Clients data={data} query={query} totalPages={totalPages} />

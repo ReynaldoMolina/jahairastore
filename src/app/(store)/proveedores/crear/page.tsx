@@ -1,7 +1,7 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { CreateProviderForm } from '@/components/forms/provider/create';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SiteHeader } from '@/components/site-header';
+import { SiteHeader } from '@/components/header/site-header';
 
 export const metadata = {
   title: 'Crear proveedor',

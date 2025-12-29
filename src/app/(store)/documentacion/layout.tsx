@@ -1,7 +1,7 @@
 import { MenuButton } from '@/components/documentacion/menu-button';
 import { TypographyH1 } from '@/components/documentacion/typography';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SiteHeader } from '@/components/site-header';
+import { SiteHeader } from '@/components/header/site-header';
 
 export default async function Layout({ children }) {
   return (

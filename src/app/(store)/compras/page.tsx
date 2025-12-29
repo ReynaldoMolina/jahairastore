@@ -1,8 +1,8 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { SearchInput } from '@/components/actiontools/search-input';
+import { SearchInput } from '@/components/filters/search-input';
 import { Purchases } from '@/components/lists/purchases';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SiteHeader } from '@/components/site-header';
+import { SiteHeader } from '@/components/header/site-header';
 import { getPurchases } from '@/fetch-data/purchases';
 import { PageProps } from '@/types/types';
 
@@ -17,7 +17,7 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
-      <SiteHeader title="Compras" showActionBar hideBackButton />
+      <SiteHeader title="Compras" showHeaderActions hideBackButton />
       <PageWrapper>
         <SearchInput />
         <Purchases data={data} query={query} totalPages={totalPages} />

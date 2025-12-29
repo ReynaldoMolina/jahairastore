@@ -1,7 +1,7 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { CreateReceiptForm } from '@/components/forms/receipt/create';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SiteHeader } from '@/components/site-header';
+import { SiteHeader } from '@/components/header/site-header';
 import { getReceiptClientById } from '@/fetch-data/receipts';
 import { getSettingsCambioDolar } from '@/fetch-data/settings';
 import { PageProps } from '@/types/types';

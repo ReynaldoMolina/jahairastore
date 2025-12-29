@@ -1,7 +1,7 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { EditClientForm } from '@/components/forms/client/edit';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SiteHeader } from '@/components/site-header';
+import { SiteHeader } from '@/components/header/site-header';
 import { getClientById } from '@/fetch-data/clients';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';

@@ -1,7 +1,7 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { Home } from '@/components/home';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SiteHeader } from '@/components/site-header';
+import { SiteHeader } from '@/components/header/site-header';
 import { getBusinessInfo, getBusinessName } from '@/fetch-data/settings';
 
 export async function generateMetadata() {

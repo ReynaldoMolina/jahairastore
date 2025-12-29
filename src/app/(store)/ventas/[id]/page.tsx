@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic';
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { EditSaleForm } from '@/components/forms/sale/edit';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SiteHeader } from '@/components/site-header';
+import { SiteHeader } from '@/components/header/site-header';
 import { getClientsSelect } from '@/fetch-data/clients';
 import { getProductsSearchList } from '@/fetch-data/product';
 import { getSaleById } from '@/fetch-data/sales';

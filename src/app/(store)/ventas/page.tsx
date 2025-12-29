@@ -1,9 +1,9 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { ListFilter } from '@/components/actiontools/list-filter';
-import { SearchInput } from '@/components/actiontools/search-input';
+import { HeaderFilter } from '@/components/header/header-filter';
+import { SearchInput } from '@/components/filters/search-input';
 import { Sales } from '@/components/lists/sales';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SiteHeader } from '@/components/site-header';
+import { SiteHeader } from '@/components/header/site-header';
 import { getSales } from '@/fetch-data/sales';
 import { PageProps } from '@/types/types';
 
@@ -18,8 +18,8 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
-      <SiteHeader title="Ventas" showActionBar hideBackButton>
-        <ListFilter listName="ventas" />
+      <SiteHeader title="Ventas" showHeaderActions hideBackButton>
+        <HeaderFilter listName="ventas" />
       </SiteHeader>
       <PageWrapper>
         <SearchInput />

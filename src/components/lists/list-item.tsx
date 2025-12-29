@@ -1,7 +1,8 @@
 import { Badge } from '@/components/ui/badge';
 import { BgColors, bgColors } from '@/lib/bg-colors';
-import { formatNumber, roundToPointZeroOrFive } from '@/lib/formatters';
+import { formatNumber } from '@/lib/formatters';
 import { cn } from '@/lib/utils';
+import { PingDiv } from './ping-div';
 
 interface ListItem {
   value: number | string;
@@ -39,12 +40,7 @@ export function ListItem({
         {!hideCurrency && <span className="mr-auto">{currency}</span>}
         <span>{formattedValue}</span>
       </Badge>
-      {showPing && (
-        <>
-          <span className="flex absolute size-2.5 bg-destructive rounded-full -right-0.5"></span>
-          <span className="flex absolute size-2.5 bg-destructive rounded-full -right-0.5 animate-ping"></span>
-        </>
-      )}
+      {showPing && <PingDiv className="flex absolute -right-0.5" />}
     </div>
   );
 }

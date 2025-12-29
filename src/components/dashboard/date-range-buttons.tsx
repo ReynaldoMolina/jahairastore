@@ -46,7 +46,7 @@ export function DateRangeButtons({
     <ToggleGroup
       type="single"
       variant="outline"
-      spacing={2}
+      spacing={1}
       size="sm"
       className="overflow-auto w-full"
     >
@@ -94,7 +94,7 @@ export function DateRangeButtons({
         Año
       </ToggleGroupItem>
 
-      <ToggleGroupItem
+      {/* <ToggleGroupItem
         value="4"
         className={cn(
           isActive(
@@ -110,10 +110,10 @@ export function DateRangeButtons({
         onClick={() => applyRange(ranges.lastMonth.start, ranges.lastMonth.end)}
       >
         Mes pasado
-      </ToggleGroupItem>
+      </ToggleGroupItem> */}
 
       <ToggleGroupItem
-        value="5"
+        value="4"
         className={cn(
           isActive(startParam, endParam, ranges.today.start, ranges.today.end)
             ? 'bg-muted dark:bg-muted'

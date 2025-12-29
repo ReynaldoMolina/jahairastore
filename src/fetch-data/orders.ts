@@ -67,7 +67,6 @@ export async function getOrders(searchParams: SearchParamsProps) {
         fecha: pedido.fecha,
         envio: pedido.tipoEnvio,
         total: sql<number>`COALESCE("ventas"."total", 0)`,
-        abonos: sql<number>`COALESCE("abonos"."total", 0)`,
         saldo: sql<number>`COALESCE("ventas"."total", 0) - COALESCE("abonos"."total", 0)`,
         ganancia: sql<number>`ROUND(COALESCE("ventas"."total", 0)::numeric - COALESCE("compras"."total", 0)::numeric, 2)::float`,
       })

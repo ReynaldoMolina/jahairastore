@@ -3,17 +3,18 @@
 import { useState } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { Toggle } from '../ui/toggle';
-import { Clock, PackageCheck, Wallet } from 'lucide-react';
+import { Clock, PackageCheck } from 'lucide-react';
+import { PingDiv } from '../lists/ping-div';
 
 export const ITEMS_PER_PAGE = 20;
 
 type ListName = 'pedidos' | 'ventas' | 'productos' | 'tareas';
 
-interface ListFilter {
+interface HeaderFilter {
   listName: ListName;
 }
 
-export function ListFilter({ listName }: ListFilter) {
+export function HeaderFilter({ listName }: HeaderFilter) {
   return <FilterState listName={listName} />;
 }
 
@@ -61,8 +62,8 @@ function FilterState({ listName }: FilterState) {
   };
 
   const icons = {
-    pedidos: <Wallet />,
-    ventas: <Wallet />,
+    pedidos: <PingDiv />,
+    ventas: <PingDiv />,
     productos: <PackageCheck />,
     tareas: <Clock />,
   };

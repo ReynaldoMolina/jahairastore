@@ -1,7 +1,7 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { EditPurchaseForm } from '@/components/forms/purchase/edit';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SiteHeader } from '@/components/site-header';
+import { SiteHeader } from '@/components/header/site-header';
 import { getProductsSearchList } from '@/fetch-data/product';
 import { getProvidersSelect, getPurchaseById } from '@/fetch-data/purchases';
 import { PageProps } from '@/types/types';

@@ -35,7 +35,6 @@ interface Orders {
     fecha: string;
     envio: string;
     total: number;
-    abonos: number;
     saldo: number;
     ganancia: number;
   }[];
@@ -52,7 +51,6 @@ export function Orders({ data, query, totalPages }: Orders) {
   const totals = data.reduce(
     (acc, item) => {
       acc.total += item.total;
-      acc.abonos += item.abonos;
       acc.saldo += item.saldo;
       acc.ganancia += item.ganancia;
       return acc;
@@ -106,11 +104,6 @@ export function Orders({ data, query, totalPages }: Orders) {
                     color="neutral"
                   />
                   <CardItem
-                    value={register.abonos}
-                    label="Abonos"
-                    color="green"
-                  />
-                  <CardItem
                     value={register.saldo}
                     label="Saldo"
                     color="red"
@@ -132,7 +125,6 @@ export function Orders({ data, query, totalPages }: Orders) {
           </CardHeader>
           <CardContent>
             <CardItem value={totals.total} label="Total" color="neutral" />
-            <CardItem value={totals.abonos} label="Abonos" color="green" />
             <CardItem
               value={totals.saldo}
               label="Saldo"
@@ -155,7 +147,6 @@ export function Orders({ data, query, totalPages }: Orders) {
             <TableHead>Id</TableHead>
             <TableHead>Fecha</TableHead>
             <TableHead>Total</TableHead>
-            <TableHead>Abono</TableHead>
             <TableHead>Saldo</TableHead>
             <TableHead>Ganancia</TableHead>
           </TableRow>
@@ -200,9 +191,6 @@ export function Orders({ data, query, totalPages }: Orders) {
                   <ListItem value={register.total} color="neutral" />
                 </TableCell>
                 <TableCell>
-                  <ListItem value={register.abonos} color="green" />
-                </TableCell>
-                <TableCell>
                   <ListItem
                     value={register.saldo}
                     color="red"
@@ -223,9 +211,6 @@ export function Orders({ data, query, totalPages }: Orders) {
             <TableCell></TableCell>
             <TableCell>
               <ListItem value={totals.total} color="neutral" />
-            </TableCell>
-            <TableCell>
-              <ListItem value={totals.abonos} color="green" />
             </TableCell>
             <TableCell>
               <ListItem

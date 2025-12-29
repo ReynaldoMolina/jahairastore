@@ -1,7 +1,7 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { EditProviderForm } from '@/components/forms/provider/edit';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SiteHeader } from '@/components/site-header';
+import { SiteHeader } from '@/components/header/site-header';
 import { getProviderById } from '@/fetch-data/providers';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';

@@ -1,7 +1,7 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { EditOrderForm } from '@/components/forms/order/edit';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SiteHeader } from '@/components/site-header';
+import { SiteHeader } from '@/components/header/site-header';
 import { getClientsSelect } from '@/fetch-data/clients';
 import { getOrderById } from '@/fetch-data/orders';
 import { getSettingsEnvioPrices } from '@/fetch-data/settings';

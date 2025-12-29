@@ -1,7 +1,7 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { EditTareaForm } from '@/components/forms/tareas/edit';
 import { PageWrapper } from '@/components/page-wrapper';
-import { SiteHeader } from '@/components/site-header';
+import { SiteHeader } from '@/components/header/site-header';
 import { getTareaById } from '@/fetch-data/tareas';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
