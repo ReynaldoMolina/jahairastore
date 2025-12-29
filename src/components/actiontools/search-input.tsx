@@ -35,12 +35,11 @@ export function SearchInput({ className }: SearchInput) {
   }, 400);
 
   return (
-    <InputGroup className={cn('w-full md:max-w-50', className)}>
+    <InputGroup className={cn('w-full max-w-50', className)}>
       <InputGroupInput
         type="search"
         placeholder="Buscar"
         autoComplete="off"
-        className="font-normal"
         value={searchValue}
         onChange={(event) => {
           const term = event.target.value;
@@ -53,6 +52,7 @@ export function SearchInput({ className }: SearchInput) {
         <InputGroupAddon align="inline-end">
           <InputGroupButton
             size="icon-xs"
+            variant="outline"
             onClick={() => {
               setSearchValue('');
               handleSearch('');

@@ -61,11 +61,11 @@ export function DateRangeButtons({
           ) || !startParam
             ? 'bg-muted dark:bg-muted'
             : '',
-          'rounded-full'
+          'rounded-full text-xs'
         )}
         onClick={() => applyRange(ranges.month.start, ranges.month.end)}
       >
-        Este mes
+        Mes
       </ToggleGroupItem>
 
       <ToggleGroupItem
@@ -74,15 +74,28 @@ export function DateRangeButtons({
           isActive(startParam, endParam, ranges.week.start, ranges.week.end)
             ? 'bg-muted dark:bg-muted'
             : '',
-          'rounded-full'
+          'rounded-full text-xs'
         )}
         onClick={() => applyRange(ranges.week.start, ranges.week.end)}
       >
-        Esta semana
+        Semana
       </ToggleGroupItem>
 
       <ToggleGroupItem
         value="3"
+        className={cn(
+          isActive(startParam, endParam, ranges.year.start, ranges.year.end)
+            ? 'bg-muted dark:bg-muted'
+            : '',
+          'rounded-full text-xs'
+        )}
+        onClick={() => applyRange(ranges.year.start, ranges.year.end)}
+      >
+        Año
+      </ToggleGroupItem>
+
+      <ToggleGroupItem
+        value="4"
         className={cn(
           isActive(
             startParam,
@@ -92,24 +105,11 @@ export function DateRangeButtons({
           )
             ? 'bg-muted dark:bg-muted'
             : '',
-          'rounded-full'
+          'rounded-full text-xs'
         )}
         onClick={() => applyRange(ranges.lastMonth.start, ranges.lastMonth.end)}
       >
         Mes pasado
-      </ToggleGroupItem>
-
-      <ToggleGroupItem
-        value="4"
-        className={cn(
-          isActive(startParam, endParam, ranges.year.start, ranges.year.end)
-            ? 'bg-muted dark:bg-muted'
-            : '',
-          'rounded-full'
-        )}
-        onClick={() => applyRange(ranges.year.start, ranges.year.end)}
-      >
-        Este año
       </ToggleGroupItem>
 
       <ToggleGroupItem
@@ -118,7 +118,7 @@ export function DateRangeButtons({
           isActive(startParam, endParam, ranges.today.start, ranges.today.end)
             ? 'bg-muted dark:bg-muted'
             : '',
-          'rounded-full'
+          'rounded-full text-xs'
         )}
         onClick={() => applyRange(ranges.today.start, ranges.today.end)}
       >

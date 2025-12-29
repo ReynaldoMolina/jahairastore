@@ -36,16 +36,16 @@ export function DateSelector({ searchParams }: DateSelector) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <ToggleGroupItem value="6" className="rounded-full">
+        <ToggleGroupItem value="6" className="rounded-full text-xs">
           <Calendar className="size-3.5" />
-          Elegir rango
+          Personalizado
         </ToggleGroupItem>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Elegir rango de fechas</DialogTitle>
           <DialogDescription>
-            Selecciona las fechas para generar los informes.
+            Selecciona las fechas para mostrar los datos.
           </DialogDescription>
         </DialogHeader>
         <div className="inline-flex flex-row gap-3">

@@ -24,7 +24,7 @@ export function SiteHeader({
   const router = useRouter();
 
   return (
-    <header className="flex sticky top-0 h-12 items-center border-b px-2 gap-1 z-20 bg-background">
+    <header className="flex sticky top-0 h-12 items-center border-b px-2 md:px-4 gap-1 z-20 bg-background">
       {!hideBackButton ? (
         <Button variant="ghost" size="icon" onClick={() => router.back()}>
           <ArrowLeft className="size-4.5" />
