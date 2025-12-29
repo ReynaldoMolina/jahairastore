@@ -54,17 +54,6 @@ export function TypographyH3({ children, className, id }: TypographyProps) {
   );
 }
 
-export function TypographyH4({ children, id }: TypographyProps) {
-  return (
-    <h4
-      id={id ? id : null}
-      className="scroll-m-20 text-xl font-semibold tracking-tight"
-    >
-      {children}
-    </h4>
-  );
-}
-
 export function TypographyP({ children, className }: TypographyProps) {
   return (
     <p

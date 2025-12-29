@@ -1,6 +1,5 @@
+import { ITEMS_PER_PAGE } from '@/lib/items-per-page';
 import { SearchParamsProps } from '@/types/types';
-
-export const ITEMS_PER_PAGE = 20;
 
 export function getUrlParams(searchParams: SearchParamsProps) {
   const query = searchParams?.query || '';

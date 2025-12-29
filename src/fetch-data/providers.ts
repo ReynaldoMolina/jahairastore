@@ -50,19 +50,3 @@ export async function getProviderById(id: number | string) {
     throw new Error('No se pudo obtener el proveedor.');
   }
 }
-
-export async function getProveedoresSelect() {
-  try {
-    const data = await db
-      .select({
-        value: sql<string>`CAST(${proveedor.id} AS TEXT)`,
-        label: proveedor.nombreEmpresa,
-      })
-      .from(proveedor)
-      .orderBy(asc(proveedor.nombreEmpresa));
-
-    return data;
-  } catch (error) {
-    throw new Error('No se pudieron obtener los proveedor.');
-  }
-}

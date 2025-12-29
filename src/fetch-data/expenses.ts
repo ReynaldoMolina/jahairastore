@@ -1,6 +1,6 @@
 import { SearchParamsProps } from '@/types/types';
 import { getUrlParams } from './filter';
-import { buildSearchFilter } from './build-by-search';
+import { buildSearchFilterByPurchase } from './build-by-search';
 import { gasto, proveedor } from '@/database/schema/schema';
 import { db } from '@/database/db';
 import { desc, eq, sql } from 'drizzle-orm';
@@ -8,10 +8,7 @@ import { desc, eq, sql } from 'drizzle-orm';
 export async function getExpenses(searchParams: SearchParamsProps) {
   const { query, limit, offset } = getUrlParams(searchParams);
 
-  const filterBySearch = buildSearchFilter(searchParams, [
-    proveedor.nombreEmpresa,
-    gasto.concepto,
-  ]);
+  const filterBySearch = buildSearchFilterByPurchase(searchParams);
 
   try {
     const data = await db

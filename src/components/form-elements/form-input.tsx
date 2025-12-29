@@ -3,12 +3,9 @@ import { Field, FieldDescription, FieldError, FieldLabel } from '../ui/field';
 import {
   InputGroup,
   InputGroupAddon,
-  InputGroupButton,
   InputGroupInput,
   InputGroupText,
 } from '../ui/input-group';
-import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
-import { HelpCircle } from 'lucide-react';
 import React from 'react';
 
 interface FormInputGroupText<T extends FieldValues> {
@@ -16,7 +13,6 @@ interface FormInputGroupText<T extends FieldValues> {
   name: Path<T>;
   label: string;
   textAddon?: string;
-  tooltipAddon?: string;
   placeholder?: string;
   description?: string;
   disabled?: boolean;
@@ -31,7 +27,6 @@ export function FormInput<T extends FieldValues>({
   name,
   label,
   textAddon,
-  tooltipAddon,
   placeholder,
   description,
   disabled,
@@ -55,25 +50,6 @@ export function FormInput<T extends FieldValues>({
             {textAddon && (
               <InputGroupAddon>
                 <InputGroupText>{textAddon}</InputGroupText>
-              </InputGroupAddon>
-            )}
-
-            {tooltipAddon && (
-              <InputGroupAddon align="inline-end">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <InputGroupButton
-                      variant="ghost"
-                      aria-label="Info"
-                      size="icon-xs"
-                    >
-                      <HelpCircle />
-                    </InputGroupButton>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>{tooltipAddon}</p>
-                  </TooltipContent>
-                </Tooltip>
               </InputGroupAddon>
             )}
             <InputGroupInput

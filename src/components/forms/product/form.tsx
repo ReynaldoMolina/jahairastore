@@ -139,12 +139,7 @@ export function ProductForm({ form }: ProductForm) {
           label="Cambio USD"
           textAddon="C$"
         />
-        <FormInput
-          control={form.control}
-          name="codigo"
-          label="Código"
-          tooltipAddon="Del proveedor o código de barra"
-        />
+        <FormInput control={form.control} name="codigo" label="Código" />
       </FieldSet>
     </FieldGroup>
   );

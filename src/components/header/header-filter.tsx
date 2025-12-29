@@ -5,8 +5,7 @@ import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { Toggle } from '../ui/toggle';
 import { Clock, PackageCheck } from 'lucide-react';
 import { PingDiv } from '../lists/ping-div';
-
-export const ITEMS_PER_PAGE = 20;
+import { ITEMS_PER_PAGE } from '@/lib/items-per-page';
 
 type ListName = 'pedidos' | 'ventas' | 'productos' | 'tareas';
 
