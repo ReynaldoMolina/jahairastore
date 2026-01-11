@@ -70,32 +70,23 @@ export function Orders({ data, query, totalPages }: Orders) {
           return (
             <Link key={register.id} href={`/pedidos/${register.id}`}>
               <Card className="py-4 gap-4">
-                <CardHeader className="border-b [.border-b]:pb-4 inline-flex gap-3 px-4">
-                  <Avatar>
-                    <AvatarImage src={register.imagenUrl} alt="@shadcn" />
-                    <AvatarFallback>
-                      {register.nombreCliente.substring(0, 1)}
-                    </AvatarFallback>
-                  </Avatar>
-
-                  <div className="flex flex-col gap-2">
-                    <CardTitle>{register.nombreCliente}</CardTitle>
-                    <CardDescription className="inline-flex gap-3 items-center">
-                      <Badge variant="outline">
-                        <Hash />
-                        {register.id}
+                <CardHeader className="flex flex-col border-b [.border-b]:pb-4">
+                  <CardTitle>{register.nombreCliente}</CardTitle>
+                  <CardDescription className="inline-flex gap-3 items-center">
+                    <Badge variant="outline">
+                      <Hash />
+                      {register.id}
+                    </Badge>
+                    <Badge variant="outline">
+                      <Calendar />
+                      {formatDate(register.fecha)}
+                    </Badge>
+                    {register.envio === 'aereo' && (
+                      <Badge variant="outline" className="h-5">
+                        <Plane />
                       </Badge>
-                      <Badge variant="outline">
-                        <Calendar />
-                        {formatDate(register.fecha)}
-                      </Badge>
-                      {register.envio === 'aereo' && (
-                        <Badge variant="outline" className="h-5">
-                          <Plane />
-                        </Badge>
-                      )}
-                    </CardDescription>
-                  </div>
+                    )}
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <CardItem
@@ -159,14 +150,8 @@ export function Orders({ data, query, totalPages }: Orders) {
                 className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
                 onClick={() => router.push(`/pedidos/${register.id}`)}
               >
-                <TableCell className="w-full whitespace-normal">
+                <TableCell className="flex w-full whitespace-normal">
                   <div className="flex items-center gap-3">
-                    <Avatar>
-                      <AvatarImage src={register.imagenUrl} alt="@shadcn" />
-                      <AvatarFallback>
-                        {register.nombreCliente.substring(0, 1)}
-                      </AvatarFallback>
-                    </Avatar>
                     <span>{register.nombreCliente}</span>
                     {register.envio === 'aereo' && (
                       <Badge variant="outline">
