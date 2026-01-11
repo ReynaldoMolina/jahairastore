@@ -29,13 +29,11 @@ import { CardItem, ListItem } from './list-item';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Calendar, Hash } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 interface SalesProps {
   data: {
     id: number;
     nombreCliente: string;
-    imagenUrl: string | null;
     fecha: string;
     credito: boolean;
     total: number;

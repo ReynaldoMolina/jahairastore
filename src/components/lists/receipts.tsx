@@ -29,7 +29,6 @@ import {
   roundToPointZeroOrFive,
 } from '@/lib/formatters';
 import { Calendar, Hash, ShoppingBag } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { bgColors } from '@/lib/bg-colors';
 
 interface Receipts {
@@ -39,7 +38,6 @@ interface Receipts {
     fecha: string;
     abono: number;
     nombreCliente: string;
-    imagenUrl: string | null;
     cambioDolar: number;
     enCordobas: boolean;
     anulado: boolean;

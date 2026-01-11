@@ -23,7 +23,6 @@ interface Providers {
   data: {
     id: number;
     nombreEmpresa: string;
-    imagenUrl: string | null;
     telefono: string;
   }[];
   query: string;

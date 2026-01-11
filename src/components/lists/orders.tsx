@@ -31,7 +31,6 @@ interface Orders {
   data: {
     id: number;
     nombreCliente: string;
-    imagenUrl: string | null;
     fecha: string;
     envio: string;
     total: number;

@@ -31,7 +31,6 @@ interface Purchases {
   data: {
     id: number;
     nombreProveedor: string;
-    imagenUrl: string | null;
     fecha: string;
     total: number;
     gastos: number;

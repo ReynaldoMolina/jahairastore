@@ -273,10 +273,8 @@ export interface ClientById {
 export interface ProviderById {
   id?: number;
   nombreEmpresa: string;
-  nombreContacto: string | null;
   telefono: string | null;
   direccion: string | null;
-  imagenUrl: string | null;
 }
 
 export interface TareaById {

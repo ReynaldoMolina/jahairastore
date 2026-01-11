@@ -32,7 +32,6 @@ interface Expenses {
     id: number;
     idCompra: number;
     nombreProveedor: string;
-    imagenUrl: string | null;
     fecha: string;
     gasto: number;
     concepto: string;

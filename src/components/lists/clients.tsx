@@ -24,7 +24,6 @@ interface Clients {
     id: number;
     nombre: string;
     telefono: string;
-    imagenUrl: string;
   }[];
   query: string;
   totalPages: number;
