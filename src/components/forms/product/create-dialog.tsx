@@ -49,7 +49,7 @@ export function CreateProductFormDialog({
       fecha: currentDate,
       codigo: null,
       cambioDolar: cambioDolar,
-      precioEnCordobas: false,
+      precioEnCordobas: true,
     },
   });
 

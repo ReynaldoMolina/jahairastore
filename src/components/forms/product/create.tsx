@@ -33,7 +33,7 @@ export function CreateProductForm({ cambioDolar }: CreateProductForm) {
       fecha: currentDate,
       codigo: null,
       cambioDolar: cambioDolar,
-      precioEnCordobas: false,
+      precioEnCordobas: true,
     },
   });
 

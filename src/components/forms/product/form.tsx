@@ -126,7 +126,7 @@ export function ProductForm({ form }: ProductForm) {
       )}
 
       <FormInputReadOnly
-        value={formatNumber(ganancia)}
+        value={isNaN(ganancia) ? 0 : formatNumber(ganancia)}
         label="Ganancia"
         textAddon={precioEnCordobas ? 'C$' : '$'}
       />

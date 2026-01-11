@@ -37,7 +37,7 @@ export function ReceiptOptions({ receipt }: ReceiptOptions) {
       await navigator.clipboard.write([
         new ClipboardItem({ [blob.type]: blob }),
       ]);
-      toast.success('Copiadao');
+      toast.success('Copiado');
     } catch (err) {
       console.error(err);
       toast.error('Hubo un error al copiar la imagen al portapapeles.');
