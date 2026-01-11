@@ -67,39 +67,30 @@ export function Expenses({ data, query, totalPages }: Expenses) {
           return (
             <Link key={register.id} href={`/gastos/${register.id}`}>
               <Card className="py-4 gap-4">
-                <CardHeader className="border-b [.border-b]:pb-4 inline-flex gap-3 px-4">
-                  <Avatar>
-                    <AvatarImage src={register.imagenUrl} alt="@shadcn" />
-                    <AvatarFallback>
-                      {register.nombreProveedor.substring(0, 1)}
-                    </AvatarFallback>
-                  </Avatar>
-
-                  <div className="flex flex-col gap-2">
-                    <CardTitle
-                      className={
-                        register.anulado
-                          ? 'text-muted-foreground line-through'
-                          : ''
-                      }
-                    >
-                      {register.nombreProveedor}
-                    </CardTitle>
-                    <CardDescription className="inline-flex gap-3 items-center">
-                      <Badge variant="outline">
-                        <Hash />
-                        {register.id}
-                      </Badge>
-                      <Badge variant="outline">
-                        <Calendar />
-                        {formatDate(register.fecha)}
-                      </Badge>
-                      <Badge variant="outline">
-                        <ShoppingCart />
-                        {register.idCompra}
-                      </Badge>
-                    </CardDescription>
-                  </div>
+                <CardHeader className="flex flex-col border-b [.border-b]:pb-4">
+                  <CardTitle
+                    className={
+                      register.anulado
+                        ? 'text-muted-foreground line-through'
+                        : ''
+                    }
+                  >
+                    {register.nombreProveedor}
+                  </CardTitle>
+                  <CardDescription className="inline-flex gap-3 items-center">
+                    <Badge variant="outline">
+                      <Hash />
+                      {register.id}
+                    </Badge>
+                    <Badge variant="outline">
+                      <Calendar />
+                      {formatDate(register.fecha)}
+                    </Badge>
+                    <Badge variant="outline">
+                      <ShoppingCart />
+                      {register.idCompra}
+                    </Badge>
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <CardItem
@@ -163,23 +154,7 @@ export function Expenses({ data, query, totalPages }: Expenses) {
                 onClick={() => router.push(`/gastos/${register.id}`)}
               >
                 <TableCell className="w-full whitespace-normal">
-                  <div className="flex items-center gap-3">
-                    <Avatar>
-                      <AvatarImage src={register.imagenUrl} alt="@shadcn" />
-                      <AvatarFallback>
-                        {register.nombreProveedor.substring(0, 1)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <span
-                      className={
-                        register.anulado
-                          ? 'text-muted-foreground line-through'
-                          : ''
-                      }
-                    >
-                      {register.nombreProveedor}
-                    </span>
-                  </div>
+                  {register.nombreProveedor}
                 </TableCell>
                 <TableCell>
                   <Badge variant="outline" className="w-full">

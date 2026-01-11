@@ -16,7 +16,6 @@ export async function getExpenses(searchParams: SearchParamsProps) {
         id: gasto.id,
         idCompra: gasto.idCompra,
         nombreProveedor: proveedor.nombreEmpresa,
-        imagenUrl: proveedor.imagenUrl,
         fecha: gasto.fecha,
         gasto: gasto.gasto,
         concepto: gasto.concepto,
