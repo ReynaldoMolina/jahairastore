@@ -10,7 +10,7 @@ export function ChangeTheme() {
 
   function toggleTheme() {
     if (theme === 'light') setTheme('dark');
-    if (theme === 'dark') setTheme('system');
+    if (theme === 'dark') setTheme('light');
     if (theme === 'system') setTheme('light');
   }
 
