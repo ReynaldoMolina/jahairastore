@@ -25,12 +25,13 @@ export function StockLocationFilter() {
     updateURL('ubicacion', valueToUpdate);
   };
 
+  const label = currentUbicacion === '1' ? 'León' : 'Acoyapa';
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          size="icon"
           className={
             currentUbicacion
               ? 'border-blue-600 bg-blue-50 dark:border-blue-900 dark:bg-blue-950'
@@ -38,6 +39,7 @@ export function StockLocationFilter() {
           }
         >
           <MapPin className="size-4" />
+          {currentUbicacion && <span className="text-xs">{label}</span>}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
