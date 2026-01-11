@@ -1,6 +1,6 @@
 import { db } from '@/database/db';
 import { SearchParamsProps } from '@/types/types';
-import { sql, asc, desc, eq } from 'drizzle-orm';
+import { sql, desc, eq } from 'drizzle-orm';
 import { getUrlParams } from './filter';
 import { buildSearchFilter } from './build-by-search';
 import { proveedor } from '@/database/schema/schema';
@@ -17,7 +17,6 @@ export async function getProveedores(searchParams: SearchParamsProps) {
       .select({
         id: proveedor.id,
         nombreEmpresa: proveedor.nombreEmpresa,
-        imagenUrl: proveedor.imagenUrl,
         telefono: proveedor.telefono,
       })
       .from(proveedor)

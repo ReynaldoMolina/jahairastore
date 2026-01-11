@@ -79,8 +79,6 @@ export const pedidoDetalle = pgTable('pedido_detalle', {
 export const proveedor = pgTable('proveedor', {
   id: serial('id').primaryKey().notNull(),
   nombreEmpresa: varchar('nombre_empresa', { length: 255 }).notNull(),
-  imagenUrl: text('imagen_url'),
-  nombreContacto: varchar('nombre_contacto', { length: 255 }),
   telefono: varchar('telefono', { length: 255 }),
   direccion: varchar('direccion', { length: 255 }),
 });

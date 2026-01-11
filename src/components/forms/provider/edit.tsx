@@ -1,7 +1,13 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import { Card, CardContent } from '../../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../../ui/card';
 import * as z from 'zod';
 import { ProviderById } from '@/types/types';
 import { useForm } from 'react-hook-form';
@@ -50,6 +56,12 @@ export function EditProviderForm({ provider }: EditProviderForm) {
         className="max-w-xl w-full mx-auto"
       >
         <Card>
+          <CardHeader>
+            <CardTitle>Editar proveedor</CardTitle>
+            <CardDescription>
+              Edita la información del proveedor.
+            </CardDescription>
+          </CardHeader>
           <CardContent className="space-y-6">
             <ProviderForm form={form} />
           </CardContent>
