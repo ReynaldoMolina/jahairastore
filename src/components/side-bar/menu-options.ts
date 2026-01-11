@@ -1,15 +1,10 @@
 import {
-  BanknoteArrowDown,
-  BookText,
+  BookOpen,
   ChartNoAxesCombined,
-  ClipboardList,
-  Coins,
+  ListChecks,
   Package,
-  Receipt,
   ShoppingBag,
-  ShoppingCart,
   User,
-  Users,
 } from 'lucide-react';
 
 export const menuOptions = [
@@ -26,22 +21,18 @@ export const menuOptions = [
       {
         name: 'Ventas',
         url: '/ventas',
-        icon: Coins,
       },
       {
         name: 'Compras',
         url: '/compras',
-        icon: ShoppingCart,
       },
       {
         name: 'Gastos',
         url: '/gastos',
-        icon: BanknoteArrowDown,
       },
       {
         name: 'Proveedores',
         url: '/proveedores',
-        icon: Users,
       },
     ],
   },
@@ -53,7 +44,6 @@ export const menuOptions = [
       {
         name: 'Recibos',
         url: '/recibos',
-        icon: Receipt,
       },
     ],
   },
@@ -65,12 +55,12 @@ export const menuOptions = [
   {
     name: 'Documentación',
     url: '/documentacion',
-    icon: BookText,
+    icon: BookOpen,
   },
   {
     name: 'Tareas',
     url: '/tareas?state=true',
-    icon: ClipboardList,
+    icon: ListChecks,
   },
 ];
 
