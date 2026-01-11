@@ -15,7 +15,6 @@ export const cliente = pgTable('cliente', {
   apellido: varchar('apellido', { length: 255 }).notNull(),
   telefono: text('telefono'),
   direccion: text('direccion'),
-  imagenUrl: text('imagen_url'),
 });
 
 export const compra = pgTable('compra', {

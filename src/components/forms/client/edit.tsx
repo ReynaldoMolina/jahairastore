@@ -1,7 +1,13 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import { Card, CardContent } from '../../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../../ui/card';
 import * as z from 'zod';
 import { ClientById } from '@/types/types';
 import { useForm } from 'react-hook-form';
@@ -26,7 +32,6 @@ export function EditClientForm({ client }: EditClientForm) {
       apellido: client.apellido,
       telefono: client.telefono || '',
       direccion: client.direccion,
-      imagenUrl: client.imagenUrl,
     },
   });
 
@@ -50,6 +55,10 @@ export function EditClientForm({ client }: EditClientForm) {
         className="max-w-xl w-full mx-auto"
       >
         <Card>
+          <CardHeader>
+            <CardTitle>Editar cliente</CardTitle>
+            <CardDescription>Edita la información del cliente.</CardDescription>
+          </CardHeader>
           <CardContent className="space-y-6">
             <ClientForm form={form} />
           </CardContent>

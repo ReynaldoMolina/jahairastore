@@ -268,7 +268,6 @@ export interface ClientById {
   apellido: string;
   telefono: string | null;
   direccion: string | null;
-  imagenUrl: string | null;
 }
 
 export interface ProviderById {

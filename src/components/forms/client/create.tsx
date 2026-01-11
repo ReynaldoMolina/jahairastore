@@ -22,7 +22,6 @@ export function CreateClientForm() {
       apellido: '',
       telefono: '',
       direccion: '',
-      imagenUrl: '',
     },
   });
 

@@ -32,7 +32,6 @@ export function CreateClientFormDialog() {
       apellido: '',
       telefono: '',
       direccion: '',
-      imagenUrl: '',
     },
   });
 

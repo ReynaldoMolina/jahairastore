@@ -43,28 +43,19 @@ export function Clients({ data, query, totalPages }: Clients) {
           return (
             <Link key={register.id} href={`/clientes/${register.id}`}>
               <Card className="py-4 gap-4">
-                <CardHeader className="inline-flex gap-3 px-4">
-                  <Avatar>
-                    <AvatarImage src={register.imagenUrl} alt="@shadcn" />
-                    <AvatarFallback>
-                      {register.nombre.substring(0, 1)}
-                    </AvatarFallback>
-                  </Avatar>
-
-                  <div className="flex flex-col gap-2">
-                    <CardTitle>{register.nombre}</CardTitle>
-                    <CardDescription className="inline-flex gap-3 items-center">
-                      <Badge
-                        variant="outline"
-                        className={
-                          register.telefono ? '' : 'text-muted-foreground'
-                        }
-                      >
-                        <Phone />
-                        {register.telefono || 'Sin teléfono'}
-                      </Badge>
-                    </CardDescription>
-                  </div>
+                <CardHeader className="flex flex-col gap-2">
+                  <CardTitle>{register.nombre}</CardTitle>
+                  <CardDescription className="inline-flex gap-3 items-center">
+                    <Badge
+                      variant="outline"
+                      className={
+                        register.telefono ? '' : 'text-muted-foreground'
+                      }
+                    >
+                      <Phone />
+                      {register.telefono || 'Sin teléfono'}
+                    </Badge>
+                  </CardDescription>
                 </CardHeader>
               </Card>
             </Link>
@@ -96,15 +87,7 @@ export function Clients({ data, query, totalPages }: Clients) {
               onClick={() => router.push(`/clientes/${register.id}`)}
             >
               <TableCell className="w-full whitespace-normal">
-                <div className="flex items-center gap-3">
-                  <Avatar>
-                    <AvatarImage src={register.imagenUrl} alt="@shadcn" />
-                    <AvatarFallback>
-                      {register.nombre.substring(0, 1)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <span>{register.nombre}</span>
-                </div>
+                {register.nombre}
               </TableCell>
               <TableCell>
                 <Badge

@@ -18,23 +18,20 @@ export function ClientForm({ form }: ClientForm) {
         <FormInput control={form.control} name="nombre" label="Nombre" />
         <FormInput control={form.control} name="apellido" label="Apellido" />
       </FieldSet>
-      <FieldSet className="md:flex-row">
+      <FieldSet>
         <FormInput
           control={form.control}
           name="telefono"
           label="Teléfono"
           textAddon="+505"
         />
-      </FieldSet>
-      <FieldSet>
+
         <FormTextArea
           control={form.control}
           name="direccion"
           label="Dirección"
         />
       </FieldSet>
-      <FieldSeparator />
-      <FormInput control={form.control} name="imagenUrl" label="Foto (url)" />
     </FieldGroup>
   );
 }

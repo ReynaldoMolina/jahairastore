@@ -5,5 +5,4 @@ export const clientSchema = z.object({
   apellido: z.string().min(1, 'Requerido'),
   telefono: z.string().nullable(),
   direccion: z.string().nullable(),
-  imagenUrl: z.string().nullable(),
 });
