@@ -14,8 +14,8 @@ export const menuOptions = [
     icon: ChartNoAxesCombined,
   },
   {
-    name: 'Productos',
-    url: '/productos',
+    name: 'Inventario',
+    url: '/inventario?state=true&page=1',
     icon: Package,
     items: [
       {

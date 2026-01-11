@@ -31,6 +31,10 @@ export const compraDetalle = pgTable('compra_detalle', {
   precioVenta: doublePrecision('precio_venta').notNull(),
   cantidad: integer('cantidad').notNull(),
   cambioDolar: doublePrecision('cambio_dolar').notNull(),
+  id_ubicacion: integer()
+    .notNull()
+    .default(1)
+    .references(() => ubicacion.id),
 });
 
 export const ajustes = pgTable('ajustes', {
@@ -117,6 +121,10 @@ export const ventaDetalle = pgTable('venta_detalle', {
   cantidad: integer('cantidad').notNull(),
   cambioDolar: doublePrecision('cambio_dolar').notNull(),
   precioPorMayor: boolean('precio_por_mayor').notNull().default(false),
+  id_ubicacion: integer()
+    .notNull()
+    .default(1)
+    .references(() => ubicacion.id),
 });
 
 export const producto = pgTable('producto', {
@@ -131,6 +139,11 @@ export const producto = pgTable('producto', {
   codigo: text('codigo'),
   precioEnCordobas: boolean('precio_en_cordobas').notNull().default(false),
   cambioDolar: doublePrecision('cambio_dolar'),
+});
+
+export const ubicacion = pgTable('ubicacion', {
+  id: serial('id').primaryKey().notNull(),
+  nombre: text('nombre').notNull(),
 });
 
 export const tarea = pgTable('tarea', {

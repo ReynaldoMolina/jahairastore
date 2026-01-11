@@ -8,7 +8,7 @@ import { getProducts } from '@/fetch-data/product';
 import { PageProps } from '@/types/types';
 
 export const metadata = {
-  title: 'Productos',
+  title: 'Inventario',
 };
 
 export default async function Page({ searchParams }: PageProps) {
@@ -18,8 +18,8 @@ export default async function Page({ searchParams }: PageProps) {
 
   return (
     <>
-      <SiteHeader title="Productos" showHeaderActions hideBackButton>
-        <HeaderFilter listName="productos" />
+      <SiteHeader title="Inventario" showHeaderActions hideBackButton>
+        <HeaderFilter listName="inventario" />
       </SiteHeader>
       <PageWrapper>
         <SearchInput />

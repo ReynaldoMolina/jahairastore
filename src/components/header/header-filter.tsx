@@ -7,7 +7,7 @@ import { Clock, PackageCheck } from 'lucide-react';
 import { PingDiv } from '../lists/ping-div';
 import { ITEMS_PER_PAGE } from '@/lib/items-per-page';
 
-type ListName = 'pedidos' | 'ventas' | 'productos' | 'tareas';
+type ListName = 'pedidos' | 'ventas' | 'inventario' | 'tareas';
 
 interface HeaderFilter {
   listName: ListName;
@@ -53,18 +53,23 @@ function FilterState({ listName }: FilterState) {
     updateURL('state', newState || null);
   }
 
-  const labels = {
-    pedidos: 'Saldo',
-    ventas: 'Saldo',
-    productos: 'Disponibles',
-    tareas: 'Pendientes',
-  };
-
-  const icons = {
-    pedidos: <PingDiv />,
-    ventas: <PingDiv />,
-    productos: <PackageCheck />,
-    tareas: <Clock />,
+  const filters = {
+    pedidos: {
+      label: 'Saldo',
+      icon: <PingDiv />,
+    },
+    ventas: {
+      label: 'Saldo',
+      icon: <PingDiv />,
+    },
+    inventario: {
+      label: 'Disponibles',
+      icon: <PackageCheck />,
+    },
+    tareas: {
+      label: 'Pendientes',
+      icon: <Clock />,
+    },
   };
 
   return (
@@ -78,8 +83,8 @@ function FilterState({ listName }: FilterState) {
       data-[state=on]:border-blue-600 data-[state=on]:bg-blue-50 dark:data-[state=on]:border-blue-900 dark:data-[state=on]:bg-blue-950
       "
     >
-      {icons[listName]}
-      <span className="hidden md:block">{labels[listName]}</span>
+      {filters[listName].icon}
+      <span className="hidden md:block">{filters[listName].label}</span>
     </Toggle>
   );
 }

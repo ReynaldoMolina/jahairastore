@@ -19,8 +19,9 @@ export function MenuItem({ option, children }: MenuItem) {
   const { setOpenMobile } = useSidebar();
 
   const pathname = usePathname();
+  const optionPathname = option.url.split('?')[0];
   const isActive =
-    option.url === '/' ? pathname === '/' : pathname.includes(option.url);
+    option.url === '/' ? pathname === '/' : pathname.startsWith(optionPathname);
 
   return (
     <SidebarMenuItem key={option.name}>
@@ -44,8 +45,9 @@ export function MenuSubItem({ option }: MenuItem) {
   const { setOpenMobile } = useSidebar();
 
   const pathname = usePathname();
+  const optionPathname = option.url.split('?')[0];
   const isActive =
-    option.url === '/' ? pathname === '/' : pathname.includes(option.url);
+    option.url === '/' ? pathname === '/' : pathname.startsWith(optionPathname);
 
   return (
     <SidebarMenuSubItem key={option.name}>

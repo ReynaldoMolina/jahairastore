@@ -5,7 +5,7 @@ import {
   ventaDetalle,
 } from '@/database/schema/schema';
 import { SearchParamsProps } from '@/types/types';
-import { desc, eq, sql, and } from 'drizzle-orm';
+import { desc, asc, eq, sql, and } from 'drizzle-orm';
 import { getUrlParams } from './filter';
 import { buildSearchFilter } from './build-by-search';
 
@@ -59,7 +59,7 @@ export async function getProducts(searchParams: SearchParamsProps) {
       .where(and(filterBySearch, filterByState))
       .limit(limit)
       .offset(offset)
-      .orderBy(desc(producto.id));
+      .orderBy(asc(producto.nombre));
 
     const [{ count }] = await db
       .select({ count: sql<number>`count(*)` })
