@@ -9,6 +9,7 @@ export interface SearchParamsProps {
   compra: string;
   proveedor: string;
   concepto: string;
+  ubicacion: string;
 }
 
 export interface DashboardData {

@@ -7,6 +7,7 @@ export function getUrlParams(searchParams: SearchParamsProps) {
   const limitNum = Number(searchParams?.limit) || 0;
   const pageNum = Number(searchParams?.page) || 1;
   const showAllRows = limitNum === 1;
+  const ubicacion = Number(searchParams?.ubicacion) || 1;
 
   const limit = showAllRows
     ? undefined
@@ -17,5 +18,5 @@ export function getUrlParams(searchParams: SearchParamsProps) {
   const offset = limit ? (pageNum - 1) * limit : undefined;
   const state = stateParam ? true : false;
 
-  return { query, state, limit, offset };
+  return { query, state, limit, offset, ubicacion };
 }
