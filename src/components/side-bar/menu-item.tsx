@@ -7,7 +7,7 @@ import {
   SidebarMenuSubItem,
   useSidebar,
 } from '../ui/sidebar';
-import { MenuOption } from './menu-options';
+import { MenuOption, MenuSubOption } from './menu-options';
 import React from 'react';
 
 interface MenuItem {
@@ -41,7 +41,11 @@ export function MenuItem({ option, children }: MenuItem) {
   );
 }
 
-export function MenuSubItem({ option }: MenuItem) {
+interface MenuSubItemProps {
+  option: MenuSubOption;
+}
+
+export function MenuSubItem({ option }: MenuSubItemProps) {
   const { setOpenMobile } = useSidebar();
 
   const pathname = usePathname();

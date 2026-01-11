@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { Plus } from 'lucide-react';
 import {
   Dialog,
@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { SearchInput } from '../filters/search-input';
-import { HeaderFilter } from '../header/header-filter';
+import { HeaderFilter } from '../filters/header-filter';
 import { Spinner } from '../ui/spinner';
 
 interface ProductSearch {
@@ -49,7 +49,7 @@ export function ProductSearch({
         </DialogHeader>
         <div className="inline-flex justify-between gap-2">
           <SearchInput />
-          <HeaderFilter listName="productos" />
+          <HeaderFilter listName="inventario" />
         </div>
         <div className="flex flex-col max-h-[50dvh] md:max-h-[55dvh] overflow-y-auto gap-2 w-full pb-1">
           {children}

@@ -1,7 +1,6 @@
 'use client';
 
 import { MenuItem, MenuSubItem } from './menu-item';
-import { menuOptions } from './menu-options';
 import {
   Sidebar,
   SidebarContent,
@@ -19,6 +18,7 @@ import { NavUser } from './nav-user';
 import { authClient } from '@/lib/auth-client';
 import { useEffect, useState } from 'react';
 import { BusinessInfoType } from '@/types/types';
+import { menuOptions } from './menu-options';
 
 interface AppSideBarProps {
   businessInfo: BusinessInfoType;

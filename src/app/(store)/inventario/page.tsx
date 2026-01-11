@@ -1,11 +1,12 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { HeaderFilter } from '@/components/header/header-filter';
+import { HeaderFilter } from '@/components/filters/header-filter';
 import { SearchInput } from '@/components/filters/search-input';
 import { Products } from '@/components/lists/products';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { getProducts } from '@/fetch-data/product';
 import { PageProps } from '@/types/types';
+import { StockLocationFilter } from '@/components/filters/stock-location';
 
 export const metadata = {
   title: 'Inventario',
@@ -22,7 +23,10 @@ export default async function Page({ searchParams }: PageProps) {
         <HeaderFilter listName="inventario" />
       </SiteHeader>
       <PageWrapper>
-        <SearchInput />
+        <div className="flex gap-1">
+          <SearchInput />
+          <StockLocationFilter />
+        </div>
         <Products data={data} query={query} totalPages={totalPages} />
       </PageWrapper>
     </>

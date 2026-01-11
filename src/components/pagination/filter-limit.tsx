@@ -1,7 +1,7 @@
 'use client';
 
 import { ITEMS_PER_PAGE } from '@/lib/items-per-page';
-import { useSearchUtils } from '../header/header-filter';
+import { useSearchUtils } from '../filters/header-filter';
 import {
   Select,
   SelectContent,

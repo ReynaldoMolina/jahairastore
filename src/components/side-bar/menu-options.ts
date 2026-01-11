@@ -67,3 +67,7 @@ export const menuOptions = [
 ];
 
 export type MenuOption = (typeof menuOptions)[number];
+export type MenuSubOption = {
+  name: string;
+  url: string;
+};

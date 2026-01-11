@@ -35,7 +35,7 @@ export function SearchInput({ className }: SearchInput) {
   }, 400);
 
   return (
-    <InputGroup className={cn('w-full sm:max-w-60 rounded-full', className)}>
+    <InputGroup className={cn('w-full sm:max-w-60', className)}>
       <InputGroupInput
         type="search"
         placeholder="Buscar"
@@ -52,7 +52,6 @@ export function SearchInput({ className }: SearchInput) {
         <InputGroupAddon align="inline-end">
           <InputGroupButton
             size="icon-xs"
-            className="rounded-full"
             onClick={() => {
               setSearchValue('');
               handleSearch('');
