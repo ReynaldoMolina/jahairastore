@@ -10,7 +10,7 @@ export function PageWrapper({ children, className }: PageWrapper) {
   return (
     <div
       className={cn(
-        'flex flex-col p-2 md:p-3 gap-2 overflow-auto flex-1',
+        'flex flex-col p-2 md:p-3 gap-2 md:gap-3 overflow-auto flex-1',
         className
       )}
     >
