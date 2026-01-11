@@ -16,31 +16,46 @@ export async function getProducts(searchParams: SearchParamsProps) {
 
   const filterByState = state
     ? sql`(
-      COALESCE("compras"."cantidad", 0) - COALESCE("ventas"."cantidad", 0) > 0)`
+    COALESCE("compras"."cantidad", 0) - COALESCE("ventas"."cantidad", 0) > 0)`
     : undefined;
 
   try {
-    const compras = db
+    const comprasBase = db
       .select({
         idProducto: compraDetalle.idProducto,
-        id_ubicacion: compraDetalle.id_ubicacion,
+        id_ubicacion: ubicacion
+          ? compraDetalle.id_ubicacion
+          : sql<number | null>`NULL`,
         cantidad: sql<number>`SUM(${compraDetalle.cantidad})`.as('cantidad'),
       })
       .from(compraDetalle)
-      .where(ubicacion ? eq(compraDetalle.id_ubicacion, ubicacion) : undefined)
-      .groupBy(compraDetalle.idProducto, compraDetalle.id_ubicacion)
-      .as('compras');
+      .where(ubicacion ? eq(compraDetalle.id_ubicacion, ubicacion) : undefined);
 
-    const ventas = db
+    const compras = (
+      ubicacion
+        ? comprasBase.groupBy(
+            compraDetalle.idProducto,
+            compraDetalle.id_ubicacion
+          )
+        : comprasBase.groupBy(compraDetalle.idProducto)
+    ).as('compras');
+
+    const ventasBase = db
       .select({
         idProducto: ventaDetalle.idProducto,
-        id_ubicacion: ventaDetalle.id_ubicacion,
+        id_ubicacion: ubicacion
+          ? ventaDetalle.id_ubicacion
+          : sql<number | null>`NULL`,
         cantidad: sql<number>`SUM(${ventaDetalle.cantidad})`.as('cantidad'),
       })
       .from(ventaDetalle)
-      .where(ubicacion ? eq(ventaDetalle.id_ubicacion, ubicacion) : undefined)
-      .groupBy(ventaDetalle.idProducto, ventaDetalle.id_ubicacion)
-      .as('ventas');
+      .where(ubicacion ? eq(ventaDetalle.id_ubicacion, ubicacion) : undefined);
+
+    const ventas = (
+      ubicacion
+        ? ventasBase.groupBy(ventaDetalle.idProducto, ventaDetalle.id_ubicacion)
+        : ventasBase.groupBy(ventaDetalle.idProducto)
+    ).as('ventas');
 
     const data = await db
       .select({
@@ -51,31 +66,21 @@ export async function getProducts(searchParams: SearchParamsProps) {
         cambioDolar: producto.cambioDolar,
         precioCompra: producto.precioCompra,
         precioVenta: producto.precioVenta,
+
         gananciaUnidad: sql<number>`${producto.precioVenta} - ${producto.precioCompra}`,
+
         existencias: sql<number>`
-          (COALESCE("compras"."cantidad", 0)
-          - COALESCE("ventas"."cantidad", 0))::integer
+          (COALESCE(compras.cantidad, 0)
+          - COALESCE(ventas.cantidad, 0))::integer
         `,
       })
       .from(producto)
-      .leftJoin(
-        compras,
-        and(
-          eq(producto.id, compras.idProducto),
-          ubicacion ? eq(compras.id_ubicacion, ubicacion) : sql`true`
-        )
-      )
-      .leftJoin(
-        ventas,
-        and(
-          eq(producto.id, ventas.idProducto),
-          ubicacion ? eq(ventas.id_ubicacion, ubicacion) : sql`true`
-        )
-      )
+      .leftJoin(compras, eq(producto.id, compras.idProducto))
+      .leftJoin(ventas, eq(producto.id, ventas.idProducto))
       .where(and(filterBySearch, filterByState))
+      .orderBy(asc(producto.nombre))
       .limit(limit)
-      .offset(offset)
-      .orderBy(asc(producto.nombre));
+      .offset(offset);
 
     const [{ count }] = await db
       .select({ count: sql<number>`count(*)` })
