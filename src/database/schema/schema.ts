@@ -41,7 +41,6 @@ export const ajustes = pgTable('ajustes', {
   id: serial('id').primaryKey().notNull(),
   nombreEmpresa: text('nombre_empresa').notNull(),
   eslogan: text('eslogan').notNull(),
-  mensaje: text('mensaje'),
   cambioDolar: doublePrecision('cambio_dolar'),
   envioMaritimo: doublePrecision('envio_maritimo'),
   envioAereo: doublePrecision('envio_aereo'),

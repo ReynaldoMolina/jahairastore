@@ -32,7 +32,6 @@ export async function getBusinessInfo(
       .select({
         nombreEmpresa: ajustes.nombreEmpresa,
         eslogan: ajustes.eslogan,
-        mensaje: ajustes.mensaje,
       })
       .from(ajustes)
       .where(eq(ajustes.id, Number(id)));

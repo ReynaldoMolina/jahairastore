@@ -294,7 +294,6 @@ export interface BusinessInfoType {
 export interface AppSettingsFormType {
   nombreEmpresa: string;
   eslogan: string;
-  mensaje: string | null;
   cambioDolar: number | null;
   envioMaritimo: number | null;
   envioAereo: number | null;

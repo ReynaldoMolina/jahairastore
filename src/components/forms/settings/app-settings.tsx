@@ -34,7 +34,6 @@ export function AppSettingsForm({ data }: AppSettingsForm) {
     defaultValues: {
       nombreEmpresa: data.nombreEmpresa,
       eslogan: data.eslogan,
-      mensaje: data.mensaje ?? '',
       cambioDolar: data.cambioDolar,
       envioMaritimo: data.envioMaritimo,
       envioAereo: data.envioAereo,
@@ -80,14 +79,7 @@ export function AppSettingsForm({ data }: AppSettingsForm) {
                       control={form.control}
                       name="eslogan"
                       label="Eslogan"
-                      description="Aparecerá también en los recibos."
-                      disabled={isDemo}
-                    />
-                    <FormTextArea
-                      control={form.control}
-                      name="mensaje"
-                      label="Mensaje motivacional"
-                      description="Aparecerá en la página de Inicio."
+                      description="Aparecerá en los recibos."
                       disabled={isDemo}
                     />
                   </FieldSet>
