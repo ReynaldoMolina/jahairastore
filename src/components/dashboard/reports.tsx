@@ -18,10 +18,7 @@ export function SalesOnlyReport({ data }: ReportData) {
 
   return (
     <>
-      <span className="inline-flex items-center text-sm gap-2 mt-6">
-        <Coins className="size-4" />
-        Ventas
-      </span>
+      <span className="text-sm mt-6 font-bold">Ventas</span>
       <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-2 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs sm:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader>
@@ -88,10 +85,7 @@ export function OrdersOnlyReport({ data }: ReportData) {
 
   return (
     <>
-      <span className="inline-flex items-center gap-2 text-sm mt-6">
-        <ShoppingBag className="size-4" />
-        Pedidos
-      </span>
+      <span className="text-sm mt-6 font-bold">Pedidos</span>
       <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-2 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs sm:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader>

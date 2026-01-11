@@ -15,13 +15,8 @@ import {
 
 export const menuOptions = [
   {
-    name: 'Inicio',
-    url: '/',
-    icon: Home,
-  },
-  {
     name: 'Dashboard',
-    url: '/dashboard',
+    url: '/',
     icon: ChartNoAxesCombined,
   },
   {
