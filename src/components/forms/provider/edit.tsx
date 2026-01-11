@@ -29,8 +29,6 @@ export function EditProviderForm({ provider }: EditProviderForm) {
     resolver: zodResolver(providerSchema),
     defaultValues: {
       nombreEmpresa: provider.nombreEmpresa,
-      nombreContacto: provider.nombreContacto,
-      imagenUrl: provider.imagenUrl || '',
       telefono: provider.telefono || '',
       direccion: provider.direccion,
     },

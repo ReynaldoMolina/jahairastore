@@ -33,10 +33,8 @@ export function EditProviderFormDialog({ provider }: EditProviderFormDialog) {
     resolver: zodResolver(providerSchema),
     defaultValues: {
       nombreEmpresa: provider.nombreEmpresa,
-      nombreContacto: provider.nombreContacto,
       telefono: provider.telefono || '',
       direccion: provider.direccion,
-      imagenUrl: provider.imagenUrl || '',
     },
   });
 

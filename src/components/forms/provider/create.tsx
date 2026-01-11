@@ -19,10 +19,8 @@ export function CreateProviderForm() {
     resolver: zodResolver(providerSchema),
     defaultValues: {
       nombreEmpresa: '',
-      nombreContacto: '',
       telefono: '',
       direccion: '',
-      imagenUrl: '',
     },
   });
 
