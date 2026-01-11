@@ -56,7 +56,6 @@ export async function getSales(searchParams: SearchParamsProps) {
       .select({
         id: venta.id,
         nombreCliente: sql<string>`${cliente.nombre} || ' ' || ${cliente.apellido}`,
-        imagenUrl: cliente.imagenUrl,
         fecha: venta.fecha,
         credito: venta.credito,
         total: sql<number>`COALESCE("ventas"."total", 0)`,
