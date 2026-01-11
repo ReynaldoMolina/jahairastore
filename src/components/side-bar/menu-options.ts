@@ -5,6 +5,7 @@ import {
   Package,
   ShoppingBag,
   User,
+  Users,
 } from 'lucide-react';
 
 export const menuOptions = [
@@ -30,10 +31,6 @@ export const menuOptions = [
         name: 'Gastos',
         url: '/gastos',
       },
-      {
-        name: 'Proveedores',
-        url: '/proveedores',
-      },
     ],
   },
   {
@@ -51,6 +48,11 @@ export const menuOptions = [
     name: 'Clientes',
     url: '/clientes',
     icon: User,
+  },
+  {
+    name: 'Proveedores',
+    url: '/proveedores',
+    icon: Users,
   },
   {
     name: 'Documentación',
