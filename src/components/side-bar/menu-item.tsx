@@ -1,13 +1,21 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { SidebarMenuButton, SidebarMenuItem, useSidebar } from '../ui/sidebar';
+import {
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  useSidebar,
+} from '../ui/sidebar';
 import { MenuOption } from './menu-options';
+import React from 'react';
 
 interface MenuItem {
+  children?: React.ReactNode;
   option: MenuOption;
 }
 
-export function MenuItem({ option }: MenuItem) {
+export function MenuItem({ option, children }: MenuItem) {
   const { setOpenMobile } = useSidebar();
 
   const pathname = usePathname();
@@ -27,6 +35,31 @@ export function MenuItem({ option }: MenuItem) {
           {option.name}
         </Link>
       </SidebarMenuButton>
+      {children}
     </SidebarMenuItem>
+  );
+}
+
+export function MenuSubItem({ option }: MenuItem) {
+  const { setOpenMobile } = useSidebar();
+
+  const pathname = usePathname();
+  const isActive =
+    option.url === '/' ? pathname === '/' : pathname.includes(option.url);
+
+  return (
+    <SidebarMenuSubItem key={option.name}>
+      <SidebarMenuSubButton
+        asChild
+        isActive={isActive}
+        className="data-[active=true]:bg-brand data-[active=true]:text-black"
+        onClick={() => setOpenMobile(false)}
+      >
+        <Link href={option.url}>
+          {/* <option.icon className="size-4 md:size-3.5" /> */}
+          {option.name}
+        </Link>
+      </SidebarMenuSubButton>
+    </SidebarMenuSubItem>
   );
 }

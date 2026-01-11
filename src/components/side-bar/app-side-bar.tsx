@@ -1,6 +1,6 @@
 'use client';
 
-import { MenuItem } from './menu-item';
+import { MenuItem, MenuSubItem } from './menu-item';
 import { menuOptions } from './menu-options';
 import {
   Sidebar,
@@ -12,6 +12,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
 } from '../ui/sidebar';
 import Logo from '@/components/icons/logominimal.svg';
 import { NavUser } from './nav-user';
@@ -50,17 +51,27 @@ export function AppSideBar({ businessInfo }: AppSideBarProps) {
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarHeader>
+
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuOptions.map((item) => (
-                <MenuItem key={item.name} option={item} />
+                <MenuItem key={item.name} option={item}>
+                  {item.items ? (
+                    <SidebarMenuSub>
+                      {item.items.map((item) => (
+                        <MenuSubItem key={item.name} option={item} />
+                      ))}
+                    </SidebarMenuSub>
+                  ) : null}
+                </MenuItem>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
       <SidebarFooter>
         <NavUser
           user={{ name: user.name, email: user.email, avatar: user.image }}
