@@ -56,7 +56,6 @@ export async function getPurchases(searchParams: SearchParamsProps) {
       .select({
         id: compra.id,
         nombreProveedor: proveedor.nombreEmpresa,
-        imagenUrl: proveedor.imagenUrl,
         fecha: compra.fecha,
         total: sql<number>`COALESCE("compras"."total", 0)`,
         gastos: sql<number>`COALESCE("gastos"."total", 0)`,
