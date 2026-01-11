@@ -71,53 +71,44 @@ export function Receipts({ data, query, totalPages }: Receipts) {
           return (
             <Link key={register.id} href={`/recibos/${register.id}`}>
               <Card className="py-4 gap-4">
-                <CardHeader className="inline-flex gap-3 px-4">
-                  <Avatar>
-                    <AvatarImage src={register.imagenUrl} alt="@shadcn" />
-                    <AvatarFallback>
-                      {register.nombreCliente.substring(0, 1)}
-                    </AvatarFallback>
-                  </Avatar>
-
-                  <div className="flex flex-col gap-2 overflow-hidden">
-                    <CardTitle
-                      className={
-                        register.anulado
-                          ? 'text-muted-foreground line-through'
-                          : ''
-                      }
-                    >
-                      {register.nombreCliente}
-                    </CardTitle>
-                    <CardDescription className="flex gap-2 md:gap-3 items-center">
-                      <Badge variant="outline">
-                        <Hash />
-                        {register.id}
+                <CardHeader className="flex flex-col">
+                  <CardTitle
+                    className={
+                      register.anulado
+                        ? 'text-muted-foreground line-through'
+                        : ''
+                    }
+                  >
+                    {register.nombreCliente}
+                  </CardTitle>
+                  <CardDescription className="flex gap-2 md:gap-3 items-center">
+                    <Badge variant="outline">
+                      <Hash />
+                      {register.id}
+                    </Badge>
+                    <Badge variant="outline">
+                      <Calendar />
+                      {formatDate(register.fecha)}
+                    </Badge>
+                    {register.anulado ? (
+                      <Badge variant="destructive">Anulado</Badge>
+                    ) : (
+                      <Badge variant="secondary" className={bgColors.green}>
+                        {register.enCordobas ? 'C$' : '$'}{' '}
+                        {formatNumber(
+                          register.enCordobas
+                            ? roundToPointZeroOrFive(
+                                register.abono * register.cambioDolar
+                              )
+                            : register.abono
+                        )}
                       </Badge>
-                      <Badge variant="outline">
-                        <Calendar />
-                        {formatDate(register.fecha)}
-                      </Badge>
-                      {register.anulado ? (
-                        <Badge variant="destructive">Anulado</Badge>
-                      ) : (
-                        <Badge variant="secondary" className={bgColors.green}>
-                          {register.enCordobas ? 'C$' : '$'}{' '}
-                          {formatNumber(
-                            register.enCordobas
-                              ? roundToPointZeroOrFive(
-                                  register.abono * register.cambioDolar
-                                )
-                              : register.abono
-                          )}
-                        </Badge>
-                      )}
-                      <Badge variant="outline">
-                        <ShoppingBag />
-                        {register.idPedido}
-                      </Badge>
-                    </CardDescription>
-                  </div>
+                    )}
+                    <Badge variant="outline">
+                      <ShoppingBag />
+                      {register.idPedido}
+                    </Badge>
+                  </CardDescription>
                 </CardHeader>
               </Card>
             </Link>
@@ -156,23 +147,7 @@ export function Receipts({ data, query, totalPages }: Receipts) {
                 onClick={() => router.push(`/recibos/${register.id}`)}
               >
                 <TableCell className="w-full whitespace-normal">
-                  <div className="flex items-center gap-3">
-                    <Avatar>
-                      <AvatarImage src={register.imagenUrl} alt="@shadcn" />
-                      <AvatarFallback>
-                        {register.nombreCliente.substring(0, 1)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <span
-                      className={
-                        register.anulado
-                          ? 'text-muted-foreground line-through'
-                          : ''
-                      }
-                    >
-                      {register.nombreCliente}
-                    </span>
-                  </div>
+                  {register.nombreCliente}
                 </TableCell>
                 <TableCell>
                   <Badge variant="outline" className="w-full">

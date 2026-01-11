@@ -19,7 +19,6 @@ export async function getReceipts(searchParams: SearchParamsProps) {
         fecha: recibo.fecha,
         abono: recibo.abono,
         nombreCliente: sql<string>`${cliente.nombre} || ' ' || ${cliente.apellido}`,
-        imagenUrl: cliente.imagenUrl,
         cambioDolar: recibo.cambioDolar,
         anulado: recibo.anulado,
         enCordobas: recibo.enCordobas,

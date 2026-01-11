@@ -40,7 +40,7 @@ export function formatDate(isoDateStr: string) {
     return `${dayStr} ${monthStr}`;
   } else {
     monthStr = monthStr.substring(0, 3);
-    return `${dayStr} ${monthStr} ${yearStr}`;
+    return `${dayStr}/${monthStr}/${yearStr}`;
   }
 }
 
