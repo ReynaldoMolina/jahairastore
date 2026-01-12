@@ -1,7 +1,9 @@
 import { db } from '@/database/db';
 import {
+  compra,
   compraDetalle,
   producto,
+  venta,
   ventaDetalle,
 } from '@/database/schema/schema';
 import { SearchParamsProps } from '@/types/types';
@@ -23,37 +25,32 @@ export async function getProducts(searchParams: SearchParamsProps) {
     const comprasBase = db
       .select({
         idProducto: compraDetalle.idProducto,
-        id_ubicacion: ubicacion
-          ? compraDetalle.id_ubicacion
-          : sql<number | null>`NULL`,
+        id_ubicacion: ubicacion ? compra.idUbicacion : sql<number | null>`NULL`,
         cantidad: sql<number>`SUM(${compraDetalle.cantidad})`.as('cantidad'),
       })
       .from(compraDetalle)
-      .where(ubicacion ? eq(compraDetalle.id_ubicacion, ubicacion) : undefined);
+      .innerJoin(compra, eq(compraDetalle.idCompra, compra.id))
+      .where(ubicacion ? eq(compra.idUbicacion, ubicacion) : undefined);
 
     const compras = (
       ubicacion
-        ? comprasBase.groupBy(
-            compraDetalle.idProducto,
-            compraDetalle.id_ubicacion
-          )
+        ? comprasBase.groupBy(compraDetalle.idProducto, compra.idUbicacion)
         : comprasBase.groupBy(compraDetalle.idProducto)
     ).as('compras');
 
     const ventasBase = db
       .select({
         idProducto: ventaDetalle.idProducto,
-        id_ubicacion: ubicacion
-          ? ventaDetalle.id_ubicacion
-          : sql<number | null>`NULL`,
+        id_ubicacion: ubicacion ? venta.idUbicacion : sql<number | null>`NULL`,
         cantidad: sql<number>`SUM(${ventaDetalle.cantidad})`.as('cantidad'),
       })
       .from(ventaDetalle)
-      .where(ubicacion ? eq(ventaDetalle.id_ubicacion, ubicacion) : undefined);
+      .innerJoin(venta, eq(ventaDetalle.idVenta, venta.id))
+      .where(ubicacion ? eq(venta.idUbicacion, ubicacion) : undefined);
 
     const ventas = (
       ubicacion
-        ? ventasBase.groupBy(ventaDetalle.idProducto, ventaDetalle.id_ubicacion)
+        ? ventasBase.groupBy(ventaDetalle.idProducto, venta.idUbicacion)
         : ventasBase.groupBy(ventaDetalle.idProducto)
     ).as('ventas');
 
