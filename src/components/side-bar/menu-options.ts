@@ -31,6 +31,14 @@ export const menuOptions = [
         name: 'Gastos',
         url: '/gastos',
       },
+      {
+        name: 'Traslados',
+        url: '/traslados',
+      },
+      // {
+      //   name: 'Ajustes',
+      //   url: '/ajustes',
+      // },
     ],
   },
   {
