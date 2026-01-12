@@ -35,10 +35,10 @@ export const menuOptions = [
         name: 'Traslados',
         url: '/traslados',
       },
-      // {
-      //   name: 'Ajustes',
-      //   url: '/ajustes',
-      // },
+      {
+        name: 'Ajustes',
+        url: '/ajuste-inventario',
+      },
     ],
   },
   {

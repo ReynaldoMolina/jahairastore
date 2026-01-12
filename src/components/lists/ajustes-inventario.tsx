@@ -17,21 +17,21 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
-import { ArrowRight, Hash } from 'lucide-react';
+import { Hash } from 'lucide-react';
 import { formatDate } from '@/lib/formatters';
 
-interface TrasladosProps {
+interface AjustesProps {
   data: {
     id: number;
     fecha: string;
-    idUbicacionOrigen: number;
-    idUbicacionDestino: number;
+    idUbicacion: number;
+    motivo: string;
   }[];
   query: string;
   totalPages: number;
 }
 
-export function Traslados({ data, query, totalPages }: TrasladosProps) {
+export function Ajustes({ data, query, totalPages }: AjustesProps) {
   const isMobile = useIsMobile();
   const router = useRouter();
 
@@ -42,10 +42,10 @@ export function Traslados({ data, query, totalPages }: TrasladosProps) {
       <>
         {data.map((register) => {
           return (
-            <Link key={register.id} href={`/traslados/${register.id}`}>
+            <Link key={register.id} href={`/ajuste-inventario/${register.id}`}>
               <Card className="py-4 gap-4">
                 <CardHeader>
-                  <CardTitle>Traslado {register.id}</CardTitle>
+                  <CardTitle>{register.motivo}</CardTitle>
                   <CardDescription className="inline-flex gap-3 items-center">
                     <Badge variant="outline">
                       <Hash />
@@ -53,11 +53,6 @@ export function Traslados({ data, query, totalPages }: TrasladosProps) {
                     </Badge>
                     <Badge variant="secondary">
                       {formatDate(register.fecha)}
-                    </Badge>
-                    <Badge variant="secondary">
-                      {register.idUbicacionOrigen === 1 ? 'León' : 'Acoyapa'}
-                      <ArrowRight />
-                      {register.idUbicacionDestino === 1 ? 'León' : 'Acoyapa'}
                     </Badge>
                   </CardDescription>
                 </CardHeader>
@@ -79,10 +74,9 @@ export function Traslados({ data, query, totalPages }: TrasladosProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-full">Nombre</TableHead>
+            <TableHead className="w-full">Motivo</TableHead>
             <TableHead>Id</TableHead>
             <TableHead>Fecha</TableHead>
-            <TableHead>Traslado</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -91,10 +85,10 @@ export function Traslados({ data, query, totalPages }: TrasladosProps) {
               <TableRow
                 key={register.id}
                 className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
-                onClick={() => router.push(`/traslados/${register.id}`)}
+                onClick={() => router.push(`/ajuste-inventario/${register.id}`)}
               >
                 <TableCell className="w-full whitespace-normal">
-                  Traslado {register.id}
+                  {register.motivo}
                 </TableCell>
                 <TableCell>
                   <Badge variant="outline">
@@ -105,13 +99,6 @@ export function Traslados({ data, query, totalPages }: TrasladosProps) {
                 <TableCell>
                   <ListItem value={formatDate(register.fecha)} hideCurrency />
                 </TableCell>
-                <TableCell>
-                  <Badge variant="secondary">
-                    {register.idUbicacionOrigen === 1 ? 'León' : 'Acoyapa'}
-                    <ArrowRight />
-                    {register.idUbicacionDestino === 1 ? 'León' : 'Acoyapa'}
-                  </Badge>
-                </TableCell>
               </TableRow>
             );
           })}
@@ -120,7 +107,6 @@ export function Traslados({ data, query, totalPages }: TrasladosProps) {
           <TableRow>
             <TableCell>Total</TableCell>
             <TableCell className="text-xs text-center">{data.length}</TableCell>
-            <TableCell></TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableFooter>

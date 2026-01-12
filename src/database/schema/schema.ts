@@ -160,6 +160,34 @@ export const productoTrasladoDetalle = pgTable('producto_traslado_detalle', {
   cantidad: integer('cantidad').notNull(),
 });
 
+export const productoAjuste = pgTable('producto_ajuste', {
+  id: serial('id').primaryKey().notNull(),
+  fecha: date('fecha').notNull(),
+
+  idUbicacion: integer('id_ubicacion')
+    .notNull()
+    .references(() => ubicacion.id),
+
+  motivo: text('motivo'), // opcional: faltante, sobrante, daño, conteo, etc.
+});
+
+export const productoAjusteDetalle = pgTable('producto_ajuste_detalle', {
+  id: serial('id').primaryKey().notNull(),
+
+  idAjuste: integer('id_ajuste')
+    .notNull()
+    .references(() => productoAjuste.id),
+
+  idProducto: integer('id_producto').notNull(),
+
+  /**
+   * IMPORTANTE:
+   * +cantidad = entra stock
+   * -cantidad = sale stock
+   */
+  cantidad: integer('cantidad').notNull(),
+});
+
 export const ubicacion = pgTable('ubicacion', {
   id: serial('id').primaryKey().notNull(),
   nombre: text('nombre').notNull(),

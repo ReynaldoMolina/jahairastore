@@ -1,12 +1,7 @@
 import { db } from '@/database/db';
-import {
-  compraDetalle,
-  producto,
-  ubicacion,
-  ventaDetalle,
-} from '@/database/schema/schema';
+import { producto } from '@/database/schema/schema';
 import { SearchParamsProps } from '@/types/types';
-import { desc, asc, eq, sql, and } from 'drizzle-orm';
+import { asc, eq, sql, and } from 'drizzle-orm';
 import { getUrlParams } from './filter';
 import { buildSearchFilter } from './build-by-search';
 import { getStock } from './stock';
@@ -138,7 +133,7 @@ export async function getProductsSearchList(
       .leftJoin(trasladosEntrada, eq(trasladosEntrada.idProducto, producto.id))
       .leftJoin(trasladosSalida, eq(trasladosSalida.idProducto, producto.id))
       .where(and(filterBySearch, filterByState))
-      .orderBy(desc(producto.id))
+      .orderBy(asc(producto.nombre))
       .limit(limit)
       .offset(offset);
 

@@ -2,14 +2,14 @@ import { checkAuthorization } from '@/authorization/check-authorization';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';
-import { getTrasladoById } from '@/fetch-data/traslados';
-import { EditTrasladoForm } from '@/components/forms/traslado/edit';
+import { EditForm } from '@/components/forms/ajuste-inventario/edit';
+import { getAjusteInventarioById } from '@/fetch-data/ajustes';
 import { getProductsSearchList } from '@/fetch-data/product';
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
   return {
-    title: `Traslado ${id}`,
+    title: `Ajuste ${id}`,
   };
 }
 
@@ -17,21 +17,17 @@ export default async function Page({ params, searchParams }: PageProps) {
   await checkAuthorization();
 
   const { id } = await params;
-  const traslado = await getTrasladoById(id);
+  const ajuste = await getAjusteInventarioById(id);
   const productData = await getProductsSearchList(
     await searchParams,
-    traslado.idUbicacionOrigen
+    ajuste.idUbicacion
   );
 
   return (
     <>
-      <SiteHeader
-        title={`Traslado ${id} - ${
-          traslado.idUbicacionOrigen === 1 ? 'León' : 'Acoyapa'
-        } > ${traslado.idUbicacionDestino === 1 ? 'León' : 'Acoyapa'}`}
-      />
+      <SiteHeader title={`Ajuste ${id}`} />
       <PageWrapper>
-        <EditTrasladoForm traslado={traslado} productData={productData} />
+        <EditForm ajuste={ajuste} productData={productData} />
       </PageWrapper>
     </>
   );

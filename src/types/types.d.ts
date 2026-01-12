@@ -178,6 +178,36 @@ export interface TrasladoDetailType {
   cantidad: number;
 }
 
+export interface AjusteInventarioFormType {
+  id?: number;
+  fecha: string;
+  idUbicacion: number;
+  motivo: string;
+}
+
+export interface AjusteInventarioById {
+  id: number;
+  fecha: string;
+  idUbicacion: number;
+  motivo: string;
+  detail: {
+    id: number;
+    idAjuste: number;
+    idProducto: number;
+    nombre: string;
+    cantidad: number;
+  }[];
+}
+
+export interface AjusteInventarioDetailType {
+  id?: number;
+  idAjuste: number;
+  idProducto: number;
+  nombreProducto?: string;
+  existencias?: number;
+  cantidad: number;
+}
+
 export interface OrderFormType {
   id?: number;
   idCliente: number;
