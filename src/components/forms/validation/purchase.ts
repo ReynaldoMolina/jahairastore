@@ -1,9 +1,10 @@
 import z from 'zod';
-import { zNumberMin } from './zod-helper';
+import { zNumber, zNumberMin } from './zod-helper';
 
 export const purchaseSchema = z.object({
   idProveedor: zNumberMin(),
   fecha: z.string().min(1, 'Requerido'),
+  idUbicacion: zNumber(),
 });
 
 export const purchaseDetailSchema = z.object({

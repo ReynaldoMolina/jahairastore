@@ -21,6 +21,10 @@ export const compra = pgTable('compra', {
   id: serial('id').primaryKey().notNull(),
   idProveedor: integer('id_proveedor').notNull(),
   fecha: date('fecha').notNull(),
+  id_ubicacion: integer()
+    .notNull()
+    .default(1)
+    .references(() => ubicacion.id),
 });
 
 export const compraDetalle = pgTable('compra_detalle', {

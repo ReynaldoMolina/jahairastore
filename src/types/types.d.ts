@@ -206,6 +206,7 @@ export interface ReceiptById {
 export interface PurchaseFormType {
   id?: number;
   idProveedor: number;
+  idUbicacion: number;
   fecha: string;
 }
 
@@ -225,6 +226,7 @@ export interface PurchaseDetailType {
 export interface PurchaseById {
   id: number;
   idProveedor: number;
+  idUbicacion: number;
   nombreEmpresa: string;
   fecha: string;
   gastos: number;

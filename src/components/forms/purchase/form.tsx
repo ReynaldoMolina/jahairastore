@@ -11,6 +11,7 @@ import { purchaseSchema } from '../validation/purchase';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
 import { formatNumber } from '@/lib/formatters';
 import { bgColors } from '@/lib/bg-colors';
+import { FormSelect } from '@/components/form-elements/form-select';
 
 interface PurchaseForm {
   form: UseFormReturn<z.infer<typeof purchaseSchema>>;
@@ -36,6 +37,24 @@ export function PurchaseForm({
 
   return (
     <FieldGroup>
+      <FieldSet className="flex-row gap-6">
+        <FormDatePicker control={form.control} label="Fecha" name="fecha" />
+        <FormSelect
+          control={form.control}
+          label="Ubicación"
+          name="idUbicacion"
+          options={[
+            {
+              value: '1',
+              label: 'León',
+            },
+            {
+              value: '2',
+              label: 'Acoyapa',
+            },
+          ]}
+        />
+      </FieldSet>
       <FieldSet>
         <FormComboBox
           control={form.control}
@@ -43,7 +62,6 @@ export function PurchaseForm({
           selectOptions={selectOptions}
           label="Proveedor"
         />
-        <FormDatePicker control={form.control} label="Fecha" name="fecha" />
       </FieldSet>
       {!isNew && (
         <>

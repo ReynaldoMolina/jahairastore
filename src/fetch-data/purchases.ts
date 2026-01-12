@@ -106,6 +106,7 @@ export async function getPurchaseById(id: number | string) {
       .select({
         id: compra.id,
         idProveedor: compra.idProveedor,
+        idUbicacion: compra.id_ubicacion,
         nombreEmpresa: proveedor.nombreEmpresa,
         fecha: compra.fecha,
         gastos: sql<number>`COALESCE(${gastos.total}, 0)`,
