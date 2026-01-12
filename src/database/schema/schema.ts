@@ -140,6 +140,26 @@ export const producto = pgTable('producto', {
   cambioDolar: doublePrecision('cambio_dolar'),
 });
 
+export const productoTraslado = pgTable('producto_traslado', {
+  id: serial('id').primaryKey().notNull(),
+  fecha: date('fecha').notNull(),
+  idUbicacionOrigen: integer('id_ubicacion_origen')
+    .notNull()
+    .references(() => ubicacion.id),
+  idUbicacionDestino: integer('id_ubicacion_destino')
+    .notNull()
+    .references(() => ubicacion.id),
+});
+
+export const productoTrasladoDetalle = pgTable('producto_traslado_detalle', {
+  id: serial('id').primaryKey().notNull(),
+  idTraslado: integer('id_traslado')
+    .notNull()
+    .references(() => productoTraslado.id),
+  idProducto: integer('id_producto').notNull(),
+  cantidad: integer('cantidad').notNull(),
+});
+
 export const ubicacion = pgTable('ubicacion', {
   id: serial('id').primaryKey().notNull(),
   nombre: text('nombre').notNull(),
