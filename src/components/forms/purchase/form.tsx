@@ -18,6 +18,7 @@ import { FormInputReadOnly } from '@/components/form-elements/form-input-read-on
 import { formatNumber } from '@/lib/formatters';
 import { bgColors } from '@/lib/bg-colors';
 import { FormSelect } from '@/components/form-elements/form-select';
+import { ubicaciones } from '@/lib/ubicaciones-options';
 
 interface PurchaseForm {
   form: UseFormReturn<z.infer<typeof purchaseSchema>>;
@@ -56,16 +57,7 @@ export function PurchaseForm({
           label="Almacén"
           name="idUbicacion"
           description="De qué inventario salen los productos."
-          options={[
-            {
-              value: '1',
-              label: 'León',
-            },
-            {
-              value: '2',
-              label: 'Acoyapa',
-            },
-          ]}
+          options={ubicaciones}
         />
       </FieldSet>
       {!isNew && (

@@ -135,6 +135,49 @@ export interface ProductSearchData {
   totalPages: number;
 }
 
+export interface ProductSearchTraslado {
+  id: number;
+  nombre: string;
+  codigo: string;
+  existencias: number;
+}
+
+export interface ProductSearchTrasladoData {
+  products: ProductSearchTraslado[];
+  query: string;
+  totalPages: number;
+}
+
+export interface TrasladoFormType {
+  id?: number;
+  fecha: string;
+  idUbicacionOrigen: number;
+  idUbicacionDestino: number;
+}
+
+export interface TrasladoById {
+  id: number;
+  fecha: string;
+  idUbicacionOrigen: number;
+  idUbicacionDestino: number;
+  detail: {
+    id: number;
+    idTraslado: number;
+    idProducto: number;
+    nombre: string;
+    cantidad: number;
+  }[];
+}
+
+export interface TrasladoDetailType {
+  id?: number;
+  idTraslado: number;
+  idProducto: number;
+  nombreProducto?: string;
+  existencias?: number;
+  cantidad: number;
+}
+
 export interface OrderFormType {
   id?: number;
   idCliente: number;

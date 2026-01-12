@@ -1,34 +1,29 @@
 import { useServerActionFeedback } from '@/hooks/use-server-status';
-import {
-  createSaleDetail,
-  deleteSaleDetail,
-} from '@/server-actions/sale-detail';
 import { stateDefault } from '@/server-actions/stateMessage';
 import {
-  ProductSearchData,
-  PurchaseById,
-  PurchaseDetailType,
-  SaleDetailType,
+  TrasladoById,
   ServerStatus,
+  TrasladoDetailType,
+  ProductSearchTrasladoData,
 } from '@/types/types';
 import { useState, useTransition, useEffect } from 'react';
-import { PurchaseDetail } from './purchase-detail';
 import { ProductSearch } from '@/components/form-elements/product-search';
-import ProductSearchList from '@/components/forms/purchase/product-search-list';
+import { TrasladoDetail } from './traslado-detail';
+import ProductSearchList from './product-search-list';
 import {
-  createPurchaseDetail,
-  deletePurchaseDetail,
-} from '@/server-actions/purchase-detail';
+  createTrasladoDetail,
+  deleteTrasladoDetail,
+} from '@/server-actions/traslado-detail';
 
 interface FormDetail {
-  productData: ProductSearchData;
-  purchase: PurchaseById;
+  productData: ProductSearchTrasladoData;
+  traslado: TrasladoById;
 }
 
-export function FormDetail({ productData, purchase }: FormDetail) {
+export function FormDetail({ productData, traslado }: FormDetail) {
   const [open, setOpen] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState<
-    PurchaseDetailType[]
+    TrasladoDetailType[]
   >([]);
   const [isPending, startTransition] = useTransition();
   const [actionState, setActionState] = useState<ServerStatus | null>(null);
@@ -45,23 +40,23 @@ export function FormDetail({ productData, purchase }: FormDetail) {
 
   function handleCreate() {
     startTransition(async () => {
-      const result = await createPurchaseDetail(stateDefault, {
+      const result = await createTrasladoDetail(stateDefault, {
         values: selectedProducts,
       });
       setActionState(result);
     });
   }
 
-  function handleDelete(detailId: number) {
+  function handleDelete(productId: number) {
     startTransition(async () => {
-      const result = await deletePurchaseDetail(stateDefault, {
-        id: detailId,
+      const result = await deleteTrasladoDetail(stateDefault, {
+        id: productId,
       });
       setActionState(result);
     });
   }
 
-  function handleCheckedChange(product: PurchaseDetailType) {
+  function handleCheckedChange(product: TrasladoDetailType) {
     setSelectedProducts((prev) => {
       const exists = prev.some((p) => p.idProducto === product.idProducto);
       return exists
@@ -78,19 +73,18 @@ export function FormDetail({ productData, purchase }: FormDetail) {
         isPending={isPending}
         open={open}
         setOpen={setOpen}
-        idUbicacion={purchase.idUbicacion}
         disableLocationFilter
+        idUbicacion={traslado.idUbicacionOrigen}
       >
         <ProductSearchList
           productData={productData}
-          priceToShow="precioCompra"
-          purchase={purchase}
+          traslado={traslado}
           selectedProducts={selectedProducts}
           setSelectedProducts={setSelectedProducts}
           handleCheckedChange={handleCheckedChange}
         />
       </ProductSearch>
-      <PurchaseDetail purchase={purchase} handleDelete={handleDelete} />
+      <TrasladoDetail traslado={traslado} handleDelete={handleDelete} />
     </>
   );
 }

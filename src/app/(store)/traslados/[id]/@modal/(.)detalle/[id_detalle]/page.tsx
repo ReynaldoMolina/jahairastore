@@ -1,9 +1,9 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditSaleDetailDialog } from '@/components/forms/sale/detail/detail';
+import { EditDetailDialog } from '@/components/forms/traslado/detail/detail';
 import {
-  getSaleDetailById,
-  getSaleIdUbicacion,
-} from '@/fetch-data/sales-detail';
+  getTrasladoDetailById,
+  getTrasladoIdUbicacion,
+} from '@/fetch-data/traslados-detail';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 
@@ -19,12 +19,12 @@ export default async function Page({ params }: PageProps) {
   await checkAuthorization();
 
   const { id, id_detalle } = await params;
-  const idUbicacion = await getSaleIdUbicacion(id);
-  const detail = await getSaleDetailById(id_detalle, idUbicacion);
+  const idUbicacion = await getTrasladoIdUbicacion(id);
+  const detail = await getTrasladoDetailById(id_detalle, idUbicacion);
 
   if (!detail) {
     notFound();
   }
 
-  return <EditSaleDetailDialog detail={detail} />;
+  return <EditDetailDialog detail={detail} />;
 }

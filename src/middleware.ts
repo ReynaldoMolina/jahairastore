@@ -1,6 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { getSessionCookie } from 'better-auth/cookies';
-import { getServerSession } from './authorization/get-server-session';
 
 export const isDemo = process.env.NEXT_PUBLIC_APP_MODE === 'demo';
 
@@ -24,8 +23,6 @@ export async function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-export const config = {
-  matcher: [
-    '/((?!api|_next|favicon.ico|robots.txt|.*\\.(?:png|jpg|jpeg|svg|ico|webp)$).*)',
-  ],
-};
+export const matcher = [
+  '/((?!api|_next|favicon.ico|robots.txt|.*\\.(?:png|jpg|jpeg|svg|ico|webp)$).*)',
+];

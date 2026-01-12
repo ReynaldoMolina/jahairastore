@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { SearchInput } from '../filters/search-input';
 import { HeaderFilter } from '../filters/header-filter';
 import { Spinner } from '../ui/spinner';
+import { StockLocationFilter } from '../filters/stock-location';
 
 interface ProductSearch {
   children: React.ReactNode;
@@ -22,6 +23,8 @@ interface ProductSearch {
   isPending: boolean;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  disableLocationFilter?: boolean;
+  idUbicacion: number;
 }
 
 export function ProductSearch({
@@ -31,6 +34,8 @@ export function ProductSearch({
   isPending,
   open,
   setOpen,
+  disableLocationFilter = false,
+  idUbicacion,
 }: ProductSearch) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -47,8 +52,12 @@ export function ProductSearch({
             Selecciona los productos y luego da click en agregar.
           </DialogDescription>
         </DialogHeader>
-        <div className="inline-flex justify-between gap-2">
+        <div className="inline-flex gap-1">
           <SearchInput />
+          <StockLocationFilter
+            disabled={disableLocationFilter}
+            idUbicacion={idUbicacion}
+          />
           <HeaderFilter listName="inventario" />
         </div>
         <div className="flex flex-col max-h-[50dvh] md:max-h-[55dvh] overflow-y-auto gap-2 w-full pb-1">

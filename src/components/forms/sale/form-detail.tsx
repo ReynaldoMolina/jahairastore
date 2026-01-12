@@ -71,6 +71,8 @@ export function FormDetail({ productData, sale }: FormDetail) {
         isPending={isPending}
         open={open}
         setOpen={setOpen}
+        disableLocationFilter
+        idUbicacion={sale.idUbicacion}
       >
         <ProductSearchList
           productData={productData}

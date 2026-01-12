@@ -1,18 +1,14 @@
-export const dynamic = 'force-dynamic';
-
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditSaleForm } from '@/components/forms/sale/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getClientsSelect } from '@/fetch-data/clients';
-import { getProductsSearchList } from '@/fetch-data/product';
-import { getSaleById } from '@/fetch-data/sales';
 import { PageProps } from '@/types/types';
+import { getProductsSearchList, getTrasladoById } from '@/fetch-data/traslados';
+import { EditTrasladoForm } from '@/components/forms/traslado/edit';
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
   return {
-    title: `Venta ${id}`,
+    title: `Traslado ${id}`,
   };
 }
 
@@ -20,22 +16,21 @@ export default async function Page({ params, searchParams }: PageProps) {
   await checkAuthorization();
 
   const { id } = await params;
-  const sale = await getSaleById(id);
+  const traslado = await getTrasladoById(id);
   const productData = await getProductsSearchList(
     await searchParams,
-    sale.idUbicacion
+    traslado.idUbicacionOrigen
   );
-  const clients = await getClientsSelect();
 
   return (
     <>
-      <SiteHeader title={`Venta ${id} - ${sale.nombreCliente}`} />
+      <SiteHeader
+        title={`Traslado ${id} - ${
+          traslado.idUbicacionOrigen === 1 ? 'León' : 'Acoyapa'
+        } > ${traslado.idUbicacionDestino === 1 ? 'León' : 'Acoyapa'}`}
+      />
       <PageWrapper>
-        <EditSaleForm
-          productData={productData}
-          sale={sale}
-          selectOptions={clients}
-        />
+        <EditTrasladoForm traslado={traslado} productData={productData} />
       </PageWrapper>
     </>
   );

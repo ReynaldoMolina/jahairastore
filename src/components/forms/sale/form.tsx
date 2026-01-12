@@ -19,6 +19,7 @@ import { FormInputReadOnly } from '@/components/form-elements/form-input-read-on
 import { formatNumber } from '@/lib/formatters';
 import { calculateTotals } from '@/lib/calculate-totals';
 import { FormSelect } from '@/components/form-elements/form-select';
+import { ubicaciones } from '@/lib/ubicaciones-options';
 
 interface SaleForm {
   form: UseFormReturn<z.infer<typeof saleSchema>>;
@@ -59,16 +60,7 @@ export function SaleForm({
           label="Almacén"
           name="idUbicacion"
           description="De qué inventario salen los productos."
-          options={[
-            {
-              value: '1',
-              label: 'León',
-            },
-            {
-              value: '2',
-              label: 'Acoyapa',
-            },
-          ]}
+          options={ubicaciones}
         />
         <FormInput
           control={form.control}

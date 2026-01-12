@@ -17,8 +17,8 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
-import { Hash } from 'lucide-react';
-import { roundToPointZeroOrFive } from '@/lib/formatters';
+import { ArrowRight, Hash } from 'lucide-react';
+import { formatDate, roundToPointZeroOrFive } from '@/lib/formatters';
 
 interface TrasladosProps {
   data: {
@@ -51,7 +51,14 @@ export function Traslados({ data, query, totalPages }: TrasladosProps) {
                       <Hash />
                       {register.id}
                     </Badge>
-                    <Badge variant="secondary">{register.fecha}</Badge>
+                    <Badge variant="secondary">
+                      {formatDate(register.fecha)}
+                    </Badge>
+                    <Badge variant="secondary">
+                      {register.idUbicacionOrigen === 1 ? 'León' : 'Acoyapa'}
+                      <ArrowRight />
+                      {register.idUbicacionDestino === 1 ? 'León' : 'Acoyapa'}
+                    </Badge>
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -74,8 +81,8 @@ export function Traslados({ data, query, totalPages }: TrasladosProps) {
           <TableRow>
             <TableHead className="w-full">Producto</TableHead>
             <TableHead>Id</TableHead>
-            <TableHead>Precio</TableHead>
-            <TableHead>Cantidad</TableHead>
+            <TableHead>Fecha</TableHead>
+            <TableHead>Traslado</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -96,7 +103,14 @@ export function Traslados({ data, query, totalPages }: TrasladosProps) {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <ListItem value={register.fecha} />
+                  <ListItem value={formatDate(register.fecha)} hideCurrency />
+                </TableCell>
+                <TableCell>
+                  <Badge variant="secondary">
+                    {register.idUbicacionOrigen === 1 ? 'León' : 'Acoyapa'}
+                    <ArrowRight />
+                    {register.idUbicacionDestino === 1 ? 'León' : 'Acoyapa'}
+                  </Badge>
                 </TableCell>
               </TableRow>
             );
@@ -106,6 +120,7 @@ export function Traslados({ data, query, totalPages }: TrasladosProps) {
           <TableRow>
             <TableCell>Total</TableCell>
             <TableCell className="text-xs text-center">{data.length}</TableCell>
+            <TableCell></TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableFooter>

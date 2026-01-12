@@ -1,10 +1,12 @@
 import EmptyList from '@/components/lists/empty-list';
 import { Pagination } from '@/components/lists/pagination';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { ProductSearchData, SaleById, SaleDetailType } from '@/types/types';
+import {
+  ProductSearchTrasladoData,
+  TrasladoById,
+  TrasladoDetailType,
+} from '@/types/types';
 import { Dispatch, SetStateAction, useMemo } from 'react';
-import { formatNumber, roundToPointZeroOrFive } from '@/lib/formatters';
-import { bgColors } from '@/lib/bg-colors';
 import { cn } from '@/lib/utils';
 import {
   Card,
@@ -23,29 +25,32 @@ import {
   TableCell,
   Table,
 } from '@/components/ui/table';
-import { ChangeQuantityCard, ChangeQuantity } from './change-quantity';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Hash } from 'lucide-react';
+import { ChangeQuantity, ChangeQuantityCard } from './change-quantity';
 
 interface ProductSearchList {
-  productData: ProductSearchData;
-  sale: SaleById;
-  selectedProducts: SaleDetailType[];
-  setSelectedProducts: Dispatch<SetStateAction<SaleDetailType[]>>;
-  handleCheckedChange: (product: SaleDetailType) => void;
+  productData: ProductSearchTrasladoData;
+  traslado: TrasladoById;
+  selectedProducts: TrasladoDetailType[];
+  setSelectedProducts: Dispatch<SetStateAction<TrasladoDetailType[]>>;
+  handleCheckedChange: (product: TrasladoDetailType) => void;
 }
 
 export default function ProductSearchList({
   productData,
-  sale,
+  traslado,
   selectedProducts,
   setSelectedProducts,
   handleCheckedChange,
 }: ProductSearchList) {
   const isMobile = useIsMobile();
 
-  const detailIds = useMemo(() => sale.detail.map((d) => d.idProducto), [sale]);
+  const detailIds = useMemo(
+    () => traslado.detail.map((d) => d.idProducto),
+    [traslado]
+  );
 
   if (productData.products.length === 0)
     return <EmptyList query={productData.query} />;
@@ -54,9 +59,6 @@ export default function ProductSearchList({
     return (
       <>
         {productData.products.map((p) => {
-          const price = p.precioEnCordobas
-            ? roundToPointZeroOrFive(p.precioVenta * p.cambioDolar)
-            : p.precioVenta;
           const isAlreadyAdded = detailIds.includes(p.id);
           const isSelected = selectedProducts.some(
             (prod) => prod.idProducto === p.id
@@ -87,11 +89,6 @@ export default function ProductSearchList({
                     <Hash />
                     {p.id}
                   </Badge>
-                  <Badge variant="secondary" className={bgColors.green}>
-                    {`${p.precioEnCordobas ? 'C$' : '$'} ${formatNumber(
-                      price
-                    )}`}
-                  </Badge>
                   <Badge variant={isSoldOut ? 'destructive' : 'secondary'}>
                     {isSoldOut ? 'Agotado' : <span>Cant: {p.existencias}</span>}
                   </Badge>
@@ -103,14 +100,9 @@ export default function ProductSearchList({
                     disabled={isAlreadyAdded || isSoldOut}
                     onCheckedChange={() =>
                       handleCheckedChange({
-                        idVenta: sale.id,
+                        idTraslado: traslado.id,
                         idProducto: p.id,
-                        precioVenta: p.precioVenta,
-                        precioVentaPorMayor: p.precioVentaPorMayor,
-                        precioCompra: p.precioCompra,
                         cantidad: 1,
-                        cambioDolar: p.cambioDolar,
-                        precioPorMayor: false,
                       })
                     }
                   />
@@ -148,18 +140,12 @@ export default function ProductSearchList({
             <TableHead>Producto</TableHead>
             <TableHead>Cantidad</TableHead>
             <TableHead>Id</TableHead>
-            <TableHead>Precio</TableHead>
-            <TableHead>Disponible</TableHead>
+            <TableHead>Stock</TableHead>
           </TableRow>
         </TableHeader>
 
         <TableBody>
           {productData.products.map((product) => {
-            const price = product.precioEnCordobas
-              ? roundToPointZeroOrFive(
-                  product.precioVenta * product.cambioDolar
-                )
-              : product.precioVenta;
             const isAlreadyAdded = detailIds.includes(product.id);
             const isSelected = selectedProducts.some(
               (prod) => prod.idProducto === product.id
@@ -184,14 +170,9 @@ export default function ProductSearchList({
                     disabled={isAlreadyAdded || isSoldOut}
                     onCheckedChange={() =>
                       handleCheckedChange({
-                        idVenta: sale.id,
+                        idTraslado: traslado.id,
                         idProducto: product.id,
-                        precioVenta: product.precioVenta,
-                        precioVentaPorMayor: product.precioVentaPorMayor,
-                        precioCompra: product.precioCompra,
                         cantidad: 1,
-                        cambioDolar: product.cambioDolar,
-                        precioEnCordobas: false,
                       })
                     }
                   />
@@ -225,13 +206,6 @@ export default function ProductSearchList({
                     <Hash />
                     {product.id}
                   </Badge>
-                </TableCell>
-                <TableCell>
-                  <ListItem
-                    value={formatNumber(price)}
-                    color="green"
-                    showPriceInNio={product.precioEnCordobas}
-                  />
                 </TableCell>
                 <TableCell>
                   {product.existencias <= 0 ? (

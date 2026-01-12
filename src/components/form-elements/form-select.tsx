@@ -15,6 +15,7 @@ type FormSelectType<T extends FieldValues> = {
   label: string;
   options: SelectOptions[];
   description?: string;
+  disabled?: boolean;
   onChangeExtra?: (value: string | number) => void;
 };
 
@@ -24,6 +25,7 @@ export function FormSelect<T extends FieldValues>({
   label,
   options,
   description,
+  disabled = false,
   onChangeExtra,
 }: FormSelectType<T>) {
   return (
@@ -40,7 +42,7 @@ export function FormSelect<T extends FieldValues>({
             }}
             defaultValue={String(field.value)}
           >
-            <SelectTrigger>
+            <SelectTrigger disabled={disabled}>
               <SelectValue placeholder="Selecciona una opción" />
             </SelectTrigger>
             <SelectContent>

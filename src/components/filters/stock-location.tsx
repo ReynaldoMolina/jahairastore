@@ -14,24 +14,39 @@ import {
 import { useSearchParams } from 'next/navigation';
 import { useSearchUtils } from './header-filter';
 
-export function StockLocationFilter() {
+interface StockLocationFilterProps {
+  disabled?: boolean;
+  idUbicacion?: number;
+}
+
+export function StockLocationFilter({
+  disabled = false,
+  idUbicacion,
+}: StockLocationFilterProps) {
   const { updateURL } = useSearchUtils();
   const searchParams = useSearchParams();
 
-  const currentUbicacion = searchParams.get('ubicacion') || '';
+  const currentUbicacion = idUbicacion
+    ? String(idUbicacion)
+    : searchParams.get('ubicacion') || '';
 
   const handleValueChange = (newValue: string) => {
     const valueToUpdate = newValue === '' ? null : newValue;
     updateURL('ubicacion', valueToUpdate);
   };
 
-  const label = currentUbicacion === '1' ? 'León' : 'Acoyapa';
+  const label = currentUbicacion
+    ? currentUbicacion === '1'
+      ? 'León'
+      : 'Acoyapa'
+    : 'Todo';
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
+          disabled={disabled}
           className={
             currentUbicacion
               ? 'border-blue-600 bg-blue-50 dark:border-blue-900 dark:bg-blue-950'
@@ -39,7 +54,7 @@ export function StockLocationFilter() {
           }
         >
           <MapPin className="size-4" />
-          {currentUbicacion && <span className="text-xs">{label}</span>}
+          <span className="text-xs">{label}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

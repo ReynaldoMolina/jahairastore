@@ -18,8 +18,11 @@ export default async function Page({ params, searchParams }: PageProps) {
   await checkAuthorization();
 
   const { id } = await params;
-  const productData = await getProductsSearchList(await searchParams);
   const purchase = await getPurchaseById(id);
+  const productData = await getProductsSearchList(
+    await searchParams,
+    purchase.idUbicacion
+  );
   const providers = await getProvidersSelect();
 
   return (

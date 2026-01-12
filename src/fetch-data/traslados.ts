@@ -4,6 +4,7 @@ import {
   compraDetalle,
   producto,
   productoTraslado,
+  productoTrasladoDetalle,
   venta,
   ventaDetalle,
 } from '@/database/schema/schema';
@@ -11,6 +12,7 @@ import { SearchParamsProps } from '@/types/types';
 import { desc, asc, eq, sql, and } from 'drizzle-orm';
 import { getUrlParams } from './filter';
 import { buildSearchFilter } from './build-by-search';
+import { getStock } from './stock';
 
 export async function getTraslados(searchParams: SearchParamsProps) {
   const { query, state, limit, offset } = getUrlParams(searchParams);
@@ -40,60 +42,59 @@ export async function getTraslados(searchParams: SearchParamsProps) {
   }
 }
 
-export async function getProductById(id: number | string) {
+export async function getTrasladoById(id: number | string) {
   try {
-    const [data] = await db
+    const [traslado] = await db
       .select()
-      .from(producto)
-      .where(eq(producto.id, Number(id)));
-    return data;
+      .from(productoTraslado)
+      .where(eq(productoTraslado.id, Number(id)));
+
+    const detail = await db
+      .select({
+        id: productoTrasladoDetalle.id,
+        idTraslado: productoTrasladoDetalle.idTraslado,
+        idProducto: productoTrasladoDetalle.idProducto,
+        nombre: producto.nombre,
+        cantidad: productoTrasladoDetalle.cantidad,
+      })
+      .from(productoTrasladoDetalle)
+      .leftJoin(producto, eq(productoTrasladoDetalle.idProducto, producto.id))
+      .where(eq(productoTrasladoDetalle.idTraslado, Number(id)))
+      .orderBy(desc(productoTrasladoDetalle.id));
+
+    return {
+      ...traslado,
+      detail,
+    };
   } catch (error) {
-    throw new Error('No se pudo obtener el producto.');
+    throw new Error('No se pudo obtener el traslado.');
   }
 }
 
-export async function getProductsSearchList(searchParams: SearchParamsProps) {
+export async function getProductsSearchList(
+  searchParams: SearchParamsProps,
+  idUbicacion: number
+) {
   const { query, state, limit, offset } = getUrlParams(searchParams);
 
   const filterBySearch = buildSearchFilter(searchParams, [producto.nombre]);
 
   const filterByState = state
     ? sql`(
-      COALESCE("compras_totales"."cantidad", 0) - COALESCE("ventas_totales"."cantidad", 0) > 0)`
+      COALESCE("compras"."cantidad", 0) - COALESCE("ventas"."cantidad", 0) > 0)`
     : undefined;
 
   try {
-    const compras = db
-      .select({
-        idProducto: compraDetalle.idProducto,
-        cantidad: sql<number>`SUM(${compraDetalle.cantidad})`.as('cantidad'),
-      })
-      .from(compraDetalle)
-      .groupBy(compraDetalle.idProducto)
-      .as('compras_totales');
-
-    const ventas = db
-      .select({
-        idProducto: ventaDetalle.idProducto,
-        cantidad: sql<number>`SUM(${ventaDetalle.cantidad})`.as('cantidad'),
-      })
-      .from(ventaDetalle)
-      .groupBy(ventaDetalle.idProducto)
-      .as('ventas_totales');
+    const { compras, ventas } = await getStock(idUbicacion);
 
     const products = await db
       .select({
         id: producto.id,
         nombre: producto.nombre,
         codigo: producto.codigo,
-        precioCompra: producto.precioCompra,
-        precioVenta: producto.precioVenta,
-        precioVentaPorMayor: producto.precioVentaPorMayor,
-        cambioDolar: producto.cambioDolar,
         existencias: sql<number>`
-          (COALESCE("compras_totales"."cantidad", 0) - COALESCE("ventas_totales"."cantidad", 0))::integer
+          (COALESCE("compras"."cantidad", 0) - COALESCE("ventas"."cantidad", 0))::integer
         `,
-        precioEnCordobas: producto.precioEnCordobas,
       })
       .from(producto)
       .leftJoin(compras, eq(compras.idProducto, producto.id))
@@ -115,6 +116,6 @@ export async function getProductsSearchList(searchParams: SearchParamsProps) {
     return { products, query, totalPages };
   } catch (error) {
     console.error(error);
-    throw new Error('No se pudieron obtener los producto.');
+    throw new Error('No se pudieron obtener los productos.');
   }
 }

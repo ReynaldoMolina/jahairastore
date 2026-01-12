@@ -146,10 +146,10 @@ export default function ProductSearchList({
               <Checkbox disabled />
             </TableHead>
             <TableHead>Producto</TableHead>
+            <TableHead>Cantidad</TableHead>
             <TableHead>Id</TableHead>
             <TableHead>Precio</TableHead>
             <TableHead>Disponible</TableHead>
-            <TableHead>Cantidad</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -194,6 +194,20 @@ export default function ProductSearchList({
                   {product.nombre}
                 </TableCell>
                 <TableCell>
+                  {isSelected && (
+                    <ChangeQuantity
+                      setSelectedProducts={setSelectedProducts}
+                      product={{
+                        ...product,
+                        cantidad:
+                          selectedProducts.find(
+                            (prod) => prod.idProducto === product.id
+                          )?.cantidad || 1,
+                      }}
+                    />
+                  )}
+                </TableCell>
+                <TableCell>
                   <Badge variant="outline">
                     <Hash />
                     {product.id}
@@ -217,20 +231,6 @@ export default function ProductSearchList({
                       color="neutral"
                       hideCurrency
                       className="justify-center"
-                    />
-                  )}
-                </TableCell>
-                <TableCell>
-                  {isSelected && (
-                    <ChangeQuantity
-                      setSelectedProducts={setSelectedProducts}
-                      product={{
-                        ...product,
-                        cantidad:
-                          selectedProducts.find(
-                            (prod) => prod.idProducto === product.id
-                          )?.cantidad || 1,
-                      }}
                     />
                   )}
                 </TableCell>

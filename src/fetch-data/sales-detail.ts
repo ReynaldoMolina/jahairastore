@@ -1,30 +1,31 @@
-import {
-  compraDetalle,
-  producto,
-  ventaDetalle,
-} from '@/database/schema/schema';
+import { producto, venta, ventaDetalle } from '@/database/schema/schema';
 import { eq, sql } from 'drizzle-orm';
 import { db } from '@/database/db';
+import { getStock } from './stock';
 
-export async function getSaleDetailById(id: number | string) {
+export async function getSaleIdUbicacion(id: number | string) {
   try {
-    const compras = db
+    const [sale] = await db
       .select({
-        idProducto: compraDetalle.idProducto,
-        cantidad: sql<number>`SUM(${compraDetalle.cantidad})`.as('cantidad'),
+        idUbicacion: venta.idUbicacion,
       })
-      .from(compraDetalle)
-      .groupBy(compraDetalle.idProducto)
-      .as('compras');
+      .from(venta)
+      .where(eq(venta.id, Number(id)));
 
-    const ventas = db
-      .select({
-        idProducto: ventaDetalle.idProducto,
-        cantidad: sql<number>`SUM(${ventaDetalle.cantidad})`.as('cantidad'),
-      })
-      .from(ventaDetalle)
-      .groupBy(ventaDetalle.idProducto)
-      .as('ventas');
+    return sale.idUbicacion;
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudo obtener el id de la ubicacion.');
+  }
+}
+
+export async function getSaleDetailById(
+  id: number | string,
+  idUbicacion: number
+) {
+  try {
+    const { compras, ventas, trasladosEntrada, trasladosSalida } =
+      await getStock(idUbicacion);
 
     const [detail] = await db
       .select({
@@ -40,13 +41,24 @@ export async function getSaleDetailById(id: number | string) {
         cambioDolar: ventaDetalle.cambioDolar,
         precioPorMayor: ventaDetalle.precioPorMayor,
         existencias: sql<number>`
-          (COALESCE("compras"."cantidad", 0) - COALESCE("ventas"."cantidad", 0))::integer
+          (COALESCE("compras"."cantidad", 0)
+          - COALESCE("ventas"."cantidad", 0)
+          + COALESCE("traslados_entrada"."cantidad", 0)
+          - COALESCE("traslados_salida"."cantidad", 0))::float
         `,
       })
       .from(ventaDetalle)
       .leftJoin(producto, eq(ventaDetalle.idProducto, producto.id))
       .leftJoin(compras, eq(compras.idProducto, ventaDetalle.idProducto))
       .leftJoin(ventas, eq(ventas.idProducto, ventaDetalle.idProducto))
+      .leftJoin(
+        trasladosEntrada,
+        eq(trasladosEntrada.idProducto, ventaDetalle.idProducto)
+      )
+      .leftJoin(
+        trasladosSalida,
+        eq(trasladosSalida.idProducto, ventaDetalle.idProducto)
+      )
       .where(eq(ventaDetalle.id, Number(id)));
 
     return detail;
