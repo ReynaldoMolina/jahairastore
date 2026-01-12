@@ -1,6 +1,5 @@
 'use client';
 
-import Logo from '@/components/icons/logo.svg';
 import { useTransition } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Spinner } from '../../ui/spinner';
@@ -13,6 +12,7 @@ import {
   CardTitle,
 } from '../../ui/card';
 import { authClient } from '@/lib/auth-client';
+import Image from 'next/image';
 
 export function LoginForm() {
   const searchParams = useSearchParams();
@@ -31,7 +31,7 @@ export function LoginForm() {
     <main className="flex h-dvh">
       <Card className="m-auto max-w-xs w-full">
         <div className="bg-muted rounded-full p-5 w-fit mx-auto">
-          <Logo className="size-20" />
+          <Image src="/logo.svg" alt="icon" height={100} width={100} />
         </div>
         <CardHeader className="text-center">
           <CardTitle className="text-lg">Bienvenido</CardTitle>
