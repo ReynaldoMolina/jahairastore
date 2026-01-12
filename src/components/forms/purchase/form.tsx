@@ -1,6 +1,12 @@
 'use client';
 
-import { FieldGroup, FieldSeparator, FieldSet } from '../../ui/field';
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import z from 'zod';
 import { PurchaseById, SelectOptions } from '@/types/types';
@@ -37,12 +43,19 @@ export function PurchaseForm({
 
   return (
     <FieldGroup>
-      <FieldSet className="flex-row gap-6">
+      <FieldSet>
         <FormDatePicker control={form.control} label="Fecha" name="fecha" />
+        <FormComboBox
+          control={form.control}
+          name="idProveedor"
+          selectOptions={selectOptions}
+          label="Proveedor"
+        />
         <FormSelect
           control={form.control}
-          label="Ubicación"
+          label="Almacén"
           name="idUbicacion"
+          description="De qué inventario salen los productos."
           options={[
             {
               value: '1',
@@ -55,33 +68,31 @@ export function PurchaseForm({
           ]}
         />
       </FieldSet>
-      <FieldSet>
-        <FormComboBox
-          control={form.control}
-          name="idProveedor"
-          selectOptions={selectOptions}
-          label="Proveedor"
-        />
-      </FieldSet>
       {!isNew && (
         <>
           <FieldSeparator />
-          <FieldSet className="sm:flex-row">
-            <FormInputReadOnly
-              value={`C$ ${formatNumber(totalCost)}`}
-              label="Subtotal"
-              className={bgColors.neutral}
-            />
-            <FormInputReadOnly
-              value={`C$ ${formatNumber(purchase.gastos)}`}
-              label="Gastos"
-              className={bgColors.red}
-            />
-            <FormInputReadOnly
-              value={`C$ ${formatNumber(totalCost + purchase.gastos)}`}
-              label="Total compra"
-              className={bgColors.blue}
-            />
+          <FieldSet>
+            <FieldLegend>Totales</FieldLegend>
+            <FieldDescription>
+              Visualiza los totales de la compra.
+            </FieldDescription>
+            <div className="flex flex-col md:flex-row gap-6">
+              <FormInputReadOnly
+                value={`C$ ${formatNumber(totalCost)}`}
+                label="Subtotal"
+                className={bgColors.neutral}
+              />
+              <FormInputReadOnly
+                value={`C$ ${formatNumber(purchase.gastos)}`}
+                label="Gastos"
+                className={bgColors.red}
+              />
+              <FormInputReadOnly
+                value={`C$ ${formatNumber(totalCost + purchase.gastos)}`}
+                label="Total compra"
+                className={bgColors.blue}
+              />
+            </div>
           </FieldSet>
         </>
       )}

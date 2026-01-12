@@ -61,6 +61,7 @@ export interface SaleById {
   credito: boolean;
   saldo: number;
   cambioDolar: number;
+  idUbicacion: number;
   detail: {
     id: number;
     idVenta: number;
@@ -83,6 +84,7 @@ export interface SaleFormType {
   credito: boolean;
   saldo: number | null;
   cambioDolar: number;
+  idUbicacion: number;
 }
 
 export interface SaleDetailType {

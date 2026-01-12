@@ -55,7 +55,7 @@ export function CreatePurchaseForm({ selectOptions }: CreatePurchaseForm) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card>
           <CardHeader>
-            <CardTitle className="text-sm">Nueva compra</CardTitle>
+            <CardTitle>Nueva compra</CardTitle>
             <CardDescription>
               Ingresa los datos de la compra, da click en siguiente cuando estés
               listo.

@@ -24,7 +24,7 @@ export function FormCheck<T extends FieldValues>({
       control={control}
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
-          <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950">
+          <Label className="flex gap-3 items-center">
             <Checkbox
               id={field.name}
               checked={!!field.value}
@@ -36,7 +36,7 @@ export function FormCheck<T extends FieldValues>({
               className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
             />
             <div className="grid gap-1.5 font-normal text-sm">
-              <p className="leading-none font-medium">{label}</p>
+              <p className="leading-none">{label}</p>
               {description && (
                 <p className="text-muted-foreground">{description}</p>
               )}

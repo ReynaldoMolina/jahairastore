@@ -38,6 +38,7 @@ export function CreateSaleForm({ selectOptions, cambioDolar }: CreateSaleForm) {
       credito: false,
       cambioDolar: cambioDolar,
       saldo: 0,
+      idUbicacion: 1,
     },
   });
 
@@ -59,7 +60,7 @@ export function CreateSaleForm({ selectOptions, cambioDolar }: CreateSaleForm) {
       <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card>
           <CardHeader>
-            <CardTitle className="text-sm">Nueva venta</CardTitle>
+            <CardTitle>Nueva venta</CardTitle>
             <CardDescription>
               Ingresa los datos de la venta, da click en siguiente cuando estés
               listo.

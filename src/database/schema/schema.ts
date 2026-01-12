@@ -21,7 +21,7 @@ export const compra = pgTable('compra', {
   id: serial('id').primaryKey().notNull(),
   idProveedor: integer('id_proveedor').notNull(),
   fecha: date('fecha').notNull(),
-  id_ubicacion: integer()
+  idUbicacion: integer('id_ubicacion')
     .notNull()
     .default(1)
     .references(() => ubicacion.id),
@@ -110,6 +110,10 @@ export const venta = pgTable('venta', {
   credito: boolean('credito').notNull(),
   saldo: doublePrecision('saldo'),
   cambioDolar: doublePrecision('cambio_dolar'),
+  idUbicacion: integer('id_ubicacion')
+    .notNull()
+    .default(1)
+    .references(() => ubicacion.id),
 });
 
 export const ventaDetalle = pgTable('venta_detalle', {

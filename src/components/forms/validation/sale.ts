@@ -8,6 +8,7 @@ export const saleSchema = z.object({
   credito: z.boolean(),
   cambioDolar: zNumberMin(),
   saldo: zNumberMinZero(),
+  idUbicacion: zNumber(),
 });
 
 export const saleDetailSchema = z.object({

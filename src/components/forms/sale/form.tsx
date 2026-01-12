@@ -1,6 +1,12 @@
 'use client';
 
-import { FieldGroup, FieldSeparator, FieldSet } from '../../ui/field';
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import z from 'zod';
 import { SaleById, SelectOptions } from '@/types/types';
@@ -12,6 +18,7 @@ import { FormInput } from '@/components/form-elements/form-input';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
 import { formatNumber } from '@/lib/formatters';
 import { calculateTotals } from '@/lib/calculate-totals';
+import { FormSelect } from '@/components/form-elements/form-select';
 
 interface SaleForm {
   form: UseFormReturn<z.infer<typeof saleSchema>>;
@@ -40,15 +47,40 @@ export function SaleForm({
   return (
     <FieldGroup>
       <FieldSet>
+        <FormDatePicker control={form.control} label="Fecha" name="fecha" />
         <FormComboBox
           control={form.control}
           name="idCliente"
           selectOptions={selectOptions}
           label="Cliente"
         />
-        <FormDatePicker control={form.control} label="Fecha" name="fecha" />
+        <FormSelect
+          control={form.control}
+          label="Almacén"
+          name="idUbicacion"
+          description="De qué inventario salen los productos."
+          options={[
+            {
+              value: '1',
+              label: 'León',
+            },
+            {
+              value: '2',
+              label: 'Acoyapa',
+            },
+          ]}
+        />
+        <FormInput
+          control={form.control}
+          name="cambioDolar"
+          label="Cambio USD"
+          textAddon="C$"
+        />
       </FieldSet>
+      <FieldSeparator />
       <FieldSet>
+        <FieldLegend>Tipo de venta</FieldLegend>
+        <FieldDescription>Si es al credito o al contado.</FieldDescription>
         <FormCheck
           control={form.control}
           name="credito"
@@ -62,7 +94,6 @@ export function SaleForm({
         />
         {credito && !isNew && (
           <>
-            <FieldSeparator className="md:hidden" />
             <FieldSet className="inline-flex sm:flex-row">
               <FormInputReadOnly
                 value={formatNumber(totalSell)}
@@ -90,12 +121,6 @@ export function SaleForm({
               />
             </FieldSet>
             <FieldSeparator className="md:hidden" />
-            <FormInput
-              control={form.control}
-              name="cambioDolar"
-              label="Cambio USD"
-              textAddon="C$"
-            />
           </>
         )}
       </FieldSet>

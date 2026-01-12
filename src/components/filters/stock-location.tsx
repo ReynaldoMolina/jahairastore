@@ -43,7 +43,7 @@ export function StockLocationFilter() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Ubicación</DropdownMenuLabel>
+        <DropdownMenuLabel>Almacén</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup
           value={currentUbicacion}

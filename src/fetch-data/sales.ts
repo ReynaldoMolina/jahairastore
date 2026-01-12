@@ -110,6 +110,7 @@ export async function getSaleById(id: number | string) {
         credito: venta.credito,
         saldo: venta.saldo,
         cambioDolar: venta.cambioDolar,
+        idUbicacion: venta.idUbicacion,
       })
       .from(venta)
       .leftJoin(cliente, eq(venta.idCliente, cliente.id))

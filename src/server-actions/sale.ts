@@ -4,7 +4,6 @@ import { db } from '@/database/db';
 import { venta } from '@/database/schema/schema';
 import {
   stateCreateError,
-  stateCreateSuccess,
   stateUpdateError,
   stateUpdateSuccess,
 } from './stateMessage';

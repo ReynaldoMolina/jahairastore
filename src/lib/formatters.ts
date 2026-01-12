@@ -31,7 +31,7 @@ export function formatDate(isoDateStr: string) {
   const input = new Date(year, month - 1, day);
 
   const dayStr = input.getDate();
-  let monthStr = input.toLocaleString('es-NI', { month: 'short' });
+  let monthStr = input.toLocaleString('es-NI', { month: 'long' });
   const yearStr = input.getFullYear();
 
   const currentYear = new Date().getFullYear();
