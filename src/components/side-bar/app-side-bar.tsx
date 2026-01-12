@@ -13,12 +13,12 @@ import {
   SidebarMenuItem,
   SidebarMenuSub,
 } from '../ui/sidebar';
-import Logo from '@/components/icons/logominimal.svg';
 import { NavUser } from './nav-user';
 import { authClient } from '@/lib/auth-client';
 import { useEffect, useState } from 'react';
 import { BusinessInfoType } from '@/types/types';
 import { menuOptions } from './menu-options';
+import Image from 'next/image';
 
 interface AppSideBarProps {
   businessInfo: BusinessInfoType;
@@ -44,7 +44,7 @@ export function AppSideBar({ businessInfo }: AppSideBarProps) {
       <SidebarHeader>
         <SidebarMenuItem>
           <SidebarMenuButton>
-            <Logo />
+            <Image src="/logominimal.svg" alt="icon" height={16} width={16} />
             <span className="truncate font-bold">
               {businessInfo.nombreEmpresa}
             </span>
