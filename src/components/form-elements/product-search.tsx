@@ -53,7 +53,7 @@ export function ProductSearch({
           </DialogDescription>
         </DialogHeader>
         <div className="inline-flex gap-1">
-          <SearchInput />
+          <SearchInput showScanButton />
           <StockLocationFilter
             disabled={disableLocationFilter}
             idUbicacion={idUbicacion}
