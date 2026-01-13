@@ -52,15 +52,6 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
           return (
             <Card key={detail.id} className="py-4 gap-4">
               <CardHeader className="border-b [.border-b]:pb-4">
-                {detail.imagenUrl && (
-                  <Image
-                    src={detail.imagenUrl}
-                    width={120}
-                    height={120}
-                    alt="Thumbnail"
-                    className="rounded text-xs bg-muted"
-                  />
-                )}
                 <CardTitle>{detail.nombreProducto}</CardTitle>
                 <CardDescription className="inline-flex gap-3">
                   <Badge variant="secondary" className={`${bgColors.green}`}>
@@ -80,6 +71,17 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
               <CardContent>
                 <CardItem value={subtotalVenta} label="Total" color="neutral" />
                 <CardItem value={ganancia} label="Ganancia" color="blue" />
+                {detail.imagenUrl && (
+                  <div className="flex justify-center">
+                    <Image
+                      src={detail.imagenUrl}
+                      width={150}
+                      height={150}
+                      alt="Thumbnail"
+                      className="rounded text-xs bg-muted"
+                    />
+                  </div>
+                )}
               </CardContent>
             </Card>
           );

@@ -21,6 +21,11 @@ const nextConfig: NextConfig = {
         hostname: 'img.ltwebstatic.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'm.media-amazon.com',
+        pathname: '/**',
+      },
     ],
   },
 };
