@@ -39,14 +39,15 @@ export function exportToExcel(data: Product[]) {
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Inventario');
 
-  // Generate filename with date and time
+  /* local date & time for filename */
   const now = new Date();
-  const formattedDate = now
-    .toISOString() // e.g., "2026-01-12T20:45:30.123Z"
-    .replace(/T/, ' ') // "2026-01-12_20:45:30.123Z"
-    .replace(/:/g, '-') // "2026-01-12_20-45-30.123Z"
-    .split('.')[0]; // remove milliseconds: "2026-01-12_20-45-30"
-  const fileName = `Inventario ${formattedDate}.xlsx`;
+  const pad = (n: number) => n.toString().padStart(2, '0');
+
+  const fileName = `Inventario ${now.getFullYear()}-${pad(
+    now.getMonth() + 1
+  )}-${pad(now.getDate())} ${pad(now.getHours())}-${pad(
+    now.getMinutes()
+  )}.xlsx`;
 
   // Export file
   XLSX.writeFile(workbook, fileName, { compression: true });
