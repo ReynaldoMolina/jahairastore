@@ -7,6 +7,7 @@ import { SiteHeader } from '@/components/header/site-header';
 import { getProducts } from '@/fetch-data/product';
 import { PageProps } from '@/types/types';
 import { StockLocationFilter } from '@/components/filters/stock-location';
+import { ExportInventory } from '@/lib/export-to-excel';
 
 export const metadata = {
   title: 'Inventario',
@@ -26,6 +27,7 @@ export default async function Page({ searchParams }: PageProps) {
         <div className="flex gap-1">
           <SearchInput />
           <StockLocationFilter />
+          <ExportInventory data={data} />
         </div>
         <Products data={data} query={query} totalPages={totalPages} />
       </PageWrapper>
