@@ -167,13 +167,13 @@ export function ProductForm({ form }: ProductForm) {
       </FieldSet>
 
       {imagenUrl && (
-        <div className="flex justify-center">
+        <div className="flex justify-center max-h-50">
           <Image
             src={imagenUrl}
             width={150}
             height={150}
             alt="Thumbnail"
-            className="rounded text-xs bg-muted"
+            className="rounded text-xs object-contain"
           />
         </div>
       )}

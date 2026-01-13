@@ -98,13 +98,13 @@ export function Products({ data, query, totalPages }: Products) {
                 </CardHeader>
                 {register.imagenUrl && (
                   <CardContent>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center max-h-40">
                       <Image
                         src={register.imagenUrl}
                         width={150}
                         height={150}
                         alt="Thumbnail"
-                        className="rounded text-xs bg-muted"
+                        className="rounded text-xs object-contain"
                       />
                     </div>
                   </CardContent>
@@ -154,7 +154,7 @@ export function Products({ data, query, totalPages }: Products) {
                       width={100}
                       height={100}
                       alt="Imagen"
-                      className="rounded text-[10px] bg-muted"
+                      className="rounded text-xs object-contain max-h-15"
                     />
                   )}
                 </TableCell>
