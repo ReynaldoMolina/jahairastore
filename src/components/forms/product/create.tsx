@@ -1,7 +1,13 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import { Card, CardContent } from '../../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../../ui/card';
 import * as z from 'zod';
 import { createProduct } from '@/server-actions/product';
 import { ProductFormType } from '@/types/types';
@@ -34,6 +40,7 @@ export function CreateProductForm({ cambioDolar }: CreateProductForm) {
       codigo: null,
       cambioDolar: cambioDolar,
       precioEnCordobas: true,
+      imagenUrl: null,
     },
   });
 
@@ -57,6 +64,12 @@ export function CreateProductForm({ cambioDolar }: CreateProductForm) {
         className="max-w-xl w-full mx-auto"
       >
         <Card>
+          <CardHeader>
+            <CardTitle>Crear producto</CardTitle>
+            <CardDescription>
+              Ingresa los datos, da click en crear cuando estés listo.
+            </CardDescription>
+          </CardHeader>
           <CardContent>
             <ProductForm form={form} />
           </CardContent>

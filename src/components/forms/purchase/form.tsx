@@ -56,7 +56,7 @@ export function PurchaseForm({
           control={form.control}
           label="Almacén"
           name="idUbicacion"
-          description="De qué inventario salen los productos."
+          description="A qué inventario entran los productos."
           options={ubicaciones}
         />
       </FieldSet>

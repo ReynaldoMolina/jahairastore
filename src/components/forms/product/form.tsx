@@ -1,6 +1,12 @@
 'use client';
 
-import { FieldGroup, FieldSeparator, FieldSet } from '../../ui/field';
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import { FormCheck } from '@/components/form-elements/form-checkbox';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
@@ -14,6 +20,7 @@ import z from 'zod';
 import { FormInputOnChange } from '@/components/form-elements/form-input-on-change';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
 import { FormInput } from '@/components/form-elements/form-input';
+import Image from 'next/image';
 
 interface ProductForm {
   form: UseFormReturn<z.infer<typeof productSchema>>;
@@ -26,6 +33,7 @@ export function ProductForm({ form }: ProductForm) {
     precioVentaPorMayor,
     precioCompra,
     cambioDolar,
+    imagenUrl,
   } = form.watch();
 
   const ganancia = precioEnCordobas
@@ -50,8 +58,16 @@ export function ProductForm({ form }: ProductForm) {
       </FieldSet>
       <FieldSet>
         <FormTextArea control={form.control} name="nombre" label="Nombre" />
+        <FormInput
+          control={form.control}
+          name="codigo"
+          label="Código de barra"
+        />
       </FieldSet>
+      <FieldSeparator />
       <FieldSet>
+        <FieldLegend>Precios</FieldLegend>
+        <FieldDescription>Ingresa los datos de precios.</FieldDescription>
         <FormCheck
           control={form.control}
           name="precioEnCordobas"
@@ -64,13 +80,13 @@ export function ProductForm({ form }: ProductForm) {
           <FormInput
             control={form.control}
             name="precioCompra"
-            label="Precio compra"
+            label="Compra"
             textAddon="$"
           />
           <FormInput
             control={form.control}
             name="precioVenta"
-            label="Precio venta"
+            label="Venta"
             textAddon="$"
           />
           <FormInput
@@ -91,7 +107,7 @@ export function ProductForm({ form }: ProductForm) {
                   ? ''
                   : roundToTwoDecimals(precioCompra * cambioDolar)
               }
-              label="Precio compra"
+              label="Compra"
               handleChange={(val) =>
                 form.setValue('precioCompra', Number(val) / cambioDolar)
               }
@@ -103,7 +119,7 @@ export function ProductForm({ form }: ProductForm) {
                   ? ''
                   : roundToPointZeroOrFive(precioVenta * cambioDolar)
               }
-              label="Precio venta"
+              label="Venta"
               handleChange={(val) =>
                 form.setValue('precioVenta', Number(val) / cambioDolar)
               }
@@ -132,15 +148,35 @@ export function ProductForm({ form }: ProductForm) {
       />
 
       <FieldSeparator />
-      <FieldSet className="sm:flex-row">
+
+      <FieldSet>
+        <FieldLegend>Otros datos</FieldLegend>
+        <FieldDescription>Datos complementarios.</FieldDescription>
         <FormInput
           control={form.control}
           name="cambioDolar"
           label="Cambio USD"
           textAddon="C$"
         />
-        <FormInput control={form.control} name="codigo" label="Código" />
+
+        <FormInput
+          control={form.control}
+          name="imagenUrl"
+          label="Imagen (URL)"
+        />
       </FieldSet>
+
+      {imagenUrl && (
+        <div className="flex justify-center">
+          <Image
+            src={imagenUrl}
+            width={150}
+            height={150}
+            alt="Thumbnail"
+            className="rounded text-xs bg-muted"
+          />
+        </div>
+      )}
     </FieldGroup>
   );
 }

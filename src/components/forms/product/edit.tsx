@@ -31,6 +31,7 @@ export function EditProductForm({ product }: EditProductForm) {
       codigo: product.codigo,
       cambioDolar: product.cambioDolar,
       precioEnCordobas: product.precioEnCordobas ?? false,
+      imagenUrl: product.imagenUrl,
     },
   });
 

@@ -1,6 +1,12 @@
 'use client';
 
-import { Card, CardHeader, CardTitle, CardDescription } from '../ui/card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from '../ui/card';
 import {
   TableHeader,
   TableRow,
@@ -17,14 +23,16 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
-import { Hash, ScanBarcode } from 'lucide-react';
+import { Hash } from 'lucide-react';
 import { formatNumber, roundToPointZeroOrFive } from '@/lib/formatters';
 import { bgColors } from '@/lib/bg-colors';
+import Image from 'next/image';
 
 interface Products {
   data: {
     id: number;
     nombre: string;
+    imagenUrl: string | null;
     codigo: string;
     precioEnCordobas: boolean;
     cambioDolar: number;
@@ -60,7 +68,7 @@ export function Products({ data, query, totalPages }: Products) {
           const isSoldOut = register.existencias <= 0;
 
           return (
-            <Link key={register.id} href={`/productos/${register.id}`}>
+            <Link key={register.id} href={`/inventario/${register.id}`}>
               <Card className="py-4 gap-4">
                 <CardHeader>
                   <CardTitle>{register.nombre}</CardTitle>
@@ -86,14 +94,21 @@ export function Products({ data, query, totalPages }: Products) {
                         <span>Cant: {register.existencias}</span>
                       )}
                     </Badge>
-                    {register.codigo && (
-                      <Badge variant="outline">
-                        <ScanBarcode />
-                        {register.codigo}
-                      </Badge>
-                    )}
                   </CardDescription>
                 </CardHeader>
+                {register.imagenUrl && (
+                  <CardContent>
+                    <div className="flex justify-center">
+                      <Image
+                        src={register.imagenUrl}
+                        width={150}
+                        height={150}
+                        alt="Thumbnail"
+                        className="rounded text-xs bg-muted"
+                      />
+                    </div>
+                  </CardContent>
+                )}
               </Card>
             </Link>
           );
@@ -115,11 +130,11 @@ export function Products({ data, query, totalPages }: Products) {
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead>Imagen</TableHead>
             <TableHead className="w-full">Producto</TableHead>
             <TableHead>Id</TableHead>
             <TableHead>Precio</TableHead>
             <TableHead>Cantidad</TableHead>
-            <TableHead>Código</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -130,8 +145,19 @@ export function Products({ data, query, totalPages }: Products) {
               <TableRow
                 key={register.id}
                 className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
-                onClick={() => router.push(`/productos/${register.id}`)}
+                onClick={() => router.push(`/inventario/${register.id}`)}
               >
+                <TableCell>
+                  {register.imagenUrl && (
+                    <Image
+                      src={register.imagenUrl}
+                      width={100}
+                      height={100}
+                      alt="Imagen"
+                      className="rounded text-[10px] bg-muted"
+                    />
+                  )}
+                </TableCell>
                 <TableCell className="w-full whitespace-normal">
                   {register.nombre}
                 </TableCell>
@@ -168,20 +194,13 @@ export function Products({ data, query, totalPages }: Products) {
                     />
                   )}
                 </TableCell>
-                <TableCell>
-                  {register.codigo && (
-                    <Badge variant="outline">
-                      <ScanBarcode />
-                      {register.codigo}
-                    </Badge>
-                  )}
-                </TableCell>
               </TableRow>
             );
           })}
         </TableBody>
         <TableFooter className="bg-muted">
           <TableRow>
+            <TableCell></TableCell>
             <TableCell>Total</TableCell>
             <TableCell className="text-xs text-center">{data.length}</TableCell>
             <TableCell></TableCell>
@@ -193,7 +212,6 @@ export function Products({ data, query, totalPages }: Products) {
                 className="justify-center"
               />
             </TableCell>
-            <TableCell></TableCell>
           </TableRow>
         </TableFooter>
       </Table>

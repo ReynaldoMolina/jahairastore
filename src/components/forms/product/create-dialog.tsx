@@ -50,6 +50,7 @@ export function CreateProductFormDialog({
       codigo: null,
       cambioDolar: cambioDolar,
       precioEnCordobas: true,
+      imagenUrl: null,
     },
   });
 

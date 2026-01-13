@@ -1,6 +1,12 @@
 'use client';
 
-import { FieldGroup, FieldSeparator, FieldSet } from '../../ui/field';
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
 import { FormTextArea } from '@/components/form-elements/form-text-area';
@@ -50,16 +56,21 @@ export function ReceiptForm({
           }
           label="Cliente"
         />
+        <FormTextArea control={form.control} name="concepto" label="Concepto" />
       </FieldSet>
 
       <div className={anulado ? 'hidden' : 'flex flex-col gap-6'}>
         <FieldSeparator />
 
-        <FormCheck
-          control={form.control}
-          name="enCordobas"
-          label="Abono en córdobas"
-        />
+        <FieldSet>
+          <FieldLegend>Datos del pago</FieldLegend>
+          <FieldDescription>Totales y abonos.</FieldDescription>
+          <FormCheck
+            control={form.control}
+            name="enCordobas"
+            label="Abono en córdobas"
+          />
+        </FieldSet>
 
         <FieldSet className={enCordobas ? 'hidden' : 'sm:flex-row'}>
           <FormInputReadOnly
@@ -150,19 +161,16 @@ export function ReceiptForm({
         />
       </div>
 
-      <FieldSeparator />
       <FieldSet>
         <FormCheck
           control={form.control}
           name="anulado"
-          label="Anular"
-          description="Marcar recibo como anulado"
+          label="Marcar recibo como anulado"
           onCheckedExtra={() => {
             form.setValue('abono', 0);
             form.setValue('saldo', saldoInicial);
           }}
         />
-        <FormTextArea control={form.control} name="concepto" label="Concepto" />
       </FieldSet>
     </FieldGroup>
   );

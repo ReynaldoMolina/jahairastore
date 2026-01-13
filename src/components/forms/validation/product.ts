@@ -12,4 +12,5 @@ export const productSchema = z.object({
   codigo: z.string().nullable(),
   precioEnCordobas: z.boolean(),
   cambioDolar: zNumberMin(),
+  imagenUrl: z.string().nullable(),
 });

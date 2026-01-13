@@ -1,7 +1,13 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import { Card, CardContent } from '../../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../../ui/card';
 import * as z from 'zod';
 import { ReceiptById, ReceiptFormType } from '@/types/types';
 import { useForm } from 'react-hook-form';
@@ -62,6 +68,12 @@ export function EditReceiptForm({ receipt }: EditReceiptForm) {
             className="max-w-xl w-full"
           >
             <Card>
+              <CardHeader>
+                <CardTitle>Editar recibo</CardTitle>
+                <CardDescription>
+                  Actualiza los datos del recibo.
+                </CardDescription>
+              </CardHeader>
               <CardContent className="space-y-6">
                 <ReceiptForm
                   form={form}

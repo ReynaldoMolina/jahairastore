@@ -115,6 +115,7 @@ export interface ProductFormType {
   fecha: string;
   codigo?: string | null;
   precioEnCordobas: boolean;
+  imagenUrl: string | null;
 }
 
 export interface ProductSearchProduct {

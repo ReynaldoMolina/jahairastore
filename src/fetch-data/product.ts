@@ -35,6 +35,7 @@ export async function getProducts(searchParams: SearchParamsProps) {
         id: producto.id,
         nombre: producto.nombre,
         codigo: producto.codigo,
+        imagenUrl: producto.imagenUrl,
         precioEnCordobas: producto.precioEnCordobas,
         cambioDolar: producto.cambioDolar,
         precioCompra: producto.precioCompra,

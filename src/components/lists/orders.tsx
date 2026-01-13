@@ -25,7 +25,6 @@ import { CardItem, ListItem } from './list-item';
 import { Badge } from '../ui/badge';
 import { formatDate } from '@/lib/formatters';
 import { Calendar, Hash, Plane } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 interface Orders {
   data: {
