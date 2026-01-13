@@ -16,7 +16,7 @@ export const menuOptions = [
   },
   {
     name: 'Inventario',
-    url: '/inventario?state=true&page=1',
+    url: '/inventario',
     icon: Package,
     items: [
       {
