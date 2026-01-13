@@ -17,7 +17,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
-import { Hash, PackageCheck } from 'lucide-react';
+import { Hash, ScanBarcode } from 'lucide-react';
 import { formatNumber, roundToPointZeroOrFive } from '@/lib/formatters';
 import { bgColors } from '@/lib/bg-colors';
 
@@ -86,6 +86,12 @@ export function Products({ data, query, totalPages }: Products) {
                         <span>Cant: {register.existencias}</span>
                       )}
                     </Badge>
+                    {register.codigo && (
+                      <Badge variant="outline">
+                        <ScanBarcode />
+                        {register.codigo}
+                      </Badge>
+                    )}
                   </CardDescription>
                 </CardHeader>
               </Card>
@@ -113,6 +119,7 @@ export function Products({ data, query, totalPages }: Products) {
             <TableHead>Id</TableHead>
             <TableHead>Precio</TableHead>
             <TableHead>Cantidad</TableHead>
+            <TableHead>Código</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -161,6 +168,14 @@ export function Products({ data, query, totalPages }: Products) {
                     />
                   )}
                 </TableCell>
+                <TableCell>
+                  {register.codigo && (
+                    <Badge variant="outline">
+                      <ScanBarcode />
+                      {register.codigo}
+                    </Badge>
+                  )}
+                </TableCell>
               </TableRow>
             );
           })}
@@ -178,6 +193,7 @@ export function Products({ data, query, totalPages }: Products) {
                 className="justify-center"
               />
             </TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableFooter>
       </Table>

@@ -9,7 +9,10 @@ import { getStock } from './stock';
 export async function getProducts(searchParams: SearchParamsProps) {
   const { query, state, limit, offset, ubicacion } = getUrlParams(searchParams);
 
-  const filterBySearch = buildSearchFilter(searchParams, [producto.nombre]);
+  const filterBySearch = buildSearchFilter(searchParams, [
+    producto.nombre,
+    producto.codigo,
+  ]);
 
   const filterByState = state
     ? sql`

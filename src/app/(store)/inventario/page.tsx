@@ -25,7 +25,7 @@ export default async function Page({ searchParams }: PageProps) {
       </SiteHeader>
       <PageWrapper>
         <div className="flex gap-1">
-          <SearchInput />
+          <SearchInput showScanButton />
           <StockLocationFilter />
           <ExportInventory data={data} />
         </div>
