@@ -1,5 +1,5 @@
 import z from 'zod';
-import { zNumberMin } from './zod-helper';
+import { zNumber, zNumberMin } from './zod-helper';
 
 export const ajusteInventarioSchema = z.object({
   fecha: z.string().min(1, 'Requerido'),
@@ -10,5 +10,5 @@ export const ajusteInventarioSchema = z.object({
 export const ajusteInventarioDetailSchema = z.object({
   idAjuste: zNumberMin(),
   idProducto: zNumberMin(),
-  cantidad: zNumberMin(),
+  cantidad: zNumber(),
 });

@@ -37,14 +37,14 @@ export async function createAjusteInvetarioDetail(
   }
 }
 
-interface UpdateAjusteInvenarioDetailProps {
+interface UpdateAjusteInventarioDetailProps {
   id: number | string;
-  values: TrasladoDetailType;
+  values: AjusteInventarioDetailType;
 }
 
-export async function updateAjusteInvenarioDetail(
+export async function updateAjusteInventarioDetail(
   prevState: ServerStatus,
-  data: UpdateAjusteInvenarioDetailProps
+  data: UpdateAjusteInventarioDetailProps
 ) {
   try {
     await db

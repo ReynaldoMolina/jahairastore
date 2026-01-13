@@ -24,7 +24,7 @@ export async function getSaleDetailById(
   idUbicacion: number
 ) {
   try {
-    const { compras, ventas, trasladosEntrada, trasladosSalida } =
+    const { compras, ventas, trasladosEntrada, trasladosSalida, ajustes } =
       await getStock(idUbicacion);
 
     const [detail] = await db
@@ -44,7 +44,9 @@ export async function getSaleDetailById(
           (COALESCE("compras"."cantidad", 0)
           - COALESCE("ventas"."cantidad", 0)
           + COALESCE("traslados_entrada"."cantidad", 0)
-          - COALESCE("traslados_salida"."cantidad", 0))::float
+          - COALESCE("traslados_salida"."cantidad", 0)
+          + COALESCE("ajustes"."cantidad", 0)
+          )::float
         `,
       })
       .from(ventaDetalle)
@@ -59,6 +61,7 @@ export async function getSaleDetailById(
         trasladosSalida,
         eq(trasladosSalida.idProducto, ventaDetalle.idProducto)
       )
+      .leftJoin(ajustes, eq(ajustes.idProducto, ventaDetalle.idProducto))
       .where(eq(ventaDetalle.id, Number(id)));
 
     return detail;

@@ -1,30 +1,31 @@
-import {
-  compraDetalle,
-  producto,
-  ventaDetalle,
-} from '@/database/schema/schema';
+import { compra, compraDetalle, producto } from '@/database/schema/schema';
 import { eq, sql } from 'drizzle-orm';
 import { db } from '@/database/db';
+import { getStock } from './stock';
 
-export async function getPurchaseDetailById(id: number | string) {
+export async function getPurchaseIdUbicacion(id: number | string) {
   try {
-    const compras = db
+    const [purchase] = await db
       .select({
-        idProducto: compraDetalle.idProducto,
-        cantidad: sql<number>`SUM(${compraDetalle.cantidad})`.as('cantidad'),
+        idUbicacion: compra.idUbicacion,
       })
-      .from(compraDetalle)
-      .groupBy(compraDetalle.idProducto)
-      .as('compras');
+      .from(compra)
+      .where(eq(compra.id, Number(id)));
 
-    const ventas = db
-      .select({
-        idProducto: ventaDetalle.idProducto,
-        cantidad: sql<number>`SUM(${ventaDetalle.cantidad})`.as('cantidad'),
-      })
-      .from(ventaDetalle)
-      .groupBy(ventaDetalle.idProducto)
-      .as('ventas');
+    return purchase.idUbicacion;
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudo obtener el id de la ubicacion.');
+  }
+}
+
+export async function getPurchaseDetailById(
+  id: number | string,
+  idUbicacion: number | undefined
+) {
+  try {
+    const { compras, ventas, trasladosEntrada, trasladosSalida, ajustes } =
+      await getStock(idUbicacion);
 
     const [detail] = await db
       .select({
@@ -38,13 +39,27 @@ export async function getPurchaseDetailById(id: number | string) {
         cambioDolar: compraDetalle.cambioDolar,
         idCompra: compraDetalle.idCompra,
         existencias: sql<number>`
-          (COALESCE("compras"."cantidad", 0) - COALESCE("ventas"."cantidad", 0))::integer
+          (COALESCE("compras"."cantidad", 0)
+          - COALESCE("ventas"."cantidad", 0)
+          + COALESCE("traslados_entrada"."cantidad", 0)
+          - COALESCE("traslados_salida"."cantidad", 0)
+          + COALESCE("ajustes"."cantidad", 0)
+          )::float
         `,
       })
       .from(compraDetalle)
       .leftJoin(producto, eq(compraDetalle.idProducto, producto.id))
       .leftJoin(compras, eq(compras.idProducto, compraDetalle.idProducto))
       .leftJoin(ventas, eq(ventas.idProducto, compraDetalle.idProducto))
+      .leftJoin(
+        trasladosEntrada,
+        eq(trasladosEntrada.idProducto, compraDetalle.idProducto)
+      )
+      .leftJoin(
+        trasladosSalida,
+        eq(trasladosSalida.idProducto, compraDetalle.idProducto)
+      )
+      .leftJoin(ajustes, eq(ajustes.idProducto, compraDetalle.idProducto))
       .where(eq(compraDetalle.id, Number(id)));
 
     return detail;

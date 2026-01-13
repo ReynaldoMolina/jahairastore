@@ -1,9 +1,9 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditDetailDialog } from '@/components/forms/traslado/detail/detail';
+import { EditDetailDialog } from '@/components/forms/ajuste-inventario/detail/detail';
 import {
-  getTrasladoDetailById,
-  getTrasladoIdUbicacion,
-} from '@/fetch-data/traslados-detail';
+  getAjusteInventarioDetailById,
+  getAjusteInventarioIdUbicacion,
+} from '@/fetch-data/ajustes-detail';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 
@@ -19,8 +19,8 @@ export default async function Page({ params }: PageProps) {
   await checkAuthorization();
 
   const { id, id_detalle } = await params;
-  const idUbicacion = await getTrasladoIdUbicacion(id);
-  const detail = await getTrasladoDetailById(id_detalle, idUbicacion);
+  const idUbicacion = await getAjusteInventarioIdUbicacion(id);
+  const detail = await getAjusteInventarioDetailById(id_detalle, idUbicacion);
 
   if (!detail) {
     notFound();

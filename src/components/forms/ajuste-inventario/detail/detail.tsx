@@ -2,7 +2,7 @@
 
 import { startTransition, useActionState } from 'react';
 import * as z from 'zod';
-import { TrasladoDetailType } from '@/types/types';
+import { AjusteInventarioDetailType } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useServerActionFeedback } from '@/hooks/use-server-status';
@@ -20,34 +20,37 @@ import {
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import { useRouter } from 'next/navigation';
-import { trasladoDetailSchema } from '../../validation/traslado';
-import { updateTrasladoDetail } from '@/server-actions/traslado-detail';
 import { DetailForm } from './form';
+import { ajusteInventarioDetailSchema } from '../../validation/ajuste-inventario';
+import { updateAjusteInventarioDetail } from '@/server-actions/ajuste-inventario-detail';
 
 interface EditDetailDialogProps {
-  detail: TrasladoDetailType;
+  detail: AjusteInventarioDetailType;
 }
 
 export function EditDetailDialog({ detail }: EditDetailDialogProps) {
-  const form = useForm<z.infer<typeof trasladoDetailSchema>>({
-    resolver: zodResolver(trasladoDetailSchema),
+  const form = useForm<z.infer<typeof ajusteInventarioDetailSchema>>({
+    resolver: zodResolver(ajusteInventarioDetailSchema),
     defaultValues: {
-      idTraslado: detail.idTraslado,
+      idAjuste: detail.idAjuste,
       idProducto: detail.idProducto,
       cantidad: detail.cantidad,
     },
   });
 
   const [state, formAction, isPending] = useActionState(
-    updateTrasladoDetail,
+    updateAjusteInventarioDetail,
     stateDefault
   );
 
   const router = useRouter();
 
-  function onSubmit(values: z.infer<typeof trasladoDetailSchema>) {
+  function onSubmit(values: z.infer<typeof ajusteInventarioDetailSchema>) {
     startTransition(() => {
-      formAction({ id: detail.id, values: values as TrasladoDetailType });
+      formAction({
+        id: detail.id,
+        values: values as AjusteInventarioDetailType,
+      });
     });
   }
 

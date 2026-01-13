@@ -18,12 +18,13 @@ export async function getProducts(searchParams: SearchParamsProps) {
     - COALESCE("ventas"."cantidad", 0)
     + COALESCE("traslados_entrada"."cantidad", 0)
     - COALESCE("traslados_salida"."cantidad", 0)
+    + COALESCE("ajustes"."cantidad", 0)
     )::float > 0
   `
     : undefined;
 
   try {
-    const { compras, ventas, trasladosEntrada, trasladosSalida } =
+    const { compras, ventas, trasladosEntrada, trasladosSalida, ajustes } =
       await getStock(ubicacion);
 
     const data = await db
@@ -44,6 +45,7 @@ export async function getProducts(searchParams: SearchParamsProps) {
           - COALESCE("ventas"."cantidad", 0)
           + COALESCE("traslados_entrada"."cantidad", 0)
           - COALESCE("traslados_salida"."cantidad", 0)
+          + COALESCE("ajustes"."cantidad", 0)
           )::float
         `,
       })
@@ -52,6 +54,7 @@ export async function getProducts(searchParams: SearchParamsProps) {
       .leftJoin(ventas, eq(producto.id, ventas.idProducto))
       .leftJoin(trasladosEntrada, eq(trasladosEntrada.idProducto, producto.id))
       .leftJoin(trasladosSalida, eq(trasladosSalida.idProducto, producto.id))
+      .leftJoin(ajustes, eq(ajustes.idProducto, producto.id))
       .where(and(filterBySearch, filterByState))
       .orderBy(asc(producto.nombre))
       .limit(limit)
@@ -64,6 +67,7 @@ export async function getProducts(searchParams: SearchParamsProps) {
       .leftJoin(ventas, eq(producto.id, ventas.idProducto))
       .leftJoin(trasladosEntrada, eq(trasladosEntrada.idProducto, producto.id))
       .leftJoin(trasladosSalida, eq(trasladosSalida.idProducto, producto.id))
+      .leftJoin(ajustes, eq(ajustes.idProducto, producto.id))
       .where(and(filterBySearch, filterByState));
 
     const totalPages = Math.ceil(count / limit) || 1;
@@ -102,12 +106,13 @@ export async function getProductsSearchList(
     - COALESCE("ventas"."cantidad", 0)
     + COALESCE("traslados_entrada"."cantidad", 0)
     - COALESCE("traslados_salida"."cantidad", 0)
+    + COALESCE("ajustes"."cantidad", 0)
     ) > 0
   `
     : undefined;
 
   try {
-    const { compras, ventas, trasladosEntrada, trasladosSalida } =
+    const { compras, ventas, trasladosEntrada, trasladosSalida, ajustes } =
       await getStock(ubicacion);
 
     const products = await db
@@ -120,10 +125,12 @@ export async function getProductsSearchList(
         precioVentaPorMayor: producto.precioVentaPorMayor,
         cambioDolar: producto.cambioDolar,
         existencias: sql<number>`
-          COALESCE("compras"."cantidad", 0)
+          (COALESCE("compras"."cantidad", 0)
           - COALESCE("ventas"."cantidad", 0)
           + COALESCE("traslados_entrada"."cantidad", 0)
           - COALESCE("traslados_salida"."cantidad", 0)
+          + COALESCE("ajustes"."cantidad", 0)
+          )::float
         `,
         precioEnCordobas: producto.precioEnCordobas,
       })
@@ -132,6 +139,7 @@ export async function getProductsSearchList(
       .leftJoin(ventas, eq(ventas.idProducto, producto.id))
       .leftJoin(trasladosEntrada, eq(trasladosEntrada.idProducto, producto.id))
       .leftJoin(trasladosSalida, eq(trasladosSalida.idProducto, producto.id))
+      .leftJoin(ajustes, eq(ajustes.idProducto, producto.id))
       .where(and(filterBySearch, filterByState))
       .orderBy(asc(producto.nombre))
       .limit(limit)
@@ -144,6 +152,7 @@ export async function getProductsSearchList(
       .leftJoin(ventas, eq(ventas.idProducto, producto.id))
       .leftJoin(trasladosEntrada, eq(trasladosEntrada.idProducto, producto.id))
       .leftJoin(trasladosSalida, eq(trasladosSalida.idProducto, producto.id))
+      .leftJoin(ajustes, eq(ajustes.idProducto, producto.id))
       .where(and(filterBySearch, filterByState));
 
     const totalPages = Math.ceil(count / limit) || 1;

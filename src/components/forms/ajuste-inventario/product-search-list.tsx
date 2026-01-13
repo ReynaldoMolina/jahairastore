@@ -66,6 +66,8 @@ export default function ProductSearchList({
           const isSoldOut = p.existencias <= 0;
           const isChecked = isAlreadyAdded || isSelected;
 
+          console.log(p);
+
           return (
             <Card
               key={p.id}
@@ -85,7 +87,11 @@ export default function ProductSearchList({
                     {p.id}
                   </Badge>
                   <Badge variant={isSoldOut ? 'destructive' : 'secondary'}>
-                    {isSoldOut ? 'Agotado' : <span>Cant: {p.existencias}</span>}
+                    {isSoldOut ? (
+                      'Agotado'
+                    ) : (
+                      <span>Stock: {p.existencias}</span>
+                    )}
                   </Badge>
                 </CardDescription>
                 <CardAction>
@@ -97,7 +103,7 @@ export default function ProductSearchList({
                       handleCheckedChange({
                         idAjuste: ajuste.id,
                         idProducto: p.id,
-                        cantidad: 1,
+                        cantidad: 0,
                       })
                     }
                   />
@@ -134,7 +140,7 @@ export default function ProductSearchList({
               <Checkbox disabled />
             </TableHead>
             <TableHead>Producto</TableHead>
-            <TableHead>Cantidad</TableHead>
+            <TableHead>Ajuste</TableHead>
             <TableHead>Id</TableHead>
             <TableHead>Stock</TableHead>
           </TableRow>
@@ -146,7 +152,6 @@ export default function ProductSearchList({
             const isSelected = selectedProducts.some(
               (prod) => prod.idProducto === product.id
             );
-            const isSoldOut = product.existencias <= 0;
             const isChecked = isAlreadyAdded || isSelected;
 
             return (
@@ -168,7 +173,7 @@ export default function ProductSearchList({
                       handleCheckedChange({
                         idAjuste: ajuste.id,
                         idProducto: product.id,
-                        cantidad: 1,
+                        cantidad: 0,
                       })
                     }
                   />

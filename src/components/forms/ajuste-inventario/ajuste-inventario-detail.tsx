@@ -44,11 +44,16 @@ export function AjusteInventarioDetail({
               <CardHeader>
                 <CardTitle>{detail.nombre}</CardTitle>
                 <CardDescription className="inline-flex gap-3">
-                  <Badge variant="secondary">Cant: {detail.cantidad}</Badge>
+                  <Badge variant="secondary">
+                    Cant:{' '}
+                    {detail.cantidad > 0
+                      ? `+${detail.cantidad}`
+                      : detail.cantidad}
+                  </Badge>
                 </CardDescription>
                 <CardAction className="inline-flex gap-1 items-center">
                   <DetailOptions
-                    path="traslados"
+                    path="ajuste-inventario"
                     registerId={ajuste.id}
                     detailId={detail.id}
                     handleDelete={handleDelete}
@@ -87,11 +92,11 @@ export function AjusteInventarioDetail({
                 {detail.nombre}
               </TableCell>
               <TableCell className="text-center text-xs">
-                {detail.cantidad}
+                {detail.cantidad > 0 ? `+${detail.cantidad}` : detail.cantidad}
               </TableCell>
               <TableCell>
                 <DetailOptions
-                  path="traslados"
+                  path="ajuste-inventario"
                   registerId={ajuste.id}
                   detailId={detail.id}
                   handleDelete={handleDelete}

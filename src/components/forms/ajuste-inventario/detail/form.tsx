@@ -7,22 +7,18 @@ import { FormInput } from '@/components/form-elements/form-input';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { Button } from '@/components/ui/button';
 import { MinusIcon, PlusIcon } from 'lucide-react';
-import { TrasladoDetailType } from '@/types/types';
+import { AjusteInventarioDetailType } from '@/types/types';
 import { FormTextAreaReadOnly } from '@/components/form-elements/form-text-area-read-only';
-import { trasladoDetailSchema } from '../../validation/traslado';
 import { FormInputReadOnly } from '@/components/form-elements/form-input-read-only';
+import { ajusteInventarioDetailSchema } from '../../validation/ajuste-inventario';
 
 interface DetailFormProps {
-  form: UseFormReturn<z.infer<typeof trasladoDetailSchema>>;
-  detail?: TrasladoDetailType;
+  form: UseFormReturn<z.infer<typeof ajusteInventarioDetailSchema>>;
+  detail?: AjusteInventarioDetailType;
 }
 
 export function DetailForm({ form, detail }: DetailFormProps) {
   const { cantidad } = form.watch();
-
-  const maxQuantity = (detail.existencias ?? 0) + (detail.cantidad ?? 0);
-  const canAddQuantity = cantidad < maxQuantity;
-
   return (
     <FieldGroup>
       <FieldSet>
@@ -34,8 +30,8 @@ export function DetailForm({ form, detail }: DetailFormProps) {
         />
         <FormInput
           control={form.control}
-          name="idTraslado"
-          label="Id traslado"
+          name="idAjuste"
+          label="Id ajuste"
           hidden
         />
         <FormTextAreaReadOnly value={detail.nombreProducto} label="Nombre" />
@@ -43,7 +39,7 @@ export function DetailForm({ form, detail }: DetailFormProps) {
 
       <FieldSet className="flex-row gap-3 md:gap-6 items-end">
         <FormInputReadOnly
-          value={canAddQuantity ? detail.existencias : 'Agotado'}
+          value={detail.existencias > 0 ? detail.existencias : 'Agotado'}
           label="Disponibles"
         />
 
@@ -61,11 +57,9 @@ export function DetailForm({ form, detail }: DetailFormProps) {
           <Button
             variant="outline"
             size="icon"
-            disabled={cantidad <= 1}
             onClick={() => {
               if (isNaN(Number(cantidad))) return;
-              if (cantidad > 1)
-                return form.setValue('cantidad', Number(cantidad) - 1);
+              form.setValue('cantidad', Number(cantidad) - 1);
             }}
           >
             <MinusIcon />
@@ -73,11 +67,9 @@ export function DetailForm({ form, detail }: DetailFormProps) {
           <Button
             variant="outline"
             size="icon"
-            disabled={!canAddQuantity}
             onClick={() => {
               if (isNaN(Number(cantidad))) return;
-              if (canAddQuantity)
-                form.setValue('cantidad', Number(cantidad) + 1);
+              form.setValue('cantidad', Number(cantidad) + 1);
             }}
           >
             <PlusIcon />

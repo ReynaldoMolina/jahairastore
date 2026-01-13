@@ -21,7 +21,7 @@ export function ChangeQuantityCard({
 }: ChangeQuantityProps) {
   return (
     <div className="flex justify-between w-full items-center gap-3">
-      <span className="text-muted-foreground text-xs">Hay</span>
+      <span className="text-muted-foreground text-xs">Ajuste</span>
       <ChangeQuantity
         selectedProducts={selectedProducts}
         setSelectedProducts={setSelectedProducts}
@@ -62,14 +62,13 @@ export function ChangeQuantity({
         size="icon-sm"
         className="size-6 dark:bg-input"
         onClick={() => handleChange(-1)}
-        disabled={cantidad < 1}
       >
         <Minus className="size-3" />
       </Button>
 
       <Input
         readOnly
-        value={cantidad}
+        value={cantidad > 0 ? `+${cantidad}` : cantidad}
         className="h-6 w-13.5 md:w-10 text-center bg-background dark:bg-input text-xs"
       />
 

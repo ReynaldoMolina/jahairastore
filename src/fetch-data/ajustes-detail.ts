@@ -1,29 +1,29 @@
 import {
   producto,
-  productoTraslado,
-  productoTrasladoDetalle,
+  productoAjuste,
+  productoAjusteDetalle,
 } from '@/database/schema/schema';
 import { eq, sql } from 'drizzle-orm';
 import { db } from '@/database/db';
 import { getStock } from './stock';
 
-export async function getTrasladoIdUbicacion(id: number | string) {
+export async function getAjusteInventarioIdUbicacion(id: number | string) {
   try {
-    const [traslado] = await db
+    const [ajuste] = await db
       .select({
-        idUbicacion: productoTraslado.idUbicacionOrigen,
+        idUbicacion: productoAjuste.idUbicacion,
       })
-      .from(productoTraslado)
-      .where(eq(productoTraslado.id, Number(id)));
+      .from(productoAjuste)
+      .where(eq(productoAjuste.id, Number(id)));
 
-    return traslado.idUbicacion;
+    return ajuste.idUbicacion;
   } catch (error) {
     console.error(error);
     throw new Error('No se pudo obtener el id de la ubicacion.');
   }
 }
 
-export async function getTrasladoDetailById(
+export async function getAjusteInventarioDetailById(
   id: number | string,
   idUbicacion: number
 ) {
@@ -33,11 +33,11 @@ export async function getTrasladoDetailById(
 
     const [detail] = await db
       .select({
-        id: productoTrasladoDetalle.id,
-        idTraslado: productoTrasladoDetalle.idTraslado,
-        idProducto: productoTrasladoDetalle.idProducto,
+        id: productoAjusteDetalle.id,
+        idAjuste: productoAjusteDetalle.idAjuste,
+        idProducto: productoAjusteDetalle.idProducto,
         nombreProducto: producto.nombre,
-        cantidad: productoTrasladoDetalle.cantidad,
+        cantidad: productoAjusteDetalle.cantidad,
         existencias: sql<number>`
           (COALESCE("compras"."cantidad", 0)
           - COALESCE("ventas"."cantidad", 0)
@@ -47,26 +47,26 @@ export async function getTrasladoDetailById(
           )::float
         `,
       })
-      .from(productoTrasladoDetalle)
-      .leftJoin(producto, eq(productoTrasladoDetalle.idProducto, producto.id))
+      .from(productoAjusteDetalle)
+      .leftJoin(producto, eq(productoAjusteDetalle.idProducto, producto.id))
       .leftJoin(
         compras,
-        eq(compras.idProducto, productoTrasladoDetalle.idProducto)
+        eq(compras.idProducto, productoAjusteDetalle.idProducto)
       )
-      .leftJoin(
-        ventas,
-        eq(ventas.idProducto, productoTrasladoDetalle.idProducto)
-      )
+      .leftJoin(ventas, eq(ventas.idProducto, productoAjusteDetalle.idProducto))
       .leftJoin(
         trasladosEntrada,
-        eq(trasladosEntrada.idProducto, productoTrasladoDetalle.idProducto)
+        eq(trasladosEntrada.idProducto, productoAjusteDetalle.idProducto)
       )
       .leftJoin(
         trasladosSalida,
-        eq(trasladosSalida.idProducto, productoTrasladoDetalle.idProducto)
+        eq(trasladosSalida.idProducto, productoAjusteDetalle.idProducto)
       )
-      .leftJoin(ajustes, eq(ajustes.idProducto, producto.id))
-      .where(eq(productoTrasladoDetalle.id, Number(id)));
+      .leftJoin(
+        ajustes,
+        eq(ajustes.idProducto, productoAjusteDetalle.idProducto)
+      )
+      .where(eq(productoAjusteDetalle.id, Number(id)));
 
     return detail;
   } catch (error) {

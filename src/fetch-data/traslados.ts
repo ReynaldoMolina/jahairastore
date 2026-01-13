@@ -8,7 +8,6 @@ import { SearchParamsProps } from '@/types/types';
 import { desc, asc, eq, sql, and } from 'drizzle-orm';
 import { getUrlParams } from './filter';
 import { buildSearchFilter } from './build-by-search';
-import { getStock } from './stock';
 
 export async function getTraslados(searchParams: SearchParamsProps) {
   const { query, limit, offset } = getUrlParams(searchParams);

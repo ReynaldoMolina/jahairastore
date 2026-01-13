@@ -6,6 +6,8 @@ import {
   venta,
   productoTraslado,
   productoTrasladoDetalle,
+  productoAjusteDetalle,
+  productoAjuste,
 } from '@/database/schema/schema';
 import { sql, eq } from 'drizzle-orm';
 
@@ -98,5 +100,31 @@ export async function getStock(ubicacion: number | undefined) {
       : trasladosSalidaBase.groupBy(productoTrasladoDetalle.idProducto)
   ).as('traslados_salida');
 
-  return { compras, ventas, trasladosEntrada, trasladosSalida };
+  const ajustesBase = db
+    .select({
+      idProducto: productoAjusteDetalle.idProducto,
+      id_ubicacion: ubicacion
+        ? productoAjuste.idUbicacion
+        : sql<number | null>`NULL`,
+      cantidad: sql<number>`SUM(${productoAjusteDetalle.cantidad})`.as(
+        'cantidad'
+      ),
+    })
+    .from(productoAjusteDetalle)
+    .innerJoin(
+      productoAjuste,
+      eq(productoAjusteDetalle.idAjuste, productoAjuste.id)
+    )
+    .where(ubicacion ? eq(productoAjuste.idUbicacion, ubicacion) : undefined);
+
+  const ajustes = (
+    ubicacion
+      ? ajustesBase.groupBy(
+          productoAjusteDetalle.idProducto,
+          productoAjuste.idUbicacion
+        )
+      : ajustesBase.groupBy(productoAjusteDetalle.idProducto)
+  ).as('ajustes');
+
+  return { compras, ventas, trasladosEntrada, trasladosSalida, ajustes };
 }

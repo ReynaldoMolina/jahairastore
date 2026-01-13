@@ -23,6 +23,7 @@ export async function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
+//works
 export const config = {
   matcher: [
     '/((?!api|auth|_next|favicon.ico|robots.txt|.*\\.(?:png|jpg|jpeg|svg|ico|webp)$).*)',
