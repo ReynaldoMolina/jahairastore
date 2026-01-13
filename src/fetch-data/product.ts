@@ -124,6 +124,7 @@ export async function getProductsSearchList(
         id: producto.id,
         nombre: producto.nombre,
         codigo: producto.codigo,
+        imagenUrl: producto.imagenUrl,
         precioCompra: producto.precioCompra,
         precioVenta: producto.precioVenta,
         precioVentaPorMayor: producto.precioVentaPorMayor,

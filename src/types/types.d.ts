@@ -122,6 +122,7 @@ export interface ProductSearchProduct {
   id: number;
   nombre: string;
   codigo: string;
+  imagenUrl: string | null;
   precioCompra: number;
   precioVenta: number;
   precioVentaPorMayor: number;

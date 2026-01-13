@@ -27,6 +27,7 @@ import { ChangeQuantityCard, ChangeQuantity } from './change-quantity';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Hash } from 'lucide-react';
+import Image from 'next/image';
 
 interface ProductSearchList {
   productData: ProductSearchData;
@@ -128,6 +129,15 @@ export default function ProductSearchList({
                         )?.cantidad || 1,
                     }}
                   />
+                  {p.imagenUrl && (
+                    <Image
+                      src={p.imagenUrl}
+                      width={150}
+                      height={150}
+                      alt="Thumbnail"
+                      className="rounded text-xs bg-muted"
+                    />
+                  )}
                 </CardContent>
               )}
             </Card>
