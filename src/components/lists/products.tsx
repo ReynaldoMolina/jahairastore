@@ -14,7 +14,8 @@ import { formatNumber, roundToPointZeroOrFive } from '@/lib/formatters';
 import Image from 'next/image';
 import { Grid } from './grid';
 import { cn } from '@/lib/utils';
-import { ImageIcon } from 'lucide-react';
+import { Hash, ImageIcon, ScanBarcode } from 'lucide-react';
+import { Badge } from '../ui/badge';
 
 interface Products {
   data: {
@@ -63,6 +64,18 @@ export function Products({ data, query, totalPages }: Products) {
                 <CardHeader>
                   <CardTitle className="text-xs">{register.nombre}</CardTitle>
                   <CardDescription className="flex flex-col gap-2">
+                    <div className="inline-flex gap-1 overflow-auto">
+                      <Badge variant="outline">
+                        <Hash />
+                        {register.id}
+                      </Badge>
+                      {register.codigo && (
+                        <Badge variant="outline">
+                          <ScanBarcode />
+                          {register.codigo}
+                        </Badge>
+                      )}
+                    </div>
                     <span className="text-xs">
                       {register.precioEnCordobas ? 'C$ ' : '$ '}
                       {register.precioEnCordobas
