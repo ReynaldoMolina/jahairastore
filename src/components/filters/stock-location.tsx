@@ -58,7 +58,7 @@ export function StockLocationFilter({
           value={currentUbicacion}
           onValueChange={handleValueChange}
         >
-          <DropdownMenuRadioItem value="">Todo</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="">Total</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="1">León</DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="2">Acoyapa</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>

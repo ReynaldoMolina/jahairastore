@@ -9,18 +9,31 @@ import { PageProps } from '@/types/types';
 import { StockLocationFilter } from '@/components/filters/stock-location';
 import { ExportInventory } from '@/components/export-to-excel';
 
-export const metadata = {
-  title: 'Inventario',
-};
+export async function generateMetadata({ searchParams }: PageProps) {
+  const ubicacion = (await searchParams).ubicacion || '';
+  const label =
+    ubicacion === '' ? 'Total' : ubicacion === '1' ? 'León' : 'Acoyapa';
+
+  return {
+    title: `Inventario - ${label}`,
+  };
+}
 
 export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
 
   const { data, query, totalPages } = await getProducts(await searchParams);
+  const ubicacion = (await searchParams).ubicacion || '';
+  const label =
+    ubicacion === '' ? 'Total' : ubicacion === '1' ? 'León' : 'Acoyapa';
 
   return (
     <>
-      <SiteHeader title="Inventario" showHeaderActions hideBackButton>
+      <SiteHeader
+        title={`Inventario - ${label}`}
+        showHeaderActions
+        hideBackButton
+      >
         <HeaderFilter listName="inventario" />
       </SiteHeader>
       <PageWrapper>

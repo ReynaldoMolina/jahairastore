@@ -37,6 +37,8 @@ export function ProductSearch({
   disableLocationFilter = false,
   idUbicacion,
 }: ProductSearch) {
+  const label = idUbicacion === 1 ? 'León' : 'Acoyapa';
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="w-full" asChild>
@@ -47,17 +49,13 @@ export function ProductSearch({
       </DialogTrigger>
       <DialogContent className="sm:min-w-[80dvw] max-h-[95dvh] overflow-y-auto px-3 md:px-6 pb-3 md:pb-6 gap-2">
         <DialogHeader>
-          <DialogTitle>Agregar productos</DialogTitle>
+          <DialogTitle>Agregar productos - {label}</DialogTitle>
           <DialogDescription>
             Selecciona los productos y luego da click en agregar.
           </DialogDescription>
         </DialogHeader>
         <div className="inline-flex gap-1">
           <SearchInput showScanButton />
-          <StockLocationFilter
-            disabled={disableLocationFilter}
-            idUbicacion={idUbicacion}
-          />
           <HeaderFilter listName="inventario" />
         </div>
         <div className="flex flex-col max-h-[50dvh] md:max-h-[55dvh] overflow-y-auto gap-2 w-full pb-1">
