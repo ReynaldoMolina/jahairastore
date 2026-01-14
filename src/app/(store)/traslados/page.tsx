@@ -23,7 +23,6 @@ export default async function Page({ searchParams }: PageProps) {
         hideBackButton
       />
       <PageWrapper>
-        <SearchInput />
         <Traslados data={data} query={query} totalPages={totalPages} />
       </PageWrapper>
     </>

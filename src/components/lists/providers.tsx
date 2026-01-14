@@ -16,7 +16,6 @@ import {
   Table,
 } from '../ui/table';
 import { Badge } from '../ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Phone } from 'lucide-react';
 
 interface Providers {

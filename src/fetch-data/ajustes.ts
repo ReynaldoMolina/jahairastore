@@ -12,7 +12,9 @@ import { buildSearchFilter } from './build-by-search';
 export async function getAjustesInventario(searchParams: SearchParamsProps) {
   const { query, limit, offset } = getUrlParams(searchParams);
 
-  const filterBySearch = buildSearchFilter(searchParams, [productoAjuste.id]);
+  const filterBySearch = buildSearchFilter(searchParams, [
+    productoAjuste.motivo,
+  ]);
 
   try {
     const data = await db

@@ -24,7 +24,6 @@ import { CardItem, ListItem } from './list-item';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
 import { formatDate, roundToTwoDecimals } from '@/lib/formatters';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Calendar, Hash, ShoppingCart } from 'lucide-react';
 
 interface Expenses {
