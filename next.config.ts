@@ -1,5 +1,13 @@
 import type { NextConfig } from 'next';
 
+const remoteHostnames = [
+  'lh3.googleusercontent.com',
+  'img.ltwebstatic.com',
+  'm.media-amazon.com',
+  'www.victoriassecret.com',
+  'www.bathandbodyworks.com',
+];
+
 const nextConfig: NextConfig = {
   turbopack: {
     rules: {
@@ -10,23 +18,11 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'img.ltwebstatic.com',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'm.media-amazon.com',
-        pathname: '/**',
-      },
-    ],
+    remotePatterns: remoteHostnames.map((hostname) => ({
+      protocol: 'https',
+      hostname,
+      pathname: '/**',
+    })),
   },
 };
 
