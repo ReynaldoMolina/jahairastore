@@ -8,6 +8,7 @@ const remoteHostnames = [
   'www.bathandbodyworks.com',
   'artescooficial.com',
   's3.amazonaws.com',
+  'alvapapeleria.com',
 ];
 
 const nextConfig: NextConfig = {
