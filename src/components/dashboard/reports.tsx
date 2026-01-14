@@ -23,23 +23,12 @@ export function SalesOnlyReport({ data }: ReportData) {
         <Card>
           <CardHeader>
             <CardDescription>Ganancia</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
-              C${formatNumber(profit)}
+            <CardTitle className="text-2xl font-semibold tabular-nums text-blue-700 dark:text-blue-300">
+              <span>C${formatNumber(profit)}</span>
             </CardTitle>
           </CardHeader>
           <CardFooter className="text-xs text-muted-foreground">
-            Ganancia total
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader className="text-blue-700 dark:text-blue-400">
-            <CardDescription>Ganancia inversor</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
-              C${formatNumber(profit * 0.1)}
-            </CardTitle>
-          </CardHeader>
-          <CardFooter className="text-xs text-muted-foreground">
-            10% para inversor
+            10% = C${formatNumber(profit * 0.1)}
           </CardFooter>
         </Card>
         <Card>
@@ -90,23 +79,12 @@ export function OrdersOnlyReport({ data }: ReportData) {
         <Card>
           <CardHeader>
             <CardDescription>Ganancia</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
+            <CardTitle className="text-2xl font-semibold tabular-nums text-blue-700 dark:text-blue-300">
               ${formatNumber(profit)}
             </CardTitle>
           </CardHeader>
           <CardFooter className="text-xs text-muted-foreground">
-            Ganancia total
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardHeader className="text-blue-600 dark:text-blue-400">
-            <CardDescription>Ganancia inversor</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
-              ${formatNumber(profit * 0.1)}
-            </CardTitle>
-          </CardHeader>
-          <CardFooter className="text-xs text-muted-foreground">
-            10% para inversor
+            10% = ${formatNumber(profit * 0.1)}
           </CardFooter>
         </Card>
         <Card>
