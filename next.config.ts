@@ -6,6 +6,8 @@ const remoteHostnames = [
   'm.media-amazon.com',
   'www.victoriassecret.com',
   'www.bathandbodyworks.com',
+  'artescooficial.com',
+  's3.amazonaws.com',
 ];
 
 const nextConfig: NextConfig = {
