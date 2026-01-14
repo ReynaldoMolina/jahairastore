@@ -7,7 +7,7 @@ import { SiteHeader } from '@/components/header/site-header';
 import { getProducts } from '@/fetch-data/product';
 import { PageProps } from '@/types/types';
 import { StockLocationFilter } from '@/components/filters/stock-location';
-import { ExportInventory } from '@/lib/export-to-excel';
+import { ExportInventory } from '@/components/export-to-excel';
 
 export const metadata = {
   title: 'Inventario',

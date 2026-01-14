@@ -3,6 +3,17 @@
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
 import * as XLSX from 'xlsx';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from './ui/alert-dialog';
 
 interface Product {
   id: number;
@@ -59,9 +70,26 @@ interface ExportInventoryProps {
 
 export function ExportInventory({ data }: ExportInventoryProps) {
   return (
-    <Button variant="outline" onClick={() => exportToExcel(data)}>
-      <Download />
-      <span className="hidden sm:block text-xs">Exportar</span>
-    </Button>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="outline" size="icon">
+          <Download />
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Exportar inventario</AlertDialogTitle>
+          <AlertDialogDescription>
+            Se va a exportar el inventario a un archivo de Excel.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancelar</AlertDialogCancel>
+          <AlertDialogAction onClick={() => exportToExcel(data)}>
+            Exportar
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

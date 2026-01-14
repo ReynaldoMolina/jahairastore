@@ -1,9 +1,7 @@
 'use client';
 
 import { Search, X, ScanBarcode } from 'lucide-react';
-import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useDebouncedCallback } from 'use-debounce';
 import {
   InputGroup,
   InputGroupAddon,
@@ -11,7 +9,7 @@ import {
   InputGroupInput,
 } from '../ui/input-group';
 import { cn } from '@/lib/utils';
-import BarcodeScanner from '../barcode-scanner';
+import { BarcodeScanner } from '../barcode-scanner';
 import {
   Dialog,
   DialogContent,
@@ -21,6 +19,7 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { Button } from '../ui/button';
+import { useSearchQuery } from '@/hooks/use-search-query';
 
 interface SearchInputProps {
   className?: string;
@@ -31,33 +30,19 @@ export function SearchInput({
   className,
   showScanButton = false,
 }: SearchInputProps) {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
-
-  const queryParam = searchParams.get('query') || '';
-  const [searchValue, setSearchValue] = useState(queryParam);
+  const { query, setQuery } = useSearchQuery();
+  const [searchValue, setSearchValue] = useState(query);
   const [open, setOpen] = useState(false);
-
-  const handleSearch = useDebouncedCallback((term: string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('page', '1');
-
-    if (term) params.set('query', term);
-    else params.delete('query');
-
-    replace(`${pathname}?${params.toString()}`, { scroll: false });
-  }, 400);
 
   const handleScan = (value: string) => {
     setOpen(false);
     setSearchValue(value);
-    handleSearch(value);
+    setQuery(value);
   };
 
   return (
     <div className="inline-flex gap-1">
-      <InputGroup className={cn('w-full sm:max-w-60', className)}>
+      <InputGroup className={cn('w-full md:max-w-60', className)}>
         <InputGroupAddon>
           <Search />
         </InputGroupAddon>
@@ -69,7 +54,7 @@ export function SearchInput({
           onChange={(e) => {
             const term = e.target.value;
             setSearchValue(term);
-            handleSearch(term);
+            setQuery(term);
           }}
         />
 
@@ -79,7 +64,7 @@ export function SearchInput({
               size="icon-xs"
               onClick={() => {
                 setSearchValue('');
-                handleSearch('');
+                setQuery('');
               }}
             >
               <X />
@@ -92,16 +77,16 @@ export function SearchInput({
       {showScanButton && (
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
-            <Button size="icon" variant="outline">
+            <Button variant="outline" size="icon">
               <ScanBarcode />
             </Button>
           </DialogTrigger>
 
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
-              <DialogTitle>Escanear código</DialogTitle>
+              <DialogTitle>Escanear producto</DialogTitle>
               <DialogDescription>
-                Enfoca el código en el centro
+                Enfoca el código de barra en el centro
               </DialogDescription>
             </DialogHeader>
 

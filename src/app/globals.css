@@ -23,6 +23,10 @@
   }
 }
 
+@theme {
+  --breakpoint-xs: 30rem;
+}
+
 :root {
   --brand: oklch(0.9005 0.0579 230.91);
   --radius: 0.65rem;

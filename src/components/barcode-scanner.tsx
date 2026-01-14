@@ -10,7 +10,7 @@ interface BarcodeScannerProps {
   onScan: (value: string) => void;
 }
 
-export default function BarcodeScanner({ onScan }: BarcodeScannerProps) {
+export function BarcodeScanner({ onScan }: BarcodeScannerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
