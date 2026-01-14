@@ -9,6 +9,7 @@ const remoteHostnames = [
   'artescooficial.com',
   's3.amazonaws.com',
   'alvapapeleria.com',
+  'www.activeeprofessional.com',
 ];
 
 const nextConfig: NextConfig = {
