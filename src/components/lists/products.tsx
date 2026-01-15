@@ -64,7 +64,7 @@ export function Products({ data, query, totalPages }: Products) {
                 <CardHeader>
                   <CardTitle className="text-xs">{register.nombre}</CardTitle>
                   <CardDescription className="flex flex-col gap-2">
-                    <div className="inline-flex gap-1 overflow-auto justify-between items-center">
+                    <div className="inline-flex gap-1 overflow-auto items-center">
                       <span className="text-xs">
                         {register.precioEnCordobas ? 'C$ ' : '$ '}
                         {register.precioEnCordobas
@@ -75,7 +75,7 @@ export function Products({ data, query, totalPages }: Products) {
                             )
                           : formatNumber(register.precioVenta)}
                       </span>
-                      <Badge variant="outline">
+                      <Badge variant="outline" className="ml-auto">
                         <Hash />
                         {register.id}
                       </Badge>

@@ -170,7 +170,7 @@ export function ProductForm({ form }: ProductForm) {
           />
           {imagenUrl && (
             <Button variant="outline" size="icon">
-              <Link href={imagenUrl}>
+              <Link href={imagenUrl} target="_blank">
                 <ExternalLink />
               </Link>
             </Button>
