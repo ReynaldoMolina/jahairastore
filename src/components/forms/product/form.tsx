@@ -21,6 +21,9 @@ import { FormInputOnChange } from '@/components/form-elements/form-input-on-chan
 import { FormTextArea } from '@/components/form-elements/form-text-area';
 import { FormInput } from '@/components/form-elements/form-input';
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { ExternalLink } from 'lucide-react';
 
 interface ProductForm {
   form: UseFormReturn<z.infer<typeof productSchema>>;
@@ -159,11 +162,20 @@ export function ProductForm({ form }: ProductForm) {
           textAddon="C$"
         />
 
-        <FormInput
-          control={form.control}
-          name="imagenUrl"
-          label="Imagen (URL)"
-        />
+        <div className="flex gap-1 items-end">
+          <FormInput
+            control={form.control}
+            name="imagenUrl"
+            label="Imagen (URL)"
+          />
+          {imagenUrl && (
+            <Button variant="outline" size="icon">
+              <Link href={imagenUrl}>
+                <ExternalLink />
+              </Link>
+            </Button>
+          )}
+        </div>
       </FieldSet>
 
       {imagenUrl && (
