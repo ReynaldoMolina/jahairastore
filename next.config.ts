@@ -11,6 +11,7 @@ const remoteHostnames = [
   'alvapapeleria.com',
   'www.activeeprofessional.com',
   'makemore.cl',
+  'photos.app.goo.gl',
 ];
 
 const nextConfig: NextConfig = {
