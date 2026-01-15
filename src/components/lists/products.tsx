@@ -64,28 +64,22 @@ export function Products({ data, query, totalPages }: Products) {
                 <CardHeader>
                   <CardTitle className="text-xs">{register.nombre}</CardTitle>
                   <CardDescription className="flex flex-col gap-2">
-                    <div className="inline-flex gap-1 overflow-auto">
+                    <div className="inline-flex gap-1 overflow-auto justify-between items-center">
+                      <span className="text-xs">
+                        {register.precioEnCordobas ? 'C$ ' : '$ '}
+                        {register.precioEnCordobas
+                          ? formatNumber(
+                              roundToPointZeroOrFive(
+                                register.precioVenta * register.cambioDolar
+                              )
+                            )
+                          : formatNumber(register.precioVenta)}
+                      </span>
                       <Badge variant="outline">
                         <Hash />
                         {register.id}
                       </Badge>
-                      {register.codigo && (
-                        <Badge variant="outline">
-                          <ScanBarcode />
-                          {register.codigo}
-                        </Badge>
-                      )}
                     </div>
-                    <span className="text-xs">
-                      {register.precioEnCordobas ? 'C$ ' : '$ '}
-                      {register.precioEnCordobas
-                        ? formatNumber(
-                            roundToPointZeroOrFive(
-                              register.precioVenta * register.cambioDolar
-                            )
-                          )
-                        : formatNumber(register.precioVenta)}
-                    </span>
                     <span
                       className={cn(
                         isSoldOut ? 'text-destructive' : '',
