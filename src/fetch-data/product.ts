@@ -101,7 +101,10 @@ export async function getProductsSearchList(
 ) {
   const { query, state, limit, offset } = getUrlParams(searchParams);
 
-  const filterBySearch = buildSearchFilter(searchParams, [producto.nombre]);
+  const filterBySearch = buildSearchFilter(searchParams, [
+    producto.nombre,
+    producto.codigo,
+  ]);
 
   const filterByState = state
     ? sql`
