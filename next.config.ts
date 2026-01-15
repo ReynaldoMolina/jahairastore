@@ -10,6 +10,7 @@ const remoteHostnames = [
   's3.amazonaws.com',
   'alvapapeleria.com',
   'www.activeeprofessional.com',
+  'makemore.cl',
 ];
 
 const nextConfig: NextConfig = {
