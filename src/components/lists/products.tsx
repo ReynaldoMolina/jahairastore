@@ -79,6 +79,11 @@ export function Products({ data, query, totalPages }: Products) {
                         <Hash />
                         {register.id}
                       </Badge>
+                      {register.codigo && (
+                        <Badge variant="outline">
+                          <ScanBarcode />
+                        </Badge>
+                      )}
                     </div>
                     <span
                       className={cn(
