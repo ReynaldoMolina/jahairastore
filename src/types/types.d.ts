@@ -49,8 +49,6 @@ export interface SaleTable {
 }
 
 export interface SaleById {
-  nombreEmpresa: string;
-  eslogan: string;
   id: number;
   idCliente: number;
   nombreCliente: string;
@@ -59,9 +57,10 @@ export interface SaleById {
   fecha: string;
   abono: number;
   credito: boolean;
-  saldo: number;
   cambioDolar: number;
   idUbicacion: number;
+  total: number;
+  saldo: number;
   detail: {
     id: number;
     idVenta: number;
@@ -82,7 +81,6 @@ export interface SaleFormType {
   fecha: string;
   abono: number;
   credito: boolean;
-  saldo: number | null;
   cambioDolar: number;
   idUbicacion: number;
 }

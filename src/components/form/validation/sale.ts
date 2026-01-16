@@ -7,7 +7,6 @@ export const saleSchema = z.object({
   abono: zNumberMinZero(),
   credito: z.boolean(),
   cambioDolar: zNumberMin(),
-  saldo: zNumberMinZero(),
   idUbicacion: zNumber(),
 });
 

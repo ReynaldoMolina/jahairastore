@@ -34,7 +34,7 @@ export function SaleForm({
   sale,
   isNew = false,
 }: SaleForm) {
-  const { credito } = form.watch();
+  const { credito, abono } = form.watch();
 
   let totalSell = 0;
   if (!isNew) {
@@ -78,10 +78,8 @@ export function SaleForm({
           name="credito"
           label="Venta al crédito"
           onCheckedExtra={(checked) => {
-            if (!isNew) {
+            if (!isNew)
               form.setValue('abono', checked ? sale.abono : totalSell);
-              form.setValue('saldo', checked ? totalSell - sale.abono : 0);
-            }
           }}
         />
         {credito && !isNew && (
@@ -96,19 +94,11 @@ export function SaleForm({
                 control={form.control}
                 name="abono"
                 label="Abono"
-                onChangeExtra={(value) =>
-                  form.setValue(
-                    'saldo',
-                    isNaN(Number(value)) ? 0 : totalSell - Number(value)
-                  )
-                }
                 textAddon="C$"
               />
-              <FormInput
-                control={form.control}
-                name="saldo"
+              <FormInputReadOnly
+                value={formatNumber(sale.total - abono)}
                 label="Saldo"
-                readOnly
                 textAddon="C$"
               />
             </FieldSet>

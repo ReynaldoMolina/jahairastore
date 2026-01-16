@@ -104,7 +104,6 @@ export const venta = pgTable('venta', {
   fecha: date('fecha').notNull(),
   abono: doublePrecision('abono').notNull(),
   credito: boolean('credito').notNull(),
-  saldo: doublePrecision('saldo'),
   cambioDolar: doublePrecision('cambio_dolar'),
   idUbicacion: integer('id_ubicacion')
     .notNull()
