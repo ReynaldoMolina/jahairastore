@@ -1,0 +1,49 @@
+'use client';
+
+import { BanknoteArrowDown, Truck } from 'lucide-react';
+import { PurchaseById } from '@/types/types';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { FormOption } from '@/components/form-element/form-option';
+import { Separator } from '@/components/ui/separator';
+
+interface PurchaseOptions {
+  purchase: PurchaseById;
+}
+
+export function PurchaseOptions({ purchase }: PurchaseOptions) {
+  return (
+    <Card className="max-w-xl">
+      <CardContent className="space-y-3">
+        <FormOption
+          label="Agregar envío"
+          href={`/gastos/crear?compra=${purchase.id}&proveedor=${purchase.idProveedor}&concepto=Envío`}
+        >
+          <Truck className="size-4" />
+        </FormOption>
+        <FormOption
+          label="Agregar otro gasto"
+          href={`/gastos/crear?compra=${purchase.id}&proveedor=${purchase.idProveedor}`}
+        >
+          <BanknoteArrowDown className="size-4" />
+        </FormOption>
+        {purchase.gastos > 0 && (
+          <>
+            <Separator className="my-6" />
+            <FormOption
+              label="Ver gastos realizados"
+              href={`/gastos?query=${purchase.id} ${purchase.nombreEmpresa}`}
+            >
+              <BanknoteArrowDown className="size-4" />
+            </FormOption>
+          </>
+        )}
+      </CardContent>
+    </Card>
+  );
+}

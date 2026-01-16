@@ -1,0 +1,71 @@
+'use client';
+
+import { startTransition, useActionState } from 'react';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../../ui/card';
+import * as z from 'zod';
+import { ProviderById } from '@/types/types';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useServerActionFeedback } from '@/hooks/use-server-status';
+import { FormCardFooter } from '@/components/form-element/form-footer';
+import { Form } from '@/components/ui/form';
+import { stateDefault } from '@/server-actions/stateMessage';
+import { providerSchema } from '../validation/provider';
+import { updateProvider } from '@/server-actions/provider';
+import { ProviderForm } from './form';
+
+interface EditProviderForm {
+  provider: ProviderById;
+}
+
+export function EditProviderForm({ provider }: EditProviderForm) {
+  const form = useForm<z.infer<typeof providerSchema>>({
+    resolver: zodResolver(providerSchema),
+    defaultValues: {
+      nombreEmpresa: provider.nombreEmpresa,
+      telefono: provider.telefono || '',
+      direccion: provider.direccion,
+    },
+  });
+
+  const [state, formAction, isPending] = useActionState(
+    updateProvider,
+    stateDefault
+  );
+
+  function onSubmit(values: z.infer<typeof providerSchema>) {
+    startTransition(() => {
+      formAction({ id: provider.id, values: values as ProviderById });
+    });
+  }
+
+  useServerActionFeedback(state, { refresh: true });
+
+  return (
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="max-w-xl w-full mx-auto"
+      >
+        <Card>
+          <CardHeader>
+            <CardTitle>Editar proveedor</CardTitle>
+            <CardDescription>
+              Edita la información del proveedor.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <ProviderForm form={form} />
+          </CardContent>
+          <FormCardFooter isPending={isPending} />
+        </Card>
+      </form>
+    </Form>
+  );
+}
