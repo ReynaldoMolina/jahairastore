@@ -1,15 +1,15 @@
-'use client';
-
 import { SalesOnlyReport, OrdersOnlyReport } from './reports';
-import { DashboardData, SearchParamsProps } from '@/types/types';
+import { SearchParamsProps } from '@/types/types';
 import { DateRangeButtons } from './date-range-buttons';
+import { getTotalsDashboard } from '@/fetch-data/dashboard';
 
 interface Dashboard {
-  data: DashboardData;
   searchParams: SearchParamsProps;
 }
 
-export function Dashboard({ data, searchParams }: Dashboard) {
+export async function Dashboard({ searchParams }: Dashboard) {
+  const data = await getTotalsDashboard(searchParams);
+
   return (
     <main className="flex flex-col flex-1 w-full gap-2 mx-auto">
       <DateRangeButtons searchParams={searchParams} />

@@ -1,5 +1,4 @@
 import { formatNumber } from '@/lib/formatters';
-import { Coins, ShoppingBag } from 'lucide-react';
 import {
   Card,
   CardDescription,

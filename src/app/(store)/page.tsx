@@ -5,6 +5,8 @@ import { SiteHeader } from '@/components/header/site-header';
 import { getTotalsDashboard } from '@/fetch-data/dashboard';
 import { PageProps } from '@/types/types';
 import { getBusinessInfo, getBusinessName } from '@/fetch-data/settings';
+import { Suspense } from 'react';
+import { Spinner } from '@/components/ui/spinner';
 
 export async function generateMetadata() {
   const businessName = await getBusinessName();
@@ -16,15 +18,15 @@ export async function generateMetadata() {
 
 export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
-
-  const data = await getTotalsDashboard(await searchParams);
   const businessInfo = await getBusinessInfo();
 
   return (
     <>
       <SiteHeader title={businessInfo.nombreEmpresa} hideBackButton />
       <PageWrapper>
-        <Dashboard searchParams={await searchParams} data={data} />
+        <Suspense fallback={<Spinner className="m-auto" />}>
+          <Dashboard searchParams={await searchParams} />
+        </Suspense>
       </PageWrapper>
     </>
   );
