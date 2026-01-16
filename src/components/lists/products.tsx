@@ -46,7 +46,7 @@ export function Products({ data, query, totalPages }: Products) {
           return (
             <Link key={register.id} href={`/inventario/${register.id}`}>
               <Card className="h-full">
-                <CardContent className="flex justify-center max-h-35 rounded">
+                <CardContent className="flex justify-center max-h-50 sm:max-h-40 rounded">
                   {register.imagenUrl ? (
                     <Image
                       src={register.imagenUrl}
