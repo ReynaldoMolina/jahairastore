@@ -1,6 +1,6 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { SearchInput } from '@/components/filters/search-input';
-import { Receipts } from '@/components/lists/receipts';
+import { Receipts } from '@/components/list/receipt';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { getReceipts } from '@/fetch-data/receipts';

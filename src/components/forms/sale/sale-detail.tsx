@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { CardItem, ListItem } from '@/components/lists/list-item';
+import { CardItem, ListItem } from '@/components/list/list-item';
 import { Badge } from '@/components/ui/badge';
 import { bgColors } from '@/lib/bg-colors';
 import { formatNumber, roundToPointZeroOrFive } from '@/lib/formatters';

@@ -1,9 +1,9 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { OpcionesDePago } from '@/components/documentacion/opciones-de-pago';
+import { OpcionesDePago } from '@/components/documentation/opciones-de-pago';
 import {
   TypographyH2,
   TypographySection,
-} from '@/components/documentacion/typography';
+} from '@/components/documentation/typography';
 import { isDemo } from '@/middleware';
 import { notFound } from 'next/navigation';
 

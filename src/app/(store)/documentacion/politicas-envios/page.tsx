@@ -1,11 +1,11 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EnviosInfoButton } from '@/components/documentacion/envios-info-button';
+import { EnviosInfoButton } from '@/components/documentation/envios-info-button';
 import {
   TypographySection,
   TypographyH2,
   TypographyH3,
   TypographyList,
-} from '@/components/documentacion/typography';
+} from '@/components/documentation/typography';
 import { isDemo } from '@/middleware';
 import { notFound } from 'next/navigation';
 

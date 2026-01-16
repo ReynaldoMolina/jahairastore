@@ -1,7 +1,7 @@
 import { ExportInventory } from '@/components/export-to-excel';
 import { SearchInput } from '@/components/filters/search-input';
 import { StockLocationFilter } from '@/components/filters/stock-location';
-import { Products } from '../products';
+import { Products } from '../product';
 import { getProducts } from '@/fetch-data/product';
 import { SearchParamsProps } from '@/types/types';
 

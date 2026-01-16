@@ -3,7 +3,7 @@ import { HeaderFilter } from '@/components/filters/header-filter';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';
-import { Inventory } from '@/components/lists/inventory/inventory';
+import { Inventory } from '@/components/list/wrapper/inventory';
 import { Suspense } from 'react';
 import { Spinner } from '@/components/ui/spinner';
 

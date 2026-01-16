@@ -3,7 +3,7 @@ import { SearchInput } from '@/components/filters/search-input';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';
-import { Traslados } from '@/components/lists/traslados';
+import { Traslados } from '@/components/list/transfer';
 import { getTraslados } from '@/fetch-data/traslados';
 
 export const metadata = {

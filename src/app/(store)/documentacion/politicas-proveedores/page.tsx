@@ -4,7 +4,7 @@ import {
   TypographyH2,
   TypographyH3,
   TypographyList,
-} from '@/components/documentacion/typography';
+} from '@/components/documentation/typography';
 import { isDemo } from '@/middleware';
 import { notFound } from 'next/navigation';
 

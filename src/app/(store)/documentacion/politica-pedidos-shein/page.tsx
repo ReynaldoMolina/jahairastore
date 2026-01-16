@@ -4,7 +4,7 @@ import {
   TypographyH2,
   TypographyList,
   TypographyBlockquote,
-} from '@/components/documentacion/typography';
+} from '@/components/documentation/typography';
 import { Button } from '@/components/ui/button';
 import { isDemo } from '@/middleware';
 import { ChevronRight } from 'lucide-react';

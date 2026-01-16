@@ -1,5 +1,5 @@
-import EmptyList from '@/components/lists/empty-list';
-import { Pagination } from '@/components/lists/pagination';
+import EmptyList from '@/components/list/empty-list';
+import { Pagination } from '@/components/list/pagination';
 import { useIsMobile } from '@/hooks/use-mobile';
 import {
   ProductSearchTrasladoData,
@@ -16,7 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { ListItem } from '@/components/lists/list-item';
+import { ListItem } from '@/components/list/list-item';
 import {
   TableHeader,
   TableRow,

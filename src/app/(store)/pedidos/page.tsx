@@ -1,7 +1,7 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { HeaderFilter } from '@/components/filters/header-filter';
 import { SearchInput } from '@/components/filters/search-input';
-import { Orders } from '@/components/lists/orders';
+import { Orders } from '@/components/list/order';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { getOrders } from '@/fetch-data/orders';

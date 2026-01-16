@@ -1,5 +1,5 @@
-import EmptyList from '@/components/lists/empty-list';
-import { Pagination } from '@/components/lists/pagination';
+import EmptyList from '@/components/list/empty-list';
+import { Pagination } from '@/components/list/pagination';
 import { useIsMobile } from '@/hooks/use-mobile';
 import {
   ProductSearchData,
@@ -7,7 +7,7 @@ import {
   PurchaseDetailType,
 } from '@/types/types';
 import { Checkbox } from '../../ui/checkbox';
-import { ListItem } from '../../lists/list-item';
+import { ListItem } from '../../list/list-item';
 import { Dispatch, SetStateAction, useMemo } from 'react';
 import { Badge } from '../../ui/badge';
 import {

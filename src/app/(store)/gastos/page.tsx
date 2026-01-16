@@ -1,6 +1,6 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { SearchInput } from '@/components/filters/search-input';
-import { Expenses } from '@/components/lists/expenses';
+import { Expenses } from '@/components/list/expense';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { getExpenses } from '@/fetch-data/expenses';

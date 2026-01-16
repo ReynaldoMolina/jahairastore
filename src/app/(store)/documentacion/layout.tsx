@@ -1,5 +1,5 @@
-import { MenuButton } from '@/components/documentacion/menu-button';
-import { TypographyH1 } from '@/components/documentacion/typography';
+import { MenuButton } from '@/components/documentation/menu-button';
+import { TypographyH1 } from '@/components/documentation/typography';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 

@@ -3,7 +3,7 @@ import { SearchInput } from '@/components/filters/search-input';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';
-import { Ajustes } from '@/components/lists/ajustes-inventario';
+import { Ajustes } from '@/components/list/ajustes-inventario';
 import { getAjustesInventario } from '@/fetch-data/ajustes';
 
 export const metadata = {

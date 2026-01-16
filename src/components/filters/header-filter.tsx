@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 import { Toggle } from '../ui/toggle';
 import { Clock, PackageCheck } from 'lucide-react';
-import { PingDiv } from '../lists/ping-div';
+import { PingDiv } from '../list/ping-div';
 import { ITEMS_PER_PAGE } from '@/lib/items-per-page';
 
 type ListName = 'pedidos' | 'ventas' | 'inventario' | 'tareas';

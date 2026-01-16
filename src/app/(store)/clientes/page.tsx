@@ -1,6 +1,6 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { SearchInput } from '@/components/filters/search-input';
-import { Clients } from '@/components/lists/clients';
+import { Clients } from '@/components/list/client';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { getClients } from '@/fetch-data/clients';
