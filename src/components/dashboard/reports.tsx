@@ -18,22 +18,22 @@ export function SalesOnlyReport({ data }: ReportData) {
   return (
     <>
       <span className="text-sm mt-6 font-bold">Ventas</span>
-      <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-2 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs sm:grid-cols-2 lg:grid-cols-4">
+      <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-2 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <Card>
           <CardHeader>
             <CardDescription>Ganancia</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums text-blue-700 dark:text-blue-300">
+            <CardTitle className="text-lg font-semibold tabular-nums text-blue-700 dark:text-blue-300">
               <span>C${formatNumber(profit)}</span>
             </CardTitle>
           </CardHeader>
           <CardFooter className="text-xs text-muted-foreground">
-            10% = C${formatNumber(profit * 0.1)}
+            C${formatNumber(profit * 0.1)} (10%)
           </CardFooter>
         </Card>
         <Card>
           <CardHeader>
             <CardDescription>Al contado</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
+            <CardTitle className="text-lg font-semibold tabular-nums">
               C${formatNumber(data.salesContado)}
             </CardTitle>
           </CardHeader>
@@ -44,7 +44,7 @@ export function SalesOnlyReport({ data }: ReportData) {
         <Card>
           <CardHeader>
             <CardDescription>Al crédito</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
+            <CardTitle className="text-lg font-semibold tabular-nums">
               C${formatNumber(data.salesCreditAbonos)}
             </CardTitle>
           </CardHeader>
@@ -55,7 +55,7 @@ export function SalesOnlyReport({ data }: ReportData) {
         <Card>
           <CardHeader>
             <CardDescription>Costos</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
+            <CardTitle className="text-lg font-semibold tabular-nums">
               C${formatNumber(data.salesCosts)}
             </CardTitle>
           </CardHeader>
@@ -74,22 +74,22 @@ export function OrdersOnlyReport({ data }: ReportData) {
   return (
     <>
       <span className="text-sm mt-6 font-bold">Pedidos</span>
-      <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-2 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs sm:grid-cols-2 lg:grid-cols-4">
+      <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-2 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         <Card>
           <CardHeader>
             <CardDescription>Ganancia</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums text-blue-700 dark:text-blue-300">
+            <CardTitle className="text-lg font-semibold tabular-nums text-blue-700 dark:text-blue-300">
               ${formatNumber(profit)}
             </CardTitle>
           </CardHeader>
           <CardFooter className="text-xs text-muted-foreground">
-            10% = ${formatNumber(profit * 0.1)}
+            ${formatNumber(profit * 0.1)} (10%)
           </CardFooter>
         </Card>
         <Card>
           <CardHeader>
             <CardDescription>Ingresos</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
+            <CardTitle className="text-lg font-semibold tabular-nums">
               ${formatNumber(data.totalOrdersInDollars)}
             </CardTitle>
           </CardHeader>
@@ -100,7 +100,7 @@ export function OrdersOnlyReport({ data }: ReportData) {
         <Card>
           <CardHeader>
             <CardDescription>Costos</CardDescription>
-            <CardTitle className="text-2xl font-semibold tabular-nums">
+            <CardTitle className="text-lg font-semibold tabular-nums">
               ${formatNumber(data.ordersCostsInDollars)}
             </CardTitle>
           </CardHeader>
