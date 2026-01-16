@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
 import { formatNumber, formatDateShort } from '@/lib/formatters';
-import { getSaleReceiptPdf } from '@/fetch-data/sales';
+import { getSaleReceiptPdf } from '@/fetch-data/sale';
 import { loadFonts } from '@/lib/load-fonts';
 import { sanitizeFilename } from '@/lib/sanitize-filename';
 

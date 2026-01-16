@@ -1,5 +1,5 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { CreateTareaForm } from '@/components/forms/tareas/create';
+import { CreateTareaForm } from '@/components/form/tareas/create';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 

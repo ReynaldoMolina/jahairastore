@@ -16,7 +16,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import LogoutForm from '../forms/login/logout-form';
+import LogoutForm from '../form/login/logout-form';
 import Link from 'next/link';
 import { ChangeTheme } from '../change-theme';
 import { isDemo } from '@/middleware';

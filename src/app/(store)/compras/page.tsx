@@ -1,9 +1,9 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { SearchInput } from '@/components/filters/search-input';
+import { SearchInput } from '@/components/filter/search-input';
 import { Purchases } from '@/components/list/purchase';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getPurchases } from '@/fetch-data/purchases';
+import { getPurchases } from '@/fetch-data/purchase';
 import { PageProps } from '@/types/types';
 
 export const metadata = {

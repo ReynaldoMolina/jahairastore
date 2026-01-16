@@ -1,10 +1,10 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { SearchInput } from '@/components/filters/search-input';
+import { SearchInput } from '@/components/filter/search-input';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';
 import { Ajustes } from '@/components/list/ajustes-inventario';
-import { getAjustesInventario } from '@/fetch-data/ajustes';
+import { getAjustesInventario } from '@/fetch-data/ajuste';
 
 export const metadata = {
   title: 'Ajuste de inventario',

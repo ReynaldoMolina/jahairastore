@@ -1,8 +1,8 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditReceiptForm } from '@/components/forms/receipt/edit';
+import { EditReceiptForm } from '@/components/form/receipt/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getReceiptById } from '@/fetch-data/receipts';
+import { getReceiptById } from '@/fetch-data/receipt';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 

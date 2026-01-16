@@ -1,9 +1,9 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditSaleDetailDialog } from '@/components/forms/sale/detail/detail';
+import { EditSaleDetailDialog } from '@/components/form/sale/detail/detail';
 import {
   getSaleDetailById,
   getSaleIdUbicacion,
-} from '@/fetch-data/sales-detail';
+} from '@/fetch-data/sale-detail';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 

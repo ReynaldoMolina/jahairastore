@@ -1,5 +1,5 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditPurchaseDetailDialog } from '@/components/forms/purchase/detail/detail';
+import { EditPurchaseDetailDialog } from '@/components/form/purchase/detail/detail';
 import {
   getPurchaseDetailById,
   getPurchaseIdUbicacion,

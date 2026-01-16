@@ -1,8 +1,8 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditProviderForm } from '@/components/forms/provider/edit';
+import { EditProviderForm } from '@/components/form/provider/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getProviderById } from '@/fetch-data/providers';
+import { getProviderById } from '@/fetch-data/provider';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 

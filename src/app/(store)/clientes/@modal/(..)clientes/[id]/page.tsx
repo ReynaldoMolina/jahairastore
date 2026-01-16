@@ -1,6 +1,6 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditClientFormDialog } from '@/components/forms/client/edit-dialog';
-import { getClientById } from '@/fetch-data/clients';
+import { EditClientFormDialog } from '@/components/form/client/edit-dialog';
+import { getClientById } from '@/fetch-data/client';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 

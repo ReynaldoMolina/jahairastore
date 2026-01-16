@@ -1,10 +1,10 @@
 export const dynamic = 'force-dynamic';
 
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { CreateExpenseForm } from '@/components/forms/expense/create';
+import { CreateExpenseForm } from '@/components/form/expense/create';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getExpenseProviderById } from '@/fetch-data/expenses';
+import { getExpenseProviderById } from '@/fetch-data/expense';
 import { getSettingsCambioDolar } from '@/fetch-data/settings';
 import { PageProps } from '@/types/types';
 

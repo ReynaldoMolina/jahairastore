@@ -1,6 +1,6 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditTareaFormDialog } from '@/components/forms/tareas/edit-dialog';
-import { getTareaById } from '@/fetch-data/tareas';
+import { EditTareaFormDialog } from '@/components/form/tareas/edit-dialog';
+import { getTareaById } from '@/fetch-data/task';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 

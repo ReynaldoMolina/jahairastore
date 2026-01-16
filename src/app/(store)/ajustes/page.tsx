@@ -1,6 +1,6 @@
 export const dynamic = 'force-dynamic';
 
-import { AppSettingsForm } from '@/components/forms/settings/app-settings';
+import { AppSettingsForm } from '@/components/form/settings/app-settings';
 import { getSettings } from '@/fetch-data/settings';
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { SiteHeader } from '@/components/header/site-header';

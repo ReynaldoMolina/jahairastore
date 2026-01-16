@@ -1,5 +1,5 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { HeaderFilter } from '@/components/filters/header-filter';
+import { HeaderFilter } from '@/components/filter/header-filter';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';

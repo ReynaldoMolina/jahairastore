@@ -1,10 +1,10 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { HeaderFilter } from '@/components/filters/header-filter';
-import { SearchInput } from '@/components/filters/search-input';
+import { HeaderFilter } from '@/components/filter/header-filter';
+import { SearchInput } from '@/components/filter/search-input';
 import { Sales } from '@/components/list/sale';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getSales } from '@/fetch-data/sales';
+import { getSales } from '@/fetch-data/sale';
 import { PageProps } from '@/types/types';
 
 export const metadata = {

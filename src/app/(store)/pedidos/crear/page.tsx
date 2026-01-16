@@ -1,8 +1,8 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { CreateOrderForm } from '@/components/forms/order/create';
+import { CreateOrderForm } from '@/components/form/order/create';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getClientsSelect } from '@/fetch-data/clients';
+import { getClientsSelect } from '@/fetch-data/client';
 import {
   getSettingsCambioDolar,
   getSettingsEnvioPrices,

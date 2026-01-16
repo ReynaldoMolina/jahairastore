@@ -1,9 +1,9 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditPurchaseForm } from '@/components/forms/purchase/edit';
+import { EditPurchaseForm } from '@/components/form/purchase/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { getProductsSearchList } from '@/fetch-data/product';
-import { getProvidersSelect, getPurchaseById } from '@/fetch-data/purchases';
+import { getProvidersSelect, getPurchaseById } from '@/fetch-data/purchase';
 import { PageProps } from '@/types/types';
 
 export async function generateMetadata({ params }: PageProps) {

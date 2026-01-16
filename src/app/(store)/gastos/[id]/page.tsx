@@ -1,8 +1,8 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditExpenseForm } from '@/components/forms/expense/edit';
+import { EditExpenseForm } from '@/components/form/expense/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getExpenseById } from '@/fetch-data/expenses';
+import { getExpenseById } from '@/fetch-data/expense';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 

@@ -2,8 +2,8 @@ import { checkAuthorization } from '@/authorization/check-authorization';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';
-import { EditForm } from '@/components/forms/ajuste-inventario/edit';
-import { getAjusteInventarioById } from '@/fetch-data/ajustes';
+import { EditForm } from '@/components/form/ajuste-inventario/edit';
+import { getAjusteInventarioById } from '@/fetch-data/ajuste';
 import { getProductsSearchList } from '@/fetch-data/product';
 
 export async function generateMetadata({ params }: PageProps) {

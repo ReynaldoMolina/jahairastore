@@ -1,9 +1,9 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditDetailDialog } from '@/components/forms/traslado/detail/detail';
+import { EditDetailDialog } from '@/components/form/traslado/detail/detail';
 import {
   getTrasladoDetailById,
   getTrasladoIdUbicacion,
-} from '@/fetch-data/traslados-detail';
+} from '@/fetch-data/transfer-detail';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 

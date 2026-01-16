@@ -1,6 +1,6 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditProviderFormDialog } from '@/components/forms/provider/edit-dialog';
-import { getProviderById } from '@/fetch-data/providers';
+import { EditProviderFormDialog } from '@/components/form/provider/edit-dialog';
+import { getProviderById } from '@/fetch-data/provider';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 

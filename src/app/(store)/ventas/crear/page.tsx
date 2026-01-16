@@ -1,10 +1,10 @@
 export const dynamic = 'force-dynamic';
 
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { CreateSaleForm } from '@/components/forms/sale/create';
+import { CreateSaleForm } from '@/components/form/sale/create';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getClientsSelect } from '@/fetch-data/clients';
+import { getClientsSelect } from '@/fetch-data/client';
 import { getSettingsCambioDolar } from '@/fetch-data/settings';
 
 export const metadata = {

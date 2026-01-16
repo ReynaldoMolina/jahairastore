@@ -2,8 +2,8 @@ import { checkAuthorization } from '@/authorization/check-authorization';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';
-import { getTrasladoById } from '@/fetch-data/traslados';
-import { EditTrasladoForm } from '@/components/forms/traslado/edit';
+import { getTrasladoById } from '@/fetch-data/transfer';
+import { EditTrasladoForm } from '@/components/form/traslado/edit';
 import { getProductsSearchList } from '@/fetch-data/product';
 
 export async function generateMetadata({ params }: PageProps) {

@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditProductFormDialog } from '@/components/forms/product/edit-dialog';
+import { EditProductFormDialog } from '@/components/form/product/edit-dialog';
 import { getProductById } from '@/fetch-data/product';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';

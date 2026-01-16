@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { CreateProductFormDialog } from '@/components/forms/product/create-dialog';
+import { CreateProductFormDialog } from '@/components/form/product/create-dialog';
 import { getSettingsCambioDolar } from '@/fetch-data/settings';
 
 export const metadata = {

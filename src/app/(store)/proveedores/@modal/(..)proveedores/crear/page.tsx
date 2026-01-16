@@ -1,5 +1,5 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { CreateProviderFormDialog } from '@/components/forms/provider/create-dialog';
+import { CreateProviderFormDialog } from '@/components/form/provider/create-dialog';
 
 export const metadata = {
   title: 'Crear proveedor',

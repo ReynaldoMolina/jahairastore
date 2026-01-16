@@ -1,9 +1,9 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditOrderForm } from '@/components/forms/order/edit';
+import { EditOrderForm } from '@/components/form/order/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getClientsSelect } from '@/fetch-data/clients';
-import { getOrderById } from '@/fetch-data/orders';
+import { getClientsSelect } from '@/fetch-data/client';
+import { getOrderById } from '@/fetch-data/order';
 import { getSettingsEnvioPrices } from '@/fetch-data/settings';
 import { PageProps } from '@/types/types';
 

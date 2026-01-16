@@ -1,9 +1,9 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditDetailDialog } from '@/components/forms/ajuste-inventario/detail/detail';
+import { EditDetailDialog } from '@/components/form/ajuste-inventario/detail/detail';
 import {
   getAjusteInventarioDetailById,
   getAjusteInventarioIdUbicacion,
-} from '@/fetch-data/ajustes-detail';
+} from '@/fetch-data/ajuste-detail';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
 
