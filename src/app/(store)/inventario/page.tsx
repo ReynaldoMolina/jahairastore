@@ -40,7 +40,7 @@ export default async function Page({ searchParams }: PageProps) {
         <div className="flex gap-1">
           <SearchInput showScanButton />
           <StockLocationFilter />
-          <ExportInventory data={data} />
+          <ExportInventory data={data} label={label} />
         </div>
         <Products data={data} query={query} totalPages={totalPages} />
       </PageWrapper>

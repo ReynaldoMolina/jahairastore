@@ -27,7 +27,12 @@ interface Product {
   existencias: number;
 }
 
-export function exportToExcel(data: Product[]) {
+interface ExportToExcelProps {
+  data: Product[];
+  label: string;
+}
+
+export function exportToExcel({ data, label }: ExportToExcelProps) {
   if (!data || !data.length) return;
 
   // Map only the fields we want
@@ -35,10 +40,26 @@ export function exportToExcel(data: Product[]) {
     Id: id,
     Nombre: nombre,
     Existencias: existencias,
+    Hay: null,
+    Diferencia: 0,
   }));
 
   // Generate worksheet
   const worksheet = XLSX.utils.json_to_sheet(rows);
+
+  // 2. Aplicamos la lógica: Si Hay (D) está vacío, Diferencia (E) es 0
+  rows.forEach((_, index) => {
+    const rowIndex = index + 2; // +2 porque la fila 1 son los encabezados
+    const cellHay = `D${rowIndex}`;
+    const cellExistencias = `C${rowIndex}`;
+    const cellDiferencia = `E${rowIndex}`;
+
+    worksheet[cellDiferencia] = {
+      t: 'n',
+      // Fórmula: SI D(n) está vacío (""), entonces 0, de lo contrario C(n) - D(n)
+      f: `IF(ISBLANK(${cellHay}), 0, ${cellExistencias}-${cellHay})`,
+    };
+  });
 
   // Optional: auto-size columns
   const colWidths = Object.keys(rows[0]).map((key) => ({
@@ -48,13 +69,13 @@ export function exportToExcel(data: Product[]) {
 
   // Create workbook and append worksheet
   const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Inventario');
+  XLSX.utils.book_append_sheet(workbook, worksheet, label);
 
   /* local date & time for filename */
   const now = new Date();
   const pad = (n: number) => n.toString().padStart(2, '0');
 
-  const fileName = `Inventario ${now.getFullYear()}-${pad(
+  const fileName = `Inventario ${label} ${now.getFullYear()}-${pad(
     now.getMonth() + 1
   )}-${pad(now.getDate())} ${pad(now.getHours())}-${pad(
     now.getMinutes()
@@ -66,9 +87,12 @@ export function exportToExcel(data: Product[]) {
 
 interface ExportInventoryProps {
   data: Product[];
+  label: string;
 }
 
-export function ExportInventory({ data }: ExportInventoryProps) {
+export function ExportInventory({ data, label }: ExportInventoryProps) {
+  const isPlural = data.length > 1;
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -78,14 +102,17 @@ export function ExportInventory({ data }: ExportInventoryProps) {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Exportar inventario</AlertDialogTitle>
+          <AlertDialogTitle>Exportar inventario - {label}</AlertDialogTitle>
           <AlertDialogDescription>
-            Se va a exportar el inventario a un archivo de Excel.
+            {`
+            Se ${isPlural ? 'van' : 'va'} a exportar ${data.length} ${
+              isPlural ? 'productos' : 'producto'
+            } a un archivo de Excel.`}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <AlertDialogAction onClick={() => exportToExcel(data)}>
+          <AlertDialogAction onClick={() => exportToExcel({ data, label })}>
             Exportar
           </AlertDialogAction>
         </AlertDialogFooter>
