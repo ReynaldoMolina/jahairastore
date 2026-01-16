@@ -25,7 +25,7 @@ import { FieldGroup, FieldSet } from '@/components/ui/field';
 import { FormSelect } from '@/components/form-element/form-select';
 import { FormCardFooter } from '@/components/form-element/form-footer';
 import { Form } from '@/components/ui/form';
-import WhatsAppIcon from '@/components/icons/whatsapp.svg';
+import WhatsAppIcon from '@/components/icon/whatsapp.svg';
 
 interface OrderShipping {
   order: OrderById;
