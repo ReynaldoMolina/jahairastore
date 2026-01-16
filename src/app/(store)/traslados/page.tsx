@@ -1,10 +1,8 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { SearchInput } from '@/components/filter/search-input';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';
-import { Traslados } from '@/components/list/transfer';
-import { getTraslados } from '@/fetch-data/transfer';
+import { Wrapper } from '@/components/list/wrapper/transfer';
 
 export const metadata = {
   title: 'Traslado de productos',
@@ -12,8 +10,6 @@ export const metadata = {
 
 export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
-
-  const { data, query, totalPages } = await getTraslados(await searchParams);
 
   return (
     <>
@@ -23,7 +19,7 @@ export default async function Page({ searchParams }: PageProps) {
         hideBackButton
       />
       <PageWrapper>
-        <Traslados data={data} query={query} totalPages={totalPages} />
+        <Wrapper searchParams={await searchParams} />
       </PageWrapper>
     </>
   );

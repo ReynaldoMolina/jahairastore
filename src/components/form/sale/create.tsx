@@ -38,7 +38,7 @@ export function CreateSaleForm({ selectOptions, cambioDolar }: CreateSaleForm) {
       credito: false,
       cambioDolar: cambioDolar,
       saldo: 0,
-      idUbicacion: 1,
+      idUbicacion: undefined,
     },
   });
 

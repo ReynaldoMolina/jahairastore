@@ -1,10 +1,11 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { SearchInput } from '@/components/filter/search-input';
-import { Receipts } from '@/components/list/receipt';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getReceipts } from '@/fetch-data/receipt';
 import { PageProps } from '@/types/types';
+import { Suspense } from 'react';
+import { Spinner } from '@/components/ui/spinner';
+import { Wrapper } from '@/components/list/wrapper/receipt';
 
 export const metadata = {
   title: 'Recibos',
@@ -12,8 +13,6 @@ export const metadata = {
 
 export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
-
-  const { data, query, totalPages } = await getReceipts(await searchParams);
 
   return (
     <>
@@ -25,7 +24,9 @@ export default async function Page({ searchParams }: PageProps) {
       />
       <PageWrapper>
         <SearchInput />
-        <Receipts data={data} query={query} totalPages={totalPages} />
+        <Suspense fallback={<Spinner className="m-auto" />}>
+          <Wrapper searchParams={await searchParams} />
+        </Suspense>
       </PageWrapper>
     </>
   );

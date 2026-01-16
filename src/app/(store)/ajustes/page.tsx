@@ -5,6 +5,9 @@ import { getSettings } from '@/fetch-data/settings';
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { SiteHeader } from '@/components/header/site-header';
 import { PageWrapper } from '@/components/page-wrapper';
+import { Suspense } from 'react';
+import { Spinner } from '@/components/ui/spinner';
+import { Wrapper } from '@/components/list/wrapper/settings';
 
 export const metadata = {
   title: 'Ajustes',
@@ -13,13 +16,13 @@ export const metadata = {
 export default async function Page() {
   await checkAuthorization();
 
-  const data = await getSettings();
-
   return (
     <>
       <SiteHeader title="Ajustes" hideBackButton />
       <PageWrapper>
-        <AppSettingsForm data={data} />
+        <Suspense fallback={<Spinner className="m-auto" />}>
+          <Wrapper />
+        </Suspense>
       </PageWrapper>
     </>
   );

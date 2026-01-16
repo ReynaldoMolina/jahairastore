@@ -32,8 +32,8 @@ export function CreateTrasladoForm({}: CreateTrasladoFormProps) {
     resolver: zodResolver(trasladoSchema),
     defaultValues: {
       fecha: currentDate,
-      idUbicacionOrigen: 1,
-      idUbicacionDestino: 2,
+      idUbicacionOrigen: undefined,
+      idUbicacionDestino: undefined,
     },
   });
 

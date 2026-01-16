@@ -57,7 +57,7 @@ export function SaleForm({
         />
         <FormSelect
           control={form.control}
-          label="Almacén"
+          label="Ubicación"
           name="idUbicacion"
           description="De qué inventario salen los productos."
           options={ubicaciones}

@@ -1,11 +1,12 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { HeaderFilter } from '@/components/filter/header-filter';
 import { SearchInput } from '@/components/filter/search-input';
-import { Orders } from '@/components/list/order';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getOrders } from '@/fetch-data/order';
 import { PageProps } from '@/types/types';
+import { Suspense } from 'react';
+import { Spinner } from '@/components/ui/spinner';
+import { Wrapper } from '@/components/list/wrapper/order';
 
 export const metadata = {
   title: 'Pedidos',
@@ -14,8 +15,6 @@ export const metadata = {
 export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
 
-  const { data, query, totalPages } = await getOrders(await searchParams);
-
   return (
     <>
       <SiteHeader title="Pedidos" showHeaderActions hideBackButton>
@@ -23,7 +22,9 @@ export default async function Page({ searchParams }: PageProps) {
       </SiteHeader>
       <PageWrapper>
         <SearchInput />
-        <Orders data={data} query={query} totalPages={totalPages} />
+        <Suspense fallback={<Spinner />}>
+          <Wrapper searchParams={await searchParams} />
+        </Suspense>
       </PageWrapper>
     </>
   );

@@ -32,7 +32,7 @@ export function CreateForm({}: CreateFormProps) {
     resolver: zodResolver(ajusteInventarioSchema),
     defaultValues: {
       fecha: currentDate,
-      idUbicacion: 1,
+      idUbicacion: undefined,
       motivo: '',
     },
   });

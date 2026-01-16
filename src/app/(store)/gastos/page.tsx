@@ -1,10 +1,11 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { SearchInput } from '@/components/filter/search-input';
-import { Expenses } from '@/components/list/expense';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getExpenses } from '@/fetch-data/expense';
 import { PageProps } from '@/types/types';
+import { Suspense } from 'react';
+import { Spinner } from '@/components/ui/spinner';
+import { Wrapper } from '@/components/list/wrapper/expense';
 
 export const metadata = {
   title: 'Gastos',
@@ -12,8 +13,6 @@ export const metadata = {
 
 export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
-
-  const { data, query, totalPages } = await getExpenses(await searchParams);
 
   return (
     <>
@@ -25,7 +24,9 @@ export default async function Page({ searchParams }: PageProps) {
       />
       <PageWrapper>
         <SearchInput />
-        <Expenses data={data} query={query} totalPages={totalPages} />
+        <Suspense fallback={<Spinner className="m-auto" />}>
+          <Wrapper searchParams={await searchParams} />
+        </Suspense>
       </PageWrapper>
     </>
   );

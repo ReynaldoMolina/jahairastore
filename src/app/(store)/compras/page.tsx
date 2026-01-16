@@ -1,10 +1,11 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { SearchInput } from '@/components/filter/search-input';
-import { Purchases } from '@/components/list/purchase';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getPurchases } from '@/fetch-data/purchase';
 import { PageProps } from '@/types/types';
+import { Suspense } from 'react';
+import { Wrapper } from '@/components/list/wrapper/purchase';
+import { Spinner } from '@/components/ui/spinner';
 
 export const metadata = {
   title: 'Compras',
@@ -13,14 +14,14 @@ export const metadata = {
 export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
 
-  const { data, query, totalPages } = await getPurchases(await searchParams);
-
   return (
     <>
       <SiteHeader title="Compras" showHeaderActions hideBackButton />
       <PageWrapper>
-        <SearchInput />
-        <Purchases data={data} query={query} totalPages={totalPages} />
+        <Suspense fallback={<Spinner className="m-auto" />}>
+          <SearchInput />
+          <Wrapper searchParams={await searchParams} />
+        </Suspense>
       </PageWrapper>
     </>
   );

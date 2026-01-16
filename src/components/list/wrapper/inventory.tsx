@@ -5,15 +5,12 @@ import { Products } from '../product';
 import { getProducts } from '@/fetch-data/product';
 import { SearchParamsProps } from '@/types/types';
 
-interface InventoryProps {
+interface WrapperProps {
   searchParams: SearchParamsProps;
   ubicacionLabel: string;
 }
 
-export async function Inventory({
-  searchParams,
-  ubicacionLabel,
-}: InventoryProps) {
+export async function Wrapper({ searchParams, ubicacionLabel }: WrapperProps) {
   const { data, query, totalPages } = await getProducts(searchParams);
 
   return (

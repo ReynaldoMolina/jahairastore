@@ -1,10 +1,11 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
 import { SearchInput } from '@/components/filter/search-input';
-import { Clients } from '@/components/list/client';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getClients } from '@/fetch-data/client';
 import { PageProps } from '@/types/types';
+import { Suspense } from 'react';
+import { Spinner } from '@/components/ui/spinner';
+import { Wrapper } from '@/components/list/wrapper/client';
 
 export const metadata = {
   title: 'Clientes',
@@ -13,14 +14,14 @@ export const metadata = {
 export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
 
-  const { data, query, totalPages } = await getClients(await searchParams);
-
   return (
     <>
       <SiteHeader title="Clientes" showHeaderActions hideBackButton />
       <PageWrapper>
         <SearchInput />
-        <Clients data={data} query={query} totalPages={totalPages} />
+        <Suspense fallback={<Spinner className="m-auto" />}>
+          <Wrapper searchParams={await searchParams} />
+        </Suspense>
       </PageWrapper>
     </>
   );

@@ -33,7 +33,7 @@ export function CreatePurchaseForm({ selectOptions }: CreatePurchaseForm) {
     defaultValues: {
       idProveedor: 0,
       fecha: currentDate,
-      idUbicacion: 1,
+      idUbicacion: undefined,
     },
   });
 

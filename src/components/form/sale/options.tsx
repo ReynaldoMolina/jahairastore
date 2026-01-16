@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Copy, Download, Eye, MessageCircle } from 'lucide-react';
+import { Copy, Download, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Item,
@@ -15,7 +15,7 @@ import { Spinner } from '@/components/ui/spinner';
 import { SaleById } from '@/types/types';
 import Link from 'next/link';
 import { CardTitle } from '@/components/ui/card';
-import WhatsAppIcon from '@/components/icons/whatsapp.svg';
+import WhatsAppIcon from '@/components/icon/whatsapp.svg';
 
 interface SaleOptions {
   sale: SaleById;

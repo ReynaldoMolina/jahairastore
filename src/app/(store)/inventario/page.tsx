@@ -3,9 +3,9 @@ import { HeaderFilter } from '@/components/filter/header-filter';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';
-import { Inventory } from '@/components/list/wrapper/inventory';
 import { Suspense } from 'react';
 import { Spinner } from '@/components/ui/spinner';
+import { Wrapper } from '@/components/list/wrapper/inventory';
 
 export async function generateMetadata({ searchParams }: PageProps) {
   const ubicacion = (await searchParams).ubicacion || '';
@@ -35,7 +35,7 @@ export default async function Page({ searchParams }: PageProps) {
       </SiteHeader>
       <PageWrapper>
         <Suspense fallback={<Spinner className="m-auto" />}>
-          <Inventory
+          <Wrapper
             searchParams={await searchParams}
             ubicacionLabel={ubicacionLabel}
           />

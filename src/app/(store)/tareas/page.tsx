@@ -6,6 +6,9 @@ import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { getTareas } from '@/fetch-data/task';
 import { PageProps } from '@/types/types';
+import { Suspense } from 'react';
+import { Spinner } from '@/components/ui/spinner';
+import { Wrapper } from '@/components/list/wrapper/task';
 
 export const metadata = {
   title: 'Tareas',
@@ -14,8 +17,6 @@ export const metadata = {
 export default async function Page({ searchParams }: PageProps) {
   await checkAuthorization();
 
-  const { data, query, totalPages } = await getTareas(await searchParams);
-
   return (
     <>
       <SiteHeader title="Tareas" showHeaderActions hideBackButton>
@@ -23,7 +24,9 @@ export default async function Page({ searchParams }: PageProps) {
       </SiteHeader>
       <PageWrapper>
         <SearchInput />
-        <Tareas data={data} query={query} totalPages={totalPages} />
+        <Suspense fallback={<Spinner className="m-auto" />}>
+          <Wrapper searchParams={await searchParams} />
+        </Suspense>
       </PageWrapper>
     </>
   );

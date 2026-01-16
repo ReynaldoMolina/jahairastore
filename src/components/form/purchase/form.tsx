@@ -54,7 +54,7 @@ export function PurchaseForm({
         />
         <FormSelect
           control={form.control}
-          label="Almacén"
+          label="Ubicación"
           name="idUbicacion"
           description="A qué inventario entran los productos."
           options={ubicaciones}
