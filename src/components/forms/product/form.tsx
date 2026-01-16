@@ -23,13 +23,24 @@ import { FormInput } from '@/components/form-elements/form-input';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, ScanBarcode } from 'lucide-react';
+import { BarcodeScanner } from '@/components/barcode-scanner';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { useState } from 'react';
 
 interface ProductForm {
   form: UseFormReturn<z.infer<typeof productSchema>>;
 }
 
 export function ProductForm({ form }: ProductForm) {
+  const [open, setOpen] = useState(false);
   const {
     precioEnCordobas,
     precioVenta,
@@ -59,14 +70,41 @@ export function ProductForm({ form }: ProductForm) {
         />
         <FormInput control={form.control} name="fecha" label="Fecha" />
       </FieldSet>
+
       <FieldSet>
         <FormTextArea control={form.control} name="nombre" label="Nombre" />
-        <FormInput
-          control={form.control}
-          name="codigo"
-          label="Código de barra"
-        />
+        <div className="inline-flex gap-1 items-end">
+          <FormInput
+            control={form.control}
+            name="codigo"
+            label="Código de barra"
+          />
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="icon">
+                <ScanBarcode />
+              </Button>
+            </DialogTrigger>
+
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Escanear producto</DialogTitle>
+                <DialogDescription>
+                  Enfoca el código de barra en el centro
+                </DialogDescription>
+              </DialogHeader>
+
+              <BarcodeScanner
+                onScan={(value) => {
+                  form.setValue('codigo', value);
+                  setOpen(false);
+                }}
+              />
+            </DialogContent>
+          </Dialog>
+        </div>
       </FieldSet>
+
       <FieldSeparator />
       <FieldSet>
         <FieldLegend>Precios</FieldLegend>
@@ -144,30 +182,30 @@ export function ProductForm({ form }: ProductForm) {
         </>
       )}
 
-      <FormInputReadOnly
-        value={isNaN(ganancia) ? 0 : formatNumber(ganancia)}
-        label="Ganancia"
-        textAddon={precioEnCordobas ? 'C$' : '$'}
-      />
-
-      <FieldSeparator />
-
       <FieldSet>
-        <FieldLegend>Otros datos</FieldLegend>
-        <FieldDescription>Datos complementarios.</FieldDescription>
+        <FormInputReadOnly
+          value={isNaN(ganancia) ? 0 : formatNumber(ganancia)}
+          label="Ganancia"
+          textAddon={precioEnCordobas ? 'C$' : '$'}
+        />
         <FormInput
           control={form.control}
           name="cambioDolar"
           label="Cambio USD"
           textAddon="C$"
         />
+      </FieldSet>
+
+      <FieldSeparator />
+
+      <FieldSet>
+        <FieldLegend>Imagen</FieldLegend>
+        <FieldDescription>
+          Ingresa la url de la imagen del producto.
+        </FieldDescription>
 
         <div className="flex gap-1 items-end">
-          <FormInput
-            control={form.control}
-            name="imagenUrl"
-            label="Imagen (URL)"
-          />
+          <FormInput control={form.control} name="imagenUrl" label="URL" />
           {imagenUrl && (
             <Button variant="outline" size="icon">
               <Link href={imagenUrl} target="_blank">
