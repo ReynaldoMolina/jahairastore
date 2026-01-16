@@ -141,6 +141,7 @@ export function Expenses({ data, query, totalPages }: Expenses) {
             <TableHead>Fecha</TableHead>
             <TableHead>Gasto</TableHead>
             <TableHead>Compra</TableHead>
+            <TableHead>Concepto</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -191,6 +192,9 @@ export function Expenses({ data, query, totalPages }: Expenses) {
                     {register.idCompra}
                   </Badge>
                 </TableCell>
+                <TableCell className="max-w-50 truncate overflow-ellipsis">
+                  {register.concepto}
+                </TableCell>
               </TableRow>
             );
           })}
@@ -203,6 +207,7 @@ export function Expenses({ data, query, totalPages }: Expenses) {
             <TableCell>
               <ListItem value={totals.gasto} color="red" />
             </TableCell>
+            <TableCell></TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableFooter>
