@@ -2,7 +2,7 @@
 
 import React, { startTransition, useActionState } from 'react';
 import { formatNumber } from '@/lib/formatters';
-import { Copy, Info } from 'lucide-react';
+import { Copy, Info, SendHorizonal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { calculateTotals } from '@/lib/calculate-totals';
@@ -25,7 +25,6 @@ import { FieldGroup, FieldSet } from '@/components/ui/field';
 import { FormSelect } from '@/components/form-element/form-select';
 import { FormCardFooter } from '@/components/form-element/form-footer';
 import { Form } from '@/components/ui/form';
-import WhatsAppIcon from '@/components/icon/whatsapp.svg';
 
 interface OrderShipping {
   order: OrderById;
@@ -219,7 +218,7 @@ function WhatsAppButton({ message, phoneNumber }: WhatsAppButton) {
   return (
     <Button type="button" variant="outline" asChild>
       <Link href={whatsAppUrl} target="_blank" rel="noopener noreferrer">
-        <WhatsAppIcon />
+        <SendHorizonal />
         <label className="text-sm">Enviar</label>
       </Link>
     </Button>

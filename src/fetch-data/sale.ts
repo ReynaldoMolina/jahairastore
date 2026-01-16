@@ -51,8 +51,15 @@ export async function getSales(searchParams: SearchParamsProps) {
 
   const filterBySearch = buildSearchFilterByClient(searchParams);
 
+  const saldoCalculated = sql<number>`
+    CASE 
+      WHEN ${venta.credito} = false THEN 0 
+      ELSE ROUND(COALESCE("ventas"."total", 0)::numeric, 2)::float - COALESCE(${venta.abono}, 0)::float 
+    END
+  `;
+
   const filterByState = state
-    ? gt(sql<number>`ROUND(${venta.saldo}::numeric, 2)::float`, 0.01)
+    ? gt(saldoCalculated, 0) // Filter using the calculation, not the column
     : undefined;
 
   const { ventasTotal, compras } = getTotal();

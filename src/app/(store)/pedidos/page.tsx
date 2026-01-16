@@ -22,7 +22,7 @@ export default async function Page({ searchParams }: PageProps) {
       </SiteHeader>
       <PageWrapper>
         <SearchInput />
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<Loading />}>
           <Wrapper searchParams={await searchParams} />
         </Suspense>
       </PageWrapper>
