@@ -7,7 +7,7 @@ import { SiteHeader } from '@/components/header/site-header';
 import { getTareas } from '@/fetch-data/task';
 import { PageProps } from '@/types/types';
 import { Suspense } from 'react';
-import { Spinner } from '@/components/ui/spinner';
+import Loading from '@/components/loading';
 import { Wrapper } from '@/components/list/wrapper/task';
 
 export const metadata = {
@@ -24,7 +24,7 @@ export default async function Page({ searchParams }: PageProps) {
       </SiteHeader>
       <PageWrapper>
         <SearchInput />
-        <Suspense fallback={<Spinner className="m-auto" />}>
+        <Suspense fallback={<Loading />}>
           <Wrapper searchParams={await searchParams} />
         </Suspense>
       </PageWrapper>

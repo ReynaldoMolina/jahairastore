@@ -5,7 +5,7 @@ import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';
 import { Wrapper } from '@/components/list/wrapper/sale';
 import { Suspense } from 'react';
-import { Spinner } from '@/components/ui/spinner';
+import Loading from '@/components/loading';
 import { SearchInput } from '@/components/filter/search-input';
 
 export const metadata = {
@@ -21,7 +21,7 @@ export default async function Page({ searchParams }: PageProps) {
         <HeaderFilter listName="ventas" />
       </SiteHeader>
       <PageWrapper>
-        <Suspense fallback={<Spinner className="m-auto" />}>
+        <Suspense fallback={<Loading />}>
           <SearchInput />
           <Wrapper searchParams={await searchParams} />
         </Suspense>

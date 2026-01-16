@@ -5,7 +5,7 @@ import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';
 import { getBusinessInfo, getBusinessName } from '@/fetch-data/settings';
 import { Suspense } from 'react';
-import { Spinner } from '@/components/ui/spinner';
+import Loading from '@/components/loading';
 
 export async function generateMetadata() {
   const businessName = await getBusinessName();
@@ -23,7 +23,7 @@ export default async function Page({ searchParams }: PageProps) {
     <>
       <SiteHeader title={businessInfo.nombreEmpresa} hideBackButton />
       <PageWrapper>
-        <Suspense fallback={<Spinner className="m-auto" />}>
+        <Suspense fallback={<Loading />}>
           <Dashboard searchParams={await searchParams} />
         </Suspense>
       </PageWrapper>

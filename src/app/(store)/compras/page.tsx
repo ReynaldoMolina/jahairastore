@@ -5,7 +5,7 @@ import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';
 import { Suspense } from 'react';
 import { Wrapper } from '@/components/list/wrapper/purchase';
-import { Spinner } from '@/components/ui/spinner';
+import Loading from '@/components/loading';
 
 export const metadata = {
   title: 'Compras',
@@ -18,7 +18,7 @@ export default async function Page({ searchParams }: PageProps) {
     <>
       <SiteHeader title="Compras" showHeaderActions hideBackButton />
       <PageWrapper>
-        <Suspense fallback={<Spinner className="m-auto" />}>
+        <Suspense fallback={<Loading />}>
           <SearchInput />
           <Wrapper searchParams={await searchParams} />
         </Suspense>

@@ -5,7 +5,7 @@ import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';
 import { Suspense } from 'react';
-import { Spinner } from '@/components/ui/spinner';
+import Loading from '@/components/loading';
 import { Wrapper } from '@/components/list/wrapper/order';
 
 export const metadata = {

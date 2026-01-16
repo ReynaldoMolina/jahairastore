@@ -4,7 +4,7 @@ import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
 import { PageProps } from '@/types/types';
 import { Suspense } from 'react';
-import { Spinner } from '@/components/ui/spinner';
+import Loading from '@/components/loading';
 import { Wrapper } from '@/components/list/wrapper/provider';
 
 export const metadata = {
@@ -19,7 +19,7 @@ export default async function Page({ searchParams }: PageProps) {
       <SiteHeader title="Proveedores" showHeaderActions hideBackButton />
       <PageWrapper>
         <SearchInput />
-        <Suspense fallback={<Spinner className="m-auto" />}>
+        <Suspense fallback={<Loading />}>
           <Wrapper searchParams={await searchParams} />
         </Suspense>
       </PageWrapper>
