@@ -45,7 +45,7 @@ export function Products({ data, query, totalPages }: Products) {
 
           return (
             <Link key={register.id} href={`/inventario/${register.id}`}>
-              <Card>
+              <Card className="h-full">
                 <CardContent className="flex justify-center max-h-35 rounded">
                   {register.imagenUrl ? (
                     <Image
@@ -61,8 +61,10 @@ export function Products({ data, query, totalPages }: Products) {
                     </div>
                   )}
                 </CardContent>
-                <CardHeader>
-                  <CardTitle className="text-xs">{register.nombre}</CardTitle>
+                <CardHeader className="flex-1">
+                  <CardTitle className="text-xs line-clamp-2">
+                    {register.nombre}
+                  </CardTitle>
                   <CardDescription className="flex flex-col gap-2">
                     <div className="inline-flex gap-1 overflow-auto items-center">
                       <span className="text-xs">
