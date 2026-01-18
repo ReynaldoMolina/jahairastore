@@ -65,40 +65,37 @@ export function Products({ data, query, totalPages }: Products) {
                     </div>
                   )}
                 </CardContent>
-                <CardHeader className="flex-1">
-                  <CardTitle className="text-xs line-clamp-2">
-                    {register.nombre}
-                  </CardTitle>
-                  <CardDescription className="flex flex-col gap-2">
-                    <div className="inline-flex gap-1 overflow-auto items-center">
-                      <span className="text-xs">
-                        {register.precioEnCordobas ? 'C$ ' : '$ '}
-                        {register.precioEnCordobas
-                          ? formatNumber(
-                              roundToPointZeroOrFive(
-                                register.precioVenta * register.cambioDolar
-                              )
+                <CardHeader>
+                  <CardTitle className="inline-flex gap-1 items-center">
+                    <span>
+                      {register.precioEnCordobas ? 'C$ ' : '$ '}
+                      {register.precioEnCordobas
+                        ? formatNumber(
+                            roundToPointZeroOrFive(
+                              register.precioVenta * register.cambioDolar
                             )
-                          : formatNumber(register.precioVenta)}
-                      </span>
-                      <Badge variant="outline" className="ml-auto">
-                        <Hash />
-                        {register.id}
-                      </Badge>
+                          )
+                        : formatNumber(register.precioVenta)}
+                    </span>
+                    <div className="inline-flex gap-1 ml-auto">
                       {register.codigo && (
-                        <Badge variant="outline">
+                        <Badge variant="outline" className="px-1">
                           <ScanBarcode />
                         </Badge>
                       )}
+                      <Badge variant="outline" className="font-normal">
+                        <Hash />
+                        {register.id}
+                      </Badge>
                     </div>
-                    <span
-                      className={cn(
-                        isSoldOut ? 'text-destructive' : '',
-                        'text-xs'
-                      )}
-                    >
-                      {isSoldOut ? 'Agotado' : `Stock: ${register.existencias}`}
+                  </CardTitle>
+                  <CardDescription className="flex flex-col gap-2">
+                    <span className="text-xs line-clamp-2">
+                      {register.nombre}
                     </span>
+                    <Badge variant={isSoldOut ? 'destructive' : 'outline'}>
+                      {isSoldOut ? 'Agotado' : `Stock: ${register.existencias}`}
+                    </Badge>
                   </CardDescription>
                 </CardHeader>
               </Card>
