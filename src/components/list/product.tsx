@@ -44,7 +44,11 @@ export function Products({ data, query, totalPages }: Products) {
           const isSoldOut = register.existencias <= 0;
 
           return (
-            <Link key={register.id} href={`/inventario/${register.id}`}>
+            <Link
+              key={register.id}
+              href={`/inventario/${register.id}`}
+              scroll={false}
+            >
               <Card className="h-full">
                 <CardContent className="flex justify-center max-h-50 sm:max-h-40 rounded">
                   {register.imagenUrl ? (
