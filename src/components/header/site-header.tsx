@@ -25,6 +25,7 @@ export function SiteHeader({
 
   return (
     <header className="flex sticky top-0 h-12 items-center border-b px-2 md:px-3 gap-1 z-20 bg-background">
+      <SidebarTrigger className="size-9 hidden md:flex" />
       {!hideBackButton && (
         <Button variant="ghost" size="icon" onClick={() => router.back()}>
           <ArrowLeft className="size-4.5" />
@@ -37,7 +38,7 @@ export function SiteHeader({
             {children}
           </HeaderActions>
         )}
-        <SidebarTrigger className="size-9 md:hidden" />
+        <SidebarTrigger className="size-9 md:hidden" variant="outline" />
       </div>
     </header>
   );

@@ -9,9 +9,11 @@ import {
   SidebarGroupContent,
   SidebarHeader,
   SidebarMenu,
+  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
+  SidebarTrigger,
 } from '../ui/sidebar';
 import { NavUser } from './nav-user';
 import { authClient } from '@/lib/auth-client';
@@ -19,6 +21,7 @@ import { useEffect, useState } from 'react';
 import { BusinessInfoType } from '@/types/types';
 import { menuOptions } from './menu-options';
 import Image from 'next/image';
+import { Menu } from 'lucide-react';
 
 interface AppSideBarProps {
   businessInfo: BusinessInfoType;
