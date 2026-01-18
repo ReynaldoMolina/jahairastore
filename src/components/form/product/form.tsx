@@ -207,7 +207,7 @@ export function ProductForm({ form }: ProductForm) {
         <div className="flex gap-1 items-end">
           <FormInput control={form.control} name="imagenUrl" label="URL" />
           {imagenUrl && (
-            <Button variant="outline" size="icon">
+            <Button variant="outline" size="icon" asChild>
               <Link href={imagenUrl} target="_blank">
                 <ExternalLink />
               </Link>
