@@ -42,7 +42,7 @@ export function LoginForm() {
         <CardContent>
           <Button
             type="button"
-            className="w-full"
+            className="w-full cursor-pointer"
             onClick={() =>
               startTransition(async () => {
                 await handleLogin();
