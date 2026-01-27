@@ -1,13 +1,5 @@
-import { MoreVertical } from 'lucide-react';
 import { DeleteDetailButton } from '../form-element/delete-detail-button';
 import { EditDetailButton } from '../form-element/edit-detail-button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
-import { Button } from '../ui/button';
 
 interface DetailOptionsProps {
   path: string;
@@ -23,20 +15,9 @@ export function DetailOptions({
   handleDelete,
 }: DetailOptionsProps) {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon-sm">
-          <MoreVertical />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuGroup>
-          <EditDetailButton
-            href={`/${path}/${registerId}/detalle/${detailId}`}
-          />
-          <DeleteDetailButton handleDelete={() => handleDelete(detailId)} />
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="inline-flex gap-1">
+      <EditDetailButton href={`/${path}/${registerId}/detalle/${detailId}`} />
+      <DeleteDetailButton handleDelete={() => handleDelete(detailId)} />
+    </div>
   );
 }

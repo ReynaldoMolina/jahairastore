@@ -117,14 +117,15 @@ export function ProductForm({ form }: ProductForm) {
       </FieldSet>
 
       <div className={precioEnCordobas ? 'hidden' : 'flex flex-col gap-7'}>
+        <FormInput
+          control={form.control}
+          name="precioCompra"
+          label="Precio compra"
+          textAddon="$"
+          readOnly
+          description="Se calcula al momento de ingresar una compra."
+        />
         <FieldSet className="sm:flex-row">
-          <FormInput
-            control={form.control}
-            name="precioCompra"
-            label="Precio compra"
-            textAddon="$"
-            readOnly
-          />
           <FormInput
             control={form.control}
             name="precioVenta"
@@ -142,20 +143,21 @@ export function ProductForm({ form }: ProductForm) {
 
       {precioEnCordobas && (
         <>
+          <FormInputOnChange
+            value={
+              isNaN(Number(precioCompra))
+                ? ''
+                : roundToTwoDecimals(precioCompra * cambioDolar)
+            }
+            label="Precio compra"
+            handleChange={(val) =>
+              form.setValue('precioCompra', Number(val) / cambioDolar)
+            }
+            textAddon="C$"
+            readOnly
+            description="Se calcula al momento de hacer una compra."
+          />
           <FieldSet className="sm:flex-row">
-            <FormInputOnChange
-              value={
-                isNaN(Number(precioCompra))
-                  ? ''
-                  : roundToTwoDecimals(precioCompra * cambioDolar)
-              }
-              label="Precio compra"
-              handleChange={(val) =>
-                form.setValue('precioCompra', Number(val) / cambioDolar)
-              }
-              textAddon="C$"
-              readOnly
-            />
             <FormInputOnChange
               value={
                 isNaN(Number(precioVenta))

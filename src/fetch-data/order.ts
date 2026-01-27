@@ -40,7 +40,7 @@ export async function getOrders(searchParams: SearchParamsProps) {
       .select({
         idPedido: pedidoDetalle.idPedido,
         total:
-          sql<number>`ROUND(SUM(${pedidoDetalle.precioCompra} * ${pedidoDetalle.cantidad})::numeric, 2)::float`.as(
+          sql<number>`ROUND(SUM(${pedidoDetalle.costo} * ${pedidoDetalle.cantidad})::numeric, 2)::float`.as(
             'total'
           ),
       })

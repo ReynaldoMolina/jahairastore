@@ -68,7 +68,7 @@ export interface SaleById {
     nombre: string;
     precioVenta: number;
     precioVentaPorMayor: number;
-    precioCompra: number;
+    costo: number;
     cantidad: number;
     cambioDolar: number;
     precioPorMayor: boolean;
@@ -91,7 +91,7 @@ export interface SaleDetailType {
   nombreProducto?: string;
   precioVenta: number;
   precioVentaPorMayor: number;
-  precioCompra: number;
+  costo: number;
   cantidad: number;
   cambioDolar: number;
   idVenta: number;
@@ -106,7 +106,7 @@ export interface ProductFormType {
   nombre: string;
   precioEnCordobas: boolean;
   cambioDolar: number;
-  precioCompra: number;
+  costo: number;
   precioVenta: number;
   precioVentaPorMayor: number | null;
   descripcion?: string | null;
@@ -121,8 +121,8 @@ export interface ProductSearchProduct {
   nombre: string;
   codigo: string;
   imagenUrl: string | null;
-  precioCompra: number;
-  precioVenta: number;
+  costo?: number;
+  precioVenta?: number;
   precioVentaPorMayor: number;
   cambioDolar: number;
   existencias: number;
@@ -233,7 +233,7 @@ export interface OrderById {
     idPedido: number;
     nombreProducto: string;
     precioVenta: number;
-    precioCompra: number;
+    costo: number;
     cantidad: number;
     imagenUrl: string | null;
   }[];
@@ -244,7 +244,7 @@ export interface OrderDetailType {
   idPedido: number;
   nombreProducto: string;
   precioVenta: number;
-  precioCompra: number;
+  costo: number;
   cantidad: number;
   imagenUrl: string | null;
 }
@@ -289,12 +289,10 @@ export interface PurchaseDetailType {
   id?: number;
   idProducto: number;
   nombreProducto?: string;
-  precioVenta: number;
-  precioCompra: number;
+  costo: number;
   cantidad: number;
   cambioDolar: number;
   idCompra: number;
-  existencias?: number;
   precioEnCordobas?: boolean;
 }
 
@@ -310,8 +308,7 @@ export interface PurchaseById {
     idCompra: number;
     idProducto: number;
     nombreProducto: string;
-    precioVenta: number;
-    precioCompra: number;
+    costo: number;
     cantidad: number;
     cambioDolar: number;
   }[];

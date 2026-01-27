@@ -18,8 +18,6 @@ import {
   TableHeader,
   TableRow,
 } from '../../ui/table';
-import { formatNumber } from '@/lib/formatters';
-import { bgColors } from '@/lib/bg-colors';
 import { cn } from '@/lib/utils';
 import {
   Card,
@@ -34,7 +32,6 @@ import { Hash } from 'lucide-react';
 
 interface ProductSearchList {
   productData: ProductSearchData;
-  priceToShow: 'precioVenta' | 'precioCompra';
   purchase: PurchaseById;
   selectedProducts: PurchaseDetailType[];
   setSelectedProducts: Dispatch<SetStateAction<PurchaseDetailType[]>>;
@@ -43,7 +40,6 @@ interface ProductSearchList {
 
 export default function ProductSearchList({
   productData,
-  priceToShow,
   purchase,
   selectedProducts,
   setSelectedProducts,
@@ -63,7 +59,6 @@ export default function ProductSearchList({
     return (
       <>
         {productData.products.map((p) => {
-          const price = p[priceToShow] * p.cambioDolar;
           const isAlreadyAdded = detailIds.includes(p.id);
           const isSelected = selectedProducts.some(
             (prod) => prod.idProducto === p.id
@@ -89,9 +84,6 @@ export default function ProductSearchList({
                     <Hash />
                     {p.id}
                   </Badge>
-                  <Badge variant="secondary" className={bgColors.red}>
-                    C$ {formatNumber(price)}
-                  </Badge>
                   {isSoldOut ? (
                     <Badge variant="destructive">Agotado</Badge>
                   ) : (
@@ -106,8 +98,7 @@ export default function ProductSearchList({
                     onCheckedChange={() =>
                       handleCheckedChange({
                         idProducto: p.id,
-                        precioVenta: p.precioVenta,
-                        precioCompra: p.precioCompra,
+                        costo: p.costo,
                         cantidad: 1,
                         cambioDolar: p.cambioDolar,
                         idCompra: purchase.id,
@@ -148,14 +139,12 @@ export default function ProductSearchList({
             <TableHead>Producto</TableHead>
             <TableHead>Cantidad</TableHead>
             <TableHead>Id</TableHead>
-            <TableHead>Precio</TableHead>
-            <TableHead>Disponible</TableHead>
+            <TableHead>Stock</TableHead>
           </TableRow>
         </TableHeader>
 
         <TableBody>
           {productData.products.map((product) => {
-            const price = product[priceToShow] * product.cambioDolar;
             const isAlreadyAdded = detailIds.includes(product.id);
             const isSelected = selectedProducts.some(
               (prod) => prod.idProducto === product.id
@@ -181,8 +170,7 @@ export default function ProductSearchList({
                     onCheckedChange={() =>
                       handleCheckedChange({
                         idProducto: product.id,
-                        precioVenta: product.precioVenta,
-                        precioCompra: product.precioCompra,
+                        costo: product.costo,
                         cantidad: 1,
                         cambioDolar: product.cambioDolar,
                         idCompra: purchase.id,
@@ -212,13 +200,6 @@ export default function ProductSearchList({
                     <Hash />
                     {product.id}
                   </Badge>
-                </TableCell>
-                <TableCell>
-                  <ListItem
-                    value={formatNumber(price)}
-                    color="red"
-                    showPriceInNio
-                  />
                 </TableCell>
                 <TableCell>
                   {isSoldOut ? (

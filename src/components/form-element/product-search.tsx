@@ -14,7 +14,6 @@ import { Button } from '@/components/ui/button';
 import { SearchInput } from '../filter/search-input';
 import { HeaderFilter } from '../filter/header-filter';
 import { Spinner } from '../ui/spinner';
-import { StockLocationFilter } from '../filter/stock-location';
 
 interface ProductSearch {
   children: React.ReactNode;
@@ -34,7 +33,6 @@ export function ProductSearch({
   isPending,
   open,
   setOpen,
-  disableLocationFilter = false,
   idUbicacion,
 }: ProductSearch) {
   const label = idUbicacion === 1 ? 'León' : 'Acoyapa';

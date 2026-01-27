@@ -1,3 +1,4 @@
+import { Trash } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,7 +10,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '../ui/alert-dialog';
-import { DropdownMenuItem } from '../ui/dropdown-menu';
+import { Button } from '../ui/button';
 
 interface DeleteDetailButton {
   handleDelete: () => void;
@@ -19,14 +20,9 @@ export function DeleteDetailButton({ handleDelete }: DeleteDetailButton) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <DropdownMenuItem
-          variant="destructive"
-          onSelect={(e) => {
-            e.preventDefault();
-          }}
-        >
-          Eliminar
-        </DropdownMenuItem>
+        <Button variant="destructive" size="icon-sm">
+          <Trash />
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

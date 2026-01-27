@@ -1,14 +1,9 @@
 import { useServerActionFeedback } from '@/hooks/use-server-status';
-import {
-  createSaleDetail,
-  deleteSaleDetail,
-} from '@/server-actions/sale-detail';
 import { stateDefault } from '@/server-actions/stateMessage';
 import {
   ProductSearchData,
   PurchaseById,
   PurchaseDetailType,
-  SaleDetailType,
   ServerStatus,
 } from '@/types/types';
 import { useState, useTransition, useEffect } from 'react';
@@ -83,7 +78,6 @@ export function FormDetail({ productData, purchase }: FormDetail) {
       >
         <ProductSearchList
           productData={productData}
-          priceToShow="precioCompra"
           purchase={purchase}
           selectedProducts={selectedProducts}
           setSelectedProducts={setSelectedProducts}

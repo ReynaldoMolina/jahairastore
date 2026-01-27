@@ -30,8 +30,7 @@ export const compraDetalle = pgTable('compra_detalle', {
   id: serial('id').primaryKey().notNull(),
   idCompra: integer('id_compra').notNull(),
   idProducto: integer('id_producto').notNull(),
-  precioCompra: doublePrecision('precio_compra').notNull(),
-  precioVenta: doublePrecision('precio_venta').notNull(),
+  costo: doublePrecision('precio_compra').notNull(),
   cantidad: integer('cantidad').notNull(),
   cambioDolar: doublePrecision('cambio_dolar').notNull(),
 });
@@ -72,7 +71,7 @@ export const pedidoDetalle = pgTable('pedido_detalle', {
   idPedido: integer('id_pedido').notNull(),
   nombreProducto: text('nombre_producto'),
   precioVenta: doublePrecision('precio_venta').notNull(),
-  precioCompra: doublePrecision('precio_compra').notNull(),
+  costo: doublePrecision('precio_compra').notNull(),
   cantidad: integer('cantidad').notNull(),
   imagenUrl: text('imagen_url'),
 });
@@ -118,7 +117,7 @@ export const ventaDetalle = pgTable('venta_detalle', {
   precioVentaPorMayor: doublePrecision('precio_venta_por_mayor')
     .notNull()
     .default(0),
-  precioCompra: doublePrecision('precio_compra').notNull(),
+  costo: doublePrecision('precio_compra').notNull(),
   cantidad: integer('cantidad').notNull(),
   cambioDolar: doublePrecision('cambio_dolar').notNull(),
   precioPorMayor: boolean('precio_por_mayor').notNull().default(false),
@@ -130,7 +129,7 @@ export const producto = pgTable('producto', {
   nombre: text('nombre').notNull(),
   imagenUrl: text('imagen_url'),
   descripcion: text('descripcion'),
-  precioCompra: doublePrecision('precio_compra').notNull(),
+  costo: doublePrecision('precio_compra').notNull(),
   precioVenta: doublePrecision('precio_venta').notNull(),
   precioVentaPorMayor: doublePrecision('precio_venta_por_mayor'),
   fecha: date('fecha').notNull(),

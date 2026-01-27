@@ -1,6 +1,6 @@
 import Link from 'next/link';
+import { Button } from '../ui/button';
 import { Pencil } from 'lucide-react';
-import { DropdownMenuItem } from '../ui/dropdown-menu';
 
 interface EditDetailButton {
   href: string;
@@ -8,8 +8,10 @@ interface EditDetailButton {
 
 export function EditDetailButton({ href }: EditDetailButton) {
   return (
-    <DropdownMenuItem asChild>
-      <Link href={href}>Editar</Link>
-    </DropdownMenuItem>
+    <Button variant="outline" size="icon-sm" asChild>
+      <Link href={href}>
+        <Pencil />
+      </Link>
+    </Button>
   );
 }

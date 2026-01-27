@@ -38,10 +38,10 @@ export async function getProducts(searchParams: SearchParamsProps) {
         imagenUrl: producto.imagenUrl,
         precioEnCordobas: producto.precioEnCordobas,
         cambioDolar: producto.cambioDolar,
-        precioCompra: producto.precioCompra,
+        costo: producto.costo,
         precioVenta: producto.precioVenta,
 
-        gananciaUnidad: sql<number>`${producto.precioVenta} - ${producto.precioCompra}`,
+        gananciaUnidad: sql<number>`${producto.precioVenta} - ${producto.costo}`,
 
         existencias: sql<number>`
           (
@@ -128,7 +128,7 @@ export async function getProductsSearchList(
         nombre: producto.nombre,
         codigo: producto.codigo,
         imagenUrl: producto.imagenUrl,
-        precioCompra: producto.precioCompra,
+        costo: producto.costo,
         precioVenta: producto.precioVenta,
         precioVentaPorMayor: producto.precioVentaPorMayor,
         cambioDolar: producto.cambioDolar,

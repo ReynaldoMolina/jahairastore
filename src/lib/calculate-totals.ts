@@ -33,7 +33,7 @@ export function calculateTotals({
           );
     }
 
-    totalCost += element.cantidad * element.precioCompra * exchangeRate;
+    totalCost += element.cantidad * element.costo * exchangeRate;
 
     quantity += element.cantidad;
   }

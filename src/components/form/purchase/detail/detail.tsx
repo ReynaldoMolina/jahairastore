@@ -33,8 +33,7 @@ export function EditPurchaseDetailDialog({ detail }: EditPurchaseDetailDialog) {
     resolver: zodResolver(purchaseDetailSchema),
     defaultValues: {
       idProducto: detail.idProducto,
-      precioVenta: detail.precioVenta,
-      precioCompra: detail.precioCompra,
+      costo: detail.costo,
       cantidad: detail.cantidad,
       cambioDolar: detail.cambioDolar,
       idCompra: detail.idCompra,
@@ -60,7 +59,7 @@ export function EditPurchaseDetailDialog({ detail }: EditPurchaseDetailDialog) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Dialog open={true} onOpenChange={() => router.back()}>
-          <DialogContent className="sm:max-w-120 max-h-[97dvh] overflow-y-auto">
+          <DialogContent className="sm:max-w-xl max-h-[97dvh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Editar producto</DialogTitle>
               <DialogDescription>

@@ -10,8 +10,7 @@ export const purchaseSchema = z.object({
 export const purchaseDetailSchema = z.object({
   idCompra: zNumberMin(),
   idProducto: zNumberMin(),
-  precioCompra: zNumberMin(),
+  costo: zNumberMin(),
   cantidad: zNumberMin(),
-  precioVenta: zNumberMin(),
   cambioDolar: zNumberMin(),
 });

@@ -17,23 +17,11 @@ export async function getPurchases(searchParams: SearchParamsProps) {
   const filterBySearch = buildSearchFilterByProvider(searchParams);
 
   try {
-    const ventas = db
+    const compras = db
       .select({
         idCompra: compraDetalle.idCompra,
         total:
-          sql<number>`SUM(${compraDetalle.precioVenta} * ${compraDetalle.cantidad} * ${compraDetalle.cambioDolar})`.as(
-            'total'
-          ),
-      })
-      .from(compraDetalle)
-      .groupBy(compraDetalle.idCompra)
-      .as('ventas');
-
-    const comprasTotal = db
-      .select({
-        idCompra: compraDetalle.idCompra,
-        total:
-          sql<number>`SUM(${compraDetalle.precioCompra} * ${compraDetalle.cantidad} * ${compraDetalle.cambioDolar})`.as(
+          sql<number>`SUM(${compraDetalle.costo} * ${compraDetalle.cantidad} * ${compraDetalle.cambioDolar})`.as(
             'total'
           ),
       })
@@ -57,15 +45,12 @@ export async function getPurchases(searchParams: SearchParamsProps) {
         id: compra.id,
         nombreProveedor: proveedor.nombreEmpresa,
         fecha: compra.fecha,
-        total: sql<number>`COALESCE("compras"."total", 0)`,
-        gastos: sql<number>`COALESCE("gastos"."total", 0)`,
-        ganancia: sql<number>`COALESCE("ventas"."total", 0) - COALESCE("compras"."total", 0)`,
+        total: sql<number>`round(COALESCE("compras"."total", 0)::numeric - COALESCE("gastos"."total", 0)::numeric, 2)::float`,
       })
       .from(compra)
       .leftJoin(gastos, eq(compra.id, gastos.idCompra))
       .leftJoin(proveedor, eq(compra.idProveedor, proveedor.id))
-      .leftJoin(ventas, eq(compra.id, ventas.idCompra))
-      .leftJoin(comprasTotal, eq(compra.id, comprasTotal.idCompra))
+      .leftJoin(compras, eq(compra.id, compras.idCompra))
       .where(filterBySearch)
       .orderBy(desc(compra.id))
       .limit(limit)
@@ -76,11 +61,12 @@ export async function getPurchases(searchParams: SearchParamsProps) {
       .from(compra)
       .leftJoin(gastos, eq(compra.id, gastos.idCompra))
       .leftJoin(proveedor, eq(compra.idProveedor, proveedor.id))
-      .leftJoin(ventas, eq(compra.id, ventas.idCompra))
-      .leftJoin(comprasTotal, eq(compra.id, comprasTotal.idCompra))
+      .leftJoin(compras, eq(compra.id, compras.idCompra))
       .where(filterBySearch);
 
     const totalPages = Math.ceil(count / limit) || 1;
+
+    console.log(data[0]);
 
     return { data, query, totalPages };
   } catch (error) {
@@ -121,9 +107,8 @@ export async function getPurchaseById(id: number | string) {
         id: compraDetalle.id,
         idCompra: compraDetalle.idCompra,
         idProducto: compraDetalle.idProducto,
-        precioCompra: compraDetalle.precioCompra,
+        costo: compraDetalle.costo,
         cantidad: compraDetalle.cantidad,
-        precioVenta: compraDetalle.precioVenta,
         cambioDolar: compraDetalle.cambioDolar,
         nombreProducto: producto.nombre,
       })

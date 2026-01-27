@@ -43,10 +43,8 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
     return (
       <>
         {purchase.detail.map((detail) => {
-          const { precioVenta, precioCompra, cambioDolar, cantidad } = detail;
-          const subtotalVenta = precioVenta * cambioDolar * cantidad;
-          const subtotalCompra = precioCompra * cambioDolar * cantidad;
-          const ganancia = subtotalVenta - subtotalCompra;
+          const { costo, cambioDolar, cantidad } = detail;
+          const subtotalCompra = costo * cambioDolar * cantidad;
 
           return (
             <Card key={detail.id} className="py-4 gap-4">
@@ -58,7 +56,7 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
                     {detail.idProducto}
                   </Badge>
                   <Badge variant="secondary" className={bgColors.red}>
-                    C$ {formatNumber(detail.precioCompra * detail.cambioDolar)}
+                    C$ {formatNumber(detail.costo * detail.cambioDolar)}
                   </Badge>
                   <Badge variant="outline">Cant: {detail.cantidad}</Badge>
                 </CardDescription>
@@ -75,13 +73,7 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
                 <CardItem
                   value={subtotalCompra}
                   label="Total"
-                  color="red"
-                  showPriceInNio
-                />
-                <CardItem
-                  value={ganancia}
-                  label="Ganancia"
-                  color="blue"
+                  color="neutral"
                   showPriceInNio
                 />
               </CardContent>
@@ -101,14 +93,8 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
             />
             <CardItem
               value={formTotals.totalCost}
-              label="Subtotal"
-              color="red"
-              showPriceInNio
-            />
-            <CardItem
-              value={formTotals.profit}
-              label="Ganancia aprox."
-              color="blue"
+              label="Total"
+              color="neutral"
               showPriceInNio
             />
           </CardContent>
@@ -123,19 +109,16 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
           <TableHead>Producto</TableHead>
           <TableHead>Id</TableHead>
           <TableHead>Cant</TableHead>
-          <TableHead>Precio</TableHead>
+          <TableHead>Costo</TableHead>
           <TableHead>Total</TableHead>
-          <TableHead>Ganancia</TableHead>
-          <TableHead></TableHead>
+          <TableHead>Opciones</TableHead>
         </TableRow>
       </TableHeader>
 
       <TableBody>
         {purchase.detail.map((detail) => {
-          const { precioVenta, precioCompra, cambioDolar, cantidad } = detail;
-          const subtotalVenta = precioVenta * cambioDolar * cantidad;
-          const subtotalCompra = precioCompra * cambioDolar * cantidad;
-          const ganancia = subtotalVenta - subtotalCompra;
+          const { costo, cambioDolar, cantidad } = detail;
+          const subtotalCompra = costo * cambioDolar * cantidad;
 
           return (
             <TableRow
@@ -156,7 +139,7 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
               </TableCell>
               <TableCell>
                 <ListItem
-                  value={detail.precioCompra * detail.cambioDolar}
+                  value={detail.costo * detail.cambioDolar}
                   color="red"
                   showPriceInNio
                 />
@@ -167,9 +150,6 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
                   showPriceInNio
                   color="neutral"
                 />
-              </TableCell>
-              <TableCell>
-                <ListItem value={ganancia} showPriceInNio color="blue" />
               </TableCell>
               <TableCell>
                 <DetailOptions
@@ -199,9 +179,6 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
               color="neutral"
               showPriceInNio
             />
-          </TableCell>
-          <TableCell>
-            <ListItem value={formTotals.profit} showPriceInNio color="blue" />
           </TableCell>
           <TableCell></TableCell>
         </TableRow>

@@ -43,10 +43,10 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
     return (
       <>
         {order.detail.map((detail) => {
-          const { precioVenta, precioCompra, cantidad } = detail;
+          const { precioVenta, costo, cantidad } = detail;
 
           const subtotalVenta = precioVenta * cantidad;
-          const subtotalCompra = precioCompra * cantidad;
+          const subtotalCompra = costo * cantidad;
           const ganancia = subtotalVenta - subtotalCompra;
 
           return (
@@ -124,10 +124,10 @@ export function OrderDetail({ order, handleDelete }: OrderDetail) {
 
       <TableBody>
         {order.detail.map((detail) => {
-          const { precioVenta, precioCompra, cantidad } = detail;
+          const { precioVenta, costo, cantidad } = detail;
 
           const subtotalVenta = precioVenta * cantidad;
-          const subtotalCompra = precioCompra * cantidad;
+          const subtotalCompra = costo * cantidad;
           const ganancia = subtotalVenta - subtotalCompra;
 
           return (

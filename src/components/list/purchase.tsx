@@ -32,8 +32,6 @@ interface Purchases {
     nombreProveedor: string;
     fecha: string;
     total: number;
-    gastos: number;
-    ganancia: number;
   }[];
   query: string;
   totalPages: number;
@@ -48,14 +46,10 @@ export function Purchases({ data, query, totalPages }: Purchases) {
   const totals = data.reduce(
     (acc, item) => {
       acc.total += item.total;
-      acc.gastos += item.gastos;
-      acc.ganancia += item.ganancia;
       return acc;
     },
     {
       total: 0,
-      gastos: 0,
-      ganancia: 0,
     }
   );
 
@@ -81,15 +75,9 @@ export function Purchases({ data, query, totalPages }: Purchases) {
                 </CardHeader>
                 <CardContent>
                   <CardItem
-                    value={register.total + register.gastos}
+                    value={register.total}
                     label="Total"
                     color="red"
-                    showPriceInNio
-                  />
-                  <CardItem
-                    value={register.ganancia}
-                    label="Ganancia"
-                    color="blue"
                     showPriceInNio
                   />
                 </CardContent>
@@ -103,15 +91,9 @@ export function Purchases({ data, query, totalPages }: Purchases) {
           </CardHeader>
           <CardContent>
             <CardItem
-              value={totals.total + totals.gastos}
+              value={totals.total}
               label="Total"
               color="red"
-              showPriceInNio
-            />
-            <CardItem
-              value={totals.ganancia}
-              label="Ganancia"
-              color="blue"
               showPriceInNio
             />
           </CardContent>
@@ -129,7 +111,6 @@ export function Purchases({ data, query, totalPages }: Purchases) {
             <TableHead>Id</TableHead>
             <TableHead>Fecha</TableHead>
             <TableHead>Total</TableHead>
-            <TableHead>Ganancia</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -156,18 +137,7 @@ export function Purchases({ data, query, totalPages }: Purchases) {
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <ListItem
-                    value={register.total + register.gastos}
-                    color="red"
-                    showPriceInNio
-                  />
-                </TableCell>
-                <TableCell>
-                  <ListItem
-                    value={register.ganancia}
-                    color="blue"
-                    showPriceInNio
-                  />
+                  <ListItem value={register.total} color="red" showPriceInNio />
                 </TableCell>
               </TableRow>
             );
@@ -179,14 +149,7 @@ export function Purchases({ data, query, totalPages }: Purchases) {
             <TableCell className="text-xs text-center">{data.length}</TableCell>
             <TableCell></TableCell>
             <TableCell>
-              <ListItem
-                value={totals.total + totals.gastos}
-                color="red"
-                showPriceInNio
-              />
-            </TableCell>
-            <TableCell>
-              <ListItem value={totals.ganancia} color="blue" showPriceInNio />
+              <ListItem value={totals.total} color="red" showPriceInNio />
             </TableCell>
           </TableRow>
         </TableFooter>
