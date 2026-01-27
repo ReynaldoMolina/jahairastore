@@ -1,7 +1,6 @@
 import {
   pgTable,
   serial,
-  varchar,
   text,
   integer,
   date,
@@ -11,8 +10,8 @@ import {
 
 export const cliente = pgTable('cliente', {
   id: serial('id').primaryKey().notNull(),
-  nombre: varchar('nombre', { length: 255 }).notNull(),
-  apellido: varchar('apellido', { length: 255 }).notNull(),
+  nombre: text('nombre').notNull(),
+  apellido: text('apellido').notNull(),
   telefono: text('telefono'),
   direccion: text('direccion'),
 });
@@ -52,7 +51,7 @@ export const gasto = pgTable('gasto', {
   idProveedor: integer('id_proveedor').notNull(),
   fecha: date('fecha').notNull(),
   gasto: doublePrecision('gasto').notNull(),
-  concepto: varchar('concepto', { length: 255 }).notNull(),
+  concepto: text('concepto').notNull(),
   cambioDolar: doublePrecision('cambio_dolar').notNull(),
   enCordobas: boolean('en_cordobas').notNull().default(false),
   anulado: boolean('anulado').notNull().default(false),
@@ -80,9 +79,9 @@ export const pedidoDetalle = pgTable('pedido_detalle', {
 
 export const proveedor = pgTable('proveedor', {
   id: serial('id').primaryKey().notNull(),
-  nombreEmpresa: varchar('nombre_empresa', { length: 255 }).notNull(),
-  telefono: varchar('telefono', { length: 255 }),
-  direccion: varchar('direccion', { length: 255 }),
+  nombreEmpresa: text('nombre_empresa').notNull(),
+  telefono: text('telefono'),
+  direccion: text('direccion'),
 });
 
 export const recibo = pgTable('recibo', {
@@ -195,9 +194,9 @@ export const ubicacion = pgTable('ubicacion', {
 
 export const tarea = pgTable('tarea', {
   id: serial('id').primaryKey().notNull(),
-  tarea: varchar('tarea', { length: 255 }).notNull(),
+  tarea: text('tarea').notNull(),
   fecha_entrega: date('fecha_entrega').notNull(),
-  estado: varchar('estado', { length: 255 }).notNull(),
+  estado: text('estado').notNull(),
 });
 
 export const url = pgTable('url', {

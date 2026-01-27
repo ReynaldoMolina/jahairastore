@@ -43,7 +43,7 @@ export function CreateProductFormDialog({
       idProveedor: null,
       nombre: '',
       descripcion: null,
-      precioCompra: undefined,
+      precioCompra: 0,
       precioVenta: undefined,
       precioVentaPorMayor: 0,
       fecha: currentDate,
