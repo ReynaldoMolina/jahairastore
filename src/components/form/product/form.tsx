@@ -121,14 +121,14 @@ export function ProductForm({ form }: ProductForm) {
           <FormInput
             control={form.control}
             name="precioCompra"
-            label="Compra"
+            label="Precio compra"
             textAddon="$"
             readOnly
           />
           <FormInput
             control={form.control}
             name="precioVenta"
-            label="Venta"
+            label="Precio venta"
             textAddon="$"
           />
           <FormInput
@@ -149,7 +149,7 @@ export function ProductForm({ form }: ProductForm) {
                   ? ''
                   : roundToTwoDecimals(precioCompra * cambioDolar)
               }
-              label="Compra"
+              label="Precio compra"
               handleChange={(val) =>
                 form.setValue('precioCompra', Number(val) / cambioDolar)
               }
@@ -162,7 +162,7 @@ export function ProductForm({ form }: ProductForm) {
                   ? ''
                   : roundToPointZeroOrFive(precioVenta * cambioDolar)
               }
-              label="Venta"
+              label="Precio venta"
               handleChange={(val) =>
                 form.setValue('precioVenta', Number(val) / cambioDolar)
               }
