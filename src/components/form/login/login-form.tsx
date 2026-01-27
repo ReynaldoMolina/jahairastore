@@ -53,7 +53,7 @@ export function LoginForm() {
             {isPending ? (
               <>
                 <Spinner />
-                Iniciando sesión...
+                Iniciar sesión
               </>
             ) : (
               <>
