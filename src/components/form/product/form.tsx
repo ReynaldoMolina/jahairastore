@@ -123,6 +123,7 @@ export function ProductForm({ form }: ProductForm) {
             name="precioCompra"
             label="Compra"
             textAddon="$"
+            readOnly
           />
           <FormInput
             control={form.control}
@@ -153,6 +154,7 @@ export function ProductForm({ form }: ProductForm) {
                 form.setValue('precioCompra', Number(val) / cambioDolar)
               }
               textAddon="C$"
+              readOnly
             />
             <FormInputOnChange
               value={
