@@ -63,12 +63,6 @@ export function ProductForm({ form }: ProductForm) {
           name="idProveedor"
           label="Id proveedor"
         />
-        <FormInput
-          control={form.control}
-          name="descripcion"
-          label="Descripción"
-        />
-        <FormInput control={form.control} name="fecha" label="Fecha" />
       </FieldSet>
 
       <FieldSet>
