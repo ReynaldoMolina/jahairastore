@@ -1,7 +1,13 @@
 'use client';
 
 import { startTransition, useActionState } from 'react';
-import { Card, CardContent } from '../../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '../../ui/card';
 import * as z from 'zod';
 import { updateProduct } from '@/server-actions/product';
 import { ProductFormType } from '@/types/types';
@@ -53,6 +59,12 @@ export function EditProductForm({ product }: EditProductForm) {
         className="max-w-xl w-full mx-auto"
       >
         <Card>
+          <CardHeader>
+            <CardTitle>Producto {product.id}</CardTitle>
+            <CardDescription>
+              Edita la información del producto.
+            </CardDescription>
+          </CardHeader>
           <CardContent>
             <ProductForm form={form} />
           </CardContent>
