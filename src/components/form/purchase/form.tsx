@@ -37,7 +37,6 @@ export function PurchaseForm({
   if (!isNew) {
     const totals = calculateTotals({
       list: purchase.detail,
-      convert: true,
     });
     totalCost = totals.totalCost;
   }

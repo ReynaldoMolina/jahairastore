@@ -34,7 +34,7 @@ export function EditExpenseForm({ expense }: EditExpenseForm) {
       gasto: expense.gasto,
       concepto: expense.concepto,
       cambioDolar: expense.cambioDolar,
-      enCordobas: expense.enCordobas,
+      enDolares: expense.enDolares,
       anulado: expense.anulado,
     },
   });
@@ -56,6 +56,12 @@ export function EditExpenseForm({ expense }: EditExpenseForm) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="max-w-xl w-full">
         <Card>
+          <CardHeader>
+            <CardTitle>Editar gasto</CardTitle>
+            <CardDescription>
+              Actuliza los datos del gasto, click en guardar cuando estés listo.
+            </CardDescription>
+          </CardHeader>
           <CardContent className="space-y-6">
             <ExpenseForm form={form} expense={expense} />
           </CardContent>

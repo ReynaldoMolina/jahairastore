@@ -40,7 +40,6 @@ export function SaleForm({
   if (!isNew) {
     const totals = calculateTotals({
       list: sale.detail,
-      convert: true,
     });
     totalSell = totals.totalSell;
   }
@@ -72,7 +71,7 @@ export function SaleForm({
       <FieldSeparator />
       <FieldSet>
         <FieldLegend>Tipo de venta</FieldLegend>
-        <FieldDescription>Si es al credito o al contado.</FieldDescription>
+        <FieldDescription>Si es al crédito o al contado.</FieldDescription>
         <FormCheck
           control={form.control}
           name="credito"

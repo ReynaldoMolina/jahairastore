@@ -36,7 +36,7 @@ export function EditSaleDetailDialog({ detail }: EditSaleDetailDialog) {
       idProducto: detail.idProducto,
       precioVenta: detail.precioVenta,
       precioVentaPorMayor: detail.precioVentaPorMayor,
-      precioCompra: detail.precioCompra,
+      costo: detail.costo,
       cantidad: detail.cantidad,
       precioPorMayor: detail.precioPorMayor,
       cambioDolar: detail.cambioDolar,

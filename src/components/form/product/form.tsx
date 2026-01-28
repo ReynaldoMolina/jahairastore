@@ -42,18 +42,18 @@ interface ProductForm {
 export function ProductForm({ form }: ProductForm) {
   const [open, setOpen] = useState(false);
   const {
-    precioEnCordobas,
+    precioEnDolares,
     precioVenta,
     precioVentaPorMayor,
-    precioCompra,
+    costo,
     cambioDolar,
     imagenUrl,
   } = form.watch();
 
-  const ganancia = precioEnCordobas
-    ? (roundToPointZeroOrFive(precioVenta * cambioDolar) ?? 0) -
-      (roundToTwoDecimals(precioCompra * cambioDolar) ?? 0)
-    : (precioVenta ?? 0) - (precioCompra ?? 0);
+  const ganancia = precioEnDolares
+    ? (roundToPointZeroOrFive(precioVenta / cambioDolar) ?? 0) -
+      (roundToTwoDecimals(costo / cambioDolar) ?? 0)
+    : (precioVenta ?? 0) - (costo ?? 0);
 
   return (
     <FieldGroup>
@@ -106,55 +106,51 @@ export function ProductForm({ form }: ProductForm) {
       </FieldSet>
 
       <FieldSeparator />
+
       <FieldSet>
         <FieldLegend>Precios</FieldLegend>
         <FieldDescription>Ingresa los datos de precios.</FieldDescription>
         <FormCheck
           control={form.control}
-          name="precioEnCordobas"
-          label="Precio en córdobas"
+          name="precioEnDolares"
+          label="Precio en dólares"
         />
       </FieldSet>
 
-      <div className={precioEnCordobas ? 'hidden' : 'flex flex-col gap-7'}>
+      <FormInput
+        control={form.control}
+        name="costo"
+        label="Precio compra"
+        textAddon="C$"
+        readOnly
+        hidden={precioEnDolares}
+        description="Se calcula al momento de hacer una compra."
+      />
+      <FieldSet className="sm:flex-row" hidden={precioEnDolares}>
         <FormInput
           control={form.control}
-          name="precioCompra"
-          label="Precio compra"
-          textAddon="$"
-          readOnly
-          description="Se calcula al momento de ingresar una compra."
+          name="precioVenta"
+          label="Precio venta"
+          textAddon="C$"
         />
-        <FieldSet className="sm:flex-row">
-          <FormInput
-            control={form.control}
-            name="precioVenta"
-            label="Precio venta"
-            textAddon="$"
-          />
-          <FormInput
-            control={form.control}
-            name="precioVentaPorMayor"
-            label="Venta por mayor"
-            textAddon="$"
-          />
-        </FieldSet>
-      </div>
+        <FormInput
+          control={form.control}
+          name="precioVentaPorMayor"
+          label="Venta por mayor"
+          textAddon="C$"
+        />
+      </FieldSet>
 
-      {precioEnCordobas && (
+      {precioEnDolares && (
         <>
-          <FormInputOnChange
+          <FormInputReadOnly
             value={
-              isNaN(Number(precioCompra))
+              isNaN(Number(costo))
                 ? ''
-                : roundToTwoDecimals(precioCompra * cambioDolar)
+                : roundToTwoDecimals(costo / cambioDolar)
             }
             label="Precio compra"
-            handleChange={(val) =>
-              form.setValue('precioCompra', Number(val) / cambioDolar)
-            }
-            textAddon="C$"
-            readOnly
+            textAddon="$"
             description="Se calcula al momento de hacer una compra."
           />
           <FieldSet className="sm:flex-row">
@@ -162,25 +158,25 @@ export function ProductForm({ form }: ProductForm) {
               value={
                 isNaN(Number(precioVenta))
                   ? ''
-                  : roundToPointZeroOrFive(precioVenta * cambioDolar)
+                  : roundToPointZeroOrFive(precioVenta / cambioDolar)
               }
               label="Precio venta"
               handleChange={(val) =>
-                form.setValue('precioVenta', Number(val) / cambioDolar)
+                form.setValue('precioVenta', Number(val) * cambioDolar)
               }
-              textAddon="C$"
+              textAddon="$"
             />
             <FormInputOnChange
               value={
                 isNaN(Number(precioVentaPorMayor))
                   ? ''
-                  : roundToPointZeroOrFive(precioVentaPorMayor * cambioDolar)
+                  : roundToPointZeroOrFive(precioVentaPorMayor / cambioDolar)
               }
               label="Venta por mayor"
               handleChange={(val) =>
                 form.setValue('precioVentaPorMayor', Number(val) / cambioDolar)
               }
-              textAddon="C$"
+              textAddon="$"
             />
           </FieldSet>
         </>
@@ -190,13 +186,14 @@ export function ProductForm({ form }: ProductForm) {
         <FormInputReadOnly
           value={isNaN(ganancia) ? 0 : formatNumber(ganancia)}
           label="Ganancia"
-          textAddon={precioEnCordobas ? 'C$' : '$'}
+          textAddon={precioEnDolares ? '$' : 'C$'}
         />
         <FormInput
           control={form.control}
           name="cambioDolar"
           label="Cambio USD"
           textAddon="C$"
+          hidden={!precioEnDolares}
         />
       </FieldSet>
 

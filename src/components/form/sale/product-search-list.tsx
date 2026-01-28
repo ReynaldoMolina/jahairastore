@@ -55,8 +55,8 @@ export default function ProductSearchList({
     return (
       <>
         {productData.products.map((p) => {
-          const price = p.precioEnCordobas
-            ? roundToPointZeroOrFive(p.precioVenta * p.cambioDolar)
+          const price = p.precioEnDolares
+            ? roundToPointZeroOrFive(p.precioVenta / p.cambioDolar)
             : p.precioVenta;
           const isAlreadyAdded = detailIds.includes(p.id);
           const isSelected = selectedProducts.some(
@@ -89,9 +89,7 @@ export default function ProductSearchList({
                     {p.id}
                   </Badge>
                   <Badge variant="secondary" className={bgColors.green}>
-                    {`${p.precioEnCordobas ? 'C$' : '$'} ${formatNumber(
-                      price
-                    )}`}
+                    {`${p.precioEnDolares ? '$' : 'C$'} ${formatNumber(price)}`}
                   </Badge>
                   <Badge variant={isSoldOut ? 'destructive' : 'secondary'}>
                     {isSoldOut ? 'Agotado' : <span>Cant: {p.existencias}</span>}
@@ -108,7 +106,7 @@ export default function ProductSearchList({
                         idProducto: p.id,
                         precioVenta: p.precioVenta,
                         precioVentaPorMayor: p.precioVentaPorMayor,
-                        precioCompra: p.precioCompra,
+                        costo: p.costo,
                         cantidad: 1,
                         cambioDolar: p.cambioDolar,
                         precioPorMayor: false,
@@ -165,9 +163,9 @@ export default function ProductSearchList({
 
         <TableBody>
           {productData.products.map((product) => {
-            const price = product.precioEnCordobas
+            const price = product.precioEnDolares
               ? roundToPointZeroOrFive(
-                  product.precioVenta * product.cambioDolar
+                  product.precioVenta / product.cambioDolar
                 )
               : product.precioVenta;
             const isAlreadyAdded = detailIds.includes(product.id);
@@ -198,10 +196,10 @@ export default function ProductSearchList({
                         idProducto: product.id,
                         precioVenta: product.precioVenta,
                         precioVentaPorMayor: product.precioVentaPorMayor,
-                        precioCompra: product.precioCompra,
+                        costo: product.costo,
                         cantidad: 1,
                         cambioDolar: product.cambioDolar,
-                        precioEnCordobas: false,
+                        precioEnDolares: false,
                       })
                     }
                   />
@@ -240,7 +238,7 @@ export default function ProductSearchList({
                   <ListItem
                     value={formatNumber(price)}
                     color="green"
-                    showPriceInNio={product.precioEnCordobas}
+                    showPriceInNio={!product.precioEnDolares}
                   />
                 </TableCell>
                 <TableCell>

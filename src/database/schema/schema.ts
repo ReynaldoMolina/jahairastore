@@ -11,7 +11,7 @@ import {
 export const cliente = pgTable('cliente', {
   id: serial('id').primaryKey().notNull(),
   nombre: text('nombre').notNull(),
-  apellido: text('apellido').notNull(),
+  apellido: text('apellido'),
   telefono: text('telefono'),
   direccion: text('direccion'),
 });
@@ -30,9 +30,9 @@ export const compraDetalle = pgTable('compra_detalle', {
   id: serial('id').primaryKey().notNull(),
   idCompra: integer('id_compra').notNull(),
   idProducto: integer('id_producto').notNull(),
-  costo: doublePrecision('precio_compra').notNull(),
+  costo: doublePrecision('costo').notNull(),
   cantidad: integer('cantidad').notNull(),
-  cambioDolar: doublePrecision('cambio_dolar').notNull(),
+  cambioDolar: doublePrecision('cambio_dolar').notNull(), // Ver si borrar despues de convertir a NIO
 });
 
 export const ajustes = pgTable('ajustes', {
@@ -51,8 +51,8 @@ export const gasto = pgTable('gasto', {
   fecha: date('fecha').notNull(),
   gasto: doublePrecision('gasto').notNull(),
   concepto: text('concepto').notNull(),
-  cambioDolar: doublePrecision('cambio_dolar').notNull(),
-  enCordobas: boolean('en_cordobas').notNull().default(false),
+  cambioDolar: doublePrecision('cambio_dolar').notNull(), // Ver si borrar despues de convertir a NIO
+  enDolares: boolean('en_dolares').notNull().default(false),
   anulado: boolean('anulado').notNull().default(false),
 });
 
@@ -71,7 +71,7 @@ export const pedidoDetalle = pgTable('pedido_detalle', {
   idPedido: integer('id_pedido').notNull(),
   nombreProducto: text('nombre_producto'),
   precioVenta: doublePrecision('precio_venta').notNull(),
-  costo: doublePrecision('precio_compra').notNull(),
+  costo: doublePrecision('costo').notNull(),
   cantidad: integer('cantidad').notNull(),
   imagenUrl: text('imagen_url'),
 });
@@ -102,7 +102,7 @@ export const venta = pgTable('venta', {
   fecha: date('fecha').notNull(),
   abono: doublePrecision('abono').notNull(),
   credito: boolean('credito').notNull(),
-  cambioDolar: doublePrecision('cambio_dolar'),
+  cambioDolar: doublePrecision('cambio_dolar'), // Ver si borrar despues de convertir a NIO
   idUbicacion: integer('id_ubicacion')
     .notNull()
     .default(1)
@@ -117,9 +117,9 @@ export const ventaDetalle = pgTable('venta_detalle', {
   precioVentaPorMayor: doublePrecision('precio_venta_por_mayor')
     .notNull()
     .default(0),
-  costo: doublePrecision('precio_compra').notNull(),
+  costo: doublePrecision('costo').notNull(),
   cantidad: integer('cantidad').notNull(),
-  cambioDolar: doublePrecision('cambio_dolar').notNull(),
+  cambioDolar: doublePrecision('cambio_dolar').notNull(), // Ver si borrar despues de convertir a NIO
   precioPorMayor: boolean('precio_por_mayor').notNull().default(false),
 });
 
@@ -129,12 +129,12 @@ export const producto = pgTable('producto', {
   nombre: text('nombre').notNull(),
   imagenUrl: text('imagen_url'),
   descripcion: text('descripcion'),
-  costo: doublePrecision('precio_compra').notNull(),
+  costo: doublePrecision('costo').notNull(),
   precioVenta: doublePrecision('precio_venta').notNull(),
   precioVentaPorMayor: doublePrecision('precio_venta_por_mayor'),
   fecha: date('fecha').notNull(),
   codigo: text('codigo'),
-  precioEnCordobas: boolean('precio_en_cordobas').notNull().default(false),
+  precioEnDolares: boolean('precio_en_dolares').notNull().default(false),
   cambioDolar: doublePrecision('cambio_dolar'),
 });
 

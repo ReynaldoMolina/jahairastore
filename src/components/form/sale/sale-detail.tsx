@@ -35,7 +35,7 @@ interface SaleDetail {
 export function SaleDetail({ sale, handleDelete }: SaleDetail) {
   const isMobile = useIsMobile();
 
-  const formTotals = calculateTotals({ list: sale.detail, convert: true });
+  const formTotals = calculateTotals({ list: sale.detail });
 
   if (sale.detail.length <= 0) return <ProductCardEmpty />;
 
@@ -46,16 +46,13 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
           const {
             precioVenta,
             precioVentaPorMayor,
-            precioCompra,
-            cambioDolar,
+            costo,
             cantidad,
             precioPorMayor,
           } = detail;
           const subtotalVenta =
-            (precioPorMayor
-              ? roundToPointZeroOrFive(precioVentaPorMayor * cambioDolar)
-              : roundToPointZeroOrFive(precioVenta * cambioDolar)) * cantidad;
-          const subtotalCompra = precioCompra * cambioDolar * cantidad;
+            (precioPorMayor ? precioVentaPorMayor : precioVenta) * cantidad;
+          const subtotalCompra = costo * cantidad;
           const ganancia = subtotalVenta - subtotalCompra;
 
           return (
@@ -71,12 +68,8 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
                     C${' '}
                     {formatNumber(
                       precioPorMayor
-                        ? roundToPointZeroOrFive(
-                            detail.precioVentaPorMayor * detail.cambioDolar
-                          )
-                        : roundToPointZeroOrFive(
-                            detail.precioVenta * detail.cambioDolar
-                          )
+                        ? detail.precioVentaPorMayor
+                        : detail.precioVenta
                     )}
                   </Badge>
                   <Badge variant="secondary">Cant: {detail.cantidad}</Badge>
@@ -145,7 +138,7 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
           <TableHead>Precio</TableHead>
           <TableHead>Total</TableHead>
           <TableHead>Ganancia</TableHead>
-          <TableHead></TableHead>
+          <TableHead>Acciones</TableHead>
         </TableRow>
       </TableHeader>
 
@@ -154,16 +147,13 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
           const {
             precioVenta,
             precioVentaPorMayor,
-            precioCompra,
-            cambioDolar,
+            costo,
             cantidad,
             precioPorMayor,
           } = detail;
           const subtotalVenta =
-            (precioPorMayor
-              ? roundToPointZeroOrFive(precioVentaPorMayor * cambioDolar)
-              : roundToPointZeroOrFive(precioVenta * cambioDolar)) * cantidad;
-          const subtotalCompra = precioCompra * cambioDolar * cantidad;
+            (precioPorMayor ? precioVentaPorMayor : precioVenta) * cantidad;
+          const subtotalCompra = costo * cantidad;
           const ganancia = subtotalVenta - subtotalCompra;
 
           return (
@@ -185,9 +175,7 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
               </TableCell>
               <TableCell>
                 <ListItem
-                  value={roundToPointZeroOrFive(
-                    detail.precioVenta * detail.cambioDolar
-                  )}
+                  value={detail.precioVenta}
                   color="green"
                   showPriceInNio
                 />

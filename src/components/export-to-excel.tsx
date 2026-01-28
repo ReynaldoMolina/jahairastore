@@ -19,9 +19,9 @@ interface Product {
   id: number;
   nombre: string;
   codigo: string;
-  precioEnCordobas: boolean;
+  precioEnDolares: boolean;
   cambioDolar: number;
-  precioCompra: number;
+  costo: number;
   precioVenta: number;
   gananciaUnidad: number;
   existencias: number;

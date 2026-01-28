@@ -19,7 +19,7 @@ export async function GET(req: NextRequest) {
   const totalQuantity = register.detail.reduce((sum, i) => sum + i.cantidad, 0);
 
   const generalTotal = register.detail.reduce((sum, i) => {
-    let itemTotal = i.precioVenta * i.cantidad * i.cambioDolar;
+    let itemTotal = i.precioVenta * i.cantidad;
     return sum + itemTotal;
   }, 0);
 
@@ -106,11 +106,11 @@ export async function GET(req: NextRequest) {
               <div key={d.id} tw="flex py-1.5 px-1 border-b-neutral-200 border">
                 <div tw="flex-1">{d.nombreProducto}</div>
                 <div tw="flex w-23 justify-end">
-                  C${formatNumber(d.precioVenta * d.cambioDolar)}
+                  C${formatNumber(d.precioVenta)}
                 </div>
                 <div tw="flex w-13 justify-end">{d.cantidad}</div>
                 <div tw="flex w-27 justify-end">
-                  C${formatNumber(d.precioVenta * d.cantidad * d.cambioDolar)}
+                  C${formatNumber(d.precioVenta * d.cantidad)}
                 </div>
               </div>
             );

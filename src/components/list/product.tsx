@@ -13,7 +13,6 @@ import Link from 'next/link';
 import { formatNumber, roundToPointZeroOrFive } from '@/lib/formatters';
 import Image from 'next/image';
 import { Grid } from './grid';
-import { cn } from '@/lib/utils';
 import { Hash, ImageIcon, ScanBarcode } from 'lucide-react';
 import { Badge } from '../ui/badge';
 
@@ -23,9 +22,9 @@ interface Products {
     nombre: string;
     imagenUrl: string | null;
     codigo: string;
-    precioEnCordobas: boolean;
+    precioEnDolares: boolean;
     cambioDolar: number;
-    precioCompra: number;
+    costo: number;
     precioVenta: number;
     gananciaUnidad: number;
     existencias: number;
@@ -68,11 +67,11 @@ export function Products({ data, query, totalPages }: Products) {
                 <CardHeader>
                   <CardTitle className="inline-flex gap-1 items-center">
                     <span>
-                      {register.precioEnCordobas ? 'C$ ' : '$ '}
-                      {register.precioEnCordobas
+                      {register.precioEnDolares ? '$ ' : 'C$ '}
+                      {register.precioEnDolares
                         ? formatNumber(
                             roundToPointZeroOrFive(
-                              register.precioVenta * register.cambioDolar
+                              register.precioVenta / register.cambioDolar
                             )
                           )
                         : formatNumber(register.precioVenta)}

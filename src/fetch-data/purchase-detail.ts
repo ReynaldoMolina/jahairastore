@@ -32,7 +32,7 @@ export async function getPurchaseDetailById(
         id: compraDetalle.id,
         idProducto: compraDetalle.idProducto,
         nombreProducto: producto.nombre,
-        precioEnCordobas: producto.precioEnCordobas,
+        precioEnDolares: producto.precioEnDolares,
         costo: compraDetalle.costo,
         cantidad: compraDetalle.cantidad,
         cambioDolar: compraDetalle.cambioDolar,

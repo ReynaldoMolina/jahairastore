@@ -15,7 +15,7 @@ export const saleDetailSchema = z.object({
   idProducto: zNumberMin(),
   precioVenta: zNumberMin(),
   precioVentaPorMayor: zNumberMinZero(),
-  precioCompra: zNumberMin(),
+  costo: zNumberMin(),
   cantidad: zNumberMin(),
   cambioDolar: zNumberMin(),
   precioPorMayor: z.boolean(),

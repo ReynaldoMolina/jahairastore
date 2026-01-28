@@ -37,7 +37,7 @@ export async function getTotalsDashboard(searchParams: SearchParamsProps) {
       // 1. Sales Contado
       db
         .select({
-          salesContado: sql<number>`COALESCE(ROUND(SUM((${ventaDetalle.precioVenta} * ${ventaDetalle.cantidad} * ${ventaDetalle.cambioDolar})::numeric), 2), 0)::float`,
+          salesContado: sql<number>`COALESCE(ROUND(SUM((${ventaDetalle.precioVenta} * ${ventaDetalle.cantidad})::numeric), 2), 0)::float`,
         })
         .from(ventaDetalle)
         .leftJoin(venta, eq(ventaDetalle.idVenta, venta.id))
@@ -72,7 +72,7 @@ export async function getTotalsDashboard(searchParams: SearchParamsProps) {
       // 4. Sales Purchases
       db
         .select({
-          comprasInventario: sql<number>`COALESCE(ROUND(SUM(${compraDetalle.precioCompra} * ${compraDetalle.cantidad} * ${compraDetalle.cambioDolar})::numeric, 2), 0)::float`,
+          comprasInventario: sql<number>`COALESCE(ROUND(SUM(${compraDetalle.costo} * ${compraDetalle.cantidad})::numeric, 2), 0)::float`,
         })
         .from(compraDetalle)
         .leftJoin(compra, eq(compraDetalle.idCompra, compra.id))
@@ -81,7 +81,7 @@ export async function getTotalsDashboard(searchParams: SearchParamsProps) {
       // 5. Sales Expenses
       db
         .select({
-          comprasGastos: sql<number>`COALESCE(ROUND(SUM(${gasto.gasto} * ${gasto.cambioDolar})::numeric, 2), 0)::float`,
+          comprasGastos: sql<number>`COALESCE(ROUND(SUM(${gasto.gasto})::numeric, 2), 0)::float`,
         })
         .from(gasto)
         .where(between(gasto.fecha, startParam, endParam)),
@@ -89,7 +89,7 @@ export async function getTotalsDashboard(searchParams: SearchParamsProps) {
       // 6. Orders Costs In Dollars
       db
         .select({
-          ordersCostsInDollars: sql<number>`COALESCE(ROUND(SUM(${pedidoDetalle.precioCompra} * ${pedidoDetalle.cantidad})::numeric, 2), 0)::float`,
+          ordersCostsInDollars: sql<number>`COALESCE(ROUND(SUM(${pedidoDetalle.costo} * ${pedidoDetalle.cantidad})::numeric, 2), 0)::float`,
         })
         .from(pedidoDetalle)
         .leftJoin(pedido, eq(pedidoDetalle.idPedido, pedido.id))
@@ -107,7 +107,7 @@ export async function getTotalsDashboard(searchParams: SearchParamsProps) {
       // 8. Sales Costs
       db
         .select({
-          salesCosts: sql<number>`COALESCE(ROUND(SUM(${ventaDetalle.precioCompra} * ${ventaDetalle.cantidad} * ${ventaDetalle.cambioDolar})::numeric, 2), 0)::float`,
+          salesCosts: sql<number>`COALESCE(ROUND(SUM(${ventaDetalle.costo} * ${ventaDetalle.cantidad})::numeric, 2), 0)::float`,
         })
         .from(ventaDetalle)
         .leftJoin(venta, eq(ventaDetalle.idVenta, venta.id))

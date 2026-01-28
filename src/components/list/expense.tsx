@@ -34,7 +34,7 @@ interface Expenses {
     fecha: string;
     gasto: number;
     concepto: string;
-    enCordobas: boolean;
+    enDolares: boolean;
     cambioDolar: number;
     anulado: boolean;
   }[];
@@ -103,16 +103,16 @@ export function Expenses({ data, query, totalPages }: Expenses) {
                     value={
                       register.anulado
                         ? 'Anulado'
-                        : register.enCordobas
+                        : register.enDolares
                         ? roundToTwoDecimals(
-                            register.gasto * register.cambioDolar
+                            register.gasto / register.cambioDolar
                           )
                         : register.gasto
                     }
                     label="Gasto"
                     color={register.anulado ? 'destructive' : 'red'}
                     hideCurrency={register.anulado}
-                    showPriceInNio={register.enCordobas}
+                    showPriceInNio={!register.enDolares}
                   />
                 </CardContent>
               </Card>
@@ -124,7 +124,12 @@ export function Expenses({ data, query, totalPages }: Expenses) {
             <CardTitle>Total: {data.length}</CardTitle>
           </CardHeader>
           <CardContent>
-            <CardItem value={totals.gasto} label="Gastos" color="red" />
+            <CardItem
+              value={totals.gasto}
+              label="Gastos"
+              color="red"
+              showPriceInNio
+            />
           </CardContent>
         </Card>
         <Pagination totalPages={totalPages} />
@@ -138,9 +143,9 @@ export function Expenses({ data, query, totalPages }: Expenses) {
           <TableRow>
             <TableHead className="w-full">Proveedor</TableHead>
             <TableHead>Id</TableHead>
+            <TableHead>Compra</TableHead>
             <TableHead>Fecha</TableHead>
             <TableHead>Gasto</TableHead>
-            <TableHead>Compra</TableHead>
             <TableHead>Concepto</TableHead>
           </TableRow>
         </TableHeader>
@@ -162,6 +167,12 @@ export function Expenses({ data, query, totalPages }: Expenses) {
                   </Badge>
                 </TableCell>
                 <TableCell>
+                  <Badge variant="outline" className="w-full">
+                    <ShoppingCart />
+                    {register.idCompra}
+                  </Badge>
+                </TableCell>
+                <TableCell>
                   <Badge variant="outline">
                     <Calendar />
                     {formatDate(register.fecha)}
@@ -175,24 +186,18 @@ export function Expenses({ data, query, totalPages }: Expenses) {
                   ) : (
                     <ListItem
                       value={
-                        register.enCordobas
+                        register.enDolares
                           ? roundToTwoDecimals(
-                              register.gasto * register.cambioDolar
+                              register.gasto / register.cambioDolar
                             )
                           : register.gasto
                       }
                       color="red"
-                      showPriceInNio={register.enCordobas}
+                      showPriceInNio={!register.enDolares}
                     />
                   )}
                 </TableCell>
-                <TableCell>
-                  <Badge variant="outline">
-                    <ShoppingCart />
-                    {register.idCompra}
-                  </Badge>
-                </TableCell>
-                <TableCell className="max-w-50 truncate overflow-ellipsis">
+                <TableCell className="max-w-50 truncate overflow-ellipsis text-xs">
                   {register.concepto}
                 </TableCell>
               </TableRow>
@@ -204,10 +209,10 @@ export function Expenses({ data, query, totalPages }: Expenses) {
             <TableCell>Total</TableCell>
             <TableCell className="text-xs text-center">{data.length}</TableCell>
             <TableCell></TableCell>
-            <TableCell>
-              <ListItem value={totals.gasto} color="red" />
-            </TableCell>
             <TableCell></TableCell>
+            <TableCell>
+              <ListItem value={totals.gasto} color="red" showPriceInNio />
+            </TableCell>
             <TableCell></TableCell>
           </TableRow>
         </TableFooter>

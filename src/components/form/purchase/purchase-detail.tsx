@@ -35,7 +35,7 @@ interface PurchaseDetail {
 export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
   const isMobile = useIsMobile();
 
-  const formTotals = calculateTotals({ list: purchase.detail, convert: true });
+  const formTotals = calculateTotals({ list: purchase.detail });
 
   if (purchase.detail.length <= 0) return <ProductCardEmpty />;
 
@@ -43,8 +43,8 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
     return (
       <>
         {purchase.detail.map((detail) => {
-          const { costo, cambioDolar, cantidad } = detail;
-          const subtotalCompra = costo * cambioDolar * cantidad;
+          const { costo, cantidad } = detail;
+          const subtotalCompra = costo * cantidad;
 
           return (
             <Card key={detail.id} className="py-4 gap-4">
@@ -56,7 +56,7 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
                     {detail.idProducto}
                   </Badge>
                   <Badge variant="secondary" className={bgColors.red}>
-                    C$ {formatNumber(detail.costo * detail.cambioDolar)}
+                    C$ {formatNumber(detail.costo)}
                   </Badge>
                   <Badge variant="outline">Cant: {detail.cantidad}</Badge>
                 </CardDescription>
@@ -111,14 +111,14 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
           <TableHead>Cant</TableHead>
           <TableHead>Costo</TableHead>
           <TableHead>Total</TableHead>
-          <TableHead>Opciones</TableHead>
+          <TableHead>Acciones</TableHead>
         </TableRow>
       </TableHeader>
 
       <TableBody>
         {purchase.detail.map((detail) => {
-          const { costo, cambioDolar, cantidad } = detail;
-          const subtotalCompra = costo * cambioDolar * cantidad;
+          const { costo, cantidad } = detail;
+          const subtotalCompra = costo * cantidad;
 
           return (
             <TableRow
@@ -138,11 +138,7 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
                 {detail.cantidad}
               </TableCell>
               <TableCell>
-                <ListItem
-                  value={detail.costo * detail.cambioDolar}
-                  color="red"
-                  showPriceInNio
-                />
+                <ListItem value={detail.costo} color="red" showPriceInNio />
               </TableCell>
               <TableCell>
                 <ListItem

@@ -97,14 +97,14 @@ export interface SaleDetailType {
   idVenta: number;
   existencias?: number;
   precioPorMayor?: boolean;
-  precioEnCordobas?: boolean;
+  precioEnDolares?: boolean;
 }
 
 export interface ProductFormType {
   id?: number;
   idProveedor?: number | null;
   nombre: string;
-  precioEnCordobas: boolean;
+  precioEnDolares: boolean;
   cambioDolar: number;
   costo: number;
   precioVenta: number;
@@ -112,7 +112,6 @@ export interface ProductFormType {
   descripcion?: string | null;
   fecha: string;
   codigo?: string | null;
-  precioEnCordobas: boolean;
   imagenUrl: string | null;
 }
 
@@ -126,7 +125,7 @@ export interface ProductSearchProduct {
   precioVentaPorMayor: number;
   cambioDolar: number;
   existencias: number;
-  precioEnCordobas: boolean;
+  precioEnDolares: boolean;
 }
 
 export interface ProductSearchData {
@@ -333,7 +332,7 @@ export interface ExpenseById {
   gasto: number;
   concepto: string;
   cambioDolar: number;
-  enCordobas: boolean;
+  enDolares: boolean;
   anulado: boolean;
 }
 

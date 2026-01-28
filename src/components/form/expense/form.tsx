@@ -1,6 +1,12 @@
 'use client';
 
-import { FieldGroup, FieldSeparator, FieldSet } from '../../ui/field';
+import {
+  FieldDescription,
+  FieldGroup,
+  FieldLegend,
+  FieldSeparator,
+  FieldSet,
+} from '../../ui/field';
 import { UseFormReturn } from 'react-hook-form';
 import { FormInputReadOnly } from '@/components/form-element/form-input-read-only';
 import { FormTextArea } from '@/components/form-element/form-text-area';
@@ -20,7 +26,7 @@ interface ExpenseForm {
 }
 
 export function ExpenseForm({ form, expense, nombreEmpresa }: ExpenseForm) {
-  const { gasto, cambioDolar, enCordobas, anulado } = form.watch();
+  const { gasto, cambioDolar, enDolares, anulado } = form.watch();
 
   return (
     <FieldGroup>
@@ -39,55 +45,56 @@ export function ExpenseForm({ form, expense, nombreEmpresa }: ExpenseForm) {
           value={expense ? expense.nombreEmpresa : nombreEmpresa}
           label="Proveedor"
         />
+        <FormCheck
+          control={form.control}
+          name="anulado"
+          label="Anular"
+          onCheckedExtra={() => {
+            form.setValue('gasto', 0);
+          }}
+        />
       </FieldSet>
 
       <div className={anulado ? 'hidden' : 'flex flex-col gap-6'}>
         <FieldSeparator />
-        <FormCheck
-          control={form.control}
-          name="enCordobas"
-          label="En córdobas"
-        />
-
-        <FieldSet className="sm:flex-row">
+        <FieldSet>
+          <FieldLegend>Monto</FieldLegend>
+          <FieldDescription>Monto del gasto</FieldDescription>
+          <FormCheck
+            control={form.control}
+            name="enDolares"
+            label="En dólares"
+          />
           <FormInput
             control={form.control}
             name="gasto"
             label="Gasto"
-            textAddon="$"
-            hidden={enCordobas}
+            textAddon="C$"
+            hidden={enDolares}
           />
           <FormInputOnChange
-            value={roundToTwoDecimals(gasto * cambioDolar)}
+            value={roundToTwoDecimals(gasto / cambioDolar)}
             label="Gasto"
             handleChange={(val) => {
               const num = Number(val);
               if (!isNaN(num)) {
-                form.setValue('gasto', num / cambioDolar);
+                form.setValue('gasto', num * cambioDolar);
               }
             }}
-            hidden={!enCordobas}
-            textAddon="C$"
+            hidden={!enDolares}
+            textAddon="$"
           />
           <FormInput
             control={form.control}
             name="cambioDolar"
             label="Cambio USD"
             textAddon="C$"
+            hidden={!enDolares}
           />
         </FieldSet>
       </div>
 
       <FieldSet>
-        <FormCheck
-          control={form.control}
-          name="anulado"
-          label="Anular"
-          description="Marcar gasto como anulado"
-          onCheckedExtra={() => {
-            form.setValue('gasto', 0);
-          }}
-        />
         <FormTextArea control={form.control} name="concepto" label="Concepto" />
       </FieldSet>
     </FieldGroup>

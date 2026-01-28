@@ -21,7 +21,7 @@ export async function getPurchases(searchParams: SearchParamsProps) {
       .select({
         idCompra: compraDetalle.idCompra,
         total:
-          sql<number>`SUM(${compraDetalle.costo} * ${compraDetalle.cantidad} * ${compraDetalle.cambioDolar})`.as(
+          sql<number>`SUM(${compraDetalle.costo} * ${compraDetalle.cantidad})`.as(
             'total'
           ),
       })
@@ -32,9 +32,7 @@ export async function getPurchases(searchParams: SearchParamsProps) {
     const gastos = db
       .select({
         idCompra: gasto.idCompra,
-        total: sql<number>`SUM(${gasto.gasto} * ${gasto.cambioDolar})`.as(
-          'total'
-        ),
+        total: sql<number>`SUM(${gasto.gasto})`.as('total'),
       })
       .from(gasto)
       .groupBy(gasto.idCompra)
@@ -45,7 +43,7 @@ export async function getPurchases(searchParams: SearchParamsProps) {
         id: compra.id,
         nombreProveedor: proveedor.nombreEmpresa,
         fecha: compra.fecha,
-        total: sql<number>`round(COALESCE("compras"."total", 0)::numeric - COALESCE("gastos"."total", 0)::numeric, 2)::float`,
+        total: sql<number>`round(COALESCE("compras"."total", 0)::numeric + COALESCE("gastos"."total", 0)::numeric, 2)::float`,
       })
       .from(compra)
       .leftJoin(gastos, eq(compra.id, gastos.idCompra))
@@ -66,8 +64,6 @@ export async function getPurchases(searchParams: SearchParamsProps) {
 
     const totalPages = Math.ceil(count / limit) || 1;
 
-    console.log(data[0]);
-
     return { data, query, totalPages };
   } catch (error) {
     console.error(error);
@@ -80,9 +76,7 @@ export async function getPurchaseById(id: number | string) {
     const gastos = db
       .select({
         idCompra: gasto.idCompra,
-        total: sql<number>`SUM(${gasto.gasto} * ${gasto.cambioDolar})`.as(
-          'total'
-        ),
+        total: sql<number>`SUM(${gasto.gasto})`.as('total'),
       })
       .from(gasto)
       .groupBy(gasto.idCompra)

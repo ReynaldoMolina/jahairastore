@@ -36,7 +36,7 @@ export async function getProducts(searchParams: SearchParamsProps) {
         nombre: producto.nombre,
         codigo: producto.codigo,
         imagenUrl: producto.imagenUrl,
-        precioEnCordobas: producto.precioEnCordobas,
+        precioEnDolares: producto.precioEnDolares,
         cambioDolar: producto.cambioDolar,
         costo: producto.costo,
         precioVenta: producto.precioVenta,
@@ -79,7 +79,7 @@ export async function getProducts(searchParams: SearchParamsProps) {
     return { data, query, totalPages };
   } catch (error) {
     console.error(error);
-    throw new Error('No se pudieron obtener los producto');
+    throw new Error('No se pudieron obtener los productos');
   }
 }
 
@@ -140,7 +140,7 @@ export async function getProductsSearchList(
           + COALESCE("ajustes"."cantidad", 0)
           )::float
         `,
-        precioEnCordobas: producto.precioEnCordobas,
+        precioEnDolares: producto.precioEnDolares,
       })
       .from(producto)
       .leftJoin(compras, eq(compras.idProducto, producto.id))

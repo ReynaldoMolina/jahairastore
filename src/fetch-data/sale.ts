@@ -23,7 +23,6 @@ function getTotal() {
             THEN ${ventaDetalle.precioVentaPorMayor} * ${ventaDetalle.cantidad}
           ELSE ${ventaDetalle.precioVenta} * ${ventaDetalle.cantidad}
         END
-        * ${ventaDetalle.cambioDolar}
       )
     `.as('total'),
     })
@@ -35,7 +34,7 @@ function getTotal() {
     .select({
       idVenta: ventaDetalle.idVenta,
       total:
-        sql<number>`SUM(${ventaDetalle.precioCompra} * ${ventaDetalle.cantidad} * ${ventaDetalle.cambioDolar})`.as(
+        sql<number>`SUM(${ventaDetalle.costo} * ${ventaDetalle.cantidad})`.as(
           'total'
         ),
     })
@@ -146,7 +145,7 @@ export async function getSaleById(id: number | string) {
           nombre: producto.nombre,
           precioVenta: ventaDetalle.precioVenta,
           precioVentaPorMayor: ventaDetalle.precioVentaPorMayor,
-          precioCompra: ventaDetalle.precioCompra,
+          costo: ventaDetalle.costo,
           cantidad: ventaDetalle.cantidad,
           cambioDolar: ventaDetalle.cambioDolar,
           precioPorMayor: ventaDetalle.precioPorMayor,

@@ -19,7 +19,7 @@ export async function getExpenses(searchParams: SearchParamsProps) {
         fecha: gasto.fecha,
         gasto: gasto.gasto,
         concepto: gasto.concepto,
-        enCordobas: gasto.enCordobas,
+        enDolares: gasto.enDolares,
         cambioDolar: gasto.cambioDolar,
         anulado: gasto.anulado,
       })
@@ -37,6 +37,7 @@ export async function getExpenses(searchParams: SearchParamsProps) {
       .where(filterBySearch);
 
     const totalPages = Math.ceil(count / limit) || 1;
+
     return { data, query, totalPages };
   } catch (error) {
     console.error(error);
@@ -56,7 +57,7 @@ export async function getExpenseById(id: number | string) {
         gasto: gasto.gasto,
         concepto: gasto.concepto,
         cambioDolar: gasto.cambioDolar,
-        enCordobas: gasto.enCordobas,
+        enDolares: gasto.enDolares,
         anulado: gasto.anulado,
       })
       .from(gasto)
