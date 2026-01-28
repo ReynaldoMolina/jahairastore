@@ -41,7 +41,7 @@ export function CreateProductFormDialog({
       idProveedor: null,
       nombre: '',
       costo: 0,
-      precioVenta: undefined,
+      precioVenta: 0,
       precioVentaPorMayor: 0,
       codigo: null,
       cambioDolar: cambioDolar,
