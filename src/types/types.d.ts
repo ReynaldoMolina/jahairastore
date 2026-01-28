@@ -290,7 +290,7 @@ export interface PurchaseDetailType {
   cantidad: number;
   cambioDolar: number;
   idCompra: number;
-  precioEnCordobas?: boolean;
+  precioEnDolares?: boolean;
 }
 
 export interface PurchaseById {

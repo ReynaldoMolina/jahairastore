@@ -17,7 +17,7 @@ interface PurchaseDetailForm {
 
 export function PurchaseDetailForm({ form, detail }: PurchaseDetailForm) {
   const { costo } = form.watch();
-  const { cambioDolar, precioEnCordobas } = detail;
+  const { cambioDolar, precioEnDolares } = detail;
 
   return (
     <FieldGroup>
@@ -44,18 +44,18 @@ export function PurchaseDetailForm({ form, detail }: PurchaseDetailForm) {
           control={form.control}
           name="costo"
           label="Costo unitario"
-          textAddon="$"
-          hidden={precioEnCordobas}
+          textAddon="C$"
+          hidden={precioEnDolares}
         />
 
-        {precioEnCordobas && (
+        {precioEnDolares && (
           <FormInputOnChange
             value={roundToTwoDecimals(costo * cambioDolar)}
             label="Costo unitario"
             handleChange={(val) =>
               form.setValue('costo', Number(val) / cambioDolar)
             }
-            textAddon="C$"
+            textAddon="$"
           />
         )}
       </FieldSet>
