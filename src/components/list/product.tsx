@@ -15,6 +15,7 @@ import Image from 'next/image';
 import { Grid } from './grid';
 import { Hash, ImageIcon, ScanBarcode } from 'lucide-react';
 import { Badge } from '../ui/badge';
+import { cn } from '@/lib/utils';
 
 interface Products {
   data: {
@@ -50,19 +51,24 @@ export function Products({ data, query, totalPages }: Products) {
             >
               <Card className="h-full">
                 <CardContent className="flex justify-center max-h-50 sm:max-h-40 rounded">
-                  {register.imagenUrl ? (
-                    <Image
-                      src={register.imagenUrl}
-                      width={150}
-                      height={150}
-                      alt="Thumbnail"
-                      className="p-1 rounded w-full dark:bg-white text-xs object-contain"
-                    />
-                  ) : (
-                    <div className="flex justify-center items-center aspect-square w-full bg-muted rounded">
+                  <div
+                    className={cn(
+                      !register.imagenUrl && 'bg-muted',
+                      'flex justify-center items-center aspect-square w-full rounded'
+                    )}
+                  >
+                    {register.imagenUrl ? (
+                      <Image
+                        src={register.imagenUrl}
+                        width={150}
+                        height={150}
+                        alt="Thumbnail"
+                        className="rounded h-full w-full dark:bg-white text-xs object-contain"
+                      />
+                    ) : (
                       <ImageIcon className="text-muted-foreground" />
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </CardContent>
                 <CardHeader>
                   <CardTitle className="inline-flex gap-1 items-center">
