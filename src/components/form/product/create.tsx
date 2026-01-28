@@ -18,25 +18,20 @@ import { ProductForm } from './form';
 import { FormCardFooter } from '@/components/form-element/form-footer';
 import { Form } from '@/components/ui/form';
 import { productSchema } from '../validation/product';
-import { getCurrentDate } from '@/lib/get-date';
 
 interface CreateProductForm {
   cambioDolar: number;
 }
 
 export function CreateProductForm({ cambioDolar }: CreateProductForm) {
-  const currentDate = getCurrentDate();
-
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
     defaultValues: {
       idProveedor: null,
       nombre: '',
-      descripcion: null,
       costo: 0,
       precioVenta: undefined,
       precioVentaPorMayor: 0,
-      fecha: currentDate,
       codigo: null,
       cambioDolar: cambioDolar,
       precioEnDolares: false,

@@ -22,7 +22,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { Spinner } from '@/components/ui/spinner';
-import { getCurrentDate } from '@/lib/get-date';
 import { FieldSet } from '@/components/ui/field';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -34,7 +33,6 @@ interface CreateProductFormDialog {
 export function CreateProductFormDialog({
   cambioDolar,
 }: CreateProductFormDialog) {
-  const currentDate = getCurrentDate();
   const [createMultiple, setCreateMultiple] = useState(false);
 
   const form = useForm<z.infer<typeof productSchema>>({
@@ -42,11 +40,9 @@ export function CreateProductFormDialog({
     defaultValues: {
       idProveedor: null,
       nombre: '',
-      descripcion: null,
       costo: 0,
       precioVenta: undefined,
       precioVentaPorMayor: 0,
-      fecha: currentDate,
       codigo: null,
       cambioDolar: cambioDolar,
       precioEnDolares: false,
