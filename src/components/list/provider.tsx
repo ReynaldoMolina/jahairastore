@@ -39,7 +39,11 @@ export function Providers({ data, query, totalPages }: Providers) {
       <>
         {data.map((register) => {
           return (
-            <Link key={register.id} href={`/proveedores/${register.id}`}>
+            <Link
+              key={register.id}
+              href={`/proveedores/${register.id}`}
+              scroll={false}
+            >
               <Card className="py-4 gap-4">
                 <CardHeader className="flex flex-col gap-2">
                   <CardTitle>{register.nombreEmpresa}</CardTitle>
@@ -83,7 +87,9 @@ export function Providers({ data, query, totalPages }: Providers) {
               <TableRow
                 key={register.id}
                 className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
-                onClick={() => router.push(`/proveedores/${register.id}`)}
+                onClick={() =>
+                  router.push(`/proveedores/${register.id}`, { scroll: false })
+                }
               >
                 <TableCell className="w-full whitespace-normal">
                   {register.nombreEmpresa}

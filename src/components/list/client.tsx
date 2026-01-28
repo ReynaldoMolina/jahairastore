@@ -39,7 +39,11 @@ export function Clients({ data, query, totalPages }: Clients) {
       <>
         {data.map((register) => {
           return (
-            <Link key={register.id} href={`/clientes/${register.id}`}>
+            <Link
+              key={register.id}
+              href={`/clientes/${register.id}`}
+              scroll={false}
+            >
               <Card className="py-4 gap-4">
                 <CardHeader className="flex flex-col gap-2">
                   <CardTitle>{register.nombre}</CardTitle>
@@ -82,7 +86,9 @@ export function Clients({ data, query, totalPages }: Clients) {
             <TableRow
               key={register.id}
               className="cursor-pointer hover:bg-brand/30 dark:hover:bg-brand/20"
-              onClick={() => router.push(`/clientes/${register.id}`)}
+              onClick={() =>
+                router.push(`/clientes/${register.id}`, { scroll: false })
+              }
             >
               <TableCell className="w-full whitespace-normal">
                 {register.nombre}

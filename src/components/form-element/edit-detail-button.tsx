@@ -9,7 +9,7 @@ interface EditDetailButton {
 export function EditDetailButton({ href }: EditDetailButton) {
   return (
     <Button variant="outline" size="icon-sm" asChild>
-      <Link href={href}>
+      <Link href={href} scroll={false}>
         <Pencil />
       </Link>
     </Button>
