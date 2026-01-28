@@ -28,9 +28,9 @@ export function OrderDetailForm({
   setCreateMultiple,
   isNew = false,
 }: OrderDetailForm) {
-  const { precioVenta, precioCompra, cantidad } = form.watch();
+  const { precioVenta, costo, cantidad } = form.watch();
 
-  const ganancia = (precioVenta ?? 0) - (precioCompra ?? 0);
+  const ganancia = (precioVenta ?? 0) - (costo ?? 0);
 
   return (
     <FieldGroup>
@@ -50,7 +50,7 @@ export function OrderDetailForm({
       <FieldSet className="md:flex-row">
         <FormInput
           control={form.control}
-          name="precioCompra"
+          name="costo"
           label="Compra"
           textAddon="$"
         />

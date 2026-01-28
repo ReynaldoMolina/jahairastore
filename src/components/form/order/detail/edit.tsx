@@ -35,7 +35,7 @@ export function EditOrderDetailDialog({ detail }: EditOrderDetailDialog) {
       idPedido: detail.idPedido,
       nombreProducto: detail.nombreProducto,
       precioVenta: detail.precioVenta,
-      precioCompra: detail.precioCompra,
+      costo: detail.costo,
       cantidad: detail.cantidad,
       imagenUrl: detail.imagenUrl,
     },

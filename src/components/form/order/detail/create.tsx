@@ -36,7 +36,7 @@ export function CreateOrderDetailForm({ orderId }: CreateOrderDetailForm) {
       idPedido: orderId,
       nombreProducto: '',
       precioVenta: 0,
-      precioCompra: 0,
+      costo: 0,
       cantidad: 1,
       imagenUrl: '',
     },

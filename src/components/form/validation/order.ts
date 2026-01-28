@@ -14,7 +14,7 @@ export const orderDetailSchema = z.object({
   idPedido: zNumberMin(),
   nombreProducto: z.string().min(1, 'Requerido'),
   precioVenta: zNumberMin(),
-  precioCompra: zNumberMin(),
+  costo: zNumberMin(),
   cantidad: zNumberMin(),
   imagenUrl: z.string().nullable(),
 });

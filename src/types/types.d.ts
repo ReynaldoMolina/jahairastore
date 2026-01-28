@@ -109,8 +109,6 @@ export interface ProductFormType {
   costo: number;
   precioVenta: number;
   precioVentaPorMayor: number | null;
-  descripcion?: string | null;
-  fecha: string;
   codigo?: string | null;
   imagenUrl: string | null;
 }

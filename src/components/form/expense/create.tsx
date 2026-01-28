@@ -46,7 +46,7 @@ export function CreateExpenseForm({
       gasto: 0,
       concepto: concepto,
       cambioDolar: cambioDolar,
-      enCordobas: true,
+      enDolares: false,
       anulado: false,
     },
   });

@@ -34,11 +34,9 @@ export function EditProductFormDialog({ product }: EditProductFormDialog) {
     defaultValues: {
       idProveedor: product.idProveedor,
       nombre: product.nombre,
-      descripcion: product.descripcion,
       costo: product.costo,
       precioVenta: product.precioVenta,
       precioVentaPorMayor: product.precioVentaPorMayor,
-      fecha: product.fecha,
       codigo: product.codigo,
       cambioDolar: product.cambioDolar,
       precioEnDolares: product.precioEnDolares ?? false,
