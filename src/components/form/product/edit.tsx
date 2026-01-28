@@ -66,7 +66,7 @@ export function EditProductForm({ product }: EditProductForm) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ProductForm form={form} />
+            <ProductForm form={form} productId={product.id} />
           </CardContent>
           <FormCardFooter isNew={false} isPending={isPending} />
         </Card>

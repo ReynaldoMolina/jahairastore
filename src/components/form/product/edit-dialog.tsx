@@ -74,7 +74,7 @@ export function EditProductFormDialog({ product }: EditProductFormDialog) {
               </DialogDescription>
             </DialogHeader>
 
-            <ProductForm form={form} />
+            <ProductForm form={form} productId={product.id} />
 
             <DialogFooter>
               <DialogClose asChild>

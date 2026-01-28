@@ -34,12 +34,16 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { useState } from 'react';
+import { UploadImage } from './upload-image';
+import { ButtonGroup } from '@/components/ui/button-group';
+import { DeleteImage } from './delete-image';
 
 interface ProductForm {
   form: UseFormReturn<z.infer<typeof productSchema>>;
+  productId?: number;
 }
 
-export function ProductForm({ form }: ProductForm) {
+export function ProductForm({ form, productId }: ProductForm) {
   const [open, setOpen] = useState(false);
   const {
     precioEnDolares,
@@ -196,18 +200,30 @@ export function ProductForm({ form }: ProductForm) {
       <FieldSet>
         <FieldLegend>Imagen</FieldLegend>
         <FieldDescription>
-          Ingresa la url de la imagen del producto.
+          Ingresa la url o sube una imagen del producto.
         </FieldDescription>
 
         <div className="flex gap-1 items-end">
           <FormInput control={form.control} name="imagenUrl" label="URL" />
-          {imagenUrl && (
-            <Button variant="outline" size="icon" asChild type="button">
-              <Link href={imagenUrl} target="_blank">
+          <ButtonGroup>
+            <UploadImage form={form} productId={productId} />
+            <DeleteImage form={form} productId={productId} />
+            <Button
+              variant="outline"
+              size="icon"
+              asChild={!!imagenUrl}
+              type="button"
+              disabled={!imagenUrl}
+            >
+              {imagenUrl ? (
+                <Link href={imagenUrl} target="_blank">
+                  <ExternalLink />
+                </Link>
+              ) : (
                 <ExternalLink />
-              </Link>
+              )}
             </Button>
-          )}
+          </ButtonGroup>
         </div>
       </FieldSet>
 
