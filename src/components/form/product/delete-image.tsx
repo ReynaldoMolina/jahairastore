@@ -50,7 +50,7 @@ export function DeleteImage({ form, productId }: Props) {
           variant="outline"
           size="icon"
           type="button"
-          disabled={loading || !imagenUrl}
+          disabled={loading || !imagenUrl || !productId}
         >
           {loading ? <Spinner /> : <Trash />}
         </Button>

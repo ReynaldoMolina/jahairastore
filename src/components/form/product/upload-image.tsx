@@ -44,7 +44,7 @@ export function UploadImage({ form, productId }: UploadImageProps) {
       size="icon"
       type="button"
       onClick={triggerInput}
-      disabled={loading}
+      disabled={loading || !productId}
     >
       <input
         id="image"
