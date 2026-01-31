@@ -61,12 +61,6 @@ export function SaleForm({
           description="De qué inventario salen los productos."
           options={ubicaciones}
         />
-        <FormInput
-          control={form.control}
-          name="cambioDolar"
-          label="Cambio USD"
-          textAddon="C$"
-        />
       </FieldSet>
       <FieldSeparator />
       <FieldSet>

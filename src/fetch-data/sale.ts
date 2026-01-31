@@ -121,7 +121,6 @@ export async function getSaleById(id: number | string) {
           fecha: venta.fecha,
           abono: venta.abono,
           credito: venta.credito,
-          cambioDolar: venta.cambioDolar,
           idUbicacion: venta.idUbicacion,
           total: sql<number>`ROUND(COALESCE("ventas"."total", 0)::numeric, 2)::float`,
           saldo: sql<number>`

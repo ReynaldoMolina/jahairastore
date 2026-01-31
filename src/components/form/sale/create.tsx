@@ -36,7 +36,6 @@ export function CreateSaleForm({ selectOptions, cambioDolar }: CreateSaleForm) {
       fecha: currentDate,
       abono: 0,
       credito: false,
-      cambioDolar: cambioDolar,
       idUbicacion: undefined,
     },
   });

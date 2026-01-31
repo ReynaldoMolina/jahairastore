@@ -57,7 +57,6 @@ export interface SaleById {
   fecha: string;
   abono: number;
   credito: boolean;
-  cambioDolar: number;
   idUbicacion: number;
   total: number;
   saldo: number;

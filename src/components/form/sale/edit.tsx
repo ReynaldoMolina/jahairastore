@@ -46,7 +46,6 @@ export function EditSaleForm({
       fecha: sale.fecha,
       abono: sale.abono,
       credito: sale.credito,
-      cambioDolar: sale.cambioDolar,
       idUbicacion: sale.idUbicacion,
     },
   });

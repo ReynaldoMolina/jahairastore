@@ -102,7 +102,6 @@ export const venta = pgTable('venta', {
   fecha: date('fecha').notNull(),
   abono: doublePrecision('abono').notNull(),
   credito: boolean('credito').notNull(),
-  cambioDolar: doublePrecision('cambio_dolar'), // Ver si borrar despues de convertir a NIO
   idUbicacion: integer('id_ubicacion')
     .notNull()
     .default(1)
