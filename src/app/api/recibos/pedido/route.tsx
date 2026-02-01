@@ -23,7 +23,8 @@ export async function GET(req: NextRequest) {
     return sum + itemTotal;
   }, 0);
 
-  const nombre = register.idCliente === 1 ? '' : ` ${register.nombreCliente}`;
+  const nombre =
+    register.idCliente === 1 ? '' : ` ${register.nombreCliente.trim()}`;
 
   const { regularFontData, boldFontData } = await loadFonts();
 
