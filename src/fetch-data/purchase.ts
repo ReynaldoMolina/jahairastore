@@ -82,37 +82,40 @@ export async function getPurchaseById(id: number | string) {
       .groupBy(gasto.idCompra)
       .as('gastos');
 
-    const [purchase] = await db
-      .select({
-        id: compra.id,
-        idProveedor: compra.idProveedor,
-        idUbicacion: compra.idUbicacion,
-        nombreEmpresa: proveedor.nombreEmpresa,
-        fecha: compra.fecha,
-        gastos: sql<number>`COALESCE(${gastos.total}, 0)`,
-      })
-      .from(compra)
-      .leftJoin(proveedor, eq(compra.idProveedor, proveedor.id))
-      .leftJoin(gastos, eq(compra.id, gastos.idCompra))
-      .where(eq(compra.id, Number(id)));
+    const [purchase, detail] = await Promise.all([
+      db
+        .select({
+          id: compra.id,
+          idProveedor: compra.idProveedor,
+          idUbicacion: compra.idUbicacion,
+          nombreEmpresa: proveedor.nombreEmpresa,
+          fecha: compra.fecha,
+          gastos: sql<number>`COALESCE(${gastos.total}, 0)`,
+        })
+        .from(compra)
+        .leftJoin(proveedor, eq(compra.idProveedor, proveedor.id))
+        .leftJoin(gastos, eq(compra.id, gastos.idCompra))
+        .where(eq(compra.id, Number(id))),
 
-    const detail = await db
-      .select({
-        id: compraDetalle.id,
-        idCompra: compraDetalle.idCompra,
-        idProducto: compraDetalle.idProducto,
-        costo: compraDetalle.costo,
-        cantidad: compraDetalle.cantidad,
-        cambioDolar: compraDetalle.cambioDolar,
-        nombreProducto: producto.nombre,
-      })
-      .from(compraDetalle)
-      .leftJoin(producto, eq(compraDetalle.idProducto, producto.id))
-      .where(eq(compraDetalle.idCompra, Number(id)))
-      .orderBy(desc(compraDetalle.id));
+      db
+        .select({
+          id: compraDetalle.id,
+          idCompra: compraDetalle.idCompra,
+          idProducto: compraDetalle.idProducto,
+          costo: compraDetalle.costo,
+          cantidad: compraDetalle.cantidad,
+          cambioDolar: compraDetalle.cambioDolar,
+          nombreProducto: producto.nombre,
+          imagenUrl: producto.imagenUrl,
+        })
+        .from(compraDetalle)
+        .leftJoin(producto, eq(compraDetalle.idProducto, producto.id))
+        .where(eq(compraDetalle.idCompra, Number(id)))
+        .orderBy(desc(compraDetalle.id)),
+    ]);
 
     return {
-      ...purchase,
+      ...purchase[0],
       detail,
     };
   } catch (error) {

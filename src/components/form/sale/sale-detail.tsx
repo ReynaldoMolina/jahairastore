@@ -12,10 +12,7 @@ import {
 } from '@/components/ui/card';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { CardItem, ListItem } from '@/components/list/list-item';
-import { Badge } from '@/components/ui/badge';
-import { bgColors } from '@/lib/bg-colors';
-import { formatNumber, roundToPointZeroOrFive } from '@/lib/formatters';
-import { Hash } from 'lucide-react';
+import { formatNumber } from '@/lib/formatters';
 import {
   Table,
   TableBody,
@@ -26,6 +23,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { DetailOptions } from '../detail-options';
+import { ProductImageDiv } from '@/components/list/product';
 
 interface SaleDetail {
   sale: SaleById;
@@ -57,22 +55,22 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
 
           return (
             <Card key={detail.id} className="py-4 gap-4">
+              <CardContent className="flex justify-center max-h-30 rounded">
+                <ProductImageDiv imagenUrl={detail.imagenUrl} />
+              </CardContent>
               <CardHeader className="border-b [.border-b]:pb-4">
-                <CardTitle>{detail.nombre}</CardTitle>
-                <CardDescription className="inline-flex gap-3">
-                  <Badge variant="outline">
-                    <Hash />
-                    {detail.idProducto}
-                  </Badge>
-                  <Badge variant="secondary" className={`${bgColors.green}`}>
-                    C${' '}
-                    {formatNumber(
+                <CardTitle>
+                  <span>C$ {formatNumber(subtotalVenta)}</span>
+                  <span className="text-xs font-normal text-muted-foreground">
+                    {` = ${formatNumber(
                       precioPorMayor
                         ? detail.precioVentaPorMayor
                         : detail.precioVenta
-                    )}
-                  </Badge>
-                  <Badge variant="secondary">Cant: {detail.cantidad}</Badge>
+                    )} x ${detail.cantidad}`}
+                  </span>
+                </CardTitle>
+                <CardDescription className="text-xs">
+                  {detail.nombre}
                 </CardDescription>
                 <CardAction className="inline-flex gap-1 items-center">
                   <DetailOptions
@@ -85,12 +83,6 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
               </CardHeader>
               <CardContent>
                 <CardItem
-                  value={subtotalVenta}
-                  label="Total"
-                  color="green"
-                  showPriceInNio
-                />
-                <CardItem
                   value={ganancia}
                   label="Ganancia"
                   color="blue"
@@ -102,20 +94,20 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
         })}
         <Card className="py-4 gap-4 bg-muted">
           <CardHeader className="border-b [.border-b]:pb-2">
-            <CardTitle>Total: {sale.detail.length}</CardTitle>
+            <CardTitle>Total: C$ {formTotals.totalSell}</CardTitle>
           </CardHeader>
           <CardContent>
+            <CardItem
+              value={String(sale.detail.length)}
+              label="Items"
+              color="neutral"
+              hideCurrency
+            />
             <CardItem
               value={String(formTotals.quantity)}
               label="Cantidad"
               color="neutral"
               hideCurrency
-            />
-            <CardItem
-              value={formTotals.totalSell}
-              label="Total"
-              color="green"
-              showPriceInNio
             />
             <CardItem
               value={formTotals.profit}
@@ -132,10 +124,10 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
     <Table>
       <TableHeader>
         <TableRow>
+          <TableHead>Imagen</TableHead>
           <TableHead>Producto</TableHead>
-          <TableHead>Id</TableHead>
-          <TableHead>Cant</TableHead>
           <TableHead>Precio</TableHead>
+          <TableHead>Cant</TableHead>
           <TableHead>Total</TableHead>
           <TableHead>Ganancia</TableHead>
           <TableHead>Acciones</TableHead>
@@ -161,17 +153,11 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
               key={detail.id}
               className="hover:bg-brand/30 dark:hover:bg-brand/20"
             >
+              <TableCell>
+                <ProductImageDiv imagenUrl={detail.imagenUrl} />
+              </TableCell>
               <TableCell className="w-full whitespace-normal">
                 {detail.nombre}
-              </TableCell>
-              <TableCell>
-                <Badge variant="outline">
-                  <Hash />
-                  {detail.idProducto}
-                </Badge>
-              </TableCell>
-              <TableCell className="text-xs text-center">
-                {detail.cantidad}
               </TableCell>
               <TableCell>
                 <ListItem
@@ -179,6 +165,9 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
                   color="green"
                   showPriceInNio
                 />
+              </TableCell>
+              <TableCell className="text-xs text-center">
+                {detail.cantidad}
               </TableCell>
               <TableCell>
                 <ListItem
@@ -204,20 +193,13 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
       </TableBody>
       <TableFooter className="bg-muted">
         <TableRow>
+          <TableCell></TableCell>
           <TableCell>Total</TableCell>
           <TableCell className="text-xs text-center">
             {sale.detail.length}
           </TableCell>
           <TableCell className="text-center text-xs">
             {formTotals.quantity}
-          </TableCell>
-          <TableCell>
-            <ListItem
-              value="-"
-              color="green"
-              hideCurrency
-              className="justify-center"
-            />
           </TableCell>
           <TableCell>
             <ListItem

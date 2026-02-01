@@ -51,24 +51,7 @@ export function Products({ data, query, totalPages }: Products) {
             >
               <Card className="h-full">
                 <CardContent className="flex justify-center max-h-50 sm:max-h-40 rounded">
-                  <div
-                    className={cn(
-                      !register.imagenUrl && 'bg-muted',
-                      'flex justify-center items-center aspect-square w-full rounded'
-                    )}
-                  >
-                    {register.imagenUrl ? (
-                      <Image
-                        src={register.imagenUrl}
-                        width={150}
-                        height={150}
-                        alt="Thumbnail"
-                        className="rounded h-full w-full dark:bg-white text-xs object-contain"
-                      />
-                    ) : (
-                      <ImageIcon className="text-muted-foreground" />
-                    )}
-                  </div>
+                  <ProductImageDiv imagenUrl={register.imagenUrl} />
                 </CardContent>
                 <CardHeader>
                   <CardTitle className="inline-flex gap-1 items-center">
@@ -110,5 +93,32 @@ export function Products({ data, query, totalPages }: Products) {
       </Grid>
       <Pagination totalPages={totalPages} />
     </>
+  );
+}
+
+interface ProductImageDivProps {
+  imagenUrl: string | null;
+}
+
+export function ProductImageDiv({ imagenUrl }: ProductImageDivProps) {
+  return (
+    <div
+      className={cn(
+        !imagenUrl && 'bg-muted',
+        'flex justify-center items-center aspect-square w-full rounded'
+      )}
+    >
+      {imagenUrl ? (
+        <Image
+          src={imagenUrl}
+          width={150}
+          height={150}
+          alt="Thumbnail"
+          className="rounded h-full w-full dark:bg-white text-xs object-contain"
+        />
+      ) : (
+        <ImageIcon className="text-muted-foreground" />
+      )}
+    </div>
   );
 }

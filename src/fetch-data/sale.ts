@@ -109,7 +109,7 @@ export async function getSaleById(id: number | string) {
   const { ventas, compras } = getTotal();
 
   try {
-    const [saleResult, detail] = await Promise.all([
+    const [sale, detail] = await Promise.all([
       db
         .select({
           id: venta.id,
@@ -147,6 +147,7 @@ export async function getSaleById(id: number | string) {
           cantidad: ventaDetalle.cantidad,
           cambioDolar: ventaDetalle.cambioDolar,
           precioPorMayor: ventaDetalle.precioPorMayor,
+          imagenUrl: producto.imagenUrl,
         })
         .from(ventaDetalle)
         .leftJoin(producto, eq(ventaDetalle.idProducto, producto.id))
@@ -154,12 +155,8 @@ export async function getSaleById(id: number | string) {
         .orderBy(asc(ventaDetalle.id)),
     ]);
 
-    const sale = saleResult[0];
-
-    if (!sale) throw new Error('Venta no encontrada');
-
     return {
-      ...sale,
+      ...sale[0],
       detail,
     };
   } catch (error) {

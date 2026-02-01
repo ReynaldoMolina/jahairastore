@@ -29,6 +29,8 @@ import {
 } from '@/components/ui/card';
 import { ChangeQuantity, ChangeQuantityCard } from './change-quantity';
 import { Hash } from 'lucide-react';
+import { ProductImageDiv } from '@/components/list/product';
+import { formatNumber } from '@/lib/formatters';
 
 interface ProductSearchList {
   productData: ProductSearchData;
@@ -75,20 +77,44 @@ export default function ProductSearchList({
                   : ''
               } py-4 gap-4`}
             >
-              <CardHeader
-                className={isSelected ? 'border-b [.border-b]:pb-4' : ''}
-              >
-                <CardTitle>{p.nombre}</CardTitle>
-                <CardDescription className="inline-flex gap-3 items-center">
-                  <Badge variant="outline">
+              <CardContent className="flex justify-center max-h-30 rounded">
+                <ProductImageDiv imagenUrl={p.imagenUrl} />
+              </CardContent>
+              <CardHeader>
+                <CardTitle className="inline-flex justify-between gap-3">
+                  <span>
+                    {`${p.precioEnDolares ? '$' : 'C$'} ${formatNumber(
+                      p.costo
+                    )}`}
+                  </span>
+
+                  <Badge variant="outline" className="font-normal">
                     <Hash />
                     {p.id}
                   </Badge>
-                  {isSoldOut ? (
-                    <Badge variant="destructive">Agotado</Badge>
-                  ) : (
-                    <Badge variant="secondary">Cant: {p.existencias}</Badge>
-                  )}
+                </CardTitle>
+                <CardDescription className="flex flex-col gap-3 text-xs">
+                  <span>{p.nombre}</span>
+                  <div className="inline-flex gap-3">
+                    {isSoldOut ? (
+                      <Badge variant="destructive">Agotado</Badge>
+                    ) : (
+                      <Badge variant="secondary">Stock: {p.existencias}</Badge>
+                    )}
+
+                    {isSelected && (
+                      <ChangeQuantity
+                        setSelectedProducts={setSelectedProducts}
+                        product={{
+                          ...p,
+                          cantidad:
+                            selectedProducts.find(
+                              (prod) => prod.idProducto === p.id
+                            )?.cantidad || 1,
+                        }}
+                      />
+                    )}
+                  </div>
                 </CardDescription>
                 <CardAction>
                   <Checkbox
@@ -107,20 +133,6 @@ export default function ProductSearchList({
                   />
                 </CardAction>
               </CardHeader>
-              {isSelected && (
-                <CardContent>
-                  <ChangeQuantityCard
-                    setSelectedProducts={setSelectedProducts}
-                    product={{
-                      ...p,
-                      cantidad:
-                        selectedProducts.find(
-                          (prod) => prod.idProducto === p.id
-                        )?.cantidad || 1,
-                    }}
-                  />
-                </CardContent>
-              )}
             </Card>
           );
         })}
@@ -136,6 +148,7 @@ export default function ProductSearchList({
             <TableHead className="min-w-8">
               <Checkbox disabled />
             </TableHead>
+            <TableHead>Imagen</TableHead>
             <TableHead>Producto</TableHead>
             <TableHead>Cantidad</TableHead>
             <TableHead>Id</TableHead>
@@ -177,6 +190,9 @@ export default function ProductSearchList({
                       })
                     }
                   />
+                </TableCell>
+                <TableCell>
+                  <ProductImageDiv imagenUrl={product.imagenUrl} />
                 </TableCell>
                 <TableCell className="w-full whitespace-normal">
                   {product.nombre}

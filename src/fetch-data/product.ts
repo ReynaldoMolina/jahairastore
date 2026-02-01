@@ -108,14 +108,14 @@ export async function getProductsSearchList(
 
   const filterByState = state
     ? sql`
-    (
-      COALESCE("compras"."cantidad", 0)
-    - COALESCE("ventas"."cantidad", 0)
-    + COALESCE("traslados_entrada"."cantidad", 0)
-    - COALESCE("traslados_salida"."cantidad", 0)
-    + COALESCE("ajustes"."cantidad", 0)
-    ) > 0
-  `
+        (
+          COALESCE("compras"."cantidad", 0)
+        - COALESCE("ventas"."cantidad", 0)
+        + COALESCE("traslados_entrada"."cantidad", 0)
+        - COALESCE("traslados_salida"."cantidad", 0)
+        + COALESCE("ajustes"."cantidad", 0)
+        ) > 0
+      `
     : undefined;
 
   try {

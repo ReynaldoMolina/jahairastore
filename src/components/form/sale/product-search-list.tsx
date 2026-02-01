@@ -4,7 +4,6 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { ProductSearchData, SaleById, SaleDetailType } from '@/types/types';
 import { Dispatch, SetStateAction, useMemo } from 'react';
 import { formatNumber, roundToPointZeroOrFive } from '@/lib/formatters';
-import { bgColors } from '@/lib/bg-colors';
 import { cn } from '@/lib/utils';
 import {
   Card,
@@ -23,11 +22,11 @@ import {
   TableCell,
   Table,
 } from '@/components/ui/table';
-import { ChangeQuantityCard, ChangeQuantity } from './change-quantity';
+import { ChangeQuantity } from './change-quantity';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Hash } from 'lucide-react';
-import Image from 'next/image';
+import { ProductImageDiv } from '@/components/list/product';
 
 interface ProductSearchList {
   productData: ProductSearchData;
@@ -74,26 +73,46 @@ export default function ProductSearchList({
                   : ''
               } py-4 gap-4`}
             >
-              <CardHeader
-                className={isSelected ? 'border-b [.border-b]:pb-4' : ''}
-              >
-                <CardTitle className={isSoldOut ? 'text-muted-foreground' : ''}>
-                  {p.nombre}
-                </CardTitle>
-                <CardDescription className="inline-flex gap-3 items-center">
-                  <Badge
-                    variant="outline"
-                    className={isSoldOut ? 'text-muted-foreground' : ''}
-                  >
+              <CardContent className="flex justify-center max-h-30 rounded">
+                <ProductImageDiv imagenUrl={p.imagenUrl} />
+              </CardContent>
+              <CardHeader>
+                <CardTitle className="inline-flex justify-between gap-3">
+                  <span>
+                    {`${p.precioEnDolares ? '$' : 'C$'} ${formatNumber(price)}`}
+                  </span>
+
+                  <Badge variant="outline" className="font-normal">
                     <Hash />
                     {p.id}
                   </Badge>
-                  <Badge variant="secondary" className={bgColors.green}>
-                    {`${p.precioEnDolares ? '$' : 'C$'} ${formatNumber(price)}`}
-                  </Badge>
-                  <Badge variant={isSoldOut ? 'destructive' : 'secondary'}>
-                    {isSoldOut ? 'Agotado' : <span>Cant: {p.existencias}</span>}
-                  </Badge>
+                </CardTitle>
+                <CardDescription className="flex flex-col gap-3 text-xs">
+                  <span>{p.nombre}</span>
+                  <div className="inline-flex gap-3">
+                    <Badge
+                      variant={isSoldOut ? 'destructive' : 'secondary'}
+                      className="font-normal"
+                    >
+                      {isSoldOut ? (
+                        'Agotado'
+                      ) : (
+                        <span>Stock: {p.existencias}</span>
+                      )}
+                    </Badge>
+                    {isSelected && (
+                      <ChangeQuantity
+                        setSelectedProducts={setSelectedProducts}
+                        product={{
+                          ...p,
+                          cantidad:
+                            selectedProducts.find(
+                              (prod) => prod.idProducto === p.id
+                            )?.cantidad || 1,
+                        }}
+                      />
+                    )}
+                  </div>
                 </CardDescription>
                 <CardAction>
                   <Checkbox
@@ -115,29 +134,6 @@ export default function ProductSearchList({
                   />
                 </CardAction>
               </CardHeader>
-              {isSelected && (
-                <CardContent>
-                  <ChangeQuantityCard
-                    setSelectedProducts={setSelectedProducts}
-                    product={{
-                      ...p,
-                      cantidad:
-                        selectedProducts.find(
-                          (prod) => prod.idProducto === p.id
-                        )?.cantidad || 1,
-                    }}
-                  />
-                  {p.imagenUrl && (
-                    <Image
-                      src={p.imagenUrl}
-                      width={150}
-                      height={150}
-                      alt="Thumbnail"
-                      className="rounded text-xs bg-muted"
-                    />
-                  )}
-                </CardContent>
-              )}
             </Card>
           );
         })}
@@ -153,6 +149,7 @@ export default function ProductSearchList({
             <TableHead className="min-w-8">
               <Checkbox disabled />
             </TableHead>
+            <TableHead>Imagen</TableHead>
             <TableHead>Producto</TableHead>
             <TableHead>Cantidad</TableHead>
             <TableHead>Id</TableHead>
@@ -203,6 +200,9 @@ export default function ProductSearchList({
                       })
                     }
                   />
+                </TableCell>
+                <TableCell>
+                  <ProductImageDiv imagenUrl={product.imagenUrl} />
                 </TableCell>
                 <TableCell
                   className={`${

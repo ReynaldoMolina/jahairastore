@@ -71,6 +71,7 @@ export interface SaleById {
     cantidad: number;
     cambioDolar: number;
     precioPorMayor: boolean;
+    imagenUrl: string | null;
   }[];
 }
 
@@ -307,6 +308,7 @@ export interface PurchaseById {
     costo: number;
     cantidad: number;
     cambioDolar: number;
+    imagenUrl: string | null;
   }[];
 }
 

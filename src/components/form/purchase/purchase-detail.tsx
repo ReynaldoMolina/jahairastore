@@ -26,6 +26,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { DetailOptions } from '../detail-options';
+import { ProductImageDiv } from '@/components/list/product';
 
 interface PurchaseDetail {
   purchase: PurchaseById;
@@ -48,17 +49,18 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
 
           return (
             <Card key={detail.id} className="py-4 gap-4">
-              <CardHeader className="border-b [.border-b]:pb-4">
-                <CardTitle>{detail.nombreProducto}</CardTitle>
-                <CardDescription className="inline-flex gap-3">
-                  <Badge variant="outline">
-                    <Hash />
-                    {detail.idProducto}
-                  </Badge>
-                  <Badge variant="secondary" className={bgColors.red}>
-                    C$ {formatNumber(detail.costo)}
-                  </Badge>
-                  <Badge variant="outline">Cant: {detail.cantidad}</Badge>
+              <CardContent className="flex justify-center max-h-30 rounded">
+                <ProductImageDiv imagenUrl={detail.imagenUrl} />
+              </CardContent>
+              <CardHeader>
+                <CardTitle>
+                  <span>C$ {formatNumber(subtotalCompra)}</span>
+                  <span className="text-xs font-normal text-muted-foreground">
+                    {` = ${formatNumber(detail.costo)} x ${detail.cantidad}`}
+                  </span>
+                </CardTitle>
+                <CardDescription className="text-xs">
+                  {detail.nombreProducto}
                 </CardDescription>
                 <CardAction className="inline-flex gap-1 items-center">
                   <DetailOptions
@@ -69,33 +71,27 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
                   />
                 </CardAction>
               </CardHeader>
-              <CardContent>
-                <CardItem
-                  value={subtotalCompra}
-                  label="Total"
-                  color="neutral"
-                  showPriceInNio
-                />
-              </CardContent>
             </Card>
           );
         })}
         <Card className="py-4 gap-4 bg-muted">
           <CardHeader className="border-b [.border-b]:pb-2">
-            <CardTitle>Total: {purchase.detail.length}</CardTitle>
+            <CardTitle>
+              Total: C$ {formatNumber(formTotals.totalCost)}
+            </CardTitle>
           </CardHeader>
           <CardContent>
+            <CardItem
+              value={String(purchase.detail.length)}
+              label="Items"
+              color="neutral"
+              hideCurrency
+            />
             <CardItem
               value={String(formTotals.quantity)}
               label="Cantidad"
               color="neutral"
               hideCurrency
-            />
-            <CardItem
-              value={formTotals.totalCost}
-              label="Total"
-              color="neutral"
-              showPriceInNio
             />
           </CardContent>
         </Card>
@@ -106,10 +102,10 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
     <Table>
       <TableHeader>
         <TableRow>
+          <TableHead>Imagen</TableHead>
           <TableHead>Producto</TableHead>
-          <TableHead>Id</TableHead>
-          <TableHead>Cant</TableHead>
           <TableHead>Costo</TableHead>
+          <TableHead>Cant</TableHead>
           <TableHead>Total</TableHead>
           <TableHead>Acciones</TableHead>
         </TableRow>
@@ -125,20 +121,17 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
               key={detail.id}
               className="hover:bg-brand/30 dark:hover:bg-brand/20"
             >
+              <TableCell>
+                <ProductImageDiv imagenUrl={detail.imagenUrl} />
+              </TableCell>
               <TableCell className="w-full whitespace-normal">
                 {detail.nombreProducto}
               </TableCell>
               <TableCell>
-                <Badge variant="outline">
-                  <Hash />
-                  {detail.idProducto}
-                </Badge>
+                <ListItem value={detail.costo} color="red" showPriceInNio />
               </TableCell>
               <TableCell className="text-xs text-center">
                 {detail.cantidad}
-              </TableCell>
-              <TableCell>
-                <ListItem value={detail.costo} color="red" showPriceInNio />
               </TableCell>
               <TableCell>
                 <ListItem
@@ -161,6 +154,7 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
       </TableBody>
       <TableFooter className="bg-muted">
         <TableRow>
+          <TableCell></TableCell>
           <TableCell>Total</TableCell>
           <TableCell className="text-xs text-center">
             {purchase.detail.length}
@@ -168,7 +162,6 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
           <TableCell className="text-xs text-center">
             {formTotals.quantity}
           </TableCell>
-          <TableCell></TableCell>
           <TableCell>
             <ListItem
               value={formTotals.totalCost}

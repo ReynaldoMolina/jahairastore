@@ -56,7 +56,7 @@ export function ProductSearch({
           <SearchInput showScanButton />
           <HeaderFilter listName="inventario" />
         </div>
-        <div className="flex flex-col max-h-[50dvh] md:max-h-[55dvh] overflow-y-auto gap-2 w-full pb-1">
+        <div className="flex flex-col max-h-[50dvh] md:max-h-[60dvh] overflow-y-auto gap-2 w-full pb-1">
           {children}
         </div>
         <DialogFooter>
