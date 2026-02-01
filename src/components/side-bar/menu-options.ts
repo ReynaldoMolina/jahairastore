@@ -3,6 +3,7 @@ import {
   ChartNoAxesCombined,
   ListChecks,
   Package,
+  Shapes,
   ShoppingBag,
   User,
   Users,
@@ -53,14 +54,19 @@ export const menuOptions = [
     ],
   },
   {
+    name: 'Proveedores',
+    url: '/proveedores',
+    icon: Users,
+  },
+  {
     name: 'Clientes',
     url: '/clientes',
     icon: User,
   },
   {
-    name: 'Proveedores',
-    url: '/proveedores',
-    icon: Users,
+    name: 'Categorías',
+    url: '/categorias',
+    icon: Shapes,
   },
   {
     name: 'Documentación',

@@ -1,37 +1,34 @@
-export const dynamic = 'force-dynamic';
-
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { EditProductForm } from '@/components/form/product/edit';
 import { PageWrapper } from '@/components/page-wrapper';
 import { SiteHeader } from '@/components/header/site-header';
-import { getProductById } from '@/fetch-data/product';
 import { PageProps } from '@/types/types';
 import { notFound } from 'next/navigation';
-import { getProductCategoriesSelect } from '@/fetch-data/product-category';
+import { getProductCategoryById } from '@/fetch-data/product-category';
+import { EditCategoryForm } from '@/components/form/product-category/edit';
 
 export async function generateMetadata({ params }: PageProps) {
   const { id } = await params;
 
   return {
-    title: `Producto ${id}`,
+    title: `Categoría ${id}`,
   };
 }
 
 export default async function Page({ params }: PageProps) {
   await checkAuthorization();
-  const { id } = await params;
-  const data = await getProductById(id);
-  const categories = await getProductCategoriesSelect();
 
-  if (!data) {
+  const { id } = await params;
+  const category = await getProductCategoryById(id);
+
+  if (!category) {
     notFound();
   }
 
   return (
     <>
-      <SiteHeader title={`Producto ${id}`} />
+      <SiteHeader title={`Categoría ${id}`} />
       <PageWrapper>
-        <EditProductForm product={data} categories={categories} />
+        <EditCategoryForm category={category} />
       </PageWrapper>
     </>
   );

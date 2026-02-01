@@ -37,13 +37,16 @@ import { useState } from 'react';
 import { UploadImage } from './upload-image';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { DeleteImage } from './delete-image';
+import { FormSelect } from '@/components/form-element/form-select';
+import { SelectOptions } from '@/types/types';
 
 interface ProductForm {
   form: UseFormReturn<z.infer<typeof productSchema>>;
   productId?: number;
+  categories: SelectOptions[];
 }
 
-export function ProductForm({ form, productId }: ProductForm) {
+export function ProductForm({ form, productId, categories }: ProductForm) {
   const [open, setOpen] = useState(false);
   const {
     precioEnDolares,
@@ -198,13 +201,25 @@ export function ProductForm({ form, productId }: ProductForm) {
       <FieldSeparator />
 
       <FieldSet>
-        <FieldLegend>Imagen</FieldLegend>
+        <FieldLegend>Otra información</FieldLegend>
         <FieldDescription>
-          Ingresa la url o sube una imagen del producto.
+          Otros datos necesarios del producto.
         </FieldDescription>
 
+        <FormSelect
+          control={form.control}
+          name="idCategoria"
+          label="Categoría"
+          options={categories}
+        />
+
         <div className="flex gap-1 items-end">
-          <FormInput control={form.control} name="imagenUrl" label="URL" />
+          <FormInput
+            control={form.control}
+            name="imagenUrl"
+            label="Imagen"
+            placeholder="Url / link"
+          />
           <ButtonGroup>
             <UploadImage form={form} productId={productId} />
             <DeleteImage form={form} productId={productId} />

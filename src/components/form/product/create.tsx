@@ -10,7 +10,7 @@ import {
 } from '../../ui/card';
 import * as z from 'zod';
 import { createProduct } from '@/server-actions/product';
-import { ProductFormType } from '@/types/types';
+import { ProductFormType, SelectOptions } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useServerActionFeedback } from '@/hooks/use-server-status';
@@ -21,9 +21,13 @@ import { productSchema } from '../validation/product';
 
 interface CreateProductForm {
   cambioDolar: number;
+  categories: SelectOptions[];
 }
 
-export function CreateProductForm({ cambioDolar }: CreateProductForm) {
+export function CreateProductForm({
+  cambioDolar,
+  categories,
+}: CreateProductForm) {
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
     defaultValues: {
@@ -36,6 +40,7 @@ export function CreateProductForm({ cambioDolar }: CreateProductForm) {
       cambioDolar: cambioDolar,
       precioEnDolares: false,
       imagenUrl: null,
+      idCategoria: 0,
     },
   });
 
@@ -66,7 +71,7 @@ export function CreateProductForm({ cambioDolar }: CreateProductForm) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ProductForm form={form} />
+            <ProductForm form={form} categories={categories} />
           </CardContent>
           <FormCardFooter isNew={true} isPending={isPending} />
         </Card>

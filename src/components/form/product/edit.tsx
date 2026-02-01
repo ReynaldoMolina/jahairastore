@@ -10,7 +10,7 @@ import {
 } from '../../ui/card';
 import * as z from 'zod';
 import { updateProduct } from '@/server-actions/product';
-import { ProductFormType } from '@/types/types';
+import { ProductFormType, SelectOptions } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useServerActionFeedback } from '@/hooks/use-server-status';
@@ -21,9 +21,10 @@ import { productSchema } from '../validation/product';
 
 interface EditProductForm {
   product: ProductFormType;
+  categories: SelectOptions[];
 }
 
-export function EditProductForm({ product }: EditProductForm) {
+export function EditProductForm({ product, categories }: EditProductForm) {
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
     defaultValues: {
@@ -36,6 +37,7 @@ export function EditProductForm({ product }: EditProductForm) {
       cambioDolar: product.cambioDolar,
       precioEnDolares: product.precioEnDolares ?? false,
       imagenUrl: product.imagenUrl,
+      idCategoria: product.idCategoria,
     },
   });
 
@@ -66,7 +68,11 @@ export function EditProductForm({ product }: EditProductForm) {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ProductForm form={form} productId={product.id} />
+            <ProductForm
+              form={form}
+              productId={product.id}
+              categories={categories}
+            />
           </CardContent>
           <FormCardFooter isNew={false} isPending={isPending} />
         </Card>

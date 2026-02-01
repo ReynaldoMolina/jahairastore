@@ -3,7 +3,7 @@
 import { startTransition, useActionState, useEffect, useState } from 'react';
 import * as z from 'zod';
 import { createProduct } from '@/server-actions/product';
-import { ProductFormType } from '@/types/types';
+import { ProductFormType, SelectOptions } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useServerActionFeedback } from '@/hooks/use-server-status';
@@ -28,10 +28,12 @@ import { Checkbox } from '@/components/ui/checkbox';
 
 interface CreateProductFormDialog {
   cambioDolar: number;
+  categories: SelectOptions[];
 }
 
 export function CreateProductFormDialog({
   cambioDolar,
+  categories,
 }: CreateProductFormDialog) {
   const [createMultiple, setCreateMultiple] = useState(false);
 
@@ -47,6 +49,7 @@ export function CreateProductFormDialog({
       cambioDolar: cambioDolar,
       precioEnDolares: false,
       imagenUrl: null,
+      idCategoria: 0,
     },
   });
 
@@ -84,7 +87,7 @@ export function CreateProductFormDialog({
               </DialogDescription>
             </DialogHeader>
 
-            <ProductForm form={form} />
+            <ProductForm form={form} categories={categories} />
 
             <FieldSet>
               <Label className="hover:bg-accent/50 flex items-center gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950">

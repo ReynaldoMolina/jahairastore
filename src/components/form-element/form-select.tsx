@@ -40,7 +40,7 @@ export function FormSelect<T extends FieldValues>({
               field.onChange(value);
               onChangeExtra?.(value);
             }}
-            defaultValue={String(field.value)}
+            value={field.value != null ? String(field.value) : undefined}
           >
             <SelectTrigger disabled={disabled}>
               <SelectValue placeholder="Selecciona una opción" />

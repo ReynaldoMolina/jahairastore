@@ -9,40 +9,37 @@ import {
   CardTitle,
 } from '../../ui/card';
 import * as z from 'zod';
-import { ClientById } from '@/types/types';
+import { CategoryById } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useServerActionFeedback } from '@/hooks/use-server-status';
 import { FormCardFooter } from '@/components/form-element/form-footer';
 import { Form } from '@/components/ui/form';
 import { stateDefault } from '@/server-actions/stateMessage';
-import { clientSchema } from '../validation/client';
-import { createClient } from '@/server-actions/client';
-import { ClientForm } from './form';
+import { categorySchema } from '../validation/product-category';
+import { createCategory } from '@/server-actions/product-category';
+import { CategoryForm } from './form';
 
-export function CreateClientForm() {
-  const form = useForm<z.infer<typeof clientSchema>>({
-    resolver: zodResolver(clientSchema),
+export function CreateCategoryForm() {
+  const form = useForm<z.infer<typeof categorySchema>>({
+    resolver: zodResolver(categorySchema),
     defaultValues: {
       nombre: '',
-      apellido: '',
-      telefono: '',
-      direccion: '',
     },
   });
 
   const [state, formAction, isPending] = useActionState(
-    createClient,
+    createCategory,
     stateDefault
   );
 
-  function onSubmit(values: z.infer<typeof clientSchema>) {
+  function onSubmit(values: z.infer<typeof categorySchema>) {
     startTransition(() => {
-      formAction({ values: values as ClientById });
+      formAction({ values: values as CategoryById });
     });
   }
 
-  useServerActionFeedback(state, { redirectToId: '/clientes' });
+  useServerActionFeedback(state, { redirectToId: '/categorias' });
 
   return (
     <Form {...form}>
@@ -52,13 +49,13 @@ export function CreateClientForm() {
       >
         <Card>
           <CardHeader>
-            <CardTitle>Crear cliente</CardTitle>
+            <CardTitle>Crear Categoría</CardTitle>
             <CardDescription>
-              Agrega la información del cliente.
+              Agrega la información de la categoría.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ClientForm form={form} />
+            <CategoryForm form={form} />
           </CardContent>
           <FormCardFooter isNew={true} isPending={isPending} />
         </Card>

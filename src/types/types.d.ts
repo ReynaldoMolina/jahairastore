@@ -111,6 +111,7 @@ export interface ProductFormType {
   precioVentaPorMayor: number | null;
   codigo?: string | null;
   imagenUrl: string | null;
+  idCategoria: number;
 }
 
 export interface ProductSearchProduct {
@@ -395,4 +396,9 @@ export interface SearchParamsProps {
 export interface LoginFormType {
   username: string;
   password: string;
+}
+
+export interface CategoryById {
+  id?: number;
+  nombre: string;
 }

@@ -2,14 +2,11 @@
 
 import { startTransition, useActionState } from 'react';
 import * as z from 'zod';
-import { updateProduct } from '@/server-actions/product';
-import { ProductFormType, SelectOptions } from '@/types/types';
+import { CategoryById } from '@/types/types';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useServerActionFeedback } from '@/hooks/use-server-status';
-import { ProductForm } from './form';
 import { Form } from '@/components/ui/form';
-import { productSchema } from '../validation/product';
 import {
   Dialog,
   DialogClose,
@@ -23,42 +20,32 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { Spinner } from '@/components/ui/spinner';
 import { stateDefault } from '@/server-actions/stateMessage';
+import { categorySchema } from '../validation/product-category';
+import { updateCategory } from '@/server-actions/product-category';
+import { CategoryForm } from './form';
 
-interface EditProductFormDialog {
-  product: ProductFormType;
-  categories: SelectOptions[];
+interface EditCategoryFormDialog {
+  category: CategoryById;
 }
 
-export function EditProductFormDialog({
-  product,
-  categories,
-}: EditProductFormDialog) {
-  const form = useForm<z.infer<typeof productSchema>>({
-    resolver: zodResolver(productSchema),
+export function EditCategoryFormDialog({ category }: EditCategoryFormDialog) {
+  const form = useForm<z.infer<typeof categorySchema>>({
+    resolver: zodResolver(categorySchema),
     defaultValues: {
-      idProveedor: product.idProveedor,
-      nombre: product.nombre,
-      costo: product.costo,
-      precioVenta: product.precioVenta,
-      precioVentaPorMayor: product.precioVentaPorMayor,
-      codigo: product.codigo,
-      cambioDolar: product.cambioDolar,
-      precioEnDolares: product.precioEnDolares ?? false,
-      imagenUrl: product.imagenUrl,
-      idCategoria: product.idCategoria,
+      nombre: category.nombre,
     },
   });
 
   const [state, formAction, isPending] = useActionState(
-    updateProduct,
+    updateCategory,
     stateDefault
   );
 
   const router = useRouter();
 
-  function onSubmit(values: z.infer<typeof productSchema>) {
+  function onSubmit(values: z.infer<typeof categorySchema>) {
     startTransition(() => {
-      formAction({ id: product.id, values: values as ProductFormType });
+      formAction({ id: category.id, values: values as CategoryById });
     });
   }
 
@@ -73,17 +60,13 @@ export function EditProductFormDialog({
         <Dialog open={true} onOpenChange={() => router.back()}>
           <DialogContent className="w-full sm:max-w-xl max-h-[97dvh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Producto {product.id}</DialogTitle>
+              <DialogTitle>Editar categoría</DialogTitle>
               <DialogDescription>
-                Edita la información del producto.
+                Edita la información de la categoría.
               </DialogDescription>
             </DialogHeader>
 
-            <ProductForm
-              form={form}
-              productId={product.id}
-              categories={categories}
-            />
+            <CategoryForm form={form} />
 
             <DialogFooter>
               <DialogClose asChild>

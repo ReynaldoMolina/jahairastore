@@ -133,6 +133,15 @@ export const producto = pgTable('producto', {
   codigo: text('codigo'),
   precioEnDolares: boolean('precio_en_dolares').notNull().default(false),
   cambioDolar: doublePrecision('cambio_dolar'),
+  idCategoria: integer('id_categoria')
+    .notNull()
+    .default(1)
+    .references(() => productoCategoria.id),
+});
+
+export const productoCategoria = pgTable('producto_categoria', {
+  id: serial('id').primaryKey().notNull(),
+  nombre: text().notNull(),
 });
 
 export const productoTraslado = pgTable('producto_traslado', {
