@@ -1,7 +1,6 @@
 import { db } from '@/database/db';
 import {
   cliente,
-  ajustes,
   producto,
   venta,
   ventaDetalle,
@@ -13,7 +12,7 @@ import { getBusinessInfo } from './settings';
 import { buildSearchFilterByClient } from './build-by-search';
 
 function getTotal() {
-  const ventasTotal = db
+  const ventas = db
     .select({
       idVenta: ventaDetalle.idVenta,
       total: sql<number>`
@@ -42,7 +41,7 @@ function getTotal() {
     .groupBy(ventaDetalle.idVenta)
     .as('compras');
 
-  return { ventasTotal, compras };
+  return { ventas, compras };
 }
 
 export async function getSales(searchParams: SearchParamsProps) {
@@ -61,7 +60,7 @@ export async function getSales(searchParams: SearchParamsProps) {
     ? gt(saldoCalculated, 0) // Filter using the calculation, not the column
     : undefined;
 
-  const { ventasTotal, compras } = getTotal();
+  const { ventas, compras } = getTotal();
 
   try {
     const data = await db
@@ -81,7 +80,7 @@ export async function getSales(searchParams: SearchParamsProps) {
       })
       .from(venta)
       .leftJoin(cliente, eq(venta.idCliente, cliente.id))
-      .leftJoin(ventasTotal, eq(venta.id, ventasTotal.idVenta))
+      .leftJoin(ventas, eq(venta.id, ventas.idVenta))
       .leftJoin(compras, eq(venta.id, compras.idVenta))
       .where(and(filterBySearch, filterByState))
       .orderBy(desc(venta.id))
@@ -92,7 +91,7 @@ export async function getSales(searchParams: SearchParamsProps) {
       .select({ count: sql<number>`COUNT(*)` })
       .from(venta)
       .leftJoin(cliente, eq(venta.idCliente, cliente.id))
-      .leftJoin(ventasTotal, eq(venta.id, ventasTotal.idVenta))
+      .leftJoin(ventas, eq(venta.id, ventas.idVenta))
       .leftJoin(compras, eq(venta.id, compras.idVenta))
       .where(and(filterBySearch, filterByState));
 
@@ -107,7 +106,7 @@ export async function getSales(searchParams: SearchParamsProps) {
 
 export async function getSaleById(id: number | string) {
   const saleId = Number(id);
-  const { ventasTotal, compras } = getTotal();
+  const { ventas, compras } = getTotal();
 
   try {
     const [saleResult, detail] = await Promise.all([
@@ -132,7 +131,7 @@ export async function getSaleById(id: number | string) {
         })
         .from(venta)
         .leftJoin(cliente, eq(venta.idCliente, cliente.id))
-        .leftJoin(ventasTotal, eq(venta.id, ventasTotal.idVenta))
+        .leftJoin(ventas, eq(venta.id, ventas.idVenta))
         .leftJoin(compras, eq(venta.id, compras.idVenta))
         .where(eq(venta.id, saleId)),
 
@@ -152,7 +151,7 @@ export async function getSaleById(id: number | string) {
         .from(ventaDetalle)
         .leftJoin(producto, eq(ventaDetalle.idProducto, producto.id))
         .where(eq(ventaDetalle.idVenta, saleId))
-        .orderBy(desc(ventaDetalle.id)),
+        .orderBy(asc(ventaDetalle.id)),
     ]);
 
     const sale = saleResult[0];
@@ -191,7 +190,7 @@ export interface ReciboVenta {
 export async function getSaleReceiptPdf(id: number | string | undefined) {
   if (!id) return;
   const saleId = Number(id);
-  const { ventasTotal } = getTotal();
+  const { ventas } = getTotal();
 
   try {
     const [businessInfo, saleResult, detail] = await Promise.all([
@@ -207,7 +206,7 @@ export async function getSaleReceiptPdf(id: number | string | undefined) {
           saldo: sql<number>`
           CASE 
             WHEN ${venta.credito} = false THEN 0 
-            ELSE ROUND(COALESCE(${ventasTotal.total}, 0)::numeric, 2)::float - COALESCE(${venta.abono}, 0)::float 
+            ELSE ROUND(COALESCE(${ventas.total}, 0)::numeric, 2)::float - COALESCE(${venta.abono}, 0)::float 
           END
         `,
           nombreCliente: cliente.nombre,
@@ -215,14 +214,19 @@ export async function getSaleReceiptPdf(id: number | string | undefined) {
         })
         .from(venta)
         .leftJoin(cliente, eq(venta.idCliente, cliente.id))
-        .leftJoin(ventasTotal, eq(venta.id, ventasTotal.idVenta))
+        .leftJoin(ventas, eq(venta.id, ventas.idVenta))
         .where(eq(venta.id, saleId))
-        .groupBy(cliente.id, venta.id, ventasTotal.total),
+        .groupBy(cliente.id, venta.id, ventas.total),
 
       db
         .select({
           id: ventaDetalle.id,
-          precioVenta: ventaDetalle.precioVenta,
+          precioVenta: sql<number>`
+          CASE
+            WHEN ${ventaDetalle.precioPorMayor}
+              THEN ${ventaDetalle.precioVentaPorMayor}
+            ELSE ${ventaDetalle.precioVenta}
+          END`,
           cantidad: ventaDetalle.cantidad,
           nombreProducto: producto.nombre,
           cambioDolar: ventaDetalle.cambioDolar,
@@ -231,7 +235,7 @@ export async function getSaleReceiptPdf(id: number | string | undefined) {
         .leftJoin(producto, eq(ventaDetalle.idProducto, producto.id))
         .where(eq(ventaDetalle.idVenta, saleId))
         .groupBy(ventaDetalle.id, producto.nombre)
-        .orderBy(asc(producto.nombre)),
+        .orderBy(asc(ventaDetalle.id)),
     ]);
 
     const sale = saleResult[0];

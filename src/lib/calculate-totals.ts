@@ -18,27 +18,22 @@ export function calculateTotals({
   let items = list.length;
 
   for (const element of list) {
-    const exchangeRate = convert ? element.cambioDolar : 1;
+    // const exchangeRate = convert ? element.cambioDolar : 1;
 
     if (isOrder) {
-      totalSell +=
-        roundToTwoDecimals(element.precioVenta * exchangeRate) *
-        element.cantidad;
+      totalSell += element.precioVenta * element.cantidad;
     } else {
       totalSell += element.precioPorMayor
-        ? roundToPointZeroOrFive(element.precioVentaPorMayor * exchangeRate) *
-          element.cantidad
-        : roundToPointZeroOrFive(
-            element.precioVenta * exchangeRate * element.cantidad
-          );
+        ? element.precioVentaPorMayor * element.cantidad
+        : element.precioVenta * element.cantidad;
     }
 
-    totalCost += element.cantidad * element.costo * exchangeRate;
+    totalCost += element.cantidad * element.costo;
 
     quantity += element.cantidad;
   }
 
-  let profit = roundToTwoDecimals(totalSell) - roundToTwoDecimals(totalCost);
+  let profit = roundToTwoDecimals(totalSell - totalCost);
 
   return {
     totalSell: roundToTwoDecimals(totalSell),

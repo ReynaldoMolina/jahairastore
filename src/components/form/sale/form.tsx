@@ -36,14 +36,6 @@ export function SaleForm({
 }: SaleForm) {
   const { credito, abono } = form.watch();
 
-  let totalSell = 0;
-  if (!isNew) {
-    const totals = calculateTotals({
-      list: sale.detail,
-    });
-    totalSell = totals.totalSell;
-  }
-
   return (
     <FieldGroup>
       <FieldSet>
@@ -72,14 +64,14 @@ export function SaleForm({
           label="Venta al crédito"
           onCheckedExtra={(checked) => {
             if (!isNew)
-              form.setValue('abono', checked ? sale.abono : totalSell);
+              form.setValue('abono', checked ? sale.abono : sale.total);
           }}
         />
         {credito && !isNew && (
           <>
             <FieldSet className="inline-flex sm:flex-row">
               <FormInputReadOnly
-                value={formatNumber(totalSell)}
+                value={formatNumber(sale.total)}
                 label="Total"
                 textAddon="C$"
               />
