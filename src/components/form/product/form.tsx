@@ -64,14 +64,6 @@ export function ProductForm({ form, productId, categories }: ProductForm) {
 
   return (
     <FieldGroup>
-      <FieldSet className="hidden">
-        <FormInput
-          control={form.control}
-          name="idProveedor"
-          label="Id proveedor"
-        />
-      </FieldSet>
-
       <FieldSet>
         <FormTextArea control={form.control} name="nombre" label="Nombre" />
         <div className="inline-flex gap-1 items-end">

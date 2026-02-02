@@ -28,7 +28,6 @@ export function EditProductForm({ product, categories }: EditProductForm) {
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
     defaultValues: {
-      idProveedor: product.idProveedor,
       nombre: product.nombre,
       costo: product.costo,
       precioVenta: product.precioVenta,

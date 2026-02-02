@@ -32,7 +32,7 @@ export function DeleteImage({ form, productId }: Props) {
     setLoading(true);
 
     try {
-      await deleteProductImage(`${productId}.webp`);
+      await deleteProductImage(`${productId}.jpg`);
       form.setValue('imagenUrl', '');
       toast.success('Imagen eliminada correctamente.');
     } catch (error) {

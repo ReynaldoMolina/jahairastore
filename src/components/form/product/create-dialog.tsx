@@ -40,7 +40,6 @@ export function CreateProductFormDialog({
   const form = useForm<z.infer<typeof productSchema>>({
     resolver: zodResolver(productSchema),
     defaultValues: {
-      idProveedor: null,
       nombre: '',
       costo: 0,
       precioVenta: 0,
