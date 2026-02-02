@@ -124,7 +124,6 @@ export const ventaDetalle = pgTable('venta_detalle', {
 
 export const producto = pgTable('producto', {
   id: serial('id').primaryKey().notNull(),
-  idProveedor: integer('id_proveedor'),
   nombre: text('nombre').notNull(),
   imagenUrl: text('imagen_url'),
   costo: doublePrecision('costo').notNull(),
