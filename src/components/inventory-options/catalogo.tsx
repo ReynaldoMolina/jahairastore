@@ -49,6 +49,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
   },
 
+  categoryTitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    padding: 3,
+    paddingLeft: 7,
+    marginTop: 15,
+    marginBottom: 10,
+    borderLeft: '2px solid #9e7c2f',
+    color: '#333',
+  },
+
   card: {
     width: '30%',
     gap: 1,
@@ -111,6 +122,7 @@ interface Props {
     precioEnDolares: boolean;
     cambioDolar: number;
     imagenUrl: string | null;
+    categoria: string;
   }[];
 }
 
@@ -127,6 +139,16 @@ export function CatalagoProductos({ products }: Props) {
   const fechaDate = new Date();
   const fecha = formatDateShort(dateToIso(fechaDate));
 
+  // Agrupamos los productos por el campo 'categoria'
+  const groupedProducts = products.reduce((acc, product) => {
+    const cat = product.categoria || 'Sin Categoría';
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(product);
+    return acc;
+  }, {} as Record<string, typeof products>);
+
+  const categories = Object.keys(groupedProducts);
+
   return (
     <Document>
       <Page size="LETTER" style={styles.page}>
@@ -139,46 +161,57 @@ export function CatalagoProductos({ products }: Props) {
           <Image style={styles.logo} src="/store-logo.png" />
         </View>
 
-        {/* GRID */}
-        <View style={styles.grid}>
-          {products.map((p, i) => (
-            <View key={i} style={styles.card} wrap={false}>
-              {/* IMAGEN O PLACEHOLDER */}
-              <View style={styles.imageContainer}>
-                {p.imagenUrl ? (
-                  <Image style={styles.image} src={encodeURI(p.imagenUrl)} />
-                ) : (
-                  <Text style={styles.placeholderText}>Sin imagen</Text>
-                )}
-              </View>
+        {/* RENDER POR CATEGORÍAS */}
+        {categories.map((cat) => (
+          <View key={cat} wrap={true}>
+            {/* Subtítulo de Categoría */}
+            <Text style={styles.categoryTitle}>{cat}</Text>
 
-              {/* PRECIO */}
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Text style={styles.price}>
-                  {formatPrice(p.precioVenta, p.precioEnDolares, p.cambioDolar)}
-                </Text>
-                {p.precioVentaPorMayor > 0 && (
-                  <Text style={styles.wholesale}>
-                    P/mayor:{' '}
-                    {formatPrice(
-                      p.precioVentaPorMayor,
-                      p.precioEnDolares,
-                      p.cambioDolar
+            {/* Grid de productos de esta categoría */}
+            <View style={styles.grid}>
+              {groupedProducts[cat].map((p, i) => (
+                <View key={i} style={styles.card} wrap={false}>
+                  <View style={styles.imageContainer}>
+                    {p.imagenUrl ? (
+                      <Image
+                        style={styles.image}
+                        src={encodeURI(p.imagenUrl)}
+                      />
+                    ) : (
+                      <Text style={styles.placeholderText}>Sin imagen</Text>
                     )}
-                  </Text>
-                )}
-              </View>
+                  </View>
 
-              {/* NOMBRE */}
-              <Text style={styles.name}>{p.nombre}</Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <Text style={styles.price}>
+                      {formatPrice(
+                        p.precioVenta,
+                        p.precioEnDolares,
+                        p.cambioDolar
+                      )}
+                    </Text>
+                    {p.precioVentaPorMayor > 0 && (
+                      <Text style={styles.wholesale}>
+                        P/mayor:{' '}
+                        {formatPrice(
+                          p.precioVentaPorMayor,
+                          p.precioEnDolares,
+                          p.cambioDolar
+                        )}
+                      </Text>
+                    )}
+                  </View>
+                  <Text style={styles.name}>{p.nombre}</Text>
+                </View>
+              ))}
             </View>
-          ))}
-        </View>
+          </View>
+        ))}
 
         <Text
           style={styles.footer}

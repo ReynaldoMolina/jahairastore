@@ -1,5 +1,5 @@
 import { db } from '@/database/db';
-import { producto } from '@/database/schema/schema';
+import { producto, productoCategoria } from '@/database/schema/schema';
 import { SearchParamsProps } from '@/types/types';
 import { asc, eq, sql, and } from 'drizzle-orm';
 import {
@@ -205,8 +205,13 @@ export async function getProductsPdf(categorias: number[], ubicacion: number) {
         cambioDolar: producto.cambioDolar,
         precioVenta: producto.precioVenta,
         precioVentaPorMayor: producto.precioVentaPorMayor,
+        categoria: productoCategoria.nombre,
       })
       .from(producto)
+      .leftJoin(
+        productoCategoria,
+        eq(producto.idCategoria, productoCategoria.id)
+      )
       .leftJoin(compras, eq(producto.id, compras.idProducto))
       .leftJoin(ventas, eq(producto.id, ventas.idProducto))
       .leftJoin(trasladosEntrada, eq(trasladosEntrada.idProducto, producto.id))
