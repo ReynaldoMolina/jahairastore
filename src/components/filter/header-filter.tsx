@@ -33,7 +33,31 @@ export function useSearchUtils() {
     replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
-  return { updateURL };
+  const updateFilterList = (key: string, value: string | null) => {
+    const params = new URLSearchParams(searchParams.toString());
+    const current = params.get(key);
+    const array = current ? current.split(',') : [];
+
+    if (value === null) {
+      params.delete(key);
+      params.delete('page');
+    } else if (array.includes(value)) {
+      const newArray = array.filter((item) => item !== value);
+      if (newArray.length === 0) {
+        params.delete(key);
+      } else {
+        params.set(key, newArray.join(','));
+      }
+    } else {
+      array.push(value);
+      params.set(key, array.join(','));
+    }
+
+    if (value !== null) params.set('page', '1');
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
+  return { updateURL, updateFilterList };
 }
 
 interface FilterState {

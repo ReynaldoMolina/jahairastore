@@ -1,7 +1,6 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { Download } from 'lucide-react';
+import { Download, ListOrdered } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import {
   AlertDialog,
@@ -13,9 +12,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from './ui/alert-dialog';
+} from '../ui/alert-dialog';
+import { DropdownMenuItem } from '../ui/dropdown-menu';
+import { useState } from 'react';
 
-interface Product {
+export interface Product {
   id: number;
   nombre: string;
   codigo: string;
@@ -90,19 +91,26 @@ interface ExportInventoryProps {
   label: string;
 }
 
-export function ExportInventory({ data, label }: ExportInventoryProps) {
-  const isPlural = data.length > 1;
+export function ExportInventoryToExcel({ data, label }: ExportInventoryProps) {
+  const isPlural = data.length === 1;
+  const [open, setOpen] = useState(false);
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Download />
-        </Button>
+        <DropdownMenuItem
+          onSelect={(e) => {
+            e.preventDefault();
+            setOpen(true);
+          }}
+        >
+          <ListOrdered />
+          Inventario Excel
+        </DropdownMenuItem>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Exportar inventario - {label}</AlertDialogTitle>
+          <AlertDialogTitle>Exportar inventario: {label}</AlertDialogTitle>
           <AlertDialogDescription>
             {`
             Se ${isPlural ? 'van' : 'va'} a exportar ${data.length} ${

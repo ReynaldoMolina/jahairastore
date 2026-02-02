@@ -2,7 +2,11 @@ import { db } from '@/database/db';
 import { producto } from '@/database/schema/schema';
 import { SearchParamsProps } from '@/types/types';
 import { asc, eq, sql, and } from 'drizzle-orm';
-import { getUrlParams } from './filter';
+import {
+  buildFilterInventoryByCategory,
+  buildFilterInventoryByCategoryPdf,
+  getUrlParams,
+} from './filter';
 import { buildSearchFilter } from './build-by-search';
 import { getStock } from './stock';
 
@@ -25,6 +29,8 @@ export async function getProducts(searchParams: SearchParamsProps) {
     )::float > 0
   `
     : undefined;
+
+  const filterByCategory = buildFilterInventoryByCategory(searchParams);
 
   try {
     const { compras, ventas, trasladosEntrada, trasladosSalida, ajustes } =
@@ -59,7 +65,7 @@ export async function getProducts(searchParams: SearchParamsProps) {
       .leftJoin(trasladosEntrada, eq(trasladosEntrada.idProducto, producto.id))
       .leftJoin(trasladosSalida, eq(trasladosSalida.idProducto, producto.id))
       .leftJoin(ajustes, eq(ajustes.idProducto, producto.id))
-      .where(and(filterBySearch, filterByState))
+      .where(and(filterBySearch, filterByState, filterByCategory))
       .orderBy(asc(producto.nombre))
       .limit(limit)
       .offset(offset);
@@ -168,6 +174,50 @@ export async function getProductsSearchList(
     return { products, query, totalPages };
   } catch (error) {
     console.error(error);
-    throw new Error('No se pudieron obtener los producto.');
+    throw new Error('No se pudieron obtener los productos.');
+  }
+}
+
+export async function getProductsPdf(categorias: number[], ubicacion: number) {
+  const filterByExistencia = sql`
+    (
+      COALESCE("compras"."cantidad", 0)
+      - COALESCE("ventas"."cantidad", 0)
+      + COALESCE("traslados_entrada"."cantidad", 0)
+      - COALESCE("traslados_salida"."cantidad", 0)
+      + COALESCE("ajustes"."cantidad", 0)
+      )::float > 0
+    `;
+
+  const filterByCategory = buildFilterInventoryByCategoryPdf(categorias);
+
+  try {
+    const { compras, ventas, trasladosEntrada, trasladosSalida, ajustes } =
+      await getStock(ubicacion);
+
+    const data = await db
+      .select({
+        id: producto.id,
+        nombre: producto.nombre,
+        codigo: producto.codigo,
+        imagenUrl: producto.imagenUrl,
+        precioEnDolares: producto.precioEnDolares,
+        cambioDolar: producto.cambioDolar,
+        precioVenta: producto.precioVenta,
+        precioVentaPorMayor: producto.precioVentaPorMayor,
+      })
+      .from(producto)
+      .leftJoin(compras, eq(producto.id, compras.idProducto))
+      .leftJoin(ventas, eq(producto.id, ventas.idProducto))
+      .leftJoin(trasladosEntrada, eq(trasladosEntrada.idProducto, producto.id))
+      .leftJoin(trasladosSalida, eq(trasladosSalida.idProducto, producto.id))
+      .leftJoin(ajustes, eq(ajustes.idProducto, producto.id))
+      .where(and(filterByCategory, filterByExistencia))
+      .orderBy(asc(producto.nombre));
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw new Error('No se pudieron obtener los productos para el catálogo');
   }
 }

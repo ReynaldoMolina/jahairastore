@@ -10,6 +10,7 @@ export interface SearchParamsProps {
   proveedor: string;
   concepto: string;
   ubicacion: string;
+  categoria: string;
 }
 
 export interface DashboardData {

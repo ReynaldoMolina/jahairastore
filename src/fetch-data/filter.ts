@@ -1,5 +1,7 @@
+import { producto } from '@/database/schema/schema';
 import { ITEMS_PER_PAGE } from '@/lib/items-per-page';
 import { SearchParamsProps } from '@/types/types';
+import { inArray } from 'drizzle-orm';
 
 export function getUrlParams(searchParams: SearchParamsProps) {
   const query = searchParams?.query || '';
@@ -19,4 +21,23 @@ export function getUrlParams(searchParams: SearchParamsProps) {
   const state = stateParam ? true : false;
 
   return { query, state, limit, offset, ubicacion };
+}
+
+export function buildFilterInventoryByCategory(
+  searchParams: SearchParamsProps
+) {
+  const categoriesParam =
+    searchParams.categoria?.split(',').filter(Boolean) ?? [];
+
+  const categories = categoriesParam.map(Number);
+
+  return categories.length > 0
+    ? inArray(producto.idCategoria, categories)
+    : undefined;
+}
+
+export function buildFilterInventoryByCategoryPdf(categories: number[]) {
+  return categories.length > 0
+    ? inArray(producto.idCategoria, categories)
+    : undefined;
 }
