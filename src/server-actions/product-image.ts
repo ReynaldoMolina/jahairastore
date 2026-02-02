@@ -14,15 +14,18 @@ export async function uploadProductImage(file: File, productId: number) {
       height: 400,
       fit: 'inside',
     })
-    .webp({ quality: 80 })
+    .jpeg({
+      quality: 80,
+      mozjpeg: true,
+    })
     .toBuffer();
 
-  const fileName = `${productId}.webp`;
+  const fileName = `${productId}.jpg`;
 
   const { error } = await supabase.storage
     .from('store')
     .upload(fileName, optimizedImage, {
-      contentType: 'image/webp',
+      contentType: 'image/jpeg',
       upsert: true,
     });
 

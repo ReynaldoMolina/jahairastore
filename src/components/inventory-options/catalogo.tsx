@@ -1,10 +1,4 @@
-import {
-  dateIsoToDate,
-  dateToIso,
-  formatDate,
-  formatDateShort,
-  formatNumber,
-} from '@/lib/formatters';
+import { dateToIso, formatDateShort, formatNumber } from '@/lib/formatters';
 import {
   Document,
   Page,
@@ -64,7 +58,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 145,
     marginBottom: 6,
-    border: '1px solid #f2f2f2',
+    border: '1px solid #e5e5e5',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
@@ -83,7 +77,7 @@ const styles = StyleSheet.create({
   },
 
   price: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: 'bold',
   },
 
@@ -93,9 +87,9 @@ const styles = StyleSheet.create({
   },
 
   name: {
-    fontSize: 10,
+    fontSize: 9,
     marginTop: 2,
-    color: '#555',
+    color: '#737373',
   },
 
   footer: {
@@ -142,7 +136,6 @@ export function CatalagoProductos({ products }: Props) {
             <Text style={styles.title}>Jahaira Store</Text>
             <Text style={styles.subtitle}>Catálogo de productos</Text>
           </View>
-
           <Image style={styles.logo} src="/store-logo.png" />
         </View>
 
@@ -153,7 +146,7 @@ export function CatalagoProductos({ products }: Props) {
               {/* IMAGEN O PLACEHOLDER */}
               <View style={styles.imageContainer}>
                 {p.imagenUrl ? (
-                  <Image style={styles.image} src={p.imagenUrl} />
+                  <Image style={styles.image} src={encodeURI(p.imagenUrl)} />
                 ) : (
                   <Text style={styles.placeholderText}>Sin imagen</Text>
                 )}
@@ -169,16 +162,16 @@ export function CatalagoProductos({ products }: Props) {
                 <Text style={styles.price}>
                   {formatPrice(p.precioVenta, p.precioEnDolares, p.cambioDolar)}
                 </Text>
-
-                {/* PRECIO POR MAYOR */}
-                <Text style={styles.wholesale}>
-                  P/mayor:{' '}
-                  {formatPrice(
-                    p.precioVentaPorMayor,
-                    p.precioEnDolares,
-                    p.cambioDolar
-                  )}
-                </Text>
+                {p.precioVentaPorMayor > 0 && (
+                  <Text style={styles.wholesale}>
+                    P/mayor:{' '}
+                    {formatPrice(
+                      p.precioVentaPorMayor,
+                      p.precioEnDolares,
+                      p.cambioDolar
+                    )}
+                  </Text>
+                )}
               </View>
 
               {/* NOMBRE */}
@@ -187,7 +180,6 @@ export function CatalagoProductos({ products }: Props) {
           ))}
         </View>
 
-        {/* FOOTER */}
         <Text
           style={styles.footer}
           render={({ pageNumber, totalPages }) =>
