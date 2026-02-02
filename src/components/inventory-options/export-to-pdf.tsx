@@ -17,7 +17,7 @@ import { Checkbox } from '../ui/checkbox';
 import { Label } from '../ui/label';
 import { SelectOptions } from '@/types/types';
 import { ubicaciones } from '@/lib/ubicaciones-options';
-import { pdf, PDFDownloadLink } from '@react-pdf/renderer';
+import { pdf } from '@react-pdf/renderer';
 import { CatalagoProductos } from './catalogo';
 import { Spinner } from '../ui/spinner';
 
@@ -29,9 +29,7 @@ export function ExportInventoryToPdf({ categories }: ExportInventoryProps) {
   const [open, setOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const [selectedUbicacion, setSelectedUbicacion] = useState<number>(undefined);
-  const [products, setProducts] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isReady, setIsReady] = useState(false);
 
   const toggleCategory = (id: number, checked: boolean) => {
     setSelectedCategories((prev) =>
@@ -175,9 +173,18 @@ export function ExportInventoryToPdf({ categories }: ExportInventoryProps) {
                 // 3. Forzar descarga directa
                 const url = URL.createObjectURL(blob);
 
+                const now = new Date();
+                const pad = (n: number) => n.toString().padStart(2, '0');
+
+                const fileName = `Jahaira Store - Catálogo ${now.getFullYear()}-${pad(
+                  now.getMonth() + 1
+                )}-${pad(now.getDate())} ${pad(now.getHours())}-${pad(
+                  now.getMinutes()
+                )}.pdf`;
+
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'catalogo-productos.pdf';
+                a.download = fileName;
                 a.click();
 
                 URL.revokeObjectURL(url);
