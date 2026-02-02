@@ -1,5 +1,4 @@
 import { checkAuthorization } from '@/authorization/check-authorization';
-import { CatalogoEditor } from '@/components/borrar';
 import { OpcionesDePago } from '@/components/documentation/opciones-de-pago';
 import {
   TypographyH2,
@@ -24,8 +23,6 @@ export default async function Page() {
 
         <OpcionesDePago />
       </TypographySection>
-
-      <CatalogoEditor />
     </>
   );
 }
