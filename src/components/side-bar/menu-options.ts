@@ -1,6 +1,8 @@
+import { url } from 'inspector';
 import {
   BookOpen,
   ChartNoAxesCombined,
+  Coins,
   ListChecks,
   Package,
   Shapes,
@@ -16,29 +18,37 @@ export const menuOptions = [
     icon: ChartNoAxesCombined,
   },
   {
+    name: 'Ventas',
+    url: '/ventas',
+    icon: Coins,
+  },
+  {
     name: 'Inventario',
     url: '/inventario',
     icon: Package,
     items: [
       {
-        name: 'Ventas',
-        url: '/ventas',
-      },
-      {
-        name: 'Compras',
-        url: '/compras',
-      },
-      {
-        name: 'Gastos',
-        url: '/gastos',
+        name: 'Ajustes',
+        url: '/ajuste-inventario',
       },
       {
         name: 'Traslados',
         url: '/traslados',
       },
       {
-        name: 'Ajustes',
-        url: '/ajuste-inventario',
+        name: 'Categorías',
+        url: '/categorias',
+      },
+    ],
+  },
+  {
+    name: 'Compras',
+    url: '/compras',
+    icon: Package,
+    items: [
+      {
+        name: 'Gastos',
+        url: '/gastos',
       },
     ],
   },
@@ -54,30 +64,25 @@ export const menuOptions = [
     ],
   },
   {
-    name: 'Proveedores',
-    url: '/proveedores',
-    icon: Users,
-  },
-  {
     name: 'Clientes',
     url: '/clientes',
     icon: User,
   },
   {
-    name: 'Categorías',
-    url: '/categorias',
-    icon: Shapes,
+    name: 'Proveedores',
+    url: '/proveedores',
+    icon: Users,
   },
   {
     name: 'Documentación',
     url: '/documentacion',
     icon: BookOpen,
   },
-  {
-    name: 'Tareas',
-    url: '/tareas?state=true',
-    icon: ListChecks,
-  },
+  // {
+  //   name: 'Tareas',
+  //   url: '/tareas?state=true',
+  //   icon: ListChecks,
+  // },
 ];
 
 export type MenuOption = (typeof menuOptions)[number];
