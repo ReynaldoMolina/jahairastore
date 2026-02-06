@@ -78,14 +78,14 @@ export async function getProducts(searchParams: SearchParamsProps) {
       .leftJoin(trasladosEntrada, eq(trasladosEntrada.idProducto, producto.id))
       .leftJoin(trasladosSalida, eq(trasladosSalida.idProducto, producto.id))
       .leftJoin(ajustes, eq(ajustes.idProducto, producto.id))
-      .where(and(filterBySearch, filterByState));
+      .where(and(filterBySearch, filterByState, filterByCategory));
 
     const totalPages = Math.ceil(count / limit) || 1;
 
     return { data, query, totalPages };
   } catch (error) {
     console.error(error);
-    throw new Error('No se pudieron obtener los productos');
+    throw new Error('No se pudieron obtener los productos.');
   }
 }
 
