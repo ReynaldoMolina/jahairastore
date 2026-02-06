@@ -76,8 +76,11 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
         })}
         <Card className="py-4 gap-4 bg-muted">
           <CardHeader className="border-b [.border-b]:pb-2">
-            <CardTitle>
-              Total: C$ {formatNumber(formTotals.totalCost)}
+            <CardTitle className="inline-flex items-baseline gap-1">
+              <span>C$ {formatNumber(formTotals.totalCost)}</span>
+              <span className="text-xs font-normal text-muted-foreground">
+                = Total
+              </span>
             </CardTitle>
           </CardHeader>
           <CardContent>
