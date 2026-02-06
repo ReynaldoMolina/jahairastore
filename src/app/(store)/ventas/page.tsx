@@ -7,6 +7,7 @@ import { Wrapper } from '@/components/list/wrapper/sale';
 import { Suspense } from 'react';
 import Loading from '@/components/loading';
 import { SearchInput } from '@/components/filter/search-input';
+import { DateRangeButtons } from '@/components/filter/date-range-buttons';
 
 export const metadata = {
   title: 'Ventas',
@@ -22,7 +23,10 @@ export default async function Page({ searchParams }: PageProps) {
       </SiteHeader>
       <PageWrapper>
         <Suspense fallback={<Loading />}>
-          <SearchInput />
+          <div className="flex flex-col md:flex-row gap-2">
+            <SearchInput />
+            <DateRangeButtons searchParams={await searchParams} />
+          </div>
           <Wrapper searchParams={await searchParams} />
         </Suspense>
       </PageWrapper>

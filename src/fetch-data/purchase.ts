@@ -9,10 +9,16 @@ import {
   proveedor,
 } from '@/database/schema/schema';
 import { db } from '@/database/db';
-import { desc, eq, sql, asc } from 'drizzle-orm';
+import { desc, eq, sql, asc, between, and } from 'drizzle-orm';
+import { getCurrentMonth } from '@/lib/get-date';
 
 export async function getPurchases(searchParams: SearchParamsProps) {
   const { query, limit, offset } = getUrlParams(searchParams);
+
+  const { start, end } = searchParams;
+  const { firstDay, lastDay } = getCurrentMonth();
+  const startParam = start ? start : firstDay;
+  const endParam = end ? end : lastDay;
 
   const filterBySearch = buildSearchFilterByProvider(searchParams);
 
@@ -49,7 +55,7 @@ export async function getPurchases(searchParams: SearchParamsProps) {
       .leftJoin(gastos, eq(compra.id, gastos.idCompra))
       .leftJoin(proveedor, eq(compra.idProveedor, proveedor.id))
       .leftJoin(compras, eq(compra.id, compras.idCompra))
-      .where(filterBySearch)
+      .where(and(filterBySearch, between(compra.fecha, startParam, endParam)))
       .orderBy(desc(compra.id))
       .limit(limit)
       .offset(offset);
@@ -60,7 +66,7 @@ export async function getPurchases(searchParams: SearchParamsProps) {
       .leftJoin(gastos, eq(compra.id, gastos.idCompra))
       .leftJoin(proveedor, eq(compra.idProveedor, proveedor.id))
       .leftJoin(compras, eq(compra.id, compras.idCompra))
-      .where(filterBySearch);
+      .where(and(filterBySearch, between(compra.fecha, startParam, endParam)));
 
     const totalPages = Math.ceil(count / limit) || 1;
 

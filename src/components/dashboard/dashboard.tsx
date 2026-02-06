@@ -1,6 +1,6 @@
 import { SalesOnlyReport, OrdersOnlyReport } from './reports';
 import { SearchParamsProps } from '@/types/types';
-import { DateRangeButtons } from './date-range-buttons';
+import { DateRangeButtons } from '../filter/date-range-buttons';
 import { getTotalsDashboard } from '@/fetch-data/dashboard';
 
 interface Dashboard {

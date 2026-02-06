@@ -6,10 +6,11 @@ import {
   ventaDetalle,
 } from '@/database/schema/schema';
 import { SearchParamsProps } from '@/types/types';
-import { desc, eq, sql, and, gt, asc } from 'drizzle-orm';
+import { desc, eq, sql, and, gt, asc, between } from 'drizzle-orm';
 import { getUrlParams } from './filter';
 import { getBusinessInfo } from './settings';
 import { buildSearchFilterByClient } from './build-by-search';
+import { getCurrentMonth } from '@/lib/get-date';
 
 function getTotal() {
   const ventas = db
@@ -46,6 +47,11 @@ function getTotal() {
 
 export async function getSales(searchParams: SearchParamsProps) {
   const { query, limit, offset, state } = getUrlParams(searchParams);
+  const { start, end } = searchParams;
+  const { firstDay, lastDay } = getCurrentMonth();
+
+  const startParam = start ? start : firstDay;
+  const endParam = end ? end : lastDay;
 
   const filterBySearch = buildSearchFilterByClient(searchParams);
 
@@ -82,7 +88,13 @@ export async function getSales(searchParams: SearchParamsProps) {
       .leftJoin(cliente, eq(venta.idCliente, cliente.id))
       .leftJoin(ventas, eq(venta.id, ventas.idVenta))
       .leftJoin(compras, eq(venta.id, compras.idVenta))
-      .where(and(filterBySearch, filterByState))
+      .where(
+        and(
+          filterBySearch,
+          filterByState,
+          between(venta.fecha, startParam, endParam)
+        )
+      )
       .orderBy(desc(venta.id))
       .limit(limit)
       .offset(offset);
@@ -93,7 +105,13 @@ export async function getSales(searchParams: SearchParamsProps) {
       .leftJoin(cliente, eq(venta.idCliente, cliente.id))
       .leftJoin(ventas, eq(venta.id, ventas.idVenta))
       .leftJoin(compras, eq(venta.id, compras.idVenta))
-      .where(and(filterBySearch, filterByState));
+      .where(
+        and(
+          filterBySearch,
+          filterByState,
+          between(venta.fecha, startParam, endParam)
+        )
+      );
 
     const totalPages = Math.ceil(count / limit) || 1;
 
