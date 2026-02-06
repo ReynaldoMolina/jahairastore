@@ -12,10 +12,7 @@ import {
 } from '@/components/ui/card';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { CardItem, ListItem } from '@/components/list/list-item';
-import { Badge } from '@/components/ui/badge';
-import { bgColors } from '@/lib/bg-colors';
 import { formatNumber } from '@/lib/formatters';
-import { Hash } from 'lucide-react';
 import {
   Table,
   TableBody,
@@ -49,7 +46,7 @@ export function PurchaseDetail({ purchase, handleDelete }: PurchaseDetail) {
 
           return (
             <Card key={detail.id} className="py-4 gap-4">
-              <CardContent className="flex justify-center max-h-30 rounded">
+              <CardContent className="flex justify-center max-h-25 rounded">
                 <ProductImageDiv imagenUrl={detail.imagenUrl} />
               </CardContent>
               <CardHeader>

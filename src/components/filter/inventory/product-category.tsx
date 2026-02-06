@@ -8,6 +8,7 @@ import {
 import { useSearchParams } from 'next/navigation';
 import { useSearchUtils } from '../header-filter';
 import { SelectOptions } from '@/types/types';
+import { useState } from 'react';
 
 interface Props {
   categories: SelectOptions[];

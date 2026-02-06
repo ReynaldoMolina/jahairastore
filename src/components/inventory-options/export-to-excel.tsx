@@ -104,7 +104,6 @@ export function ExportInventoryToExcel({ data, label }: ExportInventoryProps) {
             setOpen(true);
           }}
         >
-          <ListOrdered />
           Inventario Excel
         </DropdownMenuItem>
       </AlertDialogTrigger>

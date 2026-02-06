@@ -55,7 +55,7 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
 
           return (
             <Card key={detail.id} className="py-4 gap-4">
-              <CardContent className="flex justify-center max-h-30 rounded">
+              <CardContent className="flex justify-center max-h-25 rounded">
                 <ProductImageDiv imagenUrl={detail.imagenUrl} />
               </CardContent>
               <CardHeader className="border-b [.border-b]:pb-4">
