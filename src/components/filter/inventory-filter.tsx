@@ -23,11 +23,9 @@ export function InventoryFilter({ categories }: Props) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <ProductCategoryFilter categories={categories} />
-
-        <DropdownMenuSeparator />
-
         <StockLocationFilter />
+        <DropdownMenuSeparator />
+        <ProductCategoryFilter categories={categories} />
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -1,6 +1,5 @@
 'use client';
 
-import { FileText } from 'lucide-react';
 import { DropdownMenuItem } from '../ui/dropdown-menu';
 import { useState } from 'react';
 import {
@@ -60,7 +59,6 @@ export function ExportInventoryToPdf({ categories }: ExportInventoryProps) {
             setOpen(true);
           }}
         >
-          <FileText />
           Catálogo PDF
         </DropdownMenuItem>
       </DialogTrigger>
@@ -69,7 +67,7 @@ export function ExportInventoryToPdf({ categories }: ExportInventoryProps) {
         <DialogHeader>
           <DialogTitle>Exportar catálogo</DialogTitle>
           <DialogDescription>
-            Selecciona las categorías y ubicación a exportar.
+            Selecciona la ubicación y las categorías a incluir.
           </DialogDescription>
         </DialogHeader>
 
@@ -77,67 +75,71 @@ export function ExportInventoryToPdf({ categories }: ExportInventoryProps) {
           {/* ───── UBICACIONES ───── */}
           <span className="text-sm font-semibold">Ubicaciones</span>
 
-          <div className="inline-flex gap-3">
-            <Checkbox
-              id="all"
-              checked={selectedUbicacion === undefined}
-              onCheckedChange={() => selectAllUbicaciones()}
-            />
-            <Label htmlFor="all" className="font-normal">
-              Todo
-            </Label>
+          <div className="grid gap-3 grid-cols-2 md:grid-cols-3">
+            <div className="inline-flex gap-2">
+              <Checkbox
+                id="all"
+                checked={selectedUbicacion === undefined}
+                onCheckedChange={() => selectAllUbicaciones()}
+              />
+              <Label htmlFor="all" className="font-normal">
+                Todo
+              </Label>
+            </div>
+
+            {ubicaciones.map((ubicacion) => {
+              const id = Number(ubicacion.value);
+
+              return (
+                <div key={ubicacion.value} className="inline-flex gap-2">
+                  <Checkbox
+                    id={ubicacion.label}
+                    checked={selectedUbicacion === Number(ubicacion.value)}
+                    onCheckedChange={() => toggleUbicacion(id)}
+                  />
+                  <Label htmlFor={ubicacion.label} className="font-normal">
+                    {ubicacion.label}
+                  </Label>
+                </div>
+              );
+            })}
           </div>
-
-          {ubicaciones.map((ubicacion) => {
-            const id = Number(ubicacion.value);
-
-            return (
-              <div key={ubicacion.value} className="inline-flex gap-3">
-                <Checkbox
-                  id={ubicacion.label}
-                  checked={selectedUbicacion === Number(ubicacion.value)}
-                  onCheckedChange={() => toggleUbicacion(id)}
-                />
-                <Label htmlFor={ubicacion.label} className="font-normal">
-                  {ubicacion.label}
-                </Label>
-              </div>
-            );
-          })}
 
           {/* ───── CATEGORÍAS ───── */}
-          <span className="text-sm font-semibold mt-3">Categorías</span>
+          <span className="text-sm font-semibold mt-6">Categorías</span>
 
-          <div className="inline-flex gap-3">
-            <Checkbox
-              id="all-categories"
-              checked={selectedCategories.length === categories.length}
-              onCheckedChange={(checked) => selectAllCategories(!!checked)}
-            />
-            <Label htmlFor="all-categories" className="font-normal">
-              Todo
-            </Label>
+          <div className="grid gap-3 grid-cols-2 md:grid-cols-3">
+            <div className="inline-flex gap-2">
+              <Checkbox
+                id="all-categories"
+                checked={selectedCategories.length === categories.length}
+                onCheckedChange={(checked) => selectAllCategories(!!checked)}
+              />
+              <Label htmlFor="all-categories" className="font-normal">
+                Todo
+              </Label>
+            </div>
+
+            {categories.map((category) => {
+              const id = Number(category.value);
+
+              return (
+                <div key={category.value} className="inline-flex gap-2">
+                  <Checkbox
+                    id={category.label}
+                    checked={selectedCategories.includes(id)}
+                    onCheckedChange={(checked) => toggleCategory(id, !!checked)}
+                  />
+                  <Label htmlFor={category.label} className="font-normal">
+                    {category.label}
+                  </Label>
+                </div>
+              );
+            })}
           </div>
-
-          {categories.map((category) => {
-            const id = Number(category.value);
-
-            return (
-              <div key={category.value} className="inline-flex gap-3">
-                <Checkbox
-                  id={category.label}
-                  checked={selectedCategories.includes(id)}
-                  onCheckedChange={(checked) => toggleCategory(id, !!checked)}
-                />
-                <Label htmlFor={category.label} className="font-normal">
-                  {category.label}
-                </Label>
-              </div>
-            );
-          })}
         </div>
 
-        <DialogFooter className="flex flex-col sm:flex-row gap-2">
+        <DialogFooter className="justify-end gap-3 flex-col-reverse sm:flex-row">
           <Button
             type="button"
             variant="secondary"
@@ -196,7 +198,14 @@ export function ExportInventoryToPdf({ categories }: ExportInventoryProps) {
               }
             }}
           >
-            {isLoading ? <Spinner /> : 'Descargar'}
+            {isLoading ? (
+              <>
+                <Spinner />
+                Descargando...
+              </>
+            ) : (
+              'Descargar'
+            )}
           </Button>
         </DialogFooter>
       </DialogContent>

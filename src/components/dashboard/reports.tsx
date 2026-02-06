@@ -23,18 +23,18 @@ export function SalesOnlyReport({ data }: ReportData) {
           <CardHeader>
             <CardDescription>Ganancia</CardDescription>
             <CardTitle className="text-lg font-semibold tabular-nums text-blue-700 dark:text-blue-300">
-              <span>C${formatNumber(profit)}</span>
+              <span>C$ {formatNumber(profit)}</span>
             </CardTitle>
           </CardHeader>
           <CardFooter className="text-xs text-muted-foreground">
-            C${formatNumber(profit * 0.1)} (10%)
+            C$ {formatNumber(profit * 0.1)} (10%)
           </CardFooter>
         </Card>
         <Card>
           <CardHeader>
             <CardDescription>Al contado</CardDescription>
             <CardTitle className="text-lg font-semibold tabular-nums">
-              C${formatNumber(data.salesContado)}
+              C$ {formatNumber(data.salesContado)}
             </CardTitle>
           </CardHeader>
           <CardFooter className="text-xs text-muted-foreground">
@@ -45,7 +45,7 @@ export function SalesOnlyReport({ data }: ReportData) {
           <CardHeader>
             <CardDescription>Al crédito</CardDescription>
             <CardTitle className="text-lg font-semibold tabular-nums">
-              C${formatNumber(data.salesCreditAbonos)}
+              C$ {formatNumber(data.salesCreditAbonos)}
             </CardTitle>
           </CardHeader>
           <CardFooter className="text-xs text-muted-foreground">
@@ -56,11 +56,11 @@ export function SalesOnlyReport({ data }: ReportData) {
           <CardHeader>
             <CardDescription>Costos</CardDescription>
             <CardTitle className="text-lg font-semibold tabular-nums">
-              C${formatNumber(data.salesCosts)}
+              C$ {formatNumber(data.salesCosts)}
             </CardTitle>
           </CardHeader>
           <CardFooter className="text-xs text-muted-foreground">
-            Costos de productos
+            De productos vendidos
           </CardFooter>
         </Card>
       </div>
@@ -79,18 +79,18 @@ export function OrdersOnlyReport({ data }: ReportData) {
           <CardHeader>
             <CardDescription>Ganancia</CardDescription>
             <CardTitle className="text-lg font-semibold tabular-nums text-blue-700 dark:text-blue-300">
-              ${formatNumber(profit)}
+              $ {formatNumber(profit)}
             </CardTitle>
           </CardHeader>
           <CardFooter className="text-xs text-muted-foreground">
-            ${formatNumber(profit * 0.1)} (10%)
+            $ {formatNumber(profit * 0.1)} (10%)
           </CardFooter>
         </Card>
         <Card>
           <CardHeader>
             <CardDescription>Ingresos</CardDescription>
             <CardTitle className="text-lg font-semibold tabular-nums">
-              ${formatNumber(data.totalOrdersInDollars)}
+              $ {formatNumber(data.totalOrdersInDollars)}
             </CardTitle>
           </CardHeader>
           <CardFooter className="text-xs text-muted-foreground">
@@ -101,7 +101,7 @@ export function OrdersOnlyReport({ data }: ReportData) {
           <CardHeader>
             <CardDescription>Costos</CardDescription>
             <CardTitle className="text-lg font-semibold tabular-nums">
-              ${formatNumber(data.ordersCostsInDollars)}
+              $ {formatNumber(data.ordersCostsInDollars)}
             </CardTitle>
           </CardHeader>
           <CardFooter className="text-xs text-muted-foreground">

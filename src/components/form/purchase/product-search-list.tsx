@@ -77,7 +77,7 @@ export default function ProductSearchList({
                   : ''
               } py-4 gap-4`}
             >
-              <CardContent className="flex justify-center max-h-30 rounded">
+              <CardContent className="flex justify-center max-h-25 rounded">
                 <ProductImageDiv imagenUrl={p.imagenUrl} />
               </CardContent>
               <CardHeader>

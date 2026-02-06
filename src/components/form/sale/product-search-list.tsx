@@ -73,7 +73,7 @@ export default function ProductSearchList({
                   : ''
               } py-4 gap-4`}
             >
-              <CardContent className="flex justify-center max-h-30 rounded">
+              <CardContent className="flex justify-center max-h-25 rounded">
                 <ProductImageDiv imagenUrl={p.imagenUrl} />
               </CardContent>
               <CardHeader>
@@ -91,7 +91,7 @@ export default function ProductSearchList({
                   <span>{p.nombre}</span>
                   <div className="inline-flex gap-3">
                     <Badge
-                      variant={isSoldOut ? 'destructive' : 'secondary'}
+                      variant={isSoldOut ? 'destructive' : 'outline'}
                       className="font-normal"
                     >
                       {isSoldOut ? (

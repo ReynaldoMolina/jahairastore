@@ -9,7 +9,7 @@ import {
   thisYear,
   today,
 } from '@/lib/get-date';
-import { DateSelector } from './date-selector';
+import { DateSelector } from '../dashboard/date-selector';
 import { ToggleGroup, ToggleGroupItem } from '../ui/toggle-group';
 import { cn } from '@/lib/utils';
 

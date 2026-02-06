@@ -1,4 +1,4 @@
-import { Download, MoreVertical } from 'lucide-react';
+import { Download } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
