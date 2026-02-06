@@ -94,7 +94,12 @@ export function SaleDetail({ sale, handleDelete }: SaleDetail) {
         })}
         <Card className="py-4 gap-4 bg-muted">
           <CardHeader className="border-b [.border-b]:pb-2">
-            <CardTitle>Total: C$ {formTotals.totalSell}</CardTitle>
+            <CardTitle className="inline-flex gap-1 items-baseline">
+              <span>C$ {formatNumber(formTotals.totalSell)}</span>
+              <span className="text-xs font-normal text-muted-foreground">
+                = Total
+              </span>
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <CardItem
