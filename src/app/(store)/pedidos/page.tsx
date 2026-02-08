@@ -7,6 +7,7 @@ import { PageProps } from '@/types/types';
 import { Suspense } from 'react';
 import Loading from '@/components/loading';
 import { Wrapper } from '@/components/list/wrapper/order';
+import { DateRangeButtons } from '@/components/filter/date-range-buttons';
 
 export const metadata = {
   title: 'Pedidos',
@@ -21,7 +22,13 @@ export default async function Page({ searchParams }: PageProps) {
         <HeaderFilter listName="pedidos" />
       </SiteHeader>
       <PageWrapper>
-        <SearchInput />
+        <div className="flex flex-col md:flex-row gap-2">
+          <SearchInput />
+          <DateRangeButtons
+            searchParams={await searchParams}
+            className="md:ml-auto"
+          />
+        </div>
         <Suspense fallback={<Loading />}>
           <Wrapper searchParams={await searchParams} />
         </Suspense>

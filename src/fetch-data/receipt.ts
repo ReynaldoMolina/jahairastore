@@ -2,12 +2,18 @@ import { SearchParamsProps } from '@/types/types';
 import { getUrlParams } from './filter';
 import { db } from '@/database/db';
 import { cliente, pedidoDetalle, recibo } from '@/database/schema/schema';
-import { desc, eq, sql, asc } from 'drizzle-orm';
+import { desc, eq, sql, asc, and, between } from 'drizzle-orm';
 import { buildSearchFilterByOrder } from './build-by-search';
 import { getBusinessInfo } from './settings';
+import { getCurrentMonth } from '@/lib/get-date';
 
 export async function getReceipts(searchParams: SearchParamsProps) {
   const { query, limit, offset } = getUrlParams(searchParams);
+  const { start, end } = searchParams;
+  const { firstDay, lastDay } = getCurrentMonth();
+
+  const startParam = start ? start : firstDay;
+  const endParam = end ? end : lastDay;
 
   const filterBySearch = buildSearchFilterByOrder(searchParams);
 
@@ -25,7 +31,7 @@ export async function getReceipts(searchParams: SearchParamsProps) {
       })
       .from(recibo)
       .leftJoin(cliente, eq(recibo.idCliente, cliente.id))
-      .where(filterBySearch)
+      .where(and(filterBySearch, between(recibo.fecha, startParam, endParam)))
       .orderBy(desc(recibo.id))
       .limit(limit)
       .offset(offset);
@@ -34,7 +40,7 @@ export async function getReceipts(searchParams: SearchParamsProps) {
       .select({ count: sql<number>`COUNT(*)` })
       .from(recibo)
       .leftJoin(cliente, eq(recibo.idCliente, cliente.id))
-      .where(filterBySearch);
+      .where(and(filterBySearch, between(recibo.fecha, startParam, endParam)));
 
     const totalPages = Math.ceil(count / limit) || 1;
 

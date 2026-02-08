@@ -6,12 +6,18 @@ import {
   pedidoDetalle,
   recibo,
 } from '@/database/schema/schema';
-import { and, eq, sql, desc } from 'drizzle-orm';
+import { and, eq, sql, desc, between } from 'drizzle-orm';
 import { db } from '@/database/db';
 import { buildSearchFilterByClient } from './build-by-search';
+import { getCurrentMonth } from '@/lib/get-date';
 
 export async function getOrders(searchParams: SearchParamsProps) {
   const { query, state, limit, offset } = getUrlParams(searchParams);
+  const { start, end } = searchParams;
+  const { firstDay, lastDay } = getCurrentMonth();
+
+  const startParam = start ? start : firstDay;
+  const endParam = end ? end : lastDay;
 
   const filterBySearch = buildSearchFilterByClient(searchParams);
 
@@ -74,7 +80,13 @@ export async function getOrders(searchParams: SearchParamsProps) {
       .leftJoin(ventas, eq(pedido.id, ventas.idPedido))
       .leftJoin(compras, eq(pedido.id, compras.idPedido))
       .leftJoin(abonos, eq(pedido.id, abonos.idPedido))
-      .where(and(filterBySearch, filterByState))
+      .where(
+        and(
+          filterBySearch,
+          filterByState,
+          between(pedido.fecha, startParam, endParam)
+        )
+      )
       .orderBy(desc(pedido.id))
       .limit(limit)
       .offset(offset);
@@ -86,14 +98,20 @@ export async function getOrders(searchParams: SearchParamsProps) {
       .leftJoin(ventas, eq(pedido.id, ventas.idPedido))
       .leftJoin(compras, eq(pedido.id, compras.idPedido))
       .leftJoin(abonos, eq(pedido.id, abonos.idPedido))
-      .where(and(filterBySearch, filterByState));
+      .where(
+        and(
+          filterBySearch,
+          filterByState,
+          between(pedido.fecha, startParam, endParam)
+        )
+      );
 
     const totalPages = Math.ceil(count / limit) || 1;
 
     return { data, query, totalPages };
   } catch (error) {
     console.error(error);
-    throw new Error('No se pudieron obtener los pedido');
+    throw new Error('No se pudieron obtener los pedidos.');
   }
 }
 

@@ -19,11 +19,14 @@ export default async function Page({ searchParams }: PageProps) {
     <>
       <SiteHeader title="Compras" showHeaderActions hideBackButton />
       <PageWrapper>
+        <div className="flex flex-col md:flex-row gap-2">
+          <SearchInput />
+          <DateRangeButtons
+            searchParams={await searchParams}
+            className="md:ml-auto"
+          />
+        </div>
         <Suspense fallback={<Loading />}>
-          <div className="flex flex-col md:flex-row gap-2">
-            <SearchInput />
-            <DateRangeButtons searchParams={await searchParams} />
-          </div>
           <Wrapper searchParams={await searchParams} />
         </Suspense>
       </PageWrapper>

@@ -7,6 +7,7 @@ import {
   Package,
   Shapes,
   ShoppingBag,
+  ShoppingCart,
   User,
   Users,
 } from 'lucide-react';
@@ -44,7 +45,7 @@ export const menuOptions = [
   {
     name: 'Compras',
     url: '/compras',
-    icon: Package,
+    icon: ShoppingCart,
     items: [
       {
         name: 'Gastos',

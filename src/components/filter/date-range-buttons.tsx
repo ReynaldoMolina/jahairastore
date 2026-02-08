@@ -15,8 +15,10 @@ import { cn } from '@/lib/utils';
 
 export function DateRangeButtons({
   searchParams,
+  className,
 }: {
   searchParams: SearchParamsProps;
+  className?: string;
 }) {
   const { updateParams } = useSearchUtils();
 
@@ -61,7 +63,8 @@ export function DateRangeButtons({
           ) || !startParam
             ? 'bg-muted dark:bg-muted'
             : '',
-          'rounded-full text-xs'
+          'rounded-full text-xs',
+          className
         )}
         onClick={() => applyRange(ranges.month.start, ranges.month.end)}
       >
