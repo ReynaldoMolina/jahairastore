@@ -12,7 +12,7 @@ export async function Dashboard({ searchParams }: Dashboard) {
 
   return (
     <main className="flex flex-col flex-1 w-full gap-2 mx-auto">
-      <DateRangeButtons searchParams={searchParams} />
+      <DateRangeButtons searchParams={searchParams} hideAllButton />
       <SalesOnlyReport data={data} />
       <OrdersOnlyReport data={data} />
     </main>

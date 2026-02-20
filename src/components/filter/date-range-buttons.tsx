@@ -16,9 +16,11 @@ import { cn } from '@/lib/utils';
 export function DateRangeButtons({
   searchParams,
   className,
+  hideAllButton = false,
 }: {
   searchParams: SearchParamsProps;
   className?: string;
+  hideAllButton?: boolean;
 }) {
   const { updateParams } = useSearchUtils();
 
@@ -97,8 +99,21 @@ export function DateRangeButtons({
         Año
       </ToggleGroupItem>
 
-      {/* <ToggleGroupItem
+      <ToggleGroupItem
         value="4"
+        className={cn(
+          isActive(startParam, endParam, ranges.today.start, ranges.today.end)
+            ? 'bg-muted dark:bg-muted'
+            : '',
+          'rounded-full text-xs'
+        )}
+        onClick={() => applyRange(ranges.today.start, ranges.today.end)}
+      >
+        Hoy
+      </ToggleGroupItem>
+
+      <ToggleGroupItem
+        value="5"
         className={cn(
           isActive(
             startParam,
@@ -113,20 +128,22 @@ export function DateRangeButtons({
         onClick={() => applyRange(ranges.lastMonth.start, ranges.lastMonth.end)}
       >
         Mes pasado
-      </ToggleGroupItem> */}
-
-      <ToggleGroupItem
-        value="4"
-        className={cn(
-          isActive(startParam, endParam, ranges.today.start, ranges.today.end)
-            ? 'bg-muted dark:bg-muted'
-            : '',
-          'rounded-full text-xs'
-        )}
-        onClick={() => applyRange(ranges.today.start, ranges.today.end)}
-      >
-        Hoy
       </ToggleGroupItem>
+
+      {!hideAllButton && (
+        <ToggleGroupItem
+          value="6"
+          className={cn(
+            isActive(startParam, endParam, '01-01-2000', ranges.today.end)
+              ? 'bg-muted dark:bg-muted'
+              : '',
+            'rounded-full text-xs'
+          )}
+          onClick={() => applyRange('01-01-2000', ranges.today.end)}
+        >
+          Todo
+        </ToggleGroupItem>
+      )}
 
       <DateSelector searchParams={searchParams} />
     </ToggleGroup>
