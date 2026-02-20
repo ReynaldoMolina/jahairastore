@@ -38,7 +38,7 @@ export function DateSelector({ searchParams }: DateSelector) {
       <DialogTrigger asChild>
         <ToggleGroupItem value="6" className="rounded-full text-xs">
           <Calendar className="size-3.5" />
-          Rango
+          Elegir
         </ToggleGroupItem>
       </DialogTrigger>
       <DialogContent>
