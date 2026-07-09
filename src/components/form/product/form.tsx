@@ -39,6 +39,7 @@ import { ButtonGroup } from '@/components/ui/button-group';
 import { DeleteImage } from './delete-image';
 import { FormSelect } from '@/components/form-element/form-select';
 import { SelectOptions } from '@/types/types';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface ProductForm {
   form: UseFormReturn<z.infer<typeof productSchema>>;
@@ -64,187 +65,188 @@ export function ProductForm({ form, productId, categories }: ProductForm) {
 
   return (
     <FieldGroup>
-      <FieldSet>
-        <FormTextArea control={form.control} name="nombre" label="Nombre" />
-        <div className="inline-flex gap-1 items-end">
-          <FormInput
-            control={form.control}
-            name="codigo"
-            label="Código de barra"
-          />
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <Button variant="outline" size="icon">
-                <ScanBarcode />
-              </Button>
-            </DialogTrigger>
-
-            <DialogContent className="sm:max-w-md">
-              <DialogHeader>
-                <DialogTitle>Escanear producto</DialogTitle>
-                <DialogDescription>
-                  Enfoca el código de barra en el centro
-                </DialogDescription>
-              </DialogHeader>
-
-              <BarcodeScanner
-                onScan={(value) => {
-                  form.setValue('codigo', value);
-                  setOpen(false);
-                }}
+      <Tabs defaultValue="info" className="w-full">
+        <TabsList className="w-full md:w-fit">
+          <TabsTrigger value="info">Información</TabsTrigger>
+          <TabsTrigger value="precios">Precios</TabsTrigger>
+        </TabsList>
+        <TabsContent value="info">
+          <FieldSet>
+            <FormTextArea control={form.control} name="nombre" label="Nombre" />
+            <div className="inline-flex gap-1 items-end">
+              <FormInput
+                control={form.control}
+                name="codigo"
+                label="Código de barra"
               />
-            </DialogContent>
-          </Dialog>
-        </div>
-      </FieldSet>
+              <Dialog open={open} onOpenChange={setOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" size="icon">
+                    <ScanBarcode />
+                  </Button>
+                </DialogTrigger>
 
-      <FieldSeparator />
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>Escanear producto</DialogTitle>
+                    <DialogDescription>
+                      Enfoca el código de barra en el centro
+                    </DialogDescription>
+                  </DialogHeader>
 
-      <FieldSet>
-        <FieldLegend>Precios</FieldLegend>
-        <FieldDescription>Ingresa los datos de precios.</FieldDescription>
-        <FormCheck
-          control={form.control}
-          name="precioEnDolares"
-          label="Precio en dólares"
-        />
-      </FieldSet>
+                  <BarcodeScanner
+                    onScan={(value) => {
+                      form.setValue('codigo', value);
+                      setOpen(false);
+                    }}
+                  />
+                </DialogContent>
+              </Dialog>
+            </div>
+            <FieldSet>
+              <FormSelect
+                control={form.control}
+                name="idCategoria"
+                label="Categoría"
+                options={categories}
+              />
 
-      <FormInput
-        control={form.control}
-        name="costo"
-        label="Precio compra"
-        textAddon="C$"
-        readOnly
-        hidden={precioEnDolares}
-        description="Se calcula al momento de hacer una compra."
-      />
-      <FieldSet className="sm:flex-row" hidden={precioEnDolares}>
-        <FormInput
-          control={form.control}
-          name="precioVenta"
-          label="Precio venta"
-          textAddon="C$"
-        />
-        <FormInput
-          control={form.control}
-          name="precioVentaPorMayor"
-          label="Venta por mayor"
-          textAddon="C$"
-        />
-      </FieldSet>
-
-      {precioEnDolares && (
-        <>
-          <FormInputReadOnly
-            value={
-              isNaN(Number(costo))
-                ? ''
-                : roundToTwoDecimals(costo / cambioDolar)
-            }
-            label="Precio compra"
-            textAddon="$"
-            description="Se calcula al momento de hacer una compra."
-          />
-          <FieldSet className="sm:flex-row">
-            <FormInputOnChange
-              value={
-                isNaN(Number(precioVenta))
-                  ? ''
-                  : roundToPointZeroOrFive(precioVenta / cambioDolar)
-              }
-              label="Precio venta"
-              handleChange={(val) =>
-                form.setValue('precioVenta', Number(val) * cambioDolar)
-              }
-              textAddon="$"
-            />
-            <FormInputOnChange
-              value={
-                isNaN(Number(precioVentaPorMayor))
-                  ? ''
-                  : roundToPointZeroOrFive(precioVentaPorMayor / cambioDolar)
-              }
-              label="Venta por mayor"
-              handleChange={(val) =>
-                form.setValue('precioVentaPorMayor', Number(val) / cambioDolar)
-              }
-              textAddon="$"
+              <div className="flex gap-1 items-end">
+                <FormInput
+                  control={form.control}
+                  name="imagenUrl"
+                  label="Imagen"
+                  placeholder="Url / link"
+                />
+                <ButtonGroup>
+                  <UploadImage form={form} productId={productId} />
+                  <DeleteImage form={form} productId={productId} />
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    asChild={!!imagenUrl}
+                    type="button"
+                    disabled={!imagenUrl}
+                  >
+                    {imagenUrl ? (
+                      <Link href={imagenUrl} target="_blank">
+                        <ExternalLink />
+                      </Link>
+                    ) : (
+                      <ExternalLink />
+                    )}
+                  </Button>
+                </ButtonGroup>
+              </div>
+            </FieldSet>
+            {imagenUrl && (
+              <div className="flex justify-center max-h-50">
+                <Image
+                  src={imagenUrl}
+                  width={150}
+                  height={150}
+                  alt="Thumbnail"
+                  className="rounded text-xs object-contain"
+                />
+              </div>
+            )}
+          </FieldSet>
+        </TabsContent>
+        <TabsContent value="precios">
+          <FieldSet>
+            <FormCheck
+              control={form.control}
+              name="precioEnDolares"
+              label="Precio en dólares"
             />
           </FieldSet>
-        </>
-      )}
 
-      <FieldSet>
-        <FormInputReadOnly
-          value={isNaN(ganancia) ? 0 : formatNumber(ganancia)}
-          label="Ganancia"
-          textAddon={precioEnDolares ? '$' : 'C$'}
-        />
-        <FormInput
-          control={form.control}
-          name="cambioDolar"
-          label="Cambio USD"
-          textAddon="C$"
-          hidden={!precioEnDolares}
-        />
-      </FieldSet>
-
-      <FieldSeparator />
-
-      <FieldSet>
-        <FieldLegend>Otra información</FieldLegend>
-        <FieldDescription>
-          Otros datos necesarios del producto.
-        </FieldDescription>
-
-        <FormSelect
-          control={form.control}
-          name="idCategoria"
-          label="Categoría"
-          options={categories}
-        />
-
-        <div className="flex gap-1 items-end">
           <FormInput
             control={form.control}
-            name="imagenUrl"
-            label="Imagen"
-            placeholder="Url / link"
+            name="costo"
+            label="Precio compra"
+            textAddon="C$"
+            readOnly
+            hidden={precioEnDolares}
+            description="Se calcula al momento de hacer una compra."
           />
-          <ButtonGroup>
-            <UploadImage form={form} productId={productId} />
-            <DeleteImage form={form} productId={productId} />
-            <Button
-              variant="outline"
-              size="icon"
-              asChild={!!imagenUrl}
-              type="button"
-              disabled={!imagenUrl}
-            >
-              {imagenUrl ? (
-                <Link href={imagenUrl} target="_blank">
-                  <ExternalLink />
-                </Link>
-              ) : (
-                <ExternalLink />
-              )}
-            </Button>
-          </ButtonGroup>
-        </div>
-      </FieldSet>
+          <FieldSet className="sm:flex-row" hidden={precioEnDolares}>
+            <FormInput
+              control={form.control}
+              name="precioVenta"
+              label="Precio venta"
+              textAddon="C$"
+            />
+            <FormInput
+              control={form.control}
+              name="precioVentaPorMayor"
+              label="Venta por mayor"
+              textAddon="C$"
+            />
+          </FieldSet>
 
-      {imagenUrl && (
-        <div className="flex justify-center max-h-50">
-          <Image
-            src={imagenUrl}
-            width={150}
-            height={150}
-            alt="Thumbnail"
-            className="rounded text-xs object-contain"
-          />
-        </div>
-      )}
+          {precioEnDolares && (
+            <>
+              <FormInputReadOnly
+                value={
+                  isNaN(Number(costo))
+                    ? ''
+                    : roundToTwoDecimals(costo / cambioDolar)
+                }
+                label="Precio compra"
+                textAddon="$"
+                description="Se calcula al momento de hacer una compra."
+              />
+              <FieldSet className="sm:flex-row">
+                <FormInputOnChange
+                  value={
+                    isNaN(Number(precioVenta))
+                      ? ''
+                      : roundToPointZeroOrFive(precioVenta / cambioDolar)
+                  }
+                  label="Precio venta"
+                  handleChange={(val) =>
+                    form.setValue('precioVenta', Number(val) * cambioDolar)
+                  }
+                  textAddon="$"
+                />
+                <FormInputOnChange
+                  value={
+                    isNaN(Number(precioVentaPorMayor))
+                      ? ''
+                      : roundToPointZeroOrFive(
+                          precioVentaPorMayor / cambioDolar
+                        )
+                  }
+                  label="Venta por mayor"
+                  handleChange={(val) =>
+                    form.setValue(
+                      'precioVentaPorMayor',
+                      Number(val) / cambioDolar
+                    )
+                  }
+                  textAddon="$"
+                />
+              </FieldSet>
+            </>
+          )}
+
+          <FieldSet>
+            <FormInputReadOnly
+              value={isNaN(ganancia) ? 0 : formatNumber(ganancia)}
+              label="Ganancia"
+              textAddon={precioEnDolares ? '$' : 'C$'}
+            />
+            <FormInput
+              control={form.control}
+              name="cambioDolar"
+              label="Cambio USD"
+              textAddon="C$"
+              hidden={!precioEnDolares}
+            />
+          </FieldSet>
+        </TabsContent>
+      </Tabs>
     </FieldGroup>
   );
 }

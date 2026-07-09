@@ -14,6 +14,7 @@ import {
   createPurchaseDetail,
   deletePurchaseDetail,
 } from '@/server-actions/purchase-detail';
+import { Button } from '@/components/ui/button';
 
 interface FormDetail {
   productData: ProductSearchData;
@@ -76,6 +77,9 @@ export function FormDetail({ productData, purchase }: FormDetail) {
         idUbicacion={purchase.idUbicacion}
         disableLocationFilter
       >
+        <Button type="button" variant="ghost">
+          Importar
+        </Button>
         <ProductSearchList
           productData={productData}
           purchase={purchase}

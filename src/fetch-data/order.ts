@@ -14,9 +14,9 @@ import { getCurrentMonth } from '@/lib/get-date';
 export async function getOrders(searchParams: SearchParamsProps) {
   const { query, state, limit, offset } = getUrlParams(searchParams);
   const { start, end } = searchParams;
-  const { firstDay, lastDay } = getCurrentMonth();
+  const { lastDay } = getCurrentMonth();
 
-  const startParam = start ? start : firstDay;
+  const startParam = start ? start : '2000-01-01';
   const endParam = end ? end : lastDay;
 
   const filterBySearch = buildSearchFilterByClient(searchParams);

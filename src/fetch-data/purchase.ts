@@ -16,8 +16,8 @@ export async function getPurchases(searchParams: SearchParamsProps) {
   const { query, limit, offset } = getUrlParams(searchParams);
 
   const { start, end } = searchParams;
-  const { firstDay, lastDay } = getCurrentMonth();
-  const startParam = start ? start : firstDay;
+  const { lastDay } = getCurrentMonth();
+  const startParam = start ? start : '2000-01-01';
   const endParam = end ? end : lastDay;
 
   const filterBySearch = buildSearchFilterByProvider(searchParams);

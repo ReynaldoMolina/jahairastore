@@ -55,12 +55,7 @@ export function DateRangeButtons({
       <ToggleGroupItem
         value="1"
         className={cn(
-          isActive(
-            startParam,
-            endParam,
-            ranges.month.start,
-            ranges.month.end
-          ) || !startParam
+          isActive(startParam, endParam, ranges.month.start, ranges.month.end)
             ? 'bg-muted dark:bg-muted'
             : '',
           'rounded-full text-xs',
