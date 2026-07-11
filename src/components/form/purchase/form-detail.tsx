@@ -15,6 +15,8 @@ import {
   deletePurchaseDetail,
 } from '@/server-actions/purchase-detail';
 import { Button } from '@/components/ui/button';
+import { FileUp } from 'lucide-react';
+import Link from 'next/link';
 
 interface FormDetail {
   productData: ProductSearchData;
@@ -68,26 +70,31 @@ export function FormDetail({ productData, purchase }: FormDetail) {
 
   return (
     <>
-      <ProductSearch
-        handleAddProducts={handleCreate}
-        disableAddButton={selectedProducts.length <= 0}
-        isPending={isPending}
-        open={open}
-        setOpen={setOpen}
-        idUbicacion={purchase.idUbicacion}
-        disableLocationFilter
-      >
-        <Button type="button" variant="ghost">
-          Importar
+      <div className="flex flex-col md:flex-row w-full gap-2">
+        <ProductSearch
+          handleAddProducts={handleCreate}
+          disableAddButton={selectedProducts.length <= 0}
+          isPending={isPending}
+          open={open}
+          setOpen={setOpen}
+          idUbicacion={purchase.idUbicacion}
+          disableLocationFilter
+        >
+          <ProductSearchList
+            productData={productData}
+            purchase={purchase}
+            selectedProducts={selectedProducts}
+            setSelectedProducts={setSelectedProducts}
+            handleCheckedChange={handleCheckedChange}
+          />
+        </ProductSearch>
+        <Button asChild variant="outline" className="w-full md:w-fit">
+          <Link href={`${purchase.id}/importar`}>
+            <FileUp />
+            Importar factura
+          </Link>
         </Button>
-        <ProductSearchList
-          productData={productData}
-          purchase={purchase}
-          selectedProducts={selectedProducts}
-          setSelectedProducts={setSelectedProducts}
-          handleCheckedChange={handleCheckedChange}
-        />
-      </ProductSearch>
+      </div>
       <PurchaseDetail purchase={purchase} handleDelete={handleDelete} />
     </>
   );

@@ -27,7 +27,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { ChangeQuantity, ChangeQuantityCard } from './change-quantity';
+import { ChangeQuantity } from './change-quantity';
 import { Hash } from 'lucide-react';
 import { ProductImageDiv } from '@/components/list/product';
 import { formatNumber } from '@/lib/formatters';

@@ -403,3 +403,13 @@ export interface CategoryById {
   id?: number;
   nombre: string;
 }
+
+interface PurchaseImport {
+  codigo: string;
+  cantidad_compra: number;
+  cantidad_real: number;
+  nombre: string;
+  iva: number;
+  costo: number;
+}
+[];

@@ -42,7 +42,7 @@ export function ProductSearch({
       <DialogTrigger className="w-full" asChild>
         <Button className="w-full md:w-fit" type="button" variant="outline">
           <Plus />
-          Agregar producto
+          Agregar productos
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:min-w-[80dvw] max-h-[95dvh] overflow-y-auto px-3 md:px-6 pb-3 md:pb-6 gap-2">
