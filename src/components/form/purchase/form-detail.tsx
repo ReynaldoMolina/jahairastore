@@ -17,6 +17,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { FileUp } from 'lucide-react';
 import Link from 'next/link';
+import { ImportPurchase } from './import';
 
 interface FormDetail {
   productData: ProductSearchData;
@@ -88,12 +89,7 @@ export function FormDetail({ productData, purchase }: FormDetail) {
             handleCheckedChange={handleCheckedChange}
           />
         </ProductSearch>
-        <Button asChild variant="outline" className="w-full md:w-fit">
-          <Link href={`${purchase.id}/importar`}>
-            <FileUp />
-            Importar factura
-          </Link>
-        </Button>
+        <ImportPurchase purchaseId={Number(purchase.id)} />
       </div>
       <PurchaseDetail purchase={purchase} handleDelete={handleDelete} />
     </>
