@@ -16,7 +16,6 @@ export interface Resultado {
   costo: number;
   total: number;
   costo_real: number;
-  existente: boolean;
   venta: number;
   venta_por_mayor: number;
   categoria: number;
@@ -57,7 +56,6 @@ export async function checkExistingProducts(
         ...row,
         total: subtotal + iva,
         costo_real: (subtotal + iva) / cant,
-        existente: !!existente,
         idProducto: existente?.id ?? null,
         venta: 0,
         venta_por_mayor: 0,
@@ -101,7 +99,7 @@ export async function importProducts(idCompra: number, file: File) {
     /*
       Productos que todavía no existen
     */
-    const nuevos = resultado.filter((p) => !p.existente);
+    const nuevos = resultado.filter((p) => !p.idProducto);
 
     /*
       Crear productos nuevos
